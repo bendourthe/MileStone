@@ -5,10 +5,25 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.activity.compose.LocalActivity
+import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.Loyalty
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Loyalty
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.toRoute
+import com.bendourthe.milestone.MileStoneApplication
+import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.ui.benefits.BenefitsScreen
+import com.bendourthe.milestone.ui.benefits.BenefitsViewModel
+import com.bendourthe.milestone.ui.benefits.CardBenefitsScreen
+import kotlinx.coroutines.launch
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -53,10 +68,26 @@ data object Settings
 @Serializable
 data object Catalog
 
-private data class TopLevel(val route: Any, val routeClass: KClass<*>, val label: String, val selected: ImageVector, val unselected: ImageVector)
+@Serializable
+data object Benefits
+
+/** One card's benefits page; the card is named by its program and last digits only. */
+@Serializable
+data class CardBenefits(val programId: String, val lastDigits: String)
+
+private data class TopLevel(
+    val route: Any,
+    val routeClass: KClass<*>,
+    val label: String,
+    val selected: ImageVector,
+    val unselected: ImageVector,
+    /** Routes below this tab that keep it selected. */
+    val children: List<KClass<*>> = emptyList(),
+)
 
 private val topLevels = listOf(
     TopLevel(Dashboard, Dashboard::class, "Rewards", Icons.Filled.Loyalty, Icons.Outlined.Loyalty),
+    TopLevel(Benefits, Benefits::class, "Benefits", Icons.Filled.CreditCard, Icons.Outlined.CreditCard, listOf(CardBenefits::class)),
     TopLevel(Settings, Settings::class, "Settings", Icons.Filled.Settings, Icons.Outlined.Settings),
 )
 
@@ -70,6 +101,8 @@ fun MileStoneApp(
     navController: NavHostController = rememberNavController(),
     signIn: SignInViewModel? = null,
     createBridge: ((Context, Program) -> LoginBridge)? = null,
+    /** Built from the application's container when not given (tests pass their own). */
+    benefitsViewModel: BenefitsViewModel? = null,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -81,7 +114,7 @@ fun MileStoneApp(
             if (showBar) {
                 NavigationBar {
                     topLevels.forEach { top ->
-                        val selected = destination?.hierarchy?.any { it.hasRoute(top.routeClass) } == true
+                        val selected = destination?.hierarchy?.any { d -> (listOf(top.routeClass) + top.children).any { d.hasRoute(it) } } == true
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
@@ -120,6 +153,25 @@ fun MileStoneApp(
                     onSignIn = { programId -> signIn?.connect(programId) },
                 )
             }
+            composable<Benefits> {
+                BenefitsScreen(
+                    benefitsViewModel ?: appBenefitsViewModel(),
+                    onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
+                    snackbarHostState = snackbarHostState,
+                )
+            }
+            composable<CardBenefits> { entry ->
+                val route = entry.toRoute<CardBenefits>()
+                val key = remember(route) { runCatching { CardKey(route.programId, route.lastDigits) }.getOrNull() }
+                val scope = rememberCoroutineScope()
+                val gone: () -> Unit = {
+                    navController.popBackStack(Benefits, inclusive = false)
+                    scope.launch { snackbarHostState.showSnackbar("That card is no longer on your account") }
+                }
+                if (key == null) LaunchedEffect(Unit) { gone() } else {
+                    CardBenefitsScreen(benefitsViewModel ?: appBenefitsViewModel(), key, onBack = { navController.popBackStack() }, onGone = gone)
+                }
+            }
             composable<Settings> {
                 SettingsScreen(settingsViewModel, versionName, onBack = {
                     navController.navigate(Dashboard) {
@@ -142,4 +194,12 @@ fun MileStoneApp(
     if (signIn != null && createBridge != null) {
         SignInHost(signIn, createBridge, snackbarHostState, onReturnToDashboard = { navController.popBackStack(Dashboard, inclusive = false) })
     }
+}
+
+/** The activity-scoped Benefits view model, built from the application's container. */
+@Composable
+private fun appBenefitsViewModel(): BenefitsViewModel {
+    val container = (LocalContext.current.applicationContext as MileStoneApplication).container
+    val owner = LocalActivity.current as ViewModelStoreOwner
+    return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts) }
 }

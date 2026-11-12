@@ -1,5 +1,6 @@
 package com.bendourthe.milestone.sync.webview
 
+import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -159,6 +160,13 @@ class HeadlessWebViewBenefitsSource(
 
             override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? =
                 interceptor?.invoke(request)
+
+            /** A crashed renderer ends the read with what was read so far, instead of taking the app down. */
+            override fun onRenderProcessGone(view: WebView, detail: RenderProcessGoneDetail): Boolean {
+                DiagnosticLog.w(TAG, "Renderer gone during the ${program.programId} benefits read")
+                finish(BenefitsStop.BUDGET)
+                return true
+            }
         }
     }
 
