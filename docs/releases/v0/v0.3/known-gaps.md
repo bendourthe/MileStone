@@ -1,11 +1,11 @@
-# v0.2 Known Gaps
+# v0.3 Known Gaps
 
-Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were carried here when v0.1 closed; their IDs are kept so references in v0.1 records still resolve. G25 to G33 were found during v0.2.0 (plan `v0.2.0-benefits-tab-amex`).
+Unfinished or deferred work carried into v0.3. All 28 open gaps of v0.2 were carried here when v0.2 closed; their IDs are kept so references in v0.1 and v0.2 records still resolve.
 
 | Status | Count |
 |---|---|
 | Open | 28 |
-| Fixed | 1 |
+| Fixed | 0 |
 
 ## Open
 
@@ -44,4 +44,3 @@ Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were car
 
 | ID | Gap | Fix |
 |---|---|---|
-| G24 | Private page captures sat unencrypted on the developer machine. | The 7 raw v0.1 captures were deleted (owner decision, 2026-11-12); the v0.2 captures were sanitized on the way to the PC (identifiers, query values, and account-key-shaped runs removed) and remain only in the gitignored folder. |
