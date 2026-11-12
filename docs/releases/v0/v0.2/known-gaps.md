@@ -4,7 +4,7 @@ Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were car
 
 | Status | Count |
 |---|---|
-| Open | 19 |
+| Open | 20 |
 | Fixed | 0 |
 
 ## Open
@@ -30,6 +30,7 @@ Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were car
 | G22 | Sign-in edge cases from the Tier 3 hostile review, not reproduced: a refusal the site shows only in a plain element or on the username box is not recognized, so the password may be pressed again and stops as unfinished (blocked on the third); a refusal whose diagnostics callback never returns can end as a retryable timeout without blocking; a standing alert on the page after a sign-in can count as refused; a transient Keystore error deletes the saved sign-in; the opening summary can list a program whose refresh was cancelled. | Watch the diagnostics file for these shapes; fix each with a fixture when one appears on a live site. | Tier 3 review |
 | G23 | Accessibility items needing a device: at 200% font the tile name may shrink to one or two letters and the header title may overlap the centered mark; the monogram text scales with font size inside a fixed badge; turning animations off mid-session is only picked up on the next start; sign-in messages raised outside the dashboard show only on return to it. | Check on a device at the largest font size and fix what shows. | Tier 3 review |
 | G15 | CI cannot run the instrumented suite (`connectedDebugAndroidTest` needs a device) or the private fixture tests (their inputs are gitignored), so both run only on a developer machine. | Run both locally before each release and quote them in the last-phase evidence. | Phase 10 |
+| G24 | Private page captures in `app/src/test/resources/fixtures-private/` sit unencrypted on the developer machine (gitignored, never pushed). The v0.2 capture build strips script contents, link query strings, and grouped digit runs before saving (plan 2.1), which reduces but does not remove account data in them. | Decide at the v0.2 final reconciliation whether to encrypt the folder or delete captures after the fixtures are written. | v0.2 plan review |
 
 ## Fixed
 

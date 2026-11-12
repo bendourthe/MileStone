@@ -75,4 +75,4 @@
 
 ## Next minor (v0.2) candidates
 
-- [ ] Benefits tab: the next plan, in `docs/releases/v0/v0.2/plans/`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
+- [ ] Benefits tab: planned in `docs/releases/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
