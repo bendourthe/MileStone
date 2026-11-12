@@ -3,12 +3,14 @@ package com.bendourthe.milestone
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.bendourthe.milestone.data.RoomAccountRepository
+import com.bendourthe.milestone.data.db.RoomCardRepository
 import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.data.db.MileStoneDatabase
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.data.session.TinkSessionStore
 import com.bendourthe.milestone.data.settings.DataStoreSettingsRepository
 import com.bendourthe.milestone.domain.AccountRepository
+import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.SettingsRepository
@@ -53,6 +55,7 @@ class AppContainer(context: Context) {
     val database: MileStoneDatabase by lazy { MileStoneDatabase.create(appContext) }
     val catalog: CatalogRepository by lazy { StaticCatalogRepository() }
     val accounts: AccountRepository by lazy { RoomAccountRepository(database) }
+    val cards: CardRepository by lazy { RoomCardRepository(database) }
     val settings: SettingsRepository by lazy { DataStoreSettingsRepository(appContext.settingsStore) }
     val observeDashboard: ObserveDashboard by lazy { ObserveDashboard(accounts, catalog) }
 

@@ -10,13 +10,25 @@ import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [LoyaltyAccountEntity::class, BalanceSnapshotEntity::class],
-    version = 2,
+    entities = [
+        LoyaltyAccountEntity::class,
+        BalanceSnapshotEntity::class,
+        CardEntity::class,
+        BenefitEntity::class,
+        ReminderRecordEntity::class,
+    ],
+    version = 3,
     exportSchema = true,
-    autoMigrations = [AutoMigration(from = 1, to = 2, spec = MileStoneDatabase.RemoveManualEntry::class)],
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2, spec = MileStoneDatabase.RemoveManualEntry::class),
+        // Version 3 adds the cards, benefits, and benefit_reminders tables; v0.1 tables are untouched.
+        AutoMigration(from = 2, to = 3),
+    ],
 )
 abstract class MileStoneDatabase : RoomDatabase() {
     abstract fun loyaltyDao(): LoyaltyDao
+
+    abstract fun cardDao(): CardDao
 
     /** Version 2 drops manual entry (ADR-0003): hand-typed balances and their history rows are cleared. */
     @DeleteColumn(tableName = "loyalty_accounts", columnName = "lastManualEditEpochMs")

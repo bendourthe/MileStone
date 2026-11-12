@@ -1,6 +1,7 @@
-package com.bendourthe.milestone.data.db
+package com.bendourthe.milestone.data
 
 import androidx.room.testing.MigrationTestHelper
+import com.bendourthe.milestone.data.db.MileStoneDatabase
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.sqlite.execSQL
@@ -46,6 +47,45 @@ class MigrationTest {
             db.rows("SELECT programId, balance, balanceOrigin, status FROM loyalty_accounts ORDER BY sortOrder", 4),
         )
         assertEquals(listOf(listOf("amex")), db.rows("SELECT programId FROM balance_snapshots", 1))
+        db.close()
+    }
+
+    @Test
+    fun version3KeepsAccountsAndSnapshotsAndAddsEmptyBenefitTables() {
+        helper.createDatabase(2).apply {
+            execSQL(
+                "INSERT INTO loyalty_accounts (programId, balance, balanceOrigin, lastUpdatedEpochMs, " +
+                    "lastAttemptEpochMs, consecutiveFailures, sortOrder, status, lastErrorCode, addedEpochMs) VALUES " +
+                    "('amex', 142500, 'SCRAPED', 7, 7, 0, 0, 'CONNECTED', NULL, 1), " +
+                    "('delta', NULL, NULL, NULL, 9, 2, 1, 'ERROR', 'TIMEOUT', 3)",
+            )
+            execSQL(
+                "INSERT INTO balance_snapshots (programId, balance, origin, epochMs) VALUES " +
+                    "('amex', 140000, 'SCRAPED', 5), ('amex', 142500, 'SCRAPED', 7)",
+            )
+            close()
+        }
+
+        val db = helper.runMigrationsAndValidate(3)
+
+        assertEquals(
+            listOf(
+                listOf("amex", "142500", "SCRAPED", "7", "7", "0", "0", "CONNECTED", null, "1"),
+                listOf("delta", null, null, null, "9", "2", "1", "ERROR", "TIMEOUT", "3"),
+            ),
+            db.rows(
+                "SELECT programId, balance, balanceOrigin, lastUpdatedEpochMs, lastAttemptEpochMs, consecutiveFailures, " +
+                    "sortOrder, status, lastErrorCode, addedEpochMs FROM loyalty_accounts ORDER BY sortOrder",
+                10,
+            ),
+        )
+        assertEquals(
+            listOf(listOf("amex", "140000", "5"), listOf("amex", "142500", "7")),
+            db.rows("SELECT programId, balance, epochMs FROM balance_snapshots ORDER BY epochMs", 3),
+        )
+        listOf("cards", "benefits", "benefit_reminders").forEach { table ->
+            assertEquals(listOf(listOf("0")), db.rows("SELECT COUNT(*) FROM $table", 1))
+        }
         db.close()
     }
 
