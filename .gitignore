@@ -14,3 +14,19 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Android and Gradle
+.gradle/
+build/
+local.properties
+*.keystore
+*.jks
+keystore.properties
+captures/
+.kotlin/
+
+# Real page captures; only synthetic fixtures are committed
+app/src/test/resources/fixtures-private/
+
+# Full working notes with account, device, and session details; the tracked docs are their de-identified versions
+docs/private/

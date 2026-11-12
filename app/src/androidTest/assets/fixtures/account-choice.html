@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in followed by an account-type choice</title></head>
+<body>
+<form id="signin">
+  <label>Username <input type="text" name="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button type="submit">Log In</button>
+</form>
+<script>
+  // After the sign-in, a new page asks for the personal or business account, as Delta does; only Personal leads on.
+  if (location.search.indexOf('step=choose') >= 0) {
+    document.body.innerHTML = '<h1>Which account?</h1><button id="business">Business</button><button id="personal">Personal</button>';
+    document.getElementById('business').addEventListener('click', function () { document.body.innerHTML = '<p>Business</p>'; });
+    document.getElementById('personal').addEventListener('click', function () {
+      document.body.innerHTML = '<span class="points-balance">9,876</span>';
+    });
+  } else {
+    document.getElementById('signin').addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (!document.querySelector('input[name="password"]').value) return;
+      location.href = location.pathname + '?step=choose';
+    });
+  }
+</script>
+</body>
+</html>

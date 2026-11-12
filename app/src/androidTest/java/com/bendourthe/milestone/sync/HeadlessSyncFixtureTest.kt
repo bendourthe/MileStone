@@ -1,0 +1,111 @@
+package com.bendourthe.milestone.sync
+
+import android.content.Context
+import androidx.activity.ComponentActivity
+import androidx.room.Room
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.webkit.WebViewAssetLoader
+import com.bendourthe.milestone.data.RoomAccountRepository
+import com.bendourthe.milestone.data.db.MileStoneDatabase
+import com.bendourthe.milestone.data.session.TinkSessionStore
+import com.bendourthe.milestone.domain.AccountStatus
+import com.bendourthe.milestone.domain.CatalogRepository
+import com.bendourthe.milestone.domain.ExtractionSpec
+import com.bendourthe.milestone.domain.Program
+import com.bendourthe.milestone.domain.ProgramCategory
+import com.bendourthe.milestone.domain.SelectorStrategy
+import com.bendourthe.milestone.domain.SyncCapability
+import com.bendourthe.milestone.sync.webview.ActivityWebViewHost
+import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
+import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
+import com.google.crypto.tink.Aead
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
+import org.junit.runner.RunWith
+import java.io.File
+
+/** Refreshes a connected fixture account through a hidden WebView inside a visible activity. */
+@RunWith(AndroidJUnit4::class)
+class HeadlessSyncFixtureTest {
+    private val app = ApplicationProvider.getApplicationContext<Context>()
+    private val testAssets = InstrumentationRegistry.getInstrumentation().context
+    private val loader = WebViewAssetLoader.Builder().addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(testAssets)).build()
+    private val db = Room.inMemoryDatabaseBuilder(app, MileStoneDatabase::class.java).build()
+    private val accounts = RoomAccountRepository(db)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val sessionFile = File(app.cacheDir, "headless-fixture-sessions.pb").apply { delete() }
+    private val sessions = TinkSessionStore(sessionFile, PassThroughAead, scope) {}
+    private val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+
+    private val program = Program(
+        programId = "fixture",
+        displayName = "Fixture Rewards",
+        category = ProgramCategory.HOTEL,
+        monogram = "FR",
+        logoKey = null,
+        isPopular = false,
+        brandColorArgb = 0xFF336699,
+        unitLabel = "pts",
+        loginUrl = "https://$HOST/assets/fixtures/login-at-dashboard.html",
+        dashboardUrl = "https://$HOST/assets/fixtures/dashboard.html",
+        allowedHosts = setOf(HOST),
+        identityProviderHosts = emptySet(),
+        syncCapability = SyncCapability.Automatic(
+            ExtractionSpec.Selector(SelectorStrategy.CSS, ".points-balance", loggedInUrlPattern = Regex("/fixtures/"), loginUrlPattern = Regex("/signin")),
+        ),
+    )
+    private val catalog = object : CatalogRepository {
+        override val programs = listOf(program)
+        override fun program(programId: String) = programs.firstOrNull { it.programId == programId }
+        override fun search(query: String) = programs
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
+        db.close()
+        scope.cancel()
+        sessionFile.delete()
+    }
+
+    @Test
+    fun connectedAccountRefreshesWhileActivityIsVisible() = runBlocking {
+        lateinit var host: WebViewHost
+        scenario.onActivity { host = ActivityWebViewHost(it) }
+        val manager = SyncManager(
+            accounts, sessions, catalog,
+            HeadlessWebViewBalanceSource(WebViewProfileBackend(), interceptor = { loader.shouldInterceptRequest(it.url) }),
+            scope, host = { host },
+        )
+        accounts.addAccount("fixture", AccountStatus.CONNECTED, 1)
+        sessions.markConnected("fixture", 1)
+
+        withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
+
+        val account = accounts.observeAccounts().first().single()
+        assertEquals(142_500L, account.balance)
+        assertEquals(AccountStatus.CONNECTED, account.status)
+        assertTrue(sessions.get("fixture")!!.lastVerifiedEpochMs > 1)
+    }
+
+    private object PassThroughAead : Aead {
+        override fun encrypt(plaintext: ByteArray, associatedData: ByteArray) = plaintext
+        override fun decrypt(ciphertext: ByteArray, associatedData: ByteArray) = ciphertext
+    }
+
+    private companion object {
+        const val HOST = "appassets.androidplatform.net"
+    }
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic balance shown only in an account panel</title></head>
+<body>
+<header><button data-testid="account-drawer" aria-label="Sam">Sam</button></header>
+<main><p>Plan your next stay.</p></main>
+<script>
+  // The panel and its balance are created only when the header button is pressed, as on Marriott's home page.
+  document.querySelector('[data-testid="account-drawer"]').addEventListener('click', function () {
+    var panel = document.createElement('div');
+    panel.setAttribute('role', 'dialog');
+    panel.innerHTML = '<span class="points-balance">9,876</span>';
+    document.body.appendChild(panel);
+  });
+</script>
+</body>
+</html>

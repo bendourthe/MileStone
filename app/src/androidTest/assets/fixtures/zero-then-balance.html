@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic balance that shows 0 while the account loads</title></head>
+<body>
+<span class="points-balance">0</span>
+<script>
+  setTimeout(function () { document.querySelector('.points-balance').textContent = '9,876'; }, 3000);
+</script>
+</body>
+</html>

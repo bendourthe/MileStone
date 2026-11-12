@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in that refuses the password in its standing notice</title></head>
+<body>
+<p role="alert" id="notice">Scheduled maintenance this weekend.</p>
+<form id="signin">
+  <label>Username <input type="text" name="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button type="submit">Sign in</button>
+</form>
+<script>
+  // The refusal reuses the notice that was already on screen, so only its changed message shows the error. A second
+  // press would sign in, so a session that ignored the changed notice would read a balance instead of stopping.
+  var presses = 0;
+  var form = document.getElementById('signin');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (++presses === 1) {
+      document.getElementById('notice').textContent = 'That password is not right.';
+      return;
+    }
+    document.body.innerHTML = '<span class="points-balance">9,876</span>';
+  });
+</script>
+</body>
+</html>

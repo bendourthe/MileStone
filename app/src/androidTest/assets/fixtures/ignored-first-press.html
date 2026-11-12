@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in that ignores its first press</title></head>
+<body>
+<form id="signin">
+  <label>Username <input type="text" name="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button type="submit">Sign In</button>
+</form>
+<script>
+  // The first press does nothing, as when the page's own scripts were still loading: the password stays typed and
+  // no error shows. Only a second press signs in.
+  var presses = 0;
+  var form = document.getElementById('signin');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (++presses < 2 || !form.querySelector('input[name="password"]').value) return;
+    document.body.innerHTML = '<span class="points-balance">9,876</span>';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic email-first sign-in</title></head>
+<body>
+<form id="step">
+  <label>Email or member number <input type="email" name="email" autocomplete="email"></label>
+  <button type="submit">Sign In</button>
+</form>
+<script>
+  // Pressing Sign In with an empty email locks the page, so a fill that skips the email step never shows a balance.
+  var locked = false;
+  var form = document.getElementById('step');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var email = form.querySelector('input[name="email"]');
+    if (!email.value) { locked = true; return; }
+    // A typeless show-password toggle ahead of Sign In: pressing it never submits, and the password box stays
+    // showing afterward, as on Hyatt's page.
+    form.innerHTML = '<label>Password <input type="password" name="password"></label>' +
+      '<button aria-label="Show password" aria-pressed="false" id="reveal">Show</button><button type="submit">Sign In</button>';
+    document.getElementById('reveal').addEventListener('click', function (click) {
+      click.preventDefault();
+      var reveal = click.currentTarget;
+      reveal.setAttribute('aria-pressed', reveal.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+    form.addEventListener('submit', function (next) {
+      next.preventDefault();
+      if (locked || !form.querySelector('input[name="password"]').value) return;
+      document.body.innerHTML = '<span class="points-balance">9,876</span>';
+    }, { once: true });
+  }, { once: true });
+</script>
+</body>
+</html>

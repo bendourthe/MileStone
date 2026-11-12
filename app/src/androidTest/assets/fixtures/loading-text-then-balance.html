@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic balance page that shows loading words first</title></head>
+<body>
+<!-- As United's site does: the balance element exists early and holds words, not a number, while it loads. -->
+<span class="points-balance" id="balance">Retrieving your miles</span>
+<script>
+  setTimeout(function () { document.getElementById('balance').textContent = '9,876'; }, 4000);
+</script>
+</body>
+</html>
