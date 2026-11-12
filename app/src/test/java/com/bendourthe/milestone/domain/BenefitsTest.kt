@@ -81,6 +81,22 @@ class BenefitsTest {
     }
 
     @Test
+    fun listedBenefitsAreKeyedByIssuerKeyAndNeverCollideWithTrackers() {
+        val tracker = assignBenefitKeys(card, listOf(draft("Uber One Credit"))).single()
+        val listed = BenefitDraft(
+            BenefitSection.LISTED, "Uber One Credit", null, null, null, null, completed = false,
+            description = "  Up to \$120®  a year ", enrollment = Enrollment.ENROLLMENT_REQUIRED, issuerKey = "Uber-One-Credit",
+        )
+        val renamed = listed.copy(title = "Uber One Membership Credit")
+        val keyed = assignBenefitKeys(card, listOf(listed)).single()
+
+        assertNotEquals(tracker.stableKey, keyed.stableKey)
+        assertEquals(keyed.stableKey, assignBenefitKeys(card, listOf(renamed)).single().stableKey)
+        assertEquals("Up to \$120 a year", keyed.description)
+        assertEquals(Enrollment.ENROLLMENT_REQUIRED, keyed.enrollment)
+    }
+
+    @Test
     fun identicalTitlesAreToldApartByPositionAndReorderingKeepsKeys() {
         val first = assignBenefitKeys(card, listOf(draft("Credit"), draft("Other"), draft("Credit")))
         assertEquals(listOf(0, 0, 1), first.map { it.position })

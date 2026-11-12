@@ -9,6 +9,7 @@ import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardList
 import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.Enrollment
 import com.bendourthe.milestone.domain.PeriodLength
 import com.bendourthe.milestone.domain.ReminderRecord
 import kotlinx.coroutines.flow.Flow
@@ -115,6 +116,8 @@ private fun BenefitEntity.toDomain() = Benefit(
     periodEnd = periodEndEpochDay?.let(LocalDate::ofEpochDay),
     periodLength = periodLength?.let { runCatching { PeriodLength.valueOf(it) }.getOrNull() },
     completed = completed,
+    description = description,
+    enrollment = enrollment?.let { runCatching { Enrollment.valueOf(it) }.getOrNull() },
 )
 
 private fun Benefit.toEntity() = BenefitEntity(
@@ -131,4 +134,6 @@ private fun Benefit.toEntity() = BenefitEntity(
     periodEndEpochDay = periodEnd?.toEpochDay(),
     periodLength = periodLength?.name,
     completed = completed,
+    description = description,
+    enrollment = enrollment?.name,
 )

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "c5af0ac18a3a5df25144684135958257",
+    "identityHash": "bb6f1f7d45d642536134b3452ef45ff9",
     "entities": [
       {
         "tableName": "loyalty_accounts",
@@ -211,7 +211,7 @@
       },
       {
         "tableName": "benefits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`stableKey` TEXT NOT NULL, `programId` TEXT NOT NULL, `lastDigits` TEXT NOT NULL, `section` TEXT NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, `earnedCents` INTEGER, `remainingCents` INTEGER, `targetCents` INTEGER, `periodLabel` TEXT, `periodEndEpochDay` INTEGER, `periodLength` TEXT, `completed` INTEGER NOT NULL, PRIMARY KEY(`stableKey`), FOREIGN KEY(`programId`, `lastDigits`) REFERENCES `cards`(`programId`, `lastDigits`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`stableKey` TEXT NOT NULL, `programId` TEXT NOT NULL, `lastDigits` TEXT NOT NULL, `section` TEXT NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, `earnedCents` INTEGER, `remainingCents` INTEGER, `targetCents` INTEGER, `periodLabel` TEXT, `periodEndEpochDay` INTEGER, `periodLength` TEXT, `completed` INTEGER NOT NULL, `description` TEXT, `enrollment` TEXT, PRIMARY KEY(`stableKey`), FOREIGN KEY(`programId`, `lastDigits`) REFERENCES `cards`(`programId`, `lastDigits`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "stableKey",
@@ -284,6 +284,16 @@
             "columnName": "completed",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "enrollment",
+            "columnName": "enrollment",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -393,7 +403,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5af0ac18a3a5df25144684135958257')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bb6f1f7d45d642536134b3452ef45ff9')"
     ]
   }
 }

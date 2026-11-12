@@ -11,6 +11,7 @@ import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.CardDraft
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardList
+import com.bendourthe.milestone.domain.Enrollment
 import com.bendourthe.milestone.domain.ReminderRecord
 import com.bendourthe.milestone.domain.assignBenefitKeys
 import kotlinx.coroutines.flow.first
@@ -140,13 +141,16 @@ class RoomCardRepositoryTest {
             BenefitDraft(BenefitSection.CREDIT_EARNED, "Credit B", 0, 100, 100, "Nov", completed = false),
             BenefitDraft(BenefitSection.SPEND_PROGRESS, "Lounge", 100, 900, 1000, null, completed = false),
             BenefitDraft(BenefitSection.CREDIT_EARNED, "Credit A", 0, 100, 100, "Nov", completed = false),
+            BenefitDraft(
+                BenefitSection.LISTED, "Purchase Protection", null, null, null, null, completed = false,
+                description = "Covers eligible purchases", enrollment = Enrollment.ENROLLED, issuerKey = "purchase-protection",
+            ),
         )
-        cards.applyCardBenefits(gold, assignBenefitKeys(gold, drafts), 40)
+        cards.applyCardBenefits(gold, assignBenefitKeys(gold, drafts.reversed()), 40)
 
-        assertEquals(
-            listOf("Lounge", "Credit B", "Credit A", "Done", "Misc"),
-            cards.observeBenefits(gold).first().map { it.title },
-        )
+        val stored = cards.observeBenefits(gold).first()
+        assertEquals(listOf("Lounge", "Credit A", "Credit B", "Done", "Misc", "Purchase Protection"), stored.map { it.title })
+        assertEquals("Covers eligible purchases" to Enrollment.ENROLLED, stored.last().let { it.description to it.enrollment })
     }
 
     @Test

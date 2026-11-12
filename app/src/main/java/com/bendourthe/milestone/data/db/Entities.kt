@@ -89,6 +89,8 @@ data class BenefitEntity(
     val periodEndEpochDay: Long?,
     val periodLength: String?,
     val completed: Boolean,
+    val description: String?,
+    val enrollment: String?,
 )
 
 /** One posted reminder per benefit and period; tied to the card so a removed card takes its records. */

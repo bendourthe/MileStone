@@ -38,8 +38,14 @@ data class Card(
     val key: CardKey get() = CardKey(programId, lastDigits)
 }
 
-/** The groups the issuer's benefits page uses, in display order. */
-enum class BenefitSection { SPEND_PROGRESS, CREDIT_EARNED, COMPLETED, OTHER }
+/**
+ * The groups the issuer's benefits page uses, in display order. LISTED holds the issuer's full benefits list
+ * (every benefit with its description and enrollment status), shown after the tracked items.
+ */
+enum class BenefitSection { SPEND_PROGRESS, CREDIT_EARNED, COMPLETED, OTHER, LISTED }
+
+/** Whether the issuer shows a benefit as enrolled or as needing enrollment; null when it says neither. */
+enum class Enrollment { ENROLLED, ENROLLMENT_REQUIRED }
 
 /** How long a credit's period lasts, which sets how early a reminder is sent. */
 enum class PeriodLength { MONTHLY, QUARTERLY, HALF_YEAR, YEARLY }
@@ -64,6 +70,8 @@ data class Benefit(
     val periodEnd: LocalDate?,
     val periodLength: PeriodLength?,
     val completed: Boolean,
+    val description: String? = null,
+    val enrollment: Enrollment? = null,
 )
 
 /** One reminder already posted for a credit's period, so the same period never reminds twice. */
@@ -88,6 +96,10 @@ data class BenefitDraft(
     val completed: Boolean,
     val periodEnd: LocalDate? = null,
     val periodLength: PeriodLength? = null,
+    val description: String? = null,
+    val enrollment: Enrollment? = null,
+    /** The issuer's own name for a listed benefit (Amex: the slug of its detail link); never an account key. */
+    val issuerKey: String? = null,
 )
 
 /**
@@ -122,17 +134,23 @@ fun normalizeBenefitTitle(title: String): String = normalizeCardName(title).lowe
 
 /**
  * Gives each benefit of one card read its stable key. The n-th repeat of the same normalized title and
- * period label gets position n, so two identical titles stay apart while a reordered page keeps keys.
+ * period label gets position n, so two identical titles stay apart while a reordered page keeps keys. A listed
+ * benefit with an issuer key is keyed by it instead, so it never collides with the tracker of the same name.
  */
 fun assignBenefitKeys(cardKey: CardKey, drafts: List<BenefitDraft>): List<Benefit> {
     val seen = HashMap<Pair<String, String>, Int>()
     return drafts.map { draft ->
         val title = normalizeBenefitTitle(draft.title)
         val period = draft.periodLabel?.let { normalizeCardName(it) }.orEmpty()
-        val position = seen.merge(title to period, 1, Int::plus)!! - 1
+        val identity = when {
+            draft.section != BenefitSection.LISTED -> title
+            draft.issuerKey.isNullOrBlank() -> "list:$title"
+            else -> "list:" + draft.issuerKey.lowercase()
+        }
+        val position = seen.merge(identity to period, 1, Int::plus)!! - 1
         Benefit(
             cardKey = cardKey,
-            stableKey = listOf(cardKey.programId, cardKey.lastDigits, title, period, position.toString()).joinToString("\u001F"),
+            stableKey = listOf(cardKey.programId, cardKey.lastDigits, identity, period, position.toString()).joinToString("\u001F"),
             section = draft.section,
             position = position,
             title = normalizeCardName(draft.title),
@@ -143,6 +161,8 @@ fun assignBenefitKeys(cardKey: CardKey, drafts: List<BenefitDraft>): List<Benefi
             periodEnd = draft.periodEnd,
             periodLength = draft.periodLength,
             completed = draft.completed,
+            description = draft.description?.let { normalizeCardName(it) }?.takeIf { it.isNotEmpty() },
+            enrollment = draft.enrollment,
         )
     }
 }

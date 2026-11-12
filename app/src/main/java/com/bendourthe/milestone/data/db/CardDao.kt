@@ -37,7 +37,7 @@ interface CardDao {
     @Query(
         """
         SELECT * FROM benefits WHERE programId = :programId AND lastDigits = :lastDigits
-        ORDER BY CASE section WHEN 'SPEND_PROGRESS' THEN 0 WHEN 'CREDIT_EARNED' THEN 1 WHEN 'COMPLETED' THEN 2 ELSE 3 END,
+        ORDER BY CASE section WHEN 'SPEND_PROGRESS' THEN 0 WHEN 'CREDIT_EARNED' THEN 1 WHEN 'COMPLETED' THEN 2 WHEN 'LISTED' THEN 4 ELSE 3 END,
             rowid
         """,
     )
