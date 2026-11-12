@@ -1,8 +1,8 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `feat/v0.2.0-benefits-tab-amex` (v0.2.0 in its final phase; v0.1.0 shipped and closed)
+**Branch:** `develop` (v0.2.0 shipped; v0.1 closed)
 
-**Version:** v0.1.0 (recorded in `CHANGELOG.md`)
+**Version:** v0.2.0 (recorded in `CHANGELOG.md`)
 
 ---
 
@@ -14,7 +14,7 @@
 | Commits on the feature branch | 75 | one per phase plus fixes | met |
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
-| v0.2.0 plan phases complete | 5 of 6 | 6 of 6 | 1 (final phase: evidence, full suite, publication, release) |
+| v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -81,7 +81,7 @@
 - [x] Phase 3: Benefits read after an Amex refresh
 - [x] Phase 4: Benefits tab and card pages
 - [x] Phase 5: Benefit reminders
-- [ ] Phase 6: Architecture refactor, known gaps, CI/CD, and publication
+- [x] Phase 6: Architecture refactor, known gaps, CI/CD, and publication
 
 ## Next minor (v0.2) candidates
 

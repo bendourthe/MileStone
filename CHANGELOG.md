@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-12
+
+Adds a Benefits tab for American Express cards and reminders before a card credit expires. Everything stays on the phone.
+
+### Added
+
+- Benefits tab between Rewards and Settings: one tile per American Express card with its last digits, next open credit, completed count, and freshness, plus a "Not updated since" note when a card's last read failed or is more than 8 days old.
+- Card pages grouped like the Amex site: spend progress, credits, completed, other, and, for Platinum-type cards, the full benefits list with "Enrolled" or "Enrollment required".
+- A separate benefits read after each saved Amex balance (never the 15-minute keep-alive). It visits every card by pressing the site's card switcher, never signs in, keeps a card whose page failed, and removes a card only when a complete card list no longer shows it (ADR-0008).
+- Benefit reminders: one private notification per credit and period when money is left and the period ends within 7, 14, or 30 days by its length; never from benefits older than 8 days; a Settings switch, on by default, and a banner when notifications are not allowed.
+- Room schema 3 with `cards`, `benefits`, and `benefit_reminders` tables, auto-migrated from 2 without changing accounts or balances.
+- Capture tools for the developer PC: `sanitize_capture.py` strips identifiers while copying a page, and `inspect_capture.py` prints structure with text masked.
+
+### Security
+
+- A card is stored by its last digits only. The page script strips grouped digit runs, identifier-like tokens, and account-key-shaped runs before posting, never reads input values, cookies, storage, or link query strings, and its benefit messages are accepted only from the two Amex pages.
+- This release changes no opt-in capability: Benefit reminders are on by default and need the system notification permission.
+
+### Notes
+
+- Known gaps G25 to G33 were found in this release; G24 is fixed. See `docs/releases/v0/v0.2/known-gaps.md`.
+
 ## [0.1.0] - 2026-11-11
 
 First release: a native Android app that shows loyalty-program balances on one dashboard, with no server and nothing leaving the phone.
