@@ -1,0 +1,16 @@
+[
+  { "id": "amex", "name": "American Express Membership Rewards", "signInUrl": "https://www.americanexpress.com/en-us/account/login" },
+  { "id": "chase", "name": "Chase Ultimate Rewards", "signInUrl": "https://secure.chase.com/web/auth/dashboard" },
+  { "id": "capitalone", "name": "Capital One Miles", "signInUrl": "https://verified.capitalone.com/auth/signin" },
+  { "id": "citi", "name": "Citi ThankYou Points", "signInUrl": "https://www.citi.com/" },
+  { "id": "bilt", "name": "Bilt Rewards", "signInUrl": "https://www.bilt.com/login" },
+  { "id": "delta", "name": "Delta SkyMiles", "signInUrl": "https://www.delta.com/login/loginPage" },
+  { "id": "united", "name": "United MileagePlus", "signInUrl": "https://www.united.com/en/us/myunited" },
+  { "id": "alaska", "name": "Alaska Mileage Plan", "signInUrl": "https://www.alaskaair.com/atmosrewards/account/overview/" },
+  { "id": "aeroplan", "name": "Air Canada Aeroplan", "signInUrl": "https://www.aircanada.com/aeroplan/member/dashboard" },
+  { "id": "aadvantage", "name": "American Airlines AAdvantage", "signInUrl": "https://www.aa.com/loyalty/login" },
+  { "id": "britishairways", "name": "British Airways Club", "signInUrl": "https://www.britishairways.com/travel/loginr/public/en_us" },
+  { "id": "marriott", "name": "Marriott Bonvoy", "signInUrl": "https://www.marriott.com/sign-in.mi" },
+  { "id": "hyatt", "name": "World of Hyatt", "signInUrl": "https://www.hyatt.com/profile/en-US/account-overview" },
+  { "id": "hilton", "name": "Hilton Honors", "signInUrl": "https://www.hilton.com/en/hilton-honors/login/" }
+]

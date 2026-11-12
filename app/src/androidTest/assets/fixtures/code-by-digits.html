@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in with a texted code typed one digit per box</title></head>
+<body>
+<form id="step">
+  <label>Member number <input type="text" name="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button type="submit">Sign In</button>
+</form>
+<script>
+  // Six unnamed single-character boxes, as code pages that split the code into digits draw it.
+  var form = document.getElementById('step');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!form.querySelector('input[name="password"]').value) return;
+    var boxes = '';
+    for (var i = 0; i < 6; i++) boxes += '<input type="text" inputmode="numeric" maxlength="1" aria-label="Digit ' + (i + 1) + '">';
+    form.innerHTML = '<p>We sent a text message to ***-***-1234</p><div class="digits">' + boxes + '</div>' +
+      '<button type="submit">Continue</button>';
+    form.addEventListener('submit', function (next) {
+      next.preventDefault();
+      var code = Array.prototype.map.call(form.querySelectorAll('.digits input'), function (box) { return box.value; }).join('');
+      if (code !== '123456') return;
+      document.body.innerHTML = '<span class="points-balance">9,876</span>';
+    }, { once: true });
+  }, { once: true });
+</script>
+</body>
+</html>

@@ -1,6 +1,18 @@
 # MileStone
 
-MileStone is a new repository with a project icon and a governance baseline. Application code, a language toolchain, and a package manifest are not present.
+MileStone is a native Android app (Kotlin, Jetpack Compose, Gradle) that reads the user's loyalty-program balances from each program's own website in an embedded WebView and keeps the sign-ins alive on the phone. Architecture, runtime flow, and privacy rules: `docs/handbooks/overview.md`.
+
+## Commands
+
+Run from the repository root in PowerShell:
+
+- Local gate: `.\gradlew.bat -q testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin`
+- Unit-test coverage: `.\gradlew.bat createDebugUnitTestCoverageReport` (report in `app\build\reports\coverage\test\debug\`)
+- On-device tests: `.\gradlew.bat connectedDebugAndroidTest` (uninstalls the app, clearing every sign-in and saved password)
+
+## Privacy
+
+Logs name programs and hosts only. Real captured pages go only in the gitignored `app/src/test/resources/fixtures-private/`. Never read, print, or commit balances, credentials, codes, or cookies.
 
 ## Version
 

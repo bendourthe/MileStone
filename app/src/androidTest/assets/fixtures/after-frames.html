@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic page that renders its balance on an animation frame</title></head>
+<body>
+<script>
+  // Single-page sites move between sign-in steps on animation frames, which run only while the page is drawn.
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      document.body.innerHTML = '<span class="points-balance">9,876</span>';
+    });
+  });
+</script>
+</body>
+</html>

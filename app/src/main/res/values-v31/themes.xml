@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The system splash shows only the background; the app's opening screen draws the round icon over the aurora. -->
+    <style name="Theme.MileStone" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/brand_midnight_teal</item>
+        <item name="android:windowSplashScreenBackground">@color/brand_midnight_teal</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_blank</item>
+    </style>
+</resources>

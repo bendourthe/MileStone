@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar icon: a milestone post, drawn in one color as Android requires. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M8,21V9.5C8,7 9.8,5 12,5s4,2 4,4.5V21H8zM10,11h4v2h-4zM6,21h12v1.5H6z" />
+</vector>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in with a standing notice and a screen-reader announcer</title>
+<style>
+  /* The 1 px off-screen announcer that Angular pages keep for screen readers. */
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<p role="alert">Scheduled maintenance this weekend.</p>
+<div class="sr-only" aria-live="assertive" id="announcer"></div>
+<form id="signin">
+  <label>Username <input type="text" name="username" autocomplete="username webauthn"></label>
+  <label>Password <input type="password" name="password"></label>
+  <label><input type="checkbox" name="remember"> Remember me</label>
+  <button type="button">Forgot username?</button>
+  <button type="submit">Sign in</button>
+</form>
+<script>
+  // A notice shown before the sign-in was typed and a screen-reader-only announcement are not a refused password.
+  // The first press only announces and leaves the form up, as when the page's scripts were still loading; a second
+  // press signs in, so a session that does not count either marker as an error presses again and reads a balance.
+  var presses = 0;
+  var form = document.getElementById('signin');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    document.getElementById('announcer').textContent = 'Signing in';
+    if (++presses < 2 || !form.querySelector('input[name="password"]').value) return;
+    document.body.innerHTML = '<span class="points-balance">9,876</span>';
+  });
+</script>
+</body>
+</html>

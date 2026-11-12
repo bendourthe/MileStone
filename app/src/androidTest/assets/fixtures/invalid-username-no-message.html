@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in that marks the username invalid without a message</title></head>
+<body>
+<form id="signin">
+  <label>Username <input type="text" name="username" id="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <label><input type="checkbox" name="remember"> Remember me</label>
+  <button type="submit">Sign In</button>
+</form>
+<script>
+  // As Capital One's site does: the first press only marks the username box invalid, shows no message, and
+  // sends nothing. That is the site's own form check, not a judged password, so a second press signs in.
+  var presses = 0;
+  document.getElementById('signin').addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (++presses === 1) {
+      document.getElementById('username').setAttribute('aria-invalid', 'true');
+      return;
+    }
+    document.body.innerHTML = '<span class="points-balance">9,876</span>';
+  });
+</script>
+</body>
+</html>

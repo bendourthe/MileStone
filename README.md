@@ -1,6 +1,79 @@
 # MileStone
 
-MileStone is a new repository. It holds the project icon and the files that track version, documentation, and progress. Application code is not in the tree yet, so there is no install step and no run command.
+MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that shows credit card, airline, and hotel loyalty balances on one dashboard. It is installed on the user's own phone as a signed APK; there is no Play Store listing and no server.
+
+## Prerequisites
+
+- Android Studio Rabbit 2 (2026.2.2 Patch 1) or newer
+- JDK 17 or newer
+- Android SDK Platform 36, with `ANDROID_HOME` pointing at the SDK (default `%LOCALAPPDATA%\Android\Sdk`)
+
+## Build
+
+```powershell
+git clone https://github.com/bendourthe/MileStone.git
+cd MileStone
+.\gradlew.bat assembleDebug
+```
+
+The debug APK is written to `app\build\outputs\apk\debug\app-debug.apk`. Run the unit tests and lint with `.\gradlew.bat testDebugUnitTest lintDebug`.
+
+## Install on a phone
+
+Enable Developer options and USB debugging on the phone, connect it, accept the RSA prompt, then run:
+
+```powershell
+adb install -r app\build\outputs\apk\release\app-release.apk
+```
+
+## Release signing
+
+`.\gradlew.bat assembleRelease` needs a signing key and fails with "Release signing is not configured: see README Release signing" until one is set up. Create a keystore outside the repository; `keytool` prompts for both passwords so they never reach PowerShell history:
+
+```powershell
+New-Item -ItemType Directory -Force $env:USERPROFILE\keys
+keytool -genkeypair -v -keystore $env:USERPROFILE\keys\milestone-release.jks -alias milestone -keyalg RSA -keysize 4096 -validity 10000
+```
+
+Then create `keystore.properties` at the repository root (it is gitignored):
+
+```properties
+storeFile=C:/Users/<you>/keys/milestone-release.jks
+storePassword=<store password>
+keyAlias=milestone
+keyPassword=<key password>
+```
+
+The build also accepts `MILESTONE_KEYSTORE_PATH`, `MILESTONE_KEYSTORE_PASSWORD`, `MILESTONE_KEY_ALIAS`, and `MILESTONE_KEY_PASSWORD` environment variables when `keystore.properties` is absent; the file is preferred over persistent environment variables. Keep an offline backup of the keystore: an APK signed with a different key cannot update an installed one. CI never signs builds.
+
+## Page capture runbook
+
+Selector work for a program needs a copy of its real balance page. Captures hold account data, so they stay on the developer's PC in the gitignored `app/src/test/resources/fixtures-private/` folder and never enter Git. Committed fixtures are synthetic.
+
+1. Build and install the capture build, which installs beside the normal app as `com.bendourthe.milestone.capture`:
+
+   ```powershell
+   .\gradlew.bat assembleCapture
+   adb install -r app\build\outputs\apk\capture\app-capture.apk
+   ```
+
+2. On the phone, open the capture build, sign in to the program once, wait for the balance page, and tap "Capture page" in the sign-in screen's top bar.
+3. List the saved captures, then copy one to the PC. `cmd /c` keeps the HTML bytes unchanged, which PowerShell redirection does not:
+
+   ```powershell
+   adb shell run-as com.bendourthe.milestone.capture ls files/captures
+   New-Item -ItemType Directory -Force app\src\test\resources\fixtures-private
+   cmd /c "adb exec-out run-as com.bendourthe.milestone.capture cat files/captures/REPLACE.html > app\src\test\resources\fixtures-private\REPLACE.html"
+   ```
+
+   Replace `REPLACE.html` with a file name from the list.
+4. Remove the capture build, which also deletes its sessions and captures. The capture build is debuggable, so anyone with USB access could read its sessions while it is installed:
+
+   ```powershell
+   adb uninstall com.bendourthe.milestone.capture
+   ```
+
+   Expected output: `Success`.
 
 ## Version
 
@@ -10,7 +83,8 @@ The current version is v0.1.0. It is recorded as the `0.1.0` heading in `CHANGEL
 
 | Path | Purpose |
 |---|---|
-| `MileStone-icon.jpg` | Project icon: stacked stones, a gold coin with a star, and a gold airplane on a dark navy field |
+| `branding/MileStone-icon.jpg` | Source artwork for the app logo and launcher icon: a stilt cabin under palm trees, a slate mountain, a navy airplane over a gold path, and gold stars on a dark navy field |
+| `app/` | The Android app module: Kotlin sources, resources, unit tests, and on-device tests |
 | `README.md` | This file |
 | `CHANGELOG.md` | Version history in Keep a Changelog form |
 | `CLAUDE.md` | Short project notes for coding sessions |

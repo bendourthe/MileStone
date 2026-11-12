@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Synthetic sign-in with a texted code named only by its label</title></head>
+<body>
+<form id="step">
+  <label>Member number <input type="text" name="username" autocomplete="username"></label>
+  <label>Password <input type="password" name="password"></label>
+  <button type="submit">Sign In</button>
+</form>
+<script>
+  // The code box carries no code-like name, id, or placeholder: only its visible label says what it wants.
+  var form = document.getElementById('step');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!form.querySelector('input[name="password"]').value) return;
+    form.innerHTML = '<label for="f3">Enter the verification code we sent you</label>' +
+      '<input id="f3" name="field3" type="text" inputmode="numeric" maxlength="8">' +
+      '<label><input type="checkbox" name="remember"> Don\'t require a verification code again</label>' +
+      '<button type="submit">Continue</button>';
+    form.addEventListener('submit', function (next) {
+      next.preventDefault();
+      if (document.getElementById('f3').value !== '123456') return;
+      document.body.innerHTML = '<span class="points-balance">9,876</span>';
+    }, { once: true });
+  }, { once: true });
+</script>
+</body>
+</html>

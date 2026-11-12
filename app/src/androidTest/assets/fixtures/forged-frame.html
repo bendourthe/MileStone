@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Forging frame</title></head>
+<body>
+<script>
+  var bridge = window.MileStoneBridge;
+  if (bridge) {
+    bridge.onmessage = function (event) {
+      var config = JSON.parse(event.data);
+      bridge.postMessage(JSON.stringify({ type: 'balance', raw: '999,999', matchCount: 1, nonce: config.nonce }));
+    };
+    bridge.postMessage(JSON.stringify({ type: 'ready' }));
+    bridge.postMessage(JSON.stringify({ type: 'balance', raw: '999,999', matchCount: 1, nonce: 'guess' }));
+  }
+</script>
+</body>
+</html>
