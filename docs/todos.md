@@ -41,7 +41,7 @@
 - [x] Phase 7: Extractors for credit cards
 - [x] Phase 8: Extractors for airlines
 - [x] Phase 9: Extractors for hotels
-- [ ] Phase 10: Architecture refactor, known gaps, CI/CD, and publication
+- [x] Phase 10: Architecture refactor, known gaps, CI/CD, and publication
 
 ## Plan deltas to record in phase session histories
 

@@ -2,6 +2,13 @@
 
 MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that shows credit card, airline, and hotel loyalty balances on one dashboard. It is installed on the user's own phone as a signed APK; there is no Play Store listing and no server.
 
+## What's in v0.1.0
+
+- One dashboard for 14 catalog programs (cards, airlines, hotels). Programs whose sign-in is tested sync; the rest are listed and say they cannot sign in from MileStone yet.
+- Each balance is read from the program's own site in a hidden WebView after a one-time sign-in. A saved sign-in, sealed by the Android Keystore and kept only on the phone, signs in again when a session ends; a refused password is never retried by itself.
+- Refreshes run at midnight on a chosen schedule (daily, Sunday, or month end), a 15-minute background keep-alive reuses sessions without typing passwords, a tile's Refresh refreshes one program, and pulling the dashboard down asks before refreshing everything.
+- Sorting by category, type, name, or a custom drag order; an animated opening screen.
+
 ## Prerequisites
 
 - Android Studio Rabbit 2 (2026.2.2 Patch 1) or newer
@@ -77,14 +84,16 @@ Selector work for a program needs a copy of its real balance page. Captures hold
 
 ## Version
 
-The current version is v0.1.0. It is recorded as the `0.1.0` heading in `CHANGELOG.md`. There is no package manifest and no git tag.
+The current version is v0.1.0. It is recorded as the `0.1.0` heading in `CHANGELOG.md` and as `versionName = "0.1.0"` (`versionCode = 1`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
 
 ## Layout
 
 | Path | Purpose |
 |---|---|
 | `branding/MileStone-icon.jpg` | Source artwork for the app logo and launcher icon: a stilt cabin under palm trees, a slate mountain, a navy airplane over a gold path, and gold stars on a dark navy field |
+| `branding/split_mark.py` | Splits the in-app mark into the layers the opening animation builds |
 | `app/` | The Android app module: Kotlin sources, resources, unit tests, and on-device tests |
+| `.github/workflows/ci.yml` | Pull-request CI: unit tests, lint, debug build, schema drift and private-fixture guards, secret scan |
 | `README.md` | This file |
 | `CHANGELOG.md` | Version history in Keep a Changelog form |
 | `CLAUDE.md` | Short project notes for coding sessions |
