@@ -20,6 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.toRoute
 import com.bendourthe.milestone.MileStoneApplication
 import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.sync.background.AndroidReminderNotifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bendourthe.milestone.ui.benefits.BenefitsScreen
 import com.bendourthe.milestone.ui.benefits.BenefitsViewModel
 import com.bendourthe.milestone.ui.benefits.CardBenefitsScreen
@@ -108,6 +110,21 @@ fun MileStoneApp(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
     val showBar = destination?.hasRoute(Catalog::class) != true
+    val benefits = benefitsViewModel ?: appBenefitsViewModel()
+
+    // A benefit reminder opens its card page once; clearing the action keeps a rotation from opening it again.
+    val activity = LocalActivity.current
+    LaunchedEffect(Unit) {
+        val intent = activity?.intent ?: return@LaunchedEffect
+        if (intent.action != AndroidReminderNotifier.ACTION_OPEN_CARD) return@LaunchedEffect
+        val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
+        val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
+        intent.action = null
+        if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
+            navController.navigate(Benefits) { launchSingleTop = true }
+            navController.navigate(CardBenefits(programId, digits))
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -155,7 +172,7 @@ fun MileStoneApp(
             }
             composable<Benefits> {
                 BenefitsScreen(
-                    benefitsViewModel ?: appBenefitsViewModel(),
+                    benefits,
                     onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
                     snackbarHostState = snackbarHostState,
                 )
@@ -169,17 +186,24 @@ fun MileStoneApp(
                     scope.launch { snackbarHostState.showSnackbar("That card is no longer on your account") }
                 }
                 if (key == null) LaunchedEffect(Unit) { gone() } else {
-                    CardBenefitsScreen(benefitsViewModel ?: appBenefitsViewModel(), key, onBack = { navController.popBackStack() }, onGone = gone)
+                    CardBenefitsScreen(benefits, key, onBack = { navController.popBackStack() }, onGone = gone)
                 }
             }
             composable<Settings> {
-                SettingsScreen(settingsViewModel, versionName, onBack = {
-                    navController.navigate(Dashboard) {
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                })
+                val reminders by benefits.remindersEnabled.collectAsStateWithLifecycle()
+                SettingsScreen(
+                    settingsViewModel,
+                    versionName,
+                    onBack = {
+                        navController.navigate(Dashboard) {
+                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    },
+                    benefitReminders = reminders.takeIf { benefits.hasReminderSetting },
+                    onBenefitReminders = benefits::setRemindersEnabled,
+                )
             }
             composable<Catalog> {
                 ProgramCatalogScreen(
@@ -201,5 +225,5 @@ fun MileStoneApp(
 private fun appBenefitsViewModel(): BenefitsViewModel {
     val container = (LocalContext.current.applicationContext as MileStoneApplication).container
     val owner = LocalActivity.current as ViewModelStoreOwner
-    return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts) }
+    return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts, reminders = container.reminderSettings) }
 }

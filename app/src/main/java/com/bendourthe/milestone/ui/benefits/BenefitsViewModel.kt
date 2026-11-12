@@ -10,6 +10,8 @@ import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.Enrollment
+import com.bendourthe.milestone.domain.ReminderSettings
+import kotlinx.coroutines.launch
 import com.bendourthe.milestone.ui.dashboard.DashboardViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -84,8 +86,19 @@ class BenefitsViewModel(
     private val clock: () -> Long = System::currentTimeMillis,
     private val zone: ZoneId = ZoneId.systemDefault(),
     private val locale: Locale = Locale.getDefault(),
+    private val reminders: ReminderSettings? = null,
 ) : ViewModel() {
     private val programs = catalog.programs.filter { it.benefits != null }
+
+    /** The "Benefit reminders" setting; false when this screen has no setting to show. */
+    val remindersEnabled: StateFlow<Boolean> =
+        (reminders?.enabled ?: flowOf(false)).stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
+    val hasReminderSetting: Boolean get() = reminders != null
+
+    fun setRemindersEnabled(enabled: Boolean) {
+        viewModelScope.launch { reminders?.setEnabled(enabled) }
+    }
 
     val uiState: StateFlow<BenefitsUiState> = accounts.observeAccounts()
         .map { list -> list.map { it.programId }.filter { id -> programs.any { it.programId == id } } }

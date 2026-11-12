@@ -87,8 +87,23 @@ object ScheduledRefreshScheduler {
 /** Runs on each alarm, after a restart, and after an update; schedules the next alarm, then starts a refresh. */
 class KeepAliveReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val scheduled = intent.action == ScheduledRefreshScheduler.ACTION
         val container = (context.applicationContext as MileStoneApplication).container
+        if (intent.action == BenefitReminderScheduler.ACTION) {
+            BenefitReminderScheduler.schedule(context)
+            val pending = goAsync()
+            container.scope.launch {
+                try {
+                    container.benefitReminders.check()
+                } finally {
+                    pending.finish()
+                }
+            }
+            return
+        }
+        if (intent.action == Intent.ACTION_BOOT_COMPLETED || intent.action == Intent.ACTION_MY_PACKAGE_REPLACED) {
+            BenefitReminderScheduler.schedule(context)
+        }
+        val scheduled = intent.action == ScheduledRefreshScheduler.ACTION
         if (scheduled) {
             val pending = goAsync()
             container.scope.launch {

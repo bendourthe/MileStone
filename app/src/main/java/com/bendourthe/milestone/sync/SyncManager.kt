@@ -4,6 +4,7 @@ import com.bendourthe.milestone.DiagnosticLog
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.AccountStatus
+import com.bendourthe.milestone.domain.BenefitPeriods
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.CatalogRepository
@@ -31,6 +32,8 @@ import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.withTimeout
+import java.time.Instant
+import java.time.ZoneId
 import java.util.concurrent.ConcurrentHashMap
 
 /** The only component that writes scraped balances, for both interactive logins and headless refreshes. */
@@ -51,6 +54,8 @@ class SyncManager(
     /** Reads cards and benefits after a saved balance, for programs whose catalog entry has a benefits page. */
     private val benefitsSource: BenefitsSource? = null,
     private val cards: CardRepository? = null,
+    /** The phone's time zone, which anchors credit period ends to the read date. */
+    private val zone: ZoneId = ZoneId.systemDefault(),
 ) {
     private val _state = MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap())
     val state: StateFlow<Map<String, ProgramSyncState>> = _state.asStateFlow()
@@ -259,12 +264,16 @@ class SyncManager(
         lock(programId).withLock {
             try {
                 val now = clock()
+                val readDate = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
                 read.cards?.let { repository.applyCardList(programId, it, now) }
                 var applied = 0
                 read.benefits.forEach { (digits, drafts) ->
                     if (!CardKey.isValidLastDigits(digits)) return@forEach
                     val key = CardKey(programId, digits)
-                    repository.applyCardBenefits(key, assignBenefitKeys(key, drafts), now)
+                    val dated = drafts.map { draft ->
+                        BenefitPeriods.parse(draft.periodLabel, readDate)?.let { draft.copy(periodEnd = it.end, periodLength = it.length) } ?: draft
+                    }
+                    repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now)
                     applied++
                 }
                 DiagnosticLog.i(

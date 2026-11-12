@@ -167,6 +167,12 @@ fun assignBenefitKeys(cardKey: CardKey, drafts: List<BenefitDraft>): List<Benefi
     }
 }
 
+/** The "Benefit reminders" setting (on by default). */
+interface ReminderSettings {
+    val enabled: Flow<Boolean>
+    suspend fun setEnabled(enabled: Boolean)
+}
+
 interface CardRepository {
     /** The program's cards in the issuer's order. */
     fun observeCards(programId: String): Flow<List<Card>>

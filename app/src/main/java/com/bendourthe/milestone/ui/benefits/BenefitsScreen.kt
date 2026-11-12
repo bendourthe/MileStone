@@ -1,5 +1,17 @@
 package com.bendourthe.milestone.ui.benefits
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -72,7 +84,43 @@ fun BenefitsScreen(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    Scaffold(topBar = { BenefitsHeader("Benefits") }, snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
+    val remindersOn by viewModel.remindersEnabled.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    var allowed by remember { mutableStateOf(notificationsAllowed(context)) }
+    LifecycleResumeEffect(Unit) {
+        allowed = notificationsAllowed(context)
+        onPauseOrDispose {}
+    }
+    val request = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { allowed = it }
+    Scaffold(topBar = { BenefitsHeader("Benefits") }, snackbarHost = { SnackbarHost(snackbarHostState) }) { outer ->
+        val showBanner = remindersOn && !allowed && state is BenefitsUiState.Cards
+        Column(Modifier.fillMaxSize().padding(top = outer.calculateTopPadding())) {
+            if (showBanner) PermissionBanner(onAllow = { request.launch(Manifest.permission.POST_NOTIFICATIONS) })
+            BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()))
+        }
+    }
+}
+
+private fun notificationsAllowed(context: Context): Boolean =
+    ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+
+/** Shown while reminders are on but the phone does not let MileStone post them; no error otherwise. */
+@Composable
+private fun PermissionBanner(onAllow: () -> Unit) {
+    Surface(color = MaterialTheme.colorScheme.secondaryContainer, modifier = Modifier.fillMaxWidth().testTag("reminderPermissionBanner")) {
+        Row(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                "Allow notifications to get a reminder before a card credit expires.",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.weight(1f),
+            )
+            TextButton(onClick = onAllow) { Text("Allow") }
+        }
+    }
+}
+
+@Composable
+private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, padding: PaddingValues) {
         when (val s = state) {
             BenefitsUiState.Loading -> Box(Modifier.fillMaxSize().padding(padding))
             is BenefitsUiState.NoProgram -> Message(
@@ -93,7 +141,6 @@ fun BenefitsScreen(
                 items(s.tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
             }
         }
-    }
 }
 
 @Composable

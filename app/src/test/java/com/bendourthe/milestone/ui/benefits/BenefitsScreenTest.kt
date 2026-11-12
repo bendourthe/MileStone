@@ -10,8 +10,11 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.domain.AccountStatus
@@ -143,6 +146,36 @@ class BenefitsScreenTest {
         assertEquals(0, gone)
         runBlocking { cards.applyCardList("amex", CardList.from(listOf(CardDraft("Platinum Card", "71008")), true), now) }
         rule.waitUntil(2_000) { gone == 1 }
+    }
+
+    private val reminderSetting = object : com.bendourthe.milestone.domain.ReminderSettings {
+        val state = kotlinx.coroutines.flow.MutableStateFlow(true)
+        override val enabled = state
+        override suspend fun setEnabled(enabled: Boolean) { state.value = enabled }
+    }
+
+    @Test
+    fun withRemindersOnAndNoNotificationPermissionTheTabShowsABanner() {
+        seed()
+        val vm = BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US, reminderSetting)
+        rule.setContent { MileStoneTheme { BenefitsScreen(vm, onOpenCard = {}) } }
+        rule.onNodeWithTag("reminderPermissionBanner").assertExists()
+        reminderSetting.state.value = false
+        rule.waitUntil(2_000) { rule.onAllNodes(androidx.compose.ui.test.hasTestTag("reminderPermissionBanner")).fetchSemanticsNodes().isEmpty() }
+    }
+
+    @Test
+    fun theSettingsSwitchTurnsRemindersOff() {
+        val vm = BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US, reminderSetting)
+        val settingsVm = com.bendourthe.milestone.ui.settings.SettingsViewModel(com.bendourthe.milestone.ui.FakeSettings())
+        rule.setContent {
+            MileStoneTheme {
+                val on by vm.remindersEnabled.collectAsStateWithLifecycle()
+                com.bendourthe.milestone.ui.settings.SettingsScreen(settingsVm, "0.2.0", benefitReminders = on, onBenefitReminders = vm::setRemindersEnabled)
+            }
+        }
+        rule.onNodeWithText("Benefit reminders").performScrollTo().performClick()
+        rule.waitUntil(2_000) { !reminderSetting.state.value }
     }
 
     @Test

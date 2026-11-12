@@ -11,6 +11,11 @@ import com.bendourthe.milestone.data.session.TinkSessionStore
 import com.bendourthe.milestone.data.settings.DataStoreSettingsRepository
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.ReminderSettings
+import com.bendourthe.milestone.sync.background.AndroidReminderNotifier
+import com.bendourthe.milestone.sync.background.BenefitReminderScheduler
+import com.bendourthe.milestone.sync.background.BenefitReminders
+import com.bendourthe.milestone.sync.background.PreferencesReminderSettings
 import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.SettingsRepository
@@ -59,6 +64,8 @@ class AppContainer(context: Context) {
     val cards: CardRepository by lazy { RoomCardRepository(database) }
     val settings: SettingsRepository by lazy { DataStoreSettingsRepository(appContext.settingsStore) }
     val observeDashboard: ObserveDashboard by lazy { ObserveDashboard(accounts, catalog) }
+    val reminderSettings: ReminderSettings by lazy { PreferencesReminderSettings(appContext) }
+    val benefitReminders: BenefitReminders by lazy { BenefitReminders(cards, reminderSettings, AndroidReminderNotifier(appContext)) }
 
     val profiles = WebViewProfileBackend()
 
@@ -123,6 +130,8 @@ class AppContainer(context: Context) {
     val openRefreshes: Flow<Set<String>> = openRefreshDone.receiveAsFlow()
 
     suspend fun refreshOnOpen(summarize: Boolean) {
+        // Catches up a reminder check the phone missed; records keep it from repeating one already posted.
+        benefitReminders.check()
         vaultReady()
         var refreshed = emptyList<String>()
         syncManager.refreshAll(RefreshReason.ON_START) { refreshed = it }.join()
@@ -166,6 +175,9 @@ class AppContainer(context: Context) {
 
     init {
         vaultLoad.start()
+        // Benefit reminders: their channel and the daily check (refreshOnOpen catches up a day the phone missed).
+        AndroidReminderNotifier.createChannel(appContext)
+        BenefitReminderScheduler.schedule(appContext)
         // Also runs at every process start, which includes the one after a restart clears the alarm.
         scope.launch { settings.refreshInterval.collect { ScheduledRefreshScheduler.schedule(appContext, it) } }
     }

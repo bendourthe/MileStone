@@ -244,6 +244,16 @@ class SyncManagerBenefitsTest {
     }
 
     @Test
+    fun applyingAReadFillsEachCreditsPeriodEndFromItsLabel() = runTest {
+        connected("amex")
+        manager().applyBenefits("amex", read(complete = true, "71008"))
+        val stored = cards.observeBenefits(gold).first().single()
+        assertEquals(com.bendourthe.milestone.domain.PeriodLength.QUARTERLY, stored.periodLength)
+        assertEquals(12, stored.periodEnd?.monthValue)
+        assertEquals(31, stored.periodEnd?.dayOfMonth)
+    }
+
+    @Test
     fun clearCardsAtSignOutDeletesCardsButKeepsTheAccount() = runTest {
         connected("amex")
         val manager = manager()
