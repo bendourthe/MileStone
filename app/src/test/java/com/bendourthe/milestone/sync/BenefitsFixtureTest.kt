@@ -43,7 +43,10 @@ class BenefitsFixtureTest {
         val period = el.selectFirst(s.getValue("trackerSpentSection"))?.select("span")?.map { it.text() }
             ?.lastOrNull { Regex("^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*(\\s*[-–]\\s*[a-z]{3,9})?$", RegexOption.IGNORE_CASE).matches(it) }
         val target = el.selectFirst("progress")?.attr("max")?.toDoubleOrNull()?.let { Math.round(it * 100) }
-        BenefitsReader.section(group(doc, el), title, el.selectFirst(s.getValue("trackerDone")) != null, period, remaining, target)
+        val label = el.selectFirst(s.getValue("trackerSpentSection"))?.select("span")
+            ?.filterNot { it.`is`(s.getValue("trackerSpent")) }?.map { it.text() }
+            ?.firstOrNull { it != period && Regex("^[A-Za-z ]{2,20}$").matches(it) }
+        BenefitsReader.section(group(doc, el), title, el.selectFirst(s.getValue("trackerDone")) != null, period, remaining, target, label)
     }
 
     private fun listed(doc: Document): List<Pair<String, String?>> = doc.select(s.getValue("listLink"))
@@ -80,7 +83,11 @@ class BenefitsFixtureTest {
 
     @Test
     fun syntheticRewardsGridIsReadWithoutGroupNames() {
-        assertEquals(listOf(BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED), sections(page(SYNTHETIC, "benefits-rewards-2.html")!!))
+        assertEquals(
+            listOf(BenefitSection.CREDIT_EARNED, BenefitSection.SPEND_PROGRESS, BenefitSection.COMPLETED),
+            sections(page(SYNTHETIC, "benefits-rewards-2.html")!!),
+        )
+        assertEquals(emptyList<BenefitSection>(), sections(page(SYNTHETIC, "benefits-rewards-3.html")!!))
     }
 
     @Test

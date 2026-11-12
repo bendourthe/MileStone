@@ -39,7 +39,7 @@ object BenefitsReader {
     const val MAX_LISTED = 150
 
     private val CARD_FIELDS = setOf("name", "lastDigits")
-    private val TRACKER_FIELDS = setOf("group", "title", "spent", "remaining", "target", "period", "done", "description")
+    private val TRACKER_FIELDS = setOf("group", "title", "spent", "remaining", "target", "period", "label", "done", "description")
     private val LISTED_FIELDS = setOf("key", "title", "description", "enrollment")
     private val ISSUER_KEY = Regex("^[A-Za-z0-9+#-]{1,80}$")
     private val SUMMARY = Regex("^congratulations", RegexOption.IGNORE_CASE)
@@ -80,7 +80,7 @@ object BenefitsReader {
         val earned = BenefitAmountParser.parse(spent)
         val left = BenefitAmountParser.parse(remaining)
         val target = if (earned != null && left != null) earned + left else targetDollars?.let { Math.round(it * 100) }
-        val section = section(group, title, done, period, remaining, target)
+        val section = section(group, title, done, period, remaining, target, t.text("label", 20))
         return TrackerRead(
             BenefitDraft(
                 section = section,
@@ -120,16 +120,28 @@ object BenefitsReader {
 
     /**
      * The activity page names its groups ("Spend Progress", "Credit Earned", "Completed Benefits"); the Rewards page's
-     * "Track Your Progress" grid does not, so there a check mark means completed, a period or "credit" in the title
-     * means a statement credit, and a target means spend progress.
+     * "Track Your Progress" grid does not, so there a check mark means completed, the word beside the amount ("spent"
+     * or "earned") decides next, then a period or "credit" in the title means a statement credit, and a target means
+     * spend progress. A spend threshold is never a credit, so it never gets a reminder.
      */
-    fun section(group: String?, title: String, done: Boolean, period: String?, remaining: String?, target: Long?): BenefitSection {
+    fun section(
+        group: String?,
+        title: String,
+        done: Boolean,
+        period: String?,
+        remaining: String?,
+        target: Long?,
+        label: String? = null,
+    ): BenefitSection {
         val g = group.orEmpty().lowercase()
+        val word = label.orEmpty().lowercase()
         return when {
             "complete" in g -> BenefitSection.COMPLETED
             "credit" in g -> BenefitSection.CREDIT_EARNED
             "spend" in g -> BenefitSection.SPEND_PROGRESS
             done -> BenefitSection.COMPLETED
+            "spent" in word -> BenefitSection.SPEND_PROGRESS
+            "earned" in word -> BenefitSection.CREDIT_EARNED
             period != null || "credit" in title.lowercase() -> BenefitSection.CREDIT_EARNED
             target != null || remaining?.contains("to go", ignoreCase = true) == true -> BenefitSection.SPEND_PROGRESS
             else -> BenefitSection.OTHER

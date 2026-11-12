@@ -94,7 +94,10 @@ class BenefitsBridgeFixtureTest {
 
         val cards = next() as BridgeMessage.Cards
         assertTrue(cards.list.complete)
-        assertEquals(listOf("Fixture Platinum Card" to "71008", "Fixture Hotel Card" to "42005"), cards.list.cards.map { it.name to it.lastDigits })
+        assertEquals(
+            listOf("Fixture Platinum Card" to "71008", "Fixture Hotel Card" to "42005", "Fixture Basic Card" to "33006"),
+            cards.list.cards.map { it.name to it.lastDigits },
+        )
 
         config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false)
         val first = next() as BridgeMessage.Benefits
@@ -109,7 +112,8 @@ class BenefitsBridgeFixtureTest {
             ),
             tracked.map { it.section to it.title },
         )
-        assertEquals(listOf(477_000L, 7_023_000L, 7_500_000L), tracked.first().let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        // Dollar amounts such as "$4,321.07" and "$150,000" survive the identifier filter.
+        assertEquals(listOf(432_107L, 15_000_000L, 15_432_107L), tracked.first().let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
         assertEquals(listOf("Oct - Dec", "November", "Nov"), tracked.drop(1).map { it.periodLabel })
         val listed = first.drafts.filter { it.section == BenefitSection.LISTED }
         assertEquals(listOf("airline-fee-credit", "lounge-access", "purchase-protection"), listed.map { it.issuerKey })
@@ -120,9 +124,17 @@ class BenefitsBridgeFixtureTest {
         val second = next() as BridgeMessage.Benefits
         assertEquals("42005" to "rewards", second.lastDigits to second.page)
         assertEquals(
-            listOf(BenefitSection.CREDIT_EARNED to "Jan - Mar", BenefitSection.COMPLETED to "Jul - Dec"),
+            // A "spent" tracker that shows a period is spend progress, never a credit.
+            listOf(BenefitSection.CREDIT_EARNED to "Jan - Mar", BenefitSection.SPEND_PROGRESS to "Jan - Mar", BenefitSection.COMPLETED to "Jul - Dec"),
             second.drafts.map { it.section to it.periodLabel },
         )
+
+        // A card with no trackers is a valid empty read, not a failure.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "33006")
+        webView.post { webView.reload() }
+        val third = next() as BridgeMessage.Benefits
+        assertEquals("33006" to "rewards", third.lastDigits to third.page)
+        assertEquals(emptyList<Any>(), third.drafts)
 
         for (decoy in DECOYS) assertFalse("decoy $decoy reached a message", raw.any { decoy in it })
     }
@@ -130,6 +142,6 @@ class BenefitsBridgeFixtureTest {
     private companion object {
         const val HOST = "appassets.androidplatform.net"
         const val NONCE = "benefits-fixture"
-        val DECOYS = listOf("1234 5678 9012", "12345678", "123456789012", "ABCDEFGHIJ123KL", "ZYXWVUTSRQ987PO", "account_key")
+        val DECOYS = listOf("1234 5678 9012", "12345678", "123456789012", "ABCDEFGHIJ123KL", "ZYXWVUTSRQ987PO", "QWERTYUIOP456AS", "account_key")
     }
 }

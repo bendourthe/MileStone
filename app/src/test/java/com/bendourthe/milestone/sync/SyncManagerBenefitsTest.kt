@@ -254,6 +254,14 @@ class SyncManagerBenefitsTest {
     }
 
     @Test
+    fun aReadThatFinishesAfterSignOutStoresNothing() = runTest {
+        connected("amex")
+        sessions.clear("amex")
+        manager().applyBenefits("amex", read(complete = true, "71008"))
+        assertTrue(cards.cards.value.isEmpty())
+    }
+
+    @Test
     fun clearCardsAtSignOutDeletesCardsButKeepsTheAccount() = runTest {
         connected("amex")
         val manager = manager()

@@ -9,6 +9,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import com.bendourthe.milestone.DiagnosticLog
 import com.bendourthe.milestone.R
 import com.bendourthe.milestone.domain.Benefit
@@ -19,6 +20,7 @@ import com.bendourthe.milestone.domain.PeriodLength
 import com.bendourthe.milestone.domain.ReminderRecord
 import com.bendourthe.milestone.domain.ReminderSettings
 import com.bendourthe.milestone.ui.MainActivity
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,8 +52,20 @@ class BenefitReminders(
     private val clock: () -> Long = System::currentTimeMillis,
     private val zone: ZoneId = ZoneId.systemDefault(),
 ) {
-    /** Returns how many reminders were posted. */
-    suspend fun check(): Int {
+    /**
+     * Returns how many reminders were posted. Never throws (except cancellation): a failure here must not block the
+     * refresh on opening the app or the alarm that runs it; it logs the exception class only.
+     */
+    suspend fun check(): Int = try {
+        checkOnce()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        DiagnosticLog.w(TAG, "Benefit reminder check failed: ${e.javaClass.simpleName}")
+        0
+    }
+
+    private suspend fun checkOnce(): Int {
         val now = clock()
         val today = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
         cards.pruneReminders(today)
@@ -114,8 +128,8 @@ class PreferencesReminderSettings(context: Context) : ReminderSettings {
  * soon"; the full text names the card (never its digits), the credit, the amount left, and the read date.
  */
 class AndroidReminderNotifier(private val context: Context, private val locale: Locale = Locale.getDefault()) : ReminderNotifier {
-    override fun canNotify(): Boolean =
-        context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+    /** True when the phone lets MileStone post: the runtime permission on Android 13+, the app's notification switch below. */
+    override fun canNotify(): Boolean = notificationsAllowed(context)
 
     override fun post(card: Card, benefit: Benefit, readDate: LocalDate) {
         val day = DateTimeFormatter.ofPattern("MMM d", locale)
@@ -151,6 +165,14 @@ class AndroidReminderNotifier(private val context: Context, private val locale: 
         const val ACTION_OPEN_CARD = "com.bendourthe.milestone.action.OPEN_CARD"
         const val EXTRA_PROGRAM_ID = "programId"
         const val EXTRA_LAST_DIGITS = "lastDigits"
+
+        /** Android 13+ needs the runtime permission; every version honors the app's notification switch. */
+        fun notificationsAllowed(context: Context): Boolean {
+            val switchedOn = context.getSystemService(NotificationManager::class.java).areNotificationsEnabled()
+            val permitted = Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+                context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            return switchedOn && permitted
+        }
 
         fun createChannel(context: Context) {
             context.getSystemService(NotificationManager::class.java).createNotificationChannel(

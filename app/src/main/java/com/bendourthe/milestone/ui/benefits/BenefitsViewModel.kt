@@ -148,12 +148,14 @@ class BenefitsViewModel(
             return "Not updated since ${date.format(DateTimeFormatter.ofPattern("MMM d", locale))}"
         }
 
-        private fun openCredits(benefits: List<Benefit>) = benefits.filter {
-            it.section == BenefitSection.CREDIT_EARNED && !it.completed && (it.remainingCents ?: 0) > 0
+        /** Credits with money left whose period has not ended by [today] (an unknown end counts as open). */
+        private fun openCredits(benefits: List<Benefit>, today: LocalDate) = benefits.filter {
+            it.section == BenefitSection.CREDIT_EARNED && !it.completed && (it.remainingCents ?: 0) > 0 &&
+                it.periodEnd?.isBefore(today) != true
         }
 
-        fun nextCredit(benefits: List<Benefit>, zone: ZoneId, locale: Locale): String {
-            val open = openCredits(benefits)
+        fun nextCredit(benefits: List<Benefit>, today: LocalDate, locale: Locale): String {
+            val open = openCredits(benefits, today)
             if (open.isEmpty()) return "No open credits"
             val next = open.sortedWith(compareBy<Benefit, LocalDate?>(nullsLast()) { it.periodEnd }).first()
             val ends = next.periodEnd?.let { ", ends ${it.format(DateTimeFormatter.ofPattern("MMM d", locale))}" }
@@ -167,7 +169,7 @@ class BenefitsViewModel(
                 key = card.key,
                 name = card.name,
                 digitsLabel = digitsLabel(card.lastDigits),
-                nextCredit = nextCredit(benefits, zone, locale),
+                nextCredit = nextCredit(benefits, Instant.ofEpochMilli(nowMs).atZone(zone).toLocalDate(), locale),
                 completedLabel = if (completed == 0) null else "$completed completed",
                 lastReadLabel = DashboardViewModel.lastUpdatedLabel(card.benefitsReadEpochMs, nowMs),
                 staleNote = staleNote(card, nowMs, zone, locale),

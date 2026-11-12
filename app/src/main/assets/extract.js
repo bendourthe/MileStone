@@ -535,11 +535,15 @@
   var DIGIT_RUN = /\d+(?:[ .\- ]+\d+)*/g;
   var LONG_TOKEN = /[^\s"'<>]{8,}/g;
   var KEY_RUN = /(^|[^A-Za-z0-9])([A-Z0-9]{10,})(?=$|[^A-Za-z0-9])/g;
+  // A dollar amount such as "$1,234.56" or "$150,000" is never an identifier, so the long-token rule skips it.
+  var MONEY = /^\(?[-+]?\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?[).,;:]?$/;
+  var EMPTY_STABLE_MS = 6000;
+  var SWITCH_SETTLE_MS = 8000;
 
   function stripIdentifiers(text) {
     return text
       .replace(DIGIT_RUN, function (run) { return run.replace(/\D/g, '').length >= 6 ? '#' : run; })
-      .replace(LONG_TOKEN, function (token) { return token.replace(/\D/g, '').length >= 4 ? '#' : token; })
+      .replace(LONG_TOKEN, function (token) { return !MONEY.test(token) && token.replace(/\D/g, '').length >= 4 ? '#' : token; })
       .replace(KEY_RUN, function (all, before, run) { return /\d/.test(run) ? before + '#' : all; });
   }
 
@@ -564,6 +568,8 @@
     var signature = null;
     var stableSince = 0;
     var scrolledTo = 0;
+    var lastCards = null;
+    var titlesBeforeSwitch = null;
 
     function finish(message) {
       if (done) return;
@@ -615,14 +621,25 @@
       return clean(heading, 60);
     }
 
+    function trackerTitles() {
+      return Array.prototype.map.call(document.querySelectorAll(s.tracker), function (el) {
+        var heading = el.querySelector(s.trackerHeading);
+        return heading ? (heading.textContent || '').trim() : '';
+      }).join('|');
+    }
+
     function readTracker(el) {
       var spentSection = el.querySelector(s.trackerSpentSection);
       var period = null;
+      var label = null;
       if (spentSection) {
         var spans = spentSection.querySelectorAll('span');
         for (var i = 0; i < spans.length; i++) {
+          if (spans[i].matches(s.trackerSpent)) continue;
           var text = clean(spans[i], 40);
-          if (text && /^[A-Za-z]{3,9}(\s*[-–]\s*[A-Za-z]{3,9})?$/.test(text) && /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i.test(text)) period = text;
+          if (!text) continue;
+          if (/^[A-Za-z]{3,9}(\s*[-–]\s*[A-Za-z]{3,9})?$/.test(text) && /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i.test(text)) period = text;
+          else if (!label && /^[A-Za-z ]{2,20}$/.test(text)) label = text;
         }
       }
       var progress = el.querySelector('progress');
@@ -634,6 +651,7 @@
         remaining: clean(el.querySelector(s.trackerRemaining), 60),
         target: isFinite(max) && max > 0 && max < 1e7 ? max : null,
         period: period,
+        label: label,
         done: !!el.querySelector(s.trackerDone),
         description: clean(el.querySelector(s.trackerDescription), 300),
       };
@@ -687,10 +705,15 @@
       if (!current) return;
       if (!cardsSent) {
         if (!options().length) return openSwitcher();
+        // A list still rendering would read short, so it counts only after two identical reads in a row that also
+        // include the card the page shows.
         var read = readCards();
+        var key = JSON.stringify(read.cards);
+        if (key !== lastCards) { lastCards = key; return; }
         cardsSent = true;
         closeSwitcher();
-        post({ type: 'cards', cards: read.cards, complete: read.complete, nonce: config.nonce });
+        var includesCurrent = read.cards.some(function (card) { return card.lastDigits === current; });
+        post({ type: 'cards', cards: read.cards, complete: read.complete && includesCurrent, nonce: config.nonce });
         return;
       }
       if (config.targetDigits && current !== config.targetDigits) {
@@ -699,12 +722,16 @@
           var target = options().filter(function (el) { return lastDigitsOf(el.querySelector(s.optionDigits)) === config.targetDigits; })[0];
           if (!target) return finish({ type: 'benefitsUnreadable', why: 'noSuchCard', nonce: config.nonce });
           switchStartedAt = Date.now();
+          titlesBeforeSwitch = trackerTitles();
           target.click();
         } else if (Date.now() - switchStartedAt > SWITCH_WAIT_MS) {
           finish({ type: 'benefitsUnreadable', why: 'switch', nonce: config.nonce });
         }
         return;
       }
+      // After an in-place switch the switcher can show the new card before its trackers replace the old card's, so
+      // the read waits for the tracker set to change, or settles longer for two cards whose trackers look alike.
+      if (titlesBeforeSwitch !== null && trackerTitles() === titlesBeforeSwitch && Date.now() - switchStartedAt < SWITCH_SETTLE_MS) return;
       if (page() === 'rewards' && !followedActivity) {
         var activity = document.querySelector(s.activityLink);
         if (activity) {
@@ -717,8 +744,10 @@
       var listed = page() === 'activity' ? document.querySelectorAll(s.listLink).length : 0;
       var now = trackers.length + ':' + listed + ':' + document.body.scrollHeight;
       if (now !== signature) { signature = now; stableSince = Date.now(); return; }
-      if (!trackers.length && !listed) return;
-      if (Date.now() - stableSince < BENEFITS_STABLE_MS) return;
+      // A card with no trackers (many no-fee cards) is a valid empty read once the loaded page has settled longer.
+      var settle = trackers.length || listed ? BENEFITS_STABLE_MS : EMPTY_STABLE_MS;
+      if (!trackers.length && !listed && document.readyState !== 'complete') return;
+      if (Date.now() - stableSince < settle) return;
       finish({
         type: 'benefits',
         lastDigits: current,

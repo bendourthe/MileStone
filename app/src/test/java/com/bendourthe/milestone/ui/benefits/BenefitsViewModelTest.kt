@@ -21,6 +21,7 @@ class BenefitsViewModelTest {
     private val now = LocalDate.of(2026, 11, 12).atStartOfDay(zone).toInstant().toEpochMilli()
     private val day = 24 * 60 * 60 * 1000L
     private val key = CardKey("amex", "71008")
+    private val today = LocalDate.of(2026, 11, 12)
 
     private fun card(benefitsRead: Long?, listRead: Long? = benefitsRead) = Card("amex", "71008", "Platinum Card", 0, listRead, benefitsRead)
 
@@ -35,14 +36,21 @@ class BenefitsViewModelTest {
             credit("Used", 0, LocalDate.of(2026, 11, 15)),
             credit("Done", 2_000, LocalDate.of(2026, 11, 14), done = true),
         )
-        assertEquals("Soon: \$15 left, ends Nov 30", BenefitsViewModel.nextCredit(benefits, zone, locale))
+        assertEquals("Soon: \$15 left, ends Nov 30", BenefitsViewModel.nextCredit(benefits, today, locale))
     }
 
     @Test
     fun nextCreditFallsBackToThePeriodLabelOrSaysNone() {
-        assertEquals("Shopping: \$50 left (Oct - Dec)", BenefitsViewModel.nextCredit(listOf(credit("Shopping", 5_000)), zone, locale))
-        assertEquals("No open credits", BenefitsViewModel.nextCredit(listOf(credit("Used", 0)), zone, locale))
-        assertEquals("No open credits", BenefitsViewModel.nextCredit(emptyList(), zone, locale))
+        assertEquals("Shopping: \$50 left (Oct - Dec)", BenefitsViewModel.nextCredit(listOf(credit("Shopping", 5_000)), today, locale))
+        assertEquals("No open credits", BenefitsViewModel.nextCredit(listOf(credit("Used", 0)), today, locale))
+        assertEquals("No open credits", BenefitsViewModel.nextCredit(emptyList(), today, locale))
+    }
+
+    @Test
+    fun aCreditWhosePeriodEndedIsNotTheNextCredit() {
+        val benefits = listOf(credit("Ended", 1_000, LocalDate.of(2026, 10, 31)), credit("Current", 2_000, LocalDate.of(2026, 12, 31)))
+        assertEquals("Current: \$20 left, ends Dec 31", BenefitsViewModel.nextCredit(benefits, today, locale))
+        assertEquals("No open credits", BenefitsViewModel.nextCredit(benefits.take(1), today, locale))
     }
 
     @Test

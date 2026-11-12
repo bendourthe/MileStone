@@ -1,6 +1,6 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `develop` (v0.1.0 shipped and closed)
+**Branch:** `feat/v0.2.0-benefits-tab-amex` (v0.2.0 in its final phase; v0.1.0 shipped and closed)
 
 **Version:** v0.1.0 (recorded in `CHANGELOG.md`)
 
@@ -14,6 +14,7 @@
 | Commits on the feature branch | 75 | one per phase plus fixes | met |
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
+| v0.2.0 plan phases complete | 5 of 6 | 6 of 6 | 1 (final phase: evidence, full suite, publication, release) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -73,6 +74,15 @@
 - [x] Phase 8: Alaska reads `.loyalty-info-row .available-points .display-md` and Aeroplan reads the signed-in account menu's points label; each matched exactly one parseable number in a capture, which also holds a second, different points figure the selector must skip. Synthetic fixtures carry 1- and 4-digit balances next to decoys. The private runs skip the value comparison because no `.expected` values are filled in.
 - [x] Phase 9: "Paste sign-in link" in `AuthWebViewModal` built ahead of the hotel extractors.
 
+## Phase 3: v0.2.0 implementation (Benefits tab for Amex cards)
+
+- [x] Phase 1: Cards, benefits, and reminder storage (Room schema 3)
+- [x] Phase 2: Capture session, ADR-0008, and the benefits read mode in the page script
+- [x] Phase 3: Benefits read after an Amex refresh
+- [x] Phase 4: Benefits tab and card pages
+- [x] Phase 5: Benefit reminders
+- [ ] Phase 6: Architecture refactor, known gaps, CI/CD, and publication
+
 ## Next minor (v0.2) candidates
 
-- [ ] Benefits tab: planned in `docs/releases/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
+- [x] Benefits tab: planned in `docs/releases/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.

@@ -123,5 +123,17 @@ class BenefitsProtocolTest {
         assertEquals(BenefitSection.CREDIT_EARNED, BenefitsReader.section(null, "Stays", false, "Jan - Mar", null, null))
         assertEquals(BenefitSection.SPEND_PROGRESS, BenefitsReader.section(null, "Lounge Access", false, null, "$70,230 to go", null))
         assertEquals(BenefitSection.OTHER, BenefitsReader.section(null, "Something", false, null, null, null))
+        // The word beside the amount wins over a period: a spend threshold is never reminded as a credit.
+        assertEquals(BenefitSection.SPEND_PROGRESS, BenefitsReader.section("Track Your Progress", "Bonus", false, "Jan - Mar", "\$4,000 to go", null, "spent"))
+        assertEquals(BenefitSection.CREDIT_EARNED, BenefitsReader.section("Track Your Progress", "Stays", false, null, "\$50 to go", 5_000, "earned"))
+    }
+
+    @Test
+    fun aTrackerLabelIsAcceptedAndUsed() {
+        val json = """{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"rewards","trackers":[
+            {"group":"Track Your Progress","title":"Bonus","spent":"${'$'}1,000","remaining":"${'$'}4,000 to go","target":5000,"period":"Jan - Mar","label":"spent","done":false,"description":null}
+          ],"listed":[]}"""
+        val message = parse(json) as BridgeMessage.Benefits
+        assertEquals(BenefitSection.SPEND_PROGRESS, message.drafts.single().section)
     }
 }

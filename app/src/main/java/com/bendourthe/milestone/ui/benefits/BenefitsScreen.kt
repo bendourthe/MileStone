@@ -2,7 +2,11 @@ package com.bendourthe.milestone.ui.benefits
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
+import android.provider.Settings
+import com.bendourthe.milestone.sync.background.AndroidReminderNotifier
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.Surface
@@ -95,14 +99,26 @@ fun BenefitsScreen(
     Scaffold(topBar = { BenefitsHeader("Benefits") }, snackbarHost = { SnackbarHost(snackbarHostState) }) { outer ->
         val showBanner = remindersOn && !allowed && state is BenefitsUiState.Cards
         Column(Modifier.fillMaxSize().padding(top = outer.calculateTopPadding())) {
-            if (showBanner) PermissionBanner(onAllow = { request.launch(Manifest.permission.POST_NOTIFICATIONS) })
+            if (showBanner) {
+                PermissionBanner(onAllow = {
+                    val permissionMissing = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                        ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+                    if (permissionMissing) {
+                        request.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        // Below Android 13, or with the permission but the app's switch off: the system settings page.
+                        context.startActivity(
+                            Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName),
+                        )
+                    }
+                })
+            }
             BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()))
         }
     }
 }
 
-private fun notificationsAllowed(context: Context): Boolean =
-    ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+private fun notificationsAllowed(context: Context): Boolean = AndroidReminderNotifier.notificationsAllowed(context)
 
 /** Shown while reminders are on but the phone does not let MileStone post them; no error otherwise. */
 @Composable

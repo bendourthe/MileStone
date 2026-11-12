@@ -141,13 +141,17 @@ class HeadlessSyncFixtureTest {
         assertEquals(142_500L, accounts.observeAccounts().first().single().balance)
 
         val stored = withTimeout(120_000) {
-            cards.observeCards("fixture").first { list -> list.size == 2 && list.all { it.benefitsReadEpochMs != null } }
+            cards.observeCards("fixture").first { list -> list.size == 3 && list.all { it.benefitsReadEpochMs != null } }
         }
-        assertEquals(listOf("71008" to "Fixture Platinum Card", "42005" to "Fixture Hotel Card"), stored.map { it.lastDigits to it.name })
+        assertEquals(
+            listOf("71008" to "Fixture Platinum Card", "42005" to "Fixture Hotel Card", "33006" to "Fixture Basic Card"),
+            stored.map { it.lastDigits to it.name },
+        )
         val platinum = cards.observeBenefits(CardKey("fixture", "71008")).first()
         assertEquals(4, platinum.count { it.section != BenefitSection.LISTED })
         assertEquals(3, platinum.count { it.section == BenefitSection.LISTED })
-        assertEquals(2, cards.observeBenefits(CardKey("fixture", "42005")).first().size)
+        assertEquals(3, cards.observeBenefits(CardKey("fixture", "42005")).first().size)
+        assertEquals(0, cards.observeBenefits(CardKey("fixture", "33006")).first().size)
     }
 
     private object PassThroughAead : Aead {

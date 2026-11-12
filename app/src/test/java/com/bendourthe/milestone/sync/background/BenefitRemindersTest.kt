@@ -136,6 +136,14 @@ class BenefitRemindersTest {
     }
 
     @Test
+    fun aStorageErrorEndsTheCheckWithoutThrowing() = runTest {
+        val failing = object : com.bendourthe.milestone.domain.CardRepository by cards {
+            override suspend fun pruneReminders(today: LocalDate) = throw android.database.sqlite.SQLiteConstraintException("test")
+        }
+        assertEquals(0, BenefitReminders(failing, settings, notifier, { now }, zone).check())
+    }
+
+    @Test
     fun theNextCheckIsAtNineLocalTime() {
         val beforeNine = LocalDate.of(2026, 11, 12).atTime(8, 0).atZone(zone).toInstant().toEpochMilli()
         val afterNine = LocalDate.of(2026, 11, 12).atTime(10, 0).atZone(zone).toInstant().toEpochMilli()

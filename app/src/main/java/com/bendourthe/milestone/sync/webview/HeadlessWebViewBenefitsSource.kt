@@ -101,11 +101,10 @@ class HeadlessWebViewBenefitsSource(
                 }
                 is BridgeMessage.BenefitsUnreadable -> {
                     DiagnosticLog.i(TAG, "${program.programId} benefits page unreadable (${message.why}) on ${HostPolicy.httpsHost(webView.url.orEmpty())}")
+                    // The first page's card failed: with a card list, the other cards are still read.
                     val current = target
-                    if (current == null) finish(null) else {
-                        failed += current
-                        next()
-                    }
+                    if (current != null) failed += current
+                    if (current == null && cards == null) finish(null) else next()
                 }
                 is BridgeMessage.Event -> if (message.event == BridgeEvent.LoginRequired) finish(BenefitsStop.SIGNED_OUT)
                 else -> Unit

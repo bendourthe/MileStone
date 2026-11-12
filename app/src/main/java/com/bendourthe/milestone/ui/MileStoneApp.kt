@@ -112,19 +112,7 @@ fun MileStoneApp(
     val showBar = destination?.hasRoute(Catalog::class) != true
     val benefits = benefitsViewModel ?: appBenefitsViewModel()
 
-    // A benefit reminder opens its card page once; clearing the action keeps a rotation from opening it again.
     val activity = LocalActivity.current
-    LaunchedEffect(Unit) {
-        val intent = activity?.intent ?: return@LaunchedEffect
-        if (intent.action != AndroidReminderNotifier.ACTION_OPEN_CARD) return@LaunchedEffect
-        val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
-        val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
-        intent.action = null
-        if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
-            navController.navigate(Benefits) { launchSingleTop = true }
-            navController.navigate(CardBenefits(programId, digits))
-        }
-    }
 
     Scaffold(
         bottomBar = {
@@ -153,6 +141,19 @@ fun MileStoneApp(
         val bottom = PaddingValues(bottom = padding.calculateBottomPadding())
         NavHost(navController, startDestination = Dashboard, modifier = Modifier.padding(bottom).consumeWindowInsets(bottom)) {
             composable<Dashboard> {
+                // A benefit reminder opens its card page once, from the start destination so the graph is set;
+                // clearing the action keeps a rotation or a return to Rewards from opening it again.
+                LaunchedEffect(Unit) {
+                    val intent = activity?.intent ?: return@LaunchedEffect
+                    if (intent.action != AndroidReminderNotifier.ACTION_OPEN_CARD) return@LaunchedEffect
+                    val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
+                    val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
+                    intent.action = null
+                    if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
+                        navController.navigate(Benefits) { launchSingleTop = true }
+                        navController.navigate(CardBenefits(programId, digits))
+                    }
+                }
                 DashboardScreen(
                     dashboardViewModel,
                     onAddProgram = { navController.navigate(Catalog) { launchSingleTop = true } },

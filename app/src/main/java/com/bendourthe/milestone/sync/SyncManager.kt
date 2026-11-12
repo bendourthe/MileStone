@@ -262,6 +262,11 @@ class SyncManager(
     internal suspend fun applyBenefits(programId: String, read: BenefitsRead) {
         val repository = cards ?: return
         lock(programId).withLock {
+            // A read that finished as the program was signed out must not bring its cards back.
+            if (sessions.get(programId) == null) {
+                DiagnosticLog.i(TAG, "Benefits for $programId dropped: the program was signed out")
+                return@withLock
+            }
             try {
                 val now = clock()
                 val readDate = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
