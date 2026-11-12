@@ -43,6 +43,15 @@ class BridgeSessionTest {
     }
 
     @Test
+    fun theBalanceSessionIgnoresBenefitsMessagesEvenWithTheRightNonce() {
+        ready()
+        assertNull(send("""{"type":"cards","nonce":"nonce-$nonces","complete":true,"cards":[{"name":"Gold","lastDigits":"71008"}]}"""))
+        assertNull(send("""{"type":"benefits","nonce":"nonce-$nonces","lastDigits":"71008","page":"rewards","trackers":[],"listed":[]}"""))
+        assertNull(send("""{"type":"benefitsUnreadable","nonce":"nonce-$nonces","why":"timeout"}"""))
+        assertEquals(BridgeAction.Emit(BridgeEvent.Extracted(82_410)), balance("82,410"))
+    }
+
+    @Test
     fun subframesAndForeignOriginsAreIgnored() {
         assertNull(session.onMessage("""{"type":"ready"}""", origin, isMainFrame = false))
         assertNull(session.onMessage("""{"type":"ready"}""", "https://evil.example", isMainFrame = true))

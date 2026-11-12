@@ -1,6 +1,10 @@
 package com.bendourthe.milestone.sync.extract
 
 import com.bendourthe.milestone.domain.BalanceUnit
+import com.bendourthe.milestone.domain.BenefitDraft
+import com.bendourthe.milestone.domain.BenefitsSpec
+import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.CardList
 import com.bendourthe.milestone.domain.FailureReason
 import com.bendourthe.milestone.domain.SelectorStrategy
 import kotlinx.serialization.json.Json
@@ -58,6 +62,15 @@ sealed interface BridgeMessage {
 
     /** After MileStone's submit, the sign-in form came back showing the site's error. */
     data object Refused : BridgeMessage
+
+    /** Benefits mode: the card switcher's cards (name and last digits only). */
+    data class Cards(val list: CardList) : BridgeMessage
+
+    /** Benefits mode: one card's trackers and listed benefits, read on its activity or Rewards page. */
+    data class Benefits(val lastDigits: String, val page: String, val drafts: List<BenefitDraft>) : BridgeMessage
+
+    /** Benefits mode: the page could not be read; [why] is one of a fixed set of reasons. */
+    data class BenefitsUnreadable(val why: String) : BridgeMessage
 }
 
 object BridgeProtocol {
@@ -94,6 +107,25 @@ object BridgeProtocol {
             put("openSignIn", openSignIn)
         }.toString()
 
+    /**
+     * Benefits mode (ADR-0008). [listCards] asks for the switcher's card list; [targetDigits] asks the script to
+     * switch to that card before reading. The selectors come from the program's [BenefitsSpec].
+     */
+    fun benefitsConfig(
+        spec: BenefitsSpec,
+        nonce: String,
+        timeoutMs: Long,
+        listCards: Boolean,
+        targetDigits: String? = null,
+    ): String = buildJsonObject {
+        put("mode", "benefits")
+        put("nonce", nonce)
+        put("timeoutMs", timeoutMs)
+        put("listCards", listCards)
+        if (targetDigits != null) put("targetDigits", targetDigits)
+        put("selectors", buildJsonObject { spec.selectors.forEach { (key, value) -> put(key, value) } })
+    }.toString()
+
     /** Sent only to a page on the program's own hosts, in reply to its sign-in report. */
     fun fillCommand(nonce: String, username: String, password: String, lastName: String = ""): String = buildJsonObject {
         put("command", "fill")
@@ -109,12 +141,36 @@ object BridgeProtocol {
         put("code", code)
     }.toString()
 
-    /** Returns null for anything malformed or carrying a nonce other than [expectedNonce]. */
-    fun parse(data: String?, expectedNonce: String?, unit: BalanceUnit = BalanceUnit.POINTS): BridgeMessage? {
-        val json = runCatching { Json.parseToJsonElement(data ?: return null) as? JsonObject }.getOrNull() ?: return null
+    private const val MAX_BENEFITS_MESSAGE = 256 * 1024
+    private val BENEFITS_TYPES = setOf("cards", "benefits", "benefitsUnreadable")
+    private val UNREADABLE_REASONS = setOf("timeout", "switch", "noSuchCard")
+    private val PAGES = setOf("activity", "rewards")
+    private val TOP_FIELDS = mapOf(
+        "cards" to setOf("type", "nonce", "cards", "complete"),
+        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed"),
+        "benefitsUnreadable" to setOf("type", "nonce", "why", "trackers", "switcher"),
+    )
+
+    /**
+     * Returns null for anything malformed or carrying a nonce other than [expectedNonce]. Benefits messages are
+     * accepted only when [benefits] is given and [pageUrl], the WebView's current address, is one of its pages.
+     */
+    fun parse(
+        data: String?,
+        expectedNonce: String?,
+        unit: BalanceUnit = BalanceUnit.POINTS,
+        pageUrl: String? = null,
+        benefits: BenefitsSpec? = null,
+    ): BridgeMessage? {
+        if (data == null || data.length > MAX_BENEFITS_MESSAGE) return null
+        val json = runCatching { Json.parseToJsonElement(data) as? JsonObject }.getOrNull() ?: return null
         val type = json.string("type") ?: return null
         if (type == "ready") return if (json.size == 1) BridgeMessage.Ready else null
         if (expectedNonce == null || json.string("nonce") != expectedNonce) return null
+        if (type in BENEFITS_TYPES) {
+            if (benefits == null || !benefits.accepts(pageUrl) || !TOP_FIELDS.getValue(type).containsAll(json.keys)) return null
+            return parseBenefits(type, json)
+        }
         return when (type) {
             "login" -> BridgeMessage.Event(BridgeEvent.LoginRequired)
             "refused" -> BridgeMessage.Refused
@@ -136,6 +192,20 @@ object BridgeProtocol {
             }
             else -> null
         }
+    }
+
+    private fun parseBenefits(type: String, json: JsonObject): BridgeMessage? = when (type) {
+        "cards" -> {
+            val complete = (json["complete"] as? JsonPrimitive)?.booleanOrNull
+            complete?.let { BenefitsReader.cards(json["cards"], it) }?.let { BridgeMessage.Cards(it) }
+        }
+        "benefits" -> {
+            val digits = json.string("lastDigits")?.takeIf { CardKey.isValidLastDigits(it) }
+            val page = json.string("page")?.takeIf { it in PAGES }
+            val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
+            if (digits == null || page == null || drafts == null) null else BridgeMessage.Benefits(digits, page, drafts)
+        }
+        else -> json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it) }
     }
 
     private fun JsonObject.string(key: String): String? = (this[key] as? JsonPrimitive)?.takeIf { it.isString }?.jsonPrimitive?.content

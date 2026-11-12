@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Rewards</title></head>
+<body>
+<header><div data-testid="context_switcher_container">
+  <button type="button" data-testid="simple_switcher_combobox" role="combobox" aria-expanded="false" onclick="toggleList(this)">
+    <div data-testid="simple_switcher_selected_option_display">
+      <span data-testid="simple_switcher_display_name">Fixture Platinum Card®</span>
+      <span data-testid="simple_switcher_display_number"><span data-testid="simple_switcher_display_number_val">71008</span></span>
+    </div>
+  </button>
+  <div id="list"></div>
+</div>
+<script>
+  // Synthetic stand-in for Amex's switcher: the list exists only while open, like the real one.
+  function toggleList(box) {
+    var list = document.getElementById('list');
+    if (list.firstChild) { list.innerHTML = ''; box.setAttribute('aria-expanded', 'false'); return; }
+    box.setAttribute('aria-expanded', 'true');
+    list.innerHTML =
+      '<ul data-testid="simple_switcher_listbox" role="listbox">' +
+      '<li role="option" data-testid="simple_switcher_static_option_ALL"><span data-testid="simple_switcher_display_name">All accounts</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ABCDEFGHIJ123KL" onclick="location.href=\'benefits-rewards.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Platinum Card\u00AE</span>' +
+      '<span data-testid="simple_switcher_display_number_val">71008</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ZYXWVUTSRQ987PO" onclick="location.href=\'benefits-rewards-2.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Hotel Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">42005</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_QWERTYUIOP456AS" onclick="location.href=\'benefits-rewards-3.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Basic Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">33006</span></li></ul>';
+  }
+</script>
+</header>
+<main>
+
+<h2>Track Your Progress</h2>
+<div data-testid="tracker-grid-component"></div>
+<a data-kind="activity" href="benefits-activity.html?account_key=decoyvalue">View all benefit activity</a>
+
+</main>
+</body></html>

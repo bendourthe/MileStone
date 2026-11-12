@@ -521,6 +521,264 @@
     };
   }
 
+  // ---- Benefits read mode (ADR-0008) ----------------------------------------------------------------------
+  // Reads the card switcher's names and last digits, tracker containers, and benefits-list entries, each from a
+  // named element given in the config. Presses only existing controls (the switcher, a card option, the page's own
+  // benefits-activity link). Never reads input values, cookies, storage, or link query strings, and strips
+  // identifier-like text before posting.
+  var BENEFITS_STABLE_MS = 2000;
+  var BENEFITS_SCAN_MS = 400;
+  var SWITCH_WAIT_MS = 15000;
+  var MAX_CARDS = 20;
+  var MAX_TRACKERS = 60;
+  var MAX_LISTED = 150;
+  var DIGIT_RUN = /\d+(?:[ .\- ]+\d+)*/g;
+  var LONG_TOKEN = /[^\s"'<>]{8,}/g;
+  var KEY_RUN = /(^|[^A-Za-z0-9])([A-Z0-9]{10,})(?=$|[^A-Za-z0-9])/g;
+  // A dollar amount such as "$1,234.56" or "$150,000" is never an identifier, so the long-token rule skips it.
+  var MONEY = /^\(?[-+]?\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?[).,;:]?$/;
+  var EMPTY_STABLE_MS = 6000;
+  var SWITCH_SETTLE_MS = 8000;
+
+  function stripIdentifiers(text) {
+    return text
+      .replace(DIGIT_RUN, function (run) { return run.replace(/\D/g, '').length >= 6 ? '#' : run; })
+      .replace(LONG_TOKEN, function (token) { return !MONEY.test(token) && token.replace(/\D/g, '').length >= 4 ? '#' : token; })
+      .replace(KEY_RUN, function (all, before, run) { return /\d/.test(run) ? before + '#' : all; });
+  }
+
+  function clean(el, max) {
+    if (!el) return null;
+    var text = stripIdentifiers((el.textContent || '').replace(/\s+/g, ' ').trim());
+    return text ? text.slice(0, max) : null;
+  }
+
+  function lastDigitsOf(el) {
+    var text = el ? (el.textContent || '').replace(/\D/g, '') : '';
+    return /^\d{4,5}$/.test(text) ? text : null;
+  }
+
+  function startBenefits(config) {
+    var s = config.selectors || {};
+    var done = false;
+    var startedAt = Date.now();
+    var cardsSent = !config.listCards;
+    var switchStartedAt = null;
+    var followedActivity = false;
+    var signature = null;
+    var stableSince = 0;
+    var scrolledTo = 0;
+    var lastCards = null;
+    var titlesBeforeSwitch = null;
+
+    function finish(message) {
+      if (done) return;
+      done = true;
+      clearInterval(timer);
+      if (message) post(message);
+    }
+
+    function selectedDigits() {
+      var display = document.querySelector(s.selected);
+      return lastDigitsOf(display && display.querySelector(s.optionDigits));
+    }
+
+    function options() {
+      return Array.prototype.slice.call(document.querySelectorAll(s.option)).filter(function (el) {
+        return el.querySelector(s.optionDigits);
+      });
+    }
+
+    function readCards() {
+      var list = options();
+      var cards = [];
+      var complete = list.length > 0 && list.length <= MAX_CARDS;
+      list.slice(0, MAX_CARDS).forEach(function (el) {
+        var digits = lastDigitsOf(el.querySelector(s.optionDigits));
+        var name = clean(el.querySelector(s.optionName), 80);
+        if (!digits || !name) { complete = false; return; }
+        cards.push({ name: name, lastDigits: digits });
+      });
+      return { cards: cards, complete: complete };
+    }
+
+    function openSwitcher() {
+      var box = document.querySelector(s.combobox);
+      if (box && !options().length) box.click();
+    }
+
+    function closeSwitcher() {
+      var box = document.querySelector(s.combobox);
+      if (box && options().length) box.click();
+    }
+
+    function groupOf(el) {
+      var heading = null;
+      var all = document.querySelectorAll('h2');
+      for (var i = 0; i < all.length; i++) {
+        if (all[i].compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) heading = all[i];
+      }
+      return clean(heading, 60);
+    }
+
+    function trackerTitles() {
+      return Array.prototype.map.call(document.querySelectorAll(s.tracker), function (el) {
+        var heading = el.querySelector(s.trackerHeading);
+        return heading ? (heading.textContent || '').trim() : '';
+      }).join('|');
+    }
+
+    function readTracker(el) {
+      var spentSection = el.querySelector(s.trackerSpentSection);
+      var period = null;
+      var label = null;
+      if (spentSection) {
+        var spans = spentSection.querySelectorAll('span');
+        for (var i = 0; i < spans.length; i++) {
+          if (spans[i].matches(s.trackerSpent)) continue;
+          var text = clean(spans[i], 40);
+          if (!text) continue;
+          if (/^[A-Za-z]{3,9}(\s*[-–]\s*[A-Za-z]{3,9})?$/.test(text) && /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i.test(text)) period = text;
+          else if (!label && /^[A-Za-z ]{2,20}$/.test(text)) label = text;
+        }
+      }
+      var progress = el.querySelector('progress');
+      var max = progress ? parseFloat(progress.getAttribute('max')) : NaN;
+      return {
+        group: groupOf(el),
+        title: clean(el.querySelector(s.trackerHeading), 120),
+        spent: clean(el.querySelector(s.trackerSpent), 40),
+        remaining: clean(el.querySelector(s.trackerRemaining), 60),
+        target: isFinite(max) && max > 0 && max < 1e7 ? max : null,
+        period: period,
+        label: label,
+        done: !!el.querySelector(s.trackerDone),
+        description: clean(el.querySelector(s.trackerDescription), 300),
+      };
+    }
+
+    function readListed() {
+      var seen = {};
+      var entries = [];
+      Array.prototype.slice.call(document.querySelectorAll(s.listLink)).forEach(function (link) {
+        var heading = link.querySelector('h4');
+        if (!heading || entries.length >= MAX_LISTED) return;
+        var parts = (link.pathname || '').split('/');
+        var at = parts.indexOf('detail');
+        var slug = at >= 0 && /^[A-Za-z0-9+-]{1,80}$/.test(parts[at + 1] || '') ? parts[at + 1] : null;
+        if (!slug || seen[slug]) return;
+        seen[slug] = true;
+        // The entry is the largest ancestor holding exactly one "Learn more" link: the ribbon sits in its picture branch.
+        var root = link;
+        while (root.parentElement && root.parentElement.querySelectorAll(s.listMore).length <= 1) root = root.parentElement;
+        if (!root.querySelector(s.listMore)) return;
+        var ribbon = null;
+        var marks = root.querySelectorAll('div, span');
+        for (var i = 0; i < marks.length && !ribbon; i++) {
+          if (marks[i].children.length) continue;
+          var mark = (marks[i].textContent || '').trim();
+          if (mark === 'Enrolled' || mark === 'Enrollment Required') ribbon = mark;
+        }
+        entries.push({
+          key: stripIdentifiers(slug),
+          title: clean(heading, 120),
+          description: clean(root.querySelector(s.listDescription), 300),
+          enrollment: ribbon,
+        });
+      });
+      return entries;
+    }
+
+    function page() {
+      return location.pathname.indexOf(s.activityPath) === 0 ? 'activity' : 'rewards';
+    }
+
+    function tick() {
+      if (done) return;
+      if (hasVisiblePasswordField()) return finish({ type: 'login', nonce: config.nonce });
+      // Sections load as the page scrolls (Amex marks them scroll-aware), so walk down the page while waiting.
+      if (scrolledTo < document.body.scrollHeight) {
+        scrolledTo += window.innerHeight || 800;
+        window.scrollTo(0, scrolledTo);
+      }
+      var current = selectedDigits();
+      if (!current) return;
+      if (!cardsSent) {
+        if (!options().length) return openSwitcher();
+        // A list still rendering would read short, so it counts only after two identical reads in a row that also
+        // include the card the page shows.
+        var read = readCards();
+        var key = JSON.stringify(read.cards);
+        if (key !== lastCards) { lastCards = key; return; }
+        cardsSent = true;
+        closeSwitcher();
+        var includesCurrent = read.cards.some(function (card) { return card.lastDigits === current; });
+        post({ type: 'cards', cards: read.cards, complete: read.complete && includesCurrent, nonce: config.nonce });
+        return;
+      }
+      if (config.targetDigits && current !== config.targetDigits) {
+        if (switchStartedAt === null) {
+          if (!options().length) return openSwitcher();
+          var target = options().filter(function (el) { return lastDigitsOf(el.querySelector(s.optionDigits)) === config.targetDigits; })[0];
+          if (!target) return finish({ type: 'benefitsUnreadable', why: 'noSuchCard', nonce: config.nonce });
+          switchStartedAt = Date.now();
+          titlesBeforeSwitch = trackerTitles();
+          target.click();
+        } else if (Date.now() - switchStartedAt > SWITCH_WAIT_MS) {
+          finish({ type: 'benefitsUnreadable', why: 'switch', nonce: config.nonce });
+        }
+        return;
+      }
+      // After an in-place switch the switcher can show the new card before its trackers replace the old card's, so
+      // the read waits for the tracker set to change, or settles longer for two cards whose trackers look alike.
+      if (titlesBeforeSwitch !== null && trackerTitles() === titlesBeforeSwitch && Date.now() - switchStartedAt < SWITCH_SETTLE_MS) return;
+      if (page() === 'rewards' && !followedActivity) {
+        var activity = document.querySelector(s.activityLink);
+        if (activity) {
+          followedActivity = true;
+          activity.click();
+          return;
+        }
+      }
+      var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
+      var listed = page() === 'activity' ? document.querySelectorAll(s.listLink).length : 0;
+      var now = trackers.length + ':' + listed + ':' + document.body.scrollHeight;
+      if (now !== signature) { signature = now; stableSince = Date.now(); return; }
+      // A card with no trackers (many no-fee cards) is a valid empty read once the loaded page has settled longer.
+      var settle = trackers.length || listed ? BENEFITS_STABLE_MS : EMPTY_STABLE_MS;
+      if (!trackers.length && !listed && document.readyState !== 'complete') return;
+      if (Date.now() - stableSince < settle) return;
+      finish({
+        type: 'benefits',
+        lastDigits: current,
+        page: page(),
+        trackers: trackers.slice(0, MAX_TRACKERS).map(readTracker),
+        listed: page() === 'activity' ? readListed() : [],
+        nonce: config.nonce,
+      });
+    }
+
+    var timer = setInterval(function () {
+      if (Date.now() - startedAt > config.timeoutMs) {
+        finish({
+          type: 'benefitsUnreadable',
+          why: 'timeout',
+          trackers: document.querySelectorAll(s.tracker).length,
+          switcher: document.querySelector(s.selected) ? 1 : 0,
+          nonce: config.nonce,
+        });
+        return;
+      }
+      tick();
+    }, BENEFITS_SCAN_MS);
+    tick();
+    return {
+      nonce: config.nonce,
+      stop: function () { finish(null); },
+      command: function () {},
+    };
+  }
+
   bridge.onmessage = function (event) {
     var config;
     try {
@@ -530,6 +788,11 @@
     }
     if (config && typeof config.command === 'string') {
       if (run && config.nonce === run.nonce) run.command(config);
+      return;
+    }
+    if (config && config.mode === 'benefits' && typeof config.nonce === 'string' && config.selectors) {
+      if (run) run.stop();
+      run = startBenefits(config);
       return;
     }
     if (!config || typeof config.expression !== 'string' || typeof config.nonce !== 'string') return;

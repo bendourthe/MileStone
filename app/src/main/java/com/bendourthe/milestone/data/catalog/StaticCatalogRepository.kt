@@ -1,6 +1,7 @@
 package com.bendourthe.milestone.data.catalog
 
 import com.bendourthe.milestone.domain.BalanceUnit
+import com.bendourthe.milestone.domain.BenefitsSpec
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.CatalogSearch
 import com.bendourthe.milestone.domain.ExtractionSpec
@@ -99,6 +100,7 @@ class StaticCatalogRepository : CatalogRepository {
             balanceUnit: BalanceUnit = BalanceUnit.POINTS,
             textKeywords: Set<String> = emptySet(),
             asksLastName: Boolean = false,
+            benefits: BenefitsSpec? = null,
         ) = Program(
             programId = id,
             displayName = name,
@@ -116,6 +118,36 @@ class StaticCatalogRepository : CatalogRepository {
             balanceUnit = balanceUnit,
             textKeywords = textKeywords,
             asksLastName = asksLastName,
+            benefits = benefits,
+        )
+
+        /**
+         * Verified against the 2026-11-12 captures of four cards (ADR-0008): Amex's own test ids, plus the h4 inside a
+         * benefit's detail link and the utility class of its description. Hashed class names are never used.
+         */
+        val AMEX_BENEFITS = BenefitsSpec(
+            entryUrl = "https://global.americanexpress.com/rewards",
+            host = "global.americanexpress.com",
+            paths = setOf("/rewards", "/card-benefits/activity"),
+            selectors = mapOf(
+                "combobox" to "[data-testid=simple_switcher_combobox]",
+                "option" to "[data-testid=simple_switcher_listbox] [role=option]",
+                "optionName" to "[data-testid=simple_switcher_display_name]",
+                "optionDigits" to "[data-testid=simple_switcher_display_number_val]",
+                "selected" to "[data-testid=simple_switcher_selected_option_display]",
+                "tracker" to "[role=group][data-testid^=container-]",
+                "trackerHeading" to "[data-testid^=heading-]",
+                "trackerSpent" to "[data-testid=tracker-spent-amount]",
+                "trackerSpentSection" to "[data-testid=tracker-spent-section]",
+                "trackerRemaining" to "[data-testid=tracker-remaining-section]",
+                "trackerDone" to "[data-testid^=icon-check-]",
+                "trackerDescription" to "[data-testid^=description-]",
+                "listLink" to "a[href*='/card-benefits/detail/']",
+                "listMore" to "[data-testid=learn-more-quick-view-list]",
+                "listDescription" to ".color-text-subtle",
+                "activityLink" to "a[href*='/card-benefits/activity']",
+                "activityPath" to "/card-benefits/activity",
+            ),
         )
 
         private val PROGRAMS = listOf(
@@ -127,6 +159,7 @@ class StaticCatalogRepository : CatalogRepository {
                 capability = xpath(AMEX_XPATH, "^https://global\\.americanexpress\\.com/overview", "/account/login"),
                 popular = true,
                 textKeywords = setOf("american express", "amex"),
+                benefits = AMEX_BENEFITS,
             ),
             program(
                 "chase", "Chase", CREDIT_CARD, "CH", 0xFF117ACA, "pts",

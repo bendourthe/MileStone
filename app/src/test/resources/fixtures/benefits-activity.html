@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Benefits activity</title></head>
+<body>
+<header><div data-testid="context_switcher_container">
+  <button type="button" data-testid="simple_switcher_combobox" role="combobox" aria-expanded="false" onclick="toggleList(this)">
+    <div data-testid="simple_switcher_selected_option_display">
+      <span data-testid="simple_switcher_display_name">Fixture Platinum Card®</span>
+      <span data-testid="simple_switcher_display_number"><span data-testid="simple_switcher_display_number_val">71008</span></span>
+    </div>
+  </button>
+  <div id="list"></div>
+</div>
+<script>
+  // Synthetic stand-in for Amex's switcher: the list exists only while open, like the real one.
+  function toggleList(box) {
+    var list = document.getElementById('list');
+    if (list.firstChild) { list.innerHTML = ''; box.setAttribute('aria-expanded', 'false'); return; }
+    box.setAttribute('aria-expanded', 'true');
+    list.innerHTML =
+      '<ul data-testid="simple_switcher_listbox" role="listbox">' +
+      '<li role="option" data-testid="simple_switcher_static_option_ALL"><span data-testid="simple_switcher_display_name">All accounts</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ABCDEFGHIJ123KL" onclick="location.href=\'benefits-rewards.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Platinum Card\u00AE</span>' +
+      '<span data-testid="simple_switcher_display_number_val">71008</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ZYXWVUTSRQ987PO" onclick="location.href=\'benefits-rewards-2.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Hotel Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">42005</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_QWERTYUIOP456AS" onclick="location.href=\'benefits-rewards-3.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Basic Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">33006</span></li></ul>';
+  }
+</script>
+</header>
+<main>
+
+<div role="tablist"><button data-testid="tab-browse-benefits" role="tab">Browse benefits</button><button data-testid="tab-view-benefits-activity" role="tab" aria-selected="true">Track Progress</button></div>
+<div role="tabpanel">
+  <h2>All Benefits (3)</h2>
+  <h3>Travel(2)</h3>
+  <div class="fluid"><div class="row">
+  <div class="tile"><a href="https://appassets.androidplatform.net/card-benefits/detail/airline-fee-credit/platinum?account_key=decoyvalue"><img class="width-full"><div class="ribbon"><div class="flex"><span class="icon"></span><div class="body-xsmall-bold">Enrollment Required</div></div></div></a></div>
+  <div class="text"><a href="/card-benefits/detail/airline-fee-credit/platinum?account_key=decoyvalue"><h4><span>Airline Fee Credit</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Up to $200 back each year on incidental fees. Priority Pass PP-12345678, card 1234 5678 9012, key ABCDEFGHIJ123KL, ref 123456789012.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/airline-fee-credit/platinum">Learn More</a></div>
+</div><hr></div>
+  <div class="fluid"><div class="row">
+  <div class="tile"><a href="https://appassets.androidplatform.net/card-benefits/detail/lounge-access/platinum?account_key=decoyvalue"><img class="width-full"><div class="ribbon"><div class="flex"><span class="icon"></span><div class="body-xsmall-bold">Enrolled</div></div></div></a></div>
+  <div class="text"><a href="/card-benefits/detail/lounge-access/platinum?account_key=decoyvalue"><h4><span>Global Lounge Collection</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Access to lounges worldwide.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/lounge-access/platinum">Learn More</a></div>
+</div><hr></div>
+  <h3>Shopping(1)</h3>
+  <div class="fluid"><div class="row">
+  <div class="tile"><a href="https://appassets.androidplatform.net/card-benefits/detail/purchase-protection/platinum?account_key=decoyvalue"><img class="width-full"></a></div>
+  <div class="text"><a href="/card-benefits/detail/purchase-protection/platinum?account_key=decoyvalue"><h4><span>Purchase Protection</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Covers eligible purchases against damage or theft.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/purchase-protection/platinum">Learn More</a></div>
+</div><hr></div>
+</div>
+<div role="tabpanel">
+  <h2 data-testid="track-benefits-heading">Track Progress</h2>
+  <h2>Spend Progress (1)</h2>
+  <div data-testid="container-Lounge-Guest-Access" role="group">
+  <h3 data-testid="heading-Lounge-Guest-Access"><span>Lounge Complimentary Guest Access</span></h3>
+  <div data-testid="progress-section-Lounge-Guest-Access">
+    <progress data-testid="linear-tracker-Lounge-Guest-Access" value="0" max="154321.07"></progress>
+    <div data-testid="tracker-labels-Lounge-Guest-Access">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$4,321.07</span><span>spent</span></div>
+      <div data-testid="tracker-remaining-section"><span>$150,000 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-Lounge-Guest-Access"><span>Synthetic benefit description.</span></div>
+</div>
+  <h2>Credit Earned (2)</h2>
+  <div data-testid="container-$50-Shopping-Credit" role="group">
+  <h3 data-testid="heading-$50-Shopping-Credit"><span>$50 Shopping Credit</span></h3>
+  <div data-testid="progress-section-$50-Shopping-Credit">
+    <progress data-testid="linear-tracker-$50-Shopping-Credit" value="0" max="50"></progress>
+    <div data-testid="tracker-labels-$50-Shopping-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$0</span><span>earned</span><span>Oct - Dec</span></div>
+      <div data-testid="tracker-remaining-section"><span>$50 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-$50-Shopping-Credit"><span>Priority Pass PP-12345678, card 1234 5678 9012, key ABCDEFGHIJ123KL, ref 123456789012.</span></div>
+</div>
+  <div data-testid="container-$15-Ride-Credit" role="group">
+  <h3 data-testid="heading-$15-Ride-Credit"><span>$15 Ride Credit</span></h3>
+  <div data-testid="progress-section-$15-Ride-Credit">
+    <progress data-testid="linear-tracker-$15-Ride-Credit" value="0" max="15"></progress>
+    <div data-testid="tracker-labels-$15-Ride-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$5.00</span><span>earned</span><span>November</span></div>
+      <div data-testid="tracker-remaining-section"><span>$10.00 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-$15-Ride-Credit"><span>Synthetic benefit description.</span></div>
+</div>
+  <h2>Completed Benefits (2)</h2>
+  <div data-testid="container-Congratulations!" role="group"><h3 data-testid="heading-Congratulations!"><span>Congratulations!</span></h3><div data-testid="description-Congratulations!"><span>You've received $345 in credits this year.</span></div></div>
+  <div data-testid="container-$20-Streaming-Credit" role="group">
+  <h3 data-testid="heading-$20-Streaming-Credit"><span>$20 Streaming Credit</span></h3>
+  <div data-testid="progress-section-$20-Streaming-Credit">
+    <progress data-testid="linear-tracker-$20-Streaming-Credit" value="0" max="20"></progress>
+    <div data-testid="tracker-labels-$20-Streaming-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$20</span><span>earned</span><span>Nov</span></div>
+      <div data-testid="tracker-remaining-section"><span>$0 to go</span></div>
+    </div>
+  </div><div data-testid="icon-check-wrapper-$20-Streaming-Credit"><span data-testid="icon-check-$20-Streaming-Credit"><svg role="img"><title>Completed</title></svg></span></div>
+  <div data-testid="description-$20-Streaming-Credit"><span>Synthetic benefit description.</span></div>
+</div>
+</div>
+</main>
+</body></html>

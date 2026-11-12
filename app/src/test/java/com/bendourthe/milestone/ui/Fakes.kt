@@ -7,6 +7,12 @@ import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.BalanceOrigin
 import com.bendourthe.milestone.domain.BalanceUnit
 import com.bendourthe.milestone.domain.BalanceSnapshot
+import com.bendourthe.milestone.domain.Benefit
+import com.bendourthe.milestone.domain.Card
+import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.CardList
+import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.ReminderRecord
 import com.bendourthe.milestone.domain.ExtractionSpec
 import com.bendourthe.milestone.domain.FakeCatalog
 import com.bendourthe.milestone.domain.LoyaltyAccount
@@ -21,6 +27,7 @@ import com.bendourthe.milestone.domain.testProgram
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 val testCatalog = FakeCatalog(
@@ -131,5 +138,65 @@ class FakeSettings(initial: SortMode = SortMode.ALPHABETICAL) : SettingsReposito
     override val refreshInterval: Flow<com.bendourthe.milestone.domain.RefreshInterval> = interval
     override suspend fun setRefreshInterval(interval: com.bendourthe.milestone.domain.RefreshInterval) {
         this.interval.value = interval
+    }
+}
+
+/** In-memory [CardRepository] with the Room implementation's rules: per-card replacement and removal only on a complete list. */
+class FakeCards : CardRepository {
+    val cards = MutableStateFlow<List<Card>>(emptyList())
+    val benefits = MutableStateFlow<Map<CardKey, List<Benefit>>>(emptyMap())
+    val reminders = mutableListOf<ReminderRecord>()
+
+    override fun observeCards(programId: String): Flow<List<Card>> =
+        cards.map { list -> list.filter { it.programId == programId }.sortedBy { it.sortOrder } }
+
+    override fun observeBenefits(cardKey: CardKey): Flow<List<Benefit>> =
+        benefits.map { map -> map[cardKey].orEmpty().sortedBy { it.section.ordinal } }
+
+    override suspend fun applyCardList(programId: String, cards: CardList, readEpochMs: Long) {
+        val current = this.cards.value
+        val updated = cards.cards.mapIndexed { index, draft ->
+            val old = current.firstOrNull { it.programId == programId && it.lastDigits == draft.lastDigits }
+            Card(programId, draft.lastDigits, draft.name, index, readEpochMs, old?.benefitsReadEpochMs)
+        }
+        val listed = updated.map { it.key }.toSet()
+        val kept = current.filter { card ->
+            card.key !in listed && (card.programId != programId || !cards.complete || cards.cards.isEmpty())
+        }
+        this.cards.value = kept + updated
+        dropOrphans()
+    }
+
+    override suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long) {
+        if (cards.value.none { it.key == cardKey }) return
+        this.benefits.update { it + (cardKey to benefits) }
+        cards.update { list -> list.map { if (it.key == cardKey) it.copy(benefitsReadEpochMs = readEpochMs) else it } }
+    }
+
+    override suspend fun deleteProgramCards(programId: String) {
+        cards.update { list -> list.filterNot { it.programId == programId } }
+        dropOrphans()
+    }
+
+    override suspend fun allCardsWithBenefits(): Map<Card, List<Benefit>> =
+        cards.value.associateWith { benefits.value[it.key].orEmpty() }
+
+    override suspend fun reminderSent(benefitKey: String, periodEnd: java.time.LocalDate): Boolean =
+        reminders.any { it.benefitKey == benefitKey && it.periodEnd == periodEnd }
+
+    override suspend fun recordReminder(record: ReminderRecord): Boolean {
+        if (reminderSent(record.benefitKey, record.periodEnd)) return false
+        reminders += record
+        return true
+    }
+
+    override suspend fun pruneReminders(today: java.time.LocalDate) {
+        reminders.removeAll { it.periodEnd < today }
+    }
+
+    private fun dropOrphans() {
+        val keys = cards.value.map { it.key }.toSet()
+        benefits.update { map -> map.filterKeys { it in keys } }
+        reminders.removeAll { it.cardKey !in keys }
     }
 }

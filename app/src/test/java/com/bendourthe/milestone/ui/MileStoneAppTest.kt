@@ -27,6 +27,7 @@ import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.SortMode
 import com.bendourthe.milestone.domain.usecase.ObserveDashboard
 import com.bendourthe.milestone.sync.ProgramSyncState
+import com.bendourthe.milestone.ui.benefits.BenefitsViewModel
 import com.bendourthe.milestone.ui.catalog.CatalogViewModel
 import com.bendourthe.milestone.ui.dashboard.DashboardViewModel
 import com.bendourthe.milestone.ui.settings.SettingsViewModel
@@ -57,15 +58,29 @@ class MileStoneAppTest {
         val dashboard = DashboardViewModel(uiTestCatalog, ObserveDashboard(accounts, uiTestCatalog), settings, accounts, sync)
         val catalog = CatalogViewModel(uiTestCatalog, accounts, debounceMs = 0)
         val settingsViewModel = SettingsViewModel(settings)
+        val benefits = BenefitsViewModel(FakeCards(), uiTestCatalog, accounts)
         rule.setContent {
             nav = rememberNavController()
-            MileStoneTheme { MileStoneApp(dashboard, catalog, settingsViewModel, uiTestCatalog, "0.1.0", nav) }
+            MileStoneTheme { MileStoneApp(dashboard, catalog, settingsViewModel, uiTestCatalog, "0.1.0", nav, benefitsViewModel = benefits) }
         }
     }
 
     private fun pressBack() = rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
 
     private fun barItem(label: String) = rule.onNode(hasText(label) and hasClickAction())
+
+    @Test
+    fun theBarReadsRewardsBenefitsSettingsAndBenefitsOpens() {
+        launch()
+        val labels = rule.onAllNodes(hasClickAction() and (hasText("Rewards") or hasText("Benefits") or hasText("Settings")))
+            .fetchSemanticsNodes()
+            .sortedBy { it.boundsInRoot.left }
+            .map { node -> node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Text)?.joinToString { it.text }.orEmpty() }
+        check(labels == listOf("Rewards", "Benefits", "Settings")) { "bar order: $labels" }
+        barItem("Benefits").performClick()
+        rule.onNodeWithText("No card benefits yet").assertIsDisplayed()
+        check(stack().lastOrNull() == "Benefits") { "stack: ${stack()}" }
+    }
 
     @Test
     fun backFromFirstSettingsVisitReturnsToDashboard() {

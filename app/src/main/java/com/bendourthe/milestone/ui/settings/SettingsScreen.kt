@@ -18,6 +18,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.Switch
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -44,7 +46,15 @@ private val licensedLibraries = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel, versionName: String, onBack: () -> Unit = {}, signOutSlot: @Composable () -> Unit = {}) {
+fun SettingsScreen(
+    viewModel: SettingsViewModel,
+    versionName: String,
+    onBack: () -> Unit = {},
+    signOutSlot: @Composable () -> Unit = {},
+    /** The "Benefit reminders" setting; null hides the row. */
+    benefitReminders: Boolean? = null,
+    onBenefitReminders: (Boolean) -> Unit = {},
+) {
     val sortMode by viewModel.sortMode.collectAsStateWithLifecycle()
     val refreshInterval by viewModel.refreshInterval.collectAsStateWithLifecycle()
     var showLicenses by rememberSaveable { mutableStateOf(false) }
@@ -78,6 +88,16 @@ fun SettingsScreen(viewModel: SettingsViewModel, versionName: String, onBack: ()
                     headlineContent = { Text(interval.label) },
                     leadingContent = { RadioButton(selected = refreshInterval == interval, onClick = null) },
                     modifier = Modifier.selectable(selected = refreshInterval == interval, role = Role.RadioButton) { viewModel.setRefreshInterval(interval) },
+                )
+            }
+            if (benefitReminders != null) {
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                GroupTitle("Notifications")
+                ListItem(
+                    headlineContent = { Text("Benefit reminders") },
+                    supportingContent = { Text("One reminder when a card credit's period ends soon with money left. The lock screen shows no card details.") },
+                    trailingContent = { Switch(checked = benefitReminders, onCheckedChange = null) },
+                    modifier = Modifier.toggleable(value = benefitReminders, role = Role.Switch, onValueChange = onBenefitReminders),
                 )
             }
             HorizontalDivider(Modifier.padding(vertical = 8.dp))

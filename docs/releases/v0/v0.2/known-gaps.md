@@ -1,11 +1,11 @@
 # v0.2 Known Gaps
 
-Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were carried here when v0.1 closed; their IDs are kept so references in v0.1 records still resolve.
+Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were carried here when v0.1 closed; their IDs are kept so references in v0.1 records still resolve. G25 to G33 were found during v0.2.0 (plan `v0.2.0-benefits-tab-amex`).
 
 | Status | Count |
 |---|---|
-| Open | 20 |
-| Fixed | 0 |
+| Open | 28 |
+| Fixed | 1 |
 
 ## Open
 
@@ -30,9 +30,18 @@ Unfinished or deferred work carried into v0.2. All 19 open gaps of v0.1 were car
 | G22 | Sign-in edge cases from the Tier 3 hostile review, not reproduced: a refusal the site shows only in a plain element or on the username box is not recognized, so the password may be pressed again and stops as unfinished (blocked on the third); a refusal whose diagnostics callback never returns can end as a retryable timeout without blocking; a standing alert on the page after a sign-in can count as refused; a transient Keystore error deletes the saved sign-in; the opening summary can list a program whose refresh was cancelled. | Watch the diagnostics file for these shapes; fix each with a fixture when one appears on a live site. | Tier 3 review |
 | G23 | Accessibility items needing a device: at 200% font the tile name may shrink to one or two letters and the header title may overlap the centered mark; the monogram text scales with font size inside a fixed badge; turning animations off mid-session is only picked up on the next start; sign-in messages raised outside the dashboard show only on return to it. | Check on a device at the largest font size and fix what shows. | Tier 3 review |
 | G15 | CI cannot run the instrumented suite (`connectedDebugAndroidTest` needs a device) or the private fixture tests (their inputs are gitignored), so both run only on a developer machine. | Run both locally before each release and quote them in the last-phase evidence. | Phase 10 |
-| G24 | Private page captures in `app/src/test/resources/fixtures-private/` sit unencrypted on the developer machine (gitignored, never pushed). The v0.2 capture build strips script contents, link query strings, and grouped digit runs before saving (plan 2.1), which reduces but does not remove account data in them. | Decide at the v0.2 final reconciliation whether to encrypt the folder or delete captures after the fixtures are written. | v0.2 plan review |
+| G25 | Task T005 (the capture session) is done, but the completion checker can never mark it met: its plan line ends in `(gitignored)`, which the checker reads as the task's file path. Kept by the owner's decision (2026-11-12) rather than editing the frozen plan. | Future plans name a tracked file as the path of an owner step. | v0.2.0 Phase 2 (QG) |
+| G26 | Task T025 (CI/CD reconciliation) names `.github/workflows/ci.yml` as its path; the comparison found no change needed, so no commit touches that file and the checker cannot mark T025 met. | Future plans name the evidence file as the path of a comparison that may change nothing. | v0.2.0 Phase 6 (QG) |
+| G27 | Hilton Surpass and Gold Delta SkyMiles show trackers only: their benefits list (with enrollment status) is not read, because no capture of a "View all benefits" page exists for them and the Rewards page shows one featured benefit. | Capture their View-all page, if Amex offers one, and extend the list reader. | v0.2.0 Phase 2, ADR-0008 (DF) |
+| G28 | The capture build closes the sign-in window after a successful read and does not record the page address; the v0.2 capture session used an uncommitted build that kept it open and stamped the address. | Add a capture-only "keep open after a read" and address stamp in `ui/auth/` in a plan that owns that path. | v0.2.0 Phase 2 (NI) |
+| G29 | `.gitignore` does not ignore `__pycache__/`; running the capture scripts creates one under `app/src/capture/` (one was caught before a commit). The file is outside v0.2.0's write paths. | Add `__pycache__/` to `.gitignore`. | v0.2.0 Phase 2 (WN) |
+| G30 | The README "Page capture runbook" still copies captures with a plain `cat`; v0.2 streams them through `app/src/capture/sanitize_capture.py` and inspects them with `inspect_capture.py`. README is outside v0.2.0's write paths. | Update the runbook commands. | v0.2.0 Phase 2 (DF) |
+| G31 | A benefit reminder opens its card page by starting the app fresh (the intent clears the task), because `MainActivity` does not pass new intents on and was outside v0.2.0's write paths. | Handle `onNewIntent` in `MainActivity` and route to the card page without a restart. | v0.2.0 Phase 5 (NI) |
+| G32 | Card reading on the live Amex site rests on page behavior seen in captures but not yet on a live refresh: the card list must render fully within two reads 400 ms apart, a switch must replace the trackers or settle within 8 s, and a card with no trackers must settle for 6 s. Found by the Tier 3 deep pass; guarded in the page script. | Confirm on the owner's phone (manual checklist 1 to 3) and the diagnostics file's benefits lines. | v0.2.0 Phase 6 deep pass (DF) |
+| G33 | Period labels near their edges: a single-month label read in the next month (for example "Dec" read on Jan 2) resolves to the next December, and yearly labels ("Annual") are understood but the page script reports only month labels. Tiles skip ended periods and reminders need a period end within the lead time, so no wrong reminder results. | Adjust once a live capture shows such a label. | v0.2.0 Phase 6 deep pass (WN) |
 
 ## Fixed
 
 | ID | Gap | Fix |
 |---|---|---|
+| G24 | Private page captures sat unencrypted on the developer machine. | The 7 raw v0.1 captures were deleted (owner decision, 2026-11-12); the v0.2 captures were sanitized on the way to the PC (identifiers, query values, and account-key-shaped runs removed) and remain only in the gitignored folder. |

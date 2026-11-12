@@ -9,9 +9,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.webkit.WebViewAssetLoader
 import com.bendourthe.milestone.data.RoomAccountRepository
+import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.data.db.MileStoneDatabase
+import com.bendourthe.milestone.data.db.RoomCardRepository
 import com.bendourthe.milestone.data.session.TinkSessionStore
 import com.bendourthe.milestone.domain.AccountStatus
+import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsSpec
+import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.ExtractionSpec
 import com.bendourthe.milestone.domain.Program
@@ -20,6 +25,7 @@ import com.bendourthe.milestone.domain.SelectorStrategy
 import com.bendourthe.milestone.domain.SyncCapability
 import com.bendourthe.milestone.sync.webview.ActivityWebViewHost
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
+import com.bendourthe.milestone.sync.webview.HeadlessWebViewBenefitsSource
 import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
 import com.google.crypto.tink.Aead
 import kotlinx.coroutines.CoroutineScope
@@ -98,6 +104,54 @@ class HeadlessSyncFixtureTest {
         assertEquals(142_500L, account.balance)
         assertEquals(AccountStatus.CONNECTED, account.status)
         assertTrue(sessions.get("fixture")!!.lastVerifiedEpochMs > 1)
+    }
+
+    @Test
+    fun aRefreshStoresTheBalanceThenEveryCardsBenefits() = runBlocking {
+        lateinit var host: WebViewHost
+        scenario.onActivity { host = ActivityWebViewHost(it) }
+        val spec = BenefitsSpec(
+            entryUrl = "https://$HOST/assets/fixtures/benefits-rewards.html",
+            host = HOST,
+            paths = setOf("/assets/fixtures"),
+            selectors = StaticCatalogRepository.AMEX_BENEFITS.selectors + mapOf(
+                "activityLink" to "a[href*='benefits-activity']",
+                "activityPath" to "/assets/fixtures/benefits-activity",
+            ),
+        )
+        val withBenefits = program.copy(benefits = spec)
+        val cards = RoomCardRepository(db)
+        val intercept = { request: android.webkit.WebResourceRequest -> loader.shouldInterceptRequest(request.url) }
+        val manager = SyncManager(
+            accounts, sessions,
+            object : CatalogRepository {
+                override val programs = listOf(withBenefits)
+                override fun program(programId: String) = programs.firstOrNull { it.programId == programId }
+                override fun search(query: String) = programs
+            },
+            HeadlessWebViewBalanceSource(WebViewProfileBackend(), interceptor = intercept),
+            scope, host = { host },
+            benefitsSource = HeadlessWebViewBenefitsSource(WebViewProfileBackend(), interceptor = intercept),
+            cards = cards,
+        )
+        accounts.addAccount("fixture", AccountStatus.CONNECTED, 1)
+        sessions.markConnected("fixture", 1)
+
+        withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
+        assertEquals(142_500L, accounts.observeAccounts().first().single().balance)
+
+        val stored = withTimeout(120_000) {
+            cards.observeCards("fixture").first { list -> list.size == 3 && list.all { it.benefitsReadEpochMs != null } }
+        }
+        assertEquals(
+            listOf("71008" to "Fixture Platinum Card", "42005" to "Fixture Hotel Card", "33006" to "Fixture Basic Card"),
+            stored.map { it.lastDigits to it.name },
+        )
+        val platinum = cards.observeBenefits(CardKey("fixture", "71008")).first()
+        assertEquals(4, platinum.count { it.section != BenefitSection.LISTED })
+        assertEquals(3, platinum.count { it.section == BenefitSection.LISTED })
+        assertEquals(3, cards.observeBenefits(CardKey("fixture", "42005")).first().size)
+        assertEquals(0, cards.observeBenefits(CardKey("fixture", "33006")).first().size)
     }
 
     private object PassThroughAead : Aead {

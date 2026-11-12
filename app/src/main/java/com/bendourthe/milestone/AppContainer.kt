@@ -3,12 +3,19 @@ package com.bendourthe.milestone
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.bendourthe.milestone.data.RoomAccountRepository
+import com.bendourthe.milestone.data.db.RoomCardRepository
 import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.data.db.MileStoneDatabase
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.data.session.TinkSessionStore
 import com.bendourthe.milestone.data.settings.DataStoreSettingsRepository
 import com.bendourthe.milestone.domain.AccountRepository
+import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.ReminderSettings
+import com.bendourthe.milestone.sync.background.AndroidReminderNotifier
+import com.bendourthe.milestone.sync.background.BenefitReminderScheduler
+import com.bendourthe.milestone.sync.background.BenefitReminders
+import com.bendourthe.milestone.sync.background.PreferencesReminderSettings
 import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.SettingsRepository
@@ -16,6 +23,7 @@ import com.bendourthe.milestone.domain.usecase.ObserveDashboard
 import com.bendourthe.milestone.sync.SyncManager
 import com.bendourthe.milestone.sync.WebViewHost
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
+import com.bendourthe.milestone.sync.webview.HeadlessWebViewBenefitsSource
 import com.bendourthe.milestone.sync.webview.SessionProfiles
 import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
 import com.bendourthe.milestone.data.credentials.FileCredentialVault
@@ -53,8 +61,11 @@ class AppContainer(context: Context) {
     val database: MileStoneDatabase by lazy { MileStoneDatabase.create(appContext) }
     val catalog: CatalogRepository by lazy { StaticCatalogRepository() }
     val accounts: AccountRepository by lazy { RoomAccountRepository(database) }
+    val cards: CardRepository by lazy { RoomCardRepository(database) }
     val settings: SettingsRepository by lazy { DataStoreSettingsRepository(appContext.settingsStore) }
     val observeDashboard: ObserveDashboard by lazy { ObserveDashboard(accounts, catalog) }
+    val reminderSettings: ReminderSettings by lazy { PreferencesReminderSettings(appContext) }
+    val benefitReminders: BenefitReminders by lazy { BenefitReminders(cards, reminderSettings, AndroidReminderNotifier(appContext)) }
 
     val profiles = WebViewProfileBackend()
 
@@ -119,6 +130,8 @@ class AppContainer(context: Context) {
     val openRefreshes: Flow<Set<String>> = openRefreshDone.receiveAsFlow()
 
     suspend fun refreshOnOpen(summarize: Boolean) {
+        // Catches up a reminder check the phone missed; records keep it from repeating one already posted.
+        benefitReminders.check()
         vaultReady()
         var refreshed = emptyList<String>()
         syncManager.refreshAll(RefreshReason.ON_START) { refreshed = it }.join()
@@ -134,6 +147,8 @@ class AppContainer(context: Context) {
             canSignInAutomatically = ::canSignInAutomatically,
             onResult = ::onSyncResult,
             scheduledBefore = { now -> settings.refreshInterval.first().lastAt(now) },
+            benefitsSource = HeadlessWebViewBenefitsSource(profiles),
+            cards = cards,
         )
     }
 
@@ -150,15 +165,19 @@ class AppContainer(context: Context) {
         }
     }
 
-    /** Signing out also forgets the saved sign-in. */
+    /** Signing out also forgets the saved sign-in and the program's cards and benefits; the tile stays. */
     suspend fun signOut(programId: String) {
         syncManager.stop(programId)
         sessionProfiles.signOut(programId)
         vault.delete(programId)
+        syncManager.clearCards(programId)
     }
 
     init {
         vaultLoad.start()
+        // Benefit reminders: their channel and the daily check (refreshOnOpen catches up a day the phone missed).
+        AndroidReminderNotifier.createChannel(appContext)
+        BenefitReminderScheduler.schedule(appContext)
         // Also runs at every process start, which includes the one after a restart clears the alarm.
         scope.launch { settings.refreshInterval.collect { ScheduledRefreshScheduler.schedule(appContext, it) } }
     }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Rewards</title></head>
+<body>
+<header><div data-testid="context_switcher_container">
+  <button type="button" data-testid="simple_switcher_combobox" role="combobox" aria-expanded="false" onclick="toggleList(this)">
+    <div data-testid="simple_switcher_selected_option_display">
+      <span data-testid="simple_switcher_display_name">Fixture Hotel Card</span>
+      <span data-testid="simple_switcher_display_number"><span data-testid="simple_switcher_display_number_val">42005</span></span>
+    </div>
+  </button>
+  <div id="list"></div>
+</div>
+<script>
+  // Synthetic stand-in for Amex's switcher: the list exists only while open, like the real one.
+  function toggleList(box) {
+    var list = document.getElementById('list');
+    if (list.firstChild) { list.innerHTML = ''; box.setAttribute('aria-expanded', 'false'); return; }
+    box.setAttribute('aria-expanded', 'true');
+    list.innerHTML =
+      '<ul data-testid="simple_switcher_listbox" role="listbox">' +
+      '<li role="option" data-testid="simple_switcher_static_option_ALL"><span data-testid="simple_switcher_display_name">All accounts</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ABCDEFGHIJ123KL" onclick="location.href=\'benefits-rewards.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Platinum Card\u00AE</span>' +
+      '<span data-testid="simple_switcher_display_number_val">71008</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_ZYXWVUTSRQ987PO" onclick="location.href=\'benefits-rewards-2.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Hotel Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">42005</span></li>' +
+      '<li role="option" data-testid="simple_switcher_product_option_CARD_PRODUCT_QWERTYUIOP456AS" onclick="location.href=\'benefits-rewards-3.html\'">' +
+      '<span data-testid="simple_switcher_display_name">Fixture Basic Card</span>' +
+      '<span data-testid="simple_switcher_display_number_val">33006</span></li></ul>';
+  }
+</script>
+</header>
+<main>
+
+<h2>Track Your Progress</h2>
+<div data-testid="tracker-grid-component">
+  <div data-testid="container-$50-Hotel-Credit" role="group">
+  <h3 data-testid="heading-$50-Hotel-Credit"><span>$50 Hotel Credit</span></h3>
+  <div data-testid="progress-section-$50-Hotel-Credit">
+    <progress data-testid="linear-tracker-$50-Hotel-Credit" value="0" max="50"></progress>
+    <div data-testid="tracker-labels-$50-Hotel-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$0</span><span>earned</span><span>Jan - Mar</span></div>
+      <div data-testid="tracker-remaining-section"><span>$50 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-$50-Hotel-Credit"><span>Synthetic benefit description.</span></div>
+</div>
+  <div data-testid="container-Delta-Spend-Threshold" role="group">
+  <h3 data-testid="heading-Delta-Spend-Threshold"><span>Spend Threshold Bonus</span></h3>
+  <div data-testid="progress-section-Delta-Spend-Threshold">
+    <progress data-testid="linear-tracker-Delta-Spend-Threshold" value="0" max="5000"></progress>
+    <div data-testid="tracker-labels-Delta-Spend-Threshold">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$1,000</span><span>spent</span><span>Jan - Mar</span></div>
+      <div data-testid="tracker-remaining-section"><span>$4,000 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-Delta-Spend-Threshold"><span>Spend to earn a bonus.</span></div>
+</div>
+  <div data-testid="container-$100-Resort-Credit" role="group">
+  <h3 data-testid="heading-$100-Resort-Credit"><span>$100 Resort Credit</span></h3>
+  <div data-testid="progress-section-$100-Resort-Credit">
+    <progress data-testid="linear-tracker-$100-Resort-Credit" value="0" max="100"></progress>
+    <div data-testid="tracker-labels-$100-Resort-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$100</span><span>earned</span><span>Jul - Dec</span></div>
+      <div data-testid="tracker-remaining-section"><span>$0 to go</span></div>
+    </div>
+  </div><div data-testid="icon-check-wrapper-$100-Resort-Credit"><span data-testid="icon-check-$100-Resort-Credit"><svg role="img"><title>Completed</title></svg></span></div>
+  <div data-testid="description-$100-Resort-Credit"><span>Synthetic benefit description.</span></div>
+</div>
+</div>
+<h2>Card Benefits</h2>
+<div data-testid="benefitsContent"><p>Premium car rental protection</p></div>
+
+</main>
+</body></html>

@@ -11,3 +11,4 @@ Architecture decision records for MileStone are stored in this folder. Each reco
 | [ADR-0005](0005-sign-in-only-on-open-with-stop-reasons.md) | Password Sign-In Only When the App Opens, with Stop Reasons | Accepted |
 | [ADR-0006](0006-catalog-lists-programs-not-syncing-yet.md) | Catalog Lists Programs Not Syncing Yet | Superseded by ADR-0007 |
 | [ADR-0007](0007-catalog-filter-and-added-outline.md) | Catalog Filter, Added Outline, and One Card Style | Accepted |
+| [ADR-0008](0008-amex-benefits-card-navigation.md) | Amex Benefits Read, Card Navigation, and Benefit Pages | Accepted |

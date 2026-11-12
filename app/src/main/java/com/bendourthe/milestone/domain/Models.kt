@@ -35,6 +35,40 @@ enum class BalanceUnit(val typeLabel: String) {
     CASH_CENTS("Cash back"),
 }
 
+/**
+ * Where and how a program's card benefits are read (ADR-0008). [entryUrl] opens the read; card and benefit
+ * messages are accepted only from https pages on [host] whose path starts with one of [paths]. [selectors] are
+ * CSS selectors the page script reads by name (keys listed in [SELECTOR_KEYS]).
+ */
+data class BenefitsSpec(
+    val entryUrl: String,
+    val host: String,
+    val paths: Set<String>,
+    val selectors: Map<String, String>,
+) {
+    init {
+        require(entryUrl.startsWith("https://$host/")) { "benefits entryUrl must be https on $host" }
+        require(paths.isNotEmpty() && paths.all { it.startsWith("/") }) { "benefits paths must be absolute" }
+        require(selectors.keys == SELECTOR_KEYS) { "benefits selectors must be exactly $SELECTOR_KEYS" }
+    }
+
+    /** True only for an https address on [host] whose path is one of [paths] or below it. */
+    fun accepts(url: String?): Boolean {
+        val uri = runCatching { URI(url ?: return false) }.getOrNull() ?: return false
+        if (uri.scheme != "https" || uri.host != host || uri.port != -1) return false
+        val path = uri.rawPath.orEmpty()
+        return paths.any { path == it || path.startsWith("$it/") }
+    }
+
+    companion object {
+        val SELECTOR_KEYS = setOf(
+            "combobox", "option", "optionName", "optionDigits", "selected",
+            "tracker", "trackerHeading", "trackerSpent", "trackerSpentSection", "trackerRemaining", "trackerDone",
+            "trackerDescription", "listLink", "listMore", "listDescription", "activityLink", "activityPath",
+        )
+    }
+}
+
 sealed interface SyncCapability {
     data class Automatic(val spec: ExtractionSpec) : SyncCapability
     data class ManualOnly(val reason: String) : SyncCapability
@@ -59,6 +93,8 @@ data class Program(
     val textKeywords: Set<String> = emptySet(),
     /** The site's password sign-in also asks for the member's last name (Hyatt). */
     val asksLastName: Boolean = false,
+    /** Where the program's card benefits are read; null for programs without a Benefits tab entry. */
+    val benefits: BenefitsSpec? = null,
 ) {
     init {
         require(programId.isNotBlank()) { "programId is blank" }
