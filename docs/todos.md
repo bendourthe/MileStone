@@ -1,6 +1,6 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `feat/v0.1.0-milestone-android-app` (worktree), integrating into `develop`
+**Branch:** `develop` (v0.1.0 shipped and closed)
 
 **Version:** v0.1.0 (recorded in `CHANGELOG.md`)
 
@@ -13,7 +13,7 @@
 | Governance files present | yes | yes | 0 |
 | Commits on the feature branch | 75 | one per phase plus fixes | met |
 | Integration branch `develop` | present | present | 0 |
-| v0.1.0 plan phases complete | 9 of 10 | 10 of 10 | -1 (Phase 10: suite, commit, publication) |
+| v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -28,7 +28,7 @@
 
 - [x] State what MileStone does, in one sentence, before any application scaffold
 - [x] Move the app icon to `branding/MileStone-icon.jpg`
-- [x] Write, review, and approve the v0.1.0 plan: `docs/releases/v0/v0.1/plans/v0.1.0-milestone-android-app.md`
+- [x] Write, review, and approve the v0.1.0 plan: `docs/archives/v0/v0.1/plans/v0.1.0-milestone-android-app.md`
 
 ## Phase 2: v0.1.0 implementation
 
@@ -75,4 +75,4 @@
 
 ## Next minor (v0.2) candidates
 
-- [ ] Benefits tab: a v0.2 plan after v0.1 merges; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
+- [ ] Benefits tab: the next plan, in `docs/releases/v0/v0.2/plans/`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
