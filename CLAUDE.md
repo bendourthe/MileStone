@@ -24,4 +24,4 @@ develop+main. `main` is the release branch. `develop` is the integration branch.
 
 ## Docs
 
-Living docs stay in `docs/handbooks/`, `docs/decisions/`, `docs/README.md`, and `docs/todos.md`. Release work for v0.2 goes in `docs/releases/v0/v0.2/`; v0.1 is closed and its plan is archived in `docs/archives/v0/v0.1/`.
+Living docs stay in `docs/handbooks/`, `docs/decisions/`, `docs/README.md`, and `docs/todos.md`. Release work for v0.3 goes in `docs/releases/v0/v0.3/`; v0.1 and v0.2 are closed and their plans are archived in `docs/archives/v0/`.
