@@ -102,7 +102,9 @@ The current version is v0.1.0. It is recorded as the `0.1.0` heading in `CHANGEL
 | `docs/todos.md` | Living progress tracker |
 | `docs/handbooks/` | Living technical overview |
 | `docs/decisions/` | Architecture decision records, added when a decision is made |
-| `docs/releases/v0/v0.1/` | Active docs for version 0.1 (`plans/`, `comparisons/`) |
+| `docs/releases/v0/v0.2/` | Active docs for version 0.2 (`plans/`, `comparisons/`, `known-gaps.md`) |
+| `docs/releases/v0/v0.1/` | Closed v0.1 records kept active: release evidence, session histories, closed known gaps |
+| `docs/archives/v0/v0.1/` | Archived v0.1 plan and comparisons |
 
 ## Version control
 

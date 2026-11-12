@@ -9,6 +9,6 @@ Living documents describe the project as it is now. They stay in place across ve
 - `todos.md` is the progress tracker.
 - `DEVLOG.md` is the release index. It gains one row when a version is released. It has no rows yet.
 
-Release documents for the current version live in `releases/v0/v0.1/`. Plans go in `plans/`. Comparisons go in `comparisons/`. Closed release snapshots, when a version is later closed, go under `archives/` using the same version folders. That archive folder is not created until something is closed.
+Release documents for the current version live in `releases/v0/v0.2/`. Plans go in `plans/`. Comparisons go in `comparisons/`. When a version closes, its plans and comparisons move under `archives/` using the same version folders, while its known gaps, evidence, and histories stay in `releases/`: v0.1 is closed this way.
 
-v0.1.0 is recorded in the root `CHANGELOG.md`. It is not a shipped release, so `DEVLOG.md` does not list it.
+v0.1.0 shipped and is listed in `DEVLOG.md`; the root `CHANGELOG.md` is the authoritative record.
