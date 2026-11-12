@@ -4,7 +4,10 @@ import com.bendourthe.milestone.DiagnosticLog
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.AccountStatus
+import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.CatalogRepository
+import com.bendourthe.milestone.domain.assignBenefitKeys
 import com.bendourthe.milestone.domain.FailureReason
 import com.bendourthe.milestone.domain.LoyaltyAccount
 import com.bendourthe.milestone.domain.Program
@@ -45,6 +48,9 @@ class SyncManager(
     private val onResult: (programId: String, result: SyncResult, reason: RefreshReason?) -> Unit = { _, _, _ -> },
     /** The latest scheduled refresh time at or before the given time (the user's setting); older balances are due. */
     private val scheduledBefore: suspend (nowMs: Long) -> Long = { it },
+    /** Reads cards and benefits after a saved balance, for programs whose catalog entry has a benefits page. */
+    private val benefitsSource: BenefitsSource? = null,
+    private val cards: CardRepository? = null,
 ) {
     private val _state = MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap())
     val state: StateFlow<Map<String, ProgramSyncState>> = _state.asStateFlow()
@@ -53,6 +59,9 @@ class SyncManager(
     private val inFlight = mutableMapOf<String, Job>()
     private val inFlightReason = mutableMapOf<String, RefreshReason>()
     private val connecting = mutableMapOf<String, Job>()
+
+    /** At most one benefits read per program; guarded by the same lock as [inFlight]. */
+    private val benefitsJobs = mutableMapOf<String, Job>()
     private val lastManualRequest = mutableMapOf<String, Long>()
     private val permits = Semaphore(MAX_CONCURRENT_FETCHES)
 
@@ -75,6 +84,7 @@ class SyncManager(
                 if (result is SyncResult.Success) {
                     sessions.markConnected(programId, now)
                     sessionEnded -= programId
+                    catalog.program(programId)?.let { startBenefits(it, null) }
                 }
                 onResult(programId, result, null)
                 result
@@ -111,6 +121,7 @@ class SyncManager(
                 if (result is SyncResult.Success) {
                     sessions.markConnected(programId, now)
                     sessionEnded -= programId
+                    startBenefits(program, null)
                 }
                 onResult(programId, result, null)
             }
@@ -188,13 +199,85 @@ class SyncManager(
     }
 
     private fun jobsOf(programId: String): List<Job> = synchronized(inFlight) {
-        listOfNotNull(inFlight.remove(programId), connecting.remove(programId))
+        listOfNotNull(inFlight.remove(programId), connecting.remove(programId), benefitsJobs.remove(programId))
     }
 
-    /** Cancels every headless job, when the app leaves the foreground. */
+    /** Cancels every headless job, benefits reads included, when the app leaves the foreground. */
     fun cancelHeadless() {
-        val jobs = synchronized(inFlight) { inFlight.values.toList().also { inFlight.clear() } }
+        val jobs = synchronized(inFlight) {
+            (inFlight.values + benefitsJobs.values).toList().also {
+                inFlight.clear()
+                benefitsJobs.clear()
+            }
+        }
         jobs.forEach { it.cancel() }
+    }
+
+    /** Deletes the program's cards, benefits, and reminder records at Sign out, after [stop]; the account row stays. */
+    suspend fun clearCards(programId: String) {
+        val repository = cards ?: return
+        lock(programId).withLock { repository.deleteProgramCards(programId) }
+    }
+
+    /**
+     * Starts the program's benefits read as its own job after a saved balance (ADR-0008), unless this is the
+     * background keep-alive, the program has no benefits page, or a read for it is already running.
+     */
+    private fun startBenefits(program: Program, reason: RefreshReason?) {
+        if (reason == RefreshReason.KEEP_ALIVE || program.benefits == null || benefitsSource == null || cards == null) return
+        synchronized(inFlight) {
+            if (benefitsJobs[program.programId]?.isActive == true) return
+            val job = scope.launch(start = CoroutineStart.LAZY) { runBenefits(program) }
+            benefitsJobs[program.programId] = job
+            job.invokeOnCompletion { synchronized(inFlight) { if (benefitsJobs[program.programId] === job) benefitsJobs.remove(program.programId) } }
+            job.start()
+        }
+    }
+
+    private suspend fun runBenefits(program: Program) {
+        val source = benefitsSource ?: return
+        val read = try {
+            permits.withPermit {
+                val webViewHost = host() ?: return
+                withTimeout(BENEFITS_TIMEOUT_MS + BENEFITS_MARGIN_MS) { source.read(program, webViewHost, BENEFITS_TIMEOUT_MS) }
+            }
+        } catch (_: TimeoutCancellationException) {
+            DiagnosticLog.i(TAG, "Benefits read for ${program.programId} used its whole budget; stored benefits kept")
+            return
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            DiagnosticLog.w(TAG, "Benefits read for ${program.programId} failed: ${e.javaClass.simpleName}")
+            return
+        }
+        applyBenefits(program.programId, read)
+    }
+
+    /** Writes one benefits read under the program's lock: the card list, then each card that was read. */
+    internal suspend fun applyBenefits(programId: String, read: BenefitsRead) {
+        val repository = cards ?: return
+        lock(programId).withLock {
+            try {
+                val now = clock()
+                read.cards?.let { repository.applyCardList(programId, it, now) }
+                var applied = 0
+                read.benefits.forEach { (digits, drafts) ->
+                    if (!CardKey.isValidLastDigits(digits)) return@forEach
+                    val key = CardKey(programId, digits)
+                    repository.applyCardBenefits(key, assignBenefitKeys(key, drafts), now)
+                    applied++
+                }
+                DiagnosticLog.i(
+                    TAG,
+                    "Benefits for $programId: cards=${read.cards?.cards?.size ?: "none"} complete=${read.cards?.complete} " +
+                        "applied=$applied failed=${read.failed.size} stop=${read.stop ?: "none"}",
+                )
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                DiagnosticLog.w(TAG, "Benefits for $programId not saved: ${e.javaClass.simpleName}, ${read.benefits.size} cards")
+            }
+        }
     }
 
     /** The background keep-alive only reuses sessions; a saved password is typed with the app open or at the scheduled refresh. */
@@ -297,6 +380,7 @@ class SyncManager(
                 accounts.applySyncResult(programId, checked, clock())
                 if (checked is SyncResult.Success) {
                     if (sessions.get(programId) == null) sessions.markConnected(programId, clock()) else sessions.markVerified(programId, clock())
+                    startBenefits(program, reason)
                 }
                 onResult(programId, checked, reason)
             } catch (e: CancellationException) {
@@ -329,6 +413,10 @@ class SyncManager(
         const val MIN_INTERVAL_MS = 5 * 60_000L
         const val MAX_BACKOFF_MS = 6 * 60 * 60_000L
         const val MANUAL_REPEAT_WINDOW_MS = 10_000L
+
+        /** The whole benefits read: a first page plus one or two pages per card, each up to 30 s. */
+        const val BENEFITS_TIMEOUT_MS = 120_000L
+        private const val BENEFITS_MARGIN_MS = 5_000L
 
         /** Failures a second sign-in may fix (null is a plain sign-out); a refused password or a texted code never is. */
         fun isRetryable(reason: FailureReason?): Boolean = when (reason) {

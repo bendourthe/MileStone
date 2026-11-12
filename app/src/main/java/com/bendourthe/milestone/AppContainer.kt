@@ -18,6 +18,7 @@ import com.bendourthe.milestone.domain.usecase.ObserveDashboard
 import com.bendourthe.milestone.sync.SyncManager
 import com.bendourthe.milestone.sync.WebViewHost
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
+import com.bendourthe.milestone.sync.webview.HeadlessWebViewBenefitsSource
 import com.bendourthe.milestone.sync.webview.SessionProfiles
 import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
 import com.bendourthe.milestone.data.credentials.FileCredentialVault
@@ -137,6 +138,8 @@ class AppContainer(context: Context) {
             canSignInAutomatically = ::canSignInAutomatically,
             onResult = ::onSyncResult,
             scheduledBefore = { now -> settings.refreshInterval.first().lastAt(now) },
+            benefitsSource = HeadlessWebViewBenefitsSource(profiles),
+            cards = cards,
         )
     }
 
@@ -153,11 +156,12 @@ class AppContainer(context: Context) {
         }
     }
 
-    /** Signing out also forgets the saved sign-in. */
+    /** Signing out also forgets the saved sign-in and the program's cards and benefits; the tile stays. */
     suspend fun signOut(programId: String) {
         syncManager.stop(programId)
         sessionProfiles.signOut(programId)
         vault.delete(programId)
+        syncManager.clearCards(programId)
     }
 
     init {
