@@ -68,14 +68,16 @@ sealed interface BridgeMessage {
     data class Cards(val list: CardList) : BridgeMessage
 
     /**
-     * Benefits mode: one card's trackers and listed benefits, read on its activity or Rewards page. [ready] holds the
-     * page's count-only diagnostics, or null when the page sent none or sent them malformed.
+     * Benefits mode: one card's trackers and listed benefits, read on its activity, Rewards, or view-all page. [ready]
+     * holds the page's count-only diagnostics, or null when the page sent none or sent them malformed. [next] is
+     * `viewAll` when a Rewards page is about to open the card's view-all page (ADR-0008, 2026-11-12 amendment).
      */
     data class Benefits(
         val lastDigits: String,
         val page: String,
         val drafts: List<BenefitDraft>,
         val ready: PageDiagnostics? = null,
+        val next: String? = null,
     ) : BridgeMessage
 
     /** Benefits mode: the page could not be read; [why] is one of a fixed set of reasons, [ready] as for [Benefits]. */
@@ -156,10 +158,10 @@ object BridgeProtocol {
     private const val MAX_BENEFITS_MESSAGE = 256 * 1024
     private val BENEFITS_TYPES = setOf("cards", "benefits", "benefitsUnreadable")
     private val UNREADABLE_REASONS = setOf("timeout", "switch", "noSuchCard", "page")
-    private val PAGES = setOf("activity", "rewards")
+    private val PAGES = setOf("activity", "rewards", "viewAll")
     private val TOP_FIELDS = mapOf(
         "cards" to setOf("type", "nonce", "cards", "complete"),
-        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed", "ready"),
+        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed", "ready", "next"),
         "benefitsUnreadable" to setOf("type", "nonce", "why", "trackers", "switcher", "ready"),
     )
 
@@ -221,10 +223,12 @@ object BridgeProtocol {
             val listsOnRewards = page == "rewards" && (json["listed"] as? JsonArray)?.isNotEmpty() == true
             val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
             val ready = PageDiagnostics.parse(json["ready"])
+            // `next` is a control field: only `viewAll`, only from a Rewards page.
+            val next = json["next"]?.let { field -> (field as? JsonPrimitive)?.takeIf { it.isString && it.content == "viewAll" && page == "rewards" }?.content ?: return null }
             if (digits == null || page == null || drafts == null || listsOnRewards || ready?.kind?.let { it != pageKind } == true) {
                 null
             } else {
-                BridgeMessage.Benefits(digits, page, drafts, ready)
+                BridgeMessage.Benefits(digits, page, drafts, ready, next)
             }
         }
         else -> {

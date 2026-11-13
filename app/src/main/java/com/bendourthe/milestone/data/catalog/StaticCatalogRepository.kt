@@ -128,7 +128,7 @@ class StaticCatalogRepository : CatalogRepository {
         val AMEX_BENEFITS = BenefitsSpec(
             entryUrl = "https://global.americanexpress.com/rewards",
             host = "global.americanexpress.com",
-            paths = setOf("/rewards", "/card-benefits/activity"),
+            paths = setOf("/rewards", "/card-benefits/activity", "/card-benefits/view-all"),
             selectors = mapOf(
                 "combobox" to "[data-testid=simple_switcher_combobox]",
                 "option" to "[data-testid=simple_switcher_listbox] [role=option]",

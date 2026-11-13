@@ -524,7 +524,7 @@
   // ---- Benefits read mode (ADR-0008) ----------------------------------------------------------------------
   // Reads the card switcher's names and last digits, tracker containers, and benefits-list entries, each from a
   // named element given in the config. Presses only existing controls (the switcher, a card option, the page's own
-  // benefits-activity link). Never reads input values, cookies, storage, or link query strings, and strips
+  // benefits-activity or view-all link). Never reads input values, cookies, storage, or link query strings, and strips
   // identifier-like text before posting.
   var BENEFITS_STABLE_MS = 2000;
   var BENEFITS_SCAN_MS = 400;
@@ -744,7 +744,8 @@
       };
     }
 
-    function postBenefits(current, reason) {
+    // [next] is 'viewAll' when this Rewards page is about to open the card's view-all page.
+    function postBenefits(current, reason, next) {
       var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
       finish({
         type: 'benefits',
@@ -753,6 +754,7 @@
         trackers: trackers.slice(0, MAX_TRACKERS).map(readTracker),
         listed: kind === 'rewards' ? [] : readListed(),
         ready: ready(reason),
+        next: next,
         nonce: config.nonce,
       });
     }
@@ -868,6 +870,15 @@
           followedActivity = true;
           leaveNote('link');
           activity.click();
+          return;
+        }
+        // A card without an activity page lists its benefits on its view-all page (ADR-0008, 2026-11-12 amendment):
+        // post the trackers first, then open that page through the page's own link.
+        var viewAll = s.viewAllLink && document.querySelector(s.viewAllLink);
+        if (isReady && !activity && viewAll && config.secondPage !== false && !followedActivity) {
+          leaveNote('link');
+          postBenefits(current, trackerCount ? 'stable' : 'empty', 'viewAll');
+          viewAll.click();
           return;
         }
         if (followedActivity && !overPageCap) return;

@@ -74,3 +74,36 @@ A ready Rewards page follows its activity link when it has one and the app allow
 2. A new card starts only while at least 10 s remain; otherwise the read ends with the remaining cards unread, so their stored benefits stay.
 
 **Rejected alternative (B).** One fixed longer settle for every page was rejected: the activity page's marker (no activity link) and the Rewards page's marker (a view-all or activity link) were present in every capture, and a longer settle alone would still read the Rewards content under the activity address, because that content stays steady for longer than any reasonable settle.
+
+## Amendment 2026-11-12: the view-all page for cards without an activity page
+
+Origin: v0.3.0 plan, task 3.1 (T012). This amends the outcome: a third page is read.
+
+**Context.** The v0.3.0 capture record shows a "View all benefits" link on every card. On Platinum and Business Platinum the view-all page has the same structure as the activity page. On Hilton Surpass and Gold Delta SkyMiles it shows the card switcher, the selected card's own trackers, and a card-specific list (20 and 24 benefits) with no enrollment marks. Whether the bare `/card-benefits/view-all` address opens the selected card was not tested.
+
+**Options.**
+
+- **(A)** The source loads the bare `/card-benefits/view-all` address as a checked spec field. Rejected: untested, and a bare address may open the account's default card.
+- **(B) Chosen.** The page script presses the page's own view-all link, as it presses the activity link.
+- **(C)** A card whose Rewards page shows no view-all link keeps trackers only (the v0.2 behavior); it stays a known gap for that card.
+
+**Outcome.**
+
+- A ready Rewards page with an activity link follows it, as before; the activity page holds the full list.
+- A ready Rewards page with no activity link but a view-all link, when the app allows a second page, posts its trackers with the control field `next=viewAll` (a message field, not a diagnostics value), then presses the view-all link with a handoff note. The link may carry the account key in its query: the app never logs, stores, or forwards an address beyond its host, and matches pages by path only.
+- The app accepts `/card-benefits/view-all` on `global.americanexpress.com`. A view-all page is ready when its list is non-empty and differs in count from the page it was opened from, at the bottom, steady for 2 s (the table above). It posts its listed benefits with `page=viewAll`; the app takes only the listed benefits from it, because the trackers come from the Rewards page.
+- `next` is accepted only on a Rewards message with no listed benefits.
+
+**Per-card state.**
+
+| State | Message | Result |
+|---|---|---|
+| awaitingRewards | Rewards or activity benefits for the card | Stored as read (the activity page covers every section; a Rewards page alone covers the tracker sections); the card is complete. |
+| awaitingRewards | Rewards benefits with `next=viewAll` | Trackers held and stored for the tracker sections; state becomes awaitingViewAll for that message's last digits. |
+| awaitingViewAll | View-all benefits with the same digits | The list joins the held trackers; the card covers every section and is complete. An empty list replaces the stored one only with `reason=stable`; otherwise the list counts as unread. |
+| awaitingViewAll | View-all benefits with other digits | Dropped and logged as `switchMismatch`; the card keeps its stored list (listUnread). |
+| awaitingViewAll | Rewards or activity benefits | Dropped and counted (a late message from the first page). |
+| awaitingViewAll | Unreadable page, or no view-all message within that page's timeout plus 5 s | The list is unread; the card keeps its stored list and its new trackers, and is not counted as failed. |
+| any other | View-all benefits | Dropped and counted. |
+
+**Storage.** Each card read names the sections it covered: a Rewards page alone covers the tracker sections (spend progress, credits, completed, other); a list covers the listed section; an activity page, or Rewards plus view-all, covers all. Only those sections are replaced, in one transaction under the program's lock, so a read that reaches only part of a card's pages never erases what the other pages stored.

@@ -172,6 +172,34 @@ class BenefitsProtocolTest {
     }
 
     @Test
+    fun viewAllMessagesAreAcceptedOnlyOnTheViewAllPathAndHost() {
+        val viewAll = "https://global.americanexpress.com/card-benefits/view-all?account_key=x"
+        val json = benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"viewAll\"")
+        assertEquals("viewAll", (parse(json, viewAll) as BridgeMessage.Benefits).page)
+        listOf(
+            activity,
+            rewards,
+            "https://www.americanexpress.com/card-benefits/view-all",
+            "https://global.americanexpress.com/card-benefits/view-allx",
+            "http://global.americanexpress.com/card-benefits/view-all",
+        ).forEach { assertNull(it, parse(json, it)) }
+        val listedItem = """{"key":"k%d","title":"T","description":null,"enrollment":null}"""
+        val tooMany = (1..151).joinToString(",") { listedItem.format(it) }
+        assertNull(parse("""{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"viewAll","trackers":[],"listed":[$tooMany]}""", viewAll))
+    }
+
+    @Test
+    fun nextIsOnlyViewAllAndOnlyFromARewardsPage() {
+        val rewardsJson = """{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"rewards","trackers":[],"listed":[]%s}"""
+        assertNull((parse(rewardsJson.format("")) as BridgeMessage.Benefits).next)
+        assertEquals("viewAll", (parse(rewardsJson.format(",\"next\":\"viewAll\"")) as BridgeMessage.Benefits).next)
+        listOf(",\"next\":\"activity\"", ",\"next\":1", ",\"next\":true", ",\"next\":null", ",\"next\":{\"page\":\"viewAll\"}").forEach {
+            assertNull(it, parse(rewardsJson.format(it)))
+        }
+        assertNull(parse(benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"activity\",\"next\":\"viewAll\""), activity))
+    }
+
+    @Test
     fun anUnclassifiedPageIsAnUnreadableReason() {
         assertEquals(BridgeMessage.BenefitsUnreadable("page"), parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"page"}"""))
     }

@@ -1,6 +1,8 @@
 package com.bendourthe.milestone.sync
 
 import android.content.Context
+import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import androidx.activity.ComponentActivity
 import androidx.room.Room
 import androidx.test.core.app.ActivityScenario
@@ -32,6 +34,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -106,10 +109,8 @@ class HeadlessSyncFixtureTest {
         assertTrue(sessions.get("fixture")!!.lastVerifiedEpochMs > 1)
     }
 
-    @Test
-    fun aRefreshStoresTheBalanceThenEveryCardsBenefits() = runBlocking {
-        lateinit var host: WebViewHost
-        scenario.onActivity { host = ActivityWebViewHost(it) }
+    /** A manager whose benefits read goes through [intercept], over the synthetic Rewards, activity, and view-all pages. */
+    private fun benefitsManager(host: WebViewHost, intercept: (WebResourceRequest) -> WebResourceResponse?): Pair<SyncManager, RoomCardRepository> {
         val spec = BenefitsSpec(
             entryUrl = "https://$HOST/assets/fixtures/benefits-rewards.html",
             host = HOST,
@@ -124,7 +125,6 @@ class HeadlessSyncFixtureTest {
         )
         val withBenefits = program.copy(benefits = spec)
         val cards = RoomCardRepository(db)
-        val intercept = { request: android.webkit.WebResourceRequest -> loader.shouldInterceptRequest(request.url) }
         val manager = SyncManager(
             accounts, sessions,
             object : CatalogRepository {
@@ -137,24 +137,65 @@ class HeadlessSyncFixtureTest {
             benefitsSource = HeadlessWebViewBenefitsSource(WebViewProfileBackend(), interceptor = intercept),
             cards = cards,
         )
+        return manager to cards
+    }
+
+    private suspend fun storedAfter(cards: RoomCardRepository, afterEpochMs: Long) = withTimeout(120_000) {
+        cards.observeCards("fixture").first { list -> list.size == 3 && list.all { (it.benefitsReadEpochMs ?: 0) > afterEpochMs } }
+    }
+
+    private suspend fun sections(cards: RoomCardRepository, digits: String) =
+        cards.observeBenefits(CardKey("fixture", digits)).first().groupingBy { if (it.section == BenefitSection.LISTED) "listed" else "trackers" }.eachCount()
+
+    @Test
+    fun aRefreshStoresTheBalanceThenEveryCardsBenefits() = runBlocking {
+        lateinit var host: WebViewHost
+        scenario.onActivity { host = ActivityWebViewHost(it) }
+        val (manager, cards) = benefitsManager(host) { loader.shouldInterceptRequest(it.url) }
         accounts.addAccount("fixture", AccountStatus.CONNECTED, 1)
         sessions.markConnected("fixture", 1)
 
         withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
         assertEquals(142_500L, accounts.observeAccounts().first().single().balance)
 
-        val stored = withTimeout(120_000) {
-            cards.observeCards("fixture").first { list -> list.size == 3 && list.all { it.benefitsReadEpochMs != null } }
-        }
+        val stored = storedAfter(cards, 0)
         assertEquals(
             listOf("71008" to "Fixture Platinum Card", "42005" to "Fixture Hotel Card", "33006" to "Fixture Basic Card"),
             stored.map { it.lastDigits to it.name },
         )
-        val platinum = cards.observeBenefits(CardKey("fixture", "71008")).first()
-        assertEquals(4, platinum.count { it.section != BenefitSection.LISTED })
-        assertEquals(3, platinum.count { it.section == BenefitSection.LISTED })
-        assertEquals(3, cards.observeBenefits(CardKey("fixture", "42005")).first().size)
-        assertEquals(0, cards.observeBenefits(CardKey("fixture", "33006")).first().size)
+        assertEquals(mapOf("trackers" to 4, "listed" to 3), sections(cards, "71008"))
+        // The Hotel and Basic cards have no activity page: their Rewards trackers and their view-all lists are stored together.
+        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+        assertEquals(mapOf("listed" to 4), sections(cards, "33006"))
+    }
+
+    @Test
+    fun aFailingViewAllPageKeepsTheStoredListWhileTheTrackersUpdate() = runBlocking {
+        lateinit var host: WebViewHost
+        scenario.onActivity { host = ActivityWebViewHost(it) }
+        var failViewAll = false
+        val (manager, cards) = benefitsManager(host) { request ->
+            if (failViewAll && request.url.path.orEmpty().contains("benefits-view-all")) {
+                WebResourceResponse("text/html", "utf-8", 500, "Server Error", emptyMap(), "".byteInputStream())
+            } else {
+                loader.shouldInterceptRequest(request.url)
+            }
+        }
+        accounts.addAccount("fixture", AccountStatus.CONNECTED, 1)
+        sessions.markConnected("fixture", 1)
+
+        withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
+        val firstRead = storedAfter(cards, 0).maxOf { it.benefitsReadEpochMs!! }
+        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+
+        failViewAll = true
+        // The first read's job ends just after its last write; a refresh while it still runs would start no second read.
+        delay(2_000)
+        withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
+        storedAfter(cards, firstRead)
+        // The second read reached only the Rewards page: the trackers were replaced, the list from the first read stays.
+        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+        assertEquals(mapOf("listed" to 4), sections(cards, "33006"))
     }
 
     private object PassThroughAead : Aead {

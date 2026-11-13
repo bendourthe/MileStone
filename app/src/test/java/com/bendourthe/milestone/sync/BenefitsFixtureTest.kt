@@ -132,6 +132,24 @@ class BenefitsFixtureTest {
     )
 
     @Test
+    fun privateViewAllCapturesYieldTheirRecordedListAndEnrollment() = assertMeetsRecord(
+        mapOf(
+            "amex-view-all-platinum.html" to Recorded(emptyMap(), listed = 53, enrolled = 4),
+            "amex-view-all-business-platinum.html" to Recorded(emptyMap(), listed = 59, enrolled = 6),
+            "amex-view-all-hilton-surpass.html" to Recorded(emptyMap(), listed = 20),
+            "amex-view-all-delta-gold.html" to Recorded(emptyMap(), listed = 24),
+        ),
+    )
+
+    @Test
+    fun syntheticViewAllPageListsEveryEntryWithItsEnrollment() {
+        assertEquals(
+            listOf("fixture-lounge" to "Enrolled", "fixture-status" to "Enrollment Required", "fixture-night" to null, "fixture-protection" to null),
+            listed(page(SYNTHETIC, "benefits-view-all.html")!!),
+        )
+    }
+
+    @Test
     fun privateRewardsCapturesMeetTheirRecordedCountsWithoutAnActivityLink() {
         val captures = mapOf(
             "amex-rewards-hilton-surpass.html" to Recorded(mapOf(DONE to 1)),

@@ -122,7 +122,8 @@ class BenefitsBridgeFixtureTest {
         assertEquals(listOf("airline-fee-credit", "lounge-access", "purchase-protection"), listed.map { it.issuerKey })
         assertEquals(listOf(Enrollment.ENROLLMENT_REQUIRED, Enrollment.ENROLLED, null), listed.map { it.enrollment })
 
-        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005")
+        // The Hotel and Basic cards have no activity page; with no second page allowed they post their Rewards trackers.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005", secondPage = false)
         webView.post { webView.reload() }
         val second = next() as BridgeMessage.Benefits
         assertEquals("42005" to "rewards", second.lastDigits to second.page)
@@ -133,7 +134,7 @@ class BenefitsBridgeFixtureTest {
         )
 
         // A card with no trackers is a valid empty read, not a failure.
-        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "33006")
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "33006", secondPage = false)
         webView.post { webView.reload() }
         val third = next() as BridgeMessage.Benefits
         assertEquals("33006" to "rewards", third.lastDigits to third.page)
@@ -168,6 +169,25 @@ class BenefitsBridgeFixtureTest {
         assertEquals(listOf("\$50 Fixture Hotel Credit", "Fixture Free Night Bonus"), message.drafts.map { it.title })
         assertEquals(true, message.ready?.switched)
         assertFalse("the old card's trackers reached a message", raw.any { "Fixture Dining Credit" in it })
+    }
+
+    @Test
+    fun aCardWithoutAnActivityPagePostsItsTrackersThenItsViewAllList() = runBlocking {
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-2.html")
+
+        val rewards = next() as BridgeMessage.Benefits
+        assertEquals(Triple("42005", "rewards", "viewAll"), Triple(rewards.lastDigits, rewards.page, rewards.next))
+        assertEquals(3, rewards.drafts.size)
+
+        val viewAll = next() as BridgeMessage.Benefits
+        assertEquals("42005" to "viewAll", viewAll.lastDigits to viewAll.page)
+        val listed = viewAll.drafts.filter { it.section == BenefitSection.LISTED }
+        assertEquals(listOf("fixture-lounge", "fixture-status", "fixture-night", "fixture-protection"), listed.map { it.issuerKey })
+        assertEquals(listOf(Enrollment.ENROLLED, Enrollment.ENROLLMENT_REQUIRED, null, null), listed.map { it.enrollment })
+        assertEquals("Membership # earns synthetic status.", listed[1].description)
+        assertFalse("the membership decoy reached a message", raw.any { "987654321" in it })
+        assertFalse("an account key reached a message", raw.any { "account_key" in it })
     }
 
     private companion object {
