@@ -72,7 +72,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
                 item("empty") { Text("Amex shows no benefits for this card.", style = MaterialTheme.typography.bodyMedium) }
             }
             current.sections.forEach { section ->
-                item(section.section.name) {
+                item(section.category.name) {
                     Text(
                         section.title,
                         style = MaterialTheme.typography.titleMedium,

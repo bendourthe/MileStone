@@ -81,7 +81,7 @@ class BenefitsViewModelTest {
     }
 
     @Test
-    fun pageGroupsSectionsInTheIssuersOrderWithTheListLast() {
+    fun pageGroupsDisplayCategoriesWithoutLosingStoredDetails() {
         val drafts = listOf(
             BenefitDraft(BenefitSection.LISTED, "Purchase Protection", null, null, null, null, false, enrollment = Enrollment.ENROLLED, issuerKey = "pp"),
             BenefitDraft(BenefitSection.OTHER, "Other thing", null, null, null, null, false),
@@ -90,8 +90,10 @@ class BenefitsViewModelTest {
             BenefitDraft(BenefitSection.SPEND_PROGRESS, "Lounge", 1, 9, 10, null, false),
         )
         val page = BenefitsViewModel.page(card(now), assignBenefitKeys(key, drafts), now, zone, locale)
-        assertEquals(listOf("Spend progress", "Credits", "Completed", "Other", "All benefits"), page.sections.map { it.title })
-        assertEquals("Enrolled", page.sections.last().items.single().enrollment)
+        assertEquals(listOf("Welcome bonus", "Credits", "Spend trackers", "Other"), page.sections.map { it.title })
+        assertEquals("Enrolled", page.sections.last().items.single { it.title == "Purchase Protection" }.enrollment)
+        assertEquals(5, page.sections.sumOf { it.items.size })
+        assertTrue(page.sections.single { it.title == "Credits" }.items.any { it.title == "Done credit" && it.completed })
         assertEquals("…71008", page.digitsLabel)
     }
 }

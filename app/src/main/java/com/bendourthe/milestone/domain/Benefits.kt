@@ -208,3 +208,39 @@ interface CardRepository {
     /** Deletes reminder records whose period ended before [today]. */
     suspend fun pruneReminders(today: LocalDate)
 }
+
+/** Display groups are independent of issuer sections, which remain the storage/replacement boundary. */
+enum class BenefitsCategory(val title: String) {
+    WELCOME_BONUS("Welcome bonus"), CREDITS("Credits"), SPEND_TRACKERS("Spend trackers"), OTHER("Other")
+}
+
+data class WelcomeBonusSetup(
+    val spentCents: Long,
+    val targetCents: Long,
+    val deadline: LocalDate?,
+    val rewardLabel: String = "",
+) {
+    init {
+        require(spentCents >= 0 && targetCents > 0)
+        require(rewardLabel.length <= 120 && rewardLabel.none { it.isISOControl() })
+    }
+}
+
+data class BenefitsDisplayPreferences(
+    val completedLast: Boolean = false,
+    val collapsed: Set<BenefitsCategory> = setOf(BenefitsCategory.OTHER),
+    val acknowledged: Map<String, Long> = emptyMap(),
+    val welcomeBonus: WelcomeBonusSetup? = null,
+) {
+    fun isAcknowledged(alertId: String, successfulReadEpochMs: Long): Boolean =
+        acknowledged[alertId] == successfulReadEpochMs
+}
+
+/** On-device display preferences; acknowledgement never edits issuer benefits or reminder records. */
+interface BenefitsDisplaySettings {
+    fun observe(card: CardKey): Flow<BenefitsDisplayPreferences>
+    suspend fun setCompletedLast(card: CardKey, completedLast: Boolean)
+    suspend fun setCollapsed(card: CardKey, category: BenefitsCategory, collapsed: Boolean)
+    suspend fun acknowledge(card: CardKey, alertId: String, successfulReadEpochMs: Long)
+    suspend fun setWelcomeBonus(card: CardKey, setup: WelcomeBonusSetup?)
+}

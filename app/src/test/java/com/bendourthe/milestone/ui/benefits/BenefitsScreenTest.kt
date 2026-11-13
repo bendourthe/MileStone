@@ -128,7 +128,7 @@ class BenefitsScreenTest {
         seed()
         rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
         val list = rule.onNodeWithTag("cardBenefitsList")
-        listOf("Spend progress", "Credits", "Completed", "Other", "All benefits").forEach { list.performScrollToNode(hasText(it)) }
+        listOf("Welcome bonus", "Credits", "Spend trackers", "Other").forEach { list.performScrollToNode(hasText(it)) }
         list.performScrollToNode(hasText("\$4,770 earned · \$70,230 left"))
         list.performScrollToNode(hasText("No reminder for this credit"))
         list.performScrollToNode(hasText("Mystery Benefit"))

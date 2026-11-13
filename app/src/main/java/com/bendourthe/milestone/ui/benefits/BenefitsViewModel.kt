@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.Benefit
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsCategory
+import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
@@ -61,9 +63,10 @@ data class CardPageUi(
     val digitsLabel: String,
     val staleNote: String?,
     val sections: List<SectionUi>,
+    val preferences: BenefitsDisplayPreferences = BenefitsDisplayPreferences(),
 )
 
-data class SectionUi(val section: BenefitSection, val title: String, val items: List<BenefitUi>)
+data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
 
 data class BenefitUi(
     val key: String,
@@ -176,22 +179,15 @@ class BenefitsViewModel(
             )
         }
 
-        private val SECTION_TITLES = mapOf(
-            BenefitSection.SPEND_PROGRESS to "Spend progress",
-            BenefitSection.CREDIT_EARNED to "Credits",
-            BenefitSection.COMPLETED to "Completed",
-            BenefitSection.OTHER to "Other",
-            BenefitSection.LISTED to "All benefits",
-        )
-
-        fun page(card: Card, benefits: List<Benefit>, nowMs: Long, zone: ZoneId, locale: Locale) = CardPageUi(
+        fun page(card: Card, benefits: List<Benefit>, nowMs: Long, zone: ZoneId, locale: Locale,
+                 preferences: BenefitsDisplayPreferences = BenefitsDisplayPreferences()) = CardPageUi(
             name = card.name,
             digitsLabel = digitsLabel(card.lastDigits),
             staleNote = staleNote(card, nowMs, zone, locale),
-            sections = BenefitSection.entries.mapNotNull { section ->
-                benefits.filter { it.section == section }.takeIf { it.isNotEmpty() }
-                    ?.let { list -> SectionUi(section, SECTION_TITLES.getValue(section), list.map { item(it, locale) }) }
+            sections = BenefitsPresentation.groups(benefits, preferences.completedLast).map { (category, list) ->
+                SectionUi(category, category.title, list.map { item(it, locale) })
             },
+            preferences = preferences,
         )
 
         fun item(benefit: Benefit, locale: Locale): BenefitUi {
