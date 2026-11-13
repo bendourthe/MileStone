@@ -94,9 +94,9 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 - [ ] Phase 4: Architecture refactor, known gaps, CI/CD, and publication
 - [x] Phase 4 T007 follow-up: cap correction and 3 foreground live refreshes pass, with all card/category minimums in 75.97, 72.92, and 71.61 s.
 - [x] Phase 4 local gate: 356 JVM cases with no failures, 35/35 emulator tests, 8/8 private benefits cases, lint/build/coverage, and 280 handbook browser checks plus native handbook check. G44 and G45 are Fixed; G46 remains a historical warning.
-- [ ] Phase 4 remaining gates: owner site-count confirmation, current-session publication authority, integration, release, archive, and cleanup.
+- [ ] Phase 4 remaining gates: owner site-count confirmation, publication/integration, release, archive, and cleanup. Native approval resume and publication authorization are verified.
 - [x] v0.1/v0.2 audit: both tags/releases and green implementation PRs verified; v0.2 already fully archived.
-- [ ] v0.1 archive reconciliation: native whole-tree move and link repair prepared locally on chore/close-v0.1; integration remains pending.
+- [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop remains pending.
 
 ## Next plan candidates (after v0.3.0)
 

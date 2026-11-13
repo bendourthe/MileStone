@@ -1,0 +1,45 @@
+{
+  "recorded_utc": "2026-11-13T15:07:37.774531+00:00",
+  "session": "01a1d37f-6668-7320-839d-e434bdbd4721",
+  "native_resume_result": "RESUMED after genuine owner Continue message",
+  "native_authorize_exit": 0,
+  "native_context": "primary checkout; original signed record is rooted there",
+  "intended_feature_branch": "feat/v0.3.0-amex-benefits-extraction-fix",
+  "candidate_commit_before_metadata": "f48613afd1898dbcb481ca00cd80f43c258aad73",
+  "authorization": {
+    "authorization_prompt_sha256": "771dfc7ed38b5beaa52a9d213063fedb5cdf2ff2fd8aded3ae0dccb8260d08c4",
+    "bounds": [
+      null
+    ],
+    "class": "push-merge",
+    "consent_bound": [
+      null
+    ],
+    "counters_consumed": false,
+    "member": null,
+    "origin": "approved-plan",
+    "request": {
+      "push_remote_url": "https://github.com/bendourthe/MileStone.git",
+      "release_version": "v0.3.0",
+      "remote_url": "https://github.com/bendourthe/MileStone.git",
+      "repo": "bendourthe/MileStone",
+      "tag": "v0.3.0",
+      "target_branch": "develop"
+    },
+    "scope": {
+      "push_remote_url": "https://github.com/bendourthe/MileStone.git",
+      "release_version": "v0.3.0",
+      "remote_url": "https://github.com/bendourthe/MileStone.git",
+      "repo": "bendourthe/MileStone",
+      "source_branch": null,
+      "tag": "v0.3.0",
+      "target_branch": "develop"
+    },
+    "verification_and_spend_limits_unchanged": true
+  },
+  "limits": [
+    "Original approval bounds are preserved.",
+    "Owner Amex site-count comparison remains pending; user answered I will check later.",
+    "No publication, integration or release is claimed."
+  ]
+}

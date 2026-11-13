@@ -17,7 +17,7 @@ The initial read-only inventory found 116 plan-owned files, no empty directories
 | Generated handbook | Living generated output | One offline HTML reading/presentation output, deterministic builder, CI freshness check, real browser and review receipt. |
 | Handbook verification captures | Release evidence | Keep only the final proof directory. Earlier failure summaries and the ten reviewed-image hashes remain in handbook-render-findings.json. |
 | CHANGELOG, DEVLOG, todos | Living coordinator files | Apply phase deltas while preserving unreleased/in-progress labels. |
-| v0.1 archive reconciliation | Closed release snapshot | Native helper prepared whole-tree archive on isolated chore/close-v0.1, commit d8175df, zero newly broken links. Integration remains pending. |
+| v0.1 archive reconciliation | Closed release snapshot | Native helper prepared whole-tree archive on isolated chore/close-v0.1, commit d8175df, zero newly broken links. Combined locally into the feature candidate after checkpoint e4e2c11; publication to develop remains pending. |
 | v0.2 archive | Closed release snapshot | Already fully archived on develop; preserve historical content. |
 
 ## Findings
