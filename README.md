@@ -2,7 +2,12 @@
 
 MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that shows credit card, airline, and hotel loyalty balances on one dashboard. It is installed on the user's own phone as a signed APK; there is no Play Store listing and no server.
 
-## What's in v0.2.0
+## What's in v0.3.0
+
+- Amex benefits wait for each page and card switch, follow late activity links, and read View all benefits within one 2-minute deadline. A partial read preserves the other stored sections.
+- Count-only diagnostics and an offline engineering handbook support verification without storing private pages in Git.
+
+From v0.2.0:
 
 - A Benefits tab for American Express: one tile per card on the account, each with its next open credit and when it was last read. Each card opens a page with its spend progress, credits, completed benefits, and, for Platinum-type cards, the full benefits list with enrollment status. Cards are kept in step after every Amex refresh except the 15-minute keep-alive, and a card is identified on the phone by its last digits only.
 - Benefit reminders: one private notification when a card credit's period ends soon with money left; the lock screen shows no card details. A Settings switch turns them off.
@@ -93,7 +98,7 @@ Selector work for a program needs a copy of its real balance page. Captures hold
 
 ## Version
 
-The current version is v0.2.0. It is recorded as the `0.2.0` heading in `CHANGELOG.md` and as `versionName = "0.2.0"` (`versionCode = 2`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
+The current version is v0.3.0. It is recorded as the `0.3.0` heading in `CHANGELOG.md` and as `versionName = "0.3.0"` (`versionCode = 3`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
 
 ## Layout
 
@@ -111,9 +116,9 @@ The current version is v0.2.0. It is recorded as the `0.2.0` heading in `CHANGEL
 | `docs/todos.md` | Living progress tracker |
 | `docs/handbooks/` | Living technical overview |
 | `docs/decisions/` | Architecture decision records, added when a decision is made |
-| `docs/releases/v0/v0.2/` | Active docs for version 0.2 (`plans/`, `comparisons/`, `known-gaps.md`) |
-| `docs/releases/v0/v0.1/` | Closed v0.1 records kept active: release evidence, session histories, closed known gaps |
-| `docs/archives/v0/v0.1/` | Archived v0.1 plan and comparisons |
+| `docs/releases/v0/v0.3/` | Active v0.3 plans, evidence, and known gaps |
+| `docs/archives/v0/v0.2/` | Closed v0.2 plans, evidence, and known gaps |
+| `docs/archives/v0/v0.1/` | Closed v0.1 plans, evidence, and known gaps |
 
 ## Version control
 
