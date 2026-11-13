@@ -23,6 +23,7 @@ Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-be
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | v0.3.0 plan phases complete | 3 of 4 | 4 of 4 | 1 (Phase 4 in progress; T007 follow-up) |
 | Required Benefits redesign outcomes verified | 0 of 6 | 6 of 6 | 6 (required by owner; implementation pending) |
+| v0.4.0 search plan phases complete | 0 of 4 | 4 of 4 | 4 (planned; owner confirmed, implementation not started) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -115,6 +116,11 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 - [ ] Redundancy removal: display a listed benefit and its matching tracker once on the same card, retaining useful enrollment/description data without deleting stored issuer rows or merging distinct periods.
 - [ ] Related Benefits requirements: benefit/alert counts, Rewards-to-Benefits program navigation (G36), per-list freshness (G43), a generic empty message, and local manual welcome-bonus setup.
 - [ ] Delivery: exercise every interaction on a runnable synthetic screen, install with -r, obtain phone verification, and finish authorized integration/release/archive duties before closing the expanded goal.
+
+## Search Planning
+
+- [x] Review and finalize the [v0.4.0 global search plan](releases/v0/v0.4/plans/v0.4.0-global-search.md) (G37): owner confirmed the top search icon, added-programs-only corpus, contextual queries, and four-phase breakdown on 2026-11-13; all seven review lenses ran and their findings are resolved.
+- [ ] Implement the four-phase global search plan after its verified v0.3.1 presentation dependency is integrated; planning confirmation does not authorize implementation.
 
 ## Separate Refresh Work
 
