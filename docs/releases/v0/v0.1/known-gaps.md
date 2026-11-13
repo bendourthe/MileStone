@@ -1,6 +1,8 @@
 # v0.1 Known Gaps
 
-**Status**: Closed. v0.1.0 shipped; every open gap was carried to [v0.2 known gaps](../../../archives/v0/v0.2/known-gaps.md) with its ID unchanged.
+**Status**: Closed
+
+v0.1.0 shipped; every open gap was carried to [v0.2 known gaps](../../../archives/v0/v0.2/known-gaps.md) with its ID unchanged.
 
 **Open items**: 0
 
