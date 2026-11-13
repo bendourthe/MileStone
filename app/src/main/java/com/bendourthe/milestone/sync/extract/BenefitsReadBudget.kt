@@ -34,7 +34,7 @@ class BenefitsReadBudget(private val deadlineAt: Long) {
         const val MARGIN_MS = 2_000L
         const val MAX_PAGE_MS = 20_000L
         const val SECOND_PAGE_RESERVE_MS = 20_000L
-        const val FIRST_PAGE_RESERVE_MS = 15_000L
+        const val FIRST_PAGE_RESERVE_MS = 20_000L
         const val CARD_START_MIN_MS = 10_000L
     }
 }

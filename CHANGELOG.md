@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- A newly visible password refusal is classified at the existing sign-in page deadline instead of being lost as an unfinished sign-in.
+- Benefits pages wait for their own content, and a card switch waits for the new card's trackers, within one 2-minute benefits-read deadline. Rewards follows an available activity link at its readiness cap and waits within the page budget for a late lower section.
+- Hilton Surpass and Gold Delta SkyMiles read their full benefits list from the View all benefits page. A refresh that reaches only part of a card's pages keeps what the other pages stored.
+
+### Added
+
+- Offline product handbook with reading and presentation views, retained build sources, and a CI freshness check.
+- Count-only page, card, and total-time diagnostics for benefits reads.
+- The capture build keeps its window open after a read and shows a shortened page path. The capture runbook uses sanitization and structure-only inspection, and Python caches are ignored.
+
 ## [0.2.0] - 2026-11-12
 
 Adds a Benefits tab for American Express cards and reminders before a card credit expires. Everything stays on the phone.

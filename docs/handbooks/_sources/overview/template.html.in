@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="handbook-inputs-sha256" content="{{INPUT_HASH}}">
+  <title>{{TITLE}}</title>
+  <style>{{SHARED_CSS}}
+{{PROJECT_CSS}}</style>
+</head>
+<body>
+<div data-dv-page data-reading-theme="light" data-reading-depth="full">
+  <a class="skip-link" href="#handbook-content">Skip to reading content</a>
+  <header class="masthead">
+    <a class="wordmark" href="#handbook-title" aria-label="MileStone handbook home"><span aria-hidden="true" class="mark">M</span>MileStone<span class="wordmark-note">Engineering</span></a>
+    <div class="reading-controls js-only">
+      <label>Reading theme<select id="reading-theme"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label>Reading detail<select id="reading-depth"><option value="full">Full handbook</option><option value="overview">Repository overview</option></select></label>
+      <button type="button" data-dv-open>Presentation Mode</button>
+    </div>
+  </header>
+  <section class="hero" aria-labelledby="handbook-title">
+    <p class="eyebrow">Architecture / Runtime / Verification</p>
+    <h1 id="handbook-title">{{TITLE}}</h1>
+    <p class="hero-lede">{{SUBTITLE}}</p>
+    <div class="hero-actions"><button type="button" data-dv-open>Presentation Mode</button><a href="#handbook-content">Read the handbook <span aria-hidden="true">&#8595;</span></a></div>
+    <p class="hero-note">Complete sources in reading view. Eight-slide summary with full source detail available in Deep dive.</p>
+  </section>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="Handbook chapters"><p class="eyebrow">Contents</p>{{CONTENTS}}</nav>
+    <main id="handbook-content" tabindex="-1">{{READING}}</main>
+  </div>
+  <footer class="reading-footer">Offline handbook. No account data or external requests. Source Markdown and build instructions are in <a href="../README.md">the handbook index</a>.</footer>
+</div>
+<section data-dv-deck hidden data-depth="balanced" role="dialog" aria-modal="true" aria-label="MileStone presentation">
+  <div class="dv-stage">{{SLIDES}}</div>
+  <div data-dv-controls>
+    <button type="button" data-dv-prev aria-label="Previous slide">{{PREV_ICON}}<span>Previous</span></button>
+    <span data-dv-count aria-live="polite">1 / 8</span>
+    <button type="button" data-dv-next aria-label="Next slide"><span>Next</span>{{NEXT_ICON}}</button>
+    <label class="control-label">Chapter<select data-dv-picker aria-label="Presentation chapter"></select></label>
+    <label class="control-label">Theme<select id="presentation-theme"><option value="mixed">Mixed</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    <label class="control-label">Detail<select id="presentation-depth"><option value="concise">Concise</option><option value="balanced" selected>Balanced</option><option value="deep-dive">Deep dive</option></select></label>
+    <button type="button" data-dv-replay aria-label="Replay slide">{{REPLAY_ICON}}<span>Replay</span></button>
+    <button type="button" data-dv-fullscreen aria-label="Toggle fullscreen">{{FULLSCREEN_ICON}}<span>Fullscreen</span></button>
+    <button type="button" data-dv-exit aria-label="Return to reading">{{EXIT_ICON}}<span>Reading</span></button>
+    <p class="dv-status" data-dv-status role="status" aria-live="polite"></p>
+  </div>
+</section>
+<script type="application/json" id="handbook-record">{{RECORD}}</script>
+<script>{{SHARED_RUNTIME}}</script>
+<script>{{PROJECT_RUNTIME}}</script>
+</body>
+</html>

@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="handbook-inputs-sha256" content="73cafd06c1ce11ec86a4b831c08311b7a52a87e16cbc11e546046d5ed49d1bc1">
+  <title>MileStone Engineering Handbook</title>
+  <style>/* Namespaced mechanics; project authors retain composition and brand tokens. */
+[data-dv-deck][hidden], [data-dv-slide][hidden] { display: none !important; }
+[data-dv-open], [data-dv-chapter] { display: none; }
+[data-dv-ready] [data-dv-open], [data-dv-ready] [data-dv-chapter] { display: inline-flex; }
+[data-dv-deck] {
+  --dv-bg: #f5f3ec; --dv-fg: #15283c; --dv-muted: #45566a;
+  box-sizing: border-box; position: fixed; inset: 0; z-index: 1000;
+  width: 100%; height: 100dvh; color: var(--dv-fg); background: var(--dv-bg);
+  display: grid; grid-template-rows: minmax(0, 1fr) auto;
+  font: 1.125rem/1.45 system-ui, sans-serif;
+}
+[data-dv-deck][data-theme="dark"] { --dv-bg: #142235; --dv-fg: #f5f3ec; --dv-muted: #c2d1df; color-scheme: dark; }
+[data-dv-deck][data-theme="light"] { color-scheme: light; }
+[data-dv-deck] *, [data-dv-page] * { box-sizing: border-box; }
+.dv-stage { min-width: 0; min-height: 0; display: grid; }
+[data-dv-slide] {
+  min-width: 0; min-height: 0; padding: clamp(1rem, 3vw, 3rem);
+  display: flex; flex-direction: column; justify-content: center; gap: clamp(.5rem, 1.4vh, 1.5rem);
+  position: relative; background: var(--dv-bg); color: var(--dv-fg);
+}
+[data-dv-slide] h1, [data-dv-slide] h2 { font-size: clamp(1.5rem, 3vw, 3.5rem); line-height: 1.1; margin: 0; overflow-wrap: anywhere; }
+[data-dv-slide] p { margin: 0; }
+[data-dv-slide] input, [data-dv-slide] button, [data-dv-slide] select { font: inherit; min-height: 44px; max-width: 100%; }
+[data-dv-slide] button { align-self: flex-start; }
+[data-dv-slide] h2:focus, [data-dv-slide] h1:focus { outline: none; }
+[data-dv-slide] img { max-width: 100%; max-height: 42vh; object-fit: contain; }
+[data-dv-slide] svg { max-width: 100%; }
+[data-dv-controls] {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: .5rem; padding: .6rem; border-top: 1px solid currentColor;
+  background: var(--dv-bg); color: var(--dv-fg);
+}
+[data-dv-controls] button, [data-dv-controls] select {
+  color: inherit; background: transparent; border: 1px solid currentColor;
+  border-radius: .5rem; padding: .4rem .65rem; font: inherit; min-height: 44px;
+}
+[data-dv-controls] select { max-width: min(30vw, 16rem); }
+[data-dv-controls] button { display: inline-flex; align-items: center; gap: .3rem; }
+[data-dv-controls] button:disabled { opacity: .45; }
+[data-dv-controls] svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; }
+[data-dv-deck] :focus-visible, [data-dv-page] :focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
+[data-dv-native] { overflow: auto; scrollbar-width: thin; scrollbar-color: currentColor transparent; }
+[data-dv-page] { scrollbar-color: #52677b transparent; }
+[data-dv-page] [data-theme="dark"] { scrollbar-color: #c2d1df transparent; }
+[data-dv-native]::-webkit-scrollbar { width: 10px; height: 10px; }
+[data-dv-native]::-webkit-scrollbar-track { background: transparent; }
+[data-dv-native]::-webkit-scrollbar-thumb { background: var(--dv-muted, #52677b); border-radius: 1rem; }
+[data-dv-native]::-webkit-scrollbar-thumb:hover { background: currentColor; }
+[data-dv-slide] dialog { max-width: min(90vw, 60rem); max-height: 80dvh; color: inherit; background: var(--dv-bg); }
+@media (max-width: 760px) {
+  .dv-stage { overflow-y: auto; }
+  [data-dv-slide] { justify-content: flex-start; align-self: start; height: auto; min-height: 100%; }
+  [data-dv-slide] > * { flex-shrink: 0; }
+  [data-dv-controls] { gap: .25rem; }
+  [data-dv-controls] button { padding: .3rem; font-size: 1rem; }
+  [data-dv-controls] select { max-width: 40vw; }
+}
+@media (forced-colors: active) { [data-dv-native], [data-dv-page] { scrollbar-color: auto; } }
+@media (prefers-reduced-motion: reduce) { [data-dv-deck] *, [data-dv-page] * { animation: none !important; transition: none !important; } }
+@media print { [data-dv-deck], [data-dv-open], [data-dv-chapter], [data-dv-status] { display: none !important; } [data-dv-page] { display: block !important; } }
+
+:root { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 16px; line-height: 1.65; color: #151a2c; background: #f6f7fa; }
+html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+body { margin: 0; }
+button, select { font: inherit; }
+button, a, select { touch-action: manipulation; }
+button, select { min-height: 44px; }
+button { cursor: pointer; border: 1px solid currentColor; border-radius: .5rem; padding: .55rem .9rem; }
+button:disabled { cursor: default; }
+a { color: #155e67; text-underline-offset: .18em; overflow-wrap: anywhere; }
+[data-dv-page] { --page-bg: #f6f7fa; --page-fg: #151a2c; --page-muted: #43545c; --page-line: #b8ccce; --page-card: #fff; background: var(--page-bg); color: var(--page-fg); min-height: 100vh; }
+[data-dv-page][data-reading-theme="dark"] { --page-bg: #041d22; --page-fg: #e3f4f2; --page-muted: #9fc3c0; --page-line: #42686d; --page-card: #07292f; color-scheme: dark; }
+[data-reading-theme="dark"] a { color: #7edee8; }
+.js-only { display: none; }
+.js-ready .js-only { display: flex; }
+.skip-link { position: absolute; z-index: 2000; top: .5rem; left: .5rem; padding: .6rem 1rem; background: #fff; color: #041d22; transform: translateY(-180%); }
+.skip-link:focus { transform: none; }
+.masthead { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem clamp(1rem, 4vw, 4rem); background: #07292f; color: #e3f4f2; }
+.wordmark { display: inline-flex; gap: .65rem; align-items: center; font-size: 1.25rem; font-weight: 750; letter-spacing: -.03em; text-decoration: none; color: #e3f4f2 !important; }
+.mark { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 2px solid #2ee6a8; color: #2ee6a8; border-radius: .5rem; }
+.wordmark-note { font-size: .85rem; font-weight: 500; letter-spacing: .08em; padding-left: .6rem; border-left: 1px solid #7bafac; }
+.reading-controls { gap: .7rem; flex-wrap: wrap; align-items: end; }
+.reading-controls label, .control-label { display: grid; gap: .2rem; font-size: .78rem; line-height: 1.2; }
+.reading-controls select { color: #e3f4f2; background: #07292f; border: 1px solid #7bafac; border-radius: .4rem; padding: .25rem .5rem; }
+.reading-controls button, .hero button { color: #041d22; background: #2ee6a8; border-color: #2ee6a8; font-weight: 650; }
+.hero { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem) 2.5rem; border-bottom: 1px solid var(--page-line); }
+.eyebrow { color: var(--page-muted); font-size: .78rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+.hero h1 { max-width: 950px; margin: .6rem 0 1.2rem; font-size: clamp(2rem, 5.2vw, 4.6rem); line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; overflow-wrap: anywhere; }
+.hero-lede { max-width: 780px; font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.5; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.7rem; }
+.hero-note { font-size: .85rem; color: var(--page-muted); max-width: 740px; }
+.reading-layout { display: grid; grid-template-columns: 215px minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); max-width: 1180px; margin: 0 auto; padding: 2rem clamp(1rem, 3vw, 2rem) 4rem; }
+.contents { align-self: start; position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow: auto; padding-right: .5rem; scrollbar-width: thin; }
+.contents ul { list-style: none; margin: 0; padding: 0; }
+.contents li { margin: .35rem 0; }
+.contents a { display: block; padding: .35rem .5rem; border-left: 3px solid transparent; color: var(--page-muted); font-size: .9rem; line-height: 1.4; text-decoration: none; }
+.contents a[aria-current="location"] { border-color: #29b8cc; color: var(--page-fg); background: var(--page-card); }
+main { min-width: 0; }
+.source-document + .source-document { border-top: 2px solid var(--page-line); margin-top: 3rem; padding-top: 1rem; }
+.source-section { margin-bottom: 2.6rem; scroll-margin-top: 1rem; }
+.source-section h2, .source-section h3 { line-height: 1.25; letter-spacing: -.02em; text-wrap: balance; margin: 1rem 0; overflow-wrap: anywhere; }
+.source-section h2 { font-size: 1.9rem; }
+.source-section h3 { font-size: 1.45rem; }
+.source-section p { margin: .9rem 0; }
+.source-section li { padding-left: .15rem; margin: .6rem 0; }
+.chapter-entry { margin-top: .4rem; font-size: .85rem; background: var(--page-card); color: var(--page-fg); }
+.table-wrap { max-width: 100%; overflow: auto; scrollbar-width: thin; border: 1px solid var(--page-line); border-radius: .45rem; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+th, td { padding: .75rem; border-bottom: 1px solid var(--page-line); text-align: left; vertical-align: top; }
+th { background: var(--page-card); font-weight: 700; }
+tr:last-child td { border-bottom: 0; }
+code { font-size: .88em; background: var(--page-card); border: 1px solid var(--page-line); border-radius: .25rem; padding: .08em .25em; overflow-wrap: anywhere; }
+pre { padding: 1rem; background: var(--page-card); border: 1px solid var(--page-line); border-radius: .45rem; overflow: auto; font-size: .85rem; line-height: 1.5; }
+pre code { background: transparent; border: 0; padding: 0; white-space: pre; overflow-wrap: normal; }
+.reading-footer { max-width: 1180px; margin: 0 auto; padding: 1.5rem 2rem 3rem; border-top: 1px solid var(--page-line); color: var(--page-muted); font-size: .85rem; }
+[data-reading-depth="overview"] .technical, [data-reading-depth="overview"] .technical-link { display: none; }
+.dv-status { flex-basis: 100%; margin: 0; padding: .2rem .6rem; font-size: .875rem; text-align: center; color: inherit; }
+.dv-status:empty { display: none; }
+[data-dv-deck] { --dv-bg: #f6f7fa; --dv-fg: #151a2c; --dv-muted: #43545c; }
+[data-dv-deck][data-theme="dark"] { --dv-bg: #041d22; --dv-fg: #e3f4f2; --dv-muted: #9fc3c0; }
+[data-dv-deck][data-theme="dark"] a { color: #7edee8; }
+[data-dv-controls] { border-color: var(--dv-muted); gap: .55rem; }
+[data-dv-controls] select { max-width: 12rem; }
+[data-dv-controls] .control-label { font-size: .72rem; }
+[data-dv-slide] { padding: clamp(1.5rem, 4vw, 4.5rem); gap: clamp(.75rem, 2vh, 1.5rem); }
+.slide-kicker { color: var(--dv-muted); letter-spacing: .14em; font-size: .8rem; font-weight: 750; text-transform: uppercase; }
+[data-dv-slide] h2 { max-width: 1080px; font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -.035em; }
+.slide-lede { font-size: clamp(1.2rem, 2vw, 1.7rem); max-width: 980px; line-height: 1.4; }
+.slide-points { margin: 0; padding-left: 1.3em; max-width: 1030px; font-size: clamp(1.05rem, 1.6vw, 1.35rem); }
+.slide-points li { padding-left: .3rem; margin: .5rem 0; }
+.slide-points li::marker { color: #168471; }
+[data-theme="dark"] .slide-points li::marker { color: #2ee6a8; }
+.slide-sources { color: var(--dv-muted); font-size: .8rem; margin-top: auto !important; }
+.deep-source { display: none; min-height: 0; max-height: 49vh; overflow: auto; border: 1px solid var(--dv-muted); border-radius: .5rem; padding: .75rem 1.25rem; font-size: 1rem; scrollbar-gutter: stable; }
+.deep-source .source-section { margin-bottom: 1.3rem; }
+.deep-source h2, .deep-source h3 { font-size: 1.25rem; }
+.deep-source code, .deep-source pre, .deep-source th { background: transparent; }
+.deep-source .chapter-entry { display: none; }
+[data-dv-deck][data-depth="concise"] .slide-points, [data-dv-deck][data-depth="concise"] .deep-source { display: none; }
+[data-dv-deck][data-depth="deep-dive"] .slide-points { display: none; }
+[data-dv-deck][data-depth="deep-dive"] .deep-source { display: block; }
+@media (max-width: 1000px) { .masthead { align-items: flex-start; } .reading-controls { width: 100%; } [data-dv-controls] { gap: .3rem; font-size: 1rem; } }
+@media (max-width: 760px) { .reading-layout { grid-template-columns: minmax(0,1fr); padding-top: 1rem; } .contents { position: static; max-height: none; border-bottom: 1px solid var(--page-line); padding-bottom: 1rem; } .contents ul { display: flex; flex-wrap: wrap; gap: .2rem; } .contents li { margin: 0; } .contents a { border-left: 0; border-bottom: 2px solid transparent; padding: .35rem .45rem; } .contents a[aria-current="location"] { border-bottom-color: #29b8cc; } .wordmark-note { display: none; } [data-dv-slide] { padding: 1.5rem; } .deep-source { max-height: none; overflow: visible; } [data-dv-controls] .control-label { font-size: .7rem; } [data-dv-controls] button span { display: none; } [data-dv-controls] select { max-width: 7.5rem; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media print { :root { color-scheme: light; } .masthead, .contents, .hero-actions, .hero-note, .chapter-entry, .reading-footer, .skip-link { display: none !important; } [data-dv-page] { color: #000 !important; background: #fff !important; } [data-reading-depth="overview"] .technical { display: block !important; } .hero { padding: 0; } .reading-layout { display: block; padding: 0; } .table-wrap, pre { overflow: visible; } .source-section { break-inside: avoid-page; } a { color: #000 !important; } }
+</style>
+</head>
+<body>
+<div data-dv-page data-reading-theme="light" data-reading-depth="full">
+  <a class="skip-link" href="#handbook-content">Skip to reading content</a>
+  <header class="masthead">
+    <a class="wordmark" href="#handbook-title" aria-label="MileStone handbook home"><span aria-hidden="true" class="mark">M</span>MileStone<span class="wordmark-note">Engineering</span></a>
+    <div class="reading-controls js-only">
+      <label>Reading theme<select id="reading-theme"><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label>Reading detail<select id="reading-depth"><option value="full">Full handbook</option><option value="overview">Repository overview</option></select></label>
+      <button type="button" data-dv-open>Presentation Mode</button>
+    </div>
+  </header>
+  <section class="hero" aria-labelledby="handbook-title">
+    <p class="eyebrow">Architecture / Runtime / Verification</p>
+    <h1 id="handbook-title">MileStone Engineering Handbook</h1>
+    <p class="hero-lede">The Android app, its refresh flow, and the Amex benefits reader</p>
+    <div class="hero-actions"><button type="button" data-dv-open>Presentation Mode</button><a href="#handbook-content">Read the handbook <span aria-hidden="true">&#8595;</span></a></div>
+    <p class="hero-note">Complete sources in reading view. Eight-slide summary with full source detail available in Deep dive.</p>
+  </section>
+  <div class="reading-layout">
+    <nav class="contents" aria-label="Handbook chapters"><p class="eyebrow">Contents</p><ul><li class=""><a href="#overview-repository-overview">Repository Overview</a></li><li class=""><a href="#overview-toolchain">Toolchain</a></li><li class=""><a href="#overview-module-layout">Module Layout</a></li><li class=""><a href="#overview-runtime-flow">Runtime Flow</a></li><li class=""><a href="#overview-privacy-rules">Privacy Rules</a></li><li class=""><a href="#overview-tests">Tests</a></li><li class="technical-link"><a href="#benefits-amex-benefits-reader">Amex Benefits Reader</a></li><li class="technical-link"><a href="#benefits-page-kinds">Page Kinds</a></li><li class="technical-link"><a href="#benefits-readiness">Readiness</a></li><li class="technical-link"><a href="#benefits-card-switching">Card Switching</a></li><li class="technical-link"><a href="#benefits-run-budget">Run Budget</a></li><li class="technical-link"><a href="#benefits-storing-a-read">Storing a Read</a></li><li class="technical-link"><a href="#benefits-diagnostics">Diagnostics</a></li><li class="technical-link"><a href="#benefits-verification">Verification</a></li><li class="technical-link"><a href="#benefits-limits">Limits</a></li></ul></nav>
+    <main id="handbook-content" tabindex="-1"><div class="source-document" id="overview"><section class="source-section" id="overview-repository-overview" data-source-unit="overview-repository-overview">
+<h2>Repository Overview</h2>
+<p>MileStone is a native Android app (<code>com.bendourthe.milestone</code>) that shows the points, miles, and rewards cash of the user&#x27;s loyalty programs on one dashboard, and, for American Express, each card&#x27;s benefits on a Benefits tab. It reads each balance from the program&#x27;s own website inside an embedded browser (Android WebView) after the user signs in once, and keeps those sign-ins alive in the background. Nothing is entered by hand, and no server is involved: every balance, sign-in, and saved password stays on the phone.</p>
+<p>The remote <code>origin</code> is <code>https://github.com/bendourthe/MileStone.git</code>. <code>main</code> is the release branch and <code>develop</code> is the integration branch. The version is the latest heading in the root <code>CHANGELOG.md</code>.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="app">Present chapter</button></section>
+<section class="source-section" id="overview-toolchain" data-source-unit="overview-toolchain">
+<h3>Toolchain</h3>
+<ul><li>Kotlin, Jetpack Compose (Material 3), Gradle with a version catalog (<code>gradle/libs.versions.toml</code>).</li><li><code>compileSdk</code> 37, <code>targetSdk</code> 36, <code>minSdk</code> 29.</li><li>Build types: <code>debug</code>, <code>release</code>, and <code>capture</code>. <code>capture</code> is a debug copy with the suffix <code>.capture</code> and the label &quot;MileStone Capture&quot;; it adds a &quot;Capture page&quot; action that saves a page for selector work. Captures are copied to the PC through <code>app/src/capture/sanitize_capture.py</code>, which strips identifiers on the way, and inspected only through <code>inspect_capture.py</code>, which prints structure with text masked. CI never builds it (<a href="../../decisions/0001-login-bridge-sessions-fixtures-logging.md">ADR-0001</a>).</li><li>The <code>debug</code> build adds a &quot;Site check&quot; launcher entry (<code>app/src/debug</code>) for testing whether a program&#x27;s site works in the embedded browser.</li></ul>
+<p>Local gate, run from the repository root in PowerShell:</p>
+<pre><code class="language-powershell">.\gradlew.bat -q testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin</code></pre>
+<p>CI (<code>.github/workflows/ci.yml</code>) runs <code>./gradlew testDebugUnitTest lintDebug assembleDebug compileDebugAndroidTestKotlin</code> on Ubuntu with Java 17.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="refresh">Present chapter</button></section>
+<section class="source-section" id="overview-module-layout" data-source-unit="overview-module-layout">
+<h3>Module Layout</h3>
+<p>All code is in the single <code>app</code> module under <code>com.bendourthe.milestone</code>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Module Layout table"><table><thead><tr><th>Package</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>domain</code></td><td>Models (<code>Program</code>, <code>ExtractionSpec</code>, <code>BenefitsSpec</code>, <code>SyncResult</code>, <code>FailureReason</code>, <code>BalanceUnit</code>), card and benefit models with stable keys (<code>Benefits.kt</code>: a card is its program plus last digits; a benefit is its card plus title or the issuer&#x27;s list key plus period), <code>BenefitPeriods</code> (period labels to end dates), repository interfaces, catalog search, and the dashboard use case. No Android types.</td></tr><tr><td><code>data.catalog</code></td><td><code>StaticCatalogRepository</code>: the 14 programs, their hosts, sign-in and balance URLs, and fixture-verified XPath or CSS balance selectors, and for American Express the benefits pages and selectors (<code>AMEX_BENEFITS</code>, <a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>). Hosts come only from the feasibility record.</td></tr><tr><td><code>data.db</code></td><td>Room database version 3 (<code>loyalty_accounts</code>, <code>balance_snapshots</code>, <code>cards</code>, <code>benefits</code>, <code>benefit_reminders</code>; cards, benefits, and reminder records cascade from their account or card), <code>RoomCardRepository</code>, schema exports in <code>app/schemas/</code>.</td></tr><tr><td><code>data.session</code></td><td><code>TinkSessionStore</code>: encrypted per-program session metadata (connected and verified times), never cookies.</td></tr><tr><td><code>data.credentials</code></td><td><code>CredentialVault</code>: saved sign-ins sealed with AES-256-GCM under an Android Keystore key (StrongBox when available), one file per program in <code>noBackupFilesDir/signins</code> (<a href="../../decisions/0004-keep-alive-and-automatic-sign-in.md">ADR-0004</a>).</td></tr><tr><td><code>data.settings</code></td><td>DataStore preferences (sort mode).</td></tr><tr><td><code>sync</code></td><td><code>SyncManager</code>, the single writer of balances and statuses, with per-program throttle, backoff, and refresh reasons (<code>ON_START</code>, <code>MANUAL</code>, <code>KEEP_ALIVE</code>); <code>ForegroundSyncObserver</code> refreshes when the app opens.</td></tr><tr><td><code>sync.webview</code></td><td>The login bridge: <code>WebViewConfig</code> (hardened settings and a full-height layout, without which Chromium lays pages out with a zero viewport height and every <code>vh</code> length is 0), <code>HostPolicy</code> (exact-host allow list), <code>SessionProfiles</code> (one WebView profile and cookie store per program), <code>BridgeSession</code> (the page-state machine), <code>LoginBridge</code> (WebView glue), <code>HeadlessWebViewBalanceSource</code> (refresh without UI), <code>HeadlessWebViewBenefitsSource</code> (the benefits read, card by card), and <code>AutoSignInSupport</code>.</td></tr><tr><td><code>sync.extract</code></td><td><code>BridgeProtocol</code> (messages to and from the page script, with benefits messages accepted only from the catalog&#x27;s benefits pages), <code>BenefitsReader</code> (field checks, caps, and section rules), <code>BenefitAmountParser</code>, <code>PageStateClassifier</code>, and <code>BalanceParser</code>.</td></tr><tr><td><code>sync.mfa</code></td><td><code>OneTimeCodeInbox</code> and <code>SmsCodeReceiver</code>: texted sign-in codes held in memory for five minutes, matched by sender keywords, handed out once.</td></tr><tr><td><code>sync.background</code></td><td><code>KeepAliveScheduler</code>, <code>KeepAliveReceiver</code>, and <code>KeepAliveService</code> (a refresh every 15 minutes as a short <code>dataSync</code> foreground task), <code>ScheduledRefreshScheduler</code> (an alarm at the next scheduled midnight, allowed while the phone idles), <code>VirtualDisplayWebViewHost</code> (an off-screen WebView), <code>BenefitReminders</code> (the daily credit reminder check, its private notifications, and its 9:00 alarm), and the notification channels.</td></tr><tr><td><code>ui</code></td><td><code>MainActivity</code>, the navigation host (Rewards, Benefits, Settings), the dashboard, the Benefits tab and card pages (<code>ui.benefits</code>), the program catalog, settings, and the sign-in sheet (<code>AuthWebViewModal</code>, <code>AutoSignInDialog</code>). <code>ui.theme</code> holds the single dark teal color scheme and <code>AuroraBackground</code>, a slow animated gradient that stays still when system animations are off.</td></tr></tbody></table></div>
+<p><code>AppContainer</code> wires these together by hand; there is no dependency-injection framework.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="app">Present chapter</button></section>
+<section class="source-section" id="overview-runtime-flow" data-source-unit="overview-runtime-flow">
+<h3>Runtime Flow</h3>
+<ol><li>The user adds a program from the catalog and signs in inside <code>AuthWebViewModal</code>. The page script <code>app/src/main/assets/extract.js</code> runs only on the program&#x27;s exact hosts, reads the balance element named by the catalog selector, and posts it back; <code>SyncManager</code> stores it.</li><li><code>SyncManager</code> refreshes programs in a hidden WebView that reuses the program&#x27;s own cookie store. The user&#x27;s schedule in Settings (every day, every Sunday by default, or the last day of the month, each at midnight) sets an alarm that refreshes every balance older than that time and may sign in. Opening the app refreshes a program only when it was neither updated nor tried since that scheduled time; a failed program waits for the next scheduled time or the user&#x27;s Refresh. Every 15 minutes in the background, the keep-alive reads connected programs to keep their sessions alive. Reads share two fetch slots and sign-ins run one at a time; a sign-in the user just started skips that queue.</li><li>When a session has ended and the user saved an automatic sign-in, the hidden browser opens the program&#x27;s sign-in page directly (and skips the session read when the last one already found the session ended), and the page script fills the saved username and password, ticks &quot;remember this device&quot;, prefers a texted code, and enters a code that arrives by text. A site that asks for the username alone first gets the username, then at most one more fill on its password page. The script submits with the form&#x27;s Sign in or Continue button and never presses a show-password toggle. Passwords are typed when the user opens MileStone or at the scheduled refresh, never by the 15-minute keep-alive (<a href="../../decisions/0005-sign-in-only-on-open-with-stop-reasons.md">ADR-0005</a>). A sign-in counts as refused only when the site shows an error with its form; a form back without an error is unfinished and may be tried again. A refused password is never retried: automatic sign-in pauses for that program until the user taps Sign in or Refresh on its tile, which tries the saved sign-in once more and opens the site for the user if it stops again, or until a sign-in succeeds. A background refresh that needs the user posts a &quot;needs you&quot; notification.</li><li>Signing out or removing a program cancels its running refresh or sign-in, erases its WebView profile&#x27;s cookies and storage at once, and deletes its saved sign-in; a profile still held by a live WebView is deleted at the next app start.</li><li>After a saved American Express balance (not for the keep-alive), a separate benefits read opens the Amex Rewards page in the same profile. The page script reports the card switcher&#x27;s cards (names and last digits only), then presses the switcher option for each next card and follows the page&#x27;s own activity link for cards that have one. Cards without an activity page post their Rewards trackers before opening their own view-all link for the full list. Each page waits for its own content markers, scrolling to load lower sections and checking that counts and height have settled; after a switch, the new card&#x27;s trackers must replace the previous card&#x27;s. At the 15 s Rewards readiness cap, an available activity link is followed even while the page is still growing; a missing lower section can wait up to the app&#x27;s page timeout, at most 20 s. One deadline bounds the whole benefits read to 120 s, cutting second pages before leaving cards unread when time is short. The read never signs in and never reads an account key (<a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>). <code>SyncManager</code> replaces only the sections actually read: a failed view-all page keeps the previous list, and an unread card keeps its previous benefits. A card is removed only when a complete card list no longer shows it. Count-only diagnostics identify page kind, readiness, wait time, card index, and total read time. The Benefits tab shows one tile per card with its next open credit and freshness; a card page groups spend progress, credits, completed items, other items, and the full benefits list with enrollment status.</li><li>Once a day at 9:00 and when the app opens, the reminder check posts one private notification per statement credit and period when part of the credit is unused and its period ends within 7 days (monthly), 14 (quarterly), or 30 (half-year and yearly), never from benefits read more than 8 days ago and never twice for the same credit and period. Settings has a Benefit reminders switch, on by default.</li><li>Add program opens on programs not added yet, with a filter for Added and All programs; added programs carry a green outline. Programs whose sites do not work in the embedded browser cannot be added, and tapping one says so. Pulling the dashboard down asks &quot;Refresh all programs?&quot; before refreshing everything, since a full refresh can take minutes; the top refresh button refreshes at once. An added program&#x27;s menu offers Refresh, Sign out, and Remove; &quot;Open in app or browser&quot; was removed (<a href="../../decisions/0002-open-in-app-or-browser.md">ADR-0002</a>, <a href="../../decisions/0003-sync-only-catalog-and-reconnect.md">ADR-0003</a>, <a href="../../decisions/0007-catalog-filter-and-added-outline.md">ADR-0007</a>).</li></ol>
+<button type="button" class="chapter-entry" data-dv-chapter="refresh">Present chapter</button></section>
+<section class="source-section" id="overview-privacy-rules" data-source-unit="overview-privacy-rules">
+<h3>Privacy Rules</h3>
+<ul><li>Logs name programs and hosts only, never full URLs, page text, balances, cookies, passwords, or codes. <code>DiagnosticLog</code> also appends these lines to <code>no_backup/diagnostics.log</code> (capped at 512 KB), so a stop can be diagnosed after the phone&#x27;s log buffer rotates; on a debug build, read it with <code>adb shell run-as com.bendourthe.milestone cat no_backup/diagnostics.log</code>.</li><li>A card is identified on the phone by its last digits only. Full card numbers, account keys, and membership numbers are never stored, logged, or sent; the page script strips grouped digit runs, identifier-like tokens, and account-key-shaped runs before posting, and benefit reminders show only &quot;A card benefit expires soon&quot; on the lock screen.</li><li>Real captured pages live only in the gitignored <code>app/src/test/resources/fixtures-private/</code>; committed fixtures in <code>app/src/test/resources/fixtures/</code> are hand-written with fake balances.</li><li>Cloud backup and device transfer exclude every app data domain (<code>res/xml/backup_rules.xml</code>, <code>res/xml/data_extraction_rules.xml</code>), and the vault sits in <code>noBackupFilesDir</code>, which Android never backs up.</li></ul>
+<button type="button" class="chapter-entry" data-dv-chapter="privacy">Present chapter</button></section>
+<section class="source-section" id="overview-tests" data-source-unit="overview-tests">
+<h3>Tests</h3>
+<ul><li>Unit tests (<code>app/src/test</code>, Robolectric where Android types are needed) cover the catalog, Room and its migrations, cards and benefits storage, the vault, the code inbox, the bridge state machine and benefits protocol, <code>SyncManager</code> with its benefits read, period labels and reminders, the Benefits screens, and <code>ExtractorFixtureTest</code> and <code>BenefitsFixtureTest</code>, which run every selector against its synthetic fixture and, locally, its private capture.</li><li>Instrumented tests (<code>app/src/androidTest</code>) cover WebView configuration, headless sync and the benefits read against local fixtures (with identifier decoys), a reminder notification, and screenshots of the Benefits screens. Running them uninstalls the app, which clears every sign-in and saved password.</li></ul>
+<p>The <a href="#benefits">Amex benefits reader</a> companion describes page readiness, card switching, time limits, and section-scoped storage in more detail. Both sources are included in the <a href="overview.html">offline handbook</a>.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="verification">Present chapter</button></section></div>
+<div class="source-document technical" id="benefits"><section class="source-section" id="benefits-amex-benefits-reader" data-source-unit="benefits-amex-benefits-reader">
+<h2>Amex Benefits Reader</h2>
+<p>The benefits read starts after a saved American Express balance, in the same program profile. It reads cards and benefit sections from the site&#x27;s existing controls. It never signs in, composes an account-key URL, or fetches account data from another service.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="pages">Present chapter</button></section>
+<section class="source-section" id="benefits-page-kinds" data-source-unit="benefits-page-kinds">
+<h3>Page Kinds</h3>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Page Kinds table"><table><thead><tr><th>Page</th><th>Role</th><th>Successful result</th></tr></thead><tbody><tr><td>Rewards</td><td>Lists the cards and starts a card read</td><td>Follows the card&#x27;s activity link, or posts trackers before following its view-all link</td></tr><tr><td>Activity</td><td>Holds the full tracker set and list for cards that offer it</td><td>Stores every covered section for that card</td></tr><tr><td>View-all</td><td>Holds the full list for cards without an activity page</td><td>Joins the list to the Rewards trackers</td></tr></tbody></table></div>
+<p>Navigation presses the page&#x27;s own link or card-switcher option. The app accepts benefits messages only on the configured Amex host and page paths, with the expected message nonce and page kind.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="pages">Present chapter</button></section>
+<section class="source-section" id="benefits-readiness" data-source-unit="benefits-readiness">
+<h3>Readiness</h3>
+<p>The script scrolls to load lower sections. A shape is steady when tracker count, listed-link count, and page height stay unchanged for two seconds. A page with no trackers gets a longer empty settle.</p>
+<ul><li>Rewards requires an activity or view-all link, a reached bottom, and settled content. At its 15-second readiness cap, an available activity link is still followed. A missing lower section may wait up to the supplied page timeout, capped at 20 seconds.</li><li>Activity requires its own content: the Rewards activity link must be absent, and at least one tracker or listed link must exist. Rewards content under an activity address is never accepted as an activity read.</li><li>View-all requires listed content whose count differs from the page it was opened from, then bottom and settle checks. A capped empty list does not erase the previous list.</li></ul>
+<p>Before pressing a link, the script leaves a document-local handoff note. An in-place address change adopts that note; a full document load drops it. After pressing an activity link, the script waits for navigation or a bounded unreadable result instead of posting partial Rewards trackers.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="pages">Present chapter</button></section>
+<section class="source-section" id="benefits-card-switching" data-source-unit="benefits-card-switching">
+<h3>Card Switching</h3>
+<p>The selected card must match the target, and its tracker fingerprint must be nonempty and different from the previous card&#x27;s. The fingerprint stays inside the script and is never posted. An emptied tracker area is not proof that the new card has loaded.</p>
+<p>The switch cap is 12 seconds. A settled empty tracker area with the right markers may become an empty read after that cap. Old trackers still on screen produce a mismatch, preserving the stored card rather than assigning another card&#x27;s trackers to it.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="switch">Present chapter</button></section>
+<section class="source-section" id="benefits-run-budget" data-source-unit="benefits-run-budget">
+<h3>Run Budget</h3>
+<p>One deadline covers the whole 120-second benefits read, with margins for script and app cleanup. Each page gets at most 20 seconds and cannot extend the shared deadline.</p>
+<p>At a card&#x27;s first page, the scheduler reserves 20 seconds for its possible second page and 20 seconds for every remaining first page, including the current one. If that time is unavailable, it cuts second pages for this and all later cards. If fewer than 10 seconds remain for another card to start, it leaves that card unread. These cuts preserve stored sections that were not reached.</p>
+<p>The 20-second first-page reserve includes a late Rewards lower section. Reserving only 15 seconds could spend time on an earlier activity page and leave the last card unread.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="budget">Present chapter</button></section>
+<section class="source-section" id="benefits-storing-a-read" data-source-unit="benefits-storing-a-read">
+<h3>Storing a Read</h3>
+<p><code>BenefitsCardReads</code> records which sections a card&#x27;s pages covered. Rewards alone covers tracker sections. A successful view-all adds the listed section. An activity page covers every section. A failed or mismatched view-all keeps the new trackers and the previous stored list.</p>
+<p><code>SyncManager</code> sends those section sets to <code>RoomCardRepository</code>. The repository deletes and replaces only those sections in a transaction under the program lock. A failed card keeps its previous benefits. Cards disappear only when a complete card list no longer contains them.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="storage">Present chapter</button></section>
+<section class="source-section" id="benefits-diagnostics" data-source-unit="benefits-diagnostics">
+<h3>Diagnostics</h3>
+<p>Benefits diagnostics hold fixed page kinds, bounded counts, readiness reasons, wait times, card indexes, and the run total. They do not hold benefit text, amounts, card digits, account keys, page queries, or sign-in values. Card outcomes distinguish read, unread-list, and mismatch results; a read outcome alone does not prove that every benefit was loaded.</p>
+<p>Card freshness alone does not prove that its list was refreshed: trackers can be new while a failed list keeps its older contents. The visible per-list freshness note is tracked separately from the extraction fix.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="privacy">Present chapter</button></section>
+<section class="source-section" id="benefits-verification" data-source-unit="benefits-verification">
+<h3>Verification</h3>
+<p>Synthetic WebView fixtures exercise late lower sections, in-place address changes, card switching, view-all navigation, and failed-list preservation. JVM tests cover the protocol, budget, card-read transitions, and real Room section replacement. Private-capture tests run locally, and their contents are never committed or printed.</p>
+<p>Instrumented tests run on the emulator only. Running them on the owner&#x27;s phone uninstalls the app and clears sign-ins. Live phone verification uses <code>adb install -r</code>, keeps the app in the foreground, and records only per-card section counts, enrollment counts, diagnostics, and read times. The database copy used for counts is deleted immediately afterward.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="verification">Present chapter</button></section>
+<section class="source-section" id="benefits-limits" data-source-unit="benefits-limits">
+<h3>Limits</h3>
+<p>The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation, automatic retry policy, benefit sorting and grouping, and alert presentation belong to separate work. The architecture decision is <a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>.</p>
+<button type="button" class="chapter-entry" data-dv-chapter="verification">Present chapter</button></section></div></main>
+  </div>
+  <footer class="reading-footer">Offline handbook. No account data or external requests. Source Markdown and build instructions are in <a href="../README.md">the handbook index</a>.</footer>
+</div>
+<section data-dv-deck hidden data-depth="balanced" role="dialog" aria-modal="true" aria-label="MileStone presentation">
+  <div class="dv-stage"><section data-dv-slide="app" data-theme="dark" data-default-theme="dark" aria-label="1. MileStone" hidden><p class="slide-kicker">MileStone / 01</p><h2>MileStone</h2><p class="slide-lede">One Android app for rewards balances and Amex card benefits.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Reads each program&#x27;s own website in a WebView.</li><li data-dv-animate="process" data-dv-step="1">Stores sign-ins and rewards data on the phone.</li><li data-dv-animate="process" data-dv-step="2">Uses one app module with domain, data, sync, and UI packages.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-app-overview-repository-overview" data-source-unit="overview-repository-overview">
+<h2>Repository Overview</h2>
+<p>MileStone is a native Android app (<code>com.bendourthe.milestone</code>) that shows the points, miles, and rewards cash of the user&#x27;s loyalty programs on one dashboard, and, for American Express, each card&#x27;s benefits on a Benefits tab. It reads each balance from the program&#x27;s own website inside an embedded browser (Android WebView) after the user signs in once, and keeps those sign-ins alive in the background. Nothing is entered by hand, and no server is involved: every balance, sign-in, and saved password stays on the phone.</p>
+<p>The remote <code>origin</code> is <code>https://github.com/bendourthe/MileStone.git</code>. <code>main</code> is the release branch and <code>develop</code> is the integration branch. The version is the latest heading in the root <code>CHANGELOG.md</code>.</p>
+</section>
+<section class="source-section" id="slide-app-overview-module-layout" data-source-unit="overview-module-layout">
+<h3>Module Layout</h3>
+<p>All code is in the single <code>app</code> module under <code>com.bendourthe.milestone</code>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Module Layout table"><table><thead><tr><th>Package</th><th>Responsibility</th></tr></thead><tbody><tr><td><code>domain</code></td><td>Models (<code>Program</code>, <code>ExtractionSpec</code>, <code>BenefitsSpec</code>, <code>SyncResult</code>, <code>FailureReason</code>, <code>BalanceUnit</code>), card and benefit models with stable keys (<code>Benefits.kt</code>: a card is its program plus last digits; a benefit is its card plus title or the issuer&#x27;s list key plus period), <code>BenefitPeriods</code> (period labels to end dates), repository interfaces, catalog search, and the dashboard use case. No Android types.</td></tr><tr><td><code>data.catalog</code></td><td><code>StaticCatalogRepository</code>: the 14 programs, their hosts, sign-in and balance URLs, and fixture-verified XPath or CSS balance selectors, and for American Express the benefits pages and selectors (<code>AMEX_BENEFITS</code>, <a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>). Hosts come only from the feasibility record.</td></tr><tr><td><code>data.db</code></td><td>Room database version 3 (<code>loyalty_accounts</code>, <code>balance_snapshots</code>, <code>cards</code>, <code>benefits</code>, <code>benefit_reminders</code>; cards, benefits, and reminder records cascade from their account or card), <code>RoomCardRepository</code>, schema exports in <code>app/schemas/</code>.</td></tr><tr><td><code>data.session</code></td><td><code>TinkSessionStore</code>: encrypted per-program session metadata (connected and verified times), never cookies.</td></tr><tr><td><code>data.credentials</code></td><td><code>CredentialVault</code>: saved sign-ins sealed with AES-256-GCM under an Android Keystore key (StrongBox when available), one file per program in <code>noBackupFilesDir/signins</code> (<a href="../../decisions/0004-keep-alive-and-automatic-sign-in.md">ADR-0004</a>).</td></tr><tr><td><code>data.settings</code></td><td>DataStore preferences (sort mode).</td></tr><tr><td><code>sync</code></td><td><code>SyncManager</code>, the single writer of balances and statuses, with per-program throttle, backoff, and refresh reasons (<code>ON_START</code>, <code>MANUAL</code>, <code>KEEP_ALIVE</code>); <code>ForegroundSyncObserver</code> refreshes when the app opens.</td></tr><tr><td><code>sync.webview</code></td><td>The login bridge: <code>WebViewConfig</code> (hardened settings and a full-height layout, without which Chromium lays pages out with a zero viewport height and every <code>vh</code> length is 0), <code>HostPolicy</code> (exact-host allow list), <code>SessionProfiles</code> (one WebView profile and cookie store per program), <code>BridgeSession</code> (the page-state machine), <code>LoginBridge</code> (WebView glue), <code>HeadlessWebViewBalanceSource</code> (refresh without UI), <code>HeadlessWebViewBenefitsSource</code> (the benefits read, card by card), and <code>AutoSignInSupport</code>.</td></tr><tr><td><code>sync.extract</code></td><td><code>BridgeProtocol</code> (messages to and from the page script, with benefits messages accepted only from the catalog&#x27;s benefits pages), <code>BenefitsReader</code> (field checks, caps, and section rules), <code>BenefitAmountParser</code>, <code>PageStateClassifier</code>, and <code>BalanceParser</code>.</td></tr><tr><td><code>sync.mfa</code></td><td><code>OneTimeCodeInbox</code> and <code>SmsCodeReceiver</code>: texted sign-in codes held in memory for five minutes, matched by sender keywords, handed out once.</td></tr><tr><td><code>sync.background</code></td><td><code>KeepAliveScheduler</code>, <code>KeepAliveReceiver</code>, and <code>KeepAliveService</code> (a refresh every 15 minutes as a short <code>dataSync</code> foreground task), <code>ScheduledRefreshScheduler</code> (an alarm at the next scheduled midnight, allowed while the phone idles), <code>VirtualDisplayWebViewHost</code> (an off-screen WebView), <code>BenefitReminders</code> (the daily credit reminder check, its private notifications, and its 9:00 alarm), and the notification channels.</td></tr><tr><td><code>ui</code></td><td><code>MainActivity</code>, the navigation host (Rewards, Benefits, Settings), the dashboard, the Benefits tab and card pages (<code>ui.benefits</code>), the program catalog, settings, and the sign-in sheet (<code>AuthWebViewModal</code>, <code>AutoSignInDialog</code>). <code>ui.theme</code> holds the single dark teal color scheme and <code>AuroraBackground</code>, a slow animated gradient that stays still when system animations are off.</td></tr></tbody></table></div>
+<p><code>AppContainer</code> wires these together by hand; there is no dependency-injection framework.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="refresh" data-theme="light" data-default-theme="light" aria-label="2. Program Refresh" hidden><p class="slide-kicker">MileStone / 02</p><h2>Program Refresh</h2><p class="slide-lede">A refresh reuses the program&#x27;s own profile and saved session.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Scheduled and attended refreshes may use a saved sign-in.</li><li data-dv-animate="process" data-dv-step="1">The 15-minute keep-alive does not type passwords.</li><li data-dv-animate="process" data-dv-step="2">A visible refusal pauses automatic sign-in; an unfinished form remains a distinct stop.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-refresh-overview-toolchain" data-source-unit="overview-toolchain">
+<h3>Toolchain</h3>
+<ul><li>Kotlin, Jetpack Compose (Material 3), Gradle with a version catalog (<code>gradle/libs.versions.toml</code>).</li><li><code>compileSdk</code> 37, <code>targetSdk</code> 36, <code>minSdk</code> 29.</li><li>Build types: <code>debug</code>, <code>release</code>, and <code>capture</code>. <code>capture</code> is a debug copy with the suffix <code>.capture</code> and the label &quot;MileStone Capture&quot;; it adds a &quot;Capture page&quot; action that saves a page for selector work. Captures are copied to the PC through <code>app/src/capture/sanitize_capture.py</code>, which strips identifiers on the way, and inspected only through <code>inspect_capture.py</code>, which prints structure with text masked. CI never builds it (<a href="../../decisions/0001-login-bridge-sessions-fixtures-logging.md">ADR-0001</a>).</li><li>The <code>debug</code> build adds a &quot;Site check&quot; launcher entry (<code>app/src/debug</code>) for testing whether a program&#x27;s site works in the embedded browser.</li></ul>
+<p>Local gate, run from the repository root in PowerShell:</p>
+<pre><code class="language-powershell">.\gradlew.bat -q testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin</code></pre>
+<p>CI (<code>.github/workflows/ci.yml</code>) runs <code>./gradlew testDebugUnitTest lintDebug assembleDebug compileDebugAndroidTestKotlin</code> on Ubuntu with Java 17.</p>
+</section>
+<section class="source-section" id="slide-refresh-overview-runtime-flow" data-source-unit="overview-runtime-flow">
+<h3>Runtime Flow</h3>
+<ol><li>The user adds a program from the catalog and signs in inside <code>AuthWebViewModal</code>. The page script <code>app/src/main/assets/extract.js</code> runs only on the program&#x27;s exact hosts, reads the balance element named by the catalog selector, and posts it back; <code>SyncManager</code> stores it.</li><li><code>SyncManager</code> refreshes programs in a hidden WebView that reuses the program&#x27;s own cookie store. The user&#x27;s schedule in Settings (every day, every Sunday by default, or the last day of the month, each at midnight) sets an alarm that refreshes every balance older than that time and may sign in. Opening the app refreshes a program only when it was neither updated nor tried since that scheduled time; a failed program waits for the next scheduled time or the user&#x27;s Refresh. Every 15 minutes in the background, the keep-alive reads connected programs to keep their sessions alive. Reads share two fetch slots and sign-ins run one at a time; a sign-in the user just started skips that queue.</li><li>When a session has ended and the user saved an automatic sign-in, the hidden browser opens the program&#x27;s sign-in page directly (and skips the session read when the last one already found the session ended), and the page script fills the saved username and password, ticks &quot;remember this device&quot;, prefers a texted code, and enters a code that arrives by text. A site that asks for the username alone first gets the username, then at most one more fill on its password page. The script submits with the form&#x27;s Sign in or Continue button and never presses a show-password toggle. Passwords are typed when the user opens MileStone or at the scheduled refresh, never by the 15-minute keep-alive (<a href="../../decisions/0005-sign-in-only-on-open-with-stop-reasons.md">ADR-0005</a>). A sign-in counts as refused only when the site shows an error with its form; a form back without an error is unfinished and may be tried again. A refused password is never retried: automatic sign-in pauses for that program until the user taps Sign in or Refresh on its tile, which tries the saved sign-in once more and opens the site for the user if it stops again, or until a sign-in succeeds. A background refresh that needs the user posts a &quot;needs you&quot; notification.</li><li>Signing out or removing a program cancels its running refresh or sign-in, erases its WebView profile&#x27;s cookies and storage at once, and deletes its saved sign-in; a profile still held by a live WebView is deleted at the next app start.</li><li>After a saved American Express balance (not for the keep-alive), a separate benefits read opens the Amex Rewards page in the same profile. The page script reports the card switcher&#x27;s cards (names and last digits only), then presses the switcher option for each next card and follows the page&#x27;s own activity link for cards that have one. Cards without an activity page post their Rewards trackers before opening their own view-all link for the full list. Each page waits for its own content markers, scrolling to load lower sections and checking that counts and height have settled; after a switch, the new card&#x27;s trackers must replace the previous card&#x27;s. At the 15 s Rewards readiness cap, an available activity link is followed even while the page is still growing; a missing lower section can wait up to the app&#x27;s page timeout, at most 20 s. One deadline bounds the whole benefits read to 120 s, cutting second pages before leaving cards unread when time is short. The read never signs in and never reads an account key (<a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>). <code>SyncManager</code> replaces only the sections actually read: a failed view-all page keeps the previous list, and an unread card keeps its previous benefits. A card is removed only when a complete card list no longer shows it. Count-only diagnostics identify page kind, readiness, wait time, card index, and total read time. The Benefits tab shows one tile per card with its next open credit and freshness; a card page groups spend progress, credits, completed items, other items, and the full benefits list with enrollment status.</li><li>Once a day at 9:00 and when the app opens, the reminder check posts one private notification per statement credit and period when part of the credit is unused and its period ends within 7 days (monthly), 14 (quarterly), or 30 (half-year and yearly), never from benefits read more than 8 days ago and never twice for the same credit and period. Settings has a Benefit reminders switch, on by default.</li><li>Add program opens on programs not added yet, with a filter for Added and All programs; added programs carry a green outline. Programs whose sites do not work in the embedded browser cannot be added, and tapping one says so. Pulling the dashboard down asks &quot;Refresh all programs?&quot; before refreshing everything, since a full refresh can take minutes; the top refresh button refreshes at once. An added program&#x27;s menu offers Refresh, Sign out, and Remove; &quot;Open in app or browser&quot; was removed (<a href="../../decisions/0002-open-in-app-or-browser.md">ADR-0002</a>, <a href="../../decisions/0003-sync-only-catalog-and-reconnect.md">ADR-0003</a>, <a href="../../decisions/0007-catalog-filter-and-added-outline.md">ADR-0007</a>).</li></ol>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="pages" data-theme="dark" data-default-theme="dark" aria-label="3. Benefits Pages" hidden><p class="slide-kicker">MileStone / 03</p><h2>Benefits Pages</h2><p class="slide-lede">Rewards leads to the card&#x27;s activity page or its view-all list.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Scroll and settle checks wait for the page&#x27;s own content.</li><li data-dv-animate="process" data-dv-step="1">An available activity link wins over a partial Rewards post at the readiness cap.</li><li data-dv-animate="process" data-dv-step="2">A late lower section can wait within the supplied 20-second page maximum.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-pages-benefits-amex-benefits-reader" data-source-unit="benefits-amex-benefits-reader">
+<h2>Amex Benefits Reader</h2>
+<p>The benefits read starts after a saved American Express balance, in the same program profile. It reads cards and benefit sections from the site&#x27;s existing controls. It never signs in, composes an account-key URL, or fetches account data from another service.</p>
+</section>
+<section class="source-section" id="slide-pages-benefits-page-kinds" data-source-unit="benefits-page-kinds">
+<h3>Page Kinds</h3>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Page Kinds table"><table><thead><tr><th>Page</th><th>Role</th><th>Successful result</th></tr></thead><tbody><tr><td>Rewards</td><td>Lists the cards and starts a card read</td><td>Follows the card&#x27;s activity link, or posts trackers before following its view-all link</td></tr><tr><td>Activity</td><td>Holds the full tracker set and list for cards that offer it</td><td>Stores every covered section for that card</td></tr><tr><td>View-all</td><td>Holds the full list for cards without an activity page</td><td>Joins the list to the Rewards trackers</td></tr></tbody></table></div>
+<p>Navigation presses the page&#x27;s own link or card-switcher option. The app accepts benefits messages only on the configured Amex host and page paths, with the expected message nonce and page kind.</p>
+</section>
+<section class="source-section" id="slide-pages-benefits-readiness" data-source-unit="benefits-readiness">
+<h3>Readiness</h3>
+<p>The script scrolls to load lower sections. A shape is steady when tracker count, listed-link count, and page height stay unchanged for two seconds. A page with no trackers gets a longer empty settle.</p>
+<ul><li>Rewards requires an activity or view-all link, a reached bottom, and settled content. At its 15-second readiness cap, an available activity link is still followed. A missing lower section may wait up to the supplied page timeout, capped at 20 seconds.</li><li>Activity requires its own content: the Rewards activity link must be absent, and at least one tracker or listed link must exist. Rewards content under an activity address is never accepted as an activity read.</li><li>View-all requires listed content whose count differs from the page it was opened from, then bottom and settle checks. A capped empty list does not erase the previous list.</li></ul>
+<p>Before pressing a link, the script leaves a document-local handoff note. An in-place address change adopts that note; a full document load drops it. After pressing an activity link, the script waits for navigation or a bounded unreadable result instead of posting partial Rewards trackers.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="switch" data-theme="light" data-default-theme="light" aria-label="4. Card Switching" hidden><p class="slide-kicker">MileStone / 04</p><h2>Card Switching</h2><p class="slide-lede">The selected card and its tracker content must both change correctly.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Press the existing card-switcher option.</li><li data-dv-animate="process" data-dv-step="1">Carry a document-local note across an in-place address change.</li><li data-dv-animate="process" data-dv-step="2">Reject old trackers instead of assigning them to the next card.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-switch-benefits-card-switching" data-source-unit="benefits-card-switching">
+<h3>Card Switching</h3>
+<p>The selected card must match the target, and its tracker fingerprint must be nonempty and different from the previous card&#x27;s. The fingerprint stays inside the script and is never posted. An emptied tracker area is not proof that the new card has loaded.</p>
+<p>The switch cap is 12 seconds. A settled empty tracker area with the right markers may become an empty read after that cap. Old trackers still on screen produce a mismatch, preserving the stored card rather than assigning another card&#x27;s trackers to it.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="budget" data-theme="dark" data-default-theme="dark" aria-label="5. Read Deadline" hidden><p class="slide-kicker">MileStone / 05</p><h2>Read Deadline</h2><p class="slide-lede">The complete benefits read shares one 120-second deadline.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">A page gets at most 20 seconds within the remaining budget.</li><li data-dv-animate="process" data-dv-step="1">Reserve the full first-page maximum before allowing a second page.</li><li data-dv-animate="process" data-dv-step="2">Cut second pages before leaving later cards unread; once cut, later second pages stay cut.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-budget-benefits-run-budget" data-source-unit="benefits-run-budget">
+<h3>Run Budget</h3>
+<p>One deadline covers the whole 120-second benefits read, with margins for script and app cleanup. Each page gets at most 20 seconds and cannot extend the shared deadline.</p>
+<p>At a card&#x27;s first page, the scheduler reserves 20 seconds for its possible second page and 20 seconds for every remaining first page, including the current one. If that time is unavailable, it cuts second pages for this and all later cards. If fewer than 10 seconds remain for another card to start, it leaves that card unread. These cuts preserve stored sections that were not reached.</p>
+<p>The 20-second first-page reserve includes a late Rewards lower section. Reserving only 15 seconds could spend time on an earlier activity page and leave the last card unread.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="storage" data-theme="light" data-default-theme="light" aria-label="6. Section Storage" hidden><p class="slide-kicker">MileStone / 06</p><h2>Section Storage</h2><p class="slide-lede">Replace only the benefit sections that the read actually covered.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Rewards supplies trackers; view-all supplies the full list.</li><li data-dv-animate="process" data-dv-step="1">A failed list read keeps the prior list and the newly read trackers.</li><li data-dv-animate="process" data-dv-step="2">Room applies section replacement transactionally under the program lock.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-storage-benefits-storing-a-read" data-source-unit="benefits-storing-a-read">
+<h3>Storing a Read</h3>
+<p><code>BenefitsCardReads</code> records which sections a card&#x27;s pages covered. Rewards alone covers tracker sections. A successful view-all adds the listed section. An activity page covers every section. A failed or mismatched view-all keeps the new trackers and the previous stored list.</p>
+<p><code>SyncManager</code> sends those section sets to <code>RoomCardRepository</code>. The repository deletes and replaces only those sections in a transaction under the program lock. A failed card keeps its previous benefits. Cards disappear only when a complete card list no longer contains them.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="privacy" data-theme="light" data-default-theme="light" aria-label="7. Privacy" hidden><p class="slide-kicker">MileStone / 07</p><h2>Privacy</h2><p class="slide-lede">Only named fields are read, and diagnostics remain count-only.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">Exact host and path checks, a nonce, and message-field checks guard the bridge.</li><li data-dv-animate="process" data-dv-step="1">Account keys, full card numbers, cookies, and sign-in data stay out of diagnostics.</li><li data-dv-animate="process" data-dv-step="2">Private captures stay local; notifications use private lock-screen text.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-privacy-overview-privacy-rules" data-source-unit="overview-privacy-rules">
+<h3>Privacy Rules</h3>
+<ul><li>Logs name programs and hosts only, never full URLs, page text, balances, cookies, passwords, or codes. <code>DiagnosticLog</code> also appends these lines to <code>no_backup/diagnostics.log</code> (capped at 512 KB), so a stop can be diagnosed after the phone&#x27;s log buffer rotates; on a debug build, read it with <code>adb shell run-as com.bendourthe.milestone cat no_backup/diagnostics.log</code>.</li><li>A card is identified on the phone by its last digits only. Full card numbers, account keys, and membership numbers are never stored, logged, or sent; the page script strips grouped digit runs, identifier-like tokens, and account-key-shaped runs before posting, and benefit reminders show only &quot;A card benefit expires soon&quot; on the lock screen.</li><li>Real captured pages live only in the gitignored <code>app/src/test/resources/fixtures-private/</code>; committed fixtures in <code>app/src/test/resources/fixtures/</code> are hand-written with fake balances.</li><li>Cloud backup and device transfer exclude every app data domain (<code>res/xml/backup_rules.xml</code>, <code>res/xml/data_extraction_rules.xml</code>), and the vault sits in <code>noBackupFilesDir</code>, which Android never backs up.</li></ul>
+</section>
+<section class="source-section" id="slide-privacy-benefits-diagnostics" data-source-unit="benefits-diagnostics">
+<h3>Diagnostics</h3>
+<p>Benefits diagnostics hold fixed page kinds, bounded counts, readiness reasons, wait times, card indexes, and the run total. They do not hold benefit text, amounts, card digits, account keys, page queries, or sign-in values. Card outcomes distinguish read, unread-list, and mismatch results; a read outcome alone does not prove that every benefit was loaded.</p>
+<p>Card freshness alone does not prove that its list was refreshed: trackers can be new while a failed list keeps its older contents. The visible per-list freshness note is tracked separately from the extraction fix.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section>
+<section data-dv-slide="verification" data-theme="dark" data-default-theme="dark" aria-label="8. Verification" hidden><p class="slide-kicker">MileStone / 08</p><h2>Verification</h2><p class="slide-lede">Unit, WebView, and live checks prove different parts of the flow.</p><ul class="slide-points"><li data-dv-animate="process" data-dv-step="0">JVM tests cover protocol, budget, state, and section replacement.</li><li data-dv-animate="process" data-dv-step="1">Emulator fixtures drive the real script and bridge.</li><li data-dv-animate="process" data-dv-step="2">Phone checks record fresh per-card counts and read times without account text.</li></ul><div class="deep-source" data-dv-native tabindex="0" role="region" aria-label="Full source detail; scroll to read"><section class="source-section" id="slide-verification-overview-tests" data-source-unit="overview-tests">
+<h3>Tests</h3>
+<ul><li>Unit tests (<code>app/src/test</code>, Robolectric where Android types are needed) cover the catalog, Room and its migrations, cards and benefits storage, the vault, the code inbox, the bridge state machine and benefits protocol, <code>SyncManager</code> with its benefits read, period labels and reminders, the Benefits screens, and <code>ExtractorFixtureTest</code> and <code>BenefitsFixtureTest</code>, which run every selector against its synthetic fixture and, locally, its private capture.</li><li>Instrumented tests (<code>app/src/androidTest</code>) cover WebView configuration, headless sync and the benefits read against local fixtures (with identifier decoys), a reminder notification, and screenshots of the Benefits screens. Running them uninstalls the app, which clears every sign-in and saved password.</li></ul>
+<p>The <a href="#benefits">Amex benefits reader</a> companion describes page readiness, card switching, time limits, and section-scoped storage in more detail. Both sources are included in the <a href="overview.html">offline handbook</a>.</p>
+</section>
+<section class="source-section" id="slide-verification-benefits-verification" data-source-unit="benefits-verification">
+<h3>Verification</h3>
+<p>Synthetic WebView fixtures exercise late lower sections, in-place address changes, card switching, view-all navigation, and failed-list preservation. JVM tests cover the protocol, budget, card-read transitions, and real Room section replacement. Private-capture tests run locally, and their contents are never committed or printed.</p>
+<p>Instrumented tests run on the emulator only. Running them on the owner&#x27;s phone uninstalls the app and clears sign-ins. Live phone verification uses <code>adb install -r</code>, keeps the app in the foreground, and records only per-card section counts, enrollment counts, diagnostics, and read times. The database copy used for counts is deleted immediately afterward.</p>
+</section>
+<section class="source-section" id="slide-verification-benefits-limits" data-source-unit="benefits-limits">
+<h3>Limits</h3>
+<p>The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation, automatic retry policy, benefit sorting and grouping, and alert presentation belong to separate work. The architecture decision is <a href="../../decisions/0008-amex-benefits-card-navigation.md">ADR-0008</a>.</p>
+</section></div><p class="slide-sources">Source detail is available in Deep dive; the full handbook remains in reading view.</p></section></div>
+  <div data-dv-controls>
+    <button type="button" data-dv-prev aria-label="Previous slide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></svg><span>Previous</span></button>
+    <span data-dv-count aria-live="polite">1 / 8</span>
+    <button type="button" data-dv-next aria-label="Next slide"><span>Next</span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m10 5 7 7-7 7"/></svg></button>
+    <label class="control-label">Chapter<select data-dv-picker aria-label="Presentation chapter"></select></label>
+    <label class="control-label">Theme<select id="presentation-theme"><option value="mixed">Mixed</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    <label class="control-label">Detail<select id="presentation-depth"><option value="concise">Concise</option><option value="balanced" selected>Balanced</option><option value="deep-dive">Deep dive</option></select></label>
+    <button type="button" data-dv-replay aria-label="Replay slide"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7a8 8 0 1 1-1 8M5 3v5h5"/></svg><span>Replay</span></button>
+    <button type="button" data-dv-fullscreen aria-label="Toggle fullscreen"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg><span>Fullscreen</span></button>
+    <button type="button" data-dv-exit aria-label="Return to reading"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg><span>Reading</span></button>
+    <p class="dv-status" data-dv-status role="status" aria-live="polite"></p>
+  </div>
+</section>
+<script type="application/json" id="handbook-record">{"design": {"notes": [], "presentation": {"depth": "balanced", "enabled": true, "theme": "mixed"}, "provenance": {"presentation": "default", "presentation_depth": "default", "presentation_theme": "default"}, "questions": [], "reading": {"coverage": "comprehensive", "default_theme": "light", "depth": "full", "layout": "standard", "provenance": "handbook full-source requirement"}, "status": "resolved", "style": {"direction": "technical", "fonts": "system", "imagery": "none", "palette": "existing MileStone teal", "provenance": "noninteractive project settings"}, "values": {"presentation": "yes", "presentation_depth": "balanced", "presentation_theme": "mixed"}}, "input_hashes": {"app/build.gradle.kts": "cdc45389daa3b4f7eaca09fc1e0caa709c2686dbaafc4627ae2e50561d0d69bf", "app/src/main/assets/extract.js": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3", "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "d3265d6b9e5c888f2089e26b694834b342b122b7b6b7094dbe9e2ae6ba55c8cf", "app/src/main/java/com/bendourthe/milestone/data/catalog/StaticCatalogRepository.kt": "dc8f496fd12f0fede35fbe8ee390a763bf2d37e81ad0a942bfbe4d4663426ae5", "app/src/main/java/com/bendourthe/milestone/data/credentials/CredentialVault.kt": "fb07313bbc68e9d2d06ebafd715cfde03a503cd87c5290b4a9b9f0b2aac2869d", "app/src/main/java/com/bendourthe/milestone/data/db/CardDao.kt": "037306766f0d979499306027b92e2ca1f9131ed77a5ac8a2e85d75e380d1925a", "app/src/main/java/com/bendourthe/milestone/data/db/MileStoneDatabase.kt": "bf04dd70a24b065b6734fed84c14a4339017399b514cddbae8064e71b8755e4c", "app/src/main/java/com/bendourthe/milestone/data/db/RoomCardRepository.kt": "f6312d3cf20c3f58942d64e0b82d4dad011e0af7b3cb09e521f30819236077d7", "app/src/main/java/com/bendourthe/milestone/sync/BenefitsSource.kt": "6642ec4fd61ab6a4de5be0056233132b5039aa5a30f44f071799a078efecc419", "app/src/main/java/com/bendourthe/milestone/sync/SyncManager.kt": "244e8e7b373867fb293684daf8b81560afbf3d4ddb6e53d7bc8977fb918a1bfa", "app/src/main/java/com/bendourthe/milestone/sync/background/BenefitReminders.kt": "3eb6bebad7965687532cc775129cbe4b46e10ba17124cb98b034ff14320f4a92", "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsCardReads.kt": "921fbcb3deb8788e03facd65403e2468dea3ec684d6284fa15de33bdf0fe7f17", "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudget.kt": "0b3fc5622933776e02b80d43697d97f4c64a0208c7e909049dc40242e7f0d15e", "app/src/main/java/com/bendourthe/milestone/sync/extract/BridgeProtocol.kt": "39c76a795d6011bc9ad1e4f512fd238969668f414ff1203f3d34703f4a861fe5", "app/src/main/java/com/bendourthe/milestone/sync/webview/HeadlessWebViewBenefitsSource.kt": "1ca5d72b785f10ada3846ccc025008b3d09b6dc9f8bf3da224cf6c6d3aaf31e2", "app/src/main/java/com/bendourthe/milestone/sync/webview/SessionProfiles.kt": "a4ad202e1c877a29e8c2e4f080e074714aaf8682608160352bfef08b4e3e6610", "app/src/main/java/com/bendourthe/milestone/sync/webview/WebViewConfig.kt": "f22dabef835d604afa84d3e4c925b8cb6186577b6bd06311793f85a05bd91b8b", "app/src/main/java/com/bendourthe/milestone/ui/theme/Color.kt": "558c4ef809610e97ef03ac17d4f5a639b3fbc636a4097d1681a606004a5eaf23", "app/src/main/res/xml/backup_rules.xml": "949df9ea6222dbb47222cdaeee06be87dfb42510461895e33289710d34e740b6", "app/src/main/res/xml/data_extraction_rules.xml": "7578d504490ae7c0f127ce6b85128a0ff41cb8fc8d990838baf1920cda8ca10e", "docs/handbooks/README.md": "df7984a7085fd58554b29a394bb8035c0feb9784baeb3ffb5a90339a7bb914ac", "docs/handbooks/_sources/overview/design.json": "62bf489d29d18799ad27bc7e0a08f0604773a45894e545d447b89fcda78f14b5", "docs/handbooks/_sources/overview/dual-view-runtime.js": "336a276024b786f95287178e1ce455328aee1c253ed3dc05709e49c58cde1ce6", "docs/handbooks/_sources/overview/dual-view.css": "e60e94cd26d4ba622ede429d9c7862a82dea491ac1b174bd86023ac5e5245c35", "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4", "docs/handbooks/_sources/overview/model.json": "0d32f1b8829ac824eaa8b628f610ecf46d07876ffdca6b433a21718d76d5ab1c", "docs/handbooks/_sources/overview/project-runtime.js": "4738494c7d2a78060640a64da55e1349e421dc1909530f33b9d61c41e6defe9b", "docs/handbooks/_sources/overview/project.css": "e037321c7526fcefa4c05f068ce9e6e0b5b9fac8b6f0c6155d09efca8b85b5f5", "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b", "docs/handbooks/benefits-reader.md": "b3822b288dbf2ff2f925b8c63be75f222872fd9fb2bfd6075802b7f894f401da", "docs/handbooks/handbooks.json": "0a653d08b4c4a54c101b7ee3f4cbf47fe8a0bb4d70db3e4fbe730df4d56339f2", "docs/handbooks/overview.md": "78a139bf1234262d674b955f7435e847fb84225d418dfc6f6df6616f4e6aade5", "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db", "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4"}, "presentation": {"balanced_omissions": "Detailed package tables, exact command listings, and edge-case explanations remain in the complete reading view and Deep dive source panels.", "compact_breakpoint_px": 760, "depth": "balanced", "enabled": true, "initial_slide": 0, "native_scroll_regions": ["deep-dive source detail"], "slide_ceiling": 8, "theme": "mixed"}, "schema_version": 1, "slides": [{"id": "app", "theme": "dark", "units": ["overview-repository-overview", "overview-module-layout"]}, {"id": "refresh", "theme": "light", "units": ["overview-toolchain", "overview-runtime-flow"]}, {"id": "pages", "theme": "dark", "units": ["benefits-amex-benefits-reader", "benefits-page-kinds", "benefits-readiness"]}, {"id": "switch", "theme": "light", "units": ["benefits-card-switching"]}, {"id": "budget", "theme": "dark", "units": ["benefits-run-budget"]}, {"id": "storage", "theme": "light", "units": ["benefits-storing-a-read"]}, {"id": "privacy", "theme": "light", "units": ["overview-privacy-rules", "benefits-diagnostics"]}, {"id": "verification", "theme": "dark", "units": ["overview-tests", "benefits-verification", "benefits-limits"]}], "source_units": ["overview-repository-overview", "overview-toolchain", "overview-module-layout", "overview-runtime-flow", "overview-privacy-rules", "overview-tests", "benefits-amex-benefits-reader", "benefits-page-kinds", "benefits-readiness", "benefits-card-switching", "benefits-run-budget", "benefits-storing-a-read", "benefits-diagnostics", "benefits-verification", "benefits-limits"]}</script>
+<script>/* Offline presentation lifecycle for retained, independently authored views. */
+(() => {
+  'use strict';
+  const page = document.querySelector('[data-dv-page]');
+  const deck = document.querySelector('[data-dv-deck]');
+  if (!page || !deck) return;
+  const slides = Array.from(deck.querySelectorAll('[data-dv-slide]'));
+  const controls = deck.querySelector('[data-dv-controls]');
+  const count = deck.querySelector('[data-dv-count]');
+  const picker = deck.querySelector('[data-dv-picker]');
+  const status = document.querySelector('[data-dv-status]');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const events = new AbortController();
+  const signal = events.signal;
+  let active = false, index = 0, generation = 0, origin = null;
+  let scroll = 0, readingURL = location.href, oldOverflow = '';
+  let wasFullscreen = false, keepFitted = false, touch = null;
+  let fullscreenExitPending = null;
+  let animations = [];
+  let readingAnimations = [];
+  const nativeInput = 'input,textarea,select,button,a,[contenteditable]:not([contenteditable="false"]),[data-dv-native],dialog[open]';
+  const on = (target, event, callback, options = {}) =>
+    target.addEventListener(event, callback, { ...options, signal });
+  const announce = message => { if (status) status.textContent = message; };
+  const focusables = () => Array.from(deck.querySelectorAll('button,a[href],input,select,textarea,[tabindex]'))
+    .filter(el => !el.disabled && el.tabIndex >= 0 && !el.closest('[hidden],[inert]') && el.getClientRects().length);
+
+  function stopMotion() {
+    animations.forEach(animation => animation.cancel());
+    animations = [];
+    slides.forEach(slide => slide.dispatchEvent(new CustomEvent('dv:deactivate')));
+  }
+
+  function play() {
+    stopMotion();
+    if (!active || document.hidden) return;
+    const slide = slides[index];
+    slide.dispatchEvent(new CustomEvent('dv:activate', { detail: { reducedMotion: motion.matches } }));
+    if (motion.matches) return;
+    slide.querySelectorAll('[data-dv-animate]').forEach(el => {
+      const step = Math.max(0, Number(el.dataset.dvStep) || 0);
+      const delay = el.dataset.dvAnimate === 'process' ? step * 130 : 0;
+      const mark = el.hasAttribute('data-dv-mark');
+      const frames = mark
+        ? [{ clipPath: 'inset(0 100% 0 0)', opacity: 0 }, { clipPath: 'inset(0 0 0 0)', opacity: 1 }]
+        : [{ opacity: 0 }, { opacity: 1 }];
+      animations.push(el.animate(frames, { duration: 550, delay, fill: 'both', easing: 'ease-out' }));
+    });
+  }
+
+  function fit() {
+    if (controls) deck.style.setProperty('--dv-controls-height', `${controls.getBoundingClientRect().height}px`);
+  }
+
+  function show(next, history = true) {
+    if (!active || !Number.isInteger(next)) return;
+    index = Math.max(0, Math.min(slides.length - 1, next));
+    slides.forEach((slide, i) => {
+      slide.hidden = i !== index;
+      slide.inert = i !== index;
+      slide.setAttribute('aria-hidden', String(i !== index));
+    });
+    deck.dataset.theme = slides[index].dataset.theme || 'light';
+    count.textContent = `${index + 1} / ${slides.length}`;
+    if (picker) picker.value = String(index);
+    const previous = deck.querySelector('[data-dv-prev]');
+    const nextButton = deck.querySelector('[data-dv-next]');
+    if (previous) previous.disabled = index === 0;
+    if (nextButton) nextButton.disabled = index === slides.length - 1;
+    if (history && location.hash !== `#slide-${index + 1}`)
+      window.history.pushState(null, '', `#slide-${index + 1}`);
+    const heading = slides[index].querySelector('h1,h2,h3');
+    if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+    play();
+    fit();
+  }
+
+  async function fullscreen() {
+    if (!deck.requestFullscreen || !active) return;
+    const request = generation;
+    try {
+      if (fullscreenExitPending) await fullscreenExitPending;
+      if (request !== generation || !active) return;
+      await deck.requestFullscreen();
+      if (request !== generation || !active) {
+        if (document.fullscreenElement === deck && !active) await document.exitFullscreen();
+        return;
+      }
+      wasFullscreen = document.fullscreenElement === deck;
+      fit();
+    } catch (_) {
+      if (active) announce('Fullscreen unavailable. Presentation remains available in this window.');
+    }
+  }
+
+  function open(next = 0, userGesture = false, history = true) {
+    if (!Number.isInteger(next)) { announce('Invalid presentation target.'); return; }
+    if (!active) {
+      generation += 1;
+      origin = document.activeElement;
+      scroll = window.scrollY;
+      readingURL = location.hash.startsWith('#slide-') ? location.href.split('#')[0] : location.href;
+      oldOverflow = document.documentElement.style.overflow;
+      active = true;
+      deck.hidden = false;
+      deck.inert = false;
+      page.inert = true;
+      page.setAttribute('aria-hidden', 'true');
+      readingAnimations = page.getAnimations({ subtree: true }).filter(animation => animation.playState === 'running');
+      readingAnimations.forEach(animation => animation.pause());
+      page.hidden = true;
+      page.dispatchEvent(new CustomEvent('dv:deactivate'));
+      document.documentElement.style.overflow = 'hidden';
+    }
+    show(next, history);
+    if (userGesture) void fullscreen();
+  }
+
+  function close(history = true) {
+    if (!active) return;
+    generation += 1;
+    const closingGeneration = generation;
+    active = false;
+    wasFullscreen = false;
+    keepFitted = false;
+    const fullscreenExit = fullscreenExitPending || (document.fullscreenElement === deck
+      ? document.exitFullscreen().catch(() => {}) : null);
+    fullscreenExitPending = fullscreenExit;
+    stopMotion();
+    deck.querySelectorAll('dialog[open]').forEach(dialog => dialog.close());
+    deck.hidden = true;
+    deck.inert = true;
+    page.inert = false;
+    page.hidden = false;
+    page.removeAttribute('aria-hidden');
+    readingAnimations.forEach(animation => animation.play());
+    readingAnimations = [];
+    page.dispatchEvent(new CustomEvent('dv:activate', { detail: { reducedMotion: motion.matches } }));
+    document.documentElement.style.overflow = oldOverflow;
+    if (history) window.history.replaceState(null, '', readingURL);
+    const restoreReading = () => {
+      if (fullscreenExitPending === fullscreenExit) fullscreenExitPending = null;
+      if (active) {
+        if (!deck.contains(document.activeElement))
+          slides[index].querySelector('h1,h2,h3')?.focus({ preventScroll: true });
+        return;
+      }
+      if (generation !== closingGeneration) return;
+      // Returning the reader to their place is a restoration, not a journey. A
+      // page that sets scroll-behavior:smooth turns a plain scrollTo into an
+      // animation, and the focus() below cancels it mid-flight, stranding the
+      // reader partway down. 'instant' opts out of that page-level preference.
+      window.scrollTo({ top: scroll, left: 0, behavior: 'instant' });
+      if (origin && origin.isConnected) origin.focus({ preventScroll: true });
+    };
+    if (fullscreenExit) void fullscreenExit.then(restoreReading);
+    else restoreReading();
+  }
+
+  function fromHash() {
+    const match = /^#slide-([1-9]\d*)$/.exec(location.hash);
+    if (match && Number(match[1]) <= slides.length) open(Number(match[1]) - 1, false, false);
+    else {
+      if (active) close(false);
+      if (location.hash.startsWith('#slide-')) announce('Unknown slide. The reading page remains available.');
+    }
+  }
+
+  if (!slides.length || !controls || !count) {
+    announce('Presentation is unavailable: the retained storyboard is empty or incomplete.');
+    return;
+  }
+  deck.setAttribute('role', 'dialog');
+  deck.setAttribute('aria-modal', 'true');
+  deck.setAttribute('aria-label', 'Presentation');
+  deck.inert = true;
+  slides.forEach((slide, i) => { if (!slide.id) slide.id = `slide-${i + 1}`; });
+  document.documentElement.dataset.dvReady = 'true';
+  if (picker) slides.forEach((slide, i) => {
+    const option = document.createElement('option');
+    option.value = String(i);
+    option.textContent = `${i + 1}. ${slide.dataset.title || slide.querySelector('h1,h2,h3')?.textContent || 'Slide'}`;
+    picker.append(option);
+  });
+  on(document, 'click', event => {
+    const trigger = event.target.closest('[data-dv-open],[data-dv-chapter]');
+    if (!trigger || trigger.closest('[inert]')) return;
+    if (trigger.hasAttribute('data-dv-open')) open(0, true);
+    else {
+      const target = slides.findIndex(slide => slide.dataset.dvSlide === trigger.dataset.dvChapter);
+      if (target >= 0) open(target, true);
+      else announce('This chapter has no presentation target.');
+    }
+  });
+  on(deck, 'click', event => {
+    const button = event.target.closest('button');
+    if (!button) return;
+    if (button.hasAttribute('data-dv-exit')) close();
+    if (button.hasAttribute('data-dv-next')) show(index + 1);
+    if (button.hasAttribute('data-dv-prev')) show(index - 1);
+    if (button.hasAttribute('data-dv-replay')) play();
+    if (button.hasAttribute('data-dv-fullscreen')) {
+      if (document.fullscreenElement === deck) {
+        keepFitted = true;
+        void document.exitFullscreen().catch(() => { keepFitted = false; });
+      } else void fullscreen();
+    }
+  });
+  if (picker) on(picker, 'change', () => show(Number(picker.value)));
+  on(document, 'keydown', event => {
+    if (!active || event.isComposing || event.altKey || event.ctrlKey || event.metaKey) return;
+    const nested = deck.querySelector('dialog[open]');
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (nested && document.fullscreenElement !== deck) nested.close();
+      else close();
+      return;
+    }
+    if (nested) return;
+    if (event.key === 'Tab') {
+      const items = focusables();
+      const current = items.indexOf(document.activeElement);
+      if (items.length && (current < 0 || (event.shiftKey && current === 0) || (!event.shiftKey && current === items.length - 1))) {
+        event.preventDefault();
+        items[event.shiftKey ? items.length - 1 : 0].focus();
+      }
+      return;
+    }
+    if (event.target.closest(nativeInput)) return;
+    const delta = { ArrowRight: 1, ArrowDown: 1, PageDown: 1, ' ': 1, ArrowLeft: -1, ArrowUp: -1, PageUp: -1 }[event.key];
+    if (delta) { event.preventDefault(); show(index + delta); }
+    if (event.key === 'Home' || event.key === 'End') {
+      event.preventDefault(); show(event.key === 'Home' ? 0 : slides.length - 1);
+    }
+  });
+  on(deck, 'pointerdown', event => {
+    touch = event.pointerType === 'touch' && !event.target.closest(nativeInput)
+      ? { x: event.clientX, y: event.clientY, id: event.pointerId } : null;
+  });
+  on(deck, 'pointerup', event => {
+    if (!touch || event.pointerId !== touch.id) return;
+    const dx = event.clientX - touch.x, dy = event.clientY - touch.y;
+    touch = null;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 2) show(index + (dx < 0 ? 1 : -1));
+  });
+  on(deck, 'pointercancel', () => { touch = null; });
+  on(document, 'fullscreenchange', () => {
+    if (fullscreenExitPending) { fit(); return; }
+    if (document.fullscreenElement === deck) wasFullscreen = true;
+    else if (wasFullscreen) {
+      wasFullscreen = false;
+      if (keepFitted) keepFitted = false;
+      else close();
+    }
+    fit();
+  });
+  on(window, 'hashchange', fromHash);
+  on(window, 'popstate', fromHash);
+  on(window, 'resize', fit);
+  on(document, 'visibilitychange', () => document.hidden ? stopMotion() : play());
+  on(motion, 'change', play);
+  const resize = new ResizeObserver(fit);
+  resize.observe(controls);
+  window.NexusDualView = Object.freeze({
+    open: next => open(next), close, next: () => show(index + 1), previous: () => show(index - 1), replay: play,
+    snapshot: () => ({ active, index, count: slides.length, animations: animations.length, fullscreen: document.fullscreenElement === deck }),
+    destroy: () => { close(); events.abort(); resize.disconnect(); delete document.documentElement.dataset.dvReady; }
+  });
+  fromHash();
+})();
+</script>
+<script>(() => {
+  'use strict';
+  const page = document.querySelector('[data-dv-page]');
+  const deck = document.querySelector('[data-dv-deck]');
+  document.documentElement.classList.add('js-ready');
+  document.querySelector('#reading-theme').addEventListener('change', event => {
+    page.dataset.readingTheme = event.target.value;
+  });
+  document.querySelector('#reading-depth').addEventListener('change', event => {
+    page.dataset.readingDepth = event.target.value;
+  });
+  document.querySelector('#presentation-depth').addEventListener('change', event => {
+    deck.dataset.depth = event.target.value;
+  });
+  document.querySelector('#presentation-theme').addEventListener('change', event => {
+    deck.querySelectorAll('[data-dv-slide]').forEach(slide => {
+      slide.dataset.theme = event.target.value === 'mixed' ? slide.dataset.defaultTheme : event.target.value;
+    });
+    const current = deck.querySelector('[data-dv-slide]:not([hidden])');
+    if (current) deck.dataset.theme = current.dataset.theme;
+  });
+  const links = [...document.querySelectorAll('.contents a')];
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (!visible.length) return;
+      const target = '#' + visible[0].target.id;
+      links.forEach(link => {
+        if (link.getAttribute('href') === target) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-10% 0px -65% 0px', threshold: 0 });
+    document.querySelectorAll('.source-document > .source-section').forEach(section => observer.observe(section));
+  }
+})();
+</script>
+</body>
+</html>

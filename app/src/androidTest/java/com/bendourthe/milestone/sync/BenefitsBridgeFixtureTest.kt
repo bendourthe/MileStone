@@ -160,6 +160,29 @@ class BenefitsBridgeFixtureTest {
     }
 
     @Test
+    fun aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap() = runBlocking {
+        assertActivityAfterRewardsCap("late")
+    }
+
+    @Test
+    fun aRewardsPageFollowsItsActivityLinkAtTheCapWhileItsHeightStillGrows() = runBlocking {
+        assertActivityAfterRewardsCap("growing")
+    }
+
+    private suspend fun assertActivityAfterRewardsCap(mode: String) {
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 20_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-cap.html#$mode")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("71008" to "activity", message.lastDigits to message.page)
+        assertEquals(
+            listOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED),
+            message.drafts.map { it.section },
+        )
+        assertEquals(false, message.ready?.activityLink)
+        assertFalse("an account key reached a message", raw.any { "account_key" in it })
+    }
+
+    @Test
     fun anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange() = runBlocking {
         // The switch changes the address in the same document, empties the trackers, and shows the new ones 7 s later.
         config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005")

@@ -13,7 +13,7 @@ class BenefitsReadBudgetTest {
 
     /**
      * [firstPageMs] and [secondPageMs] are how long each page would take if nothing cut it; a page never runs past
-     * its kind's cap (15 s Rewards, 20 s activity) or the timeout the budget gives it.
+     * its kind's maximum (20 s Rewards including late links, 20 s activity) or the timeout the budget gives it.
      */
     private fun simulate(budgetMs: Long, startAt: Long, firstPageMs: Long, secondPageMs: Long, cards: Int = 4): Outcome {
         val budget = BenefitsReadBudget(deadlineAt = budgetMs - SCRIPT_MARGIN_MS)
@@ -49,6 +49,14 @@ class BenefitsReadBudgetTest {
     }
 
     @Test
+    fun aLateStartReservesTheFullRewardsWaitBeforeOpeningAnySecondPage() {
+        val outcome = simulate(BUDGET_MS, startAt = 30_000, firstPageMs = 20_000, secondPageMs = 20_000)
+        assertEquals("second pages go before a card is left unread", listOf(false, false, false, false), outcome.secondPages)
+        assertEquals(0, outcome.unread)
+        assertEquals(110_000L, outcome.endAt)
+    }
+
+    @Test
     fun withTooLittleTimeSecondPagesGoBeforeAnyCardIsLeftUnread() {
         val outcome = simulate(budgetMs = 40_000, startAt = 6_000, firstPageMs = 60_000, secondPageMs = 60_000)
         assertTrue("ended at ${outcome.endAt}", outcome.endAt <= 40_000 - SCRIPT_MARGIN_MS)
@@ -72,7 +80,7 @@ class BenefitsReadBudgetTest {
     private companion object {
         const val BUDGET_MS = 120_000L
         const val SCRIPT_MARGIN_MS = 2_000L
-        const val REWARDS_CAP_MS = 15_000L
+        const val REWARDS_CAP_MS = 20_000L
         const val ACTIVITY_CAP_MS = 20_000L
     }
 }

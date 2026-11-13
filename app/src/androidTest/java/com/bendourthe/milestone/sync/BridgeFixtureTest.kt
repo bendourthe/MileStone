@@ -204,6 +204,20 @@ class BridgeFixtureTest {
     }
 
     @Test
+    fun aVisiblePasswordRefusalIsKeptWhenThePageDeadlineWins() = runBlocking {
+        // The fixture refuses synchronously; its 15 s refusal settle outlasts this page's deadline.
+        val event = withTimeout(20_000) {
+            open(
+                "refused-with-error.html",
+                headless = true,
+                autoSignIn = saved(),
+                scriptTimeoutMs = 10_000,
+            ).events.first()
+        }
+        assertEquals(BridgeEvent.AutoSignInStopped(SignInStop.REFUSED), event)
+    }
+
+    @Test
     fun aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword() = runBlocking {
         val event = withTimeout(45_000) { open("standing-notice-signin.html", headless = true, autoSignIn = saved()).events.first() }
         assertEquals(BridgeEvent.Extracted(9_876), event)

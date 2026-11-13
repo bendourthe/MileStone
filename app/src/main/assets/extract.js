@@ -506,6 +506,11 @@
     function armTimeout() {
       clearTimeout(timeoutTimer);
       timeoutTimer = setTimeout(function () {
+        // A late fill can leave less time than the refusal settle; keep an already visible new error.
+        if (submittedHere && hasVisiblePasswordField() && hasVisibleError(markersBeforeFill)) {
+          finish({ type: 'refused', nonce: config.nonce });
+          return;
+        }
         finish({ type: 'timeout', awaitingInput: hasVisibleEntryField(), nonce: config.nonce });
       }, config.timeoutMs);
     }
@@ -866,7 +871,7 @@
         var isReady = markers && atBottom() && settled;
         if (!isReady && !overPageCap) return;
         var activity = document.querySelector(s.activityLink);
-        if (isReady && activity && config.secondPage !== false && !followedActivity) {
+        if (activity && config.secondPage !== false && !followedActivity) {
           followedActivity = true;
           leaveNote('link');
           activity.click();
@@ -881,7 +886,9 @@
           viewAll.click();
           return;
         }
-        if (followedActivity && !overPageCap) return;
+        // A late lower section can reveal the activity link after the readiness cap. Wait within the app's
+        // page budget rather than replace complete activity trackers with this page's partial set.
+        if (followedActivity || (!markers && Date.now() - startedAt < Math.min(20000, config.timeoutMs))) return;
         return postBenefits(current, isReady ? (trackerCount ? 'stable' : 'empty') : 'cap');
       }
       if (markers && atBottom() && steadyMs >= BENEFITS_STABLE_MS) return postBenefits(current, 'stable');
@@ -897,8 +904,9 @@
 
     var timer = setInterval(function () {
       tick();
-      // Nothing usable before the cap (no selected card, no card list): the page reports a timeout.
-      if (!done && Date.now() - startedAt > cap + 2 * BENEFITS_SCAN_MS) unreadable('timeout', 'timeout');
+      // Rewards may still be waiting for its scroll-loaded links after its readiness cap.
+      var timeout = kind === 'rewards' ? Math.min(20000, config.timeoutMs) : cap;
+      if (!done && Date.now() - startedAt > timeout + 2 * BENEFITS_SCAN_MS) unreadable('timeout', 'timeout');
     }, BENEFITS_SCAN_MS);
     tick();
     return {
