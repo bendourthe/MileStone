@@ -2,13 +2,13 @@
 
 **Branch:** `develop` (v0.2.0 shipped; v0.1 closed)
 
-**Version:** v0.2.0 (recorded in `CHANGELOG.md`)
+**Version:** v0.3.0 release candidate (recorded in `CHANGELOG.md`); v0.3.1 remains unreleased.
 
 ## Expanded Completion Goal
 
 Owner scope update, 2026-11-13: complete the existing v0.1/v0.2/v0.3 integration, release, canonical archive, and authorized cleanup obligations AND deliver the complete Benefits redesign. The six interface requirements below are required work, superseding their earlier deferral. The overall goal remains unfinished until the redesign is implemented, installed without erasing sign-ins, and verified on the phone; extraction correctness or v0.3.0 PLAN COMPLETE alone cannot close it. Original count-confirmation, privacy, test-device, and publication requirements remain in force. The native goal API cannot edit an unfinished objective; this tracker and the owner's scope instruction retain the expanded completion criteria without falsely marking the old goal complete.
 
-Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. Pending extraction owner checks do not prevent reversible local redesign work.
+Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
 
 ---
 
@@ -21,7 +21,7 @@ Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-be
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
-| v0.3.0 plan phases complete | 3 of 4 | 4 of 4 | 1 (Phase 4 in progress; T007 follow-up) |
+| v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | 0 (PR #6 green and merged; release workflow remains open) |
 | Required Benefits redesign outcomes verified | 0 of 6 | 6 of 6 | 6 (required by owner; implementation pending) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
@@ -98,12 +98,12 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 - [x] Phase 1: Diagnostics and missing captures (owner capture session)
 - [x] Phase 2: Page-ready timing and switch rule (T007 follow-up is tracked in Phase 4)
 - [x] Phase 3: View-all list and section-scoped storage (Should)
-- [ ] Phase 4: Architecture refactor, known gaps, CI/CD, and publication
+- [x] Phase 4: Architecture refactor, known gaps, CI/CD, and publication
 - [x] Phase 4 T007 follow-up: cap correction and 3 foreground live refreshes pass, with all card/category minimums in 75.97, 72.92, and 71.61 s.
 - [x] Phase 4 local gate: 356 JVM cases with no failures, 35/35 emulator tests, 8/8 private benefits cases, lint/build/coverage, and 280 handbook browser checks plus native handbook check. G44 and G45 are Fixed; G46 remains a historical warning.
-- [ ] Phase 4 remaining gates: owner site-count confirmation, publication/integration, release, archive, and cleanup. Native approval resume and publication authorization are verified.
+- [ ] Remaining gates: v0.3.0 release, redesigned phone acceptance and version-authorized publication/release, v0.3 archive, and cleanup. The owner confirmed the site minimums; extraction PR #6 is green and merged.
 - [x] v0.1/v0.2 audit: both tags/releases and green implementation PRs verified; v0.2 already fully archived.
-- [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop remains pending.
+- [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop completed through PR #6 at cbd82d1.
 
 ## Required Benefits Redesign
 

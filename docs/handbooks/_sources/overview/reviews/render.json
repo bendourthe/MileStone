@@ -1,8 +1,8 @@
 {
   "status": "pass",
   "browser": "Chromium 156.0.8078.4",
-  "output_sha256": "43f06cdbb2cd63cc359ccd617b6d0c0a0ac072154a28c759e12b5dd928ff1b86",
-  "checker_sha256": "62fe7991716617476895577abe7a42801d7769c68ae18e81cac15b6bd7820b05",
+  "output_sha256": "27fb53ae2aa247395d7486d86de68aabca3d851b6a8468774bd9e0d94f9b8dd0",
+  "checker_sha256": "a5ca27d14aee9b2b8adf61a7ca32a681a57c664e639e9ecb35f054bc8601785b",
   "checks": [
     {
       "name": "320 reading width",
@@ -2462,21 +2462,7 @@
     }
   ],
   "findings": [],
-  "visual_review": {
-    "independent_normal_view_images": 10,
-    "pixel_hashes": {
-      "slide-1.png": "f2e379c4318b1c90c001e031413804bc7c79dd6ccd38344e4af9295eb1bd646b",
-      "slide-2.png": "0781e846d55e31df5adb57f036052720cf3bbc540c99442f7f6bd8ae40ef4e7d",
-      "slide-3.png": "d3e7c4ed3444378786777cde911ce6a61e99a8daed882345f577856880f9536e",
-      "slide-4.png": "f4104616f0afe590c87577aacd678fff40fd5175bb4de95659f29ad9e92ec528",
-      "slide-5.png": "627096696788acb6d687a6ac4ee7183ed0e497fe544f719357f106018b0affc0",
-      "slide-6.png": "15dd7fd1bcca7266fb24e6b0fa2f933b3a9d85ec6727df703f2d26ae3e349157",
-      "slide-7.png": "6ebbfed60862653e9e49aae2eaf956c484b1fa69aeb252957d60c86e75b9343a",
-      "slide-8.png": "538e681eb755f1b263052d0f8f7f67b9ef5cb4528e4fe620ead23d966862b080",
-      "reading-1440.png": "92e074f71d05f473cfe10b5f5e4d71768438bb6d2f313bcdd96d69acf3581cb3",
-      "reading-420.png": "290407ab5f3900bfedc18a733238bd7003b0345af32c0e2f4bf5c4b9055c430f"
-    },
-    "final_pixels_identical": true,
-    "parent_review": "Enlarged-text320px capture inspected; all text remains available without horizontal clipping."
-  }
+  "observed_utc": "2026-11-13T22:13:37.164138+00:00",
+  "visual_review": "Independent review PASS on all eight slides and reading at320/420/900/1440 plus320px/200%; controls accessible. Brand wraps at narrow200%, nonblocking.",
+  "retained_evidence": "docs/releases/v0/v0.3/development/v0.3.0-release-handbook-render/"
 }
