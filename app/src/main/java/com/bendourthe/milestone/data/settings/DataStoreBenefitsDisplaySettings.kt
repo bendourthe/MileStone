@@ -9,6 +9,8 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
+import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsReadState
 import com.bendourthe.milestone.domain.BenefitsCategory
 import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.BenefitsDisplaySettings
@@ -30,6 +32,11 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
     private fun deadline(card: CardKey) = longPreferencesKey(prefix(card) + "welcomeDeadline")
     private fun reward(card: CardKey) = stringPreferencesKey(prefix(card) + "welcomeReward")
 
+    private fun generation(card: CardKey) = longPreferencesKey(prefix(card) + "readGeneration")
+    private fun cardVersion(card: CardKey) = longPreferencesKey(prefix(card) + "cardVersion")
+    private fun readTime(card: CardKey) = longPreferencesKey(prefix(card) + "readTime")
+    private fun sectionGeneration(card: CardKey, section: BenefitSection) = longPreferencesKey(prefix(card) + "read:" + section.name)
+
     override fun observe(card: CardKey) = store.data.catch { error ->
         if (error !is IOException) throw error
         Log.w("MileStoneSettings", "Benefits display settings unreadable; using defaults")
@@ -50,6 +57,8 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
                 if (cut < 0) null else entry.substring(0, cut).toLongOrNull()?.let { entry.substring(cut + 1) to it }
             }.toMap(),
             welcomeBonus = welcome,
+            readState = BenefitsReadState(prefs[generation(card)] ?: 0, prefs[readTime(card)],
+                BenefitSection.entries.mapNotNull { section -> prefs[sectionGeneration(card, section)]?.let { section to it } }.toMap(), prefs[cardVersion(card)] ?: 0),
         )
     }.distinctUntilChanged()
 
@@ -65,11 +74,11 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
         }
     }
 
-    override suspend fun acknowledge(card: CardKey, alertId: String, successfulReadEpochMs: Long) {
+    override suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long) {
         store.edit { prefs ->
             val key = acknowledgements(card)
             prefs[key] = prefs[key].orEmpty().filterNot { it.substringAfter('\u001e', "") == alertId }.toSet() +
-                "$successfulReadEpochMs\u001e$alertId"
+                "$readGeneration\u001e$alertId"
         }
     }
 
@@ -85,4 +94,15 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
             }
         }
     }
+    override suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>) {
+        if (sections.isEmpty()) return
+        store.edit { prefs ->
+            val next = Math.addExact(prefs[generation(card)] ?: 0, 1)
+            prefs[generation(card)] = next
+            prefs[readTime(card)] = readEpochMs
+            prefs[cardVersion(card)] = cardGeneration
+            sections.forEach { prefs[sectionGeneration(card, it)] = next }
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.bendourthe.milestone.ui.benefits
 
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertHeightIsAtLeast
 import androidx.compose.ui.test.hasContentDescription
@@ -228,7 +229,7 @@ class BenefitsScreenTest {
         rule.onNodeWithTag("welcomeSpent").performTextInput("100")
         rule.onNodeWithTag("welcomeTarget").performTextInput("0")
         rule.onNodeWithText("Save").performClick()
-        rule.onNodeWithText("Enter valid amounts and an optional YYYY-MM-DD deadline.").assertExists()
+        rule.onNodeWithText("Enter a target greater than zero.").assertExists()
         rule.onNodeWithTag("welcomeTarget").performTextReplacement("500")
         rule.onNodeWithTag("welcomeDeadline").performTextInput("2027-01-01")
         rule.onNodeWithText("Save").performClick()
@@ -236,6 +237,41 @@ class BenefitsScreenTest {
         val setup = runBlocking { viewModel.card(platinum).first()!! }.preferences.welcomeBonus!!
         assertEquals(10_000L, setup.spentCents)
         assertEquals(50_000L, setup.targetCents)
+        assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
+    }
+
+    @Test
+    fun topAlertSurvivesCollapsedCategoryAndAcknowledgingItDoesNotClearAnotherCard() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        rule.onNodeWithTag("benefitsAlerts").assertExists()
+        rule.onNodeWithText("Enrollment required: Purchase Protection").assertExists()
+        rule.onNodeWithText("Acknowledge").performClick()
+        rule.onNodeWithTag("benefitsAlerts").assertDoesNotExist()
+        val first = runBlocking { viewModel.card(platinum).first()!! }
+        val second = runBlocking { viewModel.card(hotel).first()!! }
+        assertTrue(first.alerts.isEmpty())
+        assertTrue(second.alerts.isNotEmpty())
+        assertEquals(setOf(com.bendourthe.milestone.domain.BenefitsCategory.OTHER), first.preferences.collapsed)
+        assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
+    }
+
+    @Test
+    fun failedAcknowledgementKeepsTheAlertVisibleAndReportsTheSaveFailure() {
+        seed()
+        val settings = object : com.bendourthe.milestone.domain.BenefitsDisplaySettings {
+            override fun observe(card: CardKey) = kotlinx.coroutines.flow.flowOf(com.bendourthe.milestone.domain.BenefitsDisplayPreferences())
+            override suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long) { throw java.io.IOException("Synthetic unavailable store") }
+            override suspend fun setCompletedLast(card: CardKey, completedLast: Boolean) = Unit
+            override suspend fun setCollapsed(card: CardKey, category: com.bendourthe.milestone.domain.BenefitsCategory, collapsed: Boolean) = Unit
+            override suspend fun setWelcomeBonus(card: CardKey, setup: com.bendourthe.milestone.domain.WelcomeBonusSetup?) = Unit
+            override suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>) = Unit
+        }
+        val failing = BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US, displaySettings = settings)
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(failing, platinum, onBack = {}, onGone = {}) } }
+        rule.onNodeWithText("Acknowledge").performClick()
+        rule.onNodeWithTag("benefitsAlerts").assertExists()
+        rule.onNodeWithText("Could not save this change. Please try again.").assertIsDisplayed()
         assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
     }
 

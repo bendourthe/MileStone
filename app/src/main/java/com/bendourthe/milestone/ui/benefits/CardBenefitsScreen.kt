@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -69,24 +70,30 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
             Box(Modifier.fillMaxSize().padding(padding))
             return@Scaffold
         }
+        LaunchedEffect(key, current.settingsError) {
+            if (current.settingsError != null) listState.animateScrollToItem(0)
+        }
         LazyColumn(
             state = listState,
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.fillMaxSize().padding(padding).testTag("cardBenefitsList"),
         ) {
+            current.settingsError?.let { error ->
+                item("settingsError") { Text(error, color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }) }
+            }
+            if (current.alerts.isNotEmpty()) {
+                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
+            }
+            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
+                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
+            }
             item("card") {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CardArtwork(key.programId, current.name, Modifier.width(176.dp))
                     Text(current.name, style = MaterialTheme.typography.headlineSmall)
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
-            }
-            current.staleNote?.let { note ->
-                item("stale") { Text(note, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error) }
-            }
-            current.settingsError?.let { error ->
-                item("settingsError") { Text(error, color = MaterialTheme.colorScheme.error) }
             }
             item("sorting") {
                 Column {

@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasTestTag
@@ -49,6 +50,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.first
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExternalResource
@@ -62,6 +64,9 @@ import java.util.UUID
 class BenefitsRedesignDeviceTest {
     private val compose = createAndroidComposeRule<ComponentActivity>()
     private lateinit var database: MileStoneDatabase
+    private lateinit var cards: RoomCardRepository
+    private lateinit var display: DataStoreBenefitsDisplaySettings
+    private var readTime = 0L
     private lateinit var viewModel: BenefitsViewModel
     private lateinit var models: ViewModelStore
     private lateinit var dataJob: kotlinx.coroutines.Job
@@ -76,9 +81,10 @@ class BenefitsRedesignDeviceTest {
         override fun before() {
             val context = ApplicationProvider.getApplicationContext<android.content.Context>()
             database = Room.inMemoryDatabaseBuilder(context, MileStoneDatabase::class.java).build()
-            val cards = RoomCardRepository(database)
+            cards = RoomCardRepository(database)
             val accounts = RoomAccountRepository(database)
             val now = System.currentTimeMillis()
+            readTime = now
             runBlocking {
                 accounts.addAccount("amex", AccountStatus.CONNECTED, now)
                 cards.applyCardList("amex", CardList.from(drafts, true), now)
@@ -97,9 +103,12 @@ class BenefitsRedesignDeviceTest {
                 }
             }
             dataJob = SupervisorJob()
-            val display = DataStoreBenefitsDisplaySettings(PreferenceDataStoreFactory.create(scope = CoroutineScope(dataJob + Dispatchers.IO)) {
+            display = DataStoreBenefitsDisplaySettings(PreferenceDataStoreFactory.create(scope = CoroutineScope(dataJob + Dispatchers.IO)) {
                 File(context.cacheDir, "redesign-${UUID.randomUUID()}.preferences_pb")
             })
+            runBlocking {
+                cards.observeCards("amex").first().forEach { card -> display.recordReadOutcome(card.key, now, card.benefitsReadGeneration, BenefitsRead.ALL_SECTIONS) }
+            }
             models = ViewModelStore()
             viewModel = ViewModelProvider(models, viewModelFactory {
                 initializer { BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, displaySettings = display) }
@@ -131,8 +140,7 @@ class BenefitsRedesignDeviceTest {
         }
     }
 
-    @Test
-    fun productImagesCategoriesControlsAndSavedNavigationStateWorkOnAndroid() {
+    private fun showScreens() {
         compose.setContent {
             androidx.compose.runtime.CompositionLocalProvider(androidx.compose.ui.platform.LocalDensity provides androidx.compose.ui.unit.Density(androidx.compose.ui.platform.LocalDensity.current.density, fontScale.value)) {
             MileStoneTheme {
@@ -144,6 +152,11 @@ class BenefitsRedesignDeviceTest {
         }
         }
         }
+    }
+
+    @Test
+    fun productImagesCategoriesControlsAndSavedNavigationStateWorkOnAndroid() {
+        showScreens()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
         capture("overview")
         drafts.forEachIndexed { index, draft ->
@@ -151,8 +164,9 @@ class BenefitsRedesignDeviceTest {
             compose.onNodeWithTag("benefitsList").performScrollToNode(tile)
             compose.onNode(tile).performClick()
             compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
-            compose.onNodeWithTag("cardArtwork").assertExists()
             val list = compose.onNodeWithTag("cardBenefitsList")
+            list.performScrollToNode(hasTestTag("cardArtwork"))
+            compose.onNodeWithTag("cardArtwork").assertExists()
             capture("card-$index")
             list.performScrollToNode(hasTestTag("benefitsCompletedLast"))
             if (index == 0) {
@@ -199,4 +213,80 @@ class BenefitsRedesignDeviceTest {
         compose.onNodeWithTag("welcomeSetup").performClick()
         compose.onNodeWithText("Cancel").performClick()
     }
+    @Test
+    fun yellowAlertsAcknowledgeAndReturnOnlyAfterRelevantSuccessfulSectionRefresh() {
+        val key = CardKey("amex", drafts.first().lastDigits)
+        val first = hasContentDescription("card ending ${key.lastDigits}", substring = true)
+        fun waitForCount(count: Int) {
+            compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.alerts.size == count } }
+            compose.waitForIdle()
+        }
+        fun openFirst() {
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("benefitsList").performScrollToNode(first)
+            compose.onNode(first).performClick()
+            compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
+        }
+        fun refresh(sections: Set<BenefitSection>) = runBlocking {
+            val rows = cards.observeBenefits(key).first().filter { it.section in sections }
+            cards.applyCardBenefits(key, rows, readTime, sections)
+            val card = cards.observeCards("amex").first().first { it.key == key }
+            display.recordReadOutcome(key, readTime, card.benefitsReadGeneration, sections)
+        }
+        showScreens()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
+        capture("alerts-overview")
+        openFirst()
+        compose.onNodeWithTag("benefitsAlerts").assertExists()
+        capture("alerts-top")
+        compose.onNodeWithText("Acknowledge").performClick()
+        waitForCount(0)
+        compose.onNodeWithTag("benefitsAlerts").assertDoesNotExist()
+        capture("alerts-acknowledged")
+        compose.onNode(hasContentDescription("Back to Benefits")).performClick()
+        openFirst()
+        compose.onNodeWithTag("benefitsAlerts").assertDoesNotExist()
+        org.junit.Assert.assertEquals(1, runBlocking { viewModel.card(CardKey("amex", drafts[1].lastDigits)).first()!!.alerts.size })
+        refresh(BenefitsRead.TRACKER_SECTIONS)
+        waitForCount(1)
+        compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("ack:listed-refresh"))
+        compose.onNodeWithTag("ack:listed-refresh").performClick()
+        waitForCount(0)
+        refresh(BenefitsRead.TRACKER_SECTIONS)
+        waitForCount(0)
+        compose.onNodeWithTag("benefitsAlerts").assertDoesNotExist()
+        refresh(BenefitsRead.LIST_SECTIONS)
+        waitForCount(1)
+        compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("benefitsAlerts"))
+        compose.onNodeWithText("Enrollment required: $50 Shopping Credit").assertExists()
+        capture("alerts-after-successful-refresh")
+        compose.runOnIdle { fontScale.value = 2f }
+        compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("benefitsAlerts"))
+        capture("alerts-large-font")
+        org.junit.Assert.assertEquals(6, runBlocking { cards.observeBenefits(key).first().size })
+    }
+
+    @Test
+    fun failedAlertSaveShowsVisibleFeedbackAndKeepsTheAlertOnAndroid() {
+        val key = CardKey("amex", drafts.first().lastDigits)
+        val settings = object : com.bendourthe.milestone.domain.BenefitsDisplaySettings by display {
+            override suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long) { throw java.io.IOException("Synthetic unavailable settings") }
+        }
+        compose.runOnUiThread {
+            val accounts = RoomAccountRepository(database)
+            viewModel = ViewModelProvider(models, viewModelFactory {
+                initializer { BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { readTime }, displaySettings = settings) }
+            })["failing", BenefitsViewModel::class.java]
+            selected.value = key
+        }
+        showScreens()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsAlerts").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Acknowledge").performClick()
+        compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.settingsError != null } }
+        compose.waitForIdle()
+        compose.onNodeWithText("Could not save this change. Please try again.").assertIsDisplayed()
+        compose.onNodeWithTag("benefitsAlerts").assertExists()
+        capture("alerts-save-failure")
+    }
+
 }

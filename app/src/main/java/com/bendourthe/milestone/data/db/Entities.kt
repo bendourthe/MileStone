@@ -61,6 +61,7 @@ data class CardEntity(
     val sortOrder: Int,
     val cardListReadEpochMs: Long?,
     val benefitsReadEpochMs: Long?,
+    @androidx.room.ColumnInfo(defaultValue = "0") val benefitsReadGeneration: Long = 0,
 )
 
 @Entity(

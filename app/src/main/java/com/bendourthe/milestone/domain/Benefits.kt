@@ -34,6 +34,7 @@ data class Card(
     val sortOrder: Int,
     val cardListReadEpochMs: Long?,
     val benefitsReadEpochMs: Long?,
+    val benefitsReadGeneration: Long = 0,
 ) {
     val key: CardKey get() = CardKey(programId, lastDigits)
 }
@@ -231,9 +232,10 @@ data class BenefitsDisplayPreferences(
     val collapsed: Set<BenefitsCategory> = setOf(BenefitsCategory.OTHER),
     val acknowledged: Map<String, Long> = emptyMap(),
     val welcomeBonus: WelcomeBonusSetup? = null,
+    val readState: BenefitsReadState = BenefitsReadState(),
 ) {
-    fun isAcknowledged(alertId: String, successfulReadEpochMs: Long): Boolean =
-        acknowledged[alertId] == successfulReadEpochMs
+    fun isAcknowledged(alertId: String, readGeneration: Long): Boolean =
+        acknowledged[alertId] == readGeneration
 }
 
 /** On-device display preferences; acknowledgement never edits issuer benefits or reminder records. */
@@ -241,6 +243,17 @@ interface BenefitsDisplaySettings {
     fun observe(card: CardKey): Flow<BenefitsDisplayPreferences>
     suspend fun setCompletedLast(card: CardKey, completedLast: Boolean)
     suspend fun setCollapsed(card: CardKey, category: BenefitsCategory, collapsed: Boolean)
-    suspend fun acknowledge(card: CardKey, alertId: String, successfulReadEpochMs: Long)
+    suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long)
     suspend fun setWelcomeBonus(card: CardKey, setup: WelcomeBonusSetup?)
+    suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>)
+}
+
+/** A successful stored read advances only its covered sections. Timestamps detect an unavailable outcome write. */
+data class BenefitsReadState(
+    val generation: Long = 0,
+    val readEpochMs: Long? = null,
+    val sections: Map<BenefitSection, Long> = emptyMap(),
+    val cardGeneration: Long = 0,
+) {
+    fun generationOf(section: BenefitSection): Long = sections[section] ?: 0
 }

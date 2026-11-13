@@ -206,6 +206,7 @@ private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
                 }
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
             }
+            if (tile.alertCount > 0) BenefitsAlertCount(tile.alertCount)
             Text(tile.nextCredit, style = MaterialTheme.typography.bodyMedium)
             tile.completedLabel?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             Text(tile.staleNote ?: tile.lastReadLabel, style = MaterialTheme.typography.bodySmall,

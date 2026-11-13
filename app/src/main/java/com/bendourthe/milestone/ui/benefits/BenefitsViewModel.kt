@@ -59,10 +59,11 @@ data class CardTileUi(
     val staleNote: String?,
     val programName: String = key.programId,
     val benefitCount: Int = 0,
+    val alertCount: Int = 0,
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
 data class CardPageUi(
@@ -72,6 +73,8 @@ data class CardPageUi(
     val sections: List<SectionUi>,
     val preferences: BenefitsDisplayPreferences = BenefitsDisplayPreferences(),
     val settingsError: String? = null,
+    val alerts: List<BenefitAlertUi> = emptyList(),
+    val listFreshnessNote: String? = null,
 )
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
@@ -168,6 +171,7 @@ class BenefitsViewModel(
                         tile(card, benefits, clock(), zone, locale).copy(
                             programName = catalog.program(card.programId)?.displayName ?: card.programId,
                             benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
+                            alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
                         )
                     })
                 }
@@ -255,6 +259,8 @@ class BenefitsViewModel(
                 SectionUi(category, category.title, list.map { item(it, locale) })
             },
             preferences = preferences,
+            alerts = BenefitsAlerts.active(card, benefits, preferences, nowMs, zone, locale),
+            listFreshnessNote = BenefitsAlerts.listFreshness(card, benefits, preferences),
         )
         }
 

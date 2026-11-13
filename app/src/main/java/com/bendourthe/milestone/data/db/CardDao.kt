@@ -31,7 +31,7 @@ interface CardDao {
     @Query("DELETE FROM cards WHERE programId = :programId")
     suspend fun deleteProgramCards(programId: String)
 
-    @Query("UPDATE cards SET benefitsReadEpochMs = :readEpochMs WHERE programId = :programId AND lastDigits = :lastDigits")
+    @Query("UPDATE cards SET benefitsReadEpochMs = :readEpochMs, benefitsReadGeneration = benefitsReadGeneration + 1 WHERE programId = :programId AND lastDigits = :lastDigits")
     suspend fun setBenefitsRead(programId: String, lastDigits: String, readEpochMs: Long)
 
     @Query(

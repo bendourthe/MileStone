@@ -5,6 +5,8 @@ import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.BenefitsCategory
 import java.util.Locale
 
+data class PresentedBenefit(val benefit: Benefit, val enrollmentSource: Benefit?)
+
 /** Pure display transformation. Callers keep the original rows for sync, reminders, and count verification. */
 object BenefitsPresentation {
     private val amount = Regex("\\$\\s*\\d[\\d,]*(?:\\.\\d{1,2})?")
@@ -22,17 +24,19 @@ object BenefitsPresentation {
             BenefitSection.CREDIT_EARNED -> BenefitsCategory.CREDITS
             BenefitSection.SPEND_PROGRESS -> BenefitsCategory.SPEND_TRACKERS
             BenefitSection.COMPLETED -> when {
-                "credit" in title -> BenefitsCategory.CREDITS
-                benefit.targetCents != null -> BenefitsCategory.SPEND_TRACKERS
+                "credit" in title || "cash" in title -> BenefitsCategory.CREDITS
+                "spend" in title -> BenefitsCategory.SPEND_TRACKERS
                 else -> BenefitsCategory.OTHER
             }
             BenefitSection.LISTED, BenefitSection.OTHER -> BenefitsCategory.OTHER
         }
     }
 
-    fun visible(benefits: List<Benefit>): List<Benefit> {
-        val result = benefits.filter { it.section != BenefitSection.LISTED }.toMutableList()
-        val trackers = result.filter { it.section != BenefitSection.OTHER }.groupBy { matchTitle(it.title) }
+    fun visible(benefits: List<Benefit>): List<Benefit> = presented(benefits).map { it.benefit }
+
+    fun presented(benefits: List<Benefit>): List<PresentedBenefit> {
+        val result = benefits.filter { it.section != BenefitSection.LISTED }.map { PresentedBenefit(it, it.takeIf { row -> row.enrollment != null }) }.toMutableList()
+        val trackers = result.map { it.benefit }.filter { it.section != BenefitSection.OTHER }.groupBy { matchTitle(it.title) }
         benefits.filter { it.section == BenefitSection.LISTED }.forEach { listed ->
             val title = matchTitle(listed.title)
             val matches = if (title.isBlank()) emptyList() else trackers[title].orEmpty().filter { tracker ->
@@ -42,19 +46,20 @@ object BenefitsPresentation {
             // A generic listed benefit cannot identify which of several trackers/periods it belongs to.
             val tracker = matches.singleOrNull()
             if (tracker == null) {
-                result += listed
+                result += PresentedBenefit(listed, listed.takeIf { it.enrollment != null })
             } else {
-                val index = result.indexOfFirst { it.stableKey == tracker.stableKey && it.cardKey == tracker.cardKey }
-                val current = result[index]
+                val index = result.indexOfFirst { it.benefit.stableKey == tracker.stableKey && it.benefit.cardKey == tracker.cardKey }
+                val previous = result[index]
+                val current = previous.benefit
                 // Conflicting enrollment marks are evidence of ambiguity, not permission to hide a row.
                 if (current.enrollment != null && listed.enrollment != null && current.enrollment != listed.enrollment) {
-                    result += listed
+                    result += PresentedBenefit(listed, listed.takeIf { it.enrollment != null })
                 } else {
-                    result[index] = current.copy(
+                    result[index] = PresentedBenefit(current.copy(
                         enrollment = current.enrollment ?: listed.enrollment,
                         description = listOfNotNull(current.description, listed.description).distinct()
                             .joinToString("\n\n").ifEmpty { null },
-                    )
+                    ), previous.enrollmentSource ?: listed.takeIf { it.enrollment != null })
                 }
             }
         }

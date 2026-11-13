@@ -152,6 +152,7 @@ class AppContainer(context: Context) {
             scheduledBefore = { now -> settings.refreshInterval.first().lastAt(now) },
             benefitsSource = HeadlessWebViewBenefitsSource(profiles),
             cards = cards,
+            onCardBenefitsStored = benefitsDisplaySettings::recordReadOutcome,
         )
     }
 

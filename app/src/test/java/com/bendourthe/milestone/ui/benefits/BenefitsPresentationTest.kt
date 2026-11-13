@@ -75,4 +75,20 @@ class BenefitsPresentationTest {
         assertEquals(123L, welcomeBonusInput("1.23", "10", "2027-02-01", "Reward")!!.spentCents)
     }
 
+    @Test fun completedTargetsDoNotInventSpendCategories() {
+        val cash = item("Uber Cash", BenefitSection.COMPLETED, done = true).copy(targetCents = 20_000)
+        val unknown = item("Unclassified completed offer", BenefitSection.COMPLETED, done = true).copy(targetCents = 20_000)
+        val groups = BenefitsPresentation.groups(listOf(cash, unknown), false)
+        assertEquals(listOf(cash), groups.getValue(BenefitsCategory.CREDITS))
+        assertEquals(listOf(unknown), groups.getValue(BenefitsCategory.OTHER))
+        assertTrue(groups.getValue(BenefitsCategory.SPEND_TRACKERS).isEmpty())
+    }
+
+    @Test(timeout = 1000) fun welcomeInputRejectsExponentExpansionAndIdentifiesRewardErrors() {
+        assertNull(welcomeBonusInput("1e10000000", "10", "", ""))
+        assertNull(welcomeBonusInput("1", "1e10000000", "", ""))
+        assertEquals(setOf("reward"), welcomeBonusErrors("1", "10", "", "x".repeat(121)).keys)
+        assertEquals(50L, welcomeBonusInput(".50", "10", "", "")!!.spentCents)
+    }
+
 }

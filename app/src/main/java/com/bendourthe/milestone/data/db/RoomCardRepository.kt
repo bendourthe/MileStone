@@ -43,6 +43,7 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository {
                         sortOrder = index,
                         cardListReadEpochMs = readEpochMs,
                         benefitsReadEpochMs = existing?.benefitsReadEpochMs,
+                        benefitsReadGeneration = existing?.benefitsReadGeneration ?: 0,
                     ),
                 )
             }
@@ -103,7 +104,7 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository {
     }
 }
 
-private fun CardEntity.toDomain() = Card(programId, lastDigits, name, sortOrder, cardListReadEpochMs, benefitsReadEpochMs)
+private fun CardEntity.toDomain() = Card(programId, lastDigits, name, sortOrder, cardListReadEpochMs, benefitsReadEpochMs, benefitsReadGeneration)
 
 private fun BenefitEntity.toDomain() = Benefit(
     cardKey = CardKey(programId, lastDigits),
