@@ -4,7 +4,7 @@ Unfinished or deferred work carried into v0.3. All 28 open gaps of v0.2 were car
 
 | Status | Count |
 |---|---|
-| Open | 28 |
+| Open | 33 |
 | Fixed | 0 |
 
 ## Open
@@ -39,6 +39,11 @@ Unfinished or deferred work carried into v0.3. All 28 open gaps of v0.2 were car
 | G31 | A benefit reminder opens its card page by starting the app fresh (the intent clears the task), because `MainActivity` does not pass new intents on and was outside v0.2.0's write paths. | Handle `onNewIntent` in `MainActivity` and route to the card page without a restart. | v0.2.0 Phase 5 (NI) |
 | G32 | Card reading on the live Amex site rests on page behavior seen in captures but not yet on a live refresh: the card list must render fully within two reads 400 ms apart, a switch must replace the trackers or settle within 8 s, and a card with no trackers must settle for 6 s. Found by the Tier 3 deep pass; guarded in the page script. | Confirm on the owner's phone (manual checklist 1 to 3) and the diagnostics file's benefits lines. | v0.2.0 Phase 6 deep pass (DF) |
 | G33 | Period labels near their edges: a single-month label read in the next month (for example "Dec" read on Jan 2) resolves to the next December, and yearly labels ("Annual") are understood but the page script reports only month labels. Tiles skip ended periods and reminders need a period end within the lead time, so no wrong reminder results. | Adjust once a live capture shows such a label. | v0.2.0 Phase 6 deep pass (WN) |
+| G34 | During an all-programs refresh on 2026-11-12, Marriott Bonvoy and Hilton Honors stopped as `Timed out`; one or two manual refreshes then read them. A timed-out read is not retried by itself, and the owner expects it to be. | Read the diagnostics lines of the next such stop, then retry a timed-out read once within the same refresh if the cause is transient. | v0.3.0 Phase 1 owner session (BG) |
+| G35 | A texted code that MileStone reads (Air Canada, 2026-11-12) stays in the phone's Messages. Android lets only the default SMS app delete texts, and MileStone reads them through the incoming-text broadcast, so it cannot delete them. | Decide between leaving the texts, offering a notification that opens Messages, or another code source; deletion itself needs MileStone to be the default SMS app. | v0.3.0 Phase 1 owner session (NI) |
+| G36 | On the Rewards tab, tapping a program that has card benefits does not open that program's tile on the Benefits tab. | Add the navigation in the Benefits tab redesign plan. | v0.3.0 Phase 1 owner request (NI) |
+| G37 | Owner idea for v0.4: a Search tab between Benefits and Settings that finds a keyword (for example "Delt") across programs, cards, and benefits, grouped per program. | Plan it with `/plan` for v0.4. | v0.3.0 Phase 1 owner request (NI) |
+| G38 | The capture build no longer saves a balance after a read: to keep the window open it holds back the read events, because `SignInViewModel` saves and closes in one step and is outside v0.3.0's write paths. The capture build is uninstalled after each session, so no stored data depends on it. | Split the save from the close in `SignInViewModel` in a plan that owns `ui/auth/`. | v0.3.0 Phase 1 T001 (NI) |
 
 ## Fixed
 

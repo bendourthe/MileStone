@@ -97,6 +97,59 @@ class BenefitsProtocolTest {
         assertNull(parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"card 1234"}"""))
     }
 
+    private val readyJson = """{"kind":"rewards","trackers":2,"listed":0,"waitedMs":2400,"bottom":false,"activityLink":false,"viewAllLink":true,"switched":false,"reason":"stable"}"""
+
+    private fun withReady(ready: String) = benefitsJson.replace("\"listed\":[{", "\"ready\":$ready,\"listed\":[{")
+
+    @Test
+    fun pageDiagnosticsAreParsedAndLoggedAsCountsOnly() {
+        val message = parse(withReady(readyJson), activity) as BridgeMessage.Benefits
+        val ready = message.ready!!
+        assertEquals("rewards" to 2400L, ready.kind to ready.waitedMs)
+        val line = ready.logLine()
+        assertEquals(
+            "kind=rewards trackers=2 listed=0 waited=2400 bottom=false activity=false viewAll=true switched=false reason=stable",
+            line,
+        )
+        // The message carries card digits and titles; the log line must hold none of them.
+        listOf("71008", "Lounge Access", "Purchase Protection", "Congratulations", "$").forEach { assertFalse(it, line.contains(it)) }
+    }
+
+    @Test
+    fun malformedDiagnosticsDropOnlyTheDiagnosticsNeverTheBenefits() {
+        listOf(
+            readyJson.replace(",\"reason\":\"stable\"", ""),
+            readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"lastDigits\":\"71008\""),
+            readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"card 71008\""),
+            readyJson.replace("\"kind\":\"rewards\"", "\"kind\":\"overview\""),
+            readyJson.replace("\"trackers\":2", "\"trackers\":2.5"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":2e1"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":-1"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":61"),
+            readyJson.replace("\"listed\":0", "\"listed\":151"),
+            readyJson.replace("\"waitedMs\":2400", "\"waitedMs\":120001"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":\"2\""),
+            readyJson.replace("\"bottom\":false", "\"bottom\":\"false\""),
+            readyJson.replace("\"bottom\":false", "\"bottom\":0"),
+            readyJson.replace("\"bottom\":false", "\"bottom\":{\"x\":1}"),
+            "[1,2]",
+            "\"stable\"",
+            "null",
+        ).forEach { bad ->
+            val message = parse(withReady(bad), activity) as BridgeMessage.Benefits
+            assertNull(bad, message.ready)
+            assertEquals(bad, 3, message.drafts.size)
+        }
+    }
+
+    @Test
+    fun unreadablePagesCarryDiagnosticsAndKotlinBuiltOnesHaveNone() {
+        val json = """{"type":"benefitsUnreadable","nonce":"n1","why":"timeout","trackers":0,"switcher":1,"ready":${readyJson.replace("stable", "timeout")}}"""
+        val message = parse(json) as BridgeMessage.BenefitsUnreadable
+        assertEquals("timeout", message.ready?.reason)
+        assertNull(BridgeMessage.BenefitsUnreadable("timeout").ready)
+    }
+
     @Test
     fun benefitsConfigCarriesTheSelectorsAndTarget() {
         val config = BridgeProtocol.benefitsConfig(spec, "n1", 30_000, listCards = false, targetDigits = "42005")

@@ -66,11 +66,19 @@ sealed interface BridgeMessage {
     /** Benefits mode: the card switcher's cards (name and last digits only). */
     data class Cards(val list: CardList) : BridgeMessage
 
-    /** Benefits mode: one card's trackers and listed benefits, read on its activity or Rewards page. */
-    data class Benefits(val lastDigits: String, val page: String, val drafts: List<BenefitDraft>) : BridgeMessage
+    /**
+     * Benefits mode: one card's trackers and listed benefits, read on its activity or Rewards page. [ready] holds the
+     * page's count-only diagnostics, or null when the page sent none or sent them malformed.
+     */
+    data class Benefits(
+        val lastDigits: String,
+        val page: String,
+        val drafts: List<BenefitDraft>,
+        val ready: PageDiagnostics? = null,
+    ) : BridgeMessage
 
-    /** Benefits mode: the page could not be read; [why] is one of a fixed set of reasons. */
-    data class BenefitsUnreadable(val why: String) : BridgeMessage
+    /** Benefits mode: the page could not be read; [why] is one of a fixed set of reasons, [ready] as for [Benefits]. */
+    data class BenefitsUnreadable(val why: String, val ready: PageDiagnostics? = null) : BridgeMessage
 }
 
 object BridgeProtocol {
@@ -147,8 +155,8 @@ object BridgeProtocol {
     private val PAGES = setOf("activity", "rewards")
     private val TOP_FIELDS = mapOf(
         "cards" to setOf("type", "nonce", "cards", "complete"),
-        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed"),
-        "benefitsUnreadable" to setOf("type", "nonce", "why", "trackers", "switcher"),
+        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed", "ready"),
+        "benefitsUnreadable" to setOf("type", "nonce", "why", "trackers", "switcher", "ready"),
     )
 
     /**
@@ -203,9 +211,9 @@ object BridgeProtocol {
             val digits = json.string("lastDigits")?.takeIf { CardKey.isValidLastDigits(it) }
             val page = json.string("page")?.takeIf { it in PAGES }
             val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
-            if (digits == null || page == null || drafts == null) null else BridgeMessage.Benefits(digits, page, drafts)
+            if (digits == null || page == null || drafts == null) null else BridgeMessage.Benefits(digits, page, drafts, PageDiagnostics.parse(json["ready"]))
         }
-        else -> json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it) }
+        else -> json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it, PageDiagnostics.parse(json["ready"])) }
     }
 
     private fun JsonObject.string(key: String): String? = (this[key] as? JsonPrimitive)?.takeIf { it.isString }?.jsonPrimitive?.content

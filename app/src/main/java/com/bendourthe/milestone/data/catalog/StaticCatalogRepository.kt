@@ -147,6 +147,7 @@ class StaticCatalogRepository : CatalogRepository {
                 "listDescription" to ".color-text-subtle",
                 "activityLink" to "a[href*='/card-benefits/activity']",
                 "activityPath" to "/card-benefits/activity",
+                "viewAllLink" to "a[href*='/card-benefits/view-all']",
             ),
         )
 

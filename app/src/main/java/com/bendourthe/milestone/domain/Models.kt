@@ -64,7 +64,7 @@ data class BenefitsSpec(
         val SELECTOR_KEYS = setOf(
             "combobox", "option", "optionName", "optionDigits", "selected",
             "tracker", "trackerHeading", "trackerSpent", "trackerSpentSection", "trackerRemaining", "trackerDone",
-            "trackerDescription", "listLink", "listMore", "listDescription", "activityLink", "activityPath",
+            "trackerDescription", "listLink", "listMore", "listDescription", "activityLink", "activityPath", "viewAllLink",
         )
     }
 }

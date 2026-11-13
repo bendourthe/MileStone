@@ -1,5 +1,6 @@
 package com.bendourthe.milestone.sync.webview
 
+import android.os.SystemClock
 import android.webkit.RenderProcessGoneDetail
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
@@ -20,6 +21,7 @@ import com.bendourthe.milestone.sync.WebViewHost
 import com.bendourthe.milestone.sync.extract.BridgeEvent
 import com.bendourthe.milestone.sync.extract.BridgeMessage
 import com.bendourthe.milestone.sync.extract.BridgeProtocol
+import com.bendourthe.milestone.sync.extract.PageDiagnostics
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.withTimeoutOrNull
 
@@ -27,7 +29,8 @@ import kotlinx.coroutines.withTimeoutOrNull
  * Reads a program's cards and their benefits in a hidden WebView that reuses the program's session profile
  * (ADR-0008): the first page lists the cards and reads the card it shows, then each other card is reached by
  * pressing its switcher option. Never signs in: a sign-in form stops the read. Cards not reached before the budget
- * ends are reported as not read, so their stored benefits stay. Logs hosts, counts, and stop reasons only.
+ * ends are reported as not read, so their stored benefits stay. Logs hosts, counts, and stop reasons only: one line
+ * per page from its parsed count-only diagnostics, one per card (elapsed time and pages used), and a run summary.
  */
 class HeadlessWebViewBenefitsSource(
     private val profiles: WebViewProfileBackend,
@@ -70,6 +73,9 @@ class HeadlessWebViewBenefitsSource(
         private var target: String? = null
         private var pages = 0
         private var destroyed = false
+        private val startedAt = SystemClock.elapsedRealtime()
+        private var cardsDone = 0
+        private var pagesAtCardStart = 0
 
         fun start() {
             WebViewConfig.configure(webView, profileName)
@@ -95,21 +101,41 @@ class HeadlessWebViewBenefitsSource(
             when (message) {
                 is BridgeMessage.Cards -> cards = message.list
                 is BridgeMessage.Benefits -> {
+                    logPage(message.ready, null)
                     read[message.lastDigits] = message.drafts
-                    if (target != null && message.lastDigits != target) failed += target!!
+                    val mismatched = target != null && message.lastDigits != target
+                    if (mismatched) failed += target!!
+                    logCard(if (mismatched) "mismatch" else "read")
                     next()
                 }
                 is BridgeMessage.BenefitsUnreadable -> {
                     DiagnosticLog.i(TAG, "${program.programId} benefits page unreadable (${message.why}) on ${HostPolicy.httpsHost(webView.url.orEmpty())}")
+                    logPage(message.ready, message.why)
                     // The first page's card failed: with a card list, the other cards are still read.
                     val current = target
                     if (current != null) failed += current
+                    if (current != null || cards != null) logCard("failed")
                     if (current == null && cards == null) finish(null) else next()
                 }
                 is BridgeMessage.Event -> if (message.event == BridgeEvent.LoginRequired) finish(BenefitsStop.SIGNED_OUT)
                 else -> Unit
             }
         }
+
+        /** [why] is the fixed unreadable reason, or null for a read page; neither line names a card or a path. */
+        private fun logPage(ready: PageDiagnostics?, why: String?) {
+            val facts = ready?.logLine() ?: "diagnostics=none"
+            DiagnosticLog.i(TAG, "${program.programId} benefits page: $facts${why?.let { " why=$it" }.orEmpty()}")
+        }
+
+        /** One line per card, by position in the read only: [outcome] is read, mismatch, or failed. */
+        private fun logCard(outcome: String) {
+            cardsDone++
+            DiagnosticLog.i(TAG, "${program.programId} benefits card: index=$cardsDone outcome=$outcome elapsed=${elapsedMs()} pages=${pages - pagesAtCardStart}")
+            pagesAtCardStart = pages
+        }
+
+        private fun elapsedMs(): Long = SystemClock.elapsedRealtime() - startedAt
 
         /** Moves to the next listed card not yet read or failed, or finishes. */
         private fun next() {
@@ -131,7 +157,7 @@ class HeadlessWebViewBenefitsSource(
 
         fun summary(): String =
             "pages=$pages cards=${cards?.cards?.size ?: "none"} complete=${cards?.complete} read=${read.size} failed=${failed.size} " +
-                "benefits=${read.values.sumOf { it.size }} " +
+                "benefits=${read.values.sumOf { it.size }} total=${elapsedMs()}ms " +
                 "stop=${if (done.isCompleted) done.getCompleted().stop ?: "none" else "budget"}"
 
         fun destroy() {

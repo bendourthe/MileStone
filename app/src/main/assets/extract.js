@@ -539,6 +539,10 @@
   var MONEY = /^\(?[-+]?\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?[).,;:]?$/;
   var EMPTY_STABLE_MS = 6000;
   var SWITCH_SETTLE_MS = 8000;
+  // Diagnostics only: the time on this document is measured from when this script started on it.
+  var DOCUMENT_STARTED_AT = Date.now();
+  var MAX_WAITED_MS = 120000;
+  var VIEW_ALL_PATH = '/card-benefits/view-all';
 
   function stripIdentifiers(text) {
     return text
@@ -693,6 +697,22 @@
       return location.pathname.indexOf(s.activityPath) === 0 ? 'activity' : 'rewards';
     }
 
+    // Count-only facts about this page for the app's diagnostics log: fixed words, booleans, and capped counts.
+    function ready(reason) {
+      var scrolled = (window.pageYOffset || 0) + (window.innerHeight || 0);
+      return {
+        kind: location.pathname.indexOf(VIEW_ALL_PATH) === 0 ? 'viewAll' : page(),
+        trackers: Math.min(document.querySelectorAll(s.tracker).length, MAX_TRACKERS),
+        listed: Math.min(document.querySelectorAll(s.listLink).length, MAX_LISTED),
+        waitedMs: Math.min(Math.max(Date.now() - DOCUMENT_STARTED_AT, 0), MAX_WAITED_MS),
+        bottom: scrolled >= document.body.scrollHeight - 2,
+        activityLink: !!document.querySelector(s.activityLink),
+        viewAllLink: !!(s.viewAllLink && document.querySelector(s.viewAllLink)),
+        switched: titlesBeforeSwitch !== null,
+        reason: reason,
+      };
+    }
+
     function tick() {
       if (done) return;
       if (hasVisiblePasswordField()) return finish({ type: 'login', nonce: config.nonce });
@@ -720,12 +740,12 @@
         if (switchStartedAt === null) {
           if (!options().length) return openSwitcher();
           var target = options().filter(function (el) { return lastDigitsOf(el.querySelector(s.optionDigits)) === config.targetDigits; })[0];
-          if (!target) return finish({ type: 'benefitsUnreadable', why: 'noSuchCard', nonce: config.nonce });
+          if (!target) return finish({ type: 'benefitsUnreadable', why: 'noSuchCard', ready: ready('switchMismatch'), nonce: config.nonce });
           switchStartedAt = Date.now();
           titlesBeforeSwitch = trackerTitles();
           target.click();
         } else if (Date.now() - switchStartedAt > SWITCH_WAIT_MS) {
-          finish({ type: 'benefitsUnreadable', why: 'switch', nonce: config.nonce });
+          finish({ type: 'benefitsUnreadable', why: 'switch', ready: ready('timeout'), nonce: config.nonce });
         }
         return;
       }
@@ -754,6 +774,7 @@
         page: page(),
         trackers: trackers.slice(0, MAX_TRACKERS).map(readTracker),
         listed: page() === 'activity' ? readListed() : [],
+        ready: ready(trackers.length || listed ? 'stable' : 'empty'),
         nonce: config.nonce,
       });
     }
@@ -765,6 +786,7 @@
           why: 'timeout',
           trackers: document.querySelectorAll(s.tracker).length,
           switcher: document.querySelector(s.selected) ? 1 : 0,
+          ready: ready('timeout'),
           nonce: config.nonce,
         });
         return;
