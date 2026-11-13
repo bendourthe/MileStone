@@ -2,7 +2,7 @@
 
 **Status**: Closed
 
-v0.1.0 shipped; every open gap was carried to [v0.2 known gaps](../../../archives/v0/v0.2/known-gaps.md) with its ID unchanged.
+v0.1.0 shipped; every open gap was carried to [v0.2 known gaps](../v0.2/known-gaps.md) with its ID unchanged.
 
 **Open items**: 0
 
@@ -14,7 +14,7 @@ v0.1.0 shipped; every open gap was carried to [v0.2 known gaps](../../../archive
 
 ## Carried to v0.2
 
-G01, G02, G03, G04, G05, G06, G08, G11, G12, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23. Each keeps its description, action, and source in [v0.2 known gaps](../../../archives/v0/v0.2/known-gaps.md).
+G01, G02, G03, G04, G05, G06, G08, G11, G12, G14, G15, G16, G17, G18, G19, G20, G21, G22, G23. Each keeps its description, action, and source in [v0.2 known gaps](../v0.2/known-gaps.md).
 
 ## Fixed
 
