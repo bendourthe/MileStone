@@ -45,3 +45,65 @@ Chosen: option 1.
 - The owner asked to keep every benefit, so the read also stores the full benefits list with its enrollment status where Amex shows one (Platinum and Business Platinum). Hilton Surpass and Gold Delta SkyMiles show trackers only; a capture of their "View all benefits" page, if Amex offers one, is a v0.2 known gap.
 - Pressing a switcher option changes which card the site shows in that profile; the balance read is unaffected because it reads the account-level points balance.
 - The capture build's "keep the window open after a read" and address stamp were used as an uncommitted build for this session; a permanent option is a v0.2 known gap.
+
+## Clarification 2026-11-12: page-ready rules, switch invariant, and run deadline
+
+Origin: v0.3.0 plan, task 2.1 (T006), from the [v0.3.0 capture record](../releases/v0/v0.3/development/v0.3.0-capture-record.md).
+
+**What the live diagnostics showed.** Amex moves from Rewards to the activity page, and from one card to another, by changing the address inside the same document. The page script restarts on each address change while the previous content stays on screen for several seconds. The v0.2 rule ("trackers steady for 2 s") therefore read the Rewards page's 2 trackers under the activity address (`kind=activity trackers=2 activity=true`) and lost the fact that a switch had happened (`switched=false` on switched cards). The decision's assumption that the script watches an in-place switch to completion within one run does not hold.
+
+**Page kinds by path.** The script classifies the page by its path prefix, from three spec values: `activityPath` (`/card-benefits/activity`), `viewAllPath` (`/card-benefits/view-all`), and `rewardsPath` (`/rewards`), checked in that order. Any other accepted path posts `benefitsUnreadable` with `why=page`. The app derives the same kind from the page address and rejects a message whose `page` or diagnostics `kind` differs, and any Rewards message that carries listed benefits.
+
+**Ready rules.** A page counts as steady when its tracker count, listed-link count, and page height are unchanged for 2 s.
+
+| Kind | Required marker | Bottom reached | Settle | Cap |
+|---|---|---|---|---|
+| rewards | a view-all or activity link (every captured Rewards page has one; it sits in the scroll-loaded lower section) | yes | 2 s steady; 6 s when it has no trackers | 15 s readiness cap; wait for a missing lower section up to min(20 s, the app's page timeout) |
+| activity | no activity link (only the Rewards content has one) and at least one tracker or listed link | yes | 2 s steady | 20 s |
+| viewAll (Phase 3) | at least one listed link, and the listed count differs from the page it was opened from | yes | 2 s steady | 20 s |
+
+A ready Rewards page follows its activity link when it has one and the app allows a second page; otherwise it posts its own trackers. T007 reopened during Phase 4: the second live refresh after automatic sign-in reached the 15 s cap with `bottom=false activity=true reason=cap` and posted partial Rewards trackers. At the readiness cap, an available activity link is followed even if the page has not settled or reached the bottom, with the same handoff note as a ready navigation. A missing lower section can continue loading up to min(20 s, the app's page timeout); an activity link arriving during that wait is followed. Once the activity link is pressed, the script waits for navigation or reports timeout rather than posting Rewards trackers. If no activity link is followed, the page still posts what it has at the applicable cap with `reason=cap`. At its cap an activity page posts with `reason=cap` only when its marker holds; while it still shows the Rewards content it posts `benefitsUnreadable` (`reason=timeout`), so Rewards content is never stored as the activity page.
+
+**Handoff across the restart.** Before pressing a link or a switcher option, the script notes, in its own document-scoped memory (not page storage), what it pressed, the target card, and a fingerprint of the trackers on screen (titles and amounts, never posted). The next run on the same document adopts a note younger than 30 s. A full document load drops the note, which is safe because a new document holds no old content.
+
+**Switch invariant.** After a switch, whether watched in one run or adopted from a note, the page is ready only when the selected card's digits match the target and the tracker fingerprint is non-empty and different from the one before the switch. An emptied tracker area is not ready. After the 12 s switch cap: with the markers present and the tracker area steady and empty, the page posts an empty read with `reason=cap`; with the old fingerprint still on screen it posts `benefitsUnreadable` with `reason=switchMismatch`, so the old card's trackers are never stored under the new card. Two cards whose trackers match in title and amount therefore fail that card rather than risk a wrong read.
+
+**Run deadline.** The source keeps one deadline for the whole read (`BENEFITS_TIMEOUT_MS` minus a 2 s margin) and sends each page `min(20 s, time left minus 2 s)`; the script also applies the cap of the page's kind. The measured worst case (card list plus 4 cards, 2 pages each; 7 to 16 s per card, at most 12.4 s per page) is about 60 s, so it fits. When time runs short the read cuts in this order, logging each cut:
+
+1. When a card's Rewards page starts, its second page is allowed only while the time left covers 20 s for that page plus 20 s for this card's first page and for each card still waiting after it; otherwise that card's Rewards page posts its own trackers, and every later card also reads its first page only. The first-page reserve includes the late-lower-section allowance introduced by the Phase 4 T007 correction; the former 15 s reserve could spend time on a second page and leave the last card unread.
+2. A new card starts only while at least 10 s remain; otherwise the read ends with the remaining cards unread, so their stored benefits stay.
+
+**Rejected alternative (B).** One fixed longer settle for every page was rejected: the activity page's marker (no activity link) and the Rewards page's marker (a view-all or activity link) were present in every capture, and a longer settle alone would still read the Rewards content under the activity address, because that content stays steady for longer than any reasonable settle.
+
+## Amendment 2026-11-12: the view-all page for cards without an activity page
+
+Origin: v0.3.0 plan, task 3.1 (T012). This amends the outcome: a third page is read.
+
+**Context.** The v0.3.0 capture record shows a "View all benefits" link on every card. On Platinum and Business Platinum the view-all page has the same structure as the activity page. On Hilton Surpass and Gold Delta SkyMiles it shows the card switcher, the selected card's own trackers, and a card-specific list (20 and 24 benefits) with no enrollment marks. Whether the bare `/card-benefits/view-all` address opens the selected card was not tested.
+
+**Options.**
+
+- **(A)** The source loads the bare `/card-benefits/view-all` address as a checked spec field. Rejected: untested, and a bare address may open the account's default card.
+- **(B) Chosen.** The page script presses the page's own view-all link, as it presses the activity link.
+- **(C)** A card whose Rewards page shows no view-all link keeps trackers only (the v0.2 behavior); it stays a known gap for that card.
+
+**Outcome.**
+
+- A ready Rewards page with an activity link follows it, as before; the activity page holds the full list.
+- A ready Rewards page with no activity link but a view-all link, when the app allows a second page, posts its trackers with the control field `next=viewAll` (a message field, not a diagnostics value), then presses the view-all link with a handoff note. The link may carry the account key in its query: the app never logs, stores, or forwards an address beyond its host, and matches pages by path only.
+- The app accepts `/card-benefits/view-all` on `global.americanexpress.com`. A view-all page is ready when its list is non-empty and differs in count from the page it was opened from, at the bottom, steady for 2 s (the table above). It posts its listed benefits with `page=viewAll`; the app takes only the listed benefits from it, because the trackers come from the Rewards page.
+- `next` is accepted only on a Rewards message with no listed benefits.
+
+**Per-card state.**
+
+| State | Message | Result |
+|---|---|---|
+| awaitingRewards | Rewards or activity benefits for the card | Stored as read (the activity page covers every section; a Rewards page alone covers the tracker sections); the card is complete. |
+| awaitingRewards | Rewards benefits with `next=viewAll` | Trackers held and stored for the tracker sections; state becomes awaitingViewAll for that message's last digits. |
+| awaitingViewAll | View-all benefits with the same digits | The list joins the held trackers; the card covers every section and is complete. An empty list replaces the stored one only with `reason=stable`; otherwise the list counts as unread. |
+| awaitingViewAll | View-all benefits with other digits | Dropped and logged as `switchMismatch`; the card keeps its stored list (listUnread). |
+| awaitingViewAll | Rewards or activity benefits | Dropped and counted (a late message from the first page). |
+| awaitingViewAll | Unreadable page, or no view-all message within that page's timeout plus 5 s | The list is unread; the card keeps its stored list and its new trackers, and is not counted as failed. |
+| any other | View-all benefits | Dropped and counted. |
+
+**Storage.** Each card read names the sections it covered: a Rewards page alone covers the tracker sections (spend progress, credits, completed, other); a list covers the listed section; an activity page, or Rewards plus view-all, covers all. Only those sections are replaced, in one transaction under the program's lock, so a read that reaches only part of a card's pages never erases what the other pages stored.

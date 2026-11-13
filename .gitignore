@@ -16,6 +16,9 @@ Desktop.ini
 # Logs
 *.log
 
+# Python caches from the capture scripts
+__pycache__/
+
 # Android and Gradle
 .gradle/
 build/

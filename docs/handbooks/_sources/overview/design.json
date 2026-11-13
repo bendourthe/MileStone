@@ -1,0 +1,34 @@
+{
+  "notes": [],
+  "presentation": {
+    "depth": "balanced",
+    "enabled": true,
+    "theme": "mixed"
+  },
+  "provenance": {
+    "presentation": "default",
+    "presentation_depth": "default",
+    "presentation_theme": "default"
+  },
+  "questions": [],
+  "status": "resolved",
+  "values": {
+    "presentation": "yes",
+    "presentation_depth": "balanced",
+    "presentation_theme": "mixed"
+  },
+  "reading": {
+    "layout": "standard",
+    "coverage": "comprehensive",
+    "default_theme": "light",
+    "depth": "full",
+    "provenance": "handbook full-source requirement"
+  },
+  "style": {
+    "direction": "technical",
+    "imagery": "none",
+    "fonts": "system",
+    "palette": "existing MileStone teal",
+    "provenance": "noninteractive project settings"
+  }
+}

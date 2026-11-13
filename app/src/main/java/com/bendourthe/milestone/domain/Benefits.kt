@@ -187,8 +187,12 @@ interface CardRepository {
      */
     suspend fun applyCardList(programId: String, cards: CardList, readEpochMs: Long)
 
-    /** Replaces one card's benefits and stamps its benefits read time. Does nothing for an unknown card. */
-    suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long)
+    /**
+     * Replaces one card's benefits in [sections] only, in one transaction, and stamps its benefits read time; rows in
+     * other sections stay, and [benefits] outside [sections] are ignored. Does nothing for an unknown card or an
+     * empty [sections].
+     */
+    suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long, sections: Set<BenefitSection> = BenefitSection.entries.toSet())
 
     /** Deletes the program's cards, benefits, and reminder records (Sign out keeps the account row). */
     suspend fun deleteProgramCards(programId: String)

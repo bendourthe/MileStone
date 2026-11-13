@@ -54,15 +54,17 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository {
         }
     }
 
-    override suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long) =
+    override suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long, sections: Set<BenefitSection>) {
+        if (sections.isEmpty()) return
         logged("card benefits", benefits.size) {
             db.withTransaction {
                 if (dao.card(cardKey.programId, cardKey.lastDigits) == null) return@withTransaction
-                dao.deleteBenefits(cardKey.programId, cardKey.lastDigits)
-                dao.insertBenefits(benefits.filter { it.cardKey == cardKey }.map { it.toEntity() })
+                dao.deleteBenefitSections(cardKey.programId, cardKey.lastDigits, sections.map { it.name })
+                dao.insertBenefits(benefits.filter { it.cardKey == cardKey && it.section in sections }.map { it.toEntity() })
                 dao.setBenefitsRead(cardKey.programId, cardKey.lastDigits, readEpochMs)
             }
         }
+    }
 
     override suspend fun deleteProgramCards(programId: String) = dao.deleteProgramCards(programId)
 

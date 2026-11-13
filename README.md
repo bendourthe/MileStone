@@ -69,16 +69,20 @@ Selector work for a program needs a copy of its real balance page. Captures hold
    adb install -r app\build\outputs\apk\capture\app-capture.apk
    ```
 
-2. On the phone, open the capture build, sign in to the program once, wait for the balance page, and tap "Capture page" in the sign-in screen's top bar.
-3. List the saved captures, then copy one to the PC. `cmd /c` keeps the HTML bytes unchanged, which PowerShell redirection does not:
+2. On the phone, open the capture build, sign in to the program once, open the page you need, and tap "Capture page" in the sign-in screen's top bar. In the capture build the window stays open after a read, so you can move to other pages and capture each one. The top bar shows the current page's host and path, with the query, the fragment, and identifier-like segments removed.
+3. List the saved captures, then stream one through the sanitizer into the private folder. The sanitizer strips identifiers before anything is written on the PC, and `cmd /c` keeps the HTML bytes unchanged, which PowerShell piping does not:
 
    ```powershell
    adb shell run-as com.bendourthe.milestone.capture ls files/captures
    New-Item -ItemType Directory -Force app\src\test\resources\fixtures-private
-   cmd /c "adb exec-out run-as com.bendourthe.milestone.capture cat files/captures/REPLACE.html > app\src\test\resources\fixtures-private\REPLACE.html"
+   cmd /c "adb exec-out run-as com.bendourthe.milestone.capture cat files/captures/REPLACE.html | python -I app\src\capture\sanitize_capture.py app\src\test\resources\fixtures-private\REPLACE.html"
    ```
 
-   Replace `REPLACE.html` with a file name from the list.
+   Replace `REPLACE.html` with a file name from the list. Inspect a capture by structure only (tag, class, and attribute counts; no amounts or names), optionally filtered by a class-name substring:
+
+   ```powershell
+   python -I app\src\capture\inspect_capture.py app\src\test\resources\fixtures-private\REPLACE.html
+   ```
 4. Remove the capture build, which also deletes its sessions and captures. The capture build is debuggable, so anyone with USB access could read its sessions while it is installed:
 
    ```powershell

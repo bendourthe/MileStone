@@ -153,6 +153,43 @@ class RoomCardRepositoryTest {
         assertEquals("Covers eligible purchases" to Enrollment.ENROLLED, stored.last().let { it.description to it.enrollment })
     }
 
+    private val trackerSections = setOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED, BenefitSection.OTHER)
+
+    private fun listed(card: CardKey, vararg keys: String) = assignBenefitKeys(
+        card,
+        keys.map { BenefitDraft(BenefitSection.LISTED, it.replaceFirstChar(Char::uppercase), null, null, null, null, completed = false, issuerKey = it) },
+    )
+
+    private suspend fun stored(card: CardKey) = cards.observeBenefits(card).first().map { it.section to it.title }
+
+    @Test
+    fun aTrackersOnlyReadKeepsTheStoredList() = runTest {
+        cards.applyCardBenefits(gold, benefits(gold, "Dining Credit") + listed(gold, "lounge"), 20)
+        cards.applyCardBenefits(gold, benefits(gold, "Hotel Credit") + listed(gold, "ignored"), 21, trackerSections)
+
+        assertEquals(listOf(BenefitSection.CREDIT_EARNED to "Hotel Credit", BenefitSection.LISTED to "Lounge"), stored(gold))
+        assertEquals(21L, cards.observeCards("amex").first().single { it.key == gold }.benefitsReadEpochMs)
+    }
+
+    @Test
+    fun aListOnlyReadKeepsTheStoredTrackers() = runTest {
+        cards.applyCardBenefits(gold, benefits(gold, "Dining Credit") + listed(gold, "lounge"), 20)
+        cards.applyCardBenefits(gold, listed(gold, "protection", "insurance"), 21, setOf(BenefitSection.LISTED))
+
+        assertEquals(
+            listOf(BenefitSection.CREDIT_EARNED to "Dining Credit", BenefitSection.LISTED to "Protection", BenefitSection.LISTED to "Insurance"),
+            stored(gold),
+        )
+    }
+
+    @Test
+    fun aReadNamingNoSectionsChangesNothing() = runTest {
+        cards.applyCardBenefits(gold, emptyList(), 22, emptySet())
+
+        assertEquals(listOf("Dining Credit", "Uber Cash"), stored(gold).map { it.second })
+        assertEquals(11L, cards.observeCards("amex").first().single { it.key == gold }.benefitsReadEpochMs)
+    }
+
     @Test
     fun benefitsForAnUnknownCardOrAccountAreIgnored() = runTest {
         val unknown = CardKey("amex", "4444")

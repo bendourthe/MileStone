@@ -50,6 +50,7 @@ import com.bendourthe.milestone.sync.extract.BridgeEvent
 import com.bendourthe.milestone.sync.webview.HostPolicy
 import com.bendourthe.milestone.sync.webview.LoginBridge
 import com.bendourthe.milestone.ui.theme.AuroraBackground
+import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 import java.io.File
 
@@ -69,10 +70,21 @@ fun AuthWebViewModal(
     var externalLink by remember { mutableStateOf<String?>(null) }
     var pasteRejected by remember { mutableStateOf(false) }
 
+    var pageLabel by remember { mutableStateOf<String?>(null) }
+
     LaunchedEffect(bridge) {
         bridge.events.collect { event ->
-            // The capture build keeps the page open after a failed read so the user can still capture it.
-            if (BuildConfig.BUILD_TYPE != CAPTURE_BUILD || event !is BridgeEvent.Failed) onEvent(event)
+            // The capture build keeps the page open after any read so the user can open and capture more pages.
+            if (forwardsInBuild(BuildConfig.BUILD_TYPE, event)) onEvent(event)
+        }
+    }
+    if (BuildConfig.BUILD_TYPE == CAPTURE_BUILD) {
+        // Polled because the bridge exposes only the host; a same-host page change would not refresh a host flow.
+        LaunchedEffect(bridge) {
+            while (true) {
+                pageLabel = capturePageLabel(bridge.webView.url)
+                delay(PAGE_LABEL_POLL_MS)
+            }
         }
     }
     LaunchedEffect(bridge) { bridge.externalLinks.collect { externalLink = it } }
@@ -91,7 +103,7 @@ fun AuthWebViewModal(
                         title = {
                             Column {
                                 Text(program.displayName, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                host?.let { current ->
+                                (pageLabel ?: host)?.let { current ->
                                     Text(current, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 }
                             }
@@ -155,6 +167,32 @@ fun AuthWebViewModal(
 
 private const val TAG = "MileStoneAuth"
 private const val CAPTURE_BUILD = "capture"
+private const val PAGE_LABEL_POLL_MS = 500L
+
+/**
+ * Whether the sign-in window passes [event] on. The capture build holds back the events that close the window
+ * (a read, successful or failed) so the user can keep browsing and capturing; every other event still passes.
+ */
+// DEVIATION: the view model saves the balance and closes in one step, so the capture build also skips the save.
+internal fun forwardsInBuild(buildType: String, event: BridgeEvent): Boolean =
+    buildType != CAPTURE_BUILD || (event !is BridgeEvent.Extracted && event !is BridgeEvent.Failed)
+
+/**
+ * Capture build only: the host and path of [url] for the top bar, without query or fragment, and with every
+ * path segment that may be an identifier shortened to `#` (the rule `extract.js` applies to page text).
+ * Shown as Compose text only: never written into the page, a log, or a file name.
+ */
+internal fun capturePageLabel(url: String?): String? {
+    val parsed = url?.let { runCatching { java.net.URI(it) }.getOrNull() } ?: return null
+    val host = parsed.host ?: return null
+    val segments = (parsed.rawPath ?: "").split('/').filter { it.isNotEmpty() }.map { if (looksLikeIdentifier(it)) "#" else it }
+    return host + segments.joinToString("") { "/$it" }
+}
+
+private fun looksLikeIdentifier(segment: String): Boolean {
+    val digits = segment.count(Char::isDigit)
+    return digits >= 6 || (segment.length >= 8 && digits >= 4) || (segment.length >= 10 && digits > 0 && segment.all { it.isUpperCase() || it.isDigit() })
+}
 
 /** Capture build only: saves the rendered page under files/captures/ for `adb shell run-as ... cat`. */
 private fun capturePage(context: Context, webView: WebView, programId: String) {
