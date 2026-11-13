@@ -4,6 +4,12 @@
 
 **Version:** v0.2.0 (recorded in `CHANGELOG.md`)
 
+## Expanded Completion Goal
+
+Owner scope update, 2026-11-13: complete the existing v0.1/v0.2/v0.3 integration, release, canonical archive, and authorized cleanup obligations AND deliver the complete Benefits redesign. The six interface requirements below are required work, superseding their earlier deferral. The overall goal remains unfinished until the redesign is implemented, installed without erasing sign-ins, and verified on the phone; extraction correctness or v0.3.0 PLAN COMPLETE alone cannot close it. Original count-confirmation, privacy, test-device, and publication requirements remain in force. The native goal API cannot edit an unfinished objective; this tracker and the owner's scope instruction retain the expanded completion criteria without falsely marking the old goal complete.
+
+Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. Pending extraction owner checks do not prevent reversible local redesign work.
+
 ---
 
 ## Scores
@@ -16,6 +22,7 @@
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | v0.3.0 plan phases complete | 3 of 4 | 4 of 4 | 1 (Phase 4 in progress; T007 follow-up) |
+| Required Benefits redesign outcomes verified | 0 of 6 | 6 of 6 | 6 (required by owner; implementation pending) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -98,9 +105,20 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 - [x] v0.1/v0.2 audit: both tags/releases and green implementation PRs verified; v0.2 already fully archived.
 - [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop remains pending.
 
-## Next plan candidates (after v0.3.0)
+## Required Benefits Redesign
 
-- [ ] Refresh model and Benefits tab redesign: per-scope refresh (Rewards tile, program, card, global with a per-tab choice) on one coordinated queue; program, then card, then benefits layout with card art, benefit and alert counts; welcome bonus, credits, spend trackers, other, alphabetical within sections; completed styling in place with a sort option to move completed items last; a generic empty message; a manual welcome-bonus setup.
+- [ ] Alerts: yellow warning badges with active counts; distinct alerts at the top of the opened card; individual acknowledgement; applicable alerts can return after a successful relevant refresh.
+- [ ] Card images: matching offline artwork for all four known Amex products on tiles and card pages, with an unknown-card fallback.
+- [ ] Organization: program, then card; Welcome bonus, Credits, Spend trackers, Other; preserve progress, enrollment, descriptions, periods, and completed styling.
+- [ ] Sorting: alphabetical within categories, with a completed-items-last option and persisted user choice.
+- [ ] Collapsing: independently expandable counted categories, Other initially collapsed, and persisted card-specific choices.
+- [ ] Redundancy removal: display a listed benefit and its matching tracker once on the same card, retaining useful enrollment/description data without deleting stored issuer rows or merging distinct periods.
+- [ ] Related Benefits requirements: benefit/alert counts, Rewards-to-Benefits program navigation (G36), per-list freshness (G43), a generic empty message, and local manual welcome-bonus setup.
+- [ ] Delivery: exercise every interaction on a runnable synthetic screen, install with -r, obtain phone verification, and finish authorized integration/release/archive duties before closing the expanded goal.
+
+## Separate Refresh Work
+
+- [ ] Per-scope refresh (Rewards tile, program, card, global with a per-tab choice) on one coordinated queue remains a separate scope. Preserve the existing background-continuation and automatic-retry gaps; the Benefits display redesign does not silently claim them fixed.
 
 ## Next minor (v0.2) candidates
 
