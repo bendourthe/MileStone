@@ -15,6 +15,7 @@
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
+| v0.3.0 plan phases complete | 0 of 4 | 4 of 4 | 4 (planned) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -82,6 +83,19 @@
 - [x] Phase 4: Benefits tab and card pages
 - [x] Phase 5: Benefit reminders
 - [x] Phase 6: Architecture refactor, known gaps, CI/CD, and publication
+
+## Phase 4: v0.3.0 implementation (Amex benefits extraction fix)
+
+Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
+
+- [ ] Phase 1: Diagnostics and missing captures (owner capture session)
+- [ ] Phase 2: Page-ready timing and switch rule
+- [ ] Phase 3: View-all list and section-scoped storage (Should)
+- [ ] Phase 4: Architecture refactor, known gaps, CI/CD, and publication
+
+## Next plan candidates (after v0.3.0)
+
+- [ ] Refresh model and Benefits tab redesign: per-scope refresh (Rewards tile, program, card, global with a per-tab choice) on one coordinated queue; program, then card, then benefits layout with card art, benefit and alert counts; welcome bonus, credits, spend trackers, other, alphabetical within sections; completed styling in place with a sort option to move completed items last; a generic empty message; a manual welcome-bonus setup.
 
 ## Next minor (v0.2) candidates
 
