@@ -8,6 +8,7 @@ import com.bendourthe.milestone.domain.CardList
 import com.bendourthe.milestone.domain.FailureReason
 import com.bendourthe.milestone.domain.SelectorStrategy
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.booleanOrNull
@@ -117,7 +118,8 @@ object BridgeProtocol {
 
     /**
      * Benefits mode (ADR-0008). [listCards] asks for the switcher's card list; [targetDigits] asks the script to
-     * switch to that card before reading. The selectors come from the program's [BenefitsSpec].
+     * switch to that card before reading; [secondPage] false tells a Rewards page to post its own trackers instead of
+     * following its activity link (the run deadline's first cut). The selectors come from the program's [BenefitsSpec].
      */
     fun benefitsConfig(
         spec: BenefitsSpec,
@@ -125,11 +127,13 @@ object BridgeProtocol {
         timeoutMs: Long,
         listCards: Boolean,
         targetDigits: String? = null,
+        secondPage: Boolean = true,
     ): String = buildJsonObject {
         put("mode", "benefits")
         put("nonce", nonce)
         put("timeoutMs", timeoutMs)
         put("listCards", listCards)
+        put("secondPage", secondPage)
         if (targetDigits != null) put("targetDigits", targetDigits)
         put("selectors", buildJsonObject { spec.selectors.forEach { (key, value) -> put(key, value) } })
     }.toString()
@@ -151,7 +155,7 @@ object BridgeProtocol {
 
     private const val MAX_BENEFITS_MESSAGE = 256 * 1024
     private val BENEFITS_TYPES = setOf("cards", "benefits", "benefitsUnreadable")
-    private val UNREADABLE_REASONS = setOf("timeout", "switch", "noSuchCard")
+    private val UNREADABLE_REASONS = setOf("timeout", "switch", "noSuchCard", "page")
     private val PAGES = setOf("activity", "rewards")
     private val TOP_FIELDS = mapOf(
         "cards" to setOf("type", "nonce", "cards", "complete"),
@@ -177,7 +181,7 @@ object BridgeProtocol {
         if (expectedNonce == null || json.string("nonce") != expectedNonce) return null
         if (type in BENEFITS_TYPES) {
             if (benefits == null || !benefits.accepts(pageUrl) || !TOP_FIELDS.getValue(type).containsAll(json.keys)) return null
-            return parseBenefits(type, json)
+            return parseBenefits(type, json, benefits.kindOf(pageUrl))
         }
         return when (type) {
             "login" -> BridgeMessage.Event(BridgeEvent.LoginRequired)
@@ -202,18 +206,31 @@ object BridgeProtocol {
         }
     }
 
-    private fun parseBenefits(type: String, json: JsonObject): BridgeMessage? = when (type) {
+    /**
+     * [pageKind] is the kind the page address says; a message whose `page` or diagnostics kind differs is dropped,
+     * and so is a Rewards message carrying listed benefits (only the activity and view-all pages list them).
+     */
+    private fun parseBenefits(type: String, json: JsonObject, pageKind: String?): BridgeMessage? = when (type) {
         "cards" -> {
             val complete = (json["complete"] as? JsonPrimitive)?.booleanOrNull
             complete?.let { BenefitsReader.cards(json["cards"], it) }?.let { BridgeMessage.Cards(it) }
         }
         "benefits" -> {
             val digits = json.string("lastDigits")?.takeIf { CardKey.isValidLastDigits(it) }
-            val page = json.string("page")?.takeIf { it in PAGES }
+            val page = json.string("page")?.takeIf { it in PAGES && it == pageKind }
+            val listsOnRewards = page == "rewards" && (json["listed"] as? JsonArray)?.isNotEmpty() == true
             val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
-            if (digits == null || page == null || drafts == null) null else BridgeMessage.Benefits(digits, page, drafts, PageDiagnostics.parse(json["ready"]))
+            val ready = PageDiagnostics.parse(json["ready"])
+            if (digits == null || page == null || drafts == null || listsOnRewards || ready?.kind?.let { it != pageKind } == true) {
+                null
+            } else {
+                BridgeMessage.Benefits(digits, page, drafts, ready)
+            }
         }
-        else -> json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it, PageDiagnostics.parse(json["ready"])) }
+        else -> {
+            val ready = PageDiagnostics.parse(json["ready"])
+            if (ready != null && ready.kind != pageKind) null else json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it, ready) }
+        }
     }
 
     private fun JsonObject.string(key: String): String? = (this[key] as? JsonPrimitive)?.takeIf { it.isString }?.jsonPrimitive?.content

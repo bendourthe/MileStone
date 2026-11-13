@@ -116,7 +116,10 @@ class HeadlessSyncFixtureTest {
             paths = setOf("/assets/fixtures"),
             selectors = StaticCatalogRepository.AMEX_BENEFITS.selectors + mapOf(
                 "activityLink" to "a[href*='benefits-activity']",
+                "viewAllLink" to "a[href*='benefits-view-all']",
                 "activityPath" to "/assets/fixtures/benefits-activity",
+                "rewardsPath" to "/assets/fixtures/benefits-",
+                "viewAllPath" to "/assets/fixtures/benefits-view-all",
             ),
         )
         val withBenefits = program.copy(benefits = spec)

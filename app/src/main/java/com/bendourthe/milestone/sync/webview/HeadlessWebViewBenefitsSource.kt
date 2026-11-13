@@ -18,6 +18,7 @@ import com.bendourthe.milestone.sync.BenefitsRead
 import com.bendourthe.milestone.sync.BenefitsSource
 import com.bendourthe.milestone.sync.BenefitsStop
 import com.bendourthe.milestone.sync.WebViewHost
+import com.bendourthe.milestone.sync.extract.BenefitsReadBudget
 import com.bendourthe.milestone.sync.extract.BridgeEvent
 import com.bendourthe.milestone.sync.extract.BridgeMessage
 import com.bendourthe.milestone.sync.extract.BridgeProtocol
@@ -44,7 +45,7 @@ class HeadlessWebViewBenefitsSource(
             return BenefitsRead(null, emptyMap(), stop = BenefitsStop.UNSUPPORTED)
         }
         return host.withAttachedWebView { webView ->
-            val run = Run(webView, program, spec, minOf(budgetMs, PAGE_BUDGET_MS) - SCRIPT_MARGIN_MS)
+            val run = Run(webView, program, spec, BenefitsReadBudget(SystemClock.elapsedRealtime() + budgetMs - SCRIPT_MARGIN_MS))
             try {
                 run.start()
                 withTimeoutOrNull((budgetMs - SCRIPT_MARGIN_MS).coerceAtLeast(1_000)) { run.done.await() } ?: run.result(BenefitsStop.BUDGET)
@@ -60,13 +61,14 @@ class HeadlessWebViewBenefitsSource(
         private val webView: WebView,
         private val program: Program,
         private val spec: BenefitsSpec,
-        private val pageTimeoutMs: Long,
+        private val budget: BenefitsReadBudget,
     ) {
         val done = CompletableDeferred<BenefitsRead>()
         private val profileName = SessionProfiles.profileName(program.programId)
         private val script = webView.context.assets.open(SCRIPT_ASSET).bufferedReader().use { it.readText() }
         private val origins = program.allowedHosts.map { "https://$it" }.toSet()
-        private var nonce = newNonce()
+        /** Null between a source-driven load and the new page's ready message, so nothing from the old page is accepted. */
+        private var nonce: String? = null
         private var cards: CardList? = null
         private val read = linkedMapOf<String, List<BenefitDraft>>()
         private val failed = linkedSetOf<String>()
@@ -76,6 +78,7 @@ class HeadlessWebViewBenefitsSource(
         private val startedAt = SystemClock.elapsedRealtime()
         private var cardsDone = 0
         private var pagesAtCardStart = 0
+        private var secondPageCutLogged = false
 
         fun start() {
             WebViewConfig.configure(webView, profileName)
@@ -85,8 +88,20 @@ class HeadlessWebViewBenefitsSource(
                 val data = message.data
                 if (data == READY) {
                     pages++
-                    nonce = newNonce()
-                    reply.postMessage(BridgeProtocol.benefitsConfig(spec, nonce, pageTimeoutMs, listCards = cards == null && read.isEmpty(), targetDigits = target))
+                    val fresh = newNonce()
+                    nonce = fresh
+                    val now = SystemClock.elapsedRealtime()
+                    // Decided where a card starts (its Rewards page); a second page's own ready message changes nothing.
+                    val secondPage = if (spec.kindOf(view.url) == "rewards") budget.allowsSecondPage(now, cardsAfterCurrent()) else true
+                    if (!secondPage && !secondPageCutLogged) {
+                        secondPageCutLogged = true
+                        DiagnosticLog.i(TAG, "${program.programId} benefits cut: second pages skipped from card index=${cardsDone + 1} left=${budget.timeLeftMs(now)}")
+                    }
+                    reply.postMessage(
+                        BridgeProtocol.benefitsConfig(
+                            spec, fresh, budget.pageTimeoutMs(now), listCards = cards == null && read.isEmpty(), targetDigits = target, secondPage = secondPage,
+                        ),
+                    )
                     return@addWebMessageListener
                 }
                 onMessage(BridgeProtocol.parse(data, nonce, pageUrl = view.url, benefits = spec))
@@ -137,11 +152,21 @@ class HeadlessWebViewBenefitsSource(
 
         private fun elapsedMs(): Long = SystemClock.elapsedRealtime() - startedAt
 
-        /** Moves to the next listed card not yet read or failed, or finishes. */
+        /** Listed cards still waiting after the one being read now (0 before the card list arrives). */
+        private fun cardsAfterCurrent(): Int =
+            cards?.cards?.count { it.lastDigits !in read && it.lastDigits !in failed && it.lastDigits != target }?.let { if (target == null) it - 1 else it }?.coerceAtLeast(0) ?: 0
+
+        /** Moves to the next listed card not yet read or failed, or finishes; past the deadline's last cut the rest stay unread. */
         private fun next() {
-            val remaining = cards?.cards?.map { it.lastDigits }?.firstOrNull { it !in read && it !in failed }
-            if (remaining == null) return finish(null)
-            target = remaining
+            val waiting = cards?.cards?.map { it.lastDigits }?.filter { it !in read && it !in failed }.orEmpty()
+            if (waiting.isEmpty()) return finish(null)
+            val now = SystemClock.elapsedRealtime()
+            if (!budget.allowsNewCard(now)) {
+                DiagnosticLog.i(TAG, "${program.programId} benefits cut: cards unread=${waiting.size} left=${budget.timeLeftMs(now)}")
+                return finish(BenefitsStop.BUDGET)
+            }
+            target = waiting.first()
+            nonce = null
             webView.loadUrl(spec.entryUrl)
         }
 
@@ -200,9 +225,6 @@ class HeadlessWebViewBenefitsSource(
         private const val SCRIPT_ASSET = "extract.js"
         private const val READY = """{"type":"ready"}"""
         private const val SCRIPT_MARGIN_MS = 2_000L
-
-        /** How long one page may take to show its trackers. */
-        const val PAGE_BUDGET_MS = 30_000L
 
         private val random = java.security.SecureRandom()
 

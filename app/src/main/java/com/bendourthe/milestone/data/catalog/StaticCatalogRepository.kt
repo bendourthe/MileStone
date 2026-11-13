@@ -148,6 +148,8 @@ class StaticCatalogRepository : CatalogRepository {
                 "activityLink" to "a[href*='/card-benefits/activity']",
                 "activityPath" to "/card-benefits/activity",
                 "viewAllLink" to "a[href*='/card-benefits/view-all']",
+                "rewardsPath" to "/rewards",
+                "viewAllPath" to "/card-benefits/view-all",
             ),
         )
 

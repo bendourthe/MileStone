@@ -47,7 +47,10 @@ class BenefitsBridgeFixtureTest {
         paths = setOf("/assets/fixtures"),
         selectors = StaticCatalogRepository.AMEX_BENEFITS.selectors + mapOf(
             "activityLink" to "a[href*='benefits-activity']",
+            "viewAllLink" to "a[href*='benefits-view-all']",
             "activityPath" to "/assets/fixtures/benefits-activity",
+            "rewardsPath" to "/assets/fixtures/benefits-",
+            "viewAllPath" to "/assets/fixtures/benefits-view-all",
         ),
     )
 
@@ -59,7 +62,7 @@ class BenefitsBridgeFixtureTest {
         scenario.close()
     }
 
-    private fun load() {
+    private fun load(url: String = spec.entryUrl) {
         val script = appAssets.assets.open("extract.js").bufferedReader().use { it.readText() }
         scenario.onActivity { activity ->
             webView = WebView(activity).apply {
@@ -78,7 +81,7 @@ class BenefitsBridgeFixtureTest {
             }
             WebViewCompat.addDocumentStartJavaScript(webView, script, origins)
             activity.setContentView(webView)
-            webView.loadUrl(spec.entryUrl)
+            webView.loadUrl(url)
         }
     }
 
@@ -137,6 +140,34 @@ class BenefitsBridgeFixtureTest {
         assertEquals(emptyList<Any>(), third.drafts)
 
         for (decoy in DECOYS) assertFalse("decoy $decoy reached a message", raw.any { decoy in it })
+    }
+
+    @Test
+    fun aRewardsPageWaitsForItsLateLowerSectionThenFollowsTheActivityLink() = runBlocking {
+        // The lower section with the activity link renders late, and the activity link changes the address in place
+        // while the Rewards content stays for 3 s: v0.2.0 posted the Rewards page's 2 trackers in both cases.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-lazy.html")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("71008" to "activity", message.lastDigits to message.page)
+        assertEquals(
+            listOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED),
+            message.drafts.map { it.section },
+        )
+        assertEquals("activity" to "stable", message.ready?.kind to message.ready?.reason)
+        assertEquals("the posted page still showed the Rewards content", false, message.ready?.activityLink)
+    }
+
+    @Test
+    fun anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange() = runBlocking {
+        // The switch changes the address in the same document, empties the trackers, and shows the new ones 7 s later.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005")
+        load("https://$HOST/assets/fixtures/benefits-switch-late.html")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("42005" to "rewards", message.lastDigits to message.page)
+        assertEquals(listOf("\$50 Fixture Hotel Credit", "Fixture Free Night Bonus"), message.drafts.map { it.title })
+        assertEquals(true, message.ready?.switched)
+        assertFalse("the old card's trackers reached a message", raw.any { "Fixture Dining Credit" in it })
     }
 
     private companion object {

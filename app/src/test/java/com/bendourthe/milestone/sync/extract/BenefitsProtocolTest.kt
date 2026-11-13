@@ -97,7 +97,7 @@ class BenefitsProtocolTest {
         assertNull(parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"card 1234"}"""))
     }
 
-    private val readyJson = """{"kind":"rewards","trackers":2,"listed":0,"waitedMs":2400,"bottom":false,"activityLink":false,"viewAllLink":true,"switched":false,"reason":"stable"}"""
+    private val readyJson = """{"kind":"activity","trackers":2,"listed":0,"waitedMs":2400,"bottom":false,"activityLink":false,"viewAllLink":true,"switched":false,"reason":"stable"}"""
 
     private fun withReady(ready: String) = benefitsJson.replace("\"listed\":[{", "\"ready\":$ready,\"listed\":[{")
 
@@ -105,10 +105,10 @@ class BenefitsProtocolTest {
     fun pageDiagnosticsAreParsedAndLoggedAsCountsOnly() {
         val message = parse(withReady(readyJson), activity) as BridgeMessage.Benefits
         val ready = message.ready!!
-        assertEquals("rewards" to 2400L, ready.kind to ready.waitedMs)
+        assertEquals("activity" to 2400L, ready.kind to ready.waitedMs)
         val line = ready.logLine()
         assertEquals(
-            "kind=rewards trackers=2 listed=0 waited=2400 bottom=false activity=false viewAll=true switched=false reason=stable",
+            "kind=activity trackers=2 listed=0 waited=2400 bottom=false activity=false viewAll=true switched=false reason=stable",
             line,
         )
         // The message carries card digits and titles; the log line must hold none of them.
@@ -121,7 +121,7 @@ class BenefitsProtocolTest {
             readyJson.replace(",\"reason\":\"stable\"", ""),
             readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"lastDigits\":\"71008\""),
             readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"card 71008\""),
-            readyJson.replace("\"kind\":\"rewards\"", "\"kind\":\"overview\""),
+            readyJson.replace("\"kind\":\"activity\"", "\"kind\":\"overview\""),
             readyJson.replace("\"trackers\":2", "\"trackers\":2.5"),
             readyJson.replace("\"trackers\":2", "\"trackers\":2e1"),
             readyJson.replace("\"trackers\":2", "\"trackers\":-1"),
@@ -145,9 +145,41 @@ class BenefitsProtocolTest {
     @Test
     fun unreadablePagesCarryDiagnosticsAndKotlinBuiltOnesHaveNone() {
         val json = """{"type":"benefitsUnreadable","nonce":"n1","why":"timeout","trackers":0,"switcher":1,"ready":${readyJson.replace("stable", "timeout")}}"""
-        val message = parse(json) as BridgeMessage.BenefitsUnreadable
+        val message = parse(json, activity) as BridgeMessage.BenefitsUnreadable
         assertEquals("timeout", message.ready?.reason)
         assertNull(BridgeMessage.BenefitsUnreadable("timeout").ready)
+    }
+
+    @Test
+    fun thePageKindComesFromThePathAndAMismatchIsDropped() {
+        assertEquals("rewards", spec.kindOf(rewards))
+        assertEquals("activity", spec.kindOf(activity))
+        assertEquals("viewAll", spec.kindOf("https://global.americanexpress.com/card-benefits/view-all?account_key=x"))
+        assertNull(spec.kindOf("https://global.americanexpress.com/overview"))
+        // A message claiming the activity page while the address is Rewards, or the reverse, is dropped.
+        assertNull(parse(benefitsJson, rewards))
+        assertNull(parse(withReady(readyJson.replace("\"kind\":\"activity\"", "\"kind\":\"rewards\"")), activity))
+        val onRewards = """{"type":"benefitsUnreadable","nonce":"n1","why":"timeout","ready":$readyJson}"""
+        assertNull(parse(onRewards, rewards))
+    }
+
+    @Test
+    fun aRewardsMessageCarryingListedBenefitsIsDropped() {
+        val listedOnRewards = benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"rewards\"")
+        assertNull(parse(listedOnRewards, rewards))
+        val withoutList = listedOnRewards.substringBefore(",\"listed\":[") + ",\"listed\":[]}"
+        assertEquals("rewards", (parse(withoutList, rewards) as BridgeMessage.Benefits).page)
+    }
+
+    @Test
+    fun anUnclassifiedPageIsAnUnreadableReason() {
+        assertEquals(BridgeMessage.BenefitsUnreadable("page"), parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"page"}"""))
+    }
+
+    @Test
+    fun benefitsConfigCarriesTheSecondPageDecision() {
+        assertTrue(BridgeProtocol.benefitsConfig(spec, "n1", 20_000, listCards = false).contains("\"secondPage\":true"))
+        assertTrue(BridgeProtocol.benefitsConfig(spec, "n1", 20_000, listCards = false, secondPage = false).contains("\"secondPage\":false"))
     }
 
     @Test

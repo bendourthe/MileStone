@@ -60,11 +60,22 @@ data class BenefitsSpec(
         return paths.any { path == it || path.startsWith("$it/") }
     }
 
+    /**
+     * The benefits page kind of [url] by path prefix, as `extract.js` classifies it (ADR-0008, 2026-11-12
+     * clarification): activity, then viewAll, then rewards; null for any other address.
+     */
+    fun kindOf(url: String?): String? {
+        val path = runCatching { URI(url ?: return null) }.getOrNull()?.rawPath ?: return null
+        return listOf("activity" to "activityPath", "viewAll" to "viewAllPath", "rewards" to "rewardsPath")
+            .firstOrNull { (_, key) -> selectors[key]?.let { path.startsWith(it) } == true }?.first
+    }
+
     companion object {
         val SELECTOR_KEYS = setOf(
             "combobox", "option", "optionName", "optionDigits", "selected",
             "tracker", "trackerHeading", "trackerSpent", "trackerSpentSection", "trackerRemaining", "trackerDone",
             "trackerDescription", "listLink", "listMore", "listDescription", "activityLink", "activityPath", "viewAllLink",
+            "rewardsPath", "viewAllPath",
         )
     }
 }

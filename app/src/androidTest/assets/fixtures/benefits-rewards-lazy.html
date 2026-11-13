@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Rewards</title></head>
+<body>
+<header><div data-testid="context_switcher_container">
+  <button type="button" data-testid="simple_switcher_combobox" role="combobox" aria-expanded="false">
+    <div data-testid="simple_switcher_selected_option_display">
+      <span data-testid="simple_switcher_display_name">Fixture Platinum Card</span>
+      <span data-testid="simple_switcher_display_number"><span data-testid="simple_switcher_display_number_val">71008</span></span>
+    </div>
+  </button>
+</div></header>
+<main>
+<h2>Track Your Progress</h2>
+<div data-testid="tracker-grid-component">
+  <div data-testid="container-Fixture-Lounge-Guest" role="group">
+  <h3 data-testid="heading-Fixture-Lounge-Guest"><span>Fixture Lounge Guest Access</span></h3>
+  <div data-testid="progress-section-Fixture-Lounge-Guest">
+    <progress data-testid="linear-tracker-Fixture-Lounge-Guest" value="10" max="75"></progress>
+    <div data-testid="tracker-labels-Fixture-Lounge-Guest">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$10</span><span>spent</span></div>
+      <div data-testid="tracker-remaining-section"><span>$65 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-Fixture-Lounge-Guest"><span>Synthetic benefit description.</span></div>
+</div>
+  <div data-testid="container-Fixture-Shopping-Credit" role="group">
+  <h3 data-testid="heading-Fixture-Shopping-Credit"><span>$50 Fixture Shopping Credit</span></h3>
+  <div data-testid="progress-section-Fixture-Shopping-Credit">
+    <progress data-testid="linear-tracker-Fixture-Shopping-Credit" value="0" max="50"></progress>
+    <div data-testid="tracker-labels-Fixture-Shopping-Credit">
+      <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$0</span><span>earned</span><span>Oct - Dec</span></div>
+      <div data-testid="tracker-remaining-section"><span>$50 to go</span></div>
+    </div>
+  </div>
+  <div data-testid="description-Fixture-Shopping-Credit"><span>Synthetic benefit description.</span></div>
+</div>
+</div>
+<div style="height: 3000px">Synthetic spacer: the page must be scrolled to reach its lower section.</div>
+<div id="lower"></div>
+</main>
+<script>
+  // Synthetic stand-in for a scroll-loaded lower section: it renders only after the page is scrolled and 3 s have
+  // passed since load, as the real Rewards page's lower section with its activity and view-all links does.
+  var loadedAt = Date.now();
+  var scheduled = false;
+  window.addEventListener('scroll', function () {
+    if (scheduled) return;
+    scheduled = true;
+    setTimeout(function () {
+      document.getElementById('lower').innerHTML =
+        '<h2>Card Benefits</h2>' +
+        '<a href="benefits-activity.html?account_key=decoyvalue" onclick="return openActivity()">View all benefit activity</a>' +
+        '<a href="benefits-view-all.html?account_key=decoyvalue">View all benefits</a>' +
+        '<div style="height: 400px">Synthetic lower section.</div>';
+    }, Math.max(0, 3000 - (Date.now() - loadedAt)));
+  });
+
+  function tracker(name, title, spent, word, remaining, max, done) {
+    return '<div data-testid="container-' + name + '" role="group">' +
+      '<h3 data-testid="heading-' + name + '"><span>' + title + '</span></h3>' +
+      '<div data-testid="progress-section-' + name + '"><progress value="0" max="' + max + '"></progress>' +
+      '<div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">' + spent + '</span><span>' + word + '</span></div>' +
+      '<div data-testid="tracker-remaining-section"><span>' + remaining + '</span></div></div>' +
+      (done ? '<span data-testid="icon-check-' + name + '"></span>' : '') + '</div>';
+  }
+
+  // Synthetic stand-in for Amex's activity link: the address changes without a new document, the Rewards content
+  // stays on screen for 3 s, then the activity content (every tracker, no activity link) replaces it.
+  function openActivity() {
+    history.pushState({}, '', 'benefits-activity.html?account_key=decoyvalue');
+    setTimeout(function () {
+      document.querySelector('main').innerHTML =
+        '<h2>Spend Progress (1)</h2>' +
+        tracker('Fixture-Lounge-Guest', 'Fixture Lounge Guest Access', '$10', 'spent', '$65 to go', 75, false) +
+        '<h2>Credit Earned (2)</h2>' +
+        tracker('Fixture-Shopping-Credit', '$50 Fixture Shopping Credit', '$0', 'earned', '$50 to go', 50, false) +
+        tracker('Fixture-Ride-Credit', '$15 Fixture Ride Credit', '$0', 'earned', '$15 to go', 15, false) +
+        '<h2>Completed Benefits (1)</h2>' +
+        tracker('Fixture-Streaming-Credit', '$20 Fixture Streaming Credit', '$20', 'earned', '$0 to go', 20, true) +
+        '<a href="benefits-view-all.html?account_key=decoyvalue">View all benefits</a>';
+    }, 3000);
+    return false;
+  }
+</script>
+</body></html>

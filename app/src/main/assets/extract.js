@@ -528,7 +528,6 @@
   // identifier-like text before posting.
   var BENEFITS_STABLE_MS = 2000;
   var BENEFITS_SCAN_MS = 400;
-  var SWITCH_WAIT_MS = 15000;
   var MAX_CARDS = 20;
   var MAX_TRACKERS = 60;
   var MAX_LISTED = 150;
@@ -538,11 +537,16 @@
   // A dollar amount such as "$1,234.56" or "$150,000" is never an identifier, so the long-token rule skips it.
   var MONEY = /^\(?[-+]?\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?[).,;:]?$/;
   var EMPTY_STABLE_MS = 6000;
-  var SWITCH_SETTLE_MS = 8000;
+  // ADR-0008, 2026-11-12 clarification: caps per page kind and for a card switch.
+  var KIND_CAP_MS = { rewards: 15000, activity: 20000, viewAll: 20000 };
+  var SWITCH_CAP_MS = 12000;
+  var HANDOFF_MAX_AGE_MS = 30000;
   // Diagnostics only: the time on this document is measured from when this script started on it.
   var DOCUMENT_STARTED_AT = Date.now();
   var MAX_WAITED_MS = 120000;
-  var VIEW_ALL_PATH = '/card-benefits/view-all';
+  // What the last run on this document pressed, so the run that starts after the address change knows.
+  // Lives only in this document's script; a new document starts without it.
+  var handoff = null;
 
   function stripIdentifiers(text) {
     return text
@@ -568,12 +572,14 @@
     var startedAt = Date.now();
     var cardsSent = !config.listCards;
     var switchStartedAt = null;
+    var fingerprintBefore = null;
+    var viaSwitch = false;
+    var listedBefore = null;
     var followedActivity = false;
     var signature = null;
     var stableSince = 0;
     var scrolledTo = 0;
     var lastCards = null;
-    var titlesBeforeSwitch = null;
 
     function finish(message) {
       if (done) return;
@@ -623,13 +629,6 @@
         if (all[i].compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) heading = all[i];
       }
       return clean(heading, 60);
-    }
-
-    function trackerTitles() {
-      return Array.prototype.map.call(document.querySelectorAll(s.tracker), function (el) {
-        var heading = el.querySelector(s.trackerHeading);
-        return heading ? (heading.textContent || '').trim() : '';
-      }).join('|');
     }
 
     function readTracker(el) {
@@ -693,34 +692,127 @@
       return entries;
     }
 
-    function page() {
-      return location.pathname.indexOf(s.activityPath) === 0 ? 'activity' : 'rewards';
+    function count(selector) {
+      return selector ? document.querySelectorAll(selector).length : 0;
+    }
+
+    // The page kind by path prefix (ADR-0008, 2026-11-12 clarification); null for any other accepted path.
+    function pageKind() {
+      var path = location.pathname;
+      if (s.activityPath && path.indexOf(s.activityPath) === 0) return 'activity';
+      if (s.viewAllPath && path.indexOf(s.viewAllPath) === 0) return 'viewAll';
+      if (s.rewardsPath && path.indexOf(s.rewardsPath) === 0) return 'rewards';
+      return null;
+    }
+
+    // Titles and amounts of the trackers on screen; compared only, never posted.
+    function fingerprint() {
+      return Array.prototype.map.call(document.querySelectorAll(s.tracker), function (el) {
+        return [s.trackerHeading, s.trackerSpent, s.trackerRemaining].map(function (part) {
+          var found = el.querySelector(part);
+          return found ? (found.textContent || '').trim() : '';
+        }).join('/');
+      }).join('|');
+    }
+
+    function atBottom() {
+      return (window.pageYOffset || 0) + (window.innerHeight || 0) >= document.body.scrollHeight - 2;
+    }
+
+    // Rewards content shows a view-all or activity link; an activity page never shows an activity link.
+    function markerHolds() {
+      var activity = !!document.querySelector(s.activityLink);
+      var viewAll = !!(s.viewAllLink && document.querySelector(s.viewAllLink));
+      var listed = count(s.listLink);
+      if (kind === 'rewards') return activity || viewAll;
+      if (kind === 'activity') return !activity && (count(s.tracker) > 0 || listed > 0);
+      return listed > 0 && (listedBefore === null || listed !== listedBefore);
     }
 
     // Count-only facts about this page for the app's diagnostics log: fixed words, booleans, and capped counts.
     function ready(reason) {
-      var scrolled = (window.pageYOffset || 0) + (window.innerHeight || 0);
       return {
-        kind: location.pathname.indexOf(VIEW_ALL_PATH) === 0 ? 'viewAll' : page(),
-        trackers: Math.min(document.querySelectorAll(s.tracker).length, MAX_TRACKERS),
-        listed: Math.min(document.querySelectorAll(s.listLink).length, MAX_LISTED),
+        kind: kind,
+        trackers: Math.min(count(s.tracker), MAX_TRACKERS),
+        listed: Math.min(count(s.listLink), MAX_LISTED),
         waitedMs: Math.min(Math.max(Date.now() - DOCUMENT_STARTED_AT, 0), MAX_WAITED_MS),
-        bottom: scrolled >= document.body.scrollHeight - 2,
+        bottom: atBottom(),
         activityLink: !!document.querySelector(s.activityLink),
         viewAllLink: !!(s.viewAllLink && document.querySelector(s.viewAllLink)),
-        switched: titlesBeforeSwitch !== null,
+        switched: viaSwitch || switchStartedAt !== null,
         reason: reason,
+      };
+    }
+
+    function postBenefits(current, reason) {
+      var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
+      finish({
+        type: 'benefits',
+        lastDigits: current,
+        page: kind,
+        trackers: trackers.slice(0, MAX_TRACKERS).map(readTracker),
+        listed: kind === 'rewards' ? [] : readListed(),
+        ready: ready(reason),
+        nonce: config.nonce,
+      });
+    }
+
+    function unreadable(why, reason) {
+      finish({
+        type: 'benefitsUnreadable',
+        why: why,
+        trackers: count(s.tracker),
+        switcher: document.querySelector(s.selected) ? 1 : 0,
+        ready: kind ? ready(reason) : undefined,
+        nonce: config.nonce,
+      });
+    }
+
+    // Takes over a note left by the run that pressed a link or a switcher option on this same document.
+    function adopt(note) {
+      if (!note || Date.now() - note.at > HANDOFF_MAX_AGE_MS || note.target !== (config.targetDigits || null)) return;
+      viaSwitch = viaSwitch || note.switched;
+      if (note.action === 'switch') {
+        switchStartedAt = note.at;
+        fingerprintBefore = note.fingerprint;
+      }
+      if (note.action === 'link') listedBefore = note.listed;
+    }
+
+    function leaveNote(action) {
+      handoff = {
+        action: action,
+        target: config.targetDigits || null,
+        fingerprint: fingerprint(),
+        listed: count(s.listLink),
+        switched: viaSwitch || action === 'switch',
+        at: Date.now(),
       };
     }
 
     function tick() {
       if (done) return;
       if (hasVisiblePasswordField()) return finish({ type: 'login', nonce: config.nonce });
+      var nowKind = pageKind();
+      if (!nowKind) { kind = null; return unreadable('page', null); }
+      if (nowKind !== kind) {
+        // The address changed without a restart: treat it as a new page that this run's own note led to.
+        kind = nowKind;
+        startedAt = Date.now();
+        cap = Math.min(KIND_CAP_MS[kind] || config.timeoutMs, config.timeoutMs);
+        signature = null;
+        var note = handoff;
+        handoff = null;
+        adopt(note);
+      }
       // Sections load as the page scrolls (Amex marks them scroll-aware), so walk down the page while waiting.
       if (scrolledTo < document.body.scrollHeight) {
         scrolledTo += window.innerHeight || 800;
         window.scrollTo(0, scrolledTo);
       }
+      var shape = count(s.tracker) + ':' + count(s.listLink) + ':' + document.body.scrollHeight;
+      if (shape !== signature) { signature = shape; stableSince = Date.now(); }
+      var steadyMs = Date.now() - stableSince;
       var current = selectedDigits();
       if (!current) return;
       if (!cardsSent) {
@@ -736,62 +828,66 @@
         post({ type: 'cards', cards: read.cards, complete: read.complete && includesCurrent, nonce: config.nonce });
         return;
       }
-      if (config.targetDigits && current !== config.targetDigits) {
-        if (switchStartedAt === null) {
-          if (!options().length) return openSwitcher();
-          var target = options().filter(function (el) { return lastDigitsOf(el.querySelector(s.optionDigits)) === config.targetDigits; })[0];
-          if (!target) return finish({ type: 'benefitsUnreadable', why: 'noSuchCard', ready: ready('switchMismatch'), nonce: config.nonce });
-          switchStartedAt = Date.now();
-          titlesBeforeSwitch = trackerTitles();
-          target.click();
-        } else if (Date.now() - switchStartedAt > SWITCH_WAIT_MS) {
-          finish({ type: 'benefitsUnreadable', why: 'switch', ready: ready('timeout'), nonce: config.nonce });
-        }
+      var target = config.targetDigits;
+      if (target && current !== target && switchStartedAt === null) {
+        if (!options().length) return openSwitcher();
+        var option = options().filter(function (el) { return lastDigitsOf(el.querySelector(s.optionDigits)) === target; })[0];
+        if (!option) return unreadable('noSuchCard', 'switchMismatch');
+        leaveNote('switch');
+        switchStartedAt = handoff.at;
+        fingerprintBefore = handoff.fingerprint;
+        option.click();
         return;
       }
-      // After an in-place switch the switcher can show the new card before its trackers replace the old card's, so
-      // the read waits for the tracker set to change, or settles longer for two cards whose trackers look alike.
-      if (titlesBeforeSwitch !== null && trackerTitles() === titlesBeforeSwitch && Date.now() - switchStartedAt < SWITCH_SETTLE_MS) return;
-      if (page() === 'rewards' && !followedActivity) {
+      // Switch invariant: the selected card is the target and its trackers replaced the old card's. An emptied
+      // tracker area is not ready; after the switch cap an empty steady area is an empty read, the old trackers a mismatch.
+      if (switchStartedAt !== null) {
+        var overSwitchCap = Date.now() - switchStartedAt > SWITCH_CAP_MS;
+        if (current !== target) return overSwitchCap ? unreadable('switch', 'timeout') : undefined;
+        var print = fingerprint();
+        if (!print || print === fingerprintBefore) {
+          if (!overSwitchCap) return;
+          if (print) return unreadable('switch', 'switchMismatch');
+          if (markerHolds() && atBottom() && steadyMs >= EMPTY_STABLE_MS) return postBenefits(current, 'cap');
+          return;
+        }
+        switchStartedAt = null;
+        viaSwitch = true;
+        if (handoff && handoff.action === 'switch') handoff = null;
+      }
+      var overPageCap = Date.now() - startedAt > cap;
+      var markers = markerHolds();
+      if (kind === 'rewards') {
+        var trackerCount = count(s.tracker);
+        var settled = steadyMs >= (trackerCount ? BENEFITS_STABLE_MS : EMPTY_STABLE_MS) &&
+          (trackerCount > 0 || document.readyState === 'complete');
+        var isReady = markers && atBottom() && settled;
+        if (!isReady && !overPageCap) return;
         var activity = document.querySelector(s.activityLink);
-        if (activity) {
+        if (isReady && activity && config.secondPage !== false && !followedActivity) {
           followedActivity = true;
+          leaveNote('link');
           activity.click();
           return;
         }
+        if (followedActivity && !overPageCap) return;
+        return postBenefits(current, isReady ? (trackerCount ? 'stable' : 'empty') : 'cap');
       }
-      var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
-      var listed = page() === 'activity' ? document.querySelectorAll(s.listLink).length : 0;
-      var now = trackers.length + ':' + listed + ':' + document.body.scrollHeight;
-      if (now !== signature) { signature = now; stableSince = Date.now(); return; }
-      // A card with no trackers (many no-fee cards) is a valid empty read once the loaded page has settled longer.
-      var settle = trackers.length || listed ? BENEFITS_STABLE_MS : EMPTY_STABLE_MS;
-      if (!trackers.length && !listed && document.readyState !== 'complete') return;
-      if (Date.now() - stableSince < settle) return;
-      finish({
-        type: 'benefits',
-        lastDigits: current,
-        page: page(),
-        trackers: trackers.slice(0, MAX_TRACKERS).map(readTracker),
-        listed: page() === 'activity' ? readListed() : [],
-        ready: ready(trackers.length || listed ? 'stable' : 'empty'),
-        nonce: config.nonce,
-      });
+      if (markers && atBottom() && steadyMs >= BENEFITS_STABLE_MS) return postBenefits(current, 'stable');
+      // At the cap only a page whose marker holds is read, so Rewards content is never stored as this page.
+      if (overPageCap) return markers ? postBenefits(current, 'cap') : unreadable('timeout', 'timeout');
     }
 
+    var kind = pageKind();
+    var cap = Math.min(KIND_CAP_MS[kind] || config.timeoutMs, config.timeoutMs);
+    var noteForThisRun = handoff;
+    handoff = null;
+    adopt(noteForThisRun);
+
     var timer = setInterval(function () {
-      if (Date.now() - startedAt > config.timeoutMs) {
-        finish({
-          type: 'benefitsUnreadable',
-          why: 'timeout',
-          trackers: document.querySelectorAll(s.tracker).length,
-          switcher: document.querySelector(s.selected) ? 1 : 0,
-          ready: ready('timeout'),
-          nonce: config.nonce,
-        });
-        return;
-      }
       tick();
+      // Nothing usable before the cap (no selected card, no card list): the page reports a timeout.
+      if (!done && Date.now() - startedAt > cap + 2 * BENEFITS_SCAN_MS) unreadable('timeout', 'timeout');
     }, BENEFITS_SCAN_MS);
     tick();
     return {
