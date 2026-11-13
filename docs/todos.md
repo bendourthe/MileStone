@@ -1,8 +1,8 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `develop` (v0.2.0 shipped; v0.1 closed)
+**Branch:** `develop` is integration; the active candidate is `feat/v0.3.1-benefits-redesign` in its linked worktree.
 
-**Version:** v0.2.0 (recorded in `CHANGELOG.md`)
+**Version:** v0.3.0 is published and back-merged; v0.3.1 Benefits redesign remains a local candidate awaiting final delivery.
 
 ## Expanded Completion Goal
 
@@ -12,18 +12,29 @@ Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-be
 
 ---
 
+## Global Search Scope Expansion
+
+Owner authorization, 2026-11-13: add implementation and delivery of v0.4.0 global search to every existing completion obligation. The finalized plan is docs/releases/v0/v0.4/plans/v0.4.0-global-search.md, merged through PR 9 at 532ce1f317d9649f81298a7f616be1ba8378866f and verified as an ancestor of origin/develop. This new instruction authorizes reversible local implementation after the integrated v0.3.1 Benefits presentation dependency is verified. It supersedes the plan's historical planning-only authority boundary for local implementation; separately required remote, release and destructive authority stays pending.
+
+- [ ] Verify integrated v0.3.1 Benefits presentation before search implementation.
+- [ ] Implement the finalized four-phase search plan: top Search icon, added programs and stored cards/displayed benefits only, results grouped by program, contextual matching with an item-token match, exact navigation, preserved Back/scroll state and on-device operation without changing issuer data or sign-ins.
+- [ ] Complete search verification, owner phone delivery, separately authorized publication/release and the plan's native completion requirements.
+- [ ] Finish all original v0.1/v0.2/v0.3 release, archive and authorized cleanup duties as well as search delivery before declaring the expanded goal complete.
+
+The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal stays active; this durable tracker records the expansion without falsely completing or replacing it.
+
 ## Scores
 
 | Metric | Current | Target | Delta |
 |--------|---------|--------|-------|
 | Governance files present | yes | yes | 0 |
-| Commits on the feature branch | 75 | one per phase plus fixes | met |
+| Unpublished commits ahead of origin/develop | 4 plus owner refinements in progress | publish only after final gates | local only |
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
-| v0.3.0 plan phases complete | 3 of 4 | 4 of 4 | 1 (Phase 4 in progress; T007 follow-up) |
-| v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (63 focused cases and 3 Android fixtures passed; final delivery gates open) |
-| Required Benefits redesign outcomes verified | 0 of 6 | 6 of 6 | 6 (required by owner; implementation pending) |
+| v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
+| v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (current local gate passed: 386 JVM cases, 41 device cases; phone/release gates open) |
+| Required Benefits redesign outcomes verified | Owner accepted baseline images and alerts; refinements verified synthetically | All six on phone | Institution/polish candidate installed with -r; tested/installed APK hashes match; owner accepted all final checks |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -104,7 +115,7 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 - [x] Phase 4 local gate: 356 JVM cases with no failures, 35/35 emulator tests, 8/8 private benefits cases, lint/build/coverage, and 280 handbook browser checks plus native handbook check. G44 and G45 are Fixed; G46 remains a historical warning.
 - [ ] Phase 4 remaining gates: owner site-count confirmation, publication/integration, release, archive, and cleanup. Native approval resume and publication authorization are verified.
 - [x] v0.1/v0.2 audit: both tags/releases and green implementation PRs verified; v0.2 already fully archived.
-- [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop remains pending.
+- [x] v0.1 local archive reconciliation: native whole-tree move and link repair from chore/close-v0.1 combined into the feature candidate; publication to develop completed through PR #6 (merge cbd82d1).
 
 ## Required Benefits Redesign
 
@@ -124,3 +135,24 @@ Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 ## Next minor (v0.2) candidates
 
 - [x] Benefits tab: planned in `docs/releases/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md`; Amex first, one tile per card, cards added and removed on refresh, a per-card page of benefits and their progress; card name and last digits stored on the device only.
+
+## Current Delivery Gate
+
+All six Benefits redesign requirements are implemented locally. Final gate: 375 JVM cases (0 failures/errors, 10 skips), all 8 Benefits fixture cases without skips, 38/38 emulator cases, lint with 0 errors, debug/capture builds and coverage report passed. The full native handbook gate and 280 browser checks pass. Commits be40bcf, 93a08fb and 9ef6c40 retain the three implementation phases; final evidence/documentation remains in the linked worktree.
+
+The owner reconnected/unlocked the phone after an initial unavailable-device attempt. adb install -r succeeded, and the installed APK hash matches the tested build. The owner confirmed the baseline images, alerts, categories, welcome entry and acknowledgements; requested refinements still need a new installed build. The owner confirmed all Amex-site minimums. Extraction publication and v0.1 reconciliation integrated through green PR #6 on 2026-11-13; releases, redesign publication, v0.3 archive and final cleanup remain open; v0.2 is already released and fully archived. No push/merge/tag/release or branch/worktree deletion occurred in this continuation.
+
+## Owner UI Refinement Request
+
+The owner confirmed the installed images, alerts, welcome entry, categories, acknowledgements and completed-last control, and confirmed the Amex-site minimums. Required refinements are clear category Show/Hide controls, top-right filter placement, explicit sort choices, grouped amount input, automatic date hyphens and a calendar picker. These are captured in v0.3.1 T023-T027; affected final gates are reopened. Numeric site confirmation is no longer a blocker. Earlier 375/38 and handbook results remain historical checkpoint evidence, not proof of the new controls.
+
+
+## Cleanup Status
+
+The native approved cleanup executor removed the merged local and remote chore/close-v0.2 branches and retained 16 protected or active items. The original v0.3.0 checker now has only cleanup.branches unmet; cleanup.merged is met. Retain recently active extraction/release branches and the active redesign worktree. The primary checkout is clean at d43d344, including the independent Search plan. Phone delivery of the current institution APK and separate redesign publication/release authority remain open.
+
+
+The owner reconnected the phone; the current institution/polish APK is installed with its tested hash verified. Final phone acceptance remains pending.
+
+
+Final phone acceptance is confirmed: the owner replied Yes, all checks pass for institution/card Back, retained four-card content, category outlines and welcome-bonus formatting. Local delivery gates are satisfied; current develop integration, separately authorized publication/release, archive and cleanup remain open.

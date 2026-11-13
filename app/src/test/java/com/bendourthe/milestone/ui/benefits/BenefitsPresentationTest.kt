@@ -91,4 +91,17 @@ class BenefitsPresentationTest {
         assertEquals(50L, welcomeBonusInput(".50", "10", "", "")!!.spentCents)
     }
 
+    @Test fun explicitSortChoicesUseKnownDeadlinesAndAmountsBeforeUnknownValues() {
+        val alpha = item("Alpha Credit", BenefitSection.CREDIT_EARNED).copy(remainingCents = 100, periodEnd = java.time.LocalDate.of(2027, 2, 1))
+        val beta = item("Beta Credit", BenefitSection.CREDIT_EARNED).copy(remainingCents = 500, periodEnd = java.time.LocalDate.of(2027, 1, 1))
+        val unknown = item("Unknown Credit", BenefitSection.CREDIT_EARNED)
+        val source = listOf(unknown, alpha, beta)
+        fun titles(sort: com.bendourthe.milestone.domain.BenefitsSort) = BenefitsPresentation.groups(source, false, sort).getValue(BenefitsCategory.CREDITS).map { it.title }
+        assertEquals(listOf("Alpha Credit", "Beta Credit", "Unknown Credit"), titles(com.bendourthe.milestone.domain.BenefitsSort.NAME_ASC))
+        assertEquals(listOf("Unknown Credit", "Beta Credit", "Alpha Credit"), titles(com.bendourthe.milestone.domain.BenefitsSort.NAME_DESC))
+        assertEquals(listOf("Beta Credit", "Alpha Credit", "Unknown Credit"), titles(com.bendourthe.milestone.domain.BenefitsSort.DEADLINE))
+        assertEquals(listOf("Beta Credit", "Alpha Credit", "Unknown Credit"), titles(com.bendourthe.milestone.domain.BenefitsSort.REMAINING))
+        assertEquals(listOf(unknown, alpha, beta), source)
+    }
+
 }

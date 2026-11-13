@@ -34,6 +34,8 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -71,11 +73,12 @@ import androidx.compose.ui.semantics.semantics
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun BenefitsHeader(title: String, showMark: Boolean = true, navigationIcon: @Composable () -> Unit = {}) {
+internal fun BenefitsHeader(title: String, showMark: Boolean = true, actions: @Composable androidx.compose.foundation.layout.RowScope.() -> Unit = {}, navigationIcon: @Composable () -> Unit = {}) {
     Box {
         TopAppBar(
             title = { Text(title, maxLines = 1, overflow = TextOverflow.Ellipsis) },
             navigationIcon = navigationIcon,
+            actions = actions,
             colors = TopAppBarDefaults.topAppBarColors(containerColor = HeaderTeal),
         )
         if (showMark && LocalDensity.current.fontScale <= 1.3f) {
@@ -91,6 +94,9 @@ fun BenefitsScreen(
     viewModel: BenefitsViewModel,
     onOpenCard: (CardKey) -> Unit,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    programId: String? = null,
+    onOpenProgram: (String) -> Unit = {},
+    onBackToPrograms: () -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val remindersOn by viewModel.remindersEnabled.collectAsStateWithLifecycle()
@@ -101,8 +107,13 @@ fun BenefitsScreen(
         onPauseOrDispose {}
     }
     val request = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { allowed = it }
-    Scaffold(topBar = { BenefitsHeader("Benefits") }, snackbarHost = { SnackbarHost(snackbarHostState) }) { outer ->
-        val showBanner = remindersOn && !allowed && state is BenefitsUiState.Cards
+    val selectedProgram = (state as? BenefitsUiState.Cards)?.programs?.firstOrNull { it.programId == programId }
+    Scaffold(topBar = { BenefitsHeader(if (programId == null) "Benefits" else selectedProgram?.name ?: "Card benefits", showMark = programId == null) {
+        if (programId != null) IconButton(onClick = onBackToPrograms) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to institutions")
+        }
+    } }, snackbarHost = { SnackbarHost(snackbarHostState) }) { outer ->
+        val showBanner = remindersOn && !allowed && (state as? BenefitsUiState.Cards)?.tiles?.isNotEmpty() == true
         Column(Modifier.fillMaxSize().padding(top = outer.calculateTopPadding())) {
             if (showBanner) {
                 PermissionBanner(onAllow = {
@@ -118,7 +129,7 @@ fun BenefitsScreen(
                     }
                 })
             }
-            BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()))
+            BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()), programId, onOpenProgram)
         }
     }
 }
@@ -141,33 +152,35 @@ private fun PermissionBanner(onAllow: () -> Unit) {
 }
 
 @Composable
-private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, padding: PaddingValues) {
-        when (val s = state) {
-            BenefitsUiState.Loading -> Box(Modifier.fillMaxSize().padding(padding))
-            is BenefitsUiState.NoProgram -> Message(
-                "No card benefits yet",
-                "Add ${s.programNames.joinToString(" or ")} on the Rewards tab to see its cards and their benefits here.",
-                Modifier.padding(padding),
-            )
-            is BenefitsUiState.NotReadYet -> Message(
-                "Benefits appear after the next ${s.programName} refresh",
-                "MileStone reads your cards and their benefits after it updates the ${s.programName} balance.",
-                Modifier.padding(padding),
-            )
-            is BenefitsUiState.Cards -> LazyColumn(
+private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, padding: PaddingValues,
+                         programId: String?, onOpenProgram: (String) -> Unit) {
+    when (val s = state) {
+        BenefitsUiState.Loading -> Box(Modifier.fillMaxSize().padding(padding))
+        is BenefitsUiState.NoProgram -> Message(
+            "No card benefits yet",
+            "Add ${s.programNames.joinToString(" or ")} on the Rewards tab to see its cards and their benefits here.",
+            Modifier.padding(padding),
+        )
+        is BenefitsUiState.Cards -> {
+            val tiles = s.tiles.filter { it.key.programId == programId }
+            val program = s.programs.firstOrNull { it.programId == programId }
+            if (programId != null && tiles.isEmpty()) {
+                Message(
+                    if (program == null) "No card benefits yet" else "Benefits appear after the next ${program.name} refresh",
+                    if (program == null) "Return to Benefits to choose an institution." else "MileStone reads your cards and their benefits after it updates the ${program.name} balance.",
+                    Modifier.padding(padding),
+                )
+            } else LazyColumn(
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp + padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 16.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
-                modifier = Modifier.fillMaxSize().testTag("benefitsList"),
+                modifier = Modifier.fillMaxSize().testTag(if (programId == null) "benefitsInstitutions" else "benefitsList"),
             ) {
-                s.tiles.groupBy { it.key.programId }.forEach { (programId, tiles) ->
-                    item("program:$programId") {
-                        Text(tiles.first().programName, style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
-                    }
-                    items(tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
-                }
+                if (programId == null) items(s.programs, key = { it.programId }) { institution ->
+                    BenefitsInstitutionTile(institution) { onOpenProgram(institution.programId) }
+                } else items(tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
             }
         }
+    }
 }
 
 @Composable

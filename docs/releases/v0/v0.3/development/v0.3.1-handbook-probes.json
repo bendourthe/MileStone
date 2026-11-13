@@ -1,0 +1,12 @@
+{
+  "skipLink": {
+    "skip": true,
+    "top": 8,
+    "right": 205.609375
+  },
+  "skipDestination": "handbook-content",
+  "missingSectionExpectedExit": 1,
+  "missingSectionObservedExit": 1,
+  "negativeCoverageRejected": true,
+  "normalDetectorExit": 0
+}

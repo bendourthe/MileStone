@@ -10,6 +10,7 @@ import com.bendourthe.milestone.domain.WelcomeBonusSetup
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import com.bendourthe.milestone.domain.BenefitsSort
 import com.bendourthe.milestone.domain.BenefitsCategory
 import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.Card
@@ -43,11 +44,13 @@ sealed interface BenefitsUiState {
     /** No program with a benefits page is added; [programNames] say which ones could be. */
     data class NoProgram(val programNames: List<String>) : BenefitsUiState
 
-    /** A program with a benefits page is added but none of its cards has been read yet. */
-    data class NotReadYet(val programName: String) : BenefitsUiState
-
-    data class Cards(val tiles: List<CardTileUi>) : BenefitsUiState
+    data class Cards(val tiles: List<CardTileUi>, val programs: List<BenefitsProgramUi>) : BenefitsUiState
 }
+
+data class BenefitsProgramUi(
+    val programId: String, val name: String, val monogram: String, val logoKey: String?,
+    val brandColorArgb: Long, val cardCount: Int, val alertCount: Int,
+)
 
 data class CardTileUi(
     val key: CardKey,
@@ -107,11 +110,6 @@ class BenefitsViewModel(
     // Production supplies DataStore; previews and existing test callers can keep an in-memory state.
     private val temporaryPreferences = MutableStateFlow<Map<CardKey, BenefitsDisplayPreferences>>(emptyMap())
     private val settingsErrors = MutableStateFlow<Map<CardKey, String>>(emptyMap())
-    private val focusedProgram = MutableStateFlow<String?>(null)
-
-    fun focusProgram(programId: String) {
-        focusedProgram.value = programId.takeIf { id -> programs.any { it.programId == id } }
-    }
 
     private fun preferences(key: CardKey) = displaySettings?.observe(key)
         ?: temporaryPreferences.map { it[key] ?: BenefitsDisplayPreferences() }
@@ -133,6 +131,9 @@ class BenefitsViewModel(
             }
         }
     }
+
+    fun setSort(key: CardKey, sort: BenefitsSort) = saveDisplay(key,
+        { it.copy(sort = sort) }, { it.setSort(key, sort) })
 
     fun setCompletedLast(key: CardKey, enabled: Boolean) = saveDisplay(key,
         { it.copy(completedLast = enabled) }, { it.setCompletedLast(key, enabled) })
@@ -161,24 +162,22 @@ class BenefitsViewModel(
     val uiState: StateFlow<BenefitsUiState> = accounts.observeAccounts()
         .map { list -> list.map { it.programId }.filter { id -> programs.any { it.programId == id } } }
         .flatMapLatest { added ->
-            if (added.isEmpty()) return@flatMapLatest flowOf(BenefitsUiState.NoProgram(programs.map { it.displayName }))
+            if (added.isEmpty()) return@flatMapLatest flowOf<BenefitsUiState>(BenefitsUiState.NoProgram(programs.map { it.displayName }))
             combine(added.map { id -> cardsWithBenefits(id) }) { perProgram ->
-                val all = perProgram.flatMap { it }
-                if (all.isEmpty()) {
-                    BenefitsUiState.NotReadYet(catalog.program(added.first())?.displayName ?: added.first())
-                } else {
-                    BenefitsUiState.Cards(all.map { (card, benefits, prefs) ->
-                        tile(card, benefits, clock(), zone, locale).copy(
-                            programName = catalog.program(card.programId)?.displayName ?: card.programId,
-                            benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
-                            alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
-                        )
-                    })
+                val tiles = perProgram.flatMap { it }.map { (card, benefits, prefs) ->
+                    tile(card, benefits, clock(), zone, locale).copy(
+                        programName = catalog.program(card.programId)?.displayName ?: card.programId,
+                        benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
+                        alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
+                    )
                 }
+                BenefitsUiState.Cards(tiles, added.map { id ->
+                    val program = programs.first { it.programId == id }
+                    val cards = tiles.filter { it.key.programId == id }
+                    BenefitsProgramUi(id, program.displayName, program.monogram, program.logoKey, program.brandColorArgb,
+                        cards.size, cards.sumOf { it.alertCount })
+                })
             }
-        }
-        .combine(focusedProgram) { state, focus ->
-            if (state is BenefitsUiState.Cards && focus != null) BenefitsUiState.Cards(state.tiles.sortedBy { it.key.programId != focus }) else state
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BenefitsUiState.Loading)
 
@@ -249,13 +248,13 @@ class BenefitsViewModel(
                 Benefit(card.key, "local:welcome", BenefitSection.SPEND_PROGRESS, 0, "Welcome bonus",
                     setup.spentCents, (setup.targetCents - setup.spentCents).coerceAtLeast(0), setup.targetCents,
                     setup.deadline?.toString(), setup.deadline, null, setup.spentCents >= setup.targetCents,
-                    description = setup.rewardLabel.takeIf { it.isNotBlank() })
+                    description = setup.rewardLabel.takeIf { it.isNotBlank() }?.let(::rewardDisplayText))
             }
             return CardPageUi(
             name = card.name,
             digitsLabel = digitsLabel(card.lastDigits),
             staleNote = staleNote(card, nowMs, zone, locale),
-            sections = BenefitsPresentation.groups(benefits + listOfNotNull(welcome), preferences.completedLast).map { (category, list) ->
+            sections = BenefitsPresentation.groups(benefits + listOfNotNull(welcome), preferences.completedLast, preferences.sort).map { (category, list) ->
                 SectionUi(category, category.title, list.map { item(it, locale) })
             },
             preferences = preferences,

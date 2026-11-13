@@ -10,6 +10,7 @@ import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -101,15 +102,17 @@ class BenefitsScreenshotTest {
             MileStoneTheme {
                 AuroraBackground(Modifier.fillMaxSize()) {
                     val key = open
-                    if (key == null) BenefitsScreen(viewModel, onOpenCard = { open = it }) else CardBenefitsScreen(viewModel, key, onBack = { open = null }, onGone = {})
+                    if (key == null) BenefitsScreen(viewModel, onOpenCard = { open = it }, programId = "amex") else CardBenefitsScreen(viewModel, key, onBack = { open = null }, onGone = {})
                 }
             }
         }
         rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasContentDescription("Example Hotel Card", substring = true)).fetchSemanticsNodes().isNotEmpty() }
         save("benefits-tab")
         rule.runOnIdle { open = platinum }
-        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasText("Spend progress")).fetchSemanticsNodes().isNotEmpty() }
+        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasTestTag("cardBenefitsList")).fetchSemanticsNodes().isNotEmpty() }
         save("card-page")
+        rule.onNodeWithTag("cardBenefitsList").performScrollToNode(androidx.compose.ui.test.hasTestTag("category_OTHER"))
+        rule.onNodeWithTag("category_OTHER").performClick()
         rule.onNodeWithTag("cardBenefitsList").performScrollToNode(androidx.compose.ui.test.hasText("Airline Fee Credit"))
         save("card-page-list")
     }

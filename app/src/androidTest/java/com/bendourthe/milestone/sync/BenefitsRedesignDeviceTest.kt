@@ -2,9 +2,6 @@ package com.bendourthe.milestone.sync
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.test.captureToImage
-import androidx.compose.ui.test.onRoot
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -12,13 +9,19 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextInputSelection
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.test.performScrollToNode
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.lifecycle.ViewModelProvider
@@ -71,6 +74,7 @@ class BenefitsRedesignDeviceTest {
     private lateinit var models: ViewModelStore
     private lateinit var dataJob: kotlinx.coroutines.Job
     private val selected = mutableStateOf<CardKey?>(null)
+    private val selectedProgram = mutableStateOf<String?>("amex")
     private val fontScale = mutableStateOf(1f)
     private val captureDirectory = "Pictures/MileStoneSyntheticProof/${UUID.randomUUID()}/"
     private val drafts = listOf(
@@ -111,9 +115,18 @@ class BenefitsRedesignDeviceTest {
             }
             models = ViewModelStore()
             viewModel = ViewModelProvider(models, viewModelFactory {
-                initializer { BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, displaySettings = display) }
+                initializer {
+                    val base = StaticCatalogRepository()
+                    val demo = base.program("amex")!!.copy(programId = "demo-benefits", displayName = "Demo Institution", monogram = "DI", logoKey = null)
+                    val catalog = object : com.bendourthe.milestone.domain.CatalogRepository by base {
+                        override val programs = base.programs + demo
+                        override fun program(programId: String) = programs.firstOrNull { it.programId == programId }
+                    }
+                    BenefitsViewModel(cards, catalog, accounts, { now }, displaySettings = display)
+                }
             })[BenefitsViewModel::class.java]
             selected.value = null
+            selectedProgram.value = "amex"
         }
 
         override fun after() {
@@ -125,7 +138,8 @@ class BenefitsRedesignDeviceTest {
 
     @get:Rule val rules: RuleChain = RuleChain.outerRule(resources).around(compose)
 
-    private fun capture(name: String) {
+    private fun capture(name: String, tag: String? = null) {
+        compose.mainClock.advanceTimeBy(500)
         compose.waitForIdle()
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
         val values = android.content.ContentValues().apply {
@@ -136,7 +150,9 @@ class BenefitsRedesignDeviceTest {
         val resolver = context.contentResolver
         val uri = checkNotNull(resolver.insert(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values))
         checkNotNull(resolver.openOutputStream(uri)).use {
-            check(compose.onRoot().captureToImage().asAndroidBitmap().compress(Bitmap.CompressFormat.PNG, 100, it))
+            if (tag != null) compose.onNodeWithTag(tag).assertIsDisplayed()
+            val bitmap = checkNotNull(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
+            check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, it))
         }
     }
 
@@ -146,7 +162,8 @@ class BenefitsRedesignDeviceTest {
             MileStoneTheme {
                 com.bendourthe.milestone.ui.theme.AuroraBackground(androidx.compose.ui.Modifier.fillMaxSize()) {
                 val key = selected.value
-                if (key == null) BenefitsScreen(viewModel, onOpenCard = { selected.value = it })
+                if (key == null) BenefitsScreen(viewModel, onOpenCard = { selected.value = it }, programId = selectedProgram.value,
+                    onOpenProgram = { selectedProgram.value = it }, onBackToPrograms = { selectedProgram.value = null })
                 else CardBenefitsScreen(viewModel, key, onBack = { selected.value = null }, onGone = { selected.value = null })
             }
         }
@@ -168,11 +185,10 @@ class BenefitsRedesignDeviceTest {
             list.performScrollToNode(hasTestTag("cardArtwork"))
             compose.onNodeWithTag("cardArtwork").assertExists()
             capture("card-$index")
-            list.performScrollToNode(hasTestTag("benefitsCompletedLast"))
             if (index == 0) {
+                compose.onNodeWithTag("benefitsFilters").performClick()
                 compose.onNodeWithTag("benefitsCompletedLast").performClick()
-                compose.waitUntil(5_000) { compose.onNodeWithTag("benefitsCompletedLast").fetchSemanticsNode().config[SemanticsProperties.Selected] }
-                compose.onNodeWithTag("benefitsCompletedLast").assertIsSelected()
+                compose.waitUntil(5_000) { runBlocking { viewModel.card(CardKey("amex", draft.lastDigits)).first()!!.preferences.completedLast } }
                 list.performScrollToNode(hasTestTag("category_OTHER"))
                 compose.onNodeWithTag("category_OTHER").performClick()
                 compose.waitUntil(5_000) { compose.onNodeWithTag("category_OTHER").fetchSemanticsNode().config[SemanticsProperties.StateDescription] == "Expanded" }
@@ -194,8 +210,10 @@ class BenefitsRedesignDeviceTest {
         compose.onNode(first).performClick()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
         val list = compose.onNodeWithTag("cardBenefitsList")
-        list.performScrollToNode(hasTestTag("benefitsCompletedLast"))
+        compose.onNodeWithTag("benefitsFilters").performClick()
         compose.onNodeWithTag("benefitsCompletedLast").assertIsSelected()
+        compose.onNodeWithTag("benefitsCompletedLast").performClick()
+        compose.waitUntil(5_000) { runBlocking { !viewModel.card(CardKey("amex", drafts.first().lastDigits)).first()!!.preferences.completedLast } }
         list.performScrollToNode(hasTestTag("category_OTHER"))
         compose.onNodeWithTag("category_OTHER").assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Expanded"))
         compose.onNodeWithText("Mystery Benefit").assertExists()
@@ -287,6 +305,130 @@ class BenefitsRedesignDeviceTest {
         compose.onNodeWithText("Could not save this change. Please try again.").assertIsDisplayed()
         compose.onNodeWithTag("benefitsAlerts").assertExists()
         capture("alerts-save-failure")
+    }
+
+    @Test
+    fun sortMenusDisclosureAndFormattedCalendarInputWorkOnAndroid() {
+        val key = CardKey("amex", drafts.first().lastDigits)
+        showScreens()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNode(hasContentDescription("card ending ${key.lastDigits}", substring = true)).performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
+        com.bendourthe.milestone.domain.BenefitsSort.entries.forEach { choice ->
+            compose.onNodeWithTag("benefitsSort").performClick()
+            if (choice == com.bendourthe.milestone.domain.BenefitsSort.NAME_ASC) capture("owner-sort-menu", "benefitsSortMenu")
+            compose.onNodeWithText(choice.label).performClick()
+            compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.preferences.sort == choice } }
+        }
+        compose.onNodeWithTag("benefitsFilters").performClick()
+        capture("owner-filter-menu", "benefitsFilterMenu")
+        compose.onNodeWithTag("benefitsCompletedLast").performClick()
+        compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.preferences.completedLast } }
+        val list = compose.onNodeWithTag("cardBenefitsList")
+        list.performScrollToNode(hasTestTag("category_OTHER"))
+        compose.onNodeWithTag("category_OTHER").performClick()
+        compose.waitUntil(5_000) { runBlocking { com.bendourthe.milestone.domain.BenefitsCategory.OTHER !in viewModel.card(key).first()!!.preferences.collapsed } }
+        capture("owner-categories")
+        list.performScrollToNode(hasTestTag("welcomeSetup"))
+        compose.onNodeWithTag("welcomeSetup").performClick()
+        compose.onNodeWithTag("welcomeSpent").performTextInput("12345.50")
+        compose.onNodeWithTag("welcomeTarget").performTextInput("50000")
+        compose.onNodeWithTag("welcomeDeadline").performTextInput("20270101")
+        capture("owner-bonus-form", "welcomeBonusDialog")
+        compose.onNodeWithTag("welcomeCalendar").performScrollTo().performClick()
+        compose.onNodeWithText("Friday, January 15, 2027").performClick()
+        capture("owner-calendar", "welcomeDateDialog")
+        compose.onNodeWithText("Use date").performClick()
+        compose.onNodeWithText("Save").performClick()
+        compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.preferences.welcomeBonus != null } }
+        val setup = runBlocking { viewModel.card(key).first()!!.preferences.welcomeBonus!! }
+        org.junit.Assert.assertEquals(1_234_550L, setup.spentCents)
+        org.junit.Assert.assertEquals(5_000_000L, setup.targetCents)
+        org.junit.Assert.assertEquals(java.time.LocalDate.of(2027, 1, 15), setup.deadline)
+        org.junit.Assert.assertEquals(6, runBlocking { cards.observeBenefits(key).first().size })
+        compose.runOnIdle { fontScale.value = 2f }
+        compose.onNodeWithTag("benefitsSort").performClick()
+        capture("owner-sort-large-font", "benefitsSortMenu")
+        compose.onNodeWithText("Name A-Z").performClick()
+        compose.onNodeWithTag("benefitsFilters").performClick()
+        capture("owner-filter-large-font", "benefitsFilterMenu")
+        compose.onNodeWithTag("benefitsCompletedLast").performClick()
+        list.performScrollToNode(hasTestTag("welcomeSetup"))
+        compose.onNodeWithTag("welcomeSetup").performClick()
+        capture("owner-bonus-large-font", "welcomeBonusDialog")
+        compose.onNodeWithTag("welcomeCalendar").performScrollTo().performClick()
+        compose.onNodeWithText("Use date").assertIsDisplayed().performClick()
+        compose.onNodeWithText("Cancel").performClick()
+    }
+
+    @Test
+    fun editingInsideGroupedAmountAndFormattedDateSavesExactValues() {
+        val key = CardKey("amex", drafts.first().lastDigits)
+        showScreens()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNode(hasContentDescription("card ending ${key.lastDigits}", substring = true)).performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("welcomeSetup"))
+        compose.onNodeWithTag("welcomeSetup").performClick()
+        val spent = compose.onNodeWithTag("welcomeSpent")
+        spent.performTextInput("1,234.50")
+        spent.performTextInputSelection(TextRange(1, 2), relativeToOriginalText = true)
+        spent.performTextInput("")
+        spent.performTextInputSelection(TextRange(1), relativeToOriginalText = true)
+        spent.performTextInput("9")
+        compose.onNodeWithTag("welcomeTarget").performTextInput("5000")
+        val date = compose.onNodeWithTag("welcomeDeadline")
+        date.performTextInput("20270115")
+        date.performTextInputSelection(TextRange(6, 8), relativeToOriginalText = true)
+        date.performTextInput("20")
+        compose.onNodeWithTag("welcomeReward").performTextInput("80000 points")
+        compose.onNodeWithText("Save").performClick()
+        compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.preferences.welcomeBonus != null } }
+        val setup = runBlocking { viewModel.card(key).first()!!.preferences.welcomeBonus!! }
+        org.junit.Assert.assertEquals(193_450L, setup.spentCents)
+        org.junit.Assert.assertEquals(500_000L, setup.targetCents)
+        org.junit.Assert.assertEquals(java.time.LocalDate.of(2027, 1, 20), setup.deadline)
+        org.junit.Assert.assertEquals("80000 points", setup.rewardLabel)
+        org.junit.Assert.assertTrue(runBlocking { viewModel.card(key).first()!! }.sections.flatMap { it.items }.any { it.description == "80,000 points" })
+        compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("welcomeSetup"))
+        compose.onNodeWithTag("welcomeSetup").performClick()
+        org.junit.Assert.assertEquals("5,000", compose.onNodeWithTag("welcomeTarget").fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+        org.junit.Assert.assertEquals("80,000 points", compose.onNodeWithTag("welcomeReward").fetchSemanticsNode().config[SemanticsProperties.EditableText].text)
+        capture("whole-dollar-and-reward-form", "welcomeBonusDialog")
+        compose.onNodeWithTag("welcomeReward").performScrollTo()
+        capture("reward-form-lower", "welcomeBonusDialog")
+        compose.onNodeWithText("Cancel").performClick()
+        org.junit.Assert.assertEquals(6, runBlocking { cards.observeBenefits(key).first().size })
+    }
+
+    @Test
+    fun institutionsKeepUnreadProgramsAndSeparateTheirCardsWithBackNavigation() {
+        val key = CardKey("demo-benefits", "5678")
+        runBlocking { RoomAccountRepository(database).addAccount(key.programId, AccountStatus.CONNECTED, readTime) }
+        selectedProgram.value = null
+        showScreens()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsProgram_demo-benefits").fetchSemanticsNodes().isNotEmpty() }
+        capture("institutions-unread")
+        compose.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
+        compose.onNodeWithText("Benefits appear after the next Demo Institution refresh").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Back to institutions").performClick()
+        runBlocking { cards.applyCardList(key.programId, CardList.from(listOf(CardDraft("Demo Card", key.lastDigits)), true), readTime) }
+        compose.waitUntil(5_000) { runBlocking { (viewModel.uiState.first { it is com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards } as com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards).programs.first { it.programId == key.programId }.cardCount == 1 } }
+        compose.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
+        compose.onNode(hasContentDescription("Demo Card, card ending", substring = true)).assertIsDisplayed()
+        org.junit.Assert.assertTrue(compose.onAllNodes(hasContentDescription("Platinum Card, card ending", substring = true)).fetchSemanticsNodes().isEmpty())
+        capture("institution-demo-cards")
+        compose.onNodeWithContentDescription("Back to institutions").performClick()
+        compose.onNodeWithTag("benefitsProgram_amex").performClick()
+        compose.onNode(hasContentDescription("card ending ${drafts.first().lastDigits}", substring = true)).performClick()
+        compose.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Back to Benefits").performClick()
+        compose.onNodeWithTag("benefitsList").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Back to institutions").performClick()
+        compose.runOnIdle { fontScale.value = 2f }
+        capture("institutions-large-font")
+        compose.onNodeWithTag("benefitsProgram_amex").performClick()
+        capture("institution-amex-cards-large-font")
     }
 
 }

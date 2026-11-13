@@ -9,6 +9,7 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.first
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -58,7 +60,7 @@ class BenefitsScreenTest {
     private val hotel = CardKey("amex", "42005")
     private val viewModel by lazy { BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US) }
 
-    private fun showTab() = rule.setContent { MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = {}) } }
+    private fun showTab() = rule.setContent { MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = {}, programId = "amex") } }
 
     private fun seed() = runBlocking {
         accounts.addAccount("amex", AccountStatus.CONNECTED, 1)
@@ -192,7 +194,7 @@ class BenefitsScreenTest {
     fun tappingATileOpensThatCard() {
         seed()
         var opened: CardKey? = null
-        rule.setContent { MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = { opened = it }) } }
+        rule.setContent { MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = { opened = it }, programId = "amex") } }
         rule.onNode(hasContentDescription("Hotel Card, card ending 42005", substring = true), useUnmergedTree = true).performClick()
         assertEquals(hotel, opened)
     }
@@ -202,8 +204,8 @@ class BenefitsScreenTest {
         seed()
         rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
         val list = rule.onNodeWithTag("cardBenefitsList")
-        list.performScrollToNode(hasTestTag("benefitsCompletedLast"))
-        rule.onNodeWithTag("benefitsCompletedLast").performClick().assertIsSelected()
+        rule.onNodeWithTag("benefitsFilters").performClick()
+        rule.onNodeWithTag("benefitsCompletedLast").performClick()
         list.performScrollToNode(hasTestTag("category_OTHER"))
         rule.onNodeWithTag("category_OTHER").performClick()
         list.performScrollToNode(hasText("Mystery Benefit"))
@@ -262,6 +264,7 @@ class BenefitsScreenTest {
         val settings = object : com.bendourthe.milestone.domain.BenefitsDisplaySettings {
             override fun observe(card: CardKey) = kotlinx.coroutines.flow.flowOf(com.bendourthe.milestone.domain.BenefitsDisplayPreferences())
             override suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long) { throw java.io.IOException("Synthetic unavailable store") }
+            override suspend fun setSort(card: CardKey, sort: com.bendourthe.milestone.domain.BenefitsSort) = Unit
             override suspend fun setCompletedLast(card: CardKey, completedLast: Boolean) = Unit
             override suspend fun setCollapsed(card: CardKey, category: com.bendourthe.milestone.domain.BenefitsCategory, collapsed: Boolean) = Unit
             override suspend fun setWelcomeBonus(card: CardKey, setup: com.bendourthe.milestone.domain.WelcomeBonusSetup?) = Unit
@@ -273,6 +276,49 @@ class BenefitsScreenTest {
         rule.onNodeWithTag("benefitsAlerts").assertExists()
         rule.onNodeWithText("Could not save this change. Please try again.").assertIsDisplayed()
         assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
+    }
+
+    @Test
+    fun explicitSortMenuPersistsTheChoiceAndFilterLivesInTheAppBar() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        rule.onNodeWithTag("benefitsSort").performClick()
+        rule.onNodeWithText("Name A-Z").assertIsSelected()
+        rule.onNodeWithText("Name Z-A").performClick()
+        rule.waitForIdle()
+        assertEquals(com.bendourthe.milestone.domain.BenefitsSort.NAME_DESC, runBlocking { viewModel.card(platinum).first()!! }.preferences.sort)
+        rule.onNodeWithTag("benefitsFilters").performClick()
+        rule.onNodeWithTag("benefitsCompletedLast").performClick()
+        rule.waitForIdle()
+        assertTrue(runBlocking { viewModel.card(platinum).first()!! }.preferences.completedLast)
+        assertEquals(com.bendourthe.milestone.domain.BenefitsSort.NAME_ASC, runBlocking { viewModel.card(hotel).first()!! }.preferences.sort)
+    }
+
+    @Test
+    fun institutionTilesOpenOnlyTheirCardsAndKeepUnreadInstitutionsVisible() {
+        val base = StaticCatalogRepository()
+        val demo = base.program("amex")!!.copy(programId = "demo-benefits", displayName = "Demo Institution", monogram = "DI", logoKey = null)
+        val catalog = object : com.bendourthe.milestone.domain.CatalogRepository by base {
+            override val programs = base.programs + demo
+            override fun program(programId: String) = programs.firstOrNull { it.programId == programId }
+        }
+        seed()
+        runBlocking { accounts.addAccount(demo.programId, AccountStatus.CONNECTED, 1) }
+        val vm = BenefitsViewModel(cards, catalog, accounts, { now }, ZoneOffset.UTC, Locale.US)
+        rule.setContent {
+            var selected by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<String?>(null) }
+            MileStoneTheme { BenefitsScreen(vm, onOpenCard = {}, programId = selected,
+                onOpenProgram = { selected = it }, onBackToPrograms = { selected = null }) }
+        }
+        rule.onNodeWithTag("benefitsProgram_amex").assertHasClickAction().assertHeightIsAtLeast(48.dp)
+        rule.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
+        rule.onNodeWithText("Benefits appear after the next Demo Institution refresh").assertIsDisplayed()
+        rule.onNodeWithContentDescription("Back to institutions").performClick()
+        rule.onNodeWithTag("benefitsProgram_amex").performClick()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        rule.onNode(hasContentDescription("Platinum Card, card ending", substring = true)).assertExists()
+        rule.onNodeWithContentDescription("Back to institutions").performClick()
+        rule.onNodeWithTag("benefitsProgram_demo-benefits").assertExists()
     }
 
 }

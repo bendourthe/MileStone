@@ -2,6 +2,8 @@ package com.bendourthe.milestone.ui.benefits
 
 import com.bendourthe.milestone.domain.Benefit
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsSort
+import java.time.LocalDate
 import com.bendourthe.milestone.domain.BenefitsCategory
 import java.util.Locale
 
@@ -66,10 +68,16 @@ object BenefitsPresentation {
         return result
     }
 
-    fun groups(benefits: List<Benefit>, completedLast: Boolean): Map<BenefitsCategory, List<Benefit>> {
+    fun groups(benefits: List<Benefit>, completedLast: Boolean, sort: BenefitsSort = BenefitsSort.NAME_ASC): Map<BenefitsCategory, List<Benefit>> {
         val visible = visible(benefits)
-        val ordering = compareBy<Benefit> { if (completedLast && it.completed) 1 else 0 }
-            .thenBy { it.title.lowercase(Locale.ROOT) }.thenBy { it.stableKey }
+        val byName = compareBy<Benefit> { it.title.lowercase(Locale.ROOT) }
+        val selected = when (sort) {
+            BenefitsSort.NAME_ASC -> byName
+            BenefitsSort.NAME_DESC -> compareByDescending { it.title.lowercase(Locale.ROOT) }
+            BenefitsSort.DEADLINE -> compareBy<Benefit, LocalDate?>(nullsLast()) { it.periodEnd }.then(byName)
+            BenefitsSort.REMAINING -> compareBy<Benefit, Long?>(nullsLast(reverseOrder<Long>())) { it.remainingCents }.then(byName)
+        }
+        val ordering = compareBy<Benefit> { if (completedLast && it.completed) 1 else 0 }.then(selected).thenBy { it.stableKey }
         return BenefitsCategory.entries.associateWith { group -> visible.filter { category(it) == group }.sortedWith(ordering) }
     }
 }

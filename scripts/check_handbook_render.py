@@ -48,6 +48,9 @@ def main():
         if not condition:
             findings.append({'name': name, 'detail': detail})
 
+    record = json.loads(re.search(r'<script[^>]*id="handbook-record"[^>]*>(.*?)</script>', HTML.read_text(encoding='utf-8'), re.S).group(1))
+    source_count = len(record['source_units'])
+    slide_count = len(record['slides'])
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=True)
         version = browser.version
@@ -66,9 +69,9 @@ def main():
             check(prefix + ' reading title', page.locator('[data-dv-page] h1').count() == 1)
             ids = page.locator('[id]').evaluate_all('(nodes) => nodes.map(node => node.id)')
             check(prefix + ' unique ids', len(ids) == len(set(ids)))
-            check(prefix + ' source coverage', page.locator('[data-dv-page] .source-section').count() == 15)
+            check(prefix + ' source coverage', page.locator('[data-dv-page] .source-section').count() == source_count)
             options = page.locator('[data-dv-picker] option').count()
-            check(prefix + ' chapter options', options == 8, options)
+            check(prefix + ' chapter options', options == slide_count, options)
             unnamed = page.locator('button,select').evaluate_all("nodes => nodes.filter(n => !(n.getAttribute('aria-label') || n.getAttribute('aria-labelledby') || n.textContent.trim() || n.labels?.length)).length")
             check(prefix + ' control names', unnamed == 0, unnamed)
             page.screenshot(path=str(args.out / f'reading-{width}.png'), full_page=False)
@@ -88,7 +91,7 @@ def main():
             check(prefix + ' reading state independent', page.locator('[data-dv-page]').get_attribute('data-reading-theme') == 'dark')
             for depth in ('concise', 'balanced', 'deep-dive'):
                 page.locator('#presentation-depth').select_option(depth)
-                for index in range(8):
+                for index in range(slide_count):
                     page.locator('[data-dv-picker]').select_option(str(index))
                     page.wait_for_function('(i) => NexusDualView.snapshot().index === i', arg=index)
                     geometry = page.locator('[data-dv-slide]:not([hidden])').evaluate("""slide => {
@@ -137,7 +140,7 @@ def main():
         context = browser.new_context(java_script_enabled=False, viewport={'width': 420, 'height': 900})
         page = context.new_page()
         page.goto(HTML.as_uri())
-        check('no JavaScript reading', page.locator('[data-dv-page]').is_visible() and page.locator('[data-dv-page] .source-section').count() == 15)
+        check('no JavaScript reading', page.locator('[data-dv-page]').is_visible() and page.locator('[data-dv-page] .source-section').count() == source_count)
         visible_entries = sum(page.locator('[data-dv-open],[data-dv-chapter]').nth(i).is_visible() for i in range(page.locator('[data-dv-open],[data-dv-chapter]').count()))
         check('no JavaScript hides inactive controls', visible_entries == 0, visible_entries)
         context.close()

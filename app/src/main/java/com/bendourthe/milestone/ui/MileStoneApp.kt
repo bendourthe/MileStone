@@ -73,6 +73,9 @@ data object Catalog
 @Serializable
 data object Benefits
 
+@Serializable
+data class ProgramBenefits(val programId: String)
+
 /** One card's benefits page; the card is named by its program and last digits only. */
 @Serializable
 data class CardBenefits(val programId: String, val lastDigits: String)
@@ -89,7 +92,7 @@ private data class TopLevel(
 
 private val topLevels = listOf(
     TopLevel(Dashboard, Dashboard::class, "Rewards", Icons.Filled.Loyalty, Icons.Outlined.Loyalty),
-    TopLevel(Benefits, Benefits::class, "Benefits", Icons.Filled.CreditCard, Icons.Outlined.CreditCard, listOf(CardBenefits::class)),
+    TopLevel(Benefits, Benefits::class, "Benefits", Icons.Filled.CreditCard, Icons.Outlined.CreditCard, listOf(ProgramBenefits::class, CardBenefits::class)),
     TopLevel(Settings, Settings::class, "Settings", Icons.Filled.Settings, Icons.Outlined.Settings),
 )
 
@@ -151,6 +154,7 @@ fun MileStoneApp(
                     intent.action = null
                     if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
                         navController.navigate(Benefits) { launchSingleTop = true }
+                        navController.navigate(ProgramBenefits(programId))
                         navController.navigate(CardBenefits(programId, digits))
                     }
                 }
@@ -170,8 +174,8 @@ fun MileStoneApp(
                     },
                     benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
                     onOpenBenefits = { programId ->
-                        benefits.focusProgram(programId)
                         navController.navigate(Benefits) { launchSingleTop = true }
+                        navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
                     },
                     onSignIn = { programId -> signIn?.connect(programId) },
                 )
@@ -181,14 +185,20 @@ fun MileStoneApp(
                     benefits,
                     onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
                     snackbarHostState = snackbarHostState,
+                    onOpenProgram = { programId -> navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true } },
                 )
+            }
+            composable<ProgramBenefits> { entry ->
+                val route = entry.toRoute<ProgramBenefits>()
+                BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
+                    snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() })
             }
             composable<CardBenefits> { entry ->
                 val route = entry.toRoute<CardBenefits>()
                 val key = remember(route) { runCatching { CardKey(route.programId, route.lastDigits) }.getOrNull() }
                 val scope = rememberCoroutineScope()
                 val gone: () -> Unit = {
-                    navController.popBackStack(Benefits, inclusive = false)
+                    if (!navController.popBackStack(ProgramBenefits(route.programId), inclusive = false)) navController.popBackStack(Benefits, inclusive = false)
                     scope.launch { snackbarHostState.showSnackbar("That card is no longer on your account") }
                 }
                 if (key == null) LaunchedEffect(Unit) { gone() } else {

@@ -215,6 +215,10 @@ enum class BenefitsCategory(val title: String) {
     WELCOME_BONUS("Welcome bonus"), CREDITS("Credits"), SPEND_TRACKERS("Spend trackers"), OTHER("Other")
 }
 
+enum class BenefitsSort(val label: String) {
+    NAME_ASC("Name A-Z"), NAME_DESC("Name Z-A"), DEADLINE("Deadline soonest"), REMAINING("Largest amount remaining")
+}
+
 data class WelcomeBonusSetup(
     val spentCents: Long,
     val targetCents: Long,
@@ -233,6 +237,7 @@ data class BenefitsDisplayPreferences(
     val acknowledged: Map<String, Long> = emptyMap(),
     val welcomeBonus: WelcomeBonusSetup? = null,
     val readState: BenefitsReadState = BenefitsReadState(),
+    val sort: BenefitsSort = BenefitsSort.NAME_ASC,
 ) {
     fun isAcknowledged(alertId: String, readGeneration: Long): Boolean =
         acknowledged[alertId] == readGeneration
@@ -241,6 +246,7 @@ data class BenefitsDisplayPreferences(
 /** On-device display preferences; acknowledgement never edits issuer benefits or reminder records. */
 interface BenefitsDisplaySettings {
     fun observe(card: CardKey): Flow<BenefitsDisplayPreferences>
+    suspend fun setSort(card: CardKey, sort: BenefitsSort)
     suspend fun setCompletedLast(card: CardKey, completedLast: Boolean)
     suspend fun setCollapsed(card: CardKey, category: BenefitsCategory, collapsed: Boolean)
     suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long)

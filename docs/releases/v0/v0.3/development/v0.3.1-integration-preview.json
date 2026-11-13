@@ -1,0 +1,31 @@
+{
+  "observed_utc": "2026-11-14T01:15:29.695458+00:00",
+  "command": "git merge-tree --write-tree --name-only HEAD origin/develop",
+  "checkpoint": "99991c7080589f41805d2c83343984aa0c5f856f",
+  "incoming": "d43d344fe19782c738f5fde15cc2bcb03ce90515",
+  "exit": 1,
+  "conflicts": [
+    "docs/DEVLOG.md",
+    "docs/handbooks/_sources/overview/reviews/build.json",
+    "docs/handbooks/_sources/overview/reviews/content.json",
+    "docs/handbooks/_sources/overview/reviews/render.json",
+    "docs/handbooks/_sources/overview/verification.json",
+    "docs/handbooks/html/overview.html",
+    "docs/releases/v0/v0.3/known-gaps.md",
+    "docs/todos.md"
+  ],
+  "scope": "committed checkpoint only; uncommitted owner refinements are not part of this merge preview",
+  "worktree_changed": false,
+  "resolution_requirements": [
+    "Preserve published release metadata and independent Search plan",
+    "Preserve current expanded goal, owner refinements and redesign evidence",
+    "Merge release/development indices and gap status semantically",
+    "Rebuild generated handbook and all review receipts against the final merged inputs",
+    "Verify the integrated presentation before starting authorized v0.4.0 implementation"
+  ],
+  "remaining_owner_boundary": [
+    "Phone installation and acceptance",
+    "Exact v0.3.1 publication/release authority before remote actions"
+  ],
+  "not_a_merge_or_completion_receipt": true
+}

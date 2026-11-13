@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsSort
 import com.bendourthe.milestone.domain.BenefitsReadState
 import com.bendourthe.milestone.domain.BenefitsCategory
 import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
@@ -24,6 +25,7 @@ import java.time.LocalDate
 
 class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>) : BenefitsDisplaySettings {
     private fun prefix(card: CardKey) = "benefitsDisplay:${card.programId}:${card.lastDigits}:"
+    private fun sortKey(card: CardKey) = stringPreferencesKey(prefix(card) + "sort")
     private fun completed(card: CardKey) = booleanPreferencesKey(prefix(card) + "completedLast")
     private fun collapsedKey(card: CardKey) = stringSetPreferencesKey(prefix(card) + "collapsed")
     private fun acknowledgements(card: CardKey) = stringSetPreferencesKey(prefix(card) + "acknowledged")
@@ -50,6 +52,7 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
         }.getOrNull()
         BenefitsDisplayPreferences(
             completedLast = prefs[completed(card)] ?: false,
+            sort = BenefitsSort.entries.firstOrNull { it.name == prefs[sortKey(card)] } ?: BenefitsSort.NAME_ASC,
             collapsed = savedCollapsed?.mapNotNull { name -> BenefitsCategory.entries.firstOrNull { it.name == name } }?.toSet()
                 ?: setOf(BenefitsCategory.OTHER),
             acknowledged = prefs[acknowledgements(card)].orEmpty().mapNotNull { entry ->
@@ -61,6 +64,10 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
                 BenefitSection.entries.mapNotNull { section -> prefs[sectionGeneration(card, section)]?.let { section to it } }.toMap(), prefs[cardVersion(card)] ?: 0),
         )
     }.distinctUntilChanged()
+
+    override suspend fun setSort(card: CardKey, sort: BenefitsSort) {
+        store.edit { it[sortKey(card)] = sort.name }
+    }
 
     override suspend fun setCompletedLast(card: CardKey, completedLast: Boolean) {
         store.edit { it[completed(card)] = completedLast }

@@ -14,9 +14,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Matching offline card images for Platinum, Business Platinum, Hilton Surpass, and Delta Gold, with an unknown-card fallback.
+- Benefits organized by program and card, with Welcome bonus, Credits, Spend trackers, and Other categories, counted independently collapsible headers, and saved per-card choices.
+- Yellow alert counts and top-of-card alerts with individual saved acknowledgement; a successful relevant section refresh can return an applicable alert.
+- Optional local welcome-bonus spend, target, deadline, and reward setup with bounded field-specific validation.
 - Offline product handbook with reading and presentation views, retained build sources, and a CI freshness check.
 - Count-only page, card, and total-time diagnostics for benefits reads.
 - The capture build keeps its window open after a read and shows a shortened page path. The capture runbook uses sanitization and structure-only inspection, and Python caches are ignored.
+
+### Changed
+
+- Benefits sort alphabetically by default, offer saved completed-last ordering, and retain completed styling within the appropriate category.
+- Rewards programs with benefits open their Benefits cards when tapped.
+- Matching listed benefits enrich a single tracker display with description and enrollment while raw issuer rows and ambiguous matches remain intact.
+- Listed-benefits freshness uses saved section outcomes bound to an atomic Room read generation; the additive schema migration preserves existing account, benefit, enrollment, and reminder records.
 
 ## [0.2.0] - 2026-11-12
 

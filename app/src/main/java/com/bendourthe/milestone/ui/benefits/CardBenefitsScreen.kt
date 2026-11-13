@@ -42,7 +42,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -61,7 +60,10 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
     val listState = rememberLazyListState()
     LaunchedEffect(page) { if (page == null) onGone() }
     Scaffold(topBar = {
-        BenefitsHeader("Card benefits", showMark = false) {
+        BenefitsHeader("Card benefits", showMark = false, actions = {
+            CardBenefitsMenus(key, page?.preferences ?: com.bendourthe.milestone.domain.BenefitsDisplayPreferences(), page != null && page !== LOADING,
+                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) })
+        }) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to Benefits") }
         }
     }) { padding ->
@@ -73,6 +75,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
         LaunchedEffect(key, current.settingsError) {
             if (current.settingsError != null) listState.animateScrollToItem(0)
         }
+        LaunchedEffect(key, current.preferences.sort, current.preferences.completedLast) { listState.scrollToItem(0) }
         LazyColumn(
             state = listState,
             contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp),
@@ -95,14 +98,6 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
             }
-            item("sorting") {
-                Column {
-                    Text("Alphabetical within categories", style = MaterialTheme.typography.bodySmall)
-                    FilterChip(selected = current.preferences.completedLast,
-                        onClick = { viewModel.setCompletedLast(key, !current.preferences.completedLast) },
-                        label = { Text("Completed last") }, modifier = Modifier.testTag("benefitsCompletedLast"))
-                }
-            }
             if (current.sections.all { it.items.isEmpty() }) {
                 item("empty") { Text("No benefits yet", style = MaterialTheme.typography.bodyMedium) }
             }
@@ -110,16 +105,22 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
                 val collapsed = section.category in current.preferences.collapsed
                 item("category:${section.category.name}") {
                     Surface(onClick = { viewModel.setCollapsed(key, section.category, !collapsed) }, shape = MaterialTheme.shapes.medium,
-                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                        tonalElevation = 1.dp, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                        color = Color.Transparent, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                        tonalElevation = 0.dp, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                             .testTag("category_${section.category.name}").semantics {
                                 heading()
                                 stateDescription = if (collapsed) "Collapsed" else "Expanded"
                             }) {
-                        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Text(section.title, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                            Text("${section.items.size}", style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 8.dp))
-                            Icon(if (collapsed) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess, contentDescription = null)
+                        Column {
+                            Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text(section.title, style = MaterialTheme.typography.titleLarge)
+                                    Text("${section.items.size} ${if (section.items.size == 1) "benefit" else "benefits"}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                                Text(if (collapsed) "Show" else "Hide", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 8.dp))
+                                Icon(if (collapsed) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess, contentDescription = null)
+                            }
+                            androidx.compose.material3.HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                         }
                     }
                 }
