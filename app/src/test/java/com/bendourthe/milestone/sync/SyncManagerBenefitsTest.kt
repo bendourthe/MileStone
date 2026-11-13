@@ -244,6 +244,24 @@ class SyncManagerBenefitsTest {
     }
 
     @Test
+    fun aReadThatCoveredOnlyTrackersKeepsTheStoredList() = runTest {
+        connected("amex")
+        val manager = manager()
+        val listedDraft = BenefitDraft(BenefitSection.LISTED, "Lounge Access", null, null, null, null, completed = false, issuerKey = "lounge-access")
+        manager.applyBenefits(
+            "amex",
+            read(complete = true, "71008").let { it.copy(benefits = mapOf("71008" to listOf(credit("Old credit"), listedDraft))) },
+        )
+
+        manager.applyBenefits(
+            "amex",
+            read(complete = true, "71008").copy(sections = mapOf("71008" to BenefitsRead.TRACKER_SECTIONS)),
+        )
+
+        assertEquals(setOf("Credit 71008", "Lounge Access"), titles(gold).toSet())
+    }
+
+    @Test
     fun applyingAReadFillsEachCreditsPeriodEndFromItsLabel() = runTest {
         connected("amex")
         manager().applyBenefits("amex", read(complete = true, "71008"))

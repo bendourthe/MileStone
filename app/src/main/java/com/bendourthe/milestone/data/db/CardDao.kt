@@ -49,6 +49,9 @@ interface CardDao {
     @Query("DELETE FROM benefits WHERE programId = :programId AND lastDigits = :lastDigits")
     suspend fun deleteBenefits(programId: String, lastDigits: String)
 
+    @Query("DELETE FROM benefits WHERE programId = :programId AND lastDigits = :lastDigits AND section IN (:sections)")
+    suspend fun deleteBenefitSections(programId: String, lastDigits: String, sections: List<String>)
+
     @Insert
     suspend fun insertBenefits(benefits: List<BenefitEntity>)
 

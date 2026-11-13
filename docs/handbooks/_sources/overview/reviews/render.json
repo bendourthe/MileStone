@@ -1,0 +1,2468 @@
+{
+  "status": "pass",
+  "browser": "Chromium 156.0.8078.4",
+  "output_sha256": "27fb53ae2aa247395d7486d86de68aabca3d851b6a8468774bd9e0d94f9b8dd0",
+  "checker_sha256": "a5ca27d14aee9b2b8adf61a7ca32a681a57c664e639e9ecb35f054bc8601785b",
+  "checks": [
+    {
+      "name": "320 reading width",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 reading title",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 unique ids",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 source coverage",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 chapter options",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "name": "320 control names",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "320 reading at200percent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 reading contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 global entry starts first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 fullscreen fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 reading state independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 concise slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 concise slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 concise slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 balanced slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 702,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 balanced slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 5971.03125,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 6278.0625,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 2641.984375,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 827.015625,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 1003.71875,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 877.046875,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 2141.59375,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep-dive slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "top": 0,
+        "bottom": 2375.984375,
+        "width": 320,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "320 deep-dive slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "320 deep source visible",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 presentation theme independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 focus restored",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 second entry resets first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 next control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 previous control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 keyboard End",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 keyboard Home",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 focus stays in presentation",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "320 printable full reading",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 reading width",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 reading title",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 unique ids",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 source coverage",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 chapter options",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "name": "420 control names",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "420 reading at200percent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 reading contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 global entry starts first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 fullscreen fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 reading state independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 concise slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 concise slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 concise slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 balanced slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 balanced slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 3692.984375,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 4323,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 1945.484375,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 791.34375,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 702,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 1507,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep-dive slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 420,
+        "top": 0,
+        "bottom": 1745.015625,
+        "width": 420,
+        "height": 900,
+        "controlsTop": 702,
+        "controlsBottom": 900,
+        "stageScroll": true,
+        "scrollAllowed": true
+      }
+    },
+    {
+      "name": "420 deep-dive slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "420 deep source visible",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 presentation theme independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 focus restored",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 second entry resets first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 next control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 previous control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 keyboard End",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 keyboard Home",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 focus stays in presentation",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "420 printable full reading",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 reading width",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 reading title",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 unique ids",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 source coverage",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 chapter options",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "name": "900 control names",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "900 reading at200percent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 reading contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 global entry starts first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 fullscreen fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 reading state independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 concise slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 concise slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 concise slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 balanced slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 balanced slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep-dive slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 900,
+        "top": 0,
+        "bottom": 738.546875,
+        "width": 900,
+        "height": 900,
+        "controlsTop": 738.546875,
+        "controlsBottom": 900,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "900 deep-dive slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "900 deep source visible",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 presentation theme independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 focus restored",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 second entry resets first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 next control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 previous control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 keyboard End",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 keyboard Home",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 focus stays in presentation",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "900 printable full reading",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 reading width",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 reading title",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 unique ids",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 source coverage",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 chapter options",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "name": "1440 control names",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "1440 reading at200percent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 reading contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 global entry starts first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 fullscreen fallback",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 reading state independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 concise slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 concise slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 concise slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 balanced slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 balanced slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 1 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 1 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 2 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 2 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 3 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 3 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 4 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 4 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 5 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 5 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 6 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 6 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 7 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 7 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep-dive slide 8 geometry",
+      "pass": true,
+      "detail": {
+        "left": 0,
+        "right": 1440,
+        "top": 0,
+        "bottom": 883.34375,
+        "width": 1440,
+        "height": 1000,
+        "controlsTop": 883.34375,
+        "controlsBottom": 1000,
+        "stageScroll": false,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "1440 deep-dive slide 8 contrast",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "1440 deep source visible",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 presentation theme independent",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 focus restored",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 second entry resets first",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 next control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 previous control",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 keyboard End",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 keyboard Home",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 focus stays in presentation",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "1440 printable full reading",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no JavaScript reading",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "no JavaScript hides inactive controls",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "console and runtime errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "offline external requests",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "findings": [],
+  "observed_utc": "2026-11-13T22:13:37.164138+00:00",
+  "visual_review": "Independent review PASS on all eight slides and reading at320/420/900/1440 plus320px/200%; controls accessible. Brand wraps at narrow200%, nonblocking.",
+  "retained_evidence": "docs/releases/v0/v0.3/development/v0.3.0-release-handbook-render/"
+}

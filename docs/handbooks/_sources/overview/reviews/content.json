@@ -1,0 +1,13 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-13T22:13:37.164138+00:00",
+  "scope": "v0.3.0 release metadata on integrated cbd82d1",
+  "review": "Independent read-only review confirmed app implementation and handbook prose/model unchanged; normalized rendered bytes differ only in input fingerprints. Version metadata is code 3, name 0.3.0. All source claims retained their previously verified runtime evidence.",
+  "sources": {
+    "docs\\handbooks\\overview.md": "b16a0dd8b782a97b13771fe0db5082980179bcb33d20287ff24146476e83f492",
+    "docs\\handbooks\\benefits-reader.md": "4751fff9caa5884f6593546d92a802e4e05a752c07a5f730d2fcfc2abc176b4b"
+  },
+  "source_units": 15,
+  "slides": 8,
+  "independent_review": "PASS; all eight slides and five reading renders inspected; no clipping or overlap. At 320px/200% the brand final letter wraps, nonblocking."
+}

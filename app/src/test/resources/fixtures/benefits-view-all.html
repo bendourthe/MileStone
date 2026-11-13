@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>View all benefits</title></head>
+<body>
+<header><div data-testid="context_switcher_container">
+  <button type="button" data-testid="simple_switcher_combobox" role="combobox" aria-expanded="false">
+    <div data-testid="simple_switcher_selected_option_display">
+      <span data-testid="simple_switcher_display_name">Fixture Card</span>
+      <span data-testid="simple_switcher_display_number"><span data-testid="simple_switcher_display_number_val" id="selected-digits">42005</span></span>
+    </div>
+  </button>
+</div>
+<script>
+  // Synthetic view-all page: it shows the card named by its "card" query value (4 or 5 digits), so one fixture
+  // serves any card, and a mismatch can be staged by linking to it with another card's digits.
+  (function () {
+    var match = /[?&]card=(\d{4,5})(?:&|$)/.exec(location.search);
+    if (match) document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('selected-digits').textContent = match[1];
+    });
+  })();
+</script>
+</header>
+<main>
+<h2>Benefits Activity</h2>
+<div data-testid="container-Fixture-Night-Credit" role="group">
+  <h3 data-testid="heading-Fixture-Night-Credit"><span>$50 Fixture Night Credit</span></h3>
+  <div data-testid="progress-section-Fixture-Night-Credit"><progress value="0" max="50"></progress>
+    <div data-testid="tracker-spent-section"><span data-testid="tracker-spent-amount">$0</span><span>earned</span></div>
+    <div data-testid="tracker-remaining-section"><span>$50 to go</span></div></div>
+</div>
+<h2>All benefits</h2>
+<div class="fluid"><div class="row">
+  <div class="tile"><a href="/card-benefits/detail/fixture-lounge/hotel?account_key=decoyvalue"><img class="width-full"><div class="ribbon"><div class="body-xsmall-bold">Enrolled</div></div></a></div>
+  <div class="text"><a href="/card-benefits/detail/fixture-lounge/hotel?account_key=decoyvalue"><h4><span>Fixture Lounge Access</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Synthetic lounge access description.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/fixture-lounge/hotel">Learn More</a></div>
+</div><hr></div>
+<div class="fluid"><div class="row">
+  <div class="tile"><a href="/card-benefits/detail/fixture-status/hotel?account_key=decoyvalue"><img class="width-full"><div class="ribbon"><div class="body-xsmall-bold">Enrollment Required</div></div></a></div>
+  <div class="text"><a href="/card-benefits/detail/fixture-status/hotel?account_key=decoyvalue"><h4><span>Fixture Elite Status</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Membership 987654321 earns synthetic status.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/fixture-status/hotel">Learn More</a></div>
+</div><hr></div>
+<div class="fluid"><div class="row">
+  <div class="tile"><a href="/card-benefits/detail/fixture-night/hotel?account_key=decoyvalue"><img class="width-full"></a></div>
+  <div class="text"><a href="/card-benefits/detail/fixture-night/hotel?account_key=decoyvalue"><h4><span>Fixture Free Night</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Synthetic free night description.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/fixture-night/hotel">Learn More</a></div>
+</div><hr></div>
+<div class="fluid"><div class="row">
+  <div class="tile"><a href="/card-benefits/detail/fixture-protection/hotel?account_key=decoyvalue"><img class="width-full"></a></div>
+  <div class="text"><a href="/card-benefits/detail/fixture-protection/hotel?account_key=decoyvalue"><h4><span>Fixture Purchase Protection</span></h4></a>
+    <div class="body-small color-text-subtle"><span>Synthetic purchase protection description.</span></div>
+    <a data-testid="learn-more-quick-view-list" href="/card-benefits/detail/fixture-protection/hotel">Learn More</a></div>
+</div><hr></div>
+<a href="benefits-view-all.html?card=42005&amp;account_key=decoyvalue">View all benefits</a>
+</main>
+</body></html>

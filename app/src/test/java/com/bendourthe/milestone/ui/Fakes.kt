@@ -8,6 +8,7 @@ import com.bendourthe.milestone.domain.BalanceOrigin
 import com.bendourthe.milestone.domain.BalanceUnit
 import com.bendourthe.milestone.domain.BalanceSnapshot
 import com.bendourthe.milestone.domain.Benefit
+import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardList
@@ -167,9 +168,12 @@ class FakeCards : CardRepository {
         dropOrphans()
     }
 
-    override suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long) {
-        if (cards.value.none { it.key == cardKey }) return
-        this.benefits.update { it + (cardKey to benefits) }
+    override suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long, sections: Set<BenefitSection>) {
+        if (sections.isEmpty() || cards.value.none { it.key == cardKey }) return
+        this.benefits.update { stored ->
+            val kept = stored[cardKey].orEmpty().filterNot { it.section in sections }
+            stored + (cardKey to kept + benefits.filter { it.section in sections })
+        }
         cards.update { list -> list.map { if (it.key == cardKey) it.copy(benefitsReadEpochMs = readEpochMs) else it } }
     }
 

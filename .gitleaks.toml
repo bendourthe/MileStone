@@ -1,0 +1,12 @@
+title = "MileStone secret scan"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Exact CredentialVault source-file SHA-256 in generated handbook receipts"
+regexTarget = "match"
+regexes = ['''^CredentialVault\.kt": "fb07313bbc68e9d2d06ebafd715cfde03a503cd87c5290b4a9b9f0b2aac2869d"$''']

@@ -97,6 +97,119 @@ class BenefitsProtocolTest {
         assertNull(parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"card 1234"}"""))
     }
 
+    private val readyJson = """{"kind":"activity","trackers":2,"listed":0,"waitedMs":2400,"bottom":false,"activityLink":false,"viewAllLink":true,"switched":false,"reason":"stable"}"""
+
+    private fun withReady(ready: String) = benefitsJson.replace("\"listed\":[{", "\"ready\":$ready,\"listed\":[{")
+
+    @Test
+    fun pageDiagnosticsAreParsedAndLoggedAsCountsOnly() {
+        val message = parse(withReady(readyJson), activity) as BridgeMessage.Benefits
+        val ready = message.ready!!
+        assertEquals("activity" to 2400L, ready.kind to ready.waitedMs)
+        val line = ready.logLine()
+        assertEquals(
+            "kind=activity trackers=2 listed=0 waited=2400 bottom=false activity=false viewAll=true switched=false reason=stable",
+            line,
+        )
+        // The message carries card digits and titles; the log line must hold none of them.
+        listOf("71008", "Lounge Access", "Purchase Protection", "Congratulations", "$").forEach { assertFalse(it, line.contains(it)) }
+    }
+
+    @Test
+    fun malformedDiagnosticsDropOnlyTheDiagnosticsNeverTheBenefits() {
+        listOf(
+            readyJson.replace(",\"reason\":\"stable\"", ""),
+            readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"lastDigits\":\"71008\""),
+            readyJson.replace("\"reason\":\"stable\"", "\"reason\":\"card 71008\""),
+            readyJson.replace("\"kind\":\"activity\"", "\"kind\":\"overview\""),
+            readyJson.replace("\"trackers\":2", "\"trackers\":2.5"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":2e1"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":-1"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":61"),
+            readyJson.replace("\"listed\":0", "\"listed\":151"),
+            readyJson.replace("\"waitedMs\":2400", "\"waitedMs\":120001"),
+            readyJson.replace("\"trackers\":2", "\"trackers\":\"2\""),
+            readyJson.replace("\"bottom\":false", "\"bottom\":\"false\""),
+            readyJson.replace("\"bottom\":false", "\"bottom\":0"),
+            readyJson.replace("\"bottom\":false", "\"bottom\":{\"x\":1}"),
+            "[1,2]",
+            "\"stable\"",
+            "null",
+        ).forEach { bad ->
+            val message = parse(withReady(bad), activity) as BridgeMessage.Benefits
+            assertNull(bad, message.ready)
+            assertEquals(bad, 3, message.drafts.size)
+        }
+    }
+
+    @Test
+    fun unreadablePagesCarryDiagnosticsAndKotlinBuiltOnesHaveNone() {
+        val json = """{"type":"benefitsUnreadable","nonce":"n1","why":"timeout","trackers":0,"switcher":1,"ready":${readyJson.replace("stable", "timeout")}}"""
+        val message = parse(json, activity) as BridgeMessage.BenefitsUnreadable
+        assertEquals("timeout", message.ready?.reason)
+        assertNull(BridgeMessage.BenefitsUnreadable("timeout").ready)
+    }
+
+    @Test
+    fun thePageKindComesFromThePathAndAMismatchIsDropped() {
+        assertEquals("rewards", spec.kindOf(rewards))
+        assertEquals("activity", spec.kindOf(activity))
+        assertEquals("viewAll", spec.kindOf("https://global.americanexpress.com/card-benefits/view-all?account_key=x"))
+        assertNull(spec.kindOf("https://global.americanexpress.com/overview"))
+        // A message claiming the activity page while the address is Rewards, or the reverse, is dropped.
+        assertNull(parse(benefitsJson, rewards))
+        assertNull(parse(withReady(readyJson.replace("\"kind\":\"activity\"", "\"kind\":\"rewards\"")), activity))
+        val onRewards = """{"type":"benefitsUnreadable","nonce":"n1","why":"timeout","ready":$readyJson}"""
+        assertNull(parse(onRewards, rewards))
+    }
+
+    @Test
+    fun aRewardsMessageCarryingListedBenefitsIsDropped() {
+        val listedOnRewards = benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"rewards\"")
+        assertNull(parse(listedOnRewards, rewards))
+        val withoutList = listedOnRewards.substringBefore(",\"listed\":[") + ",\"listed\":[]}"
+        assertEquals("rewards", (parse(withoutList, rewards) as BridgeMessage.Benefits).page)
+    }
+
+    @Test
+    fun viewAllMessagesAreAcceptedOnlyOnTheViewAllPathAndHost() {
+        val viewAll = "https://global.americanexpress.com/card-benefits/view-all?account_key=x"
+        val json = benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"viewAll\"")
+        assertEquals("viewAll", (parse(json, viewAll) as BridgeMessage.Benefits).page)
+        listOf(
+            activity,
+            rewards,
+            "https://www.americanexpress.com/card-benefits/view-all",
+            "https://global.americanexpress.com/card-benefits/view-allx",
+            "http://global.americanexpress.com/card-benefits/view-all",
+        ).forEach { assertNull(it, parse(json, it)) }
+        val listedItem = """{"key":"k%d","title":"T","description":null,"enrollment":null}"""
+        val tooMany = (1..151).joinToString(",") { listedItem.format(it) }
+        assertNull(parse("""{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"viewAll","trackers":[],"listed":[$tooMany]}""", viewAll))
+    }
+
+    @Test
+    fun nextIsOnlyViewAllAndOnlyFromARewardsPage() {
+        val rewardsJson = """{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"rewards","trackers":[],"listed":[]%s}"""
+        assertNull((parse(rewardsJson.format("")) as BridgeMessage.Benefits).next)
+        assertEquals("viewAll", (parse(rewardsJson.format(",\"next\":\"viewAll\"")) as BridgeMessage.Benefits).next)
+        listOf(",\"next\":\"activity\"", ",\"next\":1", ",\"next\":true", ",\"next\":null", ",\"next\":{\"page\":\"viewAll\"}").forEach {
+            assertNull(it, parse(rewardsJson.format(it)))
+        }
+        assertNull(parse(benefitsJson.replace("\"page\":\"activity\"", "\"page\":\"activity\",\"next\":\"viewAll\""), activity))
+    }
+
+    @Test
+    fun anUnclassifiedPageIsAnUnreadableReason() {
+        assertEquals(BridgeMessage.BenefitsUnreadable("page"), parse("""{"type":"benefitsUnreadable","nonce":"n1","why":"page"}"""))
+    }
+
+    @Test
+    fun benefitsConfigCarriesTheSecondPageDecision() {
+        assertTrue(BridgeProtocol.benefitsConfig(spec, "n1", 20_000, listCards = false).contains("\"secondPage\":true"))
+        assertTrue(BridgeProtocol.benefitsConfig(spec, "n1", 20_000, listCards = false, secondPage = false).contains("\"secondPage\":false"))
+    }
+
     @Test
     fun benefitsConfigCarriesTheSelectorsAndTarget() {
         val config = BridgeProtocol.benefitsConfig(spec, "n1", 30_000, listCards = false, targetDigits = "42005")

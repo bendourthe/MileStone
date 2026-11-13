@@ -1,0 +1,44 @@
+{
+  "recorded_utc": "2026-11-13T08:50:35.788480+00:00",
+  "base_commit": "a6494273ff4682b04729d73dca2431d0a6eb570b",
+  "candidate": "Phase 4 working tree before local checkpoint",
+  "command": ".\\gradlew.bat -q --max-workers=2 testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin createDebugUnitTestCoverageReport connectedDebugAndroidTest",
+  "android_serial": "emulator-5554",
+  "exit_code": 0,
+  "jvm": {
+    "tests": 356,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "device": {
+    "tests": 35,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "covered_lines": 3979,
+    "total_lines": 5117,
+    "percent": 77.8
+  },
+  "benefits_private_capture_cases": {
+    "tests": 8,
+    "skipped": 0
+  },
+  "apk_sha256": "5b11aee169479841d986c9d256a9fc7063b50ea32ee796517a2e7f055cdcaea7",
+  "source_sha256": {
+    "app/src/main/assets/extract.js": "08b6dbb657106ca13d2a7cdfc3a43514cf02861a4203de609eb9d89d8314784c",
+    "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudget.kt": "db35f84b6c7128ee5ceaeb684c3c0dfe73485d455e6837a96789733cedc0cc36",
+    "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudgetTest.kt": "1a48a31cae64bcfdd4ce05b42223e20bdaebd53b3187525bad560aa46490a7b9",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsBridgeFixtureTest.kt": "c2fe26a751d1805dab60d11d21bd87547ba37cebabdd6d3dc21c860f32354334",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt": "d145a14b99b620b0a9604c91fda214e7272f27fb8605e7062c4356a7e2cda6ac"
+  },
+  "benefits_block_lf_sha256": "f92f32e4234df7b784c354304a762c1ba02e9ce51d9934cae5712c3d8106172b",
+  "limits": [
+    "Owner site-count confirmation deferred by owner.",
+    "Coverage includes JVM execution; device-only WebView coverage is separate.",
+    "Earlier emulator teardown failure retained as G46; no root-cause fix claimed.",
+    "Publication, integration, release and minor close have not occurred."
+  ]
+}

@@ -278,7 +278,9 @@ class SyncManager(
                     val dated = drafts.map { draft ->
                         BenefitPeriods.parse(draft.periodLabel, readDate)?.let { draft.copy(periodEnd = it.end, periodLength = it.length) } ?: draft
                     }
-                    repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now)
+                    val sections = read.sectionsOf(digits)
+                    if (sections.isEmpty()) return@forEach
+                    repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now, sections)
                     applied++
                 }
                 DiagnosticLog.i(

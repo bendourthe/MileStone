@@ -47,7 +47,10 @@ class BenefitsBridgeFixtureTest {
         paths = setOf("/assets/fixtures"),
         selectors = StaticCatalogRepository.AMEX_BENEFITS.selectors + mapOf(
             "activityLink" to "a[href*='benefits-activity']",
+            "viewAllLink" to "a[href*='benefits-view-all']",
             "activityPath" to "/assets/fixtures/benefits-activity",
+            "rewardsPath" to "/assets/fixtures/benefits-",
+            "viewAllPath" to "/assets/fixtures/benefits-view-all",
         ),
     )
 
@@ -59,7 +62,7 @@ class BenefitsBridgeFixtureTest {
         scenario.close()
     }
 
-    private fun load() {
+    private fun load(url: String = spec.entryUrl) {
         val script = appAssets.assets.open("extract.js").bufferedReader().use { it.readText() }
         scenario.onActivity { activity ->
             webView = WebView(activity).apply {
@@ -78,7 +81,7 @@ class BenefitsBridgeFixtureTest {
             }
             WebViewCompat.addDocumentStartJavaScript(webView, script, origins)
             activity.setContentView(webView)
-            webView.loadUrl(spec.entryUrl)
+            webView.loadUrl(url)
         }
     }
 
@@ -119,7 +122,8 @@ class BenefitsBridgeFixtureTest {
         assertEquals(listOf("airline-fee-credit", "lounge-access", "purchase-protection"), listed.map { it.issuerKey })
         assertEquals(listOf(Enrollment.ENROLLMENT_REQUIRED, Enrollment.ENROLLED, null), listed.map { it.enrollment })
 
-        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005")
+        // The Hotel and Basic cards have no activity page; with no second page allowed they post their Rewards trackers.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005", secondPage = false)
         webView.post { webView.reload() }
         val second = next() as BridgeMessage.Benefits
         assertEquals("42005" to "rewards", second.lastDigits to second.page)
@@ -130,13 +134,83 @@ class BenefitsBridgeFixtureTest {
         )
 
         // A card with no trackers is a valid empty read, not a failure.
-        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "33006")
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "33006", secondPage = false)
         webView.post { webView.reload() }
         val third = next() as BridgeMessage.Benefits
         assertEquals("33006" to "rewards", third.lastDigits to third.page)
         assertEquals(emptyList<Any>(), third.drafts)
 
         for (decoy in DECOYS) assertFalse("decoy $decoy reached a message", raw.any { decoy in it })
+    }
+
+    @Test
+    fun aRewardsPageWaitsForItsLateLowerSectionThenFollowsTheActivityLink() = runBlocking {
+        // The lower section with the activity link renders late, and the activity link changes the address in place
+        // while the Rewards content stays for 3 s: v0.2.0 posted the Rewards page's 2 trackers in both cases.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-lazy.html")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("71008" to "activity", message.lastDigits to message.page)
+        assertEquals(
+            listOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED),
+            message.drafts.map { it.section },
+        )
+        assertEquals("activity" to "stable", message.ready?.kind to message.ready?.reason)
+        assertEquals("the posted page still showed the Rewards content", false, message.ready?.activityLink)
+    }
+
+    @Test
+    fun aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap() = runBlocking {
+        assertActivityAfterRewardsCap("late")
+    }
+
+    @Test
+    fun aRewardsPageFollowsItsActivityLinkAtTheCapWhileItsHeightStillGrows() = runBlocking {
+        assertActivityAfterRewardsCap("growing")
+    }
+
+    private suspend fun assertActivityAfterRewardsCap(mode: String) {
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 20_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-cap.html#$mode")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("71008" to "activity", message.lastDigits to message.page)
+        assertEquals(
+            listOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED),
+            message.drafts.map { it.section },
+        )
+        assertEquals(false, message.ready?.activityLink)
+        assertFalse("an account key reached a message", raw.any { "account_key" in it })
+    }
+
+    @Test
+    fun anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange() = runBlocking {
+        // The switch changes the address in the same document, empties the trackers, and shows the new ones 7 s later.
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false, targetDigits = "42005")
+        load("https://$HOST/assets/fixtures/benefits-switch-late.html")
+        val message = next() as BridgeMessage.Benefits
+        assertEquals("42005" to "rewards", message.lastDigits to message.page)
+        assertEquals(listOf("\$50 Fixture Hotel Credit", "Fixture Free Night Bonus"), message.drafts.map { it.title })
+        assertEquals(true, message.ready?.switched)
+        assertFalse("the old card's trackers reached a message", raw.any { "Fixture Dining Credit" in it })
+    }
+
+    @Test
+    fun aCardWithoutAnActivityPagePostsItsTrackersThenItsViewAllList() = runBlocking {
+        config = BridgeProtocol.benefitsConfig(spec, NONCE, timeoutMs = 25_000, listCards = false)
+        load("https://$HOST/assets/fixtures/benefits-rewards-2.html")
+
+        val rewards = next() as BridgeMessage.Benefits
+        assertEquals(Triple("42005", "rewards", "viewAll"), Triple(rewards.lastDigits, rewards.page, rewards.next))
+        assertEquals(3, rewards.drafts.size)
+
+        val viewAll = next() as BridgeMessage.Benefits
+        assertEquals("42005" to "viewAll", viewAll.lastDigits to viewAll.page)
+        val listed = viewAll.drafts.filter { it.section == BenefitSection.LISTED }
+        assertEquals(listOf("fixture-lounge", "fixture-status", "fixture-night", "fixture-protection"), listed.map { it.issuerKey })
+        assertEquals(listOf(Enrollment.ENROLLED, Enrollment.ENROLLMENT_REQUIRED, null, null), listed.map { it.enrollment })
+        assertEquals("Membership # earns synthetic status.", listed[1].description)
+        assertFalse("the membership decoy reached a message", raw.any { "987654321" in it })
+        assertFalse("an account key reached a message", raw.any { "account_key" in it })
     }
 
     private companion object {

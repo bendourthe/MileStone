@@ -103,33 +103,68 @@ class BenefitsFixtureTest {
         assertEquals("duplicate last digits", cards.size, cards.map { digits(it.selectFirst(s.getValue("optionDigits"))) }.toSet().size)
     }
 
-    @Test
-    fun privateActivityCapturesShowEachSectionAndAFullList() {
-        val names = listOf("amex-activity-platinum.html", "amex-activity-business-platinum.html")
-        val docs = names.mapNotNull { page(PRIVATE, it) }
-        assumeTrue("no private activity capture on this machine", docs.isNotEmpty())
-        docs.forEach { doc ->
-            val found = sections(doc).toSet()
-            assertTrue("sections found: $found", found.containsAll(setOf(BenefitSection.SPEND_PROGRESS, BenefitSection.CREDIT_EARNED, BenefitSection.COMPLETED)))
+    /** Minimum counts per private capture, from the v0.3.0 capture record, under the app's own section rules. */
+    private data class Recorded(val sections: Map<BenefitSection, Int>, val listed: Int = 0, val enrolled: Int = 0)
+
+    private fun assertMeetsRecord(captures: Map<String, Recorded>) {
+        val missing = captures.keys.filter { page(PRIVATE, it) == null }
+        assumeTrue("private captures absent on this machine: $missing", missing.isEmpty())
+        captures.forEach { (name, recorded) ->
+            val doc = page(PRIVATE, name)!!
+            val found = sections(doc).groupingBy { it }.eachCount()
+            recorded.sections.forEach { (section, minimum) ->
+                assertTrue("$name $section: ${found[section] ?: 0} < $minimum", (found[section] ?: 0) >= minimum)
+            }
             val list = listed(doc)
-            assertTrue("listed benefits: ${list.size}", list.size >= 10)
-            assertTrue("no enrollment ribbon found", list.any { it.second != null })
-            assertTrue("the activity page has a current card", digits(doc.selectFirst(s.getValue("selected"))?.selectFirst(s.getValue("optionDigits"))) != null)
+            assertTrue("$name listed: ${list.size} < ${recorded.listed}", list.size >= recorded.listed)
+            val enrolled = list.count { it.second == "Enrolled" }
+            assertTrue("$name enrolled: $enrolled < ${recorded.enrolled}", enrolled >= recorded.enrolled)
+            assertTrue("$name has no current card", digits(doc.selectFirst(s.getValue("selected"))?.selectFirst(s.getValue("optionDigits"))) != null)
         }
     }
 
     @Test
-    fun privateRewardsCapturesShowTrackersForCardsWithoutAnActivityPage() {
-        val docs = listOf("amex-rewards-hilton-surpass.html", "amex-rewards-delta-gold.html").mapNotNull { page(PRIVATE, it) }
-        assumeTrue("no private Rewards capture on this machine", docs.isNotEmpty())
-        docs.forEach { doc ->
-            assertTrue("no trackers", sections(doc).isNotEmpty())
-            assertEquals("unexpected activity link", 0, doc.select(s.getValue("activityLink")).size)
-        }
+    fun privateActivityCapturesMeetTheirRecordedCounts() = assertMeetsRecord(
+        mapOf(
+            "amex-activity-platinum.html" to Recorded(mapOf(SPEND to 2, CREDIT to 4, DONE to 3), listed = 53, enrolled = 4),
+            "amex-activity-business-platinum.html" to Recorded(mapOf(SPEND to 3, CREDIT to 4, DONE to 1), listed = 59, enrolled = 6),
+        ),
+    )
+
+    @Test
+    fun privateViewAllCapturesYieldTheirRecordedListAndEnrollment() = assertMeetsRecord(
+        mapOf(
+            "amex-view-all-platinum.html" to Recorded(emptyMap(), listed = 53, enrolled = 4),
+            "amex-view-all-business-platinum.html" to Recorded(emptyMap(), listed = 59, enrolled = 6),
+            "amex-view-all-hilton-surpass.html" to Recorded(emptyMap(), listed = 20),
+            "amex-view-all-delta-gold.html" to Recorded(emptyMap(), listed = 24),
+        ),
+    )
+
+    @Test
+    fun syntheticViewAllPageListsEveryEntryWithItsEnrollment() {
+        assertEquals(
+            listOf("fixture-lounge" to "Enrolled", "fixture-status" to "Enrollment Required", "fixture-night" to null, "fixture-protection" to null),
+            listed(page(SYNTHETIC, "benefits-view-all.html")!!),
+        )
+    }
+
+    @Test
+    fun privateRewardsCapturesMeetTheirRecordedCountsWithoutAnActivityLink() {
+        val captures = mapOf(
+            "amex-rewards-hilton-surpass.html" to Recorded(mapOf(DONE to 1)),
+            "amex-rewards-delta-gold.html" to Recorded(mapOf(SPEND to 1, CREDIT to 1)),
+            "amex-rewards-delta-gold-switched.html" to Recorded(mapOf(SPEND to 1, CREDIT to 1)),
+        )
+        assertMeetsRecord(captures)
+        captures.keys.forEach { assertEquals("$it has an activity link", 0, page(PRIVATE, it)!!.select(s.getValue("activityLink")).size) }
     }
 
     private companion object {
         const val SYNTHETIC = "fixtures"
         const val PRIVATE = "fixtures-private"
+        val SPEND = BenefitSection.SPEND_PROGRESS
+        val CREDIT = BenefitSection.CREDIT_EARNED
+        val DONE = BenefitSection.COMPLETED
     }
 }
