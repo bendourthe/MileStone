@@ -59,6 +59,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.ui.MileStoneMark
 import com.bendourthe.milestone.ui.theme.HeaderTeal
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 
 /**
  * The header band the dashboard uses, with this screen's title. The centered mark shows only on the tab itself:
@@ -73,7 +78,7 @@ internal fun BenefitsHeader(title: String, showMark: Boolean = true, navigationI
             navigationIcon = navigationIcon,
             colors = TopAppBarDefaults.topAppBarColors(containerColor = HeaderTeal),
         )
-        if (showMark) {
+        if (showMark && LocalDensity.current.fontScale <= 1.3f) {
             Box(Modifier.matchParentSize().windowInsetsPadding(TopAppBarDefaults.windowInsets), contentAlignment = Alignment.Center) {
                 MileStoneMark(44.dp, Modifier.offset(y = (-3).dp))
             }
@@ -154,7 +159,13 @@ private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, 
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.fillMaxSize().testTag("benefitsList"),
             ) {
-                items(s.tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                s.tiles.groupBy { it.key.programId }.forEach { (programId, tiles) ->
+                    item("program:$programId") {
+                        Text(tiles.first().programName, style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp).semantics { heading() })
+                    }
+                    items(tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                }
             }
         }
 }
@@ -178,30 +189,27 @@ private fun Message(title: String, body: String, modifier: Modifier) {
 private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
     ElevatedCard(
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .defaultMinSize(minHeight = 48.dp)
-            .clearAndSetSemantics {
-                contentDescription = tile.description
-                role = Role.Button
-                onClick(label = "Open ${tile.name} benefits") { onClick(); true }
-            },
+        modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 48.dp).clearAndSetSemantics {
+            contentDescription = tile.description
+            role = Role.Button
+            onClick(label = "Open ${tile.name} benefits") { onClick(); true }
+        },
     ) {
-        Row(Modifier.padding(start = 16.dp, top = 14.dp, bottom = 14.dp, end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(tile.name, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
-                    Text(" ${tile.digitsLabel}", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                CardArtwork(tile.key.programId, tile.name, Modifier.width(88.dp))
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(tile.name, style = MaterialTheme.typography.titleMedium)
+                    Text(tile.digitsLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("${tile.benefitCount} benefits", style = MaterialTheme.typography.bodySmall)
                 }
-                Text(tile.nextCredit, style = MaterialTheme.typography.bodyMedium)
-                tile.completedLabel?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                if (tile.staleNote != null) {
-                    Text(tile.staleNote, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.error)
-                } else {
-                    Text(tile.lastReadLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                }
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
             }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+            Text(tile.nextCredit, style = MaterialTheme.typography.bodyMedium)
+            tile.completedLabel?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            Text(tile.staleNote ?: tile.lastReadLabel, style = MaterialTheme.typography.bodySmall,
+                color = if (tile.staleNote != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

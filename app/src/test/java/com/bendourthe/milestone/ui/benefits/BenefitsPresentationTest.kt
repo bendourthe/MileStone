@@ -54,4 +54,25 @@ class BenefitsPresentationTest {
         assertTrue(BenefitsPresentation.groups(emptyList(), false).values.all { it.isEmpty() })
         assertEquals(2, BenefitsPresentation.visible(listOf(item("Credit", BenefitSection.CREDIT_EARNED), item("Credit", BenefitSection.LISTED))).size)
     }
+
+    @Test fun artworkMatchesAllFourProductsAndUnknownProductsUseTheFallback() {
+        val images = listOf("Platinum Card", "Business Platinum Card", "Hilton Honors Surpass Card", "Gold Delta SkyMiles")
+            .map { cardArtworkResource("amex", it) }
+        assertTrue(images.all { it != null })
+        assertEquals(4, images.distinct().size)
+        assertNull(cardArtworkResource("amex", "Delta Platinum"))
+        assertNull(cardArtworkResource("amex", "Hilton Aspire"))
+        assertNull(cardArtworkResource("amex", "Unknown Card"))
+        assertNull(cardArtworkResource("other", "Platinum Card"))
+    }
+
+    @Test fun manualBonusInputRejectsMalformedAndOverflowingValues() {
+        assertNull(welcomeBonusInput("1", "0", "", ""))
+        assertNull(welcomeBonusInput("-1", "10", "", ""))
+        assertNull(welcomeBonusInput("1.001", "10", "", ""))
+        assertNull(welcomeBonusInput("1", "9999999999999999999999999", "", ""))
+        assertNull(welcomeBonusInput("1", "10", "2027-02-30", ""))
+        assertEquals(123L, welcomeBonusInput("1.23", "10", "2027-02-01", "Reward")!!.spentCents)
+    }
+
 }

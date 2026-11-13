@@ -168,6 +168,11 @@ fun MileStoneApp(
                         }
                         signIn?.let { SignInMenuItems(tile, it, close) }
                     },
+                    benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
+                    onOpenBenefits = { programId ->
+                        benefits.focusProgram(programId)
+                        navController.navigate(Benefits) { launchSingleTop = true }
+                    },
                     onSignIn = { programId -> signIn?.connect(programId) },
                 )
             }
@@ -226,5 +231,5 @@ fun MileStoneApp(
 private fun appBenefitsViewModel(): BenefitsViewModel {
     val container = (LocalContext.current.applicationContext as MileStoneApplication).container
     val owner = LocalActivity.current as ViewModelStoreOwner
-    return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts, reminders = container.reminderSettings) }
+    return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts, reminders = container.reminderSettings, displaySettings = container.benefitsDisplaySettings) }
 }

@@ -226,4 +226,29 @@ class MileStoneAppTest {
         rule.waitUntil(2_000) { accounts.reorderCalls.isNotEmpty() }
         assertEquals(listOf("chase", "amex"), accounts.reorderCalls.last())
     }
+
+    @Test
+    fun tappingARewardsProgramWithBenefitsOpensItsCardsAndBackReturnsToRewards() {
+        val realCatalog = com.bendourthe.milestone.data.catalog.StaticCatalogRepository()
+        val cards = FakeCards()
+        runBlocking {
+            accounts.addAccount("amex", AccountStatus.CONNECTED, 1)
+            cards.applyCardList("amex", com.bendourthe.milestone.domain.CardList.from(
+                listOf(com.bendourthe.milestone.domain.CardDraft("Platinum Card", "1234")), true), 1)
+        }
+        val sync = MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap())
+        val dashboard = DashboardViewModel(realCatalog, ObserveDashboard(accounts, realCatalog), settings, accounts, sync)
+        val benefits = BenefitsViewModel(cards, realCatalog, accounts)
+        rule.setContent {
+            nav = rememberNavController()
+            MileStoneTheme { MileStoneApp(dashboard, CatalogViewModel(realCatalog, accounts, debounceMs = 0),
+                SettingsViewModel(settings), realCatalog, "0.3.1", nav, benefitsViewModel = benefits) }
+        }
+        rule.onNodeWithText("American Express").performClick()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
+        pressBack()
+        rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+    }
+
 }

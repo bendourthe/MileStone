@@ -22,7 +22,7 @@ Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-be
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | v0.3.0 plan phases complete | 3 of 4 | 4 of 4 | 1 (Phase 4 in progress; T007 follow-up) |
-| v0.3.1 redesign phases complete | 1 of 4 | 4 of 4 | 3 (presentation/state gate: 23 focused cases passed) |
+| v0.3.1 redesign phases complete | 2 of 4 | 4 of 4 | 2 (40 focused cases and emulator screen fixture passed; artwork/categories/controls visually reviewed) |
 | Required Benefits redesign outcomes verified | 0 of 6 | 6 of 6 | 6 (required by owner; implementation pending) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 

@@ -12,6 +12,13 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
+import kotlinx.coroutines.flow.first
+import org.junit.Assert.assertTrue
+import org.junit.Assert.assertFalse
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -93,7 +100,7 @@ class BenefitsScreenTest {
         seed()
         showTab()
         rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText(" …71008", useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("…71008", useUnmergedTree = true).assertExists()
         rule.onNodeWithText("Shopping Credit: \$50 left (Oct - Dec)", useUnmergedTree = true).assertExists()
         rule.onNodeWithText("1 completed", useUnmergedTree = true).assertExists()
         rule.onNodeWithText("Last updated: 1 d ago", useUnmergedTree = true).assertExists()
@@ -131,6 +138,8 @@ class BenefitsScreenTest {
         listOf("Welcome bonus", "Credits", "Spend trackers", "Other").forEach { list.performScrollToNode(hasText(it)) }
         list.performScrollToNode(hasText("\$4,770 earned · \$70,230 left"))
         list.performScrollToNode(hasText("No reminder for this credit"))
+        list.performScrollToNode(hasTestTag("category_OTHER"))
+        rule.onNodeWithTag("category_OTHER").performClick()
         list.performScrollToNode(hasText("Mystery Benefit"))
         list.performScrollToNode(hasText("Enrollment required"))
         list.performScrollToNode(hasText("Covers purchases"))
@@ -186,4 +195,48 @@ class BenefitsScreenTest {
         rule.onNode(hasContentDescription("Hotel Card, card ending 42005", substring = true), useUnmergedTree = true).performClick()
         assertEquals(hotel, opened)
     }
+
+    @Test
+    fun categoryCollapseIsIndependentAndTheSortControlChangesThePageState() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        val list = rule.onNodeWithTag("cardBenefitsList")
+        list.performScrollToNode(hasTestTag("benefitsCompletedLast"))
+        rule.onNodeWithTag("benefitsCompletedLast").performClick().assertIsSelected()
+        list.performScrollToNode(hasTestTag("category_OTHER"))
+        rule.onNodeWithTag("category_OTHER").performClick()
+        list.performScrollToNode(hasText("Mystery Benefit"))
+        rule.onNodeWithText("Mystery Benefit").assertExists()
+        list.performScrollToNode(hasTestTag("category_CREDITS"))
+        rule.onNodeWithTag("category_CREDITS").performClick()
+        rule.waitForIdle()
+        val page = runBlocking { viewModel.card(platinum).first()!! }
+        assertTrue(page.preferences.completedLast)
+        assertTrue(com.bendourthe.milestone.domain.BenefitsCategory.CREDITS in page.preferences.collapsed)
+        assertFalse(com.bendourthe.milestone.domain.BenefitsCategory.OTHER in page.preferences.collapsed)
+        val other = runBlocking { viewModel.card(hotel).first()!! }
+        assertFalse(other.preferences.completedLast)
+        assertEquals(setOf(com.bendourthe.milestone.domain.BenefitsCategory.OTHER), other.preferences.collapsed)
+    }
+
+    @Test
+    fun welcomeSetupValidatesInputAndDoesNotChangeIssuerRows() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        rule.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("welcomeSetup"))
+        rule.onNodeWithTag("welcomeSetup").performClick()
+        rule.onNodeWithTag("welcomeSpent").performTextInput("100")
+        rule.onNodeWithTag("welcomeTarget").performTextInput("0")
+        rule.onNodeWithText("Save").performClick()
+        rule.onNodeWithText("Enter valid amounts and an optional YYYY-MM-DD deadline.").assertExists()
+        rule.onNodeWithTag("welcomeTarget").performTextReplacement("500")
+        rule.onNodeWithTag("welcomeDeadline").performTextInput("2027-01-01")
+        rule.onNodeWithText("Save").performClick()
+        rule.waitForIdle()
+        val setup = runBlocking { viewModel.card(platinum).first()!! }.preferences.welcomeBonus!!
+        assertEquals(10_000L, setup.spentCents)
+        assertEquals(50_000L, setup.targetCents)
+        assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
+    }
+
 }
