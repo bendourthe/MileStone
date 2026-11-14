@@ -1,0 +1,75 @@
+{
+  "observed_utc": "2026-11-14T04:59:32.906113+00:00",
+  "phase": 1,
+  "base": "1dc728f311b4e60aa9ea2e528f747c2a105d8d0d",
+  "gate_exit": 0,
+  "focused": {
+    "tests": 38,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_test_compilation_exit": 0,
+  "real_boundary": "RoomAccountRepository + RoomCardRepository transaction -> canonical BenefitsViewModel.page/BenefitsPresentation -> real GlobalSearch matcher/SearchViewModel; real DataStore welcome updates and strict error path",
+  "synthetic_key_count_proof": [
+    "SearchFixture stage=read program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712",
+    "SearchFixture stage=updated program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712",
+    "SearchFixture stage=removed program=amex count=0 canonical_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "SearchFixture stage=reused-key program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712"
+  ],
+  "source_fingerprints": [
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+      "sha256": "199a61fba26d2059ace6d6762d17f5c07610040d37a06beaaf9abf3782ff2311"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt",
+      "sha256": "d814cec4669a871c56c513db01f83d00d5047b1aeada4433f568b132156520b5"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt",
+      "sha256": "2f682958973de4ee765c094cb004fa19e7ba0a2dd9070f3a789d5b3fd8b55304"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+      "sha256": "36c3f3c8f4a426e7b4cc636acea956dd47b6fbfd54a104808f23f5498cf6f778"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+      "sha256": "2c74df96101f35a9ec08b3dc3181b5a8e48a906b5a36a2ed6c9a72dc48cb1ced"
+    }
+  ],
+  "report_fingerprints": [
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.DataStoreBenefitsDisplaySettingsTest.xml",
+      "sha256": "a99518cfadb03ec979d0e9b322460dd2880f786a3be984c84e5f65295ea48175"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.GlobalSearchTest.xml",
+      "sha256": "1b16bd9837be99632e4a09c71fd66e9186d3de4ee11e2112805d9163cc0e6f68"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsPresentationTest.xml",
+      "sha256": "20fe0974de8d002713bf6c0c6dd0372f9b1146386ae06d2c7cacd3564ac1c974"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest.xml",
+      "sha256": "bc55caa42924034b26356d28aead6f08b84acfef8d03d42b10141123d194f3ef"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchProjectionTest.xml",
+      "sha256": "6883bedc82b5b13d6df2fd4c6e610fee8b75db66a27314cf86a276336b594a71"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchRepositoryTest.xml",
+      "sha256": "9af93dbaee8014940328f63efa73db8c31ba264333492c511fc9e31fdc4577d0"
+    }
+  ],
+  "scope_limits": [
+    "No search screen or result navigation exists yet",
+    "No search push, PR or remote CI",
+    "No phone instrumentation",
+    "Broad full gate, latency, owner phone and delivery deferred to Phase4",
+    "v0.3 closure remains a separate preserved obligation"
+  ]
+}

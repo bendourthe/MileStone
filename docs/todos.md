@@ -35,7 +35,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (386 JVM cases and 41 device cases pass; owner accepted; integration/release gates open) |
 | Required Benefits redesign outcomes verified | Owner accepted baseline images and alerts; refinements verified synthetically | All six on phone | Institution/polish candidate installed with -r; tested/installed APK hashes match; owner accepted all final checks |
-| v0.4.0 search plan phases complete | 0 of 4 | 4 of 4 | 4 (planned; owner confirmed, implementation not started) |
+| v0.4.0 search plan phases complete | 1 of 4 | 4 of 4 | 3 (local data/matcher verified; UI/navigation/delivery open) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -162,3 +162,11 @@ The owner reconnected the phone; the current institution/polish APK is installed
 
 
 Final phone acceptance is confirmed: the owner replied Yes, all checks pass for institution/card Back, retained four-card content, category outlines and welcome-bonus formatting. Local delivery gates are satisfied; current develop integration, separately authorized publication/release, archive and cleanup remain open.
+
+
+## Global Search Implementation
+
+The finalized v0.4.0 plan is now locally in progress in feat/v0.4.0-global-search. Its integrated presentation dependency is verified through green PR 11 at 1dc728f. The clean worktree baseline passed 386 JVM cases with zero failures/errors and ten unrelated extractor skips; affected private benefit cases ran. Phase 1 owns the new pure search contract and local snapshot adapter, with only a narrow canonical-presentation alias extension. The v0.3.1 release continues separately in its metadata/publication worktree. No search push, PR, release or destructive action is authorized by the local implementation grant.
+
+
+Global search Phase1 passed38 focused tests and Android test compilation with real Room/DataStore behavior, canonical projection reuse and stale-key rejection. One local phase commit records the work; no search push or remote CI occurred. Phases2-4 and separately authorized publication remain open. v0.3.1 is published and source-archive verified; its closure preparation preserves all29 carried gaps and awaits native approval renewal for the task-bookkeeping clarification.
