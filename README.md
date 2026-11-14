@@ -2,7 +2,13 @@
 
 MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that shows credit card, airline, and hotel loyalty balances on one dashboard. It is installed on the user's own phone as a signed APK; there is no Play Store listing and no server.
 
-## What's in v0.3.0
+## What's in v0.3.1
+
+- Benefits opens institution tiles, then cards with matching images, outlined categories, independent Show/Hide, four saved sorts, and a separate Completed last filter.
+- Yellow top alerts support acknowledgement; duplicate tracker/list entries retain enrollment without changing stored issuer rows.
+- Manual welcome bonuses support grouped amounts and rewards, date formatting, and calendar selection. Whole-dollar values do not gain automatic decimals.
+
+From v0.3.0:
 
 - Amex benefits wait for each page and card switch, follow late activity links, and read View all benefits within one 2-minute deadline. A partial read preserves the other stored sections.
 - Count-only diagnostics and an offline engineering handbook support verification without storing private pages in Git.
@@ -98,7 +104,7 @@ Selector work for a program needs a copy of its real balance page. Captures hold
 
 ## Version
 
-The current version is v0.3.0. It is recorded as the `0.3.0` heading in `CHANGELOG.md` and as `versionName = "0.3.0"` (`versionCode = 3`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
+The current version is v0.3.1. It is recorded as the `0.3.1` heading in `CHANGELOG.md` and as `versionName = "0.3.1"` (`versionCode = 4`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
 
 ## Layout
 

@@ -1,11 +1,11 @@
 {
   "status": "pass",
-  "observed_utc": "2026-11-14T03:13:43.252969+00:00",
-  "scope": "Post-merge 53-input recheck: published version metadata only",
+  "observed_utc": "2026-11-14T03:45:49.716513+00:00",
+  "scope": "Release0.3.1 version metadata only",
   "input_count": 53,
   "source_units": 17,
   "slides": 8,
-  "review": "Independent source/content/render recheck PASS. Only app/build.gradle.kts version metadata changed among 53 inputs; visible content/runtime are unchanged. All 13 fresh captures are byte-identical to the reviewed set; 280 browser checks pass.",
+  "review": "Independent post-merge content/render review retained for exactly unchanged visible output. Only app/build.gradle.kts version metadata changed among53inputs; all13 fresh rendered PNGs match the reviewed set and all280 browser checks pass. No new behavioral or phone inference.",
   "limits": [
     "Phone qualification remains separate",
     "Existing wordmark/lede wraps are cosmetic; fractional cents wording refers to cents in a dollar amount"
