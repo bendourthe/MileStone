@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -66,13 +67,14 @@ fun ProgramTile(
     onRemove: () -> Unit,
     modifier: Modifier = Modifier,
     onErrorClick: () -> Unit = {},
+    onOpen: (() -> Unit)? = null,
     extraMenuItems: @Composable (closeMenu: () -> Unit) -> Unit = {},
 ) {
     var menuOpen by remember { mutableStateOf(false) }
     var confirmRemove by remember { mutableStateOf(false) }
     // One TalkBack stop per tile, carrying the Move up and Move down actions from [modifier]; the error chip and the
     // menu button stay their own stops because they are clickable.
-    ElevatedCard(modifier.fillMaxWidth().semantics(mergeDescendants = true) {}) {
+    ElevatedCard(modifier.fillMaxWidth().then(if (onOpen == null) Modifier else Modifier.clickable(onClickLabel = "Open ${tile.displayName} benefits", onClick = onOpen)).semantics(mergeDescendants = true) {}) {
         Row(Modifier.padding(start = 16.dp, top = 14.dp, bottom = 14.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             ProgramBadge(tile.monogram, tile.logoKey, tile.brandColorArgb, size = 66.dp)
             Column(Modifier.weight(1f).padding(horizontal = 14.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {

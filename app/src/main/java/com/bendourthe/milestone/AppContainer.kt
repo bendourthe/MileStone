@@ -8,6 +8,8 @@ import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.data.db.MileStoneDatabase
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.data.session.TinkSessionStore
+import com.bendourthe.milestone.data.settings.DataStoreBenefitsDisplaySettings
+import com.bendourthe.milestone.domain.BenefitsDisplaySettings
 import com.bendourthe.milestone.data.settings.DataStoreSettingsRepository
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.CardRepository
@@ -63,6 +65,7 @@ class AppContainer(context: Context) {
     val accounts: AccountRepository by lazy { RoomAccountRepository(database) }
     val cards: CardRepository by lazy { RoomCardRepository(database) }
     val settings: SettingsRepository by lazy { DataStoreSettingsRepository(appContext.settingsStore) }
+    val benefitsDisplaySettings: BenefitsDisplaySettings by lazy { DataStoreBenefitsDisplaySettings(appContext.settingsStore) }
     val observeDashboard: ObserveDashboard by lazy { ObserveDashboard(accounts, catalog) }
     val reminderSettings: ReminderSettings by lazy { PreferencesReminderSettings(appContext) }
     val benefitReminders: BenefitReminders by lazy { BenefitReminders(cards, reminderSettings, AndroidReminderNotifier(appContext)) }
@@ -149,6 +152,7 @@ class AppContainer(context: Context) {
             scheduledBefore = { now -> settings.refreshInterval.first().lastAt(now) },
             benefitsSource = HeadlessWebViewBenefitsSource(profiles),
             cards = cards,
+            onCardBenefitsStored = benefitsDisplaySettings::recordReadOutcome,
         )
     }
 

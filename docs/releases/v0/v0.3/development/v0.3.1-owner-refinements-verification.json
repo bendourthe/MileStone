@@ -1,0 +1,100 @@
+{
+  "observed_utc": "2026-11-13T22:24:53.762069+00:00",
+  "baseline_revision": "99991c7080589f41805d2c83343984aa0c5f856f",
+  "full_gate": {
+    "exit_code": 0,
+    "command": "testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin createDebugUnitTestCoverageReport connectedDebugAndroidTest --continue; ANDROID_SERIAL=emulator-5554",
+    "jvm_cases": 382,
+    "jvm_failures": 0,
+    "jvm_errors": 0,
+    "jvm_skipped": 10,
+    "android_result": "full suite completed successfully",
+    "android_case_inventory": 39,
+    "boundary": "Before capture-only tags/timing and Deadline label/supporting-text polish; unaffected results retained."
+  },
+  "affected_revalidation": {
+    "exit_code": 0,
+    "jvm_cases": 17,
+    "android_cases": 1,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "system_font_scale": 2.0,
+    "restored_system_font_scale": 1.0,
+    "scenarios": [
+      "four saved sort menu choices",
+      "Completed last filter in app bar",
+      "independent Show/Hide",
+      "grouped amount entry and exact cents",
+      "typed date separators",
+      "calendar January15 selection and draft/save",
+      "200percent form and popup actions"
+    ]
+  },
+  "visual_review": {
+    "status": "pass",
+    "scope": "all eight corrected actual200percent renders plus earlier normal form/calendar/category images",
+    "independent": true,
+    "limits": [
+      "Native TalkBack announcements and hardware-keyboard traversal not exercised",
+      "Owner phone acceptance pending"
+    ],
+    "rejected_evidence": [
+      "unscaled initial large-font render",
+      "SystemUI ANR/dim popup captures"
+    ]
+  },
+  "sourceSha256": [
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt",
+      "sha256": "2be9026228953a206b0b523c62695b1e83ab539efe54a15877eb05165e1f1976"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt",
+      "sha256": "0693e50c887c6dccabd0c37ee278d16c13e03f54affa7eee169804d05be7309d"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt",
+      "sha256": "dba728addf93b8cb8b97ecca381378be9ba80d3f36f775db255ff6d372d97b26"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+      "sha256": "b720b00bd1c12e0df00618c226ed0dd350971e749ff5223353756c3403967559"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+      "sha256": "a6b79967193de68d16310a5b5c8e2bc15273e6b7f41cb9464eff20b6e6f7dba5"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt",
+      "sha256": "11b901456989631c6c6417317c5c35ca4fe817bb122997f2a66bd25c9df5a7d7"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt",
+      "sha256": "a6c83e2594efda22f06fafd4e53cc502c9d60f3c2f712f322b7037ff533662e8"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt",
+      "sha256": "605107cbb86789c3a91e9ff6790c9dd783dc3bfaeb26612b731aae0664e619b3"
+    }
+  ],
+  "apk_sha256": "23e7fa05b086cdf797f6d00c475aa48e784d9d0e711dffbd89e988656c187487",
+  "phone_install": {
+    "status": "installed",
+    "method": "adb -s66301FDDJ003SU install -r",
+    "observed_utc": "2026-11-13T22:59:01.631482+00:00",
+    "result": "Success",
+    "installed_apk_matches_tested_sha256": true,
+    "apk_sha256": "23e7fa05b086cdf797f6d00c475aa48e784d9d0e711dffbd89e988656c187487",
+    "data_cleared": false,
+    "owner_refinement_acceptance": "pending"
+  },
+  "private_data_included": false,
+  "middle_edit_revalidation": {
+    "observed_utc": "2026-11-13T22:37:22.359196+00:00",
+    "exit_code": 0,
+    "android_cases": 1,
+    "failures": 0,
+    "scenario": "Grouped amount paste, cursor deletion and insertion inside raw digits, day replacement inside formatted date; saved193450cents/500000cents/2027-01-20 and retained6rawrows"
+  }
+}

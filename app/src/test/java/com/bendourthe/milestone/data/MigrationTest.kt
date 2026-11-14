@@ -89,6 +89,23 @@ class MigrationTest {
         db.close()
     }
 
+    @Test
+    fun version4PreservesBenefitsEnrollmentAndRemindersAndStartsReadGenerationAtZero() {
+        helper.createDatabase(3).apply {
+            execSQL("INSERT INTO loyalty_accounts (programId, consecutiveFailures, sortOrder, status, addedEpochMs) VALUES ('amex', 0, 0, 'CONNECTED', 1)")
+            execSQL("INSERT INTO cards (programId, lastDigits, name, sortOrder, cardListReadEpochMs, benefitsReadEpochMs) VALUES ('amex', '1234', 'Synthetic Platinum', 0, 10, 11)")
+            execSQL("INSERT INTO benefits (stableKey, programId, lastDigits, section, position, title, completed, description, enrollment) VALUES ('synthetic-credit', 'amex', '1234', 'LISTED', 0, 'Synthetic benefit', 0, 'Sample description', 'ENROLLMENT_REQUIRED')")
+            execSQL("INSERT INTO benefit_reminders (benefitKey, periodEndEpochDay, programId, lastDigits, sentEpochMs) VALUES ('synthetic-credit', 20000, 'amex', '1234', 12)")
+            close()
+        }
+        val db = helper.runMigrationsAndValidate(4)
+        assertEquals(listOf(listOf("11", "0")), db.rows("SELECT benefitsReadEpochMs, benefitsReadGeneration FROM cards", 2))
+        assertEquals(listOf(listOf("Synthetic benefit", "Sample description", "ENROLLMENT_REQUIRED")), db.rows("SELECT title, description, enrollment FROM benefits", 3))
+        assertEquals(listOf(listOf("synthetic-credit", "12")), db.rows("SELECT benefitKey, sentEpochMs FROM benefit_reminders", 2))
+        assertEquals(listOf(listOf("CONNECTED")), db.rows("SELECT status FROM loyalty_accounts", 1))
+        db.close()
+    }
+
     private fun SQLiteConnection.rows(sql: String, columns: Int): List<List<String?>> = prepare(sql).use { statement ->
         buildList {
             while (statement.step()) add((0 until columns).map { if (statement.isNull(it)) null else statement.getText(it) })

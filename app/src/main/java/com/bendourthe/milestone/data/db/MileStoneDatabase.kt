@@ -17,12 +17,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         BenefitEntity::class,
         ReminderRecordEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = MileStoneDatabase.RemoveManualEntry::class),
         // Version 3 adds the cards, benefits, and benefit_reminders tables; v0.1 tables are untouched.
         AutoMigration(from = 2, to = 3),
+        // Version 4 preserves every row and adds a successful-write generation for freshness binding.
+        AutoMigration(from = 3, to = 4),
     ],
 )
 abstract class MileStoneDatabase : RoomDatabase() {

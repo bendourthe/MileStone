@@ -1,0 +1,62 @@
+{
+  "recorded_utc": "2026-11-13T18:47:06.543368+00:00",
+  "base_commit": "e6e5944724002f402b00bd486e10a1f026933135",
+  "branch": "feat/v0.3.1-benefits-redesign",
+  "command": "gradlew.bat -q --no-daemon --max-workers=2 testDebugUnitTest --tests com.bendourthe.milestone.ui.benefits.BenefitsPresentationTest --tests com.bendourthe.milestone.data.DataStoreBenefitsDisplaySettingsTest --tests com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest --tests com.bendourthe.milestone.ui.benefits.BenefitsScreenTest",
+  "environment": {
+    "JAVA_TOOL_OPTIONS": "-Djdk.net.unixdomain.tmpdir=C:/Users/BEDOURTHE/AppData/Local/Temp/milestone-no-unix-sockets",
+    "reason": "Isolated JDK AF_UNIX connect failure; standalone pipe probe failed normally and passed with the built-in TCP fallback."
+  },
+  "exit_code": 0,
+  "suites": [
+    {
+      "class": "com.bendourthe.milestone.ui.benefits.BenefitsPresentationTest",
+      "timestamp_utc": "2026-11-13T18:43:16.727Z",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.data.DataStoreBenefitsDisplaySettingsTest",
+      "timestamp_utc": "2026-11-13T18:43:05.045Z",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest",
+      "timestamp_utc": "2026-11-13T18:43:26.439Z",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.benefits.BenefitsScreenTest",
+      "timestamp_utc": "2026-11-13T18:43:16.787Z",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "source_sha256": {
+    "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt": "e15079597c2b2213ebc71bb7ef0ac945adc6f13afaf2f9f89be899fad828b7c2",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt": "fd07bf360a7b3c4fc3d8056d48d3fc316740dfedc8ff64805217ef0d235e844c",
+    "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt": "01b74ce7585248ab1a4fb544e13f3acef357aafdde7f5a8838aad559953a6195",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "3a2b2487963fc8352c72383df39d536aad5dc5d635a628b5121f81e1a4233c5f",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "a581ff722ea056593368e13b835a2fb516f4b3af9be0c02c59d240c2383d0756",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentationTest.kt": "100ec5e929fdc234a39a96f0d36a5ec943495f7c125a58ffa4ac847b416569d3",
+    "app/src/test/java/com/bendourthe/milestone/data/DataStoreBenefitsDisplaySettingsTest.kt": "b59246e2e6dd12f2d83c16f11c0b5cdf1bb8236df50820606a10ad30cc206838",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt": "a3c45c192d66941a7a4bd9cb9ae2103dc347b7c6c06d232e2401f796788d1620",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsScreenTest.kt": "46d1304574675b0c6057d9bef3593f05645831ac4030adcb181195b3e4c64e0f"
+  },
+  "phone_redesign_installed": false,
+  "limits": [
+    "This is a focused phase gate, not the final full suite.",
+    "Persistence is proved against a real reopened DataStore; the production screen controls are wired in Phase 2.",
+    "UI category integration is exercised by the Compose screen harness; real device verification remains required."
+  ]
+}

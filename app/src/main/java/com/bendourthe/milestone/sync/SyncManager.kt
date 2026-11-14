@@ -5,6 +5,7 @@ import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.BenefitPeriods
+import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.CatalogRepository
@@ -56,6 +57,8 @@ class SyncManager(
     private val cards: CardRepository? = null,
     /** The phone's time zone, which anchors credit period ends to the read date. */
     private val zone: ZoneId = ZoneId.systemDefault(),
+    /** Called only after a known card's covered sections were saved successfully. */
+    private val onCardBenefitsStored: (suspend (CardKey, Long, Long, Set<BenefitSection>) -> Unit)? = null,
 ) {
     private val _state = MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap())
     val state: StateFlow<Map<String, ProgramSyncState>> = _state.asStateFlow()
@@ -271,6 +274,7 @@ class SyncManager(
                 val now = clock()
                 val readDate = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
                 read.cards?.let { repository.applyCardList(programId, it, now) }
+                val knownCards = repository.observeCards(programId).first().map { it.key }.toSet()
                 var applied = 0
                 read.benefits.forEach { (digits, drafts) ->
                     if (!CardKey.isValidLastDigits(digits)) return@forEach
@@ -279,9 +283,19 @@ class SyncManager(
                         BenefitPeriods.parse(draft.periodLabel, readDate)?.let { draft.copy(periodEnd = it.end, periodLength = it.length) } ?: draft
                     }
                     val sections = read.sectionsOf(digits)
-                    if (sections.isEmpty()) return@forEach
+                    if (sections.isEmpty() || key !in knownCards) return@forEach
                     repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now, sections)
                     applied++
+                    try {
+                        onCardBenefitsStored?.let { observer ->
+                            val stored = repository.observeCards(programId).first().first { it.key == key }
+                            observer(key, now, stored.benefitsReadGeneration, sections)
+                        }
+                    } catch (error: CancellationException) {
+                        throw error
+                    } catch (_: Exception) {
+                        DiagnosticLog.w(TAG, "Benefits for $programId saved; section freshness unavailable")
+                    }
                 }
                 DiagnosticLog.i(
                     TAG,

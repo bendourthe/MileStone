@@ -66,6 +66,8 @@ fun DashboardScreen(
     onAddProgram: () -> Unit,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     tileMenuItems: @Composable (tile: TileUiState, closeMenu: () -> Unit) -> Unit = { _, _ -> },
+    benefitsPrograms: Set<String> = emptySet(),
+    onOpenBenefits: (programId: String) -> Unit = {},
     onSignIn: (programId: String) -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -119,7 +121,7 @@ fun DashboardScreen(
                 onRefresh = { if (!state.isRefreshing) confirmPullRefresh = true },
                 modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding()),
             ) {
-                TileList(state, viewModel, tileMenuItems, onSignIn, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp))
+                TileList(state, viewModel, tileMenuItems, onSignIn, benefitsPrograms, onOpenBenefits, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp))
             }
         }
     }
@@ -179,6 +181,8 @@ private fun TileList(
     viewModel: DashboardViewModel,
     tileMenuItems: @Composable (tile: TileUiState, closeMenu: () -> Unit) -> Unit,
     onSignIn: (programId: String) -> Unit,
+    benefitsPrograms: Set<String>,
+    onOpenBenefits: (String) -> Unit,
     contentPadding: PaddingValues,
 ) {
     val listState = rememberLazyListState()
@@ -213,6 +217,7 @@ private fun TileList(
                         showDragHandle = state.canReorder,
                         onRemove = { viewModel.remove(tile.programId) },
                         onErrorClick = { onSignIn(tile.programId) },
+                        onOpen = if (tile.programId in benefitsPrograms) ({ onOpenBenefits(tile.programId) }) else null,
                         extraMenuItems = { close -> tileMenuItems(tile, close) },
                         modifier = Modifier
                             .longPressDraggableHandle(

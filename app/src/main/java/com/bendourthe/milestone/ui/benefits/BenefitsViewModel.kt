@@ -5,6 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.Benefit
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsDisplaySettings
+import com.bendourthe.milestone.domain.WelcomeBonusSetup
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
+import com.bendourthe.milestone.domain.BenefitsSort
+import com.bendourthe.milestone.domain.BenefitsCategory
+import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
@@ -36,11 +44,13 @@ sealed interface BenefitsUiState {
     /** No program with a benefits page is added; [programNames] say which ones could be. */
     data class NoProgram(val programNames: List<String>) : BenefitsUiState
 
-    /** A program with a benefits page is added but none of its cards has been read yet. */
-    data class NotReadYet(val programName: String) : BenefitsUiState
-
-    data class Cards(val tiles: List<CardTileUi>) : BenefitsUiState
+    data class Cards(val tiles: List<CardTileUi>, val programs: List<BenefitsProgramUi>) : BenefitsUiState
 }
+
+data class BenefitsProgramUi(
+    val programId: String, val name: String, val monogram: String, val logoKey: String?,
+    val brandColorArgb: Long, val cardCount: Int, val alertCount: Int,
+)
 
 data class CardTileUi(
     val key: CardKey,
@@ -50,10 +60,13 @@ data class CardTileUi(
     val completedLabel: String?,
     val lastReadLabel: String,
     val staleNote: String?,
+    val programName: String = key.programId,
+    val benefitCount: Int = 0,
+    val alertCount: Int = 0,
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
 data class CardPageUi(
@@ -61,9 +74,13 @@ data class CardPageUi(
     val digitsLabel: String,
     val staleNote: String?,
     val sections: List<SectionUi>,
+    val preferences: BenefitsDisplayPreferences = BenefitsDisplayPreferences(),
+    val settingsError: String? = null,
+    val alerts: List<BenefitAlertUi> = emptyList(),
+    val listFreshnessNote: String? = null,
 )
 
-data class SectionUi(val section: BenefitSection, val title: String, val items: List<BenefitUi>)
+data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
 
 data class BenefitUi(
     val key: String,
@@ -87,8 +104,50 @@ class BenefitsViewModel(
     private val zone: ZoneId = ZoneId.systemDefault(),
     private val locale: Locale = Locale.getDefault(),
     private val reminders: ReminderSettings? = null,
+    private val displaySettings: BenefitsDisplaySettings? = null,
 ) : ViewModel() {
     private val programs = catalog.programs.filter { it.benefits != null }
+    // Production supplies DataStore; previews and existing test callers can keep an in-memory state.
+    private val temporaryPreferences = MutableStateFlow<Map<CardKey, BenefitsDisplayPreferences>>(emptyMap())
+    private val settingsErrors = MutableStateFlow<Map<CardKey, String>>(emptyMap())
+
+    private fun preferences(key: CardKey) = displaySettings?.observe(key)
+        ?: temporaryPreferences.map { it[key] ?: BenefitsDisplayPreferences() }
+
+    private fun saveDisplay(key: CardKey, temporary: (BenefitsDisplayPreferences) -> BenefitsDisplayPreferences,
+                            persistent: suspend (BenefitsDisplaySettings) -> Unit) {
+        val settings = displaySettings
+        if (settings == null) {
+            temporaryPreferences.update { it + (key to temporary(it[key] ?: BenefitsDisplayPreferences())) }
+            return
+        }
+        viewModelScope.launch {
+            try {
+                persistent(settings)
+                settingsErrors.update { it - key }
+            } catch (error: Exception) {
+                if (error is CancellationException) throw error
+                settingsErrors.update { it + (key to "Could not save this change. Please try again.") }
+            }
+        }
+    }
+
+    fun setSort(key: CardKey, sort: BenefitsSort) = saveDisplay(key,
+        { it.copy(sort = sort) }, { it.setSort(key, sort) })
+
+    fun setCompletedLast(key: CardKey, enabled: Boolean) = saveDisplay(key,
+        { it.copy(completedLast = enabled) }, { it.setCompletedLast(key, enabled) })
+
+    fun setCollapsed(key: CardKey, category: BenefitsCategory, collapsed: Boolean) = saveDisplay(key,
+        { it.copy(collapsed = if (collapsed) it.collapsed + category else it.collapsed - category) },
+        { it.setCollapsed(key, category, collapsed) })
+
+    fun acknowledge(key: CardKey, alertId: String, generation: Long) = saveDisplay(key,
+        { it.copy(acknowledged = it.acknowledged + (alertId to generation)) },
+        { it.acknowledge(key, alertId, generation) })
+
+    fun setWelcomeBonus(key: CardKey, setup: WelcomeBonusSetup?) = saveDisplay(key,
+        { it.copy(welcomeBonus = setup) }, { it.setWelcomeBonus(key, setup) })
 
     /** The "Benefit reminders" setting; false when this screen has no setting to show. */
     val remindersEnabled: StateFlow<Boolean> =
@@ -103,28 +162,35 @@ class BenefitsViewModel(
     val uiState: StateFlow<BenefitsUiState> = accounts.observeAccounts()
         .map { list -> list.map { it.programId }.filter { id -> programs.any { it.programId == id } } }
         .flatMapLatest { added ->
-            if (added.isEmpty()) return@flatMapLatest flowOf(BenefitsUiState.NoProgram(programs.map { it.displayName }))
+            if (added.isEmpty()) return@flatMapLatest flowOf<BenefitsUiState>(BenefitsUiState.NoProgram(programs.map { it.displayName }))
             combine(added.map { id -> cardsWithBenefits(id) }) { perProgram ->
-                val all = perProgram.flatMap { it }
-                if (all.isEmpty()) {
-                    BenefitsUiState.NotReadYet(catalog.program(added.first())?.displayName ?: added.first())
-                } else {
-                    BenefitsUiState.Cards(all.map { (card, benefits) -> tile(card, benefits, clock(), zone, locale) })
+                val tiles = perProgram.flatMap { it }.map { (card, benefits, prefs) ->
+                    tile(card, benefits, clock(), zone, locale).copy(
+                        programName = catalog.program(card.programId)?.displayName ?: card.programId,
+                        benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
+                        alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
+                    )
                 }
+                BenefitsUiState.Cards(tiles, added.map { id ->
+                    val program = programs.first { it.programId == id }
+                    val cards = tiles.filter { it.key.programId == id }
+                    BenefitsProgramUi(id, program.displayName, program.monogram, program.logoKey, program.brandColorArgb,
+                        cards.size, cards.sumOf { it.alertCount })
+                })
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), BenefitsUiState.Loading)
 
     /** One card's page, or null once the card is no longer stored (removed from the account or signed out). */
     fun card(key: CardKey): Flow<CardPageUi?> =
-        combine(cards.observeCards(key.programId), cards.observeBenefits(key)) { list, benefits ->
-            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale) }
+        combine(cards.observeCards(key.programId), cards.observeBenefits(key), preferences(key), settingsErrors) { list, benefits, prefs, errors ->
+            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key]) }
         }
 
-    private fun cardsWithBenefits(programId: String): Flow<List<Pair<Card, List<Benefit>>>> =
+    private fun cardsWithBenefits(programId: String): Flow<List<Triple<Card, List<Benefit>, BenefitsDisplayPreferences>>> =
         cards.observeCards(programId).flatMapLatest { list ->
             if (list.isEmpty()) flowOf(emptyList())
-            else combine(list.map { card -> cards.observeBenefits(card.key).map { card to it } }) { it.toList() }
+            else combine(list.map { card -> combine(cards.observeBenefits(card.key), preferences(card.key)) { benefits, prefs -> Triple(card, benefits, prefs) } }) { it.toList() }
         }
 
     companion object {
@@ -176,29 +242,33 @@ class BenefitsViewModel(
             )
         }
 
-        private val SECTION_TITLES = mapOf(
-            BenefitSection.SPEND_PROGRESS to "Spend progress",
-            BenefitSection.CREDIT_EARNED to "Credits",
-            BenefitSection.COMPLETED to "Completed",
-            BenefitSection.OTHER to "Other",
-            BenefitSection.LISTED to "All benefits",
-        )
-
-        fun page(card: Card, benefits: List<Benefit>, nowMs: Long, zone: ZoneId, locale: Locale) = CardPageUi(
+        fun page(card: Card, benefits: List<Benefit>, nowMs: Long, zone: ZoneId, locale: Locale,
+                 preferences: BenefitsDisplayPreferences = BenefitsDisplayPreferences()): CardPageUi {
+            val welcome = preferences.welcomeBonus?.let { setup ->
+                Benefit(card.key, "local:welcome", BenefitSection.SPEND_PROGRESS, 0, "Welcome bonus",
+                    setup.spentCents, (setup.targetCents - setup.spentCents).coerceAtLeast(0), setup.targetCents,
+                    setup.deadline?.toString(), setup.deadline, null, setup.spentCents >= setup.targetCents,
+                    description = setup.rewardLabel.takeIf { it.isNotBlank() }?.let(::rewardDisplayText))
+            }
+            return CardPageUi(
             name = card.name,
             digitsLabel = digitsLabel(card.lastDigits),
             staleNote = staleNote(card, nowMs, zone, locale),
-            sections = BenefitSection.entries.mapNotNull { section ->
-                benefits.filter { it.section == section }.takeIf { it.isNotEmpty() }
-                    ?.let { list -> SectionUi(section, SECTION_TITLES.getValue(section), list.map { item(it, locale) }) }
+            sections = BenefitsPresentation.groups(benefits + listOfNotNull(welcome), preferences.completedLast, preferences.sort).map { (category, list) ->
+                SectionUi(category, category.title, list.map { item(it, locale) })
             },
+            preferences = preferences,
+            alerts = BenefitsAlerts.active(card, benefits, preferences, nowMs, zone, locale),
+            listFreshnessNote = BenefitsAlerts.listFreshness(card, benefits, preferences),
         )
+        }
 
         fun item(benefit: Benefit, locale: Locale): BenefitUi {
             val earned = benefit.earnedCents
             val left = benefit.remainingCents
             val target = benefit.targetCents
-            val amounts = listOfNotNull(earned?.let { "${money(it, locale)} earned" }, left?.let { "${money(it, locale)} left" })
+            val amountLabel = if (benefit.stableKey == "local:welcome") "spent" else "earned"
+            val amounts = listOfNotNull(earned?.let { "${money(it, locale)} $amountLabel" }, left?.let { "${money(it, locale)} left" })
                 .joinToString(" · ").ifEmpty { null }
             return BenefitUi(
                 key = benefit.stableKey,

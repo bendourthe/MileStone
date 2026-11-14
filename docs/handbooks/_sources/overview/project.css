@@ -36,7 +36,7 @@ a { color: #155e67; text-underline-offset: .18em; overflow-wrap: anywhere; }
 .contents a[aria-current="location"] { border-color: #29b8cc; color: var(--page-fg); background: var(--page-card); }
 main { min-width: 0; }
 .source-document + .source-document { border-top: 2px solid var(--page-line); margin-top: 3rem; padding-top: 1rem; }
-.source-section { margin-bottom: 2.6rem; scroll-margin-top: 1rem; }
+.source-section { overflow-wrap: anywhere; margin-bottom: 2.6rem; scroll-margin-top: 1rem; }
 .source-section h2, .source-section h3 { line-height: 1.25; letter-spacing: -.02em; text-wrap: balance; margin: 1rem 0; overflow-wrap: anywhere; }
 .source-section h2 { font-size: 1.9rem; }
 .source-section h3 { font-size: 1.45rem; }

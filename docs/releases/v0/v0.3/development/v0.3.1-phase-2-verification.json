@@ -1,0 +1,51 @@
+{
+  "phase": 2,
+  "recordedUtc": "2026-11-13T19:55:21.640298+00:00",
+  "base": "be40bcf42301b594436c0bbedd28951ee7a4cbd9",
+  "gate": "testDebugUnitTest focused ui.benefits.*, MileStoneAppTest, DashboardScreenTest; assembleDebug; connectedDebugAndroidTest class BenefitsRedesignDeviceTest",
+  "exitCode": 0,
+  "jvm": {
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "serial": "emulator-5554",
+    "viewportDp": 360,
+    "fontScaleMax": 2
+  },
+  "sourceSha256": {
+    "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "0d7c93c9ca9c2b4a86e65d4b2c9a9de4d041113ff6b4c60aee44c6ccbdf6f25c",
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt": "a861eb466d99fea264cc3584b1811d1525b7c07817b3b08ebe0e56b4cec1d78e",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt": "eb5b4de35bd62371e60937ce98ea7a7c0dd7494192b0e1f62823d6c23cbb37ff",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "7962cd67f36636a0d5dc3446cab38cc47ff63de8846bcffc54fba83b98e9717c",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "e3ce435b24b1a06d40855f4f509ae9974652096fa328ad46d0e776f719c51b37",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt": "b3c061b61927a7426f37c9618956a11527becd0f77221a4719ddc76130a90071",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/ProgramTile.kt": "6471ae67a5b65590e2cc3db5ac57855b1b492f3a6696ff4e5ecb9df73fc4dda4",
+    "app/src/test/java/com/bendourthe/milestone/ui/MileStoneAppTest.kt": "60611f2453eda50cc1331f0438b86c8aa7eb475fcce6dcf15dd1b8f59d566377",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentationTest.kt": "cf93ca40ffbd8622b97f12fcf797b12914d289173d1a7c41aaba8e7b813b3f6c",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsScreenTest.kt": "f3fa0cfafc4e3b6ec95c2412d6b1276c4dcdffb876773beebe09193eada4078d",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardArtwork.kt": "e52094daa8feede2af45f623949b1ea734b4452eb4d46ee60582d25b63217901",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt": "af7bbe2dedf992143abbbd08ec57833e24c9177e3b2e236f5995464b04a5f64d",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt": "0d4e8ac0dbd24659db93bff9daf6240fcc5d6b2a9c1a53a3a0b92c5c2492a519"
+  },
+  "actualRenderReview": {
+    "reviewed": true,
+    "result": "All four matching images, readable category counts and text, completed styling, retained enrollment/description, enlarged controls and navigation observed. The actual production Aurora background is included.",
+    "screenshots": {
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/card-0.png": "b06a5a6201d8e6177f3a57e055d281d9261846abbefeaeaaa1e44434420339bc",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/card-1.png": "5108ac6f9b9c66d2b2c29657bb2299bc799d5eb53cc0a9d38538fc4be61248a5",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/card-2.png": "bb5222bee3512c833fd241017a247bcaf66a77b63ccae9a48a44dc9cf024fdb1",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/card-3.png": "d9bd3e040451ce7f67a09bbaedb8fbc29c2acdd80dc177642573d4a11eaf13b3",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/card-large-font.png": "230619a509f0a8ea21eb9754d18109aa7ebc45db04ec80a9a87f8820daf0bbaf",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/expanded-other.png": "274851e566e2e84ff336a6c533d554087f0fd06d33a89a5ac789ca1c49c6687e",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/overview-large-font.png": "bed56361794066b015d5cfd2bc1ddccaf8aa2f3c24639321f231e78f64d7d4db",
+      "docs/releases/v0/v0.3/development/v0.3.1-phase-2-synthetic-ui/final/overview.png": "397745f5b2b24dda2d5ffe87b20c848f2dbd61880e09603541b2cf737410df42"
+    }
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "observedUtc": "2026-11-13T20:51:10.156783+00:00",
+  "revision": "9ef6c40d5e07508856edbd4db8cb38dd346c16f4",
+  "dirtyScope": "Final documentation and test-contract corrections; application implementation unchanged from9ef6c40",
+  "command": "ANDROID_SERIAL=emulator-5554 gradlew -q --no-daemon --max-workers=2 testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin createDebugUnitTestCoverageReport connectedDebugAndroidTest --continue",
+  "exitCode": 0,
+  "results": {
+    "jvm": {
+      "tests": 375,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "android": {
+      "tests": 38,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 38
+  },
+  "benefitsFixtureSuite": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "coverage": {
+    "coveredLines": 4375,
+    "missedLines": 1143,
+    "totalLines": 5518,
+    "percent": 79.3,
+    "projectNumericThreshold": null
+  },
+  "privateCaptureTrackedFiles": 0,
+  "privateCaptureFilesPresent": 13,
+  "sourceSha256": [
+    {
+      "path": "app/schemas/com.bendourthe.milestone.data.db.MileStoneDatabase/4.json",
+      "sha256": "7d728bf44649b22fd679afeea43952958890f3e1e1ede86d392e132a4b3a6b20"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-2.html",
+      "sha256": "0c0310f3a365a3c6386d7bffa02350f5bcb3345849b1474b12e4cb489eb2aa9b"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-3.html",
+      "sha256": "3b35db88fcb6e7ed1a8e1a31b7efbfc59dbe3c852b1e4d1e27ccea3f74940f87"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-cap.html",
+      "sha256": "a12a5b327721c3b6b1377fbee947d2c090a27f324908629dcf435b8cc3fd103c"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-lazy.html",
+      "sha256": "721f6d00cb2f7cf18f602d58a22fa6f53abecc8cbb19f27b77f9742e4b4c0a70"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-switch-late.html",
+      "sha256": "0d3f6ee065a8ab66f192ef6e18c37b494a5563791e3d846753f63c93d4459b5e"
+    },
+    {
+      "path": "app/src/androidTest/assets/fixtures/benefits-view-all.html",
+      "sha256": "e73e7b5e5e711b9eaa3456fc33d1bea68a6b8543dfdd1754046448642648dee5"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsBridgeFixtureTest.kt",
+      "sha256": "c2fe26a751d1805dab60d11d21bd87547ba37cebabdd6d3dc21c860f32354334"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt",
+      "sha256": "35d558f6bf20dcdeebbaf4766d45be17e53a55bda3f185d30c9e173364f50684"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt",
+      "sha256": "d145a14b99b620b0a9604c91fda214e7272f27fb8605e7062c4356a7e2cda6ac"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/HeadlessSyncFixtureTest.kt",
+      "sha256": "4395732fbf598f51f46a61d6b98c75d1a3633338cfe8108c8c166fdab74c0383"
+    },
+    {
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/BenefitsScreenshotTest.kt",
+      "sha256": "fad4f3ca21bb658096341747cae16b95c1734ebb7ddfd41953e456214d2ec2c8"
+    },
+    {
+      "path": "app/src/main/assets/extract.js",
+      "sha256": "08b6dbb657106ca13d2a7cdfc3a43514cf02861a4203de609eb9d89d8314784c"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/AppContainer.kt",
+      "sha256": "2c610ded646112c6c0fba15b697f37ffeba6a26477e880495ce83b211db75f4b"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/catalog/StaticCatalogRepository.kt",
+      "sha256": "a772b5d6bf61a7bdd013294f0f288927f8d0980622b6027e3f73efeaef790d9e"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/CardDao.kt",
+      "sha256": "f698dd02ae5abab8d35ba53f58a9105b5e3fda2ed26c6318f61d6c7be00098d2"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/Entities.kt",
+      "sha256": "3b19622dac88a77ed953e2b6723323a831d1d82bcbaea7e6c83c155c54b1250b"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/MileStoneDatabase.kt",
+      "sha256": "c9c7dafb4be241192f5c7bee96d82598901cfa33032337bf5b1308bc5241b5c2"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/RoomCardRepository.kt",
+      "sha256": "e0f255675cc6f9c57484c04749c0b9b6e1122bb9273ba4a87069ca4cdf3dc462"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt",
+      "sha256": "ff063e0aad16696b3fb8ca225ae87722c0e53868c8fe5326359c0833b3b5a98f"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt",
+      "sha256": "e6d2a1dd4ee7befc1d33821f99cff5532942d9352c857c385487722c6a1c623e"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Models.kt",
+      "sha256": "eecb2e99182ee21c7d1dbeee9b4c91f4821d804d8bfd65ac854da4646264014a"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/BenefitsSource.kt",
+      "sha256": "92baaabb44e6aa94b8abfce543cb86f61f82ffe2322cbdd7ebe0e00ebf4ee8c6"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/SyncManager.kt",
+      "sha256": "01b9afec93b79e1b85194796f5e00c057f6aee6c8d1a4c0de3239b8ee4454c76"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsCardReads.kt",
+      "sha256": "921fbcb3deb8788e03facd65403e2468dea3ec684d6284fa15de33bdf0fe7f17"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudget.kt",
+      "sha256": "db35f84b6c7128ee5ceaeb684c3c0dfe73485d455e6837a96789733cedc0cc36"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BridgeProtocol.kt",
+      "sha256": "f53ed1a2447eaf97e3c6f6b62596ff2a0864ecc98df4761bf115d7eb7de7a2c2"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/PageDiagnostics.kt",
+      "sha256": "a367bb37ec2a685cae22d4943816b2818893b6ee7aebf7225fabb5f39d3aefda"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/HeadlessWebViewBenefitsSource.kt",
+      "sha256": "63cdf237b39e6959d144e6aab1efa62dd6fc7ce94eac297b67c3e10281c26bcd"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+      "sha256": "a861eb466d99fea264cc3584b1811d1525b7c07817b3b08ebe0e56b4cec1d78e"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/auth/AuthWebViewModal.kt",
+      "sha256": "c6541f78bcb491bc04ed2c4b37ef426f7a3b4d52cce396344a31de7a664c6751"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertPanel.kt",
+      "sha256": "205935cd0df14287dce67e75776e0bbbe6ee94c458d7cb77c9a4469499e907ec"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlerts.kt",
+      "sha256": "972e4a56ad6661c3d5906181ea5fecb295b18cc881f58ca076c78644cc768555"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+      "sha256": "1dd9c48133fcf92e0310f6467cc04856e6f368757a8a01e49bfcf55a3e6438ed"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt",
+      "sha256": "1babfc35e92c3e941a91828315790b23aaecec8ce936ef2b8d100461483ede1a"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+      "sha256": "e9923861313ec005e46d17d53748ca80bfbc93baaf7efc9e18f4f294d6f7a21e"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardArtwork.kt",
+      "sha256": "e52094daa8feede2af45f623949b1ea734b4452eb4d46ee60582d25b63217901"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+      "sha256": "56bb01411dc066a6216a76d19b22caae3616f8d634494a451b6354d4acaaf177"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt",
+      "sha256": "90acb58436e10a79001212cdbe238de1a9bd299e8923366a563e10cdd1ff84e0"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt",
+      "sha256": "b3c061b61927a7426f37c9618956a11527becd0f77221a4719ddc76130a90071"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/ProgramTile.kt",
+      "sha256": "6471ae67a5b65590e2cc3db5ac57855b1b492f3a6696ff4e5ecb9df73fc4dda4"
+    },
+    {
+      "path": "app/src/main/res/drawable/benefits_amex_business_platinum.png",
+      "sha256": "8c3aa2e5d7b962554ef9724e739ee0aeb520a38454078bbe44514bee0f40d974"
+    },
+    {
+      "path": "app/src/main/res/drawable/benefits_amex_delta_gold.png",
+      "sha256": "61c498d62799368d1975bbd8fed62548e45dcfa8f6253b6aa6726ece5b755eb7"
+    },
+    {
+      "path": "app/src/main/res/drawable/benefits_amex_hilton_surpass.png",
+      "sha256": "0ba7d706e714d9cdca83ed47fc3677b1dd8606fd9dc30510901944a352d74ddf"
+    },
+    {
+      "path": "app/src/main/res/drawable/benefits_amex_platinum.png",
+      "sha256": "20505058b179b3f8f1535af5fa02c913303307865c845cb2f6c37973ae3c4e57"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/data/DataStoreBenefitsDisplaySettingsTest.kt",
+      "sha256": "b59246e2e6dd12f2d83c16f11c0b5cdf1bb8236df50820606a10ad30cc206838"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/data/MigrationTest.kt",
+      "sha256": "1f0e504696e56ce0a10d389ee5fcea821b8a2f03c40c6858e47cdcce68de8775"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/data/db/RoomCardRepositoryTest.kt",
+      "sha256": "c57af9368efd3972d92c7d802fec867accb90052751a109e7da4d8648b4113c4"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/BenefitsFixtureTest.kt",
+      "sha256": "2fa342161d47ec7d70e9b0c663795ceb696188b55522720d6c20ed7c2c67684f"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/SyncManagerBenefitsTest.kt",
+      "sha256": "931ea9ee212a8313164eaa1bccccc94b7bd357081c55a1a425c02227c1dba22a"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsCardReadsTest.kt",
+      "sha256": "0cbf885facecfb56235fb27c255eb4a6cac5359b3c1b498f9acdc8632e9fea7f"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsProtocolTest.kt",
+      "sha256": "8b663c27679676127f442926423587862195cef5d9e2ef35e98884194b02a50a"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudgetTest.kt",
+      "sha256": "1a48a31cae64bcfdd4ce05b42223e20bdaebd53b3187525bad560aa46490a7b9"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/Fakes.kt",
+      "sha256": "437805c5770a3f94ca7ab0de0288672aee3036d91823387983dc95455c858117"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/MileStoneAppTest.kt",
+      "sha256": "929b535d7164c4470ee3a0fe30146c2d0d45fbce323a72d4a0fed4df8e7e06d0"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/auth/CaptureBuildTest.kt",
+      "sha256": "1909e977251588e3f2112f325432a1832d89ca8504120e817587a8cc82986941"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertLifecycleTest.kt",
+      "sha256": "5dba9247b3773f1595028263c85d0d868526dbd2f2f47bb015e03c066e301af8"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentationTest.kt",
+      "sha256": "bf7e0ae791cce048e4f62ef782d19f813e96984ac0ca8f64d373cf4a02026a4d"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsScreenTest.kt",
+      "sha256": "52886e38fc35d8ba33f1c1709cfbbead74341692138f32448a088cfd36ce7a60"
+    },
+    {
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt",
+      "sha256": "a3c45c192d66941a7a4bd9cb9ae2103dc347b7c6c06d232e2401f796788d1620"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-rewards-2.html",
+      "sha256": "0c0310f3a365a3c6386d7bffa02350f5bcb3345849b1474b12e4cb489eb2aa9b"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-rewards-3.html",
+      "sha256": "3b35db88fcb6e7ed1a8e1a31b7efbfc59dbe3c852b1e4d1e27ccea3f74940f87"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-rewards-cap.html",
+      "sha256": "a12a5b327721c3b6b1377fbee947d2c090a27f324908629dcf435b8cc3fd103c"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-rewards-lazy.html",
+      "sha256": "721f6d00cb2f7cf18f602d58a22fa6f53abecc8cbb19f27b77f9742e4b4c0a70"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-switch-late.html",
+      "sha256": "0d3f6ee065a8ab66f192ef6e18c37b494a5563791e3d846753f63c93d4459b5e"
+    },
+    {
+      "path": "app/src/test/resources/fixtures/benefits-view-all.html",
+      "sha256": "e73e7b5e5e711b9eaa3456fc33d1bea68a6b8543dfdd1754046448642648dee5"
+    }
+  ],
+  "apkSha256": {
+    "app/build/outputs/apk/debug/app-debug.apk": "0cd487d128cb504121da4900c527041260d1722e866d89115966426427150187",
+    "app/build/outputs/apk/capture/app-capture.apk": "1d4873bc05856e37482f00b8da76cd532a5b57da16fcb7b965ce5b7d5ff0a094"
+  },
+  "phoneInstall": {
+    "exitCode": 0,
+    "result": "Success via adb install -r",
+    "observedUtc": "2026-11-13T21:00:54.420378+00:00",
+    "verifiedApkMatches": true,
+    "ownerVerification": "pending",
+    "priorAttempt": "device not found; no installation occurred"
+  },
+  "fixRerunCyclesUsed": 3,
+  "sourceFingerprintFormat": "Path and checksum are separate fields; this avoids treating an Auth-named source-file checksum as a credential."
+}

@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-13
+
+### Added
+
+- Benefits starts with institution tiles, then cards, with offline images for Platinum, Business Platinum, Hilton Surpass, and Delta Gold and an unknown-card fallback.
+- Welcome bonus, Credits, Spend trackers, and Other categories have outlined counted headers and independently saved Show/Hide controls.
+- Four per-card sorts: Name A-Z, Name Z-A, Deadline soonest, and Largest amount remaining, with Completed last in a separate filter menu.
+- Yellow alert counts and top-of-card alerts support individual saved acknowledgement and return after a relevant successful read.
+- Optional local welcome-bonus setup supports grouped dollar and Reward values, whole-dollar amounts without automatic decimals, formatted dates, a calendar picker, and bounded validation.
+
+### Changed
+
+- Rewards and reminder entry preserve the institution/card navigation hierarchy and Back behavior.
+- Matching trackers and listed entries render once with retained descriptions and enrollment; raw issuer rows and ambiguous matches remain intact.
+- Listed-benefits freshness uses saved section outcomes bound to an atomic Room read generation; the additive schema migration preserves accounts, benefits, enrollment, and reminders.
+- The offline handbook describes the redesigned navigation, controls, and local persistence.
+
 ## [0.3.0] - 2026-11-13
 
 ### Fixed

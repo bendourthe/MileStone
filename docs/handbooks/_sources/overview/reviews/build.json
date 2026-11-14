@@ -1,11 +1,11 @@
 {
   "status": "pass",
-  "observed_utc": "2026-11-13T22:13:37.164138+00:00",
+  "observed_utc": "2026-11-14T03:45:49.716513+00:00",
   "build_command": "python scripts/build_handbooks.py",
   "check_command": "python scripts/build_handbooks.py --check",
   "build_exit": 0,
   "check_exit": 0,
   "deterministic": true,
-  "before_sha256": "27fb53ae2aa247395d7486d86de68aabca3d851b6a8468774bd9e0d94f9b8dd0",
-  "after_sha256": "27fb53ae2aa247395d7486d86de68aabca3d851b6a8468774bd9e0d94f9b8dd0"
+  "before_sha256": "894861d055571ea0bf9e82e80b1ca666d53c80fe4699e89f9d5ec592e6ca943e",
+  "after_sha256": "894861d055571ea0bf9e82e80b1ca666d53c80fe4699e89f9d5ec592e6ca943e"
 }

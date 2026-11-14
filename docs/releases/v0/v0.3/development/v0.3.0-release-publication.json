@@ -1,0 +1,39 @@
+{
+  "observed_utc": "2026-11-13T23:30:43.859521+00:00",
+  "release": {
+    "assets": [],
+    "isDraft": false,
+    "isPrerelease": false,
+    "publishedAt": "2026-11-13T23:20:21Z",
+    "tagName": "v0.3.0",
+    "url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.0"
+  },
+  "tag_commit": "41367f063b338f27487a9400c3a57cc279183d41",
+  "release_branch": "main",
+  "pre_tag_assertion": "HEAD on main and equal origin/main passed immediately before tagging",
+  "integration_pr": 6,
+  "release_preparation_pr": 7,
+  "release_main_pr": 8,
+  "required_ci": "All three PRs passed CI result at their actual heads",
+  "source_archive_sha256": "a2fa03f75163afb9eb7dfc6d03f4a0519d02b63489a559cf1fead3a996dd5b54",
+  "source_archive_files_verified": 357,
+  "all_files_match_tag_distribution": true,
+  "declared_line_ending_conversions": [
+    {
+      "path": "gradlew.bat",
+      "attribute": "eol=crlf",
+      "result": "exact declared conversion"
+    }
+  ],
+  "private_capture_files_in_archive": 0,
+  "application_version": "0.3.0",
+  "application_version_code": 3,
+  "back_merge": {
+    "pr": 10,
+    "status": "merged",
+    "commit": "d43d344fe19782c738f5fde15cc2bcb03ce90515",
+    "required_ci": "CI result passed",
+    "file_tree": "Preserved current develop, including independently merged Search plan; ancestry-only back-merge"
+  },
+  "minor_close": "pending v0.3.1 completion"
+}

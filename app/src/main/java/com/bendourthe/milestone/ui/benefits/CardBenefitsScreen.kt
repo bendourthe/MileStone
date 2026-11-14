@@ -30,58 +30,116 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.BenefitsCategory
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.style.TextDecoration
 
 /**
- * One card's benefits, grouped like the issuer's page: spend progress, credits, completed, other, then the full
- * benefits list. [onGone] runs once if the card is no longer stored while the page is open.
+ * One card's benefits in the requested display categories, with independent collapse and saved sorting. [onGone] runs once if the card is no longer stored while the page is open.
  */
 @Composable
 fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () -> Unit, onGone: () -> Unit) {
     val flow = remember(key) { viewModel.card(key) }
     val page by flow.collectAsStateWithLifecycle(initialValue = LOADING)
-    LaunchedEffect(page) {
-        // A card no longer stored was removed from the account, or the program was signed out.
-        if (page == null) onGone()
-    }
-    Scaffold(
-        topBar = {
-            BenefitsHeader(page?.takeIf { it !== LOADING }?.let { "${it.name} ${it.digitsLabel}" } ?: "Card benefits", showMark = false) {
-                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to Benefits") }
-            }
-        },
-    ) { padding ->
+    var showWelcome by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
+    val listState = rememberLazyListState()
+    LaunchedEffect(page) { if (page == null) onGone() }
+    Scaffold(topBar = {
+        BenefitsHeader("Card benefits", showMark = false, actions = {
+            CardBenefitsMenus(key, page?.preferences ?: com.bendourthe.milestone.domain.BenefitsDisplayPreferences(), page != null && page !== LOADING,
+                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) })
+        }) {
+            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to Benefits") }
+        }
+    }) { padding ->
         val current = page
         if (current == null || current === LOADING) {
             Box(Modifier.fillMaxSize().padding(padding))
             return@Scaffold
         }
+        LaunchedEffect(key, current.settingsError) {
+            if (current.settingsError != null) listState.animateScrollToItem(0)
+        }
+        LaunchedEffect(key, current.preferences.sort, current.preferences.completedLast) { listState.scrollToItem(0) }
         LazyColumn(
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp + padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 16.dp),
+            state = listState,
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
-            modifier = Modifier.fillMaxSize().testTag("cardBenefitsList"),
+            modifier = Modifier.fillMaxSize().padding(padding).testTag("cardBenefitsList"),
         ) {
-            current.staleNote?.let { note ->
-                item("stale") { Text(note, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.error) }
+            current.settingsError?.let { error ->
+                item("settingsError") { Text(error, color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }) }
             }
-            if (current.sections.isEmpty()) {
-                item("empty") { Text("Amex shows no benefits for this card.", style = MaterialTheme.typography.bodyMedium) }
+            if (current.alerts.isNotEmpty()) {
+                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
+            }
+            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
+                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
+            }
+            item("card") {
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    CardArtwork(key.programId, current.name, Modifier.width(176.dp))
+                    Text(current.name, style = MaterialTheme.typography.headlineSmall)
+                    Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
+                }
+            }
+            if (current.sections.all { it.items.isEmpty() }) {
+                item("empty") { Text("No benefits yet", style = MaterialTheme.typography.bodyMedium) }
             }
             current.sections.forEach { section ->
-                item(section.section.name) {
-                    Text(
-                        section.title,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = 8.dp).semantics { heading() },
-                    )
+                val collapsed = section.category in current.preferences.collapsed
+                item("category:${section.category.name}") {
+                    Surface(onClick = { viewModel.setCollapsed(key, section.category, !collapsed) }, shape = MaterialTheme.shapes.medium,
+                        color = Color.Transparent, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
+                        tonalElevation = 0.dp, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                            .testTag("category_${section.category.name}").semantics {
+                                heading()
+                                stateDescription = if (collapsed) "Collapsed" else "Expanded"
+                            }) {
+                        Column {
+                            Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text(section.title, style = MaterialTheme.typography.titleLarge)
+                                    Text("${section.items.size} ${if (section.items.size == 1) "benefit" else "benefits"}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                }
+                                Text(if (collapsed) "Show" else "Hide", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 8.dp))
+                                Icon(if (collapsed) Icons.Filled.ExpandMore else Icons.Filled.ExpandLess, contentDescription = null)
+                            }
+                            androidx.compose.material3.HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                        }
+                    }
                 }
-                items(section.items, key = { it.key }) { BenefitRow(it) }
+                if (!collapsed) {
+                    if (section.category == BenefitsCategory.WELCOME_BONUS) {
+                        item("welcomeSetup") {
+                            TextButton(onClick = { showWelcome = true }, modifier = Modifier.testTag("welcomeSetup")) {
+                                Text(if (current.preferences.welcomeBonus == null) "Set up welcome bonus" else "Edit welcome bonus")
+                            }
+                        }
+                    }
+                    items(section.items, key = { it.key }) { BenefitRow(it) }
+                }
             }
         }
+    }
+    val current = page
+    if (showWelcome && current != null && current !== LOADING) {
+        WelcomeBonusDialog(current.preferences.welcomeBonus, onSave = { viewModel.setWelcomeBonus(key, it) }, onDismiss = { showWelcome = false })
     }
 }
 
@@ -90,7 +148,8 @@ private fun BenefitRow(item: BenefitUi) {
     ElevatedCard(Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(item.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
+                Text(item.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f),
+                    textDecoration = if (item.completed) TextDecoration.LineThrough else null)
                 if (item.completed) Icon(Icons.Filled.CheckCircle, contentDescription = "Completed", tint = MaterialTheme.colorScheme.primary)
             }
             item.progress?.let { LinearProgressIndicator(progress = { it }, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) }
