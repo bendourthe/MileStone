@@ -2,7 +2,7 @@
 
 **Branch:** `develop` is integration; the active search candidate is `feat/v0.4.0-global-search` in its linked worktree.
 
-**Version:** v0.3.1 is published and back-merged; local v0.4.0 search Phases 1 and 2 are verified. v0.3 closure preparation awaits renewed native approval for its bookkeeping clarification.
+**Version:** v0.3.1 is published and back-merged; local v0.4.0 search Phases 1 through 3 are verified. v0.3 closure preparation awaits renewed native approval for its bookkeeping clarification.
 
 ## Expanded Completion Goal
 
@@ -21,6 +21,8 @@ Owner authorization, 2026-11-13: add implementation and delivery of v0.4.0 globa
 - [ ] Complete search verification, owner phone delivery, separately authorized publication/release and the plan's native completion requirements.
 - [ ] Finish all original v0.1/v0.2/v0.3 release, archive and authorized cleanup duties as well as search delivery before declaring the expanded goal complete.
 
+Native completion reconciliation remains open: the local v0.3 closing proposal records a plan-text freeze mismatch and the need for a valid task-history baseline. A plain signed-record replacement at a post-implementation commit can lose recognition of completed outputs. Signed run data is preserved, no checker predicate is bypassed, and separately authorized v0.4 publication must bind the real implementation history.
+
 The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal stays active; this durable tracker records the expansion without falsely completing or replacing it.
 
 ## Scores
@@ -35,7 +37,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (386 JVM cases and 41 device cases pass; owner accepted; integration/release gates open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 2 of 4 | 4 of 4 | 2 (local data and search screen verified; exact navigation and delivery open) |
+| v0.4.0 search plan phases complete | 3 of 4 | 4 of 4 | 1 (exact navigation verified with 60 JVM and 20 device cases; final acceptance and delivery open) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline

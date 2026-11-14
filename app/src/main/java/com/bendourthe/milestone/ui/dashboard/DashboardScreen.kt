@@ -70,9 +70,24 @@ fun DashboardScreen(
     onOpenBenefits: (programId: String) -> Unit = {},
     onSignIn: (programId: String) -> Unit = {},
     onSearch: (() -> Unit)? = null,
+    reveal: com.bendourthe.milestone.ui.search.SearchReveal? = null,
+    validateReveal: suspend (com.bendourthe.milestone.ui.search.SearchReveal) -> com.bendourthe.milestone.ui.search.SearchValidation = { com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE },
+    onRevealInvalid: (com.bendourthe.milestone.ui.search.SearchValidation) -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var confirmPullRefresh by remember { mutableStateOf(false) }
+    LaunchedEffect(reveal, state.isLoading, state.tiles) {
+        val request = reveal
+        val target = request?.target as? com.bendourthe.milestone.domain.SearchTarget.ProgramTarget
+        if (request != null && target != null && !request.consumed && !request.invalidated && !state.isLoading && state.tiles.none { it.programId == target.programId })
+            onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE)
+    }
+    LaunchedEffect(reveal) {
+        if (reveal != null) {
+            kotlinx.coroutines.delay(10_000)
+            if (!reveal.consumed && !reveal.invalidated) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.READ_ERROR)
+        }
+    }
     LaunchedEffect(viewModel) {
         viewModel.messages.collect { snackbarHostState.showSnackbar(it, withDismissAction = true, duration = SnackbarDuration.Long) }
     }
@@ -124,7 +139,7 @@ fun DashboardScreen(
                 onRefresh = { if (!state.isRefreshing) confirmPullRefresh = true },
                 modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding()),
             ) {
-                TileList(state, viewModel, tileMenuItems, onSignIn, benefitsPrograms, onOpenBenefits, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp))
+                TileList(state, viewModel, tileMenuItems, onSignIn, benefitsPrograms, onOpenBenefits, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp), reveal, validateReveal, onRevealInvalid)
             }
         }
     }
@@ -187,9 +202,40 @@ private fun TileList(
     benefitsPrograms: Set<String>,
     onOpenBenefits: (String) -> Unit,
     contentPadding: PaddingValues,
+    reveal: com.bendourthe.milestone.ui.search.SearchReveal?,
+    validateReveal: suspend (com.bendourthe.milestone.ui.search.SearchReveal) -> com.bendourthe.milestone.ui.search.SearchValidation,
+    onRevealInvalid: (com.bendourthe.milestone.ui.search.SearchValidation) -> Unit,
 ) {
     val listState = rememberLazyListState()
-    LaunchedEffect(state.sortMode) { listState.scrollToItem(0) }
+    var observedSort by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<SortMode?>(null) }
+    LaunchedEffect(state.sortMode) {
+        if (observedSort != null && observedSort != state.sortMode) listState.scrollToItem(0)
+        observedSort = state.sortMode
+    }
+    LaunchedEffect(reveal, state.tiles, state.sortMode) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main.immediate) {
+            val request = reveal ?: return@withContext
+            if (request.consumed || request.invalidated) return@withContext
+            val target = request.target as? com.bendourthe.milestone.domain.SearchTarget.ProgramTarget ?: return@withContext
+            val result = kotlinx.coroutines.withTimeoutOrNull(10_000) {
+                val validation = validateReveal(request)
+                if (validation != com.bendourthe.milestone.ui.search.SearchValidation.CURRENT) { onRevealInvalid(validation); return@withTimeoutOrNull true }
+                var slot = 0
+                var targetSlot: Int? = null
+                state.tiles.forEachIndexed { index, tile ->
+                    val section = state.sectionOf(tile)
+                    if (section != null && state.tiles.getOrNull(index - 1)?.let(state::sectionOf) != section) slot++
+                    if (tile.programId == target.programId) targetSlot = slot
+                    slot++
+                }
+                val index = targetSlot
+                if (index == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE)
+                else { listState.scrollToItem(index); request.complete() }
+                true
+            }
+            if (result == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.READ_ERROR)
+        }
+    }
     val haptics = LocalHapticFeedback.current
     val reorderState = rememberReorderableLazyListState(listState) { from, to -> viewModel.onMove(from.index, to.index) }
     LazyColumn(state = listState, contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxSize().testTag("dashboardList")) {

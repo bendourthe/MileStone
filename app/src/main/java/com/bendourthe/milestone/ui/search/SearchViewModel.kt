@@ -84,6 +84,13 @@ class SearchViewModel(
     private val input = MutableStateFlow("")
     val query: StateFlow<String> = input.asStateFlow()
     private val retries = MutableStateFlow(0)
+    private val notification = MutableStateFlow<String?>(null)
+    val notice: StateFlow<String?> = notification.asStateFlow()
+    var reveal: SearchReveal? = null
+        private set
+    private var revealObserver: Job? = null
+    fun report(result: SearchValidation) { notification.value = result.message() }
+
     private val sharing = SharingStarted.WhileSubscribed(stopTimeoutMillis = 0, replayExpirationMillis = 0)
     private sealed interface SourceState {
         data object Loading : SourceState
@@ -158,6 +165,7 @@ class SearchViewModel(
     fun setQuery(value: String) {
         val bounded = GlobalSearch.boundQuery(value)
         if (input.value != bounded) {
+            notification.value = null
             input.value = bounded
             firstVisibleItemIndex = 0
             firstVisibleItemOffset = 0
@@ -165,18 +173,48 @@ class SearchViewModel(
         }
     }
     fun clear() { setQuery("") }
-    fun retry() { retries.update { it + 1 } }
+    fun retry() { notification.value = null; retries.update { it + 1 } }
 
-    /** A fresh local read closes the invalidation-delivery window before navigation. Never initiates sync. */
-    suspend fun validate(target: SearchTarget): SearchValidation = withContext(worker) {
+    /** Keep the source revision observed while its result page is on top of this search entry. */
+    suspend fun prepare(target: SearchTarget): SearchValidation {
+        notification.value = null
+        val snapshot = (source.value as? SourceState.Ready)?.snapshot
+        val result = validateAgainst(target, snapshot)
+        if (result == SearchValidation.CURRENT && snapshot != null) {
+            if (revealObserver == null) revealObserver = viewModelScope.launch(start = CoroutineStart.UNDISPATCHED) { source.collect() }
+            reveal = SearchReveal(target, snapshot)
+            notification.value = null
+        }
+        return result
+    }
+
+    /** Fresh transaction and live revision are both required; key membership alone is insufficient. */
+    suspend fun validate(target: SearchTarget): SearchValidation = validateAgainst(target, (source.value as? SourceState.Ready)?.snapshot)
+
+    suspend fun validateReveal(request: SearchReveal, page: com.bendourthe.milestone.ui.benefits.CardPageSource? = null): SearchValidation {
+        val result = validateAgainst(request.target, request.snapshot)
+        if (result != SearchValidation.CURRENT) return result
+        if (page == null) return if (request.target is SearchTarget.ProgramTarget) result else SearchValidation.READ_ERROR
+        val card = when (val target = request.target) {
+            is SearchTarget.ProgramTarget -> return result
+            is SearchTarget.CardTarget -> target.card
+            is SearchTarget.BenefitTarget -> target.card
+        }
+        val expected = request.snapshot.source.cards.entries.singleOrNull { it.key.key == card } ?: return SearchValidation.UNAVAILABLE
+        val rows = page.benefits.sortedWith(compareBy<Benefit> { it.stableKey }.thenBy { it.section.name }.thenBy { it.position })
+        return if (page.card == expected.key && rows == expected.value &&
+            page.preferences == (request.snapshot.source.preferences[card] ?: BenefitsDisplayPreferences())) result else SearchValidation.CHANGED
+    }
+
+    private suspend fun validateAgainst(target: SearchTarget, expected: SearchSnapshot?): SearchValidation = withContext(worker) {
         try {
             val fresh = readInput()
-            val ready = source.value as? SourceState.Ready
+            val current = source.value as? SourceState.Ready
             when {
                 !factory.contains(fresh, target) -> SearchValidation.UNAVAILABLE
-                ready == null -> SearchValidation.CHANGED
-                fresh != ready.snapshot.source -> { retry(); SearchValidation.CHANGED }
-                ready.snapshot.revision !== target.revision -> SearchValidation.CHANGED
+                expected == null || current == null -> SearchValidation.CHANGED
+                fresh != expected.source -> { retry(); SearchValidation.CHANGED }
+                expected.revision !== target.revision || current.snapshot.revision !== target.revision -> SearchValidation.CHANGED
                 else -> SearchValidation.CURRENT
             }
         } catch (error: Exception) {

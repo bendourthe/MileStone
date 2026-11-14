@@ -2,6 +2,14 @@ package com.bendourthe.milestone.ui
 
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -35,6 +43,11 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import com.bendourthe.milestone.domain.SearchTarget
+import com.bendourthe.milestone.ui.search.SearchValidation
+import com.bendourthe.milestone.ui.search.message
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -119,13 +132,16 @@ fun MileStoneApp(
     val showBar = destination?.hasRoute(Catalog::class) != true && destination?.hasRoute(Search::class) != true
     val benefits = benefitsViewModel ?: appBenefitsViewModel()
 
+    val navigationScope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    var bottomBarHeight by remember { mutableStateOf(0.dp) }
     val openSearch: () -> Unit = { navController.navigate(Search) { launchSingleTop = true } }
     val activity = LocalActivity.current
 
     Scaffold(
         bottomBar = {
             if (showBar) {
-                NavigationBar {
+                NavigationBar(modifier = Modifier.onSizeChanged { bottomBarHeight = with(density) { it.height.toDp() } }) {
                     topLevels.forEach { top ->
                         val selected = destination?.hierarchy?.any { d -> (listOf(top.routeClass) + top.children).any { d.hasRoute(it) } } == true
                         NavigationBarItem(
@@ -146,102 +162,167 @@ fun MileStoneApp(
             }
         },
     ) { padding ->
-        val bottom = PaddingValues(bottom = padding.calculateBottomPadding())
-        NavHost(navController, startDestination = Dashboard, modifier = Modifier.padding(bottom).consumeWindowInsets(bottom)) {
-            composable<Dashboard> {
-                // A benefit reminder opens its card page once, from the start destination so the graph is set;
-                // clearing the action keeps a rotation or a return to Rewards from opening it again.
-                LaunchedEffect(Unit) {
-                    val intent = activity?.intent ?: return@LaunchedEffect
-                    if (intent.action != AndroidReminderNotifier.ACTION_OPEN_CARD) return@LaunchedEffect
-                    val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
-                    val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
-                    intent.action = null
-                    if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
-                        navController.navigate(Benefits) { launchSingleTop = true }
-                        navController.navigate(ProgramBenefits(programId))
-                        navController.navigate(CardBenefits(programId, digits))
-                    }
-                }
-                DashboardScreen(
-                    dashboardViewModel,
-                    onAddProgram = { navController.navigate(Catalog) { launchSingleTop = true } },
-                    snackbarHostState = snackbarHostState,
-                    tileMenuItems = { tile, close ->
-                        if (tile.canSync) {
-                            DropdownMenuItem(text = { Text("Refresh") }, enabled = !tile.isSyncing, onClick = {
-                                close()
-                                if (tile.isConnected || tile.hasSavedSignIn) dashboardViewModel.refresh(tile.programId)
-                                else signIn?.connect(tile.programId)
-                            })
+        // The outgoing page keeps its viewport when Search hides the bar, so end-of-list positions cannot clamp.
+        val bottom = PaddingValues(bottom = maxOf(bottomBarHeight, padding.calculateBottomPadding()))
+        val systemBottom = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
+        NavHost(navController, startDestination = Dashboard) {
+            composable<Dashboard> { entry ->
+                DestinationInsets(bottom) {
+                    val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)
+                    val request = resultSearch?.reveal?.takeIf { it.target is SearchTarget.ProgramTarget }
+
+                    // A benefit reminder opens its card page once, from the start destination so the graph is set;
+                    // clearing the action keeps a rotation or a return to Rewards from opening it again.
+                    LaunchedEffect(Unit) {
+                        val intent = activity?.intent ?: return@LaunchedEffect
+                        if (intent.action != AndroidReminderNotifier.ACTION_OPEN_CARD) return@LaunchedEffect
+                        val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
+                        val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
+                        intent.action = null
+                        if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
+                            navController.navigate(Benefits) { launchSingleTop = true }
+                            navController.navigate(ProgramBenefits(programId))
+                            navController.navigate(CardBenefits(programId, digits))
                         }
-                        signIn?.let { SignInMenuItems(tile, it, close) }
-                    },
-                    benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
-                    onOpenBenefits = { programId ->
-                        navController.navigate(Benefits) { launchSingleTop = true }
-                        navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
-                    },
-                    onSignIn = { programId -> signIn?.connect(programId) },
-                    onSearch = openSearch,
-                )
+                    }
+                    DashboardScreen(
+                        dashboardViewModel,
+                        onAddProgram = { navController.navigate(Catalog) { launchSingleTop = true } },
+                        snackbarHostState = snackbarHostState,
+                        tileMenuItems = { tile, close ->
+                            if (tile.canSync) {
+                                DropdownMenuItem(text = { Text("Refresh") }, enabled = !tile.isSyncing, onClick = {
+                                    close()
+                                    if (tile.isConnected || tile.hasSavedSignIn) dashboardViewModel.refresh(tile.programId)
+                                    else signIn?.connect(tile.programId)
+                                })
+                            }
+                            signIn?.let { SignInMenuItems(tile, it, close) }
+                        },
+                        benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
+                        onOpenBenefits = { programId ->
+                            navController.navigate(Benefits) { launchSingleTop = true }
+                            navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
+                        },
+                        onSignIn = { programId -> signIn?.connect(programId) },
+                        onSearch = openSearch,
+                        reveal = request,
+                        validateReveal = { resultSearch?.validateReveal(it) ?: SearchValidation.UNAVAILABLE },
+                        onRevealInvalid = { result -> navigationScope.launch(kotlinx.coroutines.Dispatchers.Main.immediate) {
+                            request?.invalidate()
+                            resultSearch?.report(result)
+                            if (navController.currentBackStackEntry == entry) navController.popBackStack()
+                        } },
+                    )
+                }
             }
             composable<Benefits> {
-                BenefitsScreen(
-                    benefits,
-                    onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
-                    snackbarHostState = snackbarHostState,
-                    onOpenProgram = { programId -> navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true } },
-                    onSearch = openSearch,
-                )
+                DestinationInsets(bottom) {
+                    BenefitsScreen(
+                        benefits,
+                        onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
+                        snackbarHostState = snackbarHostState,
+                        onOpenProgram = { programId -> navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true } },
+                        onSearch = openSearch,
+                    )
+                }
             }
             composable<ProgramBenefits> { entry ->
-                val route = entry.toRoute<ProgramBenefits>()
-                BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
-                    snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch)
+                DestinationInsets(bottom) {
+                    val route = entry.toRoute<ProgramBenefits>()
+                    BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
+                        snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch)
+                }
             }
             composable<CardBenefits> { entry ->
-                val route = entry.toRoute<CardBenefits>()
-                val key = remember(route) { runCatching { CardKey(route.programId, route.lastDigits) }.getOrNull() }
-                val scope = rememberCoroutineScope()
-                val gone: () -> Unit = {
-                    if (!navController.popBackStack(ProgramBenefits(route.programId), inclusive = false)) navController.popBackStack(Benefits, inclusive = false)
-                    scope.launch { snackbarHostState.showSnackbar("That card is no longer on your account") }
-                }
-                if (key == null) LaunchedEffect(Unit) { gone() } else {
-                    CardBenefitsScreen(benefits, key, onBack = { navController.popBackStack() }, onGone = gone, onSearch = openSearch)
+                DestinationInsets(bottom) {
+                    val route = entry.toRoute<CardBenefits>()
+                    val key = remember(route) { runCatching { CardKey(route.programId, route.lastDigits) }.getOrNull() }
+                    val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)
+                    val request = resultSearch?.reveal?.takeIf { request -> when (val target = request.target) {
+                        is SearchTarget.ProgramTarget -> false
+                        is SearchTarget.CardTarget -> target.card == key
+                        is SearchTarget.BenefitTarget -> target.card == key
+                    } }
+                    val invalid: (SearchValidation) -> Unit = { result -> navigationScope.launch(kotlinx.coroutines.Dispatchers.Main.immediate) {
+                        val alreadyShown = request?.consumed == true
+                        request?.invalidate()
+                        if (!alreadyShown) {
+                            resultSearch?.report(result)
+                            if (navController.currentBackStackEntry == entry) navController.popBackStack()
+                        } else snackbarHostState.showSnackbar(result.message())
+                    } }
+                    val gone: () -> Unit = { navigationScope.launch(kotlinx.coroutines.Dispatchers.Main.immediate) {
+                        if (resultSearch != null) {
+                            request?.invalidate()
+                            resultSearch.report(SearchValidation.UNAVAILABLE)
+                            if (navController.currentBackStackEntry == entry) navController.popBackStack()
+                        } else {
+                            if (!navController.popBackStack(ProgramBenefits(route.programId), inclusive = false)) navController.popBackStack(Benefits, inclusive = false)
+                            snackbarHostState.showSnackbar("That card is no longer on your account")
+                        }
+                    } }
+                    if (key == null) LaunchedEffect(Unit) { gone() } else {
+                        CardBenefitsScreen(benefits, key, onBack = { navController.popBackStack() }, onGone = gone, onSearch = openSearch,
+                            reveal = request, validateReveal = { visit, source -> resultSearch?.validateReveal(visit, source) ?: SearchValidation.UNAVAILABLE }, onRevealInvalid = invalid, snackbarHostState = snackbarHostState)
+                    }
                 }
             }
             composable<Search> { entry ->
-                val container = if (createSearchViewModel == null) (LocalContext.current.applicationContext as MileStoneApplication).container else null
-                val search: com.bendourthe.milestone.ui.search.SearchViewModel = viewModel(viewModelStoreOwner = entry) {
-                    createSearchViewModel?.invoke() ?: com.bendourthe.milestone.ui.search.SearchViewModel(
-                        container!!.accounts, container.cards, container.catalog, container.benefitsDisplaySettings)
-                }
-                com.bendourthe.milestone.ui.search.SearchScreen(search, onBack = { navController.popBackStack() }, onSelect = {})
-            }
-            composable<Settings> {
-                val reminders by benefits.remindersEnabled.collectAsStateWithLifecycle()
-                SettingsScreen(
-                    settingsViewModel,
-                    versionName,
-                    onBack = {
-                        navController.navigate(Dashboard) {
-                            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
+                DestinationInsets(systemBottom) {
+                    val search = appSearchViewModel(entry, createSearchViewModel)
+                    val scope = rememberCoroutineScope()
+                    var selecting by remember { mutableStateOf(false) }
+                    com.bendourthe.milestone.ui.search.SearchScreen(search, onBack = { navController.popBackStack() }, selecting = selecting, onSelect = { target ->
+                        if (!selecting && navController.currentBackStackEntry == entry) {
+                            selecting = true
+                            scope.launch(kotlinx.coroutines.Dispatchers.Main.immediate) {
+                                val query = search.query.value
+                                try {
+                                    val result = search.prepare(target)
+                                    if (search.query.value == query && navController.currentBackStackEntry == entry) {
+                                        if (result != SearchValidation.CURRENT) search.report(result) else {
+                                            val route: Any = when (target) {
+                                                is SearchTarget.ProgramTarget -> Dashboard
+                                                is SearchTarget.CardTarget -> CardBenefits(target.card.programId, target.card.lastDigits)
+                                                is SearchTarget.BenefitTarget -> CardBenefits(target.card.programId, target.card.lastDigits)
+                                            }
+                                            navController.navigate(route) { launchSingleTop = true }
+                                        }
+                                    }
+                                } finally { selecting = false }
+                            }
                         }
-                    },
-                    benefitReminders = reminders.takeIf { benefits.hasReminderSetting },
-                    onBenefitReminders = benefits::setRemindersEnabled,
-                )
+                    })
+                }
+            }
+
+            composable<Settings> {
+                DestinationInsets(bottom) {
+                    val reminders by benefits.remindersEnabled.collectAsStateWithLifecycle()
+                    SettingsScreen(
+                        settingsViewModel,
+                        versionName,
+                        onBack = {
+                            navController.navigate(Dashboard) {
+                                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        benefitReminders = reminders.takeIf { benefits.hasReminderSetting },
+                        onBenefitReminders = benefits::setRemindersEnabled,
+                    )
+                }
             }
             composable<Catalog> {
-                ProgramCatalogScreen(
-                    viewModel = catalogViewModel,
-                    onBack = { navController.popBackStack() },
-                    onConnect = { programId -> signIn?.connect(programId) },
-                )
+                DestinationInsets(systemBottom) {
+                    ProgramCatalogScreen(
+                        viewModel = catalogViewModel,
+                        onBack = { navController.popBackStack() },
+                        onConnect = { programId -> signIn?.connect(programId) },
+                    )
+                }
             }
         }
     }
@@ -257,4 +338,25 @@ private fun appBenefitsViewModel(): BenefitsViewModel {
     val container = (LocalContext.current.applicationContext as MileStoneApplication).container
     val owner = LocalActivity.current as ViewModelStoreOwner
     return viewModel(viewModelStoreOwner = owner) { BenefitsViewModel(container.cards, container.catalog, container.accounts, reminders = container.reminderSettings, displaySettings = container.benefitsDisplaySettings) }
+}
+
+/** The prior Search entry owns the visit through a result page and across configuration changes. */
+@Composable
+private fun resultSearchViewModel(nav: NavHostController, entry: androidx.navigation.NavBackStackEntry,
+    create: (() -> com.bendourthe.milestone.ui.search.SearchViewModel)?): com.bendourthe.milestone.ui.search.SearchViewModel? {
+    val owner = remember(entry) { nav.previousBackStackEntry?.takeIf { it.destination.hasRoute(Search::class) } }
+    return owner?.let { appSearchViewModel(it, create) }
+}
+
+@Composable
+private fun appSearchViewModel(owner: ViewModelStoreOwner, create: (() -> com.bendourthe.milestone.ui.search.SearchViewModel)?): com.bendourthe.milestone.ui.search.SearchViewModel {
+    val container = if (create == null) (LocalContext.current.applicationContext as MileStoneApplication).container else null
+    return viewModel(viewModelStoreOwner = owner) {
+        create?.invoke() ?: com.bendourthe.milestone.ui.search.SearchViewModel(container!!.accounts, container.cards, container.catalog, container.benefitsDisplaySettings)
+    }
+}
+
+@Composable
+private fun DestinationInsets(bottom: PaddingValues, content: @Composable () -> Unit) {
+    Box(Modifier.fillMaxSize().padding(bottom).consumeWindowInsets(bottom)) { content() }
 }

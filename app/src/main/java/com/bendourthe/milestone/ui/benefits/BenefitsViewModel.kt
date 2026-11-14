@@ -69,6 +69,9 @@ data class CardTileUi(
         listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
+/** The committed inputs behind this rendered page, used only for in-memory exact-result validation. */
+data class CardPageSource(val card: Card, val benefits: List<Benefit>, val preferences: BenefitsDisplayPreferences)
+
 data class CardPageUi(
     val name: String,
     val digitsLabel: String,
@@ -78,6 +81,7 @@ data class CardPageUi(
     val settingsError: String? = null,
     val alerts: List<BenefitAlertUi> = emptyList(),
     val listFreshnessNote: String? = null,
+    val source: CardPageSource? = null,
 )
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
@@ -184,7 +188,7 @@ class BenefitsViewModel(
     /** One card's page, or null once the card is no longer stored (removed from the account or signed out). */
     fun card(key: CardKey): Flow<CardPageUi?> =
         combine(cards.observeCards(key.programId), cards.observeBenefits(key), preferences(key), settingsErrors) { list, benefits, prefs, errors ->
-            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key]) }
+            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs)) }
         }
 
     private fun cardsWithBenefits(programId: String): Flow<List<Triple<Card, List<Benefit>, BenefitsDisplayPreferences>>> =

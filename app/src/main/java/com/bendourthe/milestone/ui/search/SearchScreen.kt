@@ -18,6 +18,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
@@ -35,9 +36,10 @@ fun SearchAction(onClick: () -> Unit) {
 
 /** Query and position live only in the navigation entry's view model. */
 @Composable
-fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (SearchTarget) -> Unit) {
+fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val notice by viewModel.notice.collectAsStateWithLifecycle()
     val listState = remember(viewModel) { LazyListState(viewModel.firstVisibleItemIndex, viewModel.firstVisibleItemOffset) }
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
@@ -50,14 +52,14 @@ fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (Sear
     }
     SearchContent(query, state, listState, focus, viewModel::setQuery,
         onClear = { viewModel.clear(); focus.requestFocus() }, onRetry = viewModel::retry,
-        onBack = { keyboard?.hide(); onBack() }, onSelect = { keyboard?.hide(); onSelect(it) })
+        onBack = { keyboard?.hide(); onBack() }, onSelect = { keyboard?.hide(); onSelect(it) }, selecting = selecting, notice = notice)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SearchContent(query: String, state: SearchUiState, listState: LazyListState,
     focus: FocusRequester, onQuery: (String) -> Unit, onClear: () -> Unit, onRetry: () -> Unit,
-    onBack: () -> Unit, onSelect: (SearchTarget) -> Unit) {
+    onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false, notice: String? = null) {
     val keyboard = LocalSoftwareKeyboardController.current
     Scaffold(topBar = {
         TopAppBar(title = { Text("Search") }, navigationIcon = {
@@ -73,6 +75,16 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                 trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = onClear) {
                     Icon(Icons.Filled.Close, contentDescription = "Clear search")
                 } })
+            if (selecting) {
+                LinearProgressIndicator(Modifier.fillMaxWidth().testTag("searchSelectionLoading"))
+                Text("Checking stored item", Modifier.padding(horizontal = 16.dp))
+            }
+            notice?.let {
+                Column(Modifier.padding(horizontal = 16.dp).semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }) {
+                    Text(it)
+                    TextButton(onClick = onRetry) { Text("Retry") }
+                }
+            }
             when (state) {
                 SearchUiState.Loading -> {
                     LinearProgressIndicator(Modifier.fillMaxWidth().testTag("searchLoading"))
@@ -94,7 +106,7 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                                 Text(group.programName, style = MaterialTheme.typography.titleMedium,
                                     modifier = Modifier.padding(vertical = 8.dp).semantics { heading() })
                             }
-                            items(group.hits, key = { it.entry.id }) { hit -> SearchResult(hit) { onSelect(hit.entry.target) } }
+                            items(group.hits, key = { it.entry.id }) { hit -> SearchResult(hit, enabled = !selecting) { onSelect(hit.entry.target) } }
                         }
                     }
                 }
@@ -104,9 +116,9 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
 }
 
 @Composable
-private fun SearchResult(hit: SearchHit, onClick: () -> Unit) {
+private fun SearchResult(hit: SearchHit, enabled: Boolean, onClick: () -> Unit) {
     val entry = hit.entry
-    ElevatedCard(onClick = onClick, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+    ElevatedCard(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(entry.kind.label, style = MaterialTheme.typography.labelMedium)
             Text(entry.title, style = MaterialTheme.typography.titleMedium,
