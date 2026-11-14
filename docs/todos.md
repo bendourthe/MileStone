@@ -2,7 +2,7 @@
 
 **Branch:** `develop` is integration; the active candidate is `feat/v0.3.1-benefits-redesign` in its linked worktree.
 
-**Version:** v0.3.0 is published; v0.3.1 Benefits redesign is integrated through green PR 11 and its release is in preparation.
+**Version:** v0.3.1 is published, source-archive verified and back-merged. v0.3 closure and the authorized local v0.4.0 search work remain in progress.
 
 ## Expanded Completion Goal
 
@@ -162,3 +162,8 @@ The owner reconnected the phone; the current institution/polish APK is installed
 
 
 Final phone acceptance is confirmed: the owner replied Yes, all checks pass for institution/card Back, retained four-card content, category outlines and welcome-bonus formatting. Local delivery gates are satisfied; current develop integration, separately authorized publication/release, archive and cleanup remain open.
+
+
+## v0.3 Closure Preparation
+
+v0.3.1 release and back-merge are complete. All29 remaining gaps were preserved and carried to v0.4 with their IDs and conditions. The archive dry run exposed a circular T022 dependency; its local clarification retains every original lifecycle requirement and the expanded search goal. Native approval renewal is required before archive/closing-PR actions, because the plan prose changed. No signed record was hand-edited and no archive gate or KEEP protection was bypassed.
