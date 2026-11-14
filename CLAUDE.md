@@ -16,7 +16,7 @@ Logs name programs and hosts only. Real captured pages go only in the gitignored
 
 ## Version
 
-v0.2.0, recorded as the `0.2.0` heading in `CHANGELOG.md`.
+v0.3.0, recorded as the `0.3.0` heading in `CHANGELOG.md`.
 
 ## Branch model
 

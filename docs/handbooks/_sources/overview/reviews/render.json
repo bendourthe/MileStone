@@ -1,7 +1,7 @@
 {
   "status": "pass",
   "browser": "Chromium 156.0.8078.4",
-  "output_sha256": "d54a818797fd5529a8a29491be34ab174e351d97c5d8c11381bfdd99c5bcbc41",
+  "output_sha256": "9b0f7ed6635d39abab6e8fd995445ef5dcfc4c4b0dfc1f8392ac2fea3e22dbda",
   "checker_sha256": "f4a6f1e10a719d2fd4807333574ab4464aa55337d600547cd83404b82c6285f4",
   "checks": [
     {

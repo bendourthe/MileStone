@@ -1,11 +1,11 @@
 {
   "status": "pass",
-  "observed_utc": "2026-11-14T00:34:40.169979+00:00",
-  "scope": "T028-T030 institution navigation and formatting",
+  "observed_utc": "2026-11-14T03:13:43.252969+00:00",
+  "scope": "Post-merge 53-input recheck: published version metadata only",
   "input_count": 53,
   "source_units": 17,
   "slides": 8,
-  "review": "Independent content and render review passed: institution tiles, filtered card route and Back/reminder hierarchy; outlined categories, whole-dollar reopening and display-only Reward grouping match current code. All 13 captures covered, changed slide 6 freshly inspected.",
+  "review": "Independent source/content/render recheck PASS. Only app/build.gradle.kts version metadata changed among 53 inputs; visible content/runtime are unchanged. All 13 fresh captures are byte-identical to the reviewed set; 280 browser checks pass.",
   "limits": [
     "Phone qualification remains separate",
     "Existing wordmark/lede wraps are cosmetic; fractional cents wording refers to cents in a dollar amount"

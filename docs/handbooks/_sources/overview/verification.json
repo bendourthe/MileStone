@@ -15,7 +15,7 @@
       "docs/handbooks/_sources/overview/model.json": "5b3341ddd8199498bea998771a6a16172ad68af1d2d9bc4440d34a4704737cf3",
       "docs/handbooks/_sources/overview/design.json": "62bf489d29d18799ad27bc7e0a08f0604773a45894e545d447b89fcda78f14b5",
       "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4",
-      "app/build.gradle.kts": "cdc45389daa3b4f7eaca09fc1e0caa709c2686dbaafc4627ae2e50561d0d69bf",
+      "app/build.gradle.kts": "c154efb95d5d10c77e7ae5e8a7e956a41df8ec12f55584c3daaef10b9dbb69b8",
       "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db",
       "app/src/main/assets/extract.js": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3",
       "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "2c610ded646112c6c0fba15b697f37ffeba6a26477e880495ce83b211db75f4b",
@@ -56,26 +56,26 @@
       "scripts/check_handbook_render.py": "f4a6f1e10a719d2fd4807333574ab4464aa55337d600547cd83404b82c6285f4",
       "docs/handbooks/_sources/overview/visual-allowlist.json": "a4002e0a28a4e6a5383c7f98bb4d4eda39bfb4a8721e0ef6e69d0e991b22a835"
     },
-    "output_sha256": "d54a818797fd5529a8a29491be34ab174e351d97c5d8c11381bfdd99c5bcbc41"
+    "output_sha256": "9b0f7ed6635d39abab6e8fd995445ef5dcfc4c4b0dfc1f8392ac2fea3e22dbda"
   },
   "checks": {
     "content": {
       "status": "pass",
       "evidence": "docs/handbooks/_sources/overview/reviews/content.json",
-      "evidence_sha256": "89c32607e3dcca700372c3d1fac3aa74ea0e164c6914804293f5f4748e989d8e"
+      "evidence_sha256": "f22735fde02096ac631d8e1b2192c44ca0bad722546895342c3c2f428d465199"
     },
     "build": {
       "status": "pass",
       "evidence": "docs/handbooks/_sources/overview/reviews/build.json",
-      "evidence_sha256": "0461dfb2cce0eaadad05471bb548e936564afd2f43ab2b02db192bbc75f05727"
+      "evidence_sha256": "611caa03a56514fe2281d23d0a3a498e40a0673e4781e2038a1b3990dd04e45c"
     },
     "rendered": {
       "status": "pass",
       "evidence": "docs/handbooks/_sources/overview/reviews/render.json",
-      "evidence_sha256": "561e12d0c9dc0897f3968a0b47df2a27173aa6c51eba834e907a8d3439d2cad0",
+      "evidence_sha256": "d1b7d4582a964705659ca68672523a930e362316fce2a686deb6aa35bc0cc9d3",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "d54a818797fd5529a8a29491be34ab174e351d97c5d8c11381bfdd99c5bcbc41"
+      "output_sha256": "9b0f7ed6635d39abab6e8fd995445ef5dcfc4c4b0dfc1f8392ac2fea3e22dbda"
     }
   },
-  "verified_utc": "2026-11-14T00:34:40.169979+00:00"
+  "verified_utc": "2026-11-14T03:13:43.252969+00:00"
 }

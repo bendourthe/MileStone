@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-13
+
 ### Fixed
 
 - A newly visible password refusal is classified at the existing sign-in page deadline instead of being lost as an unfinished sign-in.
