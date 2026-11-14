@@ -2,13 +2,13 @@
 
 **Branch:** `develop` is integration; the active candidate is `feat/v0.3.1-benefits-redesign` in its linked worktree.
 
-**Version:** v0.3.0 is published; v0.3.1 Benefits redesign is integrated through green PR 11 and its release is in preparation.
+**Version:** v0.3.1 is published, source-archive verified and back-merged. v0.3 closure and the authorized local v0.4.0 search work remain in progress.
 
 ## Expanded Completion Goal
 
 Owner scope update, 2026-11-13: complete the existing v0.1/v0.2/v0.3 integration, release, canonical archive, and authorized cleanup obligations AND deliver the complete Benefits redesign. The six interface requirements below are required work, superseding their earlier deferral. The overall goal remains unfinished until the redesign is implemented, installed without erasing sign-ins, and verified on the phone; extraction correctness or v0.3.0 PLAN COMPLETE alone cannot close it. Original count-confirmation, privacy, test-device, and publication requirements remain in force. The native goal API cannot edit an unfinished objective; this tracker and the owner's scope instruction retain the expanded completion criteria without falsely marking the old goal complete.
 
-Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
+Implementation plan: [v0.3.1 Benefits redesign](archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
 
 ---
 
@@ -162,3 +162,8 @@ The owner reconnected the phone; the current institution/polish APK is installed
 
 
 Final phone acceptance is confirmed: the owner replied Yes, all checks pass for institution/card Back, retained four-card content, category outlines and welcome-bonus formatting. Local delivery gates are satisfied; current develop integration, separately authorized publication/release, archive and cleanup remain open.
+
+
+## v0.3 Closure Preparation
+
+v0.3.1 release and back-merge are complete. All29 remaining gaps were preserved and carried to v0.4 with their IDs and conditions. The archive dry run exposed a circular T022 dependency; its local clarification retains every original lifecycle requirement and the expanded search goal. Native approval renewal is required before archive/closing-PR actions, because the plan prose changed. No signed record was hand-edited and no archive gate or KEEP protection was bypassed.
