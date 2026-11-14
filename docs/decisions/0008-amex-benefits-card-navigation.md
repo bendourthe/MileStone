@@ -48,7 +48,7 @@ Chosen: option 1.
 
 ## Clarification 2026-11-12: page-ready rules, switch invariant, and run deadline
 
-Origin: v0.3.0 plan, task 2.1 (T006), from the [v0.3.0 capture record](../releases/v0/v0.3/development/v0.3.0-capture-record.md).
+Origin: v0.3.0 plan, task 2.1 (T006), from the [v0.3.0 capture record](../archives/v0/v0.3/development/v0.3.0-capture-record.md).
 
 **What the live diagnostics showed.** Amex moves from Rewards to the activity page, and from one card to another, by changing the address inside the same document. The page script restarts on each address change while the previous content stays on screen for several seconds. The v0.2 rule ("trackers steady for 2 s") therefore read the Rewards page's 2 trackers under the activity address (`kind=activity trackers=2 activity=true`) and lost the fact that a switch had happened (`switched=false` on switched cards). The decision's assumption that the script watches an in-place switch to completion within one run does not hold.
 
