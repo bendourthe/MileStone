@@ -2,13 +2,13 @@
 
 **Branch:** `develop` is integration; the active search candidate is `feat/v0.4.0-global-search` in its linked worktree.
 
-**Version:** v0.3.1 is published and back-merged; local v0.4.0 search Phases 1 through 3 are verified. v0.3 closure preparation awaits renewed native approval for its bookkeeping clarification.
+**Version:** v0.3.1 is published, source-archive verified and back-merged; Search Phases 1 through 3 are verified. The v0.3 archive is integrated through green PR 15. Recent branch cleanup and historical native-run reconciliation remain open.
 
 ## Expanded Completion Goal
 
 Owner scope update, 2026-11-13: complete the existing v0.1/v0.2/v0.3 integration, release, canonical archive, and authorized cleanup obligations AND deliver the complete Benefits redesign. The six interface requirements below are required work, superseding their earlier deferral. The overall goal remains unfinished until the redesign is implemented, installed without erasing sign-ins, and verified on the phone; extraction correctness or v0.3.0 PLAN COMPLETE alone cannot close it. Original count-confirmation, privacy, test-device, and publication requirements remain in force. The native goal API cannot edit an unfinished objective; this tracker and the owner's scope instruction retain the expanded completion criteria without falsely marking the old goal complete.
 
-Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
+Implementation plan: [v0.3.1 Benefits redesign](archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
 
 ---
 
@@ -172,3 +172,7 @@ The finalized v0.4.0 plan is now locally in progress in feat/v0.4.0-global-searc
 
 
 Global search Phase1 passed38 focused tests and Android test compilation with real Room/DataStore behavior, canonical projection reuse and stale-key rejection. One local phase commit records the work; no search push or remote CI occurred. Phases2-4 and separately authorized publication remain open. v0.3.1 is published and source-archive verified; its closure preparation preserves all29 carried gaps and awaits native approval renewal for the task-bookkeeping clarification.
+
+## v0.3 Closure Preparation
+
+v0.3.1 release and back-merge are complete. All29 remaining gaps were preserved and carried to v0.4 with their IDs and conditions. The archive dry run exposed a circular T022 dependency; its local clarification retains every original lifecycle requirement and the expanded search goal. Native approval renewal is required before archive/closing-PR actions, because the plan prose changed. No signed record was hand-edited and no archive gate or KEEP protection was bypassed.

@@ -1,0 +1,35 @@
+{
+  "observed_utc": "2026-11-14T04:07:30.234052+00:00",
+  "version": "v0.3.1",
+  "main_merge_pr": 13,
+  "main_commit": "43966d11c61f1e18e10a8ae071c0cf5014507afa",
+  "pre_tag_assertion_exit": 0,
+  "tag_commit": "43966d11c61f1e18e10a8ae071c0cf5014507afa",
+  "release": {
+    "assets": [],
+    "isDraft": false,
+    "publishedAt": "2026-11-14T04:07:29Z",
+    "tagName": "v0.3.1",
+    "url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.1"
+  },
+  "source_archive": {
+    "files": 477,
+    "sha256": "8db3d30c1c07662de3ad808b678bc5533d90b40acb4f3f5d4bb989b821b4d5ca",
+    "canonical_reference_sha256": "a6a5018c8fe6a497afbfecc8f8263639b2a1ed1733e8cba294de751a236287b1",
+    "byte_mismatches": 0,
+    "private_capture_paths": 0,
+    "comparison": "Every published source file matches git archive with core.autocrlf=false and core.eol=lf, honoring repository attributes",
+    "initial_reference_correction": "Initial Windows reference inherited core.autocrlf=true; canonical reference fixes comparison without changing tag or published files"
+  },
+  "back_merge": {
+    "pr": 14,
+    "mergeCommit": {
+      "oid": "98deec950a2e6c0cc63582ffe38bac2529dfc59c"
+    },
+    "mergedAt": "2026-11-14T04:24:14Z",
+    "state": "MERGED"
+  },
+  "minor_archive_cleanup": "pending",
+  "expanded_search_goal": "still open",
+  "phone_release_stamp": "Not installed: phone disconnected; unchanged application source was installed and accepted previously"
+}

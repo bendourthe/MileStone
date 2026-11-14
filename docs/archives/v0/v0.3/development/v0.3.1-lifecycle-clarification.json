@@ -1,0 +1,15 @@
+{
+  "reason": "Native archive refuses unchecked T tasks, while original T022 includes archive itself",
+  "original_task": "- [ ] T022 Run the authorized release workflow, then complete all original v0.1/v0.2/v0.3 archive/cleanup obligations; require native PLAN COMPLETE/MINOR COMPLETE evidence before declaring the expanded goal complete docs/releases/v0/v0.3/development/v0.3.1-last-phase-evidence.md",
+  "clarified_task": "- [x] T022 Record the completed authorized v0.3.1 release, tag, GitHub publication, verified source distribution and main-to-develop back-merge docs/releases/v0/v0.3/development/v0.3.1-last-phase-evidence.md",
+  "preserved_lifecycle_obligation": "Run the authorized release workflow, then complete all original v0.1/v0.2/v0.3 archive/cleanup obligations; require native PLAN COMPLETE/MINOR COMPLETE evidence before declaring the expanded goal complete docs/releases/v0/v0.3/development/v0.3.1-last-phase-evidence.md",
+  "completed_release_evidence": "v0.3.1-publication-verification.json",
+  "scope_change": false,
+  "unchanged_required_outcomes": [
+    "Original v0.1/v0.2/v0.3 archive and cleanup",
+    "Native completion evidence",
+    "Expanded v0.4.0 global search implementation and delivery"
+  ],
+  "approval_state": "Current plan prose differs from the signed freeze; archive/remote actions remain paused. Do not use plain record create as a bookkeeping repair: it replaces start_head and can discard recognition of completed task outputs. Reconcile the approved source baseline and plan prose through supported native mechanisms with genuine fresh authority; never edit signed run data.",
+  "native_reconciliation_evidence": "v0.3.1-native-reconciliation-evidence.md"
+}
