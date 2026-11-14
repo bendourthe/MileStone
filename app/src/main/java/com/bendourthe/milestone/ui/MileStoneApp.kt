@@ -71,6 +71,9 @@ data object Settings
 data object Catalog
 
 @Serializable
+data object Search
+
+@Serializable
 data object Benefits
 
 @Serializable
@@ -108,13 +111,15 @@ fun MileStoneApp(
     createBridge: ((Context, Program) -> LoginBridge)? = null,
     /** Built from the application's container when not given (tests pass their own). */
     benefitsViewModel: BenefitsViewModel? = null,
+    createSearchViewModel: (() -> com.bendourthe.milestone.ui.search.SearchViewModel)? = null,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val backStackEntry by navController.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
-    val showBar = destination?.hasRoute(Catalog::class) != true
+    val showBar = destination?.hasRoute(Catalog::class) != true && destination?.hasRoute(Search::class) != true
     val benefits = benefitsViewModel ?: appBenefitsViewModel()
 
+    val openSearch: () -> Unit = { navController.navigate(Search) { launchSingleTop = true } }
     val activity = LocalActivity.current
 
     Scaffold(
@@ -178,6 +183,7 @@ fun MileStoneApp(
                         navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
                     },
                     onSignIn = { programId -> signIn?.connect(programId) },
+                    onSearch = openSearch,
                 )
             }
             composable<Benefits> {
@@ -186,12 +192,13 @@ fun MileStoneApp(
                     onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
                     snackbarHostState = snackbarHostState,
                     onOpenProgram = { programId -> navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true } },
+                    onSearch = openSearch,
                 )
             }
             composable<ProgramBenefits> { entry ->
                 val route = entry.toRoute<ProgramBenefits>()
                 BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
-                    snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() })
+                    snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch)
             }
             composable<CardBenefits> { entry ->
                 val route = entry.toRoute<CardBenefits>()
@@ -202,8 +209,16 @@ fun MileStoneApp(
                     scope.launch { snackbarHostState.showSnackbar("That card is no longer on your account") }
                 }
                 if (key == null) LaunchedEffect(Unit) { gone() } else {
-                    CardBenefitsScreen(benefits, key, onBack = { navController.popBackStack() }, onGone = gone)
+                    CardBenefitsScreen(benefits, key, onBack = { navController.popBackStack() }, onGone = gone, onSearch = openSearch)
                 }
+            }
+            composable<Search> { entry ->
+                val container = if (createSearchViewModel == null) (LocalContext.current.applicationContext as MileStoneApplication).container else null
+                val search: com.bendourthe.milestone.ui.search.SearchViewModel = viewModel(viewModelStoreOwner = entry) {
+                    createSearchViewModel?.invoke() ?: com.bendourthe.milestone.ui.search.SearchViewModel(
+                        container!!.accounts, container.cards, container.catalog, container.benefitsDisplaySettings)
+                }
+                com.bendourthe.milestone.ui.search.SearchScreen(search, onBack = { navController.popBackStack() }, onSelect = {})
             }
             composable<Settings> {
                 val reminders by benefits.remindersEnabled.collectAsStateWithLifecycle()

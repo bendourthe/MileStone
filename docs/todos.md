@@ -1,8 +1,8 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `develop` is integration; the active candidate is `feat/v0.3.1-benefits-redesign` in its linked worktree.
+**Branch:** `develop` is integration; the active search candidate is `feat/v0.4.0-global-search` in its linked worktree.
 
-**Version:** v0.3.1 is published and back-merged; local v0.4.0 search Phase1 is verified. v0.3 closure preparation awaits renewed native approval for its bookkeeping clarification.
+**Version:** v0.3.1 is published and back-merged; local v0.4.0 search Phases 1 and 2 are verified. v0.3 closure preparation awaits renewed native approval for its bookkeeping clarification.
 
 ## Expanded Completion Goal
 
@@ -16,7 +16,7 @@ Implementation plan: [v0.3.1 Benefits redesign](releases/v0/v0.3/plans/v0.3.1-be
 
 Owner authorization, 2026-11-13: add implementation and delivery of v0.4.0 global search to every existing completion obligation. The finalized plan is docs/releases/v0/v0.4/plans/v0.4.0-global-search.md, merged through PR 9 at 532ce1f317d9649f81298a7f616be1ba8378866f and verified as an ancestor of origin/develop. This new instruction authorizes reversible local implementation after the integrated v0.3.1 Benefits presentation dependency is verified. It supersedes the plan's historical planning-only authority boundary for local implementation; separately required remote, release and destructive authority stays pending.
 
-- [ ] Verify integrated v0.3.1 Benefits presentation before search implementation.
+- [x] Verify integrated v0.3.1 Benefits presentation before search implementation (green PR 11, owner phone acceptance, released tag v0.3.1 and green main back-merge PR 14).
 - [ ] Implement the finalized four-phase search plan: top Search icon, added programs and stored cards/displayed benefits only, results grouped by program, contextual matching with an item-token match, exact navigation, preserved Back/scroll state and on-device operation without changing issuer data or sign-ins.
 - [ ] Complete search verification, owner phone delivery, separately authorized publication/release and the plan's native completion requirements.
 - [ ] Finish all original v0.1/v0.2/v0.3 release, archive and authorized cleanup duties as well as search delivery before declaring the expanded goal complete.
@@ -28,14 +28,14 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | Metric | Current | Target | Delta |
 |--------|---------|--------|-------|
 | Governance files present | yes | yes | 0 |
-| Release preparation | v0.3.1 version metadata and actual-diff notes | green main integration, tag and release | in progress |
+| Release preparation | v0.3.1 published and back-merged | green main integration, tag and release | 0 |
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (386 JVM cases and 41 device cases pass; owner accepted; integration/release gates open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 1 of 4 | 4 of 4 | 3 (local data/matcher verified; UI/navigation/delivery open) |
+| v0.4.0 search plan phases complete | 2 of 4 | 4 of 4 | 2 (local data and search screen verified; exact navigation and delivery open) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline

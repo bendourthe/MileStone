@@ -69,6 +69,7 @@ fun DashboardScreen(
     benefitsPrograms: Set<String> = emptySet(),
     onOpenBenefits: (programId: String) -> Unit = {},
     onSignIn: (programId: String) -> Unit = {},
+    onSearch: (() -> Unit)? = null,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var confirmPullRefresh by remember { mutableStateOf(false) }
@@ -76,11 +77,13 @@ fun DashboardScreen(
         viewModel.messages.collect { snackbarHostState.showSnackbar(it, withDismissAction = true, duration = SnackbarDuration.Long) }
     }
 
+    val compactBrand = onSearch != null && androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f
     Scaffold(
         topBar = {
           Box {
             TopAppBar(
-                title = { Text("MileStone") },
+                title = { if (!compactBrand) Text("MileStone") },
+                navigationIcon = { onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) } },
                 // A band a little darker than the bottom bar sets the header apart from the aurora below.
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = HeaderTeal),
                 actions = {
@@ -106,7 +109,7 @@ fun DashboardScreen(
             Box(
                 Modifier.matchParentSize().windowInsetsPadding(TopAppBarDefaults.windowInsets),
                 contentAlignment = Alignment.Center,
-            ) { MileStoneMark(44.dp, Modifier.offset(y = (-3).dp)) }
+            ) { MileStoneMark(44.dp, Modifier.offset(y = (-3).dp), contentDescription = if (compactBrand) "MileStone" else null) }
           }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },

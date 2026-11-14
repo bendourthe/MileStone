@@ -86,7 +86,8 @@ object GlobalSearch {
         val tokens = normalized.split(' ')
         val hits = entries.mapNotNull { entry ->
             if (tokens.none { it in entry.ownText } || tokens.any { it !in entry.ownText && it !in entry.parentText }) null
-            else SearchHit(entry, context(entry.description, tokens))
+            else SearchHit(entry, context(entry.description, tokens) ?: entry.aliases
+                .filter { normalize(it) != normalize(entry.title) }.firstNotNullOfOrNull { context(it, tokens) })
         }
         val ordering = compareBy<SearchHit> { it.entry.kind.ordinal }
             .thenBy { if (it.entry.kind == SearchKind.BENEFIT) it.entry.cardName.orEmpty().lowercase(Locale.ROOT) else "" }

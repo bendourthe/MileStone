@@ -63,6 +63,13 @@ class GlobalSearchTest {
         assertTrue(hit.descriptionContext.length <= 156)
     }
 
+    @Test fun anAliasOnlyHitExplainsTheRetainedSourceTitle() {
+        val entry = lounge.copy(title = "Lounge Credit", description = null, aliases = listOf("Terminal Statement Credit"))
+        val hit = GlobalSearch.match("statement", listOf(entry)).groups.single().hits.single()
+        assertEquals(entry.target, hit.entry.target)
+        assertEquals("Terminal Statement Credit", hit.descriptionContext)
+    }
+
     @Test fun groupsAndKindsHaveDeterministicOrderingAndAccurateCounts() {
         val other = program.copy(target = SearchTarget.ProgramTarget("alpha", revision), programName = "Alpha", title = "American program")
         val entries = listOf(lounge.copy(title = "American lounge"), product.copy(title = "American card"), program, other)

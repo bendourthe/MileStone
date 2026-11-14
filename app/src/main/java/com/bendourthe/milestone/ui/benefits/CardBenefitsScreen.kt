@@ -53,7 +53,7 @@ import androidx.compose.ui.text.style.TextDecoration
  * One card's benefits in the requested display categories, with independent collapse and saved sorting. [onGone] runs once if the card is no longer stored while the page is open.
  */
 @Composable
-fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () -> Unit, onGone: () -> Unit) {
+fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () -> Unit, onGone: () -> Unit, onSearch: (() -> Unit)? = null) {
     val flow = remember(key) { viewModel.card(key) }
     val page by flow.collectAsStateWithLifecycle(initialValue = LOADING)
     var showWelcome by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
@@ -61,6 +61,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
     LaunchedEffect(page) { if (page == null) onGone() }
     Scaffold(topBar = {
         BenefitsHeader("Card benefits", showMark = false, actions = {
+            onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
             CardBenefitsMenus(key, page?.preferences ?: com.bendourthe.milestone.domain.BenefitsDisplayPreferences(), page != null && page !== LOADING,
                 onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) })
         }) {

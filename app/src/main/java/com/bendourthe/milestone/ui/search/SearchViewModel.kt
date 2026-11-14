@@ -141,8 +141,30 @@ class SearchViewModel(
             }
         }.flowOn(worker).stateIn(viewModelScope, sharing, SearchUiState.Loading)
 
-    fun setQuery(value: String) { input.value = GlobalSearch.boundQuery(value) }
-    fun clear() { input.value = "" }
+    // These belong to this navigation entry only, never to saved instance state or storage.
+    var firstVisibleItemIndex: Int = 0
+        private set
+    var firstVisibleItemOffset: Int = 0
+        private set
+    private var resetScroll = false
+    private var initialFocus = true
+
+    fun rememberPosition(index: Int, offset: Int) {
+        firstVisibleItemIndex = index
+        firstVisibleItemOffset = offset
+    }
+    fun consumeInitialFocus(): Boolean = initialFocus.also { initialFocus = false }
+    fun consumeScrollReset(): Boolean = resetScroll.also { resetScroll = false }
+    fun setQuery(value: String) {
+        val bounded = GlobalSearch.boundQuery(value)
+        if (input.value != bounded) {
+            input.value = bounded
+            firstVisibleItemIndex = 0
+            firstVisibleItemOffset = 0
+            resetScroll = true
+        }
+    }
+    fun clear() { setQuery("") }
     fun retry() { retries.update { it + 1 } }
 
     /** A fresh local read closes the invalidation-delivery window before navigation. Never initiates sync. */
