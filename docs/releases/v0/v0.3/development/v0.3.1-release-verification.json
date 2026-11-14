@@ -1,0 +1,47 @@
+{
+  "observed_utc": "2026-11-14T03:45:49.716513+00:00",
+  "integration_pr": 11,
+  "integration_merge": "1dc728f311b4e60aa9ea2e528f747c2a105d8d0d",
+  "checks": [
+    "Android build, unit tests, and lint: SUCCESS",
+    "Secret scan: SUCCESS",
+    "CI result: SUCCESS"
+  ],
+  "release_branch": "chore/release-v0.3.1",
+  "release_version": "0.3.1",
+  "version_code": 4,
+  "gate_exit": 0,
+  "jvm": {
+    "tests": 386,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "private_benefits": {
+    "tests": 8,
+    "skipped": 0
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 38
+  },
+  "source_schema_fixture_delta": [],
+  "handbook": {
+    "inputs": 53,
+    "browser_checks": 280,
+    "byte_identical_reviewed_renders": 13
+  },
+  "apk_sha256": "fbd59e9529871bce0d7792684421b37f5c87eb7e07e5c66d6a4971eac6c6faad",
+  "owner_accepted_source": "unchanged from phone-tested and accepted implementation",
+  "release_status": "prepared, not yet published",
+  "notes_origin": "actual v0.3.0..origin/develop diff; prior published0.3.0 section restored exactly",
+  "authority": "native release and release-notes verified from genuine captured Approve message",
+  "remaining": [
+    "Release metadata/main integration",
+    "Tag and GitHub release",
+    "Published source archive verification",
+    "Back-merge",
+    "v0.3 archive and cleanup",
+    "v0.4.0 search implementation and delivery"
+  ]
+}

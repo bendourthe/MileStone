@@ -2,7 +2,7 @@
 
 **Branch:** `develop` is integration; the active candidate is `feat/v0.3.1-benefits-redesign` in its linked worktree.
 
-**Version:** v0.3.0 is published and back-merged; v0.3.1 Benefits redesign remains a local candidate awaiting final delivery.
+**Version:** v0.3.0 is published; v0.3.1 Benefits redesign is integrated through green PR 11 and its release is in preparation.
 
 ## Expanded Completion Goal
 
@@ -28,13 +28,13 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | Metric | Current | Target | Delta |
 |--------|---------|--------|-------|
 | Governance files present | yes | yes | 0 |
-| Unpublished commits ahead of origin/develop | 4 plus owner refinements in progress | publish only after final gates | local only |
+| Release preparation | v0.3.1 version metadata and actual-diff notes | green main integration, tag and release | in progress |
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (386 JVM cases and 41 device cases pass; owner accepted; integration/release gates open) |
-| Required Benefits redesign outcomes verified | Owner accepted baseline images and alerts; refinements verified synthetically | All six on phone | Institution/polish candidate installed with -r; tested/installed APK hashes match; owner accepted all final checks |
+| Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
 | v0.4.0 search plan phases complete | 0 of 4 | 4 of 4 | 4 (planned; owner confirmed, implementation not started) |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
