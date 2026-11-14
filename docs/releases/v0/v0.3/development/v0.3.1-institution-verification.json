@@ -1,0 +1,334 @@
+{
+  "observed_utc": "2026-11-14T01:08:43.902736+00:00",
+  "revision": "99991c7080589f41805d2c83343984aa0c5f856f",
+  "working_tree": "uncommitted owner refinements",
+  "scope": "T028-T030 institution tiles, category outlines, whole-dollar welcome fields and grouped Reward text",
+  "command": "gradlew.bat -q --no-daemon --max-workers=2 testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin createDebugUnitTestCoverageReport connectedDebugAndroidTest",
+  "exit": 0,
+  "android_serial": "emulator-5554",
+  "phone_instrumentation": false,
+  "jvm": {
+    "tests": 386,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "android": {
+    "tests": 41,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "private_benefits": {
+    "tests": 8,
+    "skipped": 0,
+    "failures": 0
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 38
+  },
+  "coverage": {
+    "covered_lines": 4542,
+    "missed_lines": 1128,
+    "percent": 80.11,
+    "numeric_gate": null
+  },
+  "apk": {
+    "path": "app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "2f16d28c9c27f9dac6c4fc1ba970f960494aceec9ef68135d504b63611afb9ea",
+    "installed_on_phone": true,
+    "installed_utc": "2026-11-14T02:45:06.350615+00:00",
+    "installed_sha256": "2f16d28c9c27f9dac6c4fc1ba970f960494aceec9ef68135d504b63611afb9ea",
+    "install_command": "adb -s 66301FDDJ003SU install -r app/build/outputs/apk/debug/app-debug.apk"
+  },
+  "sources": [
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertPanel.kt",
+      "sha256": "205935cd0df14287dce67e75776e0bbbe6ee94c458d7cb77c9a4469499e907ec"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlerts.kt",
+      "sha256": "972e4a56ad6661c3d5906181ea5fecb295b18cc881f58ca076c78644cc768555"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt",
+      "sha256": "d7b6879633aa2b6537e82f0ac3166e77ac5f68bf7081a687b31b9531db7686ba"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInstitutionTile.kt",
+      "sha256": "4f754a73bfa3f5ecc50cba95b6b4de82acfb244ef0c7fa075b37a04af2944836"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+      "sha256": "a6b79967193de68d16310a5b5c8e2bc15273e6b7f41cb9464eff20b6e6f7dba5"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt",
+      "sha256": "fef661d7f46bea5a90fdb6069e5ca103faeb6b77f32ec801ebd956259beff2d3"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+      "sha256": "bca0f1145c2d1d18eb4090f9df016d6b5e1738936245cd7f550ce9d36b31fd47"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardArtwork.kt",
+      "sha256": "e52094daa8feede2af45f623949b1ea734b4452eb4d46ee60582d25b63217901"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt",
+      "sha256": "dba728addf93b8cb8b97ecca381378be9ba80d3f36f775db255ff6d372d97b26"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+      "sha256": "c1e67f63d9275b732c0d2e5cffa1947786169c03c537a1d318a7f64b8a6b0446"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt",
+      "sha256": "d5e41582739a0085a0526171031aec9a3a9e525471f288de98462b47dcb2cb76"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+      "sha256": "c1e6af8b3f2bf57954819ea858f98eadca82e3ede2f2d1ff2911085a3b1fc45e"
+    }
+  ],
+  "reports": [
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.AppContainerTest.xml",
+      "sha256": "b91f7bc519d95b1b4b206a3311d0e8d584f4461f8147fdfb0d5fbe87e9a08491"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.catalog.StaticCatalogRepositoryTest.xml",
+      "sha256": "555a1dc3b690be9a0e749c102119de9da910e647ccc7d2718f5d9f5aaa426190"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.credentials.FileCredentialVaultTest.xml",
+      "sha256": "eb4d63d005fc9b86b735f3dda04f9b3a76ee33658e7d683ba3a852b0b2f00bd2"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.DataStoreBenefitsDisplaySettingsTest.xml",
+      "sha256": "1faae2c03ff6ffa0998bea7207b04ef8f886c8169ace76cdd7aef18cdc4c333f"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.DataStoreSettingsRepositoryTest.xml",
+      "sha256": "4e5f3cd938a2229e24dd947a6e220a789fb130b26286f9feee5369c27063e526"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.db.RoomCardRepositoryTest.xml",
+      "sha256": "430bfab2d754943e84779c0332ed6cc5ad090829707fb29863c57de19546fa1b"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.MigrationTest.xml",
+      "sha256": "379d4ab1f7900971b8c631f41b178e13bb7d570e7dcb9a30d9b336571abb90af"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.RoomAccountRepositoryTest.xml",
+      "sha256": "acdb53a8864d24cbfacdb219d1d35548f5a8e127a147bd1d528f671acb24530a"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.data.session.TinkSessionStoreTest.xml",
+      "sha256": "5e0c196e42d53b6afc2de9ad5f87794280608150e0ba51a119b578a53723d7dd"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.debug.SiteCheckProgramsTest.xml",
+      "sha256": "5dfa40eb8406fe33e51d0b22ce1804acad6e4e61896dd7d71d51973554181749"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.BenefitPeriodsTest.xml",
+      "sha256": "ccb10a9b7dd4cb0b2e075bb77f7aa0ccda3df30f02c34f4f356443ae51953f4d"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.BenefitsTest.xml",
+      "sha256": "8d141b6a501cf0868c75e6bfc26c6c2b931cff54268b433b90a3f4fc644fdcc9"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.ModelsTest.xml",
+      "sha256": "8dbeb296a179091351b08e077839cf62e18c82462a3d98a2207ea67c534e7449"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.RefreshIntervalTest.xml",
+      "sha256": "465d7199736a0a6b550f910a38629f2e24ca60902812b8463cf87fc28a053365"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.usecase.ObserveDashboardTest.xml",
+      "sha256": "acaf3d7d7cb2754495e4ca1c0db4b102c13960fbd40e257aea8e29120ce36e66"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.MainActivitySmokeTest.xml",
+      "sha256": "98b98845d023e324867beddfbd51c356014927b8f94b43ec6e7e7136cb7c67c3"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.background.BenefitRemindersTest.xml",
+      "sha256": "eacd73f1a5812537a199d72a0c8ef8340a3011a976278918af79e298e0f18df3"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.background.KeepAliveTest.xml",
+      "sha256": "ea4332116f8d8bf79d1de9d1ccb191090cd482d35f8d066928bdc88c2e724246"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.BenefitsFixtureTest.xml",
+      "sha256": "61e678b4897d4aca88f1477d0c9e44a1fc0ec24e6e117ee7ed2241fc52443379"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.BalanceParserTest.xml",
+      "sha256": "b312cd8645132dc2cfd4c7d8b1f86aacae6ce6b4305a3966aa365e2582af01f1"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.BenefitsCardReadsTest.xml",
+      "sha256": "6bb862fadfdc5d3e3ac7ba35908cbcb041b9954f43c36ab361e54fbcdfcff0a8"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.BenefitsProtocolTest.xml",
+      "sha256": "f72d68918108ad1584a795c6d22e629c9f3b735109fe3d5055705cb9637e97c8"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.BenefitsReadBudgetTest.xml",
+      "sha256": "e80570fc3c5bec910c5fa7bf7813ae7f6b3490a86a33bfa8e815a710878eadf7"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.BridgeProtocolTest.xml",
+      "sha256": "43c07ce9fc47cda96ebfe0d497a33f1dc87ef3a76a15b52f17c11dffc6d9da38"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.extract.PageStateClassifierTest.xml",
+      "sha256": "389a8c40e6694b343235d2e3f5b34e8ce0b6854d6964a313072e48fd159e580c"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.ExtractorFixtureTest.xml",
+      "sha256": "80a64bed7eafc682e21d4156b2a48ff0ed0831975ebae4dd3b87e2238e43f3bc"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.ForegroundSyncObserverTest.xml",
+      "sha256": "212e0cac20a2b9be6e166c4f4c5e6e06ee18627a1bac2fd410947a7cb825b252"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.mfa.OneTimeCodeInboxTest.xml",
+      "sha256": "865f5a3a9b90f555474d4edaeb17bf2adb329f62f7907dc10b7f18a5d0638dd0"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.SyncManagerBenefitsTest.xml",
+      "sha256": "9b7999f73bef0aa1098a1fe3ca82c8da67b69682f7a0925f8db6a4b668881023"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.SyncManagerTest.xml",
+      "sha256": "8f252c8677e0a9fc74a77a9dc4b5cb1e8b70118b41994da63cb51e77b01d22a7"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.AutoSignInSessionTest.xml",
+      "sha256": "7b46835b551642800b13d7233995c6893b0dadb84c38813ef0c46056f18dae85"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.BridgeSessionTest.xml",
+      "sha256": "ff28e22e53a714cf609251e73c934b008c8929aabc5929a5c6683e7f80654dc5"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSourceTest.xml",
+      "sha256": "85bd1b853e29a5fe719db36ae6c811fac93eef866279a01228d563ce528c9993"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.HostPolicyTest.xml",
+      "sha256": "26bcfa3843cd76129d471d037863959bdcacc144514629b47f69c6d5d946fa37"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.SessionProfilesTest.xml",
+      "sha256": "ad526d29d1aa97e10c954400887c4e222f02e3f1365182fb63d89893697c287f"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.sync.webview.UserAgentTest.xml",
+      "sha256": "d2742bba0bcb28b553ae4d3de853a5a7fcaf54d985e3d6045d95181e9d5d729d"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.auth.AutoSignInDialogTest.xml",
+      "sha256": "163752d57ee72fb2bf2d310d71f89ac2f575556cc650dc1520ed039cce8bfcd3"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.auth.CaptureBuildTest.xml",
+      "sha256": "c120c74149ea34c30c50c14f5b8710e0e362e54b6ad410e889450d7ba6541553"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.auth.SignInViewModelTest.xml",
+      "sha256": "ef3bead9588d2c02fb99c454188b75fd513716d35b9e0511361432696aec875d"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsAlertLifecycleTest.xml",
+      "sha256": "0e3b20854526eb91067a9c43ee65d0a9fa868419a45c890b423cc22e4d8f0381"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsInputFormattingTest.xml",
+      "sha256": "b12e5421b106450a52f179ebe65e1556c6da314ce7c85347f9276b33004a9292"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsPresentationTest.xml",
+      "sha256": "85a74c9633adc84e5addc631cb4c7c625ed816f97cefb3bb676f617c49887dea"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsScreenTest.xml",
+      "sha256": "3b8e3ebf07a4b281d7228e52437a5be5d0013669ec2a1a50cb737bc6eeb0d4b5"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest.xml",
+      "sha256": "777971e4a350004213aa47feabb974a598d675db06490abfcaded2a92b72816a"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.WelcomeBonusInputTest.xml",
+      "sha256": "c485b01e55f8e30b84350f8b0c0f17cf7a603b9c8fb6eabc2d31308a05724ef0"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.catalog.CatalogViewModelTest.xml",
+      "sha256": "16ada68935276e37a70285611faf9e288505ef8fe2af6a7ec85d669f6c548b66"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.dashboard.DashboardScreenshotTest.xml",
+      "sha256": "69a54595f6b6ff9285a17fed28658edfd4c74b4c2383236eeb0bd4ff1744b526"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.dashboard.DashboardScreenTest.xml",
+      "sha256": "d2cd8b9f045c4a765e8971062bca1711e2b53470a002e3cba24ff45210ae90cb"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.dashboard.DashboardViewModelTest.xml",
+      "sha256": "a62c23f11c153513d6b4cb05c37f6a137b219525405bf961529090c5e1e2275f"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.MileStoneAppTest.xml",
+      "sha256": "9adf6db5673941cd6d3d0dce6c27b283308658ba5e486ba77e61f2012c9498ca"
+    },
+    {
+      "path": "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.TypedNameTest.xml",
+      "sha256": "b198331311b211fdb2ab92889c94d8fbd140e95f3d4e4e6039e879d05a6bccbf"
+    },
+    {
+      "path": "app/build/outputs/androidTest-results/connected/debug/TEST-lumifold_fold(AVD) - 16.xml",
+      "sha256": "35f91bf6f4f945bd0593dc5344e16079bb02220188ce80328853eaa9455ba430"
+    },
+    {
+      "path": "app/build/reports/lint-results-debug.xml",
+      "sha256": "a43397afbe10fa959d549accfa7ffc2dc3c5ce80046d04171159335283e87509"
+    },
+    {
+      "path": "app/build/reports/coverage/test/debug/report.xml",
+      "sha256": "1da61a978afadf0252f3236ac405cac8c5fb3e8f7c46ed592e12cb5fc92cf6d9"
+    }
+  ],
+  "reviews": {
+    "interface": "pass, eight fresh native captures at normal and actual OS200%",
+    "adversarial": "no confirmed findings; 13 actual navigation cases independently verified",
+    "convergence": "no implementation gap T028-T029",
+    "handbook": "53 inputs verified, 280 browser checks, 13 renders reviewed"
+  },
+  "limits": [
+    "TalkBack speech and hardware keyboard not exercised",
+    "Not publication, integration, release or overall completion proof"
+  ],
+  "owner_acceptance": {
+    "status": "pass",
+    "observed_utc": "2026-11-14T02:47:49.047292+00:00",
+    "verbatim_reply": "Yes, all checks pass",
+    "scope": [
+      "Institution > cards > card Back hierarchy",
+      "Retained content on all four cards",
+      "Category outlines",
+      "Whole-dollar welcome amounts and grouped Reward text"
+    ]
+  }
+}

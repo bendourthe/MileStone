@@ -158,7 +158,7 @@ class FakeCards : CardRepository {
         val current = this.cards.value
         val updated = cards.cards.mapIndexed { index, draft ->
             val old = current.firstOrNull { it.programId == programId && it.lastDigits == draft.lastDigits }
-            Card(programId, draft.lastDigits, draft.name, index, readEpochMs, old?.benefitsReadEpochMs)
+            Card(programId, draft.lastDigits, draft.name, index, readEpochMs, old?.benefitsReadEpochMs, old?.benefitsReadGeneration ?: 0)
         }
         val listed = updated.map { it.key }.toSet()
         val kept = current.filter { card ->
@@ -174,7 +174,7 @@ class FakeCards : CardRepository {
             val kept = stored[cardKey].orEmpty().filterNot { it.section in sections }
             stored + (cardKey to kept + benefits.filter { it.section in sections })
         }
-        cards.update { list -> list.map { if (it.key == cardKey) it.copy(benefitsReadEpochMs = readEpochMs) else it } }
+        cards.update { list -> list.map { if (it.key == cardKey) it.copy(benefitsReadEpochMs = readEpochMs, benefitsReadGeneration = it.benefitsReadGeneration + 1) else it } }
     }
 
     override suspend fun deleteProgramCards(programId: String) {

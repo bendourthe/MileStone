@@ -42,6 +42,12 @@ The 20-second first-page reserve includes a late Rewards lower section. Reservin
 
 `SyncManager` sends those section sets to `RoomCardRepository`. The repository deletes and replaces only those sections in a transaction under the program lock. A failed card keeps its previous benefits. Cards disappear only when a complete card list no longer contains them.
 
+## Display and Freshness
+
+Issuer sections remain the replacement boundary; display categories do not change stored rows. The card's successful-write generation increments inside the same Room transaction as section replacement. After that write, SyncManager records covered section generations in DataStore, bound to the exact Room generation and read time. If the outcome write is unavailable or cancelled, the UI labels list freshness unknown; equal timestamps cannot reuse an earlier generation. Tracker-only success preserves both old listed rows and their older source generation.
+
+The presentation transform retains the original enrollment source when it merges a listed row into a tracker. Alert identity and acknowledgement use that source row and successful section generation, so a changed tracker period cannot revive acknowledged enrollment from an unchanged list. Separate local keys retain sort, collapse, welcome setup, and acknowledgement changes under concurrent writes. The version 3 to 4 migration adds the counter without deleting existing data.
+
 ## Diagnostics
 
 Benefits diagnostics hold fixed page kinds, bounded counts, readiness reasons, wait times, card indexes, and the run total. They do not hold benefit text, amounts, card digits, account keys, page queries, or sign-in values. Card outcomes distinguish read, unread-list, and mismatch results; a read outcome alone does not prove that every benefit was loaded.
@@ -56,4 +62,4 @@ Instrumented tests run on the emulator only. Running them on the owner's phone u
 
 ## Limits
 
-The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation, automatic retry policy, benefit sorting and grouping, and alert presentation belong to separate work. The architecture decision is [ADR-0008](../decisions/0008-amex-benefits-card-navigation.md).
+The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation and automatic retry policy remain separate work. The Benefits display supports card-specific sorting, grouping and collapse, conservative duplicate presentation, local welcome-bonus setup, and yellow acknowledgeable alerts; these do not extend the extraction deadline. The architecture decision is [ADR-0008](../decisions/0008-amex-benefits-card-navigation.md).

@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-11-14T03:13:43.252969+00:00",
+  "local_checkpoint": "f60dbda1825c42cbad335b61ee68f4825e9022eb",
+  "merged_incoming": "d43d344fe19782c738f5fde15cc2bcb03ce90515",
+  "merge_not_yet_committed": true,
+  "application_delta": [
+    "app/build.gradle.kts: versionName0.2.0/code2 ->0.3.0/code3"
+  ],
+  "source_schema_fixture_delta": [],
+  "affected_gate": {
+    "command": "gradlew.bat -q --no-daemon --max-workers=2 testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin",
+    "exit": 0,
+    "jvm": {
+      "tests": 386,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "lint": {
+      "Error": 0,
+      "Warning": 38
+    }
+  },
+  "apk": {
+    "sha256": "5616966371e96e6d5eba5172b8e4a3485c5272463eeb2c85172d3d27ad4f3425",
+    "version_name": "0.3.0",
+    "version_code": 3,
+    "installed_on_phone": false
+  },
+  "retained_evidence": {
+    "native_device_tests": 41,
+    "owner_acceptance": "Yes, all checks pass",
+    "justification": "Exact source/schema/fixture equality and matching owner-tested UI source fingerprints; only version metadata differs. No code correction or runtime contract changed."
+  },
+  "handbook": {
+    "inputs": 53,
+    "browser_checks": 280,
+    "identical_reviewed_pngs": 13,
+    "independent_recheck": "pass"
+  },
+  "preservation": {
+    "actual_authority": "genuine user approval",
+    "accepted_paths": [
+      "CLAUDE.md",
+      "app/build.gradle.kts"
+    ],
+    "changes": "Only published v0.3.0 version metadata; all other contents preserved"
+  },
+  "open": [
+    "Exact v0.3.1 remote/release approval",
+    "Required green merged integration",
+    "Release, archive and remaining authorized cleanup",
+    "Integrated v0.3.1 dependency before search implementation"
+  ]
+}

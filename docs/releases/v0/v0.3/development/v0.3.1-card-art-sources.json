@@ -1,0 +1,26 @@
+{
+  "amex_platinum": {
+    "source": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/platinum-card.png",
+    "sha256": "20505058b179b3f8f1535af5fa02c913303307865c845cb2f6c37973ae3c4e57",
+    "bytes": 320229,
+    "resource": "app/src/main/res/drawable/benefits_amex_platinum.png"
+  },
+  "amex_business_platinum": {
+    "source": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/open/category/cardarts/business-platinum.png",
+    "sha256": "8c3aa2e5d7b962554ef9724e739ee0aeb520a38454078bbe44514bee0f40d974",
+    "bytes": 338148,
+    "resource": "app/src/main/res/drawable/benefits_amex_business_platinum.png"
+  },
+  "amex_hilton_surpass": {
+    "source": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/hilton-honors-surpass.png",
+    "sha256": "0ba7d706e714d9cdca83ed47fc3677b1dd8606fd9dc30510901944a352d74ddf",
+    "bytes": 64654,
+    "resource": "app/src/main/res/drawable/benefits_amex_hilton_surpass.png"
+  },
+  "amex_delta_gold": {
+    "source": "https://icm.aexp-static.com/Internet/Acquisition/US_en/AppContent/OneSite/category/cardarts/gold-delta-skymiles.png",
+    "sha256": "61c498d62799368d1975bbd8fed62548e45dcfa8f6253b6aa6726ece5b755eb7",
+    "bytes": 251163,
+    "resource": "app/src/main/res/drawable/benefits_amex_delta_gold.png"
+  }
+}

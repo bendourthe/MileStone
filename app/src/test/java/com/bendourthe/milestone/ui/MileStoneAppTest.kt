@@ -226,4 +226,81 @@ class MileStoneAppTest {
         rule.waitUntil(2_000) { accounts.reorderCalls.isNotEmpty() }
         assertEquals(listOf("chase", "amex"), accounts.reorderCalls.last())
     }
+
+    @Test
+    fun rewardsBenefitsEntryKeepsCardInstitutionAndRewardsBackNavigation() {
+        launchBenefitsFixture()
+        rule.onNodeWithText("American Express").performClick()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
+        rule.onNode(hasContentDescription("card ending 1234", substring = true)).performClick()
+        rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+        pressBack()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        pressBack()
+        rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
+        pressBack()
+        rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+    }
+
+    private fun launchBenefitsFixture(): FakeCards {
+        val realCatalog = com.bendourthe.milestone.data.catalog.StaticCatalogRepository()
+        val cards = FakeCards()
+        runBlocking {
+            accounts.addAccount("amex", AccountStatus.CONNECTED, 1)
+            cards.applyCardList("amex", com.bendourthe.milestone.domain.CardList.from(
+                listOf(com.bendourthe.milestone.domain.CardDraft("Platinum Card", "1234")), true), 1)
+        }
+        val sync = MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap())
+        val dashboard = DashboardViewModel(realCatalog, ObserveDashboard(accounts, realCatalog), settings, accounts, sync)
+        val benefits = BenefitsViewModel(cards, realCatalog, accounts)
+        val catalogModel = CatalogViewModel(realCatalog, accounts, debounceMs = 0)
+        val settingsModel = SettingsViewModel(settings)
+        rule.setContent {
+            nav = rememberNavController()
+            MileStoneTheme { MileStoneApp(dashboard, catalogModel,
+                settingsModel, realCatalog, "0.3.1", nav, benefitsViewModel = benefits) }
+        }
+        return cards
+    }
+
+    @Test
+    fun reminderEntryKeepsInstitutionAndCardBackHierarchy() {
+        val originalIntent = android.content.Intent(rule.activity.intent)
+        try {
+            rule.activityRule.scenario.onActivity { activity ->
+                activity.intent = android.content.Intent(com.bendourthe.milestone.sync.background.AndroidReminderNotifier.ACTION_OPEN_CARD)
+                    .putExtra(com.bendourthe.milestone.sync.background.AndroidReminderNotifier.EXTRA_PROGRAM_ID, "amex")
+                    .putExtra(com.bendourthe.milestone.sync.background.AndroidReminderNotifier.EXTRA_LAST_DIGITS, "1234")
+            }
+            launchBenefitsFixture()
+            rule.waitUntil(5_000) { rule.onAllNodes(hasTestTag("cardBenefitsList")).fetchSemanticsNodes().isNotEmpty() }
+            rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+            pressBack()
+            rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+            pressBack()
+            rule.onNodeWithTag("benefitsProgram_amex").assertIsDisplayed()
+            assertEquals("Benefits", stack().last())
+        } finally {
+            // Keep the original launch intent for ActivityScenario teardown.
+            rule.activityRule.scenario.onActivity { it.intent = originalIntent }
+        }
+    }
+
+    @Test
+    fun unknownOrRemovedInstitutionKeepsASafeBackPath() {
+        launchBenefitsFixture()
+        barItem("Benefits").performClick()
+        rule.runOnIdle { nav.navigate(ProgramBenefits("missing-program")) }
+        rule.onNodeWithText("No card benefits yet").assertIsDisplayed()
+        pressBack()
+        rule.onNodeWithTag("benefitsProgram_amex").performClick()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        runBlocking { accounts.removeAccount("amex") }
+        rule.onNodeWithText("No card benefits yet").assertIsDisplayed()
+        pressBack()
+        assertEquals("Benefits", stack().last())
+        rule.onNodeWithText("No card benefits yet").assertIsDisplayed()
+    }
+
 }

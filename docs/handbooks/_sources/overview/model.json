@@ -2,8 +2,16 @@
   "title": "MileStone Engineering Handbook",
   "subtitle": "The Android app, its refresh flow, and the Amex benefits reader",
   "sources": [
-    {"path": "docs/handbooks/overview.md", "id": "overview", "technical": false},
-    {"path": "docs/handbooks/benefits-reader.md", "id": "benefits", "technical": true}
+    {
+      "path": "docs/handbooks/overview.md",
+      "id": "overview",
+      "technical": false
+    },
+    {
+      "path": "docs/handbooks/benefits-reader.md",
+      "id": "benefits",
+      "technical": true
+    }
   ],
   "presentation": {
     "enabled": true,
@@ -12,7 +20,9 @@
     "initial_slide": 0,
     "slide_ceiling": 8,
     "compact_breakpoint_px": 760,
-    "native_scroll_regions": ["deep-dive source detail"],
+    "native_scroll_regions": [
+      "deep-dive source detail"
+    ],
     "balanced_omissions": "Detailed package tables, exact command listings, and edge-case explanations remain in the complete reading view and Deep dive source panels."
   },
   "slides": [
@@ -21,64 +31,122 @@
       "title": "MileStone",
       "theme": "dark",
       "lede": "One Android app for rewards balances and Amex card benefits.",
-      "points": ["Reads each program's own website in a WebView.", "Stores sign-ins and rewards data on the phone.", "Uses one app module with domain, data, sync, and UI packages."],
-      "units": ["overview-repository-overview", "overview-module-layout"]
+      "points": [
+        "Reads each program's own website in a WebView.",
+        "Stores sign-ins and rewards data on the phone.",
+        "Uses one app module with domain, data, sync, and UI packages."
+      ],
+      "units": [
+        "overview-repository-overview",
+        "overview-module-layout"
+      ]
     },
     {
       "id": "refresh",
       "title": "Program Refresh",
       "theme": "light",
       "lede": "A refresh reuses the program's own profile and saved session.",
-      "points": ["Scheduled and attended refreshes may use a saved sign-in.", "The 15-minute keep-alive does not type passwords.", "A visible refusal pauses automatic sign-in; an unfinished form remains a distinct stop."],
-      "units": ["overview-toolchain", "overview-runtime-flow"]
+      "points": [
+        "Scheduled and attended refreshes may use a saved sign-in.",
+        "The 15-minute keep-alive does not type passwords.",
+        "A visible refusal pauses automatic sign-in; an unfinished form remains a distinct stop."
+      ],
+      "units": [
+        "overview-toolchain",
+        "overview-runtime-flow"
+      ]
     },
     {
       "id": "pages",
       "title": "Benefits Pages",
       "theme": "dark",
       "lede": "Rewards leads to the card's activity page or its view-all list.",
-      "points": ["Scroll and settle checks wait for the page's own content.", "An available activity link wins over a partial Rewards post at the readiness cap.", "A late lower section can wait within the supplied 20-second page maximum."],
-      "units": ["benefits-amex-benefits-reader", "benefits-page-kinds", "benefits-readiness"]
+      "points": [
+        "Scroll and settle checks wait for the page's own content.",
+        "An available activity link wins over a partial Rewards post at the readiness cap.",
+        "A late lower section can wait within the supplied 20-second page maximum."
+      ],
+      "units": [
+        "benefits-amex-benefits-reader",
+        "benefits-page-kinds",
+        "benefits-readiness"
+      ]
     },
     {
       "id": "switch",
       "title": "Card Switching",
       "theme": "light",
       "lede": "The selected card and its tracker content must both change correctly.",
-      "points": ["Press the existing card-switcher option.", "Carry a document-local note across an in-place address change.", "Reject old trackers instead of assigning them to the next card."],
-      "units": ["benefits-card-switching"]
+      "points": [
+        "Press the existing card-switcher option.",
+        "Carry a document-local note across an in-place address change.",
+        "Reject old trackers instead of assigning them to the next card."
+      ],
+      "units": [
+        "benefits-card-switching"
+      ]
     },
     {
       "id": "budget",
       "title": "Read Deadline",
       "theme": "dark",
       "lede": "The complete benefits read shares one 120-second deadline.",
-      "points": ["A page gets at most 20 seconds within the remaining budget.", "Reserve the full first-page maximum before allowing a second page.", "Cut second pages before leaving later cards unread; once cut, later second pages stay cut."],
-      "units": ["benefits-run-budget"]
+      "points": [
+        "A page gets at most 20 seconds within the remaining budget.",
+        "Reserve the full first-page maximum before allowing a second page.",
+        "Cut second pages before leaving later cards unread; once cut, later second pages stay cut."
+      ],
+      "units": [
+        "benefits-run-budget"
+      ]
     },
     {
       "id": "storage",
-      "title": "Section Storage",
+      "title": "Benefits Display",
       "theme": "light",
-      "lede": "Replace only the benefit sections that the read actually covered.",
-      "points": ["Rewards supplies trackers; view-all supplies the full list.", "A failed list read keeps the prior list and the newly read trackers.", "Room applies section replacement transactionally under the program lock."],
-      "units": ["benefits-storing-a-read"]
+      "lede": "Local display settings complement section-scoped storage that preserves unread data.",
+      "points": [
+        "Institution tiles open their own card lists with a clear Back hierarchy.",
+        "Four outlined categories have saved sorting, a Completed last filter, and Show/Hide controls.",
+        "Matching offline artwork and conservative duplicate display retain issuer rows and enrollment details.",
+        "Yellow alerts can be acknowledged; only a successful relevant refresh can reintroduce source alerts."
+      ],
+      "units": [
+        "benefits-storing-a-read",
+        "overview-benefits-display",
+        "benefits-display-and-freshness"
+      ]
     },
     {
       "id": "privacy",
       "title": "Privacy",
       "theme": "light",
       "lede": "Only named fields are read, and diagnostics remain count-only.",
-      "points": ["Exact host and path checks, a nonce, and message-field checks guard the bridge.", "Account keys, full card numbers, cookies, and sign-in data stay out of diagnostics.", "Private captures stay local; notifications use private lock-screen text."],
-      "units": ["overview-privacy-rules", "benefits-diagnostics"]
+      "points": [
+        "Exact host and path checks, a nonce, and message-field checks guard the bridge.",
+        "Account keys, full card numbers, cookies, and sign-in data stay out of diagnostics.",
+        "Private captures stay local; notifications use private lock-screen text."
+      ],
+      "units": [
+        "overview-privacy-rules",
+        "benefits-diagnostics"
+      ]
     },
     {
       "id": "verification",
       "title": "Verification",
       "theme": "dark",
       "lede": "Unit, WebView, and live checks prove different parts of the flow.",
-      "points": ["JVM tests cover protocol, budget, state, and section replacement.", "Emulator fixtures drive the real script and bridge.", "Phone checks record fresh per-card counts and read times without account text."],
-      "units": ["overview-tests", "benefits-verification", "benefits-limits"]
+      "points": [
+        "JVM tests cover protocol, budget, state, and section replacement.",
+        "Emulator fixtures drive the real script and bridge.",
+        "Phone checks record fresh per-card counts and read times without account text."
+      ],
+      "units": [
+        "overview-tests",
+        "benefits-verification",
+        "benefits-limits"
+      ]
     }
   ]
 }

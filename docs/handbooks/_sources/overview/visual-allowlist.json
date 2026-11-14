@@ -1,0 +1,54 @@
+{
+  "allow": [
+    {
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "viewport": [
+        420,
+        900,
+        1440
+      ],
+      "reason": "The keyboard skip link intentionally stays offscreen until focused. The browser keyboard exercise verifies focus reveals the link and moves to handbook content; it is not reading content overflow."
+    },
+    {
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "viewport": [
+        420,
+        900,
+        1440
+      ],
+      "reason": "Intentional maximum reading measure from the existing handbook design. This is a max-width rather than a fixed width; content narrows with its parent. The 320/420/900/1440 browser matrix, 200% text and print checks verify readable reflow without page overflow."
+    },
+    {
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "viewport": [
+        420,
+        900,
+        1440
+      ],
+      "reason": "Intentional maximum reading measure from the existing handbook design. This is a max-width rather than a fixed width; content narrows with its parent. The 320/420/900/1440 browser matrix, 200% text and print checks verify readable reflow without page overflow."
+    },
+    {
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "viewport": [
+        420,
+        900,
+        1440
+      ],
+      "reason": "Intentional maximum reading measure from the existing handbook design. This is a max-width rather than a fixed width; content narrows with its parent. The 320/420/900/1440 browser matrix, 200% text and print checks verify readable reflow without page overflow."
+    },
+    {
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "viewport": [
+        420,
+        900,
+        1440
+      ],
+      "reason": "Intentional maximum reading measure from the existing handbook design. This is a max-width rather than a fixed width; content narrows with its parent. The 320/420/900/1440 browser matrix, 200% text and print checks verify readable reflow without page overflow."
+    }
+  ]
+}

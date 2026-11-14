@@ -1,0 +1,109 @@
+{
+  "observed_utc": "2026-11-14T01:13:27.767897+00:00",
+  "primary_head": "d43d344fe19782c738f5fde15cc2bcb03ce90515",
+  "primary_clean": true,
+  "primary_sync": "fast-forward from 532ce1f with identical Git tree; no file contents changed",
+  "cleanup_executor": "cleanup_merged.py --apply --receipt",
+  "exit": 0,
+  "removed": [
+    {
+      "kind": "branch",
+      "name": "chore/close-v0.2"
+    },
+    {
+      "kind": "remote",
+      "name": "chore/close-v0.2"
+    }
+  ],
+  "kept": [
+    {
+      "kind": "worktree",
+      "name": "chore/close-v0.1",
+      "check": "local-ahead"
+    },
+    {
+      "kind": "worktree",
+      "name": "feat/v0.3.1-benefits-redesign",
+      "check": "no-merged-pr"
+    },
+    {
+      "kind": "worktree",
+      "name": "main",
+      "check": "protected"
+    },
+    {
+      "kind": "branch",
+      "name": "backup/v0.1-full-develop",
+      "check": "no-merged-pr"
+    },
+    {
+      "kind": "branch",
+      "name": "backup/v0.1-full-feature",
+      "check": "no-merged-pr"
+    },
+    {
+      "kind": "branch",
+      "name": "chore/close-v0.1",
+      "check": "local-ahead"
+    },
+    {
+      "kind": "branch",
+      "name": "chore/release-v0.3.0",
+      "check": "recently-active"
+    },
+    {
+      "kind": "branch",
+      "name": "develop",
+      "check": "protected"
+    },
+    {
+      "kind": "branch",
+      "name": "feat/v0.3.0-amex-benefits-extraction-fix",
+      "check": "recently-active"
+    },
+    {
+      "kind": "branch",
+      "name": "feat/v0.3.1-benefits-redesign",
+      "check": "no-merged-pr"
+    },
+    {
+      "kind": "branch",
+      "name": "main",
+      "check": "protected"
+    },
+    {
+      "kind": "remote",
+      "name": "chore/release-v0.3.0",
+      "check": "recently-active"
+    },
+    {
+      "kind": "remote",
+      "name": "develop",
+      "check": "protected"
+    },
+    {
+      "kind": "remote",
+      "name": "feat/v0.2.0-benefits-tab-amex",
+      "check": "owned-by-run"
+    },
+    {
+      "kind": "remote",
+      "name": "feat/v0.3.0-amex-benefits-extraction-fix",
+      "check": "recently-active"
+    },
+    {
+      "kind": "remote",
+      "name": "main",
+      "check": "protected"
+    }
+  ],
+  "native_receipt_sha256": "64e28e282df11d43a7c9591019b8c4f76bc4c9576098cdd4fa8be312d2615a8b",
+  "original_completion_first_line": "INCOMPLETE: cleanup.branches",
+  "cleanup_merged_predicate": "met",
+  "limits": [
+    "No KEEP decision was overridden",
+    "Original extraction branches remain protected by recently-active checks",
+    "Active redesign and other-run work remain preserved",
+    "Overall expanded goal is incomplete"
+  ]
+}
