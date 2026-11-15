@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    "docs/handbooks/_sources/overview/project.css"
+  ],
+  "unchanged_nonstyle_html": true,
+  "review_scope": "Reading-only label/select min/max sizing and reading presentation button block text flow; shared presentation controls and all retained prose/model/runtime unchanged. Actual browser review remains separate.",
+  "before_output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548",
+  "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
+}

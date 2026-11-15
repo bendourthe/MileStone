@@ -20,6 +20,8 @@ a { color: #155e67; text-underline-offset: .18em; overflow-wrap: anywhere; }
 .wordmark-note { font-size: .85rem; font-weight: 500; letter-spacing: .08em; padding-left: .6rem; border-left: 1px solid #7bafac; }
 .reading-controls { gap: .7rem; flex-wrap: wrap; align-items: end; }
 .reading-controls label, .control-label { display: grid; gap: .2rem; font-size: .8125rem; line-height: 1.2; }
+.reading-controls label, .reading-controls select, [data-dv-page] [data-dv-open] { min-width: 0; max-width: 100%; }
+[data-dv-ready] [data-dv-page] [data-dv-open] { display: block; overflow-wrap: anywhere; }
 .reading-controls select { color: #e3f4f2; background: #07292f; border: 1px solid #7bafac; border-radius: .4rem; padding: .25rem .5rem; }
 .reading-controls button, .hero button { color: #041d22; background: #2ee6a8; border-color: #2ee6a8; font-weight: 650; }
 .hero { max-width: 1180px; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem) 2.5rem; border-bottom: 1px solid var(--page-line); }

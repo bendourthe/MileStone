@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "prints": [
+    {
+      "file": "print-js.pdf",
+      "pages": 16,
+      "raster_identical_to_accepted": true
+    },
+    {
+      "file": "print-no-js.pdf",
+      "pages": 16,
+      "raster_identical_to_accepted": true
+    }
+  ]
+}

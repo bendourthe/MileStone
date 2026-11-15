@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "reviewer": "Handbook refresh agent; independent coordinator review pending",
+  "snapshot_metadata": {
+    "entry_sha256": "0596f547289a5dfa92d6524392d49e5ed99fb615ee6382f0a235a3530ea72aee",
+    "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
+  },
+  "reviewed_changes": [
+    "Only project.css changed among65inputs.",
+    "Reading-only label/select and presentation-entry sizing; retained semantic text, slide model and runtime unchanged.",
+    "Fresh Windows Chromium full run2607checks,384measurements,zero findings.",
+    "Changed320px200percent reading screenshot visually reviewed; controls fit viewport.",
+    "Both print PDFs have16nonempty pages and retain prior extracted text."
+  ],
+  "comparison_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/comparison.json",
+  "source_change_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/source-change.json",
+  "findings": []
+}

@@ -9,7 +9,7 @@
       "docs/handbooks/handbooks.json": "01ca395eb00f826de0abd87b7153873df73acc5f2c913c264af8d1785c0e56a0",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
-      "docs/handbooks/_sources/overview/project.css": "ae490ec5a17234682ec4bfc7f897520c2768df36f573e164c5a53decbd945481",
+      "docs/handbooks/_sources/overview/project.css": "893f5d093ef2dd44221574b03ecdf45b50d0471e0b33491e56e58da4d824d84c",
       "docs/handbooks/_sources/overview/project-runtime.js": "4738494c7d2a78060640a64da55e1349e421dc1909530f33b9d61c41e6defe9b",
       "docs/handbooks/_sources/overview/dual-view.css": "e60e94cd26d4ba622ede429d9c7862a82dea491ac1b174bd86023ac5e5245c35",
       "docs/handbooks/_sources/overview/dual-view-runtime.js": "336a276024b786f95287178e1ce455328aee1c253ed3dc05709e49c58cde1ce6",
@@ -68,30 +68,30 @@
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548"
+    "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/independent-content-review.json",
-      "evidence_sha256": "b64ad346f06c8986a095b25aef3c6a4f9fed5e64ba7d145925af1706229900d7"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/independent-content-review.json",
+      "evidence_sha256": "e9258d49e327be2438c870c9eac668ad19dc46275d8b8097b35be7e7c6d739d5"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/build.json",
-      "evidence_sha256": "02e84394abd82798db64b0ab1d60be52779c1cd8da6be60e2e350daced50022c"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/build.json",
+      "evidence_sha256": "6466da0075132d0aea9b1b95022974817c977b4262a45e171b484d166fb1be7b"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/run-1/render.json",
-      "evidence_sha256": "c38e4ec4ea36d0ed7479ebbcaff41b0aab69ff13cd363ee85ed102cab0608dea",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/run-1/render.json",
+      "evidence_sha256": "4bd2b6e6b864ab167f25967aabe2abc25e37f4320a0bce5bc6c1cd217355a641",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548"
+      "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
     }
   },
   "limitations": [
     "Original auxiliary structural-scorer nonpass and native-measurement unverified results remain unchanged; this receipt does not relabel them or assert that those tools passed. Current project-native inventory, source-value, control, geometry, type and applicability proof is retained in contract-completion/run-3/render.json.",
     "Fullscreen proof observes actual Chromium document API entry/exit/denial, not physical OS window/chrome, kiosk behavior or other browser engines."
   ],
-  "qualification_scope": "Independent adoption of workflow-context-only input correction: unchanged visible HTML,225identical canonical PNGs, fresh2607-check render and two actual16-page PDFs. No hosted success inferred."
+  "qualification_scope": "Reading-control font/zoom sizing correction; independent Linux and Windows2607-check passes,224unchanged canonical PNGs, reviewed320px enlarged state and two16-page prints. No hosted green inferred."
 }
