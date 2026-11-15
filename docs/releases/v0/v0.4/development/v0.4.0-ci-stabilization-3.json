@@ -34,5 +34,12 @@
   "runtime_reuse": "Unchanged accepted APK and its retained 74-case runtime proof; current hosted emulator execution remains required.",
   "correction_push_number": 3,
   "authorized_maximum": 3,
-  "hosted_correction_result": "Pending"
+  "hosted_correction_result": "Run 43740729706 passed the full repository profile but failed the GUI emulator version diagnostic before emulator launch; CI result remains red.",
+  "hosted_final_security": {
+    "findings": 0,
+    "raw_input_sha256": "43a5b3d1b2012b4403c8024e78e537d871355c70b28c92817d1e9453aba1f56c",
+    "processed_input_sha256": "60078442ceca300263a3c8f2edab2039a81d24d5714a3e768e6ebfb5691097e5",
+    "matches_final_local_linux_reconstruction": true,
+    "exact_public_metadata_exemptions": 90
+  }
 }

@@ -64,34 +64,34 @@
       "scripts/validate.py": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
-      ".github/workflows/ci.yml": "2d40fe847b8aa02f1c9fdfe8f319ddb07303c55828d21fee22d7eb13eef6abf6",
+      ".github/workflows/ci.yml": "1b285ed9bf8117cc593f558a8ac1f0c07d8fd938109f6b50c57283675e8e5e79",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2"
+    "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/independent-content-review.json",
-      "evidence_sha256": "f90a837d9133294d98f4774e5001b0679d178447b226cbbd5b465abedfedeaca"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/independent-content-review.json",
+      "evidence_sha256": "2d50215d91f225c872ba359bf9c45d4ff1322945d2794b58d07e471d9b681ba7"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/build.json",
-      "evidence_sha256": "3a49c37cfde82eb0981f401738b6d5e70f72d972431b5ea6a73707187bc05e07"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/build.json",
+      "evidence_sha256": "bf78157abe0fd881bce95d731b766d375948cd67fbefee3c804dbe19e6a257bf"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/run-1/render.json",
-      "evidence_sha256": "fc94722a421d92dfed1d2b7cd99d9992d98c5fcd8d009e50597b2a9e3ab9f8c1",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/run-1/render.json",
+      "evidence_sha256": "e8b58865176ce4733527a8ae54297557027065793b725bbdbc39ef4c4135ef6f",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2"
+      "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea"
     }
   },
   "limitations": [
     "Original auxiliary structural-scorer nonpass and native-measurement unverified results remain unchanged; this receipt does not relabel them or assert that those tools passed. Current project-native inventory, source-value, control, geometry, type and applicability proof is retained in contract-completion/run-3/render.json.",
     "Fullscreen proof observes actual Chromium document API entry/exit/denial, not physical OS window/chrome, kiosk behavior or other browser engines."
   ],
-  "qualification_scope": "Proposed fresh Windows handbook metadata qualification for verified public digest stream handling; independent coordinator adoption pending. No intermediate secret-match receipt reused. No hosted CI,new scanner execution or app runtime success inferred."
+  "qualification_scope": "Proposed fresh local Windows handbook metadata qualification for headless emulator version diagnostic; independent coordinator adoption pending. No hosted CI or new app runtime success inferred."
 }

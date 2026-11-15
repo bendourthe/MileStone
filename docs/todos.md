@@ -337,8 +337,11 @@ The owner requires the same merchant offer to be added to every independently el
 
 The owner's genuine Approve message is recorded for v0.4.0 publication, green-only merge, release, archive, eligible cleanup and at most three locally reproduced correction pushes. PR 16 is open. Its first three runs failed workflow validation, large-text handbook layout and a fragmented public-digest scanner match respectively; each failure is retained with local reproduction. The third and final correction preserves the scanner's exact full-digest policy, applies that verified public metadata exception before stdin fragmentation, passes 29 validator tests and the reconstructed Linux scan with five detected negative controls. Final candidate handbook/local verification and hosted CI remain required before the last correction push and merge. Current runtime proof remains the unchanged accepted APK with 74 emulator cases and p95 101.4965 ms.
 
-- [ ] Complete current source-bound handbook and final committed local qualification, then use the remaining authorized correction push.
+- [x] Complete source-bound handbook and committed local qualification, then use correction push 3.
+- [ ] Qualify the local headless emulator diagnostic correction and obtain approval for one additional correction push; the recorded three-push limit is exhausted.
 - [ ] Merge PR 16 only after required CI result and all required checks pass, then deliver the authorized v0.4.0 release and minor close.
 - [ ] Resolve the three native duplicate phase-exit predicates through supported mechanisms; preserve the frozen plan and signed record.
 
 Earlier phone and publication-pending entries are historical checkpoints superseded by the recorded acceptance and approval above. Original release/cleanup reconciliation and the v0.5.0/v0.6.0 scope remain unfinished; no completion is inferred from local Search proof.
+
+Run 43740729706 passes the hosted full repository profile, including the corrected security scan whose input hashes match the local Linux reconstruction. CI remains red because the GUI version diagnostic fails on missing libpulse.so.0 before emulator launch. A controlled Linux probe reproduces exit 127 without that library and proves headless version detection succeeds. The local one-flag correction preserves all boot/runtime gates and is independently reviewed. The final source-bound local qualification and one additional push decision remain open; no merge or v0.4.0 release has occurred.

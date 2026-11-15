@@ -55,7 +55,7 @@ jobs:
           test -c /dev/kvm
           sudo setfacl -m "u:$(id -un):rw" /dev/kvm
           "$ANDROID_HOME/emulator/emulator" -accel-check > reports/metadata/emulator-acceleration.txt 2>&1
-          "$ANDROID_HOME/emulator/emulator" -version > reports/metadata/emulator-version.txt 2>&1
+          "$ANDROID_HOME/emulator/emulator" -no-window -version > reports/metadata/emulator-version.txt 2>&1
           "$ANDROID_HOME/emulator/emulator" -avd milestone-ci -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader > reports/emulator.log 2>&1 &
           emulator_pid=$!
           timeout 180 adb -s emulator-5554 wait-for-device
