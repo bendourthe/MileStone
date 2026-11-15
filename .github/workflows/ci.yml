@@ -16,8 +16,6 @@ jobs:
     if: ${{ github.base_ref == 'develop' || github.base_ref == 'main' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 75
-    env:
-      ANDROID_AVD_HOME: ${{ runner.temp }}/milestone-ci-avd
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -47,7 +45,10 @@ jobs:
 
       - name: Prepare the isolated Android emulator
         timeout-minutes: 15
+        env:
+          ANDROID_AVD_HOME: ${{ runner.temp }}/milestone-ci-avd
         run: |
+          echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
           mkdir -p reports/metadata "$ANDROID_AVD_HOME"
           sdkmanager --install emulator "system-images;android-36;google_apis;x86_64" > reports/emulator-sdk.log 2>&1
           printf 'no\n' | avdmanager create avd -n milestone-ci -k "system-images;android-36;google_apis;x86_64" --device pixel_5 > reports/emulator-avd.log 2>&1
@@ -58,7 +59,7 @@ jobs:
           "$ANDROID_HOME/emulator/emulator" -avd milestone-ci -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader > reports/emulator.log 2>&1 &
           emulator_pid=$!
           timeout 180 adb -s emulator-5554 wait-for-device
-          for attempt in $(seq 1 90); do
+          for _ in $(seq 1 90); do
             kill -0 "$emulator_pid"
             booted=$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')
             if [ "$booted" = "1" ]; then break; fi

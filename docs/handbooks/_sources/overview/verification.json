@@ -64,34 +64,34 @@
       "scripts/validate.py": "9f7459ad3129c8dded53d962462a2f3797895db3f70f9d2aec312cd6da6e78e7",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "9fd2f657e34f4bb048ae88e74cbcc6ef9d0b6dcd8de53a9a86242b0e0494e390",
-      ".github/workflows/ci.yml": "cdadf364d741472ad705757ac7d7a558dfe36b9cc07292cffc6a1cf4dbde7bbe",
+      ".github/workflows/ci.yml": "2d40fe847b8aa02f1c9fdfe8f319ddb07303c55828d21fee22d7eb13eef6abf6",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96"
+    "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-credit-tiles/independent-content-review.json",
-      "evidence_sha256": "8983dcdfb5ec465a46b8662edf9d9b5bed69fea70000c4c5a10bc0bf8ff034ce"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/independent-content-review.json",
+      "evidence_sha256": "b64ad346f06c8986a095b25aef3c6a4f9fed5e64ba7d145925af1706229900d7"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-credit-tiles/build.json",
-      "evidence_sha256": "c95bb5bb8582c7a3c70b5c01cd1f3356f2f0a8be1a7700d4e51375f639692eba"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/build.json",
+      "evidence_sha256": "02e84394abd82798db64b0ab1d60be52779c1cd8da6be60e2e350daced50022c"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-credit-tiles/run-2/render.json",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-context/run-1/render.json",
+      "evidence_sha256": "c38e4ec4ea36d0ed7479ebbcaff41b0aab69ff13cd363ee85ed102cab0608dea",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96",
-      "evidence_sha256": "c0b775b5ff0fc0b36737dc2d383e2552a0826ce71fb97e8a99fb52c970a5069c"
+      "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548"
     }
   },
   "limitations": [
     "Original auxiliary structural-scorer nonpass and native-measurement unverified results remain unchanged; this receipt does not relabel them or assert that those tools passed. Current project-native inventory, source-value, control, geometry, type and applicability proof is retained in contract-completion/run-3/render.json.",
     "Fullscreen proof observes actual Chromium document API entry/exit/denial, not physical OS window/chrome, kiosk behavior or other browser engines."
   ],
-  "qualification_scope": "Current65-input completed-credit/enrollment handbook; independent source/prose/render/print and225unchangedPNG checks. No app, phone or hosted success inferred."
+  "qualification_scope": "Independent adoption of workflow-context-only input correction: unchanged visible HTML,225identical canonical PNGs, fresh2607-check render and two actual16-page PDFs. No hosted success inferred."
 }

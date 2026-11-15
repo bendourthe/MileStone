@@ -1,0 +1,40 @@
+{
+  "status": "pass",
+  "reviewer": "Independent coordinator source/build/render comparison",
+  "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548",
+  "changed_inputs": [
+    ".github/workflows/ci.yml"
+  ],
+  "changed_html_lines": [
+    7,
+    455
+  ],
+  "all_nonmetadata_html_identical": true,
+  "canonical_pngs": 225,
+  "byte_mismatches": 0,
+  "old_supplemental_pngs": [
+    "benefits-paragraph-1366.png",
+    "benefits-paragraph-390.png",
+    "credit-companion-1366.png",
+    "credit-companion-390.png",
+    "print-js-pages.png",
+    "print-no-js-pages.png"
+  ],
+  "pdfs": [
+    {
+      "name": "print-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_matches_accepted": true
+    },
+    {
+      "name": "print-no-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_matches_accepted": true
+    }
+  ],
+  "render_checks": 2607,
+  "render_failures": 0,
+  "scope": "CI context correction only; no new app runtime or hosted success inferred."
+}

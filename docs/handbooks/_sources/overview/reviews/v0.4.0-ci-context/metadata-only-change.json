@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    ".github/workflows/ci.yml"
+  ],
+  "before_output_sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96",
+  "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548",
+  "changed_line_numbers": [
+    7,
+    455
+  ],
+  "all_other_lines_identical": true,
+  "scope": "Workflow context correction only. No hosted job success or app runtime pass inferred."
+}

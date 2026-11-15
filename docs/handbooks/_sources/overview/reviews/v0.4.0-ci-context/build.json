@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "identical_build_bytes": true,
+  "input_count": 65,
+  "changed_inputs": [
+    ".github/workflows/ci.yml"
+  ],
+  "embedded_input_pairs_equal_current": true
+}
