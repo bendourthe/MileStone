@@ -21,6 +21,7 @@ import signal
 import subprocess
 import sys
 import time
+import tomllib
 from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
 import zipfile
@@ -234,6 +235,32 @@ def emulator_boundary(run: Run):
         raise RuntimeError("The assigned serial is not a verified Android emulator; no device tests were started")
 
 
+def apply_public_digest_allowlist(run: Run, payload: bytes) -> tuple[bytes, int]:
+    # Gitleaks stdin fragments can cut a full public digest into a secret-like
+    # prefix. Apply only the existing exact match exception before fragmentation.
+    marker = b'CredentialVault.kt": "'
+    if marker not in payload:
+        return payload, 0
+    try:
+        config = run.root / ".gitleaks.toml"
+        if config.is_symlink() or not config.resolve().is_relative_to(run.root):
+            return payload, 0
+        policy = tomllib.loads(config.read_text(encoding="utf-8"))
+        source = run.git("show", "HEAD:app/src/main/java/com/bendourthe/milestone/data/credentials/CredentialVault.kt")
+        digest = hashlib.sha256(source.replace(b"\r\n", b"\n")).hexdigest()
+        expected = '^CredentialVault\\.kt": "' + digest + '"$'
+        allowed = any(rule.get("id") == "generic-api-key" and
+                      any(group.get("regexTarget") == "match" and expected in group.get("regexes", [])
+                          for group in rule.get("allowlists", []))
+                      for rule in policy.get("rules", []))
+        if not allowed:
+            return payload, 0
+    except (OSError, RuntimeError, ValueError, TypeError, AttributeError):
+        return payload, 0
+    token = rb'(?<![A-Za-z0-9_.-])' + re.escape(marker + digest.encode() + b'"')
+    return re.subn(token, b'CredentialVault.kt": ""', payload)
+
+
 def security(run: Run):
     executable = run.args.gitleaks_executable or shutil.which("gitleaks")
     if executable:
@@ -257,13 +284,14 @@ def security(run: Run):
     if b"leaks found" not in output.lower():
         raise RuntimeError("The synthetic secret positive control was not detected")
     payload = candidate_input(run, history=True)
-    run.command(common + ["--report-format", "sarif", "--report-path", report], 600, payload)
+    scanned, exemptions = apply_public_digest_allowlist(run, payload)
+    run.command(common + ["--report-format", "sarif", "--report-path", report], 600, scanned)
     sarif = run.reports / "sarif" / "gitleaks.sarif"
     document = json.loads(sarif.read_text())
     findings = sum(len(item.get("results", [])) for item in document.get("runs", []))
     if findings:
         raise RuntimeError("Security findings remain in the redacted SARIF report")
-    (run.reports / "metadata" / "security.json").write_text(json.dumps({"status": "PASS", "base_ref": run.args.base_ref, "positive_control_detected": True, "input_sha256": hashlib.sha256(payload).hexdigest(), "scanned_bytes": len(payload), "findings": 0}, indent=2) + "\n", encoding="utf-8")
+    (run.reports / "metadata" / "security.json").write_text(json.dumps({"status": "PASS", "base_ref": run.args.base_ref, "positive_control_detected": True, "input_sha256": hashlib.sha256(payload).hexdigest(), "input_bytes": len(payload), "scanned_input_sha256": hashlib.sha256(scanned).hexdigest(), "scanned_bytes": len(scanned), "public_metadata_exemptions": exemptions, "findings": 0}, indent=2) + "\n", encoding="utf-8")
 
 
 def source_package(run: Run):

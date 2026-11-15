@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "reviewer": "Independent coordinator",
+  "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2",
+  "changed_html_lines": [
+    7,
+    457
+  ],
+  "all_other_lines_identical": true,
+  "canonical_pngs": 225,
+  "identical_pngs": 225,
+  "actual_print_review": [
+    {
+      "name": "print-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_and_raster_identical": true
+    },
+    {
+      "name": "print-no-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_and_raster_identical": true
+    }
+  ],
+  "reviewed_sources": [
+    "scripts/validate.py",
+    "scripts/tests/test_validate.py"
+  ],
+  "review": "Existing exact public digest policy is unchanged. Fixed public HEAD source/policy agreement and complete-token processing preserve partial and unrelated scan values. Actual-detector controls and 29 validator tests were reviewed; all existing handbook source descriptions remain accurate. Large-text screenshot inspected. No hosted CI or new Android runtime result is inferred.",
+  "findings": []
+}

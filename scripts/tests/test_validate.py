@@ -150,6 +150,8 @@ class ProfilesTest(unittest.TestCase):
 
     def test_docker_scan_mounts_only_config_and_sarif_and_detects_its_control(self):
         run = self.run_context()
+        source, token = self.public_digest_fixture()
+        payload = b'Synthetic public source\n"' + token
         calls = []
 
         def command(argv, timeout=60, data=None, allowed=(0,)):
@@ -160,7 +162,7 @@ class ProfilesTest(unittest.TestCase):
                 (self.reports / "sarif/gitleaks.sarif").write_text('{"runs": [{"results": []}]}')
             return b"cached image"
 
-        with patch.object(validate.shutil, "which", side_effect=lambda name: "docker" if name == "docker" else None), patch.object(run, "command", command), patch.object(validate, "candidate_input", return_value=b"Synthetic public source"):
+        with patch.object(validate.shutil, "which", side_effect=lambda name: "docker" if name == "docker" else None), patch.object(run, "command", command), patch.object(run, "git", return_value=source), patch.object(validate, "candidate_input", return_value=payload):
             validate.security(run)
         scan = next(argv for argv, _, _ in calls if "--report-format" in argv)
         mounts = [scan[i + 1] for i, value in enumerate(scan) if value == "--mount"]
@@ -168,7 +170,15 @@ class ProfilesTest(unittest.TestCase):
         self.assertIn("--pull=never", scan)
         self.assertIn("--network=none", scan)
         self.assertNotIn("/repo", scan)
-        self.assertTrue(json.loads((self.reports / "metadata/security.json").read_text())["positive_control_detected"])
+        scanned = next(data for argv, data, _ in calls if "--report-format" in argv)
+        self.assertEqual(b'Synthetic public source\n"CredentialVault.kt": ""', scanned)
+        receipt = json.loads((self.reports / "metadata/security.json").read_text())
+        self.assertTrue(receipt["positive_control_detected"])
+        self.assertEqual(hashlib.sha256(payload).hexdigest(), receipt["input_sha256"])
+        self.assertEqual(len(payload), receipt["input_bytes"])
+        self.assertEqual(hashlib.sha256(scanned).hexdigest(), receipt["scanned_input_sha256"])
+        self.assertEqual(len(scanned), receipt["scanned_bytes"])
+        self.assertEqual(1, receipt["public_metadata_exemptions"])
 
     def test_undetected_positive_control_stops_the_security_group(self):
         run = self.run_context()
@@ -398,6 +408,50 @@ class ProfilesTest(unittest.TestCase):
             code, _ = self.main("full")
         self.assertEqual(1, code)
         self.assertEqual("FAIL", json.loads(retained.read_text())["status"])
+
+
+    def public_digest_fixture(self):
+        source = b"Synthetic public Kotlin source\n"
+        digest = hashlib.sha256(source).hexdigest()
+        config = ('[[rules]]\nid = "generic-api-key"\n[[rules.allowlists]]\n'
+                  'regexTarget = "match"\nregexes = [\'\'\'^CredentialVault\\.kt": "' + digest + '"$\'\'\']\n')
+        (self.root / ".gitleaks.toml").write_text(config)
+        token = b'CredentialVault.kt": "' + digest.encode() + b'"'
+        return source, token
+
+    def test_public_digest_exception_requires_complete_exact_metadata(self):
+        source, token = self.public_digest_fixture()
+        untouched = [token[:-7], b"Fake" + token, token.replace(b"CredentialVault.kt", b"ApiKeyVault.kt"),
+                     token.replace(b'.kt"', b'.kt_token"'), token.replace(b'": "', b'": "0'),
+                     b'api_key = "' + token.split(b'": "')[1]]
+        payload = b'"' + token + b'\n"path/' + token + b'\n' + b'\n'.join(untouched)
+        with patch.object(validate.Run, "git", return_value=source.replace(b"\n", b"\r\n")) as git:
+            scanned, count = validate.apply_public_digest_allowlist(self.run_context(), payload)
+        self.assertEqual(2, count)
+        self.assertEqual(b'"CredentialVault.kt": ""\n"path/CredentialVault.kt": ""\n' + b'\n'.join(untouched), scanned)
+        git.assert_called_once_with("show", "HEAD:app/src/main/java/com/bendourthe/milestone/data/credentials/CredentialVault.kt")
+
+    def test_public_digest_exception_fails_closed_without_matching_source_and_policy(self):
+        source, token = self.public_digest_fixture()
+        run = self.run_context()
+        with patch.object(validate.Run, "git", return_value=b"Different source"):
+            self.assertEqual((token, 0), validate.apply_public_digest_allowlist(run, token))
+        config = self.root / ".gitleaks.toml"
+        original = config.read_text()
+        for text in (original.replace('regexTarget = "match"', 'regexTarget = "secret"'),
+                     original.replace('generic-api-key', 'different-rule'), 'invalid = ['):
+            config.write_text(text)
+            with patch.object(validate.Run, "git", return_value=source):
+                self.assertEqual((token, 0), validate.apply_public_digest_allowlist(run, token))
+        config.unlink()
+        with patch.object(validate.Run, "git", side_effect=RuntimeError("Git unavailable")):
+            self.assertEqual((token, 0), validate.apply_public_digest_allowlist(run, token))
+
+    def test_public_digest_exception_does_not_read_source_without_metadata_marker(self):
+        payload = b'api_key = "Synthetic positive control"'
+        with patch.object(validate.Run, "git", side_effect=AssertionError("No source lookup needed")):
+            self.assertEqual((payload, 0), validate.apply_public_digest_allowlist(self.run_context(), payload))
+
 
 
 if __name__ == "__main__":

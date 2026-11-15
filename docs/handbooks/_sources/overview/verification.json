@@ -61,37 +61,37 @@
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "17bd28d5114db779b943df2528bd4fe74df2febdd52d51ff5ebd58d8e328542a",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
-      "scripts/validate.py": "9f7459ad3129c8dded53d962462a2f3797895db3f70f9d2aec312cd6da6e78e7",
+      "scripts/validate.py": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
-      "scripts/tests/test_validate.py": "9fd2f657e34f4bb048ae88e74cbcc6ef9d0b6dcd8de53a9a86242b0e0494e390",
+      "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
       ".github/workflows/ci.yml": "2d40fe847b8aa02f1c9fdfe8f319ddb07303c55828d21fee22d7eb13eef6abf6",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
+    "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/independent-content-review.json",
-      "evidence_sha256": "e9258d49e327be2438c870c9eac668ad19dc46275d8b8097b35be7e7c6d739d5"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/independent-content-review.json",
+      "evidence_sha256": "f90a837d9133294d98f4774e5001b0679d178447b226cbbd5b465abedfedeaca"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/build.json",
-      "evidence_sha256": "6466da0075132d0aea9b1b95022974817c977b4262a45e171b484d166fb1be7b"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/build.json",
+      "evidence_sha256": "3a49c37cfde82eb0981f401738b6d5e70f72d972431b5ea6a73707187bc05e07"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-layout/run-1/render.json",
-      "evidence_sha256": "4bd2b6e6b864ab167f25967aabe2abc25e37f4320a0bce5bc6c1cd217355a641",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/run-1/render.json",
+      "evidence_sha256": "fc94722a421d92dfed1d2b7cd99d9992d98c5fcd8d009e50597b2a9e3ab9f8c1",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32"
+      "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2"
     }
   },
   "limitations": [
     "Original auxiliary structural-scorer nonpass and native-measurement unverified results remain unchanged; this receipt does not relabel them or assert that those tools passed. Current project-native inventory, source-value, control, geometry, type and applicability proof is retained in contract-completion/run-3/render.json.",
     "Fullscreen proof observes actual Chromium document API entry/exit/denial, not physical OS window/chrome, kiosk behavior or other browser engines."
   ],
-  "qualification_scope": "Reading-control font/zoom sizing correction; independent Linux and Windows2607-check passes,224unchanged canonical PNGs, reviewed320px enlarged state and two16-page prints. No hosted green inferred."
+  "qualification_scope": "Proposed fresh Windows handbook metadata qualification for verified public digest stream handling; independent coordinator adoption pending. No intermediate secret-match receipt reused. No hosted CI,new scanner execution or app runtime success inferred."
 }

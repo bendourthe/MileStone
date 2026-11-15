@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "reviewer": "Handbook refresh agent; independent coordinator review pending",
+  "snapshot_metadata": {
+    "entry_sha256": "0596f547289a5dfa92d6524392d49e5ed99fb615ee6382f0a235a3530ea72aee",
+    "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2"
+  },
+  "reviewed_changes": [
+    "Only scripts/validate.py and scripts/tests/test_validate.py changed among65inputs; original committed .gitleaks.toml policy restored.",
+    "apply_public_digest_allowlist reads fixedHEAD publicKotlinblob,normalizesLF,checks exactexisting match policy then removes only complete matching64character metadata digest before scanner fragmentation.",
+    "Absent marker,wrong hash/policy,partial/othercontexts remain unchanged; raw/scanned hashes,bytecounts and exemptioncount are recorded.",
+    "Tests cover complete metadata,partial/wrongcontexts,policy/sourcefailure,markerabsence and security boundary integration. Tests were inspected,not rerun by handbook agent.",
+    "Handbook overview describes validation profiles and secret scanning generally; no detailed raw-only scanner claim contradicted.",
+    "HTML only metadata lines7/457 changed; visible content/styles/model/runtime unchanged.",
+    "Fresh Windows2607checks/384measurements/zero findings; image/PDF proof retained."
+  ],
+  "comparison_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/comparison.json",
+  "metadata_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-stream/metadata-only-change.json",
+  "coordinator_security_evidence_read_only": "reports/v040-ci-stabilization-3/stream-verified/summary.json",
+  "findings": []
+}

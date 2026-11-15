@@ -37,7 +37,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | 0: released, archived and native PLAN COMPLETE after verified idle cleanup |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (published and back-merged with owner acceptance; historical native-run reconciliation remains open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 3 of 4 | 4 of 4 | 1: Search images accepted; credit refinement installed with 412 JVM passes and current normal/large row proof; phone format accepted; final verification and delivery gates pending |
+| v0.4.0 search plan phases complete | 3 of 4; T001-T019 locally verified | 4 of 4 | 1: phone acceptance, 74 emulator cases and p95 101.4965 ms verified; PR 16 needs green CI, integration and delivery |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -332,3 +332,13 @@ Current whole-emulator proof passes 74/74 cases, Search p95 101.4965 ms against 
 Owner update, 2026-11-15: the saved Chase pages include overview, selector, personal/business benefits and offers-to-add pages. Nine captures are sanitized and stored only in the planning worktree's gitignored fixtures-private directory. Counts-only reports identify benefit-list, progress, selector and offer components. Semantic card mapping, personal-only/linked coverage, complete-list criteria and bounded read timing remain to prove; no extractor or real offer activation is claimed.
 
 The owner requires the same merchant offer to be added to every independently eligible card, including two cards carrying matching merchant/value offers. Default-on adding stays confirmed. Deduplicate only the same exact-card/offer across connections. Do not impose preferred-card ordering or treat matching text/campaign IDs as exclusivity. Only verified explicit issuer restrictions or unverified eligibility hold an action pending. Independent design/security rechecks found no actionable gap in this updated plan contract. Existing v0.4 publication authority and historical reconciliation remain separate.
+
+## Search Publication Status
+
+The owner's genuine Approve message is recorded for v0.4.0 publication, green-only merge, release, archive, eligible cleanup and at most three locally reproduced correction pushes. PR 16 is open. Its first three runs failed workflow validation, large-text handbook layout and a fragmented public-digest scanner match respectively; each failure is retained with local reproduction. The third and final correction preserves the scanner's exact full-digest policy, applies that verified public metadata exception before stdin fragmentation, passes 29 validator tests and the reconstructed Linux scan with five detected negative controls. Final candidate handbook/local verification and hosted CI remain required before the last correction push and merge. Current runtime proof remains the unchanged accepted APK with 74 emulator cases and p95 101.4965 ms.
+
+- [ ] Complete current source-bound handbook and final committed local qualification, then use the remaining authorized correction push.
+- [ ] Merge PR 16 only after required CI result and all required checks pass, then deliver the authorized v0.4.0 release and minor close.
+- [ ] Resolve the three native duplicate phase-exit predicates through supported mechanisms; preserve the frozen plan and signed record.
+
+Earlier phone and publication-pending entries are historical checkpoints superseded by the recorded acceptance and approval above. Original release/cleanup reconciliation and the v0.5.0/v0.6.0 scope remain unfinished; no completion is inferred from local Search proof.
