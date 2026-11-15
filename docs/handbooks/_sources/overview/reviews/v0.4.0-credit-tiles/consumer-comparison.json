@@ -1,0 +1,980 @@
+{
+  "output_sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96",
+  "comparison": "Exact PNG byte comparison against independently approved search-images/6a387 captures",
+  "images": [
+    {
+      "path": "1000x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "print-js-pages.png",
+      "byte_identical": false
+    },
+    {
+      "path": "print-no-js-pages.png",
+      "byte_identical": false
+    },
+    {
+      "path": "reading-1000.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1001.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1024.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1200.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1366.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1440.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1920.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-2560.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-320-200percent.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-320.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-390.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-420.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-759.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-760.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-761.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-900.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-999.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-8.png",
+      "byte_identical": true
+    }
+  ],
+  "pdf_consumers": [
+    {
+      "path": "print-js.pdf",
+      "pages": 16,
+      "empty_pages": [],
+      "source_checks": [
+        {
+          "text": "Completed credit tiles render full progress",
+          "present": true
+        },
+        {
+          "text": "positive stored target",
+          "present": true
+        },
+        {
+          "text": "multiple dollar amounts",
+          "present": true
+        },
+        {
+          "text": "does not rewrite issuer amounts",
+          "present": true
+        },
+        {
+          "text": "Enrollment required remains a body status",
+          "present": true
+        },
+        {
+          "text": "hosted execution has not yet been observed",
+          "present": true
+        }
+      ]
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 16,
+      "empty_pages": [],
+      "source_checks": [
+        {
+          "text": "Completed credit tiles render full progress",
+          "present": true
+        },
+        {
+          "text": "positive stored target",
+          "present": true
+        },
+        {
+          "text": "multiple dollar amounts",
+          "present": true
+        },
+        {
+          "text": "does not rewrite issuer amounts",
+          "present": true
+        },
+        {
+          "text": "Enrollment required remains a body status",
+          "present": true
+        },
+        {
+          "text": "hosted execution has not yet been observed",
+          "present": true
+        }
+      ]
+    }
+  ],
+  "visual_review": "Author inspected current390benefits companion; independent coordinator must inspect current benefit prose captures, changeddeepviews and bothprintcontacts.",
+  "no_browser_jobs_live": true
+}

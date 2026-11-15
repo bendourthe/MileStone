@@ -1,0 +1,152 @@
+{
+  "mode": "structural",
+  "rendered_scope": "both reading and presentation views",
+  "production_readiness": "requires separate rendered, factual and positive-design evidence",
+  "nav": "scroll",
+  "root_font_px": 16.0,
+  "root_font_px_at_clamp_min": 16.0,
+  "root_font_is_fluid": false,
+  "findings": [
+    {
+      "segment": "page (structural)",
+      "criterion": "full-width",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "aspect=unknown (not full-width)"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "image-sizing",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no images / figures"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "annotation-fidelity",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no annotated figures"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "imagery-integration",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no integration expectation (procedural / non-consented run)"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "readability-layout",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "offline and well-formed"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "fluid-spacing",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "no fixed macro spacing on a band / grid container"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "font-floor",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "28 font-size(s) clear the 16 / 13 / 12px floors at the clamp minimum and at 1920px"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "emphasis-token",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "inline tokens (base rule) declare both a distinct color and a family / weight change"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "contrast",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no declared ink / background custom-property pair to grade"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "contrast-runtime-accent",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no data-*accent* hex attribute to grade"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "content-intent",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no design record (a baseline or retained build)"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "svg-arrowhead",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "5 inline SVG(s): no stray triangle arrowheads, markers applied consistently"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "svg-viewport-fit",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "every SVG in a sticky / fixed container is height-constrained"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "svg-marker-integrity",
+      "status": "n/a",
+      "kind": "structural",
+      "evidence": "no markers defined or referenced"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "svg-label-occlusion",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "no label is occluded by a later unrelated mark across 5 svg(s)"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "svg-connector-routing",
+      "status": "unchecked",
+      "kind": "structural",
+      "evidence": "no svg in this page could be decided by this check (svg 1: visible path lacks connector identity)",
+      "coverage": {
+        "unchecked": [
+          "svg 1: visible path lacks connector identity",
+          "svg 2: visible path lacks connector identity",
+          "svg 3: visible path lacks connector identity",
+          "svg 4: visible path lacks connector identity",
+          "svg 5: visible path lacks connector identity"
+        ],
+        "checked_svgs": 0
+      }
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "render-only-defects",
+      "status": "pass",
+      "kind": "structural",
+      "evidence": "one sticky layer per offset, anchor targets clear the sticky nav, command blocks wrap or scroll"
+    },
+    {
+      "segment": "page (structural)",
+      "criterion": "dual-view",
+      "status": "fail",
+      "kind": "structural",
+      "evidence": "nonempty saved storyboard required; DOM themes disagree with saved themes; missing or exceeded logical-slide ceiling; missing or exceeded logical-slide ceiling",
+      "severity": "high"
+    }
+  ],
+  "high_severity": 1,
+  "unchecked_checks": 1,
+  "page_pass": false,
+  "note": "structural-only: agent-vision criteria (crop, dead space, annotation placement vs source, imagery relevance, contrast) were not graded"
+}

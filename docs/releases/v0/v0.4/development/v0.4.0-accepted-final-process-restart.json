@@ -1,0 +1,18 @@
+{
+  "serial": "emulator-5554",
+  "boundary": "Installed production MainActivity, adb input and UiAutomator; background process death then actual replacement PID",
+  "kill_method": "background am kill",
+  "process_changed": true,
+  "benefits_tab_selected_before_death": true,
+  "tab_reset_to_rewards_after_restart": true,
+  "query_visible_before_death": true,
+  "query_absent_after_death": true,
+  "restored_search_route": true,
+  "blank_search_prompt_after_restart": true,
+  "diagnostic_query_absent": true,
+  "unsupported_program_retained": true,
+  "cards_unchanged_empty": true,
+  "fixture_removed_after_verification": true,
+  "phone_accessed": false,
+  "apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2"
+}

@@ -10,8 +10,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -22,11 +27,20 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bendourthe.milestone.domain.SearchHit
 import com.bendourthe.milestone.domain.SearchKind
 import com.bendourthe.milestone.domain.SearchTarget
+import com.bendourthe.milestone.domain.SearchTab
+import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.ui.components.ProgramBadge
+import com.bendourthe.milestone.ui.benefits.CardArtwork
+import com.bendourthe.milestone.domain.SearchProgramDisplay
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.contentDescription
 import com.bendourthe.milestone.ui.theme.HeaderTeal
 
 @Composable
@@ -40,26 +54,36 @@ fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (Sear
     val query by viewModel.query.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val notice by viewModel.notice.collectAsStateWithLifecycle()
-    val listState = remember(viewModel) { LazyListState(viewModel.firstVisibleItemIndex, viewModel.firstVisibleItemOffset) }
+    val chosenTab by viewModel.selectedTab.collectAsStateWithLifecycle()
+    val collapsed by viewModel.collapsed.collectAsStateWithLifecycle()
+    val activeTab = chosenTab ?: (state as? SearchUiState.Results)?.results?.initialTab ?: SearchTab.REWARDS
+    val lists = remember(viewModel) { SearchTab.entries.associateWith { tab ->
+        val (index, offset) = viewModel.position(tab)
+        LazyListState(index, offset)
+    } }
+    val listState = lists.getValue(activeTab)
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     LaunchedEffect(viewModel) {
         if (viewModel.consumeInitialFocus()) focus.requestFocus()
     }
-    LaunchedEffect(query) { if (viewModel.consumeScrollReset()) listState.scrollToItem(0) }
-    DisposableEffect(viewModel, listState) {
-        onDispose { viewModel.rememberPosition(listState.firstVisibleItemIndex, listState.firstVisibleItemScrollOffset) }
+    LaunchedEffect(query) { if (viewModel.consumeScrollReset()) lists.values.forEach { it.scrollToItem(0) } }
+    DisposableEffect(viewModel, lists) {
+        onDispose { lists.forEach { (tab, list) -> viewModel.rememberPosition(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, tab) } }
     }
     SearchContent(query, state, listState, focus, viewModel::setQuery,
         onClear = { viewModel.clear(); focus.requestFocus() }, onRetry = viewModel::retry,
-        onBack = { keyboard?.hide(); onBack() }, onSelect = { keyboard?.hide(); onSelect(it) }, selecting = selecting, notice = notice)
+        onBack = { keyboard?.hide(); onBack() }, onSelect = { keyboard?.hide(); onSelect(it) }, selecting = selecting, notice = notice,
+        selectedTab = activeTab, onTab = viewModel::selectTab, collapsed = collapsed, onToggleGroup = viewModel::toggleGroup)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun SearchContent(query: String, state: SearchUiState, listState: LazyListState,
     focus: FocusRequester, onQuery: (String) -> Unit, onClear: () -> Unit, onRetry: () -> Unit,
-    onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false, notice: String? = null) {
+    onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false, notice: String? = null,
+    selectedTab: SearchTab? = null, onTab: (SearchTab) -> Unit = {},
+    collapsed: Set<String> = emptySet(), onToggleGroup: (String) -> Unit = {}) {
     val keyboard = LocalSoftwareKeyboardController.current
     Scaffold(topBar = {
         TopAppBar(title = { Text("Search") }, navigationIcon = {
@@ -75,6 +99,14 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                 trailingIcon = { if (query.isNotEmpty()) IconButton(onClick = onClear) {
                     Icon(Icons.Filled.Close, contentDescription = "Clear search")
                 } })
+            val activeTab = selectedTab ?: (state as? SearchUiState.Results)?.results?.initialTab ?: SearchTab.REWARDS
+            TabRow(selectedTabIndex = activeTab.ordinal, containerColor = MaterialTheme.colorScheme.surface) {
+                SearchTab.entries.forEach { tab ->
+                    val count = (state as? SearchUiState.Results)?.results?.count(tab) ?: 0
+                    Tab(selected = activeTab == tab, onClick = { onTab(tab) },
+                        modifier = Modifier.testTag("searchTab${tab.name}"), text = { Text("${tab.label} ($count)") })
+                }
+            }
             if (selecting) {
                 LinearProgressIndicator(Modifier.fillMaxWidth().testTag("searchSelectionLoading"))
                 Text("Checking stored item", Modifier.padding(horizontal = 16.dp))
@@ -97,16 +129,54 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                     TextButton(onClick = onRetry) { Text("Retry") }
                 }
                 is SearchUiState.Results -> {
-                    Text("${state.results.count} ${if (state.results.count == 1) "result" else "results"}",
-                        Modifier.padding(horizontal = 16.dp, vertical = 4.dp).testTag("searchResultCount"))
+                    val groups = state.results.groups(activeTab)
+                    val count = state.results.count(activeTab)
+                    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text("$count ${if (count == 1) "result" else "results"}", Modifier.testTag("searchResultCount"))
+                        Text("${state.results.count} total", Modifier.testTag("searchTotalCount"), style = MaterialTheme.typography.bodySmall)
+                    }
+                    if (groups.isEmpty()) Text("No matching ${activeTab.label.lowercase()} items", Modifier.padding(16.dp))
                     LazyColumn(state = listState, modifier = Modifier.weight(1f).fillMaxWidth().testTag("searchResults"),
                         contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        state.results.groups.forEach { group ->
-                            item("group:${group.programId}") {
-                                Text(group.programName, style = MaterialTheme.typography.titleMedium,
-                                    modifier = Modifier.padding(vertical = 8.dp).semantics { heading() })
+                        groups.forEach { group ->
+                            val programKey = "${activeTab.name}:program:${group.programId}"
+                            if (activeTab == SearchTab.REWARDS) {
+                                items(group.hits, key = { it.entry.id }) { hit -> SearchProgramResult(hit, enabled = !selecting) { onSelect(hit.entry.target) } }
+                            } else {
+                                item("group:${group.programId}") {
+                                    SearchGroupHeader(group.programName, group.hits.size, programKey !in collapsed,
+                                        Modifier.testTag("searchProgramGroup"), program = true, display = group.programDisplay, onToggle = { onToggleGroup(programKey) })
+                                }
+                                if (programKey !in collapsed) {
+                                    state.results.cards(group.programId).forEach { cardGroup ->
+                                        val card = cardGroup.card
+                                        val first = cardGroup.context
+                                        val cardHit = cardGroup.cardHit
+                                        val cardKey = "card:${card.programId}:${card.lastDigits}"
+                                        item(cardKey) {
+                                            SearchCardHeader(cardHit?.entry?.title ?: first.cardName.orEmpty(), card,
+                                                cardGroup.benefits.size, cardKey !in collapsed, first.freshnessNote,
+                                                onToggle = { onToggleGroup(cardKey) }, enabled = !selecting,
+                                                onClick = { onSelect(SearchTarget.CardTarget(card, first.target.revision)) })
+                                        }
+                                        if (cardKey !in collapsed) {
+                                            cardGroup.sections.forEach { (category, hits) ->
+                                                val sectionKey = "$cardKey:${category.name}"
+                                                item(sectionKey) {
+                                                    SearchGroupHeader(category.title, hits.size, sectionKey !in collapsed,
+                                                        Modifier.padding(start = 12.dp).testTag("searchSectionGroup"),
+                                                        onToggle = { onToggleGroup(sectionKey) })
+                                                }
+                                                if (sectionKey !in collapsed) {
+                                                    items(hits, key = { it.entry.id }) { hit ->
+                                                        CompactBenefitResult(hit, enabled = !selecting) { onSelect(hit.entry.target) }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            items(group.hits, key = { it.entry.id }) { hit -> SearchResult(hit, enabled = !selecting) { onSelect(hit.entry.target) } }
                         }
                     }
                 }
@@ -116,18 +186,81 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
 }
 
 @Composable
-private fun SearchResult(hit: SearchHit, enabled: Boolean, onClick: () -> Unit) {
+private fun SearchGroupHeader(title: String, count: Int, expanded: Boolean, modifier: Modifier = Modifier,
+    program: Boolean = false, display: SearchProgramDisplay? = null, onToggle: () -> Unit) {
+    Surface(onClick = onToggle, modifier = modifier.fillMaxWidth().heightIn(min = 48.dp)
+        .semantics { stateDescription = if (expanded) "Expanded" else "Collapsed" },
+        shape = MaterialTheme.shapes.small,
+        color = if (program) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = if (program) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface) {
+        Row(Modifier.padding(horizontal = 12.dp, vertical = if (program) 12.dp else 8.dp), verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (program) ProgramBadge(display?.monogram ?: title.take(2), display?.logoKey,
+                display?.brandColorArgb ?: HeaderTeal.toArgb().toLong(),
+                Modifier.testTag("searchBenefitsProgramImage"), size = 40.dp)
+            Text("$title ($count)", style = if (program) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleSmall,
+                modifier = Modifier.weight(1f).semantics { heading() })
+            Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                contentDescription = "${if (expanded) "Collapse" else "Expand"} $title")
+        }
+    }
+}
+
+@Composable
+private fun SearchCardHeader(name: String, card: CardKey, count: Int, expanded: Boolean, freshness: String?,
+    onToggle: () -> Unit, enabled: Boolean, onClick: () -> Unit) {
+    Surface(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth().testTag("searchCardHeader")
+        .semantics { freshness?.let { stateDescription = it } },
+        shape = MaterialTheme.shapes.medium, color = MaterialTheme.colorScheme.surfaceContainerLow) {
+        Row(Modifier.padding(start = 12.dp).heightIn(min = 64.dp), verticalAlignment = Alignment.CenterVertically) {
+            CardArtwork(card.programId, name, Modifier.width(40.dp).testTag("searchCardThumbnail:${card.programId}:${card.lastDigits}"))
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f).padding(vertical = 8.dp)) {
+                Text(name, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.semantics { heading() })
+                Text("Card ending ${card.lastDigits}", style = MaterialTheme.typography.bodySmall)
+            }
+            IconButton(onClick = onToggle, modifier = Modifier.testTag("searchCardToggle")
+                .semantics { stateDescription = if (expanded) "Expanded" else "Collapsed" }) {
+                Icon(if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                    contentDescription = "${if (expanded) "Collapse" else "Expand"} matches for $name ($count)")
+            }
+        }
+    }
+}
+
+@Composable
+private fun CompactBenefitResult(hit: SearchHit, enabled: Boolean, onClick: () -> Unit) {
     val entry = hit.entry
-    ElevatedCard(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(entry.kind.label, style = MaterialTheme.typography.labelMedium)
-            Text(entry.title, style = MaterialTheme.typography.titleMedium,
-                textDecoration = if (entry.completed) TextDecoration.LineThrough else null)
-            if (entry.kind == SearchKind.BENEFIT) entry.cardName?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
-            hit.descriptionContext?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
-            entry.period?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-            if (entry.completed) Text("Completed", style = MaterialTheme.typography.labelMedium)
-            entry.freshnessNote?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+    val card = (entry.target as SearchTarget.BenefitTarget).card
+    Surface(onClick = onClick, enabled = enabled, modifier = Modifier.padding(start = 24.dp).fillMaxWidth()
+        .heightIn(min = 48.dp).testTag("searchCompactBenefit")
+        .semantics {
+            contentDescription = "${entry.cardName.orEmpty()}, Card ending ${card.lastDigits}"
+            stateDescription = listOfNotNull(entry.period, "Completed".takeIf { entry.completed }, entry.enrollment).joinToString(", ")
+        },
+        shape = MaterialTheme.shapes.small, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        color = MaterialTheme.colorScheme.surface) {
+        Text(entry.title, Modifier.padding(horizontal = 12.dp, vertical = 12.dp), style = MaterialTheme.typography.bodyMedium,
+            maxLines = 1, overflow = TextOverflow.Ellipsis,
+            textDecoration = if (entry.completed) TextDecoration.LineThrough else null)
+    }
+}
+
+@Composable
+private fun SearchProgramResult(hit: SearchHit, enabled: Boolean, onClick: () -> Unit) {
+    val entry = hit.entry
+    val display = entry.programDisplay
+    ElevatedCard(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth().testTag("searchProgramTile")) {
+        Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            ProgramBadge(display?.monogram ?: entry.title.take(2), display?.logoKey,
+                display?.brandColorArgb ?: HeaderTeal.toArgb().toLong(), Modifier.testTag("searchProgramImage"), size = 56.dp)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(entry.title, style = MaterialTheme.typography.titleMedium, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(display?.balance ?: "--", style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.testTag("searchProgramBalance"))
+            }
         }
     }
 }

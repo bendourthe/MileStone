@@ -1,0 +1,35 @@
+{
+  "status": "LOCAL_SCOPES_PASS_DELIVERY_OPEN",
+  "implementation_head": "736b0d115aa99bb85d75cb6bda3a8024a912bd2a",
+  "qualified_profile_source_sha256": "951e3abfeb99173d7421176dba0b0118c76025f9919a087240be75004e8ebb7b",
+  "apk_sha256": "bc70ac940fb5b2ab0b76b5c7a4f40b1a887f3ae0ac510ccb6c34d1bf1ad86f11",
+  "full_profile": "v0.4.0-owner-refinement-final-full.json",
+  "platform_profile": "v0.4.0-owner-refinement-final-platform.json",
+  "emulator_results": "v0.4.0-owner-refinement-final-emulator-results.xml",
+  "latency": "v0.4.0-owner-refinement-final-latency.json",
+  "process_restart": "v0.4.0-owner-refinement-final-process-restart.json",
+  "privacy": "Synthetic emulator-only fixtures; no captured pages or phone diagnostics in this artifact",
+  "remaining": [
+    "Refined owner-phone install/acceptance; ADB currently cannot see phone",
+    "QG-1 pre-merge runtime disposition",
+    "QG-2 protection disposition",
+    "Separately required v0.4 publication/release authority and delivery",
+    "Original native historical reconciliation and eligible cleanup"
+  ],
+  "limitations": [
+    "The broader source fingerprints differ; exact equality of 274 Android inputs, the APK and validation entry supports only the stated runtime reuse scope.",
+    "No current hosted CI, refined phone acceptance, release or native plan completion is supplied by local verification.",
+    "New public evidence invalidates an older scanner payload; final current scan/aggregate verdicts belong to the ignored frozen-input gate."
+  ],
+  "latest_full_source_sha256": "5c1a982e6fc4021c785d853198859f364ff6942b669afea4b867c31b3286be3f",
+  "latest_full_profile": "v0.4.0-contract-completion-final-full.json",
+  "runtime_reuse": "v0.4.0-contract-completion-runtime-reuse.json",
+  "handbook": {
+    "output_sha256": "b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc",
+    "checks": 2606,
+    "measurements": 384,
+    "native_qualification": "PASS",
+    "project_verification_gap_MT1": "Resolved; external auxiliary helper schema compatibility unchanged"
+  },
+  "frozen_input_gate_location": "reports/frozen-local-full: actual full and report verdicts stay ignored to preserve scanner input identity"
+}

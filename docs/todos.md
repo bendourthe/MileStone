@@ -2,13 +2,13 @@
 
 **Branch:** `develop` is integration; the active search candidate is `feat/v0.4.0-global-search` in its linked worktree.
 
-**Version:** v0.3.1 is published, source-archive verified and back-merged; Search Phases 1 through 3 are verified. The v0.3 archive is integrated through green PR 15. Recent branch cleanup and historical native-run reconciliation remain open.
+**Version:** v0.3.1 is published, source-archive verified and back-merged; Search Phases 1 through 3 are verified. The v0.3 archive is integrated through green PR 15. Original v0.3.0 cleanup and native PLAN COMPLETE are verified; historical native-run reconciliation remains open for other released plans.
 
 ## Expanded Completion Goal
 
 Owner scope update, 2026-11-13: complete the existing v0.1/v0.2/v0.3 integration, release, canonical archive, and authorized cleanup obligations AND deliver the complete Benefits redesign. The six interface requirements below are required work, superseding their earlier deferral. The overall goal remains unfinished until the redesign is implemented, installed without erasing sign-ins, and verified on the phone; extraction correctness or v0.3.0 PLAN COMPLETE alone cannot close it. Original count-confirmation, privacy, test-device, and publication requirements remain in force. The native goal API cannot edit an unfinished objective; this tracker and the owner's scope instruction retain the expanded completion criteria without falsely marking the old goal complete.
 
-Implementation plan: [v0.3.1 Benefits redesign](archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md). This is the proposed follow-up slot in the active minor; its release authority must cover the new version before publication. The owner confirmed the extraction minimums; redesign delivery remains separately required.
+Delivered plan: [v0.3.1 Benefits redesign](archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md). The owner confirmed the extraction minimums and accepted the full Benefits redesign, which is published and archived. Historical native-run reconciliation remains separate from those observed product and release results.
 
 ---
 
@@ -21,9 +21,9 @@ Owner authorization, 2026-11-13: add implementation and delivery of v0.4.0 globa
 - [ ] Complete search verification, owner phone delivery, separately authorized publication/release and the plan's native completion requirements.
 - [ ] Finish all original v0.1/v0.2/v0.3 release, archive and authorized cleanup duties as well as search delivery before declaring the expanded goal complete.
 
-Native completion reconciliation remains open: the local v0.3 closing proposal records a plan-text freeze mismatch and the need for a valid task-history baseline. A plain signed-record replacement at a post-implementation commit can lose recognition of completed outputs. Signed run data is preserved, no checker predicate is bypassed, and separately authorized v0.4 publication must bind the real implementation history.
+Native completion reconciliation remains open for historical records: a plain replacement at a post-implementation commit can lose recognition of earlier outputs, so signed data is preserved and no predicate is bypassed. The actual v0.3 archive is now integrated; its original v0.3.0 checker prints PLAN COMPLETE after verified authorized idle cleanup. Separately authorized v0.4 publication must bind the real implementation history before the final phase commit.
 
-The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal stays active; this durable tracker records the expansion without falsely completing or replacing it.
+The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal remains active and unfinished; this durable tracker records the expansion without falsely completing or replacing it.
 
 ## Scores
 
@@ -34,10 +34,10 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | Integration branch `develop` | present | present | 0 |
 | v0.1.0 plan phases complete | 10 of 10 | 10 of 10 | 0 (shipped, tag v0.1.0) |
 | v0.2.0 plan phases complete | 6 of 6 | 6 of 6 | 0 (shipped, tag v0.2.0) |
-| v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | release published; minor archive/cleanup remain |
-| v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (386 JVM cases and 41 device cases pass; owner accepted; integration/release gates open) |
+| v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | 0: released, archived and native PLAN COMPLETE after verified idle cleanup |
+| v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (published and back-merged with owner acceptance; historical native-run reconciliation remains open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 3 of 4 | 4 of 4 | 1 (exact navigation verified with 60 JVM and 20 device cases; final acceptance and delivery open) |
+| v0.4.0 search plan phases complete | 3 of 4 | 4 of 4 | 1: Search images accepted; credit refinement installed with 412 JVM passes and current normal/large row proof; phone format accepted; final verification and delivery gates pending |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -108,7 +108,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 
 ## Phase 4: v0.3.0 implementation (Amex benefits extraction fix)
 
-Plan: `docs/releases/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
+Plan: `docs/archives/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md`.
 
 - [x] Phase 1: Diagnostics and missing captures (owner capture session)
 - [x] Phase 2: Page-ready timing and switch rule (T007 follow-up is tracked in Phase 4)
@@ -173,6 +173,162 @@ The finalized v0.4.0 plan is now locally in progress in feat/v0.4.0-global-searc
 
 Global search Phase1 passed38 focused tests and Android test compilation with real Room/DataStore behavior, canonical projection reuse and stale-key rejection. One local phase commit records the work; no search push or remote CI occurred. Phases2-4 and separately authorized publication remain open. v0.3.1 is published and source-archive verified; its closure preparation preserves all29 carried gaps and awaits native approval renewal for the task-bookkeeping clarification.
 
+## Search Presentation Refinement
+
+Owner feedback on 2026-11-14 accepts the installed matching/navigation/privacy flow and requests Search beside the other top-right actions, Rewards and Benefits result tabs, program/card subgrouping, compact benefit matches in canonical Benefits order, and the existing full-tile destination on selection. Implement and verify these local refinements before final Search acceptance and delivery; retain all original release/archive/cleanup obligations.
+
 ## v0.3 Closure Preparation
 
+Historical preparation note; the archive and closing pull request status below supersede its earlier pending-action status.
+
+
 v0.3.1 release and back-merge are complete. All29 remaining gaps were preserved and carried to v0.4 with their IDs and conditions. The archive dry run exposed a circular T022 dependency; its local clarification retains every original lifecycle requirement and the expanded search goal. Native approval renewal is required before archive/closing-PR actions, because the plan prose changed. No signed record was hand-edited and no archive gate or KEEP protection was bypassed.
+
+## v0.3 Archive Integration
+
+Green PR 15 merged at 09036c2037b42fa232679a4b2f0afd55b9cd3171. Released v0.1, v0.2 and v0.3 records are indexed under docs/archives/README.md. The native v0.3.0 check now reports only cleanup.branches unmet; its final approved cleanup receipt is valid and no ineligible item was forcibly removed. Search refinements, controlled timing qualification, updated phone acceptance and separately authorized publication/release remain required.
+
+## Latest Search Qualification
+
+2026-11-14: the right-side Search action, Rewards/Benefits tabs, program/card hierarchy, compact matches and canonical per-card order passed the full local profile and unfiltered emulator profile. Both receipts bind source fingerprint 951e3abfeb99173d7421176dba0b0118c76025f9919a087240be75004e8ebb7b. The emulator run passed 68 cases with no failures or skips; the unchanged 30-sample query-to-visible benchmark passed p95 180.3276 ms against 200 ms. Current unit coverage is 4970/6314 lines (78.71 percent); ten skipped JVM cases require optional absent balance captures, while supplied private Benefits fixtures ran. Detailed receipts are in the v0.4 development evidence tree. These are local results, not phone acceptance or remote merge proof.
+
+The primary checkout is clean on develop at 09036c2037b42fa232679a4b2f0afd55b9cd3171. Green PR 15 merged the v0.3 archive. Its original native plan now has all 26 tasks met and only cleanup.branches unmet; the latest authorized cleanup removed zero and retained 23 entries under the actual ownership/24-hour rules. Historical v0.3.1 native-run reconciliation remains separate. The current Search checker recognizes T001-T010; its final-phase and delivery predicates remain open.
+
+The handbook verification now passes 2,606 checks and full native qualification; MT-1 is resolved through project-native adapter proof while raw auxiliary helper incompatibilities remain unchanged. CI runtime and repository protection decisions have been requested explicitly. The repository is public; standard GitHub-hosted runner compute is free under the current published policy, so no billed-runner assumption is used to justify omitting a required integration gate. No v0.4 push, settings mutation, release or destructive cleanup has been authorized or performed.
+
+Local Phase 4 duties T011, T012, T013, T014 and T017 have evidence. The handbook sources and receipt are frozen; the affected full profile passed after the checker/style changes, with exact Android runtime reuse recorded. CI runtime and protection proposals are concrete but unapplied, with owner decisions still pending. No v0.4 delivery or complete-contract result is inferred.
+
+The post-handbook full profile passed at source fingerprint 5c1a982e6fc4021c785d853198859f364ff6942b669afea4b867c31b3286be3f. All 274 qualified public Android/build inputs, the validation entry and actual debug APK remain unchanged; the retained 68-case emulator/p95/process-restart proof is scoped to those identical inputs, not a falsely matching whole-wrapper fingerprint. The current gap ledger has 29 preserved legacy conditions, two open CI decisions and one resolved MT-1 verification item, for 31 open items. Final scanner/aggregation receipts stay in ignored reports/frozen-local-full so the act of copying a result cannot invalidate its own scan.
+
+
+## Current Approved CI and Installation
+
+The owner approved the pre-merge emulator gate and develop/main PR/admin protection changes. The workflow is applied locally; both actual protections were applied and read back with the existing CI result app binding and other settings preserved. QG-1/QG-2 are resolved for configured runtime coverage and protection; 29 legacy gaps remain open. First hosted runtime success remains T020 and needs separate publication authority. The tested Search APK was installed successfully with adb install -r; owner acceptance of the refined Search is pending. The mapped handbook refresh and affected final full/report qualification are in progress. Earlier pending-decision statements above are historical.
+
+
+## Search Structure Refinement
+
+The owner confirms the revised Search passes and requests a temporary Rewards program outline, card thumbnails, compact single-line benefit tiles without details, and independent Show/Hide controls for programs, cards and canonical sections. The scoped local changes are implemented and undergoing compilation and regression checks. Affected emulator, timing, handbook and final phone gates reopen; no publication authority is inferred. Preserve every prior delivery and original-goal obligation.
+
+
+## Original Archive Evidence Compatibility
+
+The exact prepared v0.1 archived evidence clarification from local commit 47606d2 is carried into this coordinator candidate. It preserves every historical count and observation, records two real test-source paths verified at tag v0.1.0, and retains the previous manual-checklist anchor below the current required heading. No new historical test run or remote approval is claimed. Publication scope must explicitly include this original-goal documentation delta before any push; signed Native records remain untouched.
+
+
+## Current Structured Runtime
+
+The latest complete emulator invocation passed all 69 tests with zero failures/errors/skips at source d32f993f1601a367a5bf73684b2ba7c3c883970d1bc6760b54dbc4d1741edda1. Unchanged timing passed p95 139.73 ms against 200 ms on the declared 25-program/100-card/2000-benefit corpus with 30 samples. Actual production-process replacement cleared the query and selected tab without changing synthetic stored content; diagnostics omitted the query. Failed/interrupted invocations remain separately recorded. Finish affected full/report validation, install the latest APK without clearing phone data, obtain owner acceptance and fresh scoped publication authority, then complete actual delivery and original native/cleanup obligations.
+
+
+## Frozen Local Qualification
+
+The latest same-source full checkpoint passed 417 JVM cases (407 passes, 10 optional absent balance-capture skips, zero failures/errors), 78.24 percent unit coverage and the complete handbook/security profile. The latest platform result is 69/69 with p95 139.73 ms and actual process-restart privacy proof. Public evidence is frozen for the final scanner/report receipts in ignored reports/structured-search-frozen-full and reports/structured-search-frozen-aggregate; their terminal status must be checked, not inferred. Latest phone acceptance, fresh scoped publication authority, actual green hosted execution/release/archive and original native/cleanup reconciliation remain open.
+
+
+## Local Search Gate
+
+T016 local deep-pass scope and T019 full local qualification are evidenced: the native frozen aggregate passed with the same source fingerprint, 417 JVM cases (10 optional capture skips), 69 emulator passes, 78.24 percent unit coverage, actual process-restart privacy proof and p95 139.73 ms. The final coordinator path/task evidence update needs the explicitly named publication scanner refresh; do not infer that terminal result. Only T018 latest phone acceptance and T020 separately authorized publication remain unchecked in the Search plan. Actual hosted integration, release/archive and original native/cleanup completion remain obligations. No latest phone install or remote Search publication is claimed.
+
+
+## Original v0.3.0 Completion
+
+The authoritative primary checkout now prints PLAN COMPLETE for the archived v0.3.0 extraction plan, exit 0. Existing approved native cleanup removed the four local/remote v0.3.0 feature/release branch references after their 24-hour checks passed, kept all other 21 items, and deleted no worktree. Primary remains clean. This supersedes earlier v0.3.0 cleanup-pending checkpoints only. The expanded Search goal, latest phone acceptance, separately authorized v0.4 delivery and remaining historical native reconciliation stay open. New proof changes only the public scanner payload, which must be refreshed before Search publication; current code/runtime/handbook evidence remains bound to unchanged source.
+
+
+## Candidate Documentation
+
+Unreleased Search notes, the in-progress v0.4 development-log index and README candidate description are applied with released content preserved. Version remains 0.3.1/code 4 until authorized release. Latest phone acceptance and separately scoped publication remain open; refresh final public scan after this documentation-only update.
+
+
+## Third Owner Search Delta
+
+The owner requests Rewards program tiles with local image and stored points; a program-identifying query such as Amex must include all its stored card benefits, including rows without Amex in their own text. This explicitly supersedes the earlier blanket own-item-token rule for program-only queries. Mixed contextual queries retain an own-item token. Benefits card headers show only name and ending with an independent right-hand chevron and always open the exact card when pressed; program/card/section disclosure uses chevrons, larger distinctly themed program headings separate institutions, and Search card outlines are removed. The earlier card-header thumbnail/freshness presentation is superseded by this compact header. Source, matching, layout, navigation, timing, privacy, handbook, independent review and phone gates reopen. No publication authority is inferred.
+
+The prior 69-case/p95/phone-install results qualify the earlier candidate only. Current implementation and affected qualification are in progress under the latest owner request. Original v0.3.0 PLAN COMPLETE and all remaining expanded-goal obligations are preserved.
+
+
+## Program Search Refinement Qualification
+
+Current focused checks pass 33 JVM cases. The 29-case device invocation had two old Program-label selector failures; its 27 passes include all new owner cases. Both corrected navigation cases passed separately. The actual production-process replacement and independently adopted65-input/2606-check handbook proof pass. Do not combine these into a whole29-case PASS. Current full 72-case platform, timing, full/public-scan report and phone gates remain open. Program queries now include all stored descendants; Rewards uses images/stored points; compact exact-card headers and independent chevrons replace Search card images/outline/text toggles. Preserve every earlier original-goal obligation.
+
+
+The first complete current platform run was 71/72: the benchmark retained an obsolete single-result expectation for a program-only query. It now expects the requested 85 descendants and is rerunning without changing the query, dataset, sample count, endpoint or 200 ms limit. No stale timing artifact qualifies the new candidate.
+
+## Current Program Search Gate
+
+The latest owner-requested program-only browsing, Rewards points/image tiles, themed headings, compact exact-card headers and independent chevrons pass the complete 72-case emulator suite and current full profile. The current APK also passes actual process-restart privacy checks, unchanged latency at p95 138.80 ms and independently qualified handbook verification. Failed/interrupted invocations remain separate. Final public scanner/report receipts belong in ignored reports/program-refinement-frozen-full and reports/program-refinement-frozen-aggregate and must be checked directly. T018 latest phone acceptance and T020 separately authorized publication remain open; app version stays 0.3.1/code4 until release. No latest phone install or new remote action is claimed yet.
+
+
+## Current Phone Installation
+
+The latest qualified debug APK91aa0c8fc2c4ed7b8bf3edf377c10171a759b01810864ab2a2294d8ef69e44a7 was installed successfully on the connected owner phone with adb install -r after the frozen full/platform aggregate returned PASS. No data clear or uninstall was performed. Installed metadata remains0.3.1/code4 until authorized release. The owner was asked to verify program artwork/points, program-only Amex completeness, compact exact-card headers, independent right-hand chevrons, themed headings, Back state and no Search-triggered refresh/sign-in. This is an actual installation result, not owner acceptance. T018 and separately authorized T020 delivery remain open.
+
+This final installation record changes the public scanner payload only. Raw final scan and aggregation receipts belong in ignored reports/program-refinement-installed-freeze and reports/program-refinement-installed-aggregate; their terminal result must be checked rather than inferred. Application, test, handbook, runtime and benchmark inputs remain unchanged.
+
+
+## Fourth Owner Image Delta
+
+The owner liked the installed program-browsing/points/compact-chevron flow and requested the remaining program and card images in Benefits Search. Restore small local product artwork inside the existing compact card row, and add the local program image beside each themed program heading. Programme metadata is inherited from the added-program snapshot even for a benefit-only query whose programme does not itself match. Rewards appearance, matching, completeness, counts, exact navigation, chevrons and privacy remain unchanged. This supersedes only the prior no-card-image presentation. Affected rendering, metadata propagation, timing, handbook and latest phone gates reopen; previous acceptance is not a pass for the new images. No publication authority is inferred.
+
+Prior 72-case and full validation qualify the accepted pre-image candidate. Current image refinement is in progress; all original goal obligations remain preserved.
+
+
+## Benefits Search Images
+
+The latest Benefits Search candidate includes small bundled program logos and card artwork, including benefit-only queries. Whole runtime passed 72 cases; full local validation passed 410 JVM cases plus 10 optional capture skips, with 78.27 percent coverage and p95 70.87 ms under the unchanged 200 ms criterion. Actual process-restart privacy and the independently bound 65-input handbook also pass.
+
+[Current image qualification](releases/v0/v0.4/development/v0.4.0-search-images-qualification.json) retains the failed viewport assertion, corrected invocation, complete runtime and current artifact identity. Final frozen public scan/report receipts are under ignored reports/search-images-frozen-full and reports/search-images-frozen-aggregate and require actual terminal proof. Latest phone installation/acceptance and separately authorized delivery remain open; USB reconnection is requested. All original obligations remain preserved.
+
+
+## Search Images Phone Installation
+
+On November 14, 2026, the tested Benefits Search image update was installed successfully using adb install -r after fresh verification that the retained full/platform aggregate still passed. The installed APK hash equals the qualified 99df5ed58298a3da1b642e04391012f2c7c174c50c9164274fd75f8d1992dc1e artifact. No app data clear, uninstall or phone instrumentation occurred. Version metadata remains 0.3.1/code 4 until the separately authorized release.
+
+The owner was asked to check the American Express logo, all four card thumbnails, exact-card navigation and independent chevrons. Image acceptance remains pending. Application, test and handbook inputs remain unchanged; qualified runtime/build/coverage evidence is retained. These progress-record edits change the public scan payload, so its final refresh remains required before publication. All original and Search delivery obligations remain open where previously recorded.
+
+
+## Credit Tracker Presentation
+
+The owner accepted the installed Search images and added a separate Benefits tile refinement: completed credits retain a full progress bar and earned/target amount; completed and unfinished credit amounts sit beside the bar; Enrolled moves beside the item name, before the completion check. Use the existing display projection and tile only, preserve stored issuer rows and all Search behavior, and show no invented amount when neither a stored target nor a single explicit leading dollar credit amount is known. Source projection, row layout, bounded tests, synthetic emulator proof and phone acceptance reopen only for this refinement. Existing original and v0.4 delivery obligations remain; no remote authority is inferred.
+
+- [x] Retain completed credit progress and earned/target amounts in BenefitsViewModel.
+- [x] Place Enrolled in the title row and credit amounts beside progress in CardBenefitsScreen.
+- [x] Verify synthetic completed/unfinished and large-text layouts, install preserving sign-ins, and obtain owner acceptance.
+
+## Credit Tile Delivery
+
+The completed and unfinished credit layout is implemented, tested at normal and large text sizes, independently reviewed and installed with a matching APK hash while preserving app data and sign-ins. [Current qualification](releases/v0/v0.4/development/v0.4.0-credit-tile-qualification.json) distinguishes current row/JVM proof from the preceding 37-case affected UI invocation. The canonical local profile is being refreshed in ignored reports/credit-tile-final-full. Latest owner tile acceptance, final whole-platform/timing qualification and separately authorized publication/release remain open; the expanded goal is unfinished.
+
+
+## Credit Tile Acceptance
+
+The owner confirmed the installed completed and unfinished credit layout: "Yes, I approve the format". This closes the latest phone presentation check, including full completed progress, inline current/target amounts and Enrolled before the check mark. The complete current emulator/timing and process-restart gates are next; separately required publication/release authority and all remaining original obligations remain open.
+
+
+## Chase and Merchant Offers Scope Expansion
+
+Owner-confirmed release sequence, 2026-11-14: deliver v0.5.0 Chase personal/business benefits, then v0.6.0 merchant-offer discovery and default-on eligible-offer adding, after v0.4.0. This expands the existing active goal; no original release, archive, cleanup, redesign or Search obligation is removed. The goal API cannot edit the active objective, so this tracker retains the added scope without completing or replacing the goal.
+
+- [x] Confirm separate personal/business Chase connections and tiles, with linked access populating both without duplicate cards.
+- [x] Confirm automatic offer adding ON by default for eligible offers and the separate v0.5.0/v0.6.0 sequence.
+- [x] Prepare isolated draft plans and independent seven-lens review; incorporate source-coverage, identity, campaign-selection and action-boundary safeguards.
+- [x] Resolve offer policy: add matching offers independently on every eligible card; no preferred-card list or cross-card deduplication.
+- [x] Transfer nine owner Chase captures through the sanitizer and inspect structure only, with zero private files tracked.
+- [ ] Finalize source contracts and plan admission after exact-card mapping, coverage and completeness checks.
+- [ ] Implement and verify v0.5.0, including welcome information, credits, benefits, safe connection/card identity and retained Amex/Search data and sign-ins.
+- [ ] Implement and verify v0.6.0 discovery, dynamic offer lifecycle, default-on eligible adding, stop controls and confirmed recoverable outcomes.
+- [ ] Obtain separately required publication/release/cleanup authority and complete both plans' delivery requirements before declaring the expanded goal complete.
+
+The isolated drafts are in the plan-chase-merchant-offers worktree under docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md and docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md. They await publication and are not represented as integrated production capability. The separate MileStone Capture package is installed for read-only owner-assisted discovery; the main installed APK is unchanged.
+
+## Accepted Final Search Qualification
+
+Current whole-emulator proof passes 74/74 cases, Search p95 101.4965 ms against 200 ms, and actual production-process replacement. The owner accepted Search images and the credit layout. The 422-case local gate has 412 passes, 10 optional missing-capture skips and zero failures/errors; coverage is 78.35 percent. T016/T019 local obligations are qualified. A final public-payload scan/report refresh and separately authorized delivery remain; original historical native-run reconciliation remains open.
+
+
+## Chase Captures and Offer Policy
+
+Owner update, 2026-11-15: the saved Chase pages include overview, selector, personal/business benefits and offers-to-add pages. Nine captures are sanitized and stored only in the planning worktree's gitignored fixtures-private directory. Counts-only reports identify benefit-list, progress, selector and offer components. Semantic card mapping, personal-only/linked coverage, complete-list criteria and bounded read timing remain to prove; no extractor or real offer activation is claimed.
+
+The owner requires the same merchant offer to be added to every independently eligible card, including two cards carrying matching merchant/value offers. Default-on adding stays confirmed. Deduplicate only the same exact-card/offer across connections. Do not impose preferred-card ordering or treat matching text/campaign IDs as exclusivity. Only verified explicit issuer restrictions or unverified eligibility hold an action pending. Independent design/security rechecks found no actionable gap in this updated plan contract. Existing v0.4 publication authority and historical reconciliation remain separate.

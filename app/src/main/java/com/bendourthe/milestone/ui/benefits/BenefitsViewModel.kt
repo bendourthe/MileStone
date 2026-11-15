@@ -36,6 +36,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import com.bendourthe.milestone.sync.extract.BenefitAmountParser
 
 /** What the Benefits tab shows. */
 sealed interface BenefitsUiState {
@@ -97,6 +98,7 @@ data class BenefitUi(
     val noReminder: Boolean,
     val enrollment: String?,
     val description: String?,
+    val inlineProgressAmounts: Boolean = false,
 )
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -200,6 +202,7 @@ class BenefitsViewModel(
     companion object {
         /** A card read longer ago than this shows a stale note and gets no reminder (plan 4.1 and 5.2). */
         const val STALE_AFTER_MS = 8L * 24 * 60 * 60 * 1000
+        private val completedCreditAmount = Regex("""^\s*(\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d{2})?)(?=\s|$)""")
 
         fun digitsLabel(lastDigits: String) = "…$lastDigits"
 
@@ -268,16 +271,24 @@ class BenefitsViewModel(
         }
 
         fun item(benefit: Benefit, locale: Locale): BenefitUi {
-            val earned = benefit.earnedCents
+            val credit = BenefitsPresentation.category(benefit) == BenefitsCategory.CREDITS
             val left = benefit.remainingCents
-            val target = benefit.targetCents
+            // Completed issuer tiles may omit the earned figure and progress element.
+            // A single leading dollar credit title supplies a display-only fallback.
+            val target = benefit.targetCents?.takeIf { it > 0 } ?: if (credit && benefit.completed) {
+                benefit.earnedCents?.takeIf { it > 0 } ?: benefit.title
+                    .takeIf { it.count { c -> c == '$' } == 1 }
+                    ?.let { completedCreditAmount.find(it)?.groupValues?.get(1) }
+                    ?.let(BenefitAmountParser::parse)?.takeIf { it > 0 }
+            } else null
+            val earned = if (credit && benefit.completed) target else benefit.earnedCents
             val amountLabel = if (benefit.stableKey == "local:welcome") "spent" else "earned"
-            val amounts = listOfNotNull(earned?.let { "${money(it, locale)} $amountLabel" }, left?.let { "${money(it, locale)} left" })
+            val amounts = if (credit && earned != null && target != null) "${money(earned, locale)}/${money(target, locale)}" else listOfNotNull(earned?.let { "${money(it, locale)} $amountLabel" }, left?.let { "${money(it, locale)} left" })
                 .joinToString(" · ").ifEmpty { null }
             return BenefitUi(
                 key = benefit.stableKey,
                 title = benefit.title,
-                progress = if (earned != null && target != null && target > 0) (earned.toFloat() / target).coerceIn(0f, 1f) else null,
+                progress = if (credit && benefit.completed) 1f else if (earned != null && target != null && target > 0) (earned.toFloat() / target).coerceIn(0f, 1f) else null,
                 amounts = amounts,
                 period = benefit.periodLabel,
                 completed = benefit.completed,
@@ -288,6 +299,7 @@ class BenefitsViewModel(
                     null -> null
                 },
                 description = benefit.description,
+                inlineProgressAmounts = credit,
             )
         }
     }

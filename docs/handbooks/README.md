@@ -6,7 +6,8 @@ Living technical documentation for MileStone.
 |---|---|---|
 | Repository overview | [overview.md](overview.md) | Maintained source |
 | Amex benefits reader | [benefits-reader.md](benefits-reader.md) | Maintained technical companion |
-| Offline handbook | [Reading and Presentation Mode](html/overview.html) | Generated from both sources |
+| Global search | [global-search.md](global-search.md) | Local v0.4 candidate companion |
+| Offline handbook | [Reading and Presentation Mode](html/overview.html) | Generated from all three sources |
 
 The offline handbook includes the complete reading sources and an eight-slide presentation. Presentation Mode is available from the title and top menu. Reading and presentation themes and detail controls are independent; presentation starts at slide 1 unless a chapter or slide link is selected. No captured account page or account data is included.
 

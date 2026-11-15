@@ -2,6 +2,12 @@
 
 MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that shows credit card, airline, and hotel loyalty balances on one dashboard. It is installed on the user's own phone as a signed APK; there is no Play Store listing and no server.
 
+## Search Candidate
+
+The v0.4.0 candidate adds a top-right Search icon for added programs and stored cards and benefits. Rewards shows matching program images and stored points. Benefits uses themed program headings with local logos and compact card headers with product images and independent right-hand chevrons, and single-line item tiles. A program-only query such as Amex includes all its stored card benefits. Selecting a match opens and briefly highlights its exact destination; Back retains the search context. Search runs locally without requesting a refresh or sign-in.
+
+The latest owner refinement is undergoing local qualification and still awaits phone acceptance and release. See the [Search handbook](docs/handbooks/global-search.md) for matching, navigation and privacy details.
+
 ## What's in v0.3.1
 
 - Benefits opens institution tiles, then cards with matching images, outlined categories, independent Show/Hide, four saved sorts, and a separate Completed last filter.

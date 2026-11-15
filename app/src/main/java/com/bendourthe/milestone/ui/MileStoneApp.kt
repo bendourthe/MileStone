@@ -277,10 +277,10 @@ fun MileStoneApp(
                         if (!selecting && navController.currentBackStackEntry == entry) {
                             selecting = true
                             scope.launch(kotlinx.coroutines.Dispatchers.Main.immediate) {
-                                val query = search.query.value
+                                val queryVersion = search.queryVersion
                                 try {
                                     val result = search.prepare(target)
-                                    if (search.query.value == query && navController.currentBackStackEntry == entry) {
+                                    if (search.queryVersion == queryVersion && navController.currentBackStackEntry == entry) {
                                         if (result != SearchValidation.CURRENT) search.report(result) else {
                                             val route: Any = when (target) {
                                                 is SearchTarget.ProgramTarget -> Dashboard

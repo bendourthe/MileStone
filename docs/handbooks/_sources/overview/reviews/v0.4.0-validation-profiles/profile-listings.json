@@ -1,0 +1,400 @@
+{
+  "status": "pass",
+  "scope": "Actual read-only CLI listing, no Gradle/ADB/security/release execution",
+  "listings": [
+    {
+      "profile": "fast",
+      "platform": "windows",
+      "groups": [
+        {
+          "name": "private-input-boundary",
+          "blocking": true,
+          "commands": [
+            {
+              "argv": [
+                "@private"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "syntax",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "scripts/validate.py",
+                "scripts/build_handbooks.py",
+                "scripts/check_handbook_render.py"
+              ],
+              "timeout_seconds": 60
+            },
+            {
+              "argv": [
+                "node",
+                "--check",
+                "app/src/main/assets/extract.js"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "handbook-freshness",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "scripts/build_handbooks.py",
+                "--check"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "profile": "full",
+      "platform": "windows",
+      "groups": [
+        {
+          "name": "private-input-boundary",
+          "blocking": true,
+          "commands": [
+            {
+              "argv": [
+                "@private"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "syntax",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "scripts/validate.py",
+                "scripts/build_handbooks.py",
+                "scripts/check_handbook_render.py"
+              ],
+              "timeout_seconds": 60
+            },
+            {
+              "argv": [
+                "node",
+                "--check",
+                "app/src/main/assets/extract.js"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "handbook-freshness",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "scripts/build_handbooks.py",
+                "--check"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "profile-tests",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "scripts/tests",
+                "-p",
+                "test_*.py",
+                "-q"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "android",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "cmd.exe",
+                "/d",
+                "/c",
+                "gradlew.bat",
+                "-q",
+                "--no-daemon",
+                "--max-workers=2",
+                "testDebugUnitTest",
+                "lintDebug",
+                "assembleDebug",
+                "assembleCapture",
+                "compileDebugAndroidTestKotlin",
+                "createDebugUnitTestCoverageReport"
+              ],
+              "timeout_seconds": 2700
+            },
+            {
+              "argv": [
+                "@schema"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "handbook-render",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "scripts/check_handbook_render.py",
+                "--out",
+                "<reports>/handbook-render"
+              ],
+              "timeout_seconds": 240
+            }
+          ]
+        },
+        {
+          "name": "security",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "@security"
+              ],
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+      ]
+    },
+    {
+      "profile": "full",
+      "platform": "ci-linux",
+      "groups": [
+        {
+          "name": "private-input-boundary",
+          "blocking": true,
+          "commands": [
+            {
+              "argv": [
+                "@private"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "syntax",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "-m",
+                "py_compile",
+                "scripts/validate.py",
+                "scripts/build_handbooks.py",
+                "scripts/check_handbook_render.py"
+              ],
+              "timeout_seconds": 60
+            },
+            {
+              "argv": [
+                "node",
+                "--check",
+                "app/src/main/assets/extract.js"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "handbook-freshness",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "scripts/build_handbooks.py",
+                "--check"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "profile-tests",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "scripts/tests",
+                "-p",
+                "test_*.py",
+                "-q"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "android",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "./gradlew",
+                "-q",
+                "--no-daemon",
+                "--max-workers=2",
+                "testDebugUnitTest",
+                "lintDebug",
+                "assembleDebug",
+                "compileDebugAndroidTestKotlin",
+                "createDebugUnitTestCoverageReport"
+              ],
+              "timeout_seconds": 2700
+            },
+            {
+              "argv": [
+                "@schema"
+              ],
+              "timeout_seconds": 60
+            }
+          ]
+        },
+        {
+          "name": "handbook-render",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "python",
+                "scripts/check_handbook_render.py",
+                "--out",
+                "<reports>/handbook-render"
+              ],
+              "timeout_seconds": 240
+            }
+          ]
+        },
+        {
+          "name": "security",
+          "blocking": false,
+          "commands": [
+            {
+              "argv": [
+                "@security"
+              ],
+              "timeout_seconds": 600
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Device runtime belongs to the separate platform profile; compilation is not runtime proof.",
+        "Capture is local-only under ADR-0001; ci-linux never selects assembleCapture."
+      ]
+    },
+    {
+      "profile": "platform",
+      "platform": "windows",
+      "groups": [
+        {
+          "name": "android-emulator-runtime",
+          "blocking": true,
+          "commands": [
+            {
+              "argv": [
+                "@emulator"
+              ],
+              "timeout_seconds": 60
+            },
+            {
+              "argv": [
+                "cmd.exe",
+                "/d",
+                "/c",
+                "gradlew.bat",
+                "-q",
+                "--no-daemon",
+                "--max-workers=2",
+                "connectedDebugAndroidTest"
+              ],
+              "timeout_seconds": 2700
+            }
+          ]
+        }
+      ],
+      "limitations": []
+    },
+    {
+      "profile": "report",
+      "platform": "windows",
+      "groups": [],
+      "limitations": []
+    },
+    {
+      "profile": "release",
+      "platform": "windows",
+      "groups": [
+        {
+          "name": "source-package",
+          "blocking": true,
+          "commands": [
+            {
+              "argv": [
+                "@private"
+              ],
+              "timeout_seconds": 60
+            },
+            {
+              "argv": [
+                "@source-package"
+              ],
+              "timeout_seconds": 300
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Source-only archive from a clean committed candidate; no APK signing, validation rerun, tag, or publication."
+      ]
+    }
+  ]
+}

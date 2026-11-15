@@ -1,0 +1,28 @@
+{
+  "samples": [
+    {
+      "utc": "2026-11-15T04:08:17.289119+00:00",
+      "cpu_percent": 35.43,
+      "available_memory_mb": 4096
+    },
+    {
+      "utc": "2026-11-15T04:08:19.290369+00:00",
+      "cpu_percent": 30.48,
+      "available_memory_mb": 4114
+    },
+    {
+      "utc": "2026-11-15T04:08:21.291086+00:00",
+      "cpu_percent": 23.03,
+      "available_memory_mb": 4115
+    }
+  ],
+  "comparison_control_met": false,
+  "method": "Actual unchanged200ms/30query/draw endpoint with declared software renderer and host load; not a comparative speed claim",
+  "sdk_live_session": 83958,
+  "gpu": "swiftshader",
+  "actual_renderer": [
+    "GLES: Google (Google Inc.), Android Emulator OpenGL ES Translator (Google SwiftShader), OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)"
+  ],
+  "other_host_programs_unchanged": true,
+  "prior_interrupted_run": "SDK0xC0000005; not an application assertion pass"
+}

@@ -1,0 +1,167 @@
+{
+  "programs": 25,
+  "cards": 100,
+  "displayed_benefits": 2000,
+  "samples": 30,
+  "warmups": 3,
+  "p95_ms": 155.8228,
+  "limit_ms": 200,
+  "minimum_ms": 14.9618,
+  "maximum_ms": 201.8538,
+  "device": "emu64xa",
+  "hardware": "ranchu",
+  "api": 36,
+  "method": "Monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded",
+  "observations": [
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 201.8538
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 97.2917
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 62.5062
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 39.2289
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 87.1712
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 18.2342
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 118.7522
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 70.6313
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 73.5863
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 17.9805
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 47.2896
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 18.3692
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 155.8228
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 51.3996
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 82.6566
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.2118
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 43.1946
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 16.706
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 83.9209
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 54.87
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 77.2408
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.1418
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 59.6516
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.0297
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 133.8813
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 61.7108
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 77.1913
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 14.9618
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 60.1659
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 20.0232
+    }
+  ]
+}

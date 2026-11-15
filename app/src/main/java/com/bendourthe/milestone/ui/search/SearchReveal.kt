@@ -15,6 +15,7 @@ class SearchReveal internal constructor(val target: SearchTarget, internal val s
     var invalidated by mutableStateOf(false)
         private set
     fun expand() { expanded = true }
+    fun hideForVisit() { expanded = false }
     fun complete() { consumed = true }
     fun invalidate() { invalidated = true; consumed = true; expanded = false }
 }

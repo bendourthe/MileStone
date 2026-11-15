@@ -1,5 +1,6 @@
 package com.bendourthe.milestone.ui.dashboard
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -92,16 +93,22 @@ fun DashboardScreen(
         viewModel.messages.collect { snackbarHostState.showSnackbar(it, withDismissAction = true, duration = SnackbarDuration.Long) }
     }
 
-    val compactBrand = onSearch != null && androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f
+    val compactBrand = onSearch != null && (androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f ||
+        androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 400)
     Scaffold(
         topBar = {
           Box {
             TopAppBar(
-                title = { if (!compactBrand) Text("MileStone") },
-                navigationIcon = { onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) } },
+                title = {
+                    if (onSearch != null) Row(verticalAlignment = Alignment.CenterVertically) {
+                        MileStoneMark(44.dp, contentDescription = if (compactBrand) "MileStone" else null)
+                        if (!compactBrand) Text("MileStone", modifier = Modifier.padding(start = 8.dp))
+                    } else Text("MileStone")
+                },
                 // A band a little darker than the bottom bar sets the header apart from the aurora below.
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = HeaderTeal),
                 actions = {
+                    onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
                     if (state.canRefresh) {
                         Box(contentAlignment = Alignment.Center) {
                             IconButton(
@@ -121,7 +128,7 @@ fun DashboardScreen(
             // Centered on the whole bar, not on the space between the title and the actions, which sits left of the
             // screen's center because the title is wider than the actions. The status bar inset keeps it in the 64 dp
             // row; 44 dp raised 3 dp leaves about 7 dp above the mark and 13 dp below it.
-            Box(
+            if (onSearch == null) Box(
                 Modifier.matchParentSize().windowInsetsPadding(TopAppBarDefaults.windowInsets),
                 contentAlignment = Alignment.Center,
             ) { MileStoneMark(44.dp, Modifier.offset(y = (-3).dp), contentDescription = if (compactBrand) "MileStone" else null) }
@@ -207,6 +214,10 @@ private fun TileList(
     onRevealInvalid: (com.bendourthe.milestone.ui.search.SearchValidation) -> Unit,
 ) {
     val listState = rememberLazyListState()
+    var highlightedProgram by remember(reveal) { mutableStateOf<String?>(null) }
+    LaunchedEffect(highlightedProgram) {
+        if (highlightedProgram != null) { kotlinx.coroutines.delay(4_000); highlightedProgram = null }
+    }
     var observedSort by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<SortMode?>(null) }
     LaunchedEffect(state.sortMode) {
         if (observedSort != null && observedSort != state.sortMode) listState.scrollToItem(0)
@@ -230,7 +241,7 @@ private fun TileList(
                 }
                 val index = targetSlot
                 if (index == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE)
-                else { listState.scrollToItem(index); request.complete() }
+                else { listState.scrollToItem(index); highlightedProgram = target.programId; request.complete() }
                 true
             }
             if (result == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.READ_ERROR)
@@ -269,6 +280,10 @@ private fun TileList(
                         onOpen = if (tile.programId in benefitsPrograms) ({ onOpenBenefits(tile.programId) }) else null,
                         extraMenuItems = { close -> tileMenuItems(tile, close) },
                         modifier = Modifier
+                            .then(if (highlightedProgram == tile.programId && reveal?.invalidated == false)
+                                Modifier.border(2.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.medium)
+                                    .testTag("searchProgramHighlight").semantics { stateDescription = "Search result" }
+                                else Modifier)
                             .longPressDraggableHandle(
                                 enabled = state.canReorder,
                                 onDragStarted = { haptics.performHapticFeedback(HapticFeedbackType.LongPress) },

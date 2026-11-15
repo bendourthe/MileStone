@@ -21,7 +21,7 @@ sealed interface SearchUiState {
 
 enum class SearchValidation { CURRENT, CHANGED, UNAVAILABLE, READ_ERROR }
 
-internal data class SearchProgramSource(val program: Program, val updatedAt: Long?, val status: AccountStatus)
+internal data class SearchProgramSource(val program: Program, val updatedAt: Long?, val status: AccountStatus, val balance: Long? = null)
 internal data class SearchInput(val programs: List<SearchProgramSource>, val cards: Map<Card, List<Benefit>>,
                                 val preferences: Map<CardKey, BenefitsDisplayPreferences>) {
     fun frozen() = copy(programs = programs.sortedBy { it.program.programId }, cards = cards.mapValues { (_, rows) ->
@@ -49,7 +49,9 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
             val program = source.program
             add(SearchEntry(SearchTarget.ProgramTarget(program.programId, revision), program.displayName, program.displayName,
                 aliases = listOf(program.programId, program.category.label),
-                freshnessNote = DashboardViewModel.lastUpdatedLabel(source.updatedAt, clock())))
+                freshnessNote = DashboardViewModel.lastUpdatedLabel(source.updatedAt, clock()),
+                programDisplay = SearchProgramDisplay(program.monogram, program.logoKey, program.brandColorArgb,
+                    source.balance?.let { program.formatBalance(it, locale) } ?: "-- ${program.unitLabel}")))
             input.cards.filterKeys { it.programId == program.programId }.forEach { (card, rows) ->
                 val prefs = input.preferences[card.key] ?: BenefitsDisplayPreferences()
                 val page = BenefitsViewModel.page(card, rows, clock(), zone, locale, prefs)
@@ -57,12 +59,13 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
                 add(SearchEntry(SearchTarget.CardTarget(card.key, revision), program.displayName, page.name,
                     freshnessNote = freshness))
                 val aliases = BenefitsPresentation.presented(rows).groupBy { it.benefit.stableKey }
+                var displayOrder = 0
                 page.sections.forEach { section -> section.items.forEach { item ->
                     add(SearchEntry(SearchTarget.BenefitTarget(card.key, item.key, section.category, revision),
                         program.displayName, item.title, card.name, item.description,
                         aliases[item.key].orEmpty().flatMap { it.sourceTitles }.distinct(),
                         freshness,
-                        item.completed, item.period))
+                        item.completed, item.period, displayOrder++, item.enrollment))
                 } }
             }
         }
@@ -82,6 +85,8 @@ class SearchViewModel(
 ) : ViewModel() {
     private val factory = SearchSnapshotFactory(clock, zone, locale)
     private val input = MutableStateFlow("")
+    private val edits = java.util.concurrent.atomic.AtomicLong()
+    val queryVersion: Long get() = edits.get()
     val query: StateFlow<String> = input.asStateFlow()
     private val retries = MutableStateFlow(0)
     private val notification = MutableStateFlow<String?>(null)
@@ -100,7 +105,7 @@ class SearchViewModel(
     private data class CardSignal(val card: Card, val rows: List<Benefit>, val preferences: BenefitsDisplayPreferences)
 
     private fun programs(rows: List<LoyaltyAccount>) = rows.mapNotNull { account ->
-        catalog.program(account.programId)?.let { SearchProgramSource(it, account.lastUpdatedEpochMs, account.status) }
+        catalog.program(account.programId)?.let { SearchProgramSource(it, account.lastUpdatedEpochMs, account.status, account.balance) }
     }.sortedBy { it.program.programId }
 
     private fun preferences(key: CardKey) = displaySettings?.observeForSearch(key) ?: flowOf(BenefitsDisplayPreferences())
@@ -149,26 +154,31 @@ class SearchViewModel(
         }.flowOn(worker).stateIn(viewModelScope, sharing, SearchUiState.Loading)
 
     // These belong to this navigation entry only, never to saved instance state or storage.
-    var firstVisibleItemIndex: Int = 0
-        private set
-    var firstVisibleItemOffset: Int = 0
-        private set
+    private val tab = MutableStateFlow<SearchTab?>(null)
+    val selectedTab: StateFlow<SearchTab?> = tab.asStateFlow()
+    private val positions = mutableMapOf<SearchTab, Pair<Int, Int>>()
+    private val collapsedGroups = MutableStateFlow<Set<String>>(emptySet())
+    val collapsed: StateFlow<Set<String>> = collapsedGroups.asStateFlow()
+    fun toggleGroup(key: String) { collapsedGroups.update { if (key in it) it - key else it + key } }
     private var resetScroll = false
     private var initialFocus = true
 
-    fun rememberPosition(index: Int, offset: Int) {
-        firstVisibleItemIndex = index
-        firstVisibleItemOffset = offset
+    fun position(tab: SearchTab): Pair<Int, Int> = positions[tab] ?: (0 to 0)
+    fun selectTab(value: SearchTab) { tab.value = value }
+    fun rememberPosition(index: Int, offset: Int, tab: SearchTab = this.tab.value ?: SearchTab.REWARDS) {
+        positions[tab] = index to offset
     }
     fun consumeInitialFocus(): Boolean = initialFocus.also { initialFocus = false }
     fun consumeScrollReset(): Boolean = resetScroll.also { resetScroll = false }
     fun setQuery(value: String) {
         val bounded = GlobalSearch.boundQuery(value)
         if (input.value != bounded) {
+            edits.incrementAndGet()
             notification.value = null
             input.value = bounded
-            firstVisibleItemIndex = 0
-            firstVisibleItemOffset = 0
+            positions.clear()
+            collapsedGroups.value = emptySet()
+            tab.value = null
             resetScroll = true
         }
     }

@@ -1,0 +1,2686 @@
+{
+  "status": "fail",
+  "browser": "Chromium 156.0.8078.4",
+  "output_sha256": "593a3ea808e8f12f5e1267f7b323fef7ad8178f923b9243927b29907d6310850",
+  "checks": [
+    {
+      "name": "canonical source ID inventory",
+      "passed": true,
+      "detail": [
+        "overview-repository-overview",
+        "overview-toolchain",
+        "overview-module-layout",
+        "overview-runtime-flow",
+        "overview-benefits-display",
+        "overview-global-search",
+        "overview-privacy-rules",
+        "overview-tests",
+        "benefits-amex-benefits-reader",
+        "benefits-page-kinds",
+        "benefits-readiness",
+        "benefits-card-switching",
+        "benefits-run-budget",
+        "benefits-storing-a-read",
+        "benefits-display-and-freshness",
+        "benefits-diagnostics",
+        "benefits-verification",
+        "benefits-limits",
+        "search-global-search",
+        "search-stored-corpus",
+        "search-contextual-matching",
+        "search-selection-validation",
+        "search-navigation-and-privacy",
+        "search-verification"
+      ]
+    },
+    {
+      "name": "canonical slide IDs and themes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "slide ceiling",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "skip link visible when focused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "skip target",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reading 2560x1300 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "reading 2560x1300 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 993,
+        "right": 1838
+      }
+    },
+    {
+      "name": "slide 2560x1300 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 2560x1300 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 2560,
+        "bottom": 1218.234375,
+        "controlsTop": 1218.234375,
+        "controlsBottom": 1300,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "reading 1920x1080 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 673,
+        "right": 1518
+      }
+    },
+    {
+      "name": "slide 1920x1080 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1920x1080 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1920,
+        "bottom": 998.234375,
+        "controlsTop": 998.234375,
+        "controlsBottom": 1080,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "reading 1366x768 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 394.625,
+        "right": 1241
+      }
+    },
+    {
+      "name": "slide 1366x768 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1366x768 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1366,
+        "bottom": 686.234375,
+        "controlsTop": 686.234375,
+        "controlsBottom": 768,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "reading 1200x800 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 305,
+        "right": 1158
+      }
+    },
+    {
+      "name": "slide 1200x800 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1200x800 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1200,
+        "bottom": 718.234375,
+        "controlsTop": 718.234375,
+        "controlsBottom": 800,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "reading 1024x640 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 286.671875,
+        "right": 993.28125
+      }
+    },
+    {
+      "name": "slide 1024x640 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 1024x640 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 1024,
+        "bottom": 558.234375,
+        "controlsTop": 558.234375,
+        "controlsBottom": 640,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 761x844 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "reading 761x844 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 268.265625,
+        "right": 738.171875
+      }
+    },
+    {
+      "name": "slide 761x844 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 761x844 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 761,
+        "bottom": 713.4375,
+        "controlsTop": 713.4375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 760x844 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "reading 760x844 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 22.796875,
+        "right": 737.203125
+      }
+    },
+    {
+      "name": "slide 760x844 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 760x844 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 760,
+        "bottom": 762.234375,
+        "controlsTop": 762.234375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 390x844 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "reading 390x844 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 374
+      }
+    },
+    {
+      "name": "slide 390x844 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 390x844 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 390,
+        "bottom": 695.859375,
+        "controlsTop": 695.859375,
+        "controlsBottom": 844,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "reading 320x900 overview-repository-overview",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-toolchain",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-module-layout",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-runtime-flow",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-benefits-display",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-global-search",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-privacy-rules",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 overview-tests",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-amex-benefits-reader",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-page-kinds",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-readiness",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-card-switching",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-run-budget",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-storing-a-read",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-display-and-freshness",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-diagnostics",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-verification",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 benefits-limits",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-global-search",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-stored-corpus",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-contextual-matching",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-selection-validation",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-navigation-and-privacy",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "reading 320x900 search-verification",
+      "passed": true,
+      "detail": {
+        "left": 16,
+        "right": 304
+      }
+    },
+    {
+      "name": "slide 320x900 1",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 2",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 3",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 4",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 5",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 6",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 7",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "slide 320x900 8",
+      "passed": true,
+      "detail": {
+        "left": 0,
+        "right": 320,
+        "bottom": 751.859375,
+        "controlsTop": 751.859375,
+        "controlsBottom": 900,
+        "scrollAllowed": false
+      }
+    },
+    {
+      "name": "printed search full content True",
+      "passed": false,
+      "detail": null
+    },
+    {
+      "name": "no blank printed pages True",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "printed search full content False",
+      "passed": false,
+      "detail": null
+    },
+    {
+      "name": "no blank printed pages False",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "pdfs": [
+    {
+      "path": "print-js.pdf",
+      "pages": 13,
+      "sha256": "cb08363f3b7c3b4b823e7fce7260b959ed6fc7827be038c838bf7cda088f4751"
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 13,
+      "sha256": "73afae21c9a9177a799825e60b840bf5c0b2317b80462ae23a68cfc50c07952b"
+    }
+  ],
+  "native_measurement": {
+    "status": "unavailable",
+    "reason": "Installed measure_handbook expects data-dv-section; retained canonical output exposes data-source-unit and stable section IDs. Equivalent geometry checks above use those actual IDs without mutating the output."
+  },
+  "content_review": "author checked; independent coordinator review pending"
+}

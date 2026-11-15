@@ -124,7 +124,7 @@ data class CardList(val cards: List<CardDraft>, val complete: Boolean) {
     }
 }
 
-private val TRADEMARKS = Regex("[â„¢Â®â„ Â©]")
+private val TRADEMARKS = Regex("[\u2122\u00AE\u2120\u00A9]")
 private val SPACES = Regex("\\s+")
 
 /** Trims, removes trademark signs, and collapses runs of whitespace. */

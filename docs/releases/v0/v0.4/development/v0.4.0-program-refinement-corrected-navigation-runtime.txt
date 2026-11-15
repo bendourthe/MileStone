@@ -1,0 +1,6 @@
+11-14 19:39:38.931  4366  4380 I TestRunner: run started: 2 tests
+11-14 19:39:38.932  4366  4380 I TestRunner: started: cardAndProgramRemovalDuringSelectionAreSafe(com.bendourthe.milestone.ui.search.SearchNavigationTest)
+11-14 19:39:43.334  4366  4380 I TestRunner: finished: cardAndProgramRemovalDuringSelectionAreSafe(com.bendourthe.milestone.ui.search.SearchNavigationTest)
+11-14 19:39:43.353  4366  4380 I TestRunner: started: programAndCardTargetsReturnToTheSameSearch(com.bendourthe.milestone.ui.search.SearchNavigationTest)
+11-14 19:39:48.902  4366  4380 I TestRunner: finished: programAndCardTargetsReturnToTheSameSearch(com.bendourthe.milestone.ui.search.SearchNavigationTest)
+11-14 19:39:48.905  4366  4380 I TestRunner: run finished: 2 tests, 0 failed, 0 ignored

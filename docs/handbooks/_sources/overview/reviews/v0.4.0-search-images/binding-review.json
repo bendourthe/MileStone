@@ -1,0 +1,34 @@
+{
+  "output_sha256": "6a3874472c8d8efb18d5c37d045c5fc349aec8f6c91f70e7806a0aec4386a300",
+  "prior_live_output_sha256": "ec91405853afe73e0dcad4218917f0db4a15172718d7e7d1b20fe6e452c91127",
+  "changed_input_records": [
+    {
+      "path": "docs/handbooks/overview.md",
+      "before_sha256": "cd006122fbb937ef8f94c5fe52c3da262a2d9361c01d1d766f3b82aa00c009c7",
+      "sha256": "9934be74db4c0e1415a71ed6bdae55da990aa52c8ae770734c233664885377bb"
+    },
+    {
+      "path": "docs/handbooks/global-search.md",
+      "before_sha256": "2d5913be01c4e9bb9d591868ae4a6866cf4c61230feb35936f99be45df47a9c7",
+      "sha256": "edcb9e96a16600ac585df74605d6d441f6a9a3d6568d170a718fe3fc7e58e0c1"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+      "before_sha256": "e3b584f0e1215888fe5491a7ab503ad5fe4da476a658d24e14f778f081e415c1",
+      "sha256": "2fd29f0396e5b7afb0c72a4f2df97e18ce03375009be9ccc081071895a41dd7c"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+      "before_sha256": "a128c9d13af7eb88d5eeec4e9d9538e651338656cdb90890cc172f664cef543e",
+      "sha256": "17bd28d5114db779b943df2528bd4fe74df2febdd52d51ff5ebd58d8e328542a"
+    }
+  ],
+  "input_count": 65,
+  "input_records_roundtrip_native_pairs": true,
+  "standard_png_byte_equality": {
+    "compared": 225,
+    "identical": 225
+  },
+  "content_changes": "Small bundled program/card images added to Benefits Search; retained8slide model/themes/runtime/CSS, matching/counts/privacy, and configured hosted CI explanation unchanged.",
+  "prior_ci281_draft": "Historical stale binding, never adopted; current output independently rebuilt from all65 inputs."
+}

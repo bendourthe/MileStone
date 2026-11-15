@@ -1,0 +1,24 @@
+{
+  "profile": "platform",
+  "platform": "windows",
+  "status": "PASS",
+  "source_sha256": "951e3abfeb99173d7421176dba0b0118c76025f9919a087240be75004e8ebb7b",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "android-emulator-runtime",
+      "status": "PASS",
+      "seconds": 819.218
+    }
+  ],
+  "counts": {
+    "tests": 68,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+  "coverage": null,
+  "security": null,
+  "limitations": []
+}

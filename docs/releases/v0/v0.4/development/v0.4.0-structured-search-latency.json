@@ -1,0 +1,400 @@
+{
+  "programs": 25,
+  "cards": 100,
+  "displayed_benefits": 2000,
+  "samples": 30,
+  "warmups": 3,
+  "p95_ms": 139.728285,
+  "limit_ms": 200,
+  "minimum_ms": 15.256944,
+  "maximum_ms": 155.95692,
+  "device": "emu64xa",
+  "hardware": "ranchu",
+  "api": 36,
+  "method": "Monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded",
+  "phase_diagnostics_including_warmups": [
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 108.234627,
+      "draw_after_results_ms": 72.95126900000001,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 7.315891,
+      "draw_after_results_ms": 93.60781,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 7.432658,
+      "draw_after_results_ms": 63.820493,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 97.765207,
+      "draw_after_results_ms": 58.19171299999999,
+      "gc_delta": 1
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 5.833314,
+      "draw_after_results_ms": 48.984484,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 11.389714,
+      "draw_after_results_ms": 28.590084000000004,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 7.360163,
+      "draw_after_results_ms": 9.910018,
+      "gc_delta": 0
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "results_ready_ms": 3.746319,
+      "draw_after_results_ms": 41.241125000000004,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 3.23402,
+      "draw_after_results_ms": 14.184234999999997,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 92.560429,
+      "draw_after_results_ms": 8.590972000000008,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 5.261705,
+      "draw_after_results_ms": 59.327977,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 10.789403,
+      "draw_after_results_ms": 34.890699,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 5.558942,
+      "draw_after_results_ms": 9.698002,
+      "gc_delta": 0
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "results_ready_ms": 2.926281,
+      "draw_after_results_ms": 47.988566999999996,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 2.819727,
+      "draw_after_results_ms": 13.901218,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 90.22672,
+      "draw_after_results_ms": 17.278633,
+      "gc_delta": 1
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 4.712612,
+      "draw_after_results_ms": 54.278123,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 11.844192,
+      "draw_after_results_ms": 33.943423,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 5.926844,
+      "draw_after_results_ms": 10.460258,
+      "gc_delta": 0
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "results_ready_ms": 1.939952,
+      "draw_after_results_ms": 43.283136,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 1.643647,
+      "draw_after_results_ms": 15.370589,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 53.021938,
+      "draw_after_results_ms": 15.619183999999997,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 3.663765,
+      "draw_after_results_ms": 46.691505,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 9.64429,
+      "draw_after_results_ms": 39.129939,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 3.981873,
+      "draw_after_results_ms": 12.599115000000001,
+      "gc_delta": 0
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "results_ready_ms": 1.684876,
+      "draw_after_results_ms": 51.680381999999994,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 6.255218,
+      "draw_after_results_ms": 9.319842000000001,
+      "gc_delta": 1
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 100.707659,
+      "draw_after_results_ms": 39.02062599999999,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 3.145031,
+      "draw_after_results_ms": 54.961918999999995,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 7.645102,
+      "draw_after_results_ms": 51.372544999999995,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 5.023352,
+      "draw_after_results_ms": 11.824503,
+      "gc_delta": 0
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "results_ready_ms": 1.592443,
+      "draw_after_results_ms": 51.429828,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 1.524873,
+      "draw_after_results_ms": 13.831987,
+      "gc_delta": 0
+    }
+  ],
+  "observations": [
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 155.95692
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 54.817798
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 39.979798
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 17.270181
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 44.987444
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.418255
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 101.151401
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 64.589682
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 45.680102
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 15.256944
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 50.914848
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 16.720945
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 107.505353
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 58.990735
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 45.787615
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.387102
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 45.223088
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.014236
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 68.641122
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 50.35527
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 48.774229
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.580988
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 53.365258
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 15.57506
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 139.728285
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 58.10695
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 59.017647
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.847855
+    },
+    {
+      "family": "parent_only",
+      "count": 1,
+      "elapsed_ms": 53.022271
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 15.35686
+    }
+  ]
+}

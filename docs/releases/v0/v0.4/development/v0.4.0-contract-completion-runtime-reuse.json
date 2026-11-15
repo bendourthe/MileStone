@@ -1,0 +1,1126 @@
+{
+  "status": "ANDROID_RUNTIME_RETAINED_FOR_IDENTICAL_INPUTS_AND_APK",
+  "reviewed_utc": "2026-11-14T19:22:24.684457+00:00",
+  "current_full_source_sha256": "5c1a982e6fc4021c785d853198859f364ff6942b669afea4b867c31b3286be3f",
+  "qualified_platform_source_sha256": "951e3abfeb99173d7421176dba0b0118c76025f9919a087240be75004e8ebb7b",
+  "apk_sha256": "bc70ac940fb5b2ab0b76b5c7a4f40b1a887f3ae0ac510ccb6c34d1bf1ad86f11",
+  "android_public_input_count": 274,
+  "android_inputs_identical": true,
+  "validation_entry_normalized_sha256": "9f7459ad3129c8dded53d962462a2f3797895db3f70f9d2aec312cd6da6e78e7",
+  "validation_entry_unchanged": true,
+  "changes_since_prior_handbook_snapshot": [
+    "scripts/check_handbook_render.py",
+    "docs/handbooks/_sources/overview/project.css"
+  ],
+  "qualified_evidence": {
+    "emulator": "v0.4.0-owner-refinement-final-emulator-results.xml",
+    "platform": "v0.4.0-owner-refinement-final-platform.json",
+    "latency": "v0.4.0-owner-refinement-final-latency.json",
+    "process_restart": "v0.4.0-owner-refinement-final-process-restart.json"
+  },
+  "scope": "The unchanged platform profile reaches emulator verification and Gradle Android tests, not the handbook checker or style. All 274 qualified public Android/build inputs and the actual APK were hash-compared after current full validation. No new platform-wrapper execution is claimed.",
+  "limitations": [
+    "The broader source fingerprints differ and the original platform receipt remains unchanged",
+    "This does not supply refined phone acceptance, hosted runtime, release or native plan completion"
+  ],
+  "private_inputs_read": false,
+  "android_input_hashes": [
+    {
+      "sha256": "d05c14ed3499e1b430948d358dc948616d6c070cb139b955299a7510298624d0",
+      "path": "app/build.gradle.kts"
+    },
+    {
+      "sha256": "259b6b2911f99731a96bcc1677a18792f9c4250f9f45154ce5bcc5bfce901281",
+      "path": "app/proguard-rules.pro"
+    },
+    {
+      "sha256": "2d8958aad26fd4d26cadd4a9d0a69951b093946d877eec2ade63689a0302610e",
+      "path": "app/schemas/com.bendourthe.milestone.data.db.MileStoneDatabase/1.json"
+    },
+    {
+      "sha256": "2082676e5371d4304f1431814cb37faac742945808bd8fac1c60dc426ba0e5e5",
+      "path": "app/schemas/com.bendourthe.milestone.data.db.MileStoneDatabase/2.json"
+    },
+    {
+      "sha256": "b82c46cc9b6d1a8e487dce4c8eabfe4532eddf6e8335f2a2f5042382aaf1b0fc",
+      "path": "app/schemas/com.bendourthe.milestone.data.db.MileStoneDatabase/3.json"
+    },
+    {
+      "sha256": "78dfcb770091f717a3ebfe67973bfb4a3c37f8865adbac1ef49ca0bef0801eb9",
+      "path": "app/schemas/com.bendourthe.milestone.data.db.MileStoneDatabase/4.json"
+    },
+    {
+      "sha256": "266b3e95341b51e5779e73703ac4680206e5583cdf842f689157092983c9394b",
+      "path": "app/src/androidTest/assets/fixtures/account-choice.html"
+    },
+    {
+      "sha256": "a4ab14b9580ebb24c8bd78e2c866d85ef5947f659d66dd0a93b76a75014f2a35",
+      "path": "app/src/androidTest/assets/fixtures/after-frames.html"
+    },
+    {
+      "sha256": "a52d064ef57ac4b2859af7b3549c850e0f1a0f04c108f0567270df45a2b99082",
+      "path": "app/src/androidTest/assets/fixtures/ambiguous.html"
+    },
+    {
+      "sha256": "03ec18e8f06df8cf599ba9dc66e3219644534f843b48f877aba7c0d1f871c64a",
+      "path": "app/src/androidTest/assets/fixtures/benefits-activity.html"
+    },
+    {
+      "sha256": "0c0310f3a365a3c6386d7bffa02350f5bcb3345849b1474b12e4cb489eb2aa9b",
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-2.html"
+    },
+    {
+      "sha256": "3b35db88fcb6e7ed1a8e1a31b7efbfc59dbe3c852b1e4d1e27ccea3f74940f87",
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-3.html"
+    },
+    {
+      "sha256": "b360a93db2d360ff3a9ed10b47e5d84a29d20717d80740ee8e5d3ebb13928fb4",
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-cap.html"
+    },
+    {
+      "sha256": "721f6d00cb2f7cf18f602d58a22fa6f53abecc8cbb19f27b77f9742e4b4c0a70",
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards-lazy.html"
+    },
+    {
+      "sha256": "b757738ab5fe624c645a9c4629567519a3261c238050abe249bde2e14ac605a2",
+      "path": "app/src/androidTest/assets/fixtures/benefits-rewards.html"
+    },
+    {
+      "sha256": "9745e60b717d5258e5f7c322581d3927faafb1afb175275011cc023f24c28bca",
+      "path": "app/src/androidTest/assets/fixtures/benefits-switch-late.html"
+    },
+    {
+      "sha256": "3555f2b893fa9fbafd860dcd700af63fa1e1f4929bccff8c2514f5ffcffe1ec2",
+      "path": "app/src/androidTest/assets/fixtures/benefits-view-all.html"
+    },
+    {
+      "sha256": "4a68fd74e9268a6ee85f97f19f2abd4ee7d6a19dd3821a710610efa8f1f92632",
+      "path": "app/src/androidTest/assets/fixtures/code-by-digits.html"
+    },
+    {
+      "sha256": "deccd620b3bb08b28c74d086da942a30855f47b8e88617edca75b2d926ae8a8e",
+      "path": "app/src/androidTest/assets/fixtures/code-by-label.html"
+    },
+    {
+      "sha256": "3f233b407632c5d2db027e06f1fc67a0a8fa9d81e3c4d0768a47ee0753ad4251",
+      "path": "app/src/androidTest/assets/fixtures/dashboard.html"
+    },
+    {
+      "sha256": "be527ec2be8471ba174093d3287afd184cfa3bc6ca23b867efa211fd52c79500",
+      "path": "app/src/androidTest/assets/fixtures/forged-frame.html"
+    },
+    {
+      "sha256": "b871cb5088dbee1daf011a6afc42a6370cb57235755cb4ff38a6640d17425419",
+      "path": "app/src/androidTest/assets/fixtures/forged.html"
+    },
+    {
+      "sha256": "ea026ccffe597e898df1bb28c10f6fd255830ae9b570717dd3492dbd2ba9d73f",
+      "path": "app/src/androidTest/assets/fixtures/identity-first.html"
+    },
+    {
+      "sha256": "b025a5e03a6cb45c898f2bc3e55335a3d4223cd970ce65f351c6d7b81cc77226",
+      "path": "app/src/androidTest/assets/fixtures/ignored-first-press.html"
+    },
+    {
+      "sha256": "59b9a362c22ebd6f9b05adfb9e4c84cbb5aa6aab9286c1f39536c78c168737bb",
+      "path": "app/src/androidTest/assets/fixtures/invalid-username-no-message.html"
+    },
+    {
+      "sha256": "481ca9e5f6da1f27adc39cf9e7484502a2218142257e61b6d053b56d81811f3a",
+      "path": "app/src/androidTest/assets/fixtures/loading-text-then-balance.html"
+    },
+    {
+      "sha256": "e951788023d7e89109581702813147f81528e92704c32124134daf65648df271",
+      "path": "app/src/androidTest/assets/fixtures/login-at-dashboard.html"
+    },
+    {
+      "sha256": "04f5f383cb2052280b82f66e59ec685ed27bb8193a41d68f47c537a3cfd27664",
+      "path": "app/src/androidTest/assets/fixtures/panel-balance.html"
+    },
+    {
+      "sha256": "73c2b3ae265c692c63bc4a8c1ed15a2d4147bb65ace16aef462074fde8b87e08",
+      "path": "app/src/androidTest/assets/fixtures/password-route.html"
+    },
+    {
+      "sha256": "67cbc7e72bac6e415cfe873e8d7ec792717e8589a3bc067d6273425bb0d6af91",
+      "path": "app/src/androidTest/assets/fixtures/refused-in-standing-notice.html"
+    },
+    {
+      "sha256": "bf01fa05bf2466f68b7fc1551fd5309684e3257473eb8af7474bf672da1e8111",
+      "path": "app/src/androidTest/assets/fixtures/refused-with-error.html"
+    },
+    {
+      "sha256": "7bffc087b4b24c90048be460f6d9a558541d8b00533f174733b759263bd30a47",
+      "path": "app/src/androidTest/assets/fixtures/signed-out-home.html"
+    },
+    {
+      "sha256": "6caf65d9c898796e9dc73fa313d499b26a4466e978fa71365a8eaada34a2a35d",
+      "path": "app/src/androidTest/assets/fixtures/standing-notice-signin.html"
+    },
+    {
+      "sha256": "a21221e1efd4ca2f3080b6fde485737f7c9694a01f7e9e608ef1011aad07dd86",
+      "path": "app/src/androidTest/assets/fixtures/zero-then-balance.html"
+    },
+    {
+      "sha256": "4de24d63c5806d325d6a0a2aa671379ddc203013c0825e4c6c05cb38d3ba3b4a",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/data/session/TinkSessionStoreKeystoreTest.kt"
+    },
+    {
+      "sha256": "28a33f2aabcad2703c5b1e4a4412799dd1b6d68f2b274227b99b52d477fdf576",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitRemindersDeviceTest.kt"
+    },
+    {
+      "sha256": "c2fe26a751d1805dab60d11d21bd87547ba37cebabdd6d3dc21c860f32354334",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsBridgeFixtureTest.kt"
+    },
+    {
+      "sha256": "faf0b68e95adee20ab4dfe29b6138013a4408ceca7273903417666b40ecd1a7e",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt"
+    },
+    {
+      "sha256": "d145a14b99b620b0a9604c91fda214e7272f27fb8605e7062c4356a7e2cda6ac",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt"
+    },
+    {
+      "sha256": "4395732fbf598f51f46a61d6b98c75d1a3633338cfe8108c8c166fdab74c0383",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/HeadlessSyncFixtureTest.kt"
+    },
+    {
+      "sha256": "0234ac73dd02a741d32a29cb969e153ee240eb3693b672463d0a8d3fcbf6fb9e",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/webview/WebViewConfigTest.kt"
+    },
+    {
+      "sha256": "9d8373a965a45dafc480b2ee0e8b74baceda6368c32927511e632e44d890e00b",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/AddProgramFlowTest.kt"
+    },
+    {
+      "sha256": "445c8b8c7209098966088c2b1d0d73eec7a624e6fdd12312d72971b059fe3cb9",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/BenefitsScreenshotTest.kt"
+    },
+    {
+      "sha256": "f6d7fd24e31314c8aae8f440cbd8e2190f36a9a366ca5758834bbd819a5c3c37",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt"
+    },
+    {
+      "sha256": "c56227ed91f52e0037e12c3a752c262b12a69d989c0092b9122168239bfe5075",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt"
+    },
+    {
+      "sha256": "a2cafd191baee75f02e1f54e8db259e68ad6dcad28ad7d3990f85b2a6180aa2b",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchProcessFixtureTest.kt"
+    },
+    {
+      "sha256": "d9103455f2e8b022197adfc0d85366a85c69095c16270736879a8646194d73d3",
+      "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt"
+    },
+    {
+      "sha256": "796840be2277fd12fa0a821fd62fbd5c15e6739b5cc510dafa67bb2b40bcc8b5",
+      "path": "app/src/capture/inspect_capture.py"
+    },
+    {
+      "sha256": "cb1a1b3b937d82c660fd9fcaf5038646ad9a7b72936cb66c573e6a368c9a8c2a",
+      "path": "app/src/capture/res/values/strings.xml"
+    },
+    {
+      "sha256": "1bf2c29c0880b81178f77cdba0f3b45d7248ff5fd91f9b0a2cc50ac0b3abffea",
+      "path": "app/src/capture/sanitize_capture.py"
+    },
+    {
+      "sha256": "8d86c8c1bd96ed35be848c2187ef73cf4ee06a4478aeebccc83af8dd68fef9a1",
+      "path": "app/src/debug/AndroidManifest.xml"
+    },
+    {
+      "sha256": "4d31eee2b051a7a786899f6147f36fa5265662761a0be974e3bc7dca892d7ec4",
+      "path": "app/src/debug/assets/site_check_programs.json"
+    },
+    {
+      "sha256": "edc21c5bcb171231a89ec46d0faeefbedfa066eb9177cd6262cbe433d8177a74",
+      "path": "app/src/debug/java/com/bendourthe/milestone/debug/SiteCheckActivity.kt"
+    },
+    {
+      "sha256": "989b96b1ffde7344dfb5f7739dfb2592785064b5247d8b3776e92eb22ff36eef",
+      "path": "app/src/main/AndroidManifest.xml"
+    },
+    {
+      "sha256": "08b6dbb657106ca13d2a7cdfc3a43514cf02861a4203de609eb9d89d8314784c",
+      "path": "app/src/main/assets/extract.js"
+    },
+    {
+      "sha256": "5630673d6f1373cc83920ad0a052f0cd8fe7b9c298f6a48dfc6c47db2a9e24cd",
+      "path": "app/src/main/java/com/bendourthe/milestone/AppContainer.kt"
+    },
+    {
+      "sha256": "13df6ef93e4b6b7f5670a691879ea22f7738c08862ef3a0848c75883cf1b1d69",
+      "path": "app/src/main/java/com/bendourthe/milestone/DiagnosticLog.kt"
+    },
+    {
+      "sha256": "b1554e374951d8c80bff6c2a7d1c160d3523e23ef3c8d07a4eb8bc7b66ed8575",
+      "path": "app/src/main/java/com/bendourthe/milestone/MileStoneApplication.kt"
+    },
+    {
+      "sha256": "e7f0c785fd3f1bb46ce698a91893f40e7e4c60f0639b0dadbec4713bce021f97",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/RoomAccountRepository.kt"
+    },
+    {
+      "sha256": "a772b5d6bf61a7bdd013294f0f288927f8d0980622b6027e3f73efeaef790d9e",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/catalog/StaticCatalogRepository.kt"
+    },
+    {
+      "sha256": "a9eea4938da0328144aa3d8c88634457af5c85d520511a0f10c9f1a5bbd1632c",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/credentials/CredentialVault.kt"
+    },
+    {
+      "sha256": "53b1e36b715d859a6079405e6360ad53f441546bc9a2f68a37e58a1481ec2faa",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/CardDao.kt"
+    },
+    {
+      "sha256": "3301af79655533a28909a729c9557179ff1e4b1b05e6de93d11092ec3c5d5077",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/Entities.kt"
+    },
+    {
+      "sha256": "f5a4f6a428feceea24936c84daa07d3814149e444abdb5efde13bf5a2439667b",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/LoyaltyDao.kt"
+    },
+    {
+      "sha256": "bdcd01d3575ccc847d95983b422ae24ee6ec3eb078942bc107dd82f1de4640c9",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/MileStoneDatabase.kt"
+    },
+    {
+      "sha256": "35b3132bed4c560a1f7d3b642bf58336ea3dabb9b6749c386c496ca130c4c534",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/db/RoomCardRepository.kt"
+    },
+    {
+      "sha256": "f37d2134f794f003e59016be4e46cbde8173f8424c7e7b383ed0db77c56990db",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/session/TinkSessionStore.kt"
+    },
+    {
+      "sha256": "2f682958973de4ee765c094cb004fa19e7ba0a2dd9070f3a789d5b3fd8b55304",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt"
+    },
+    {
+      "sha256": "3a012af25642112fe22111c1323c237b743aaaa4a9cbc6d8a043c895932eba15",
+      "path": "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreSettingsRepository.kt"
+    },
+    {
+      "sha256": "b721dab695888797b931147bf3c6881f8a4393da0415de33509e0b4723fe68fe",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/BenefitPeriods.kt"
+    },
+    {
+      "sha256": "800a9fe12537a2c5da75fc00f5f9b6a416f403eb74723c6d957198b2f68571d6",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt"
+    },
+    {
+      "sha256": "dd3c8cfd8b381db50e20323ae6971892baccce287f6f75c51853300bb0a8f6a7",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/CatalogSearch.kt"
+    },
+    {
+      "sha256": "a4536d02c910bba1bff158c8457f413331e6087b1c4ca073f055d5d19f621c0c",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt"
+    },
+    {
+      "sha256": "eecb2e99182ee21c7d1dbeee9b4c91f4821d804d8bfd65ac854da4646264014a",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Models.kt"
+    },
+    {
+      "sha256": "8194d3f86726ea0d8e50b6f955c88d170ca77bfa7147c1eb7a08bca02c881eb8",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/Repositories.kt"
+    },
+    {
+      "sha256": "77ee24e285150f3ad0a4ed4d5bac406f2fdd1352891917c553a47d43c0a4596b",
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/usecase/ObserveDashboard.kt"
+    },
+    {
+      "sha256": "92baaabb44e6aa94b8abfce543cb86f61f82ffe2322cbdd7ebe0e00ebf4ee8c6",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/BenefitsSource.kt"
+    },
+    {
+      "sha256": "18449d66276e6ec895ef58c83e9b04c89adfed95cf64ff6e9d762586547df3ad",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/ForegroundSyncObserver.kt"
+    },
+    {
+      "sha256": "fbb62ad5d37eacc0ff883b83285cd69bb6caa404c05a1c6f8d15da379e0e1db3",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/ProgramSyncState.kt"
+    },
+    {
+      "sha256": "ae5843b6a54021a0fb9917a50cc1bf06dd0737562d9eea3de7a37189a8653333",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/SyncManager.kt"
+    },
+    {
+      "sha256": "b9152091a79889bbd366d31256da5eb49768c4265d0e8e8b48a4a643c0460d4f",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/WebViewHost.kt"
+    },
+    {
+      "sha256": "89b5e5a59ff4ed47ca8a34edf335676a1643878f19260ea06f3e0a2315da84a1",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/background/BenefitReminders.kt"
+    },
+    {
+      "sha256": "8f0bcfc59f6c76443cac61121da9331df03514df286eb1a01c9313d0531cde07",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/background/KeepAlive.kt"
+    },
+    {
+      "sha256": "d9535cab5305343887c051d93416c28603954a61e9af2638e4dc9643810bba47",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/background/Notifications.kt"
+    },
+    {
+      "sha256": "1578c6be4562f2eb603f5747b2355e5e8997ceed3cf20767e314ec5f149d293b",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/background/VirtualDisplayWebViewHost.kt"
+    },
+    {
+      "sha256": "39de59007c9830244e6f2cbde478df3ace6543b137a29b1f52733ce02e7f95d7",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BalanceParser.kt"
+    },
+    {
+      "sha256": "914dd09399196378e3005dee4a2bd5bfa74e9802092fbb012cfc7da2e9c700c0",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsCardReads.kt"
+    },
+    {
+      "sha256": "db35f84b6c7128ee5ceaeb684c3c0dfe73485d455e6837a96789733cedc0cc36",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudget.kt"
+    },
+    {
+      "sha256": "c5cba124a795a090895e563033fc50ed61d7e8038f80d61e994496aba2d830c6",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BenefitsReader.kt"
+    },
+    {
+      "sha256": "f53ed1a2447eaf97e3c6f6b62596ff2a0864ecc98df4761bf115d7eb7de7a2c2",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/BridgeProtocol.kt"
+    },
+    {
+      "sha256": "0037fe739d23f05f8f5143a3d0112c34d142bfdd0eec57da6274e78869c03f29",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/PageDiagnostics.kt"
+    },
+    {
+      "sha256": "4c6aa45c552bf2afbaac743d1c4ed38f13eb95586c2211c2aa08c3969a0c325e",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/extract/PageStateClassifier.kt"
+    },
+    {
+      "sha256": "60d65da58a866cac89811a7160dbc3eeccd6bfd5b530e4794f1349552a85ccb6",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/mfa/OneTimeCodeInbox.kt"
+    },
+    {
+      "sha256": "89113a9fd7e75550d06295eed71b9a7e16f1da121438c9a12d47e4ef9589ba80",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/mfa/SmsCodeReceiver.kt"
+    },
+    {
+      "sha256": "a9a821fff7f77d48d3e22f15bc0b827fb633c74d559fd855bbd0f2ba7eb031cf",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/ActivityWebViewHost.kt"
+    },
+    {
+      "sha256": "ebdf2dd4a702858c1daff0d3c3dc9c4610ac80c8b38f450c68900f31a57afaf4",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/AutoSignInSupport.kt"
+    },
+    {
+      "sha256": "1966c364f59b97fe33edf359302f22b711d129255a9e4be0ac4f180c66c53d8a",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/BridgeSession.kt"
+    },
+    {
+      "sha256": "d2a916be2a940d8ce8e384e04d68b8d24f759da6a973b87aa187abf99c543dc8",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/HeadlessWebViewBalanceSource.kt"
+    },
+    {
+      "sha256": "63cdf237b39e6959d144e6aab1efa62dd6fc7ce94eac297b67c3e10281c26bcd",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/HeadlessWebViewBenefitsSource.kt"
+    },
+    {
+      "sha256": "527eca551475307169029ac516c966bd1c587df16948c9d8b78449807d30bdb7",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/HostPolicy.kt"
+    },
+    {
+      "sha256": "b89bb9110a6dd03555f6a9fd854e8804816399a1d6500455c6c733febb0a474d",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/LoginBridge.kt"
+    },
+    {
+      "sha256": "cf670bda88903fca3e2e8a362ecc12dfc9607c6151bb3751989569902f704fd6",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/SessionProfiles.kt"
+    },
+    {
+      "sha256": "1b9263ed010cb09a44fb28f43078b6d3d4c4b72cb2bce38dba9460541a8d1065",
+      "path": "app/src/main/java/com/bendourthe/milestone/sync/webview/WebViewConfig.kt"
+    },
+    {
+      "sha256": "81fc66ecf9bfcfdc0023fdd312f5579a828628da60a9fd7c5933e1e21d6e42e4",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/MainActivity.kt"
+    },
+    {
+      "sha256": "6dfd82c63249ec2943114158324eeb20dfd3eaab87f436bd21839d012054dff5",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt"
+    },
+    {
+      "sha256": "cb29eb16667276585f949ce33532919862877882242e464a6c9a2450be6978b6",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/OpeningScreen.kt"
+    },
+    {
+      "sha256": "c6541f78bcb491bc04ed2c4b37ef426f7a3b4d52cce396344a31de7a664c6751",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/auth/AuthWebViewModal.kt"
+    },
+    {
+      "sha256": "12c969b110c2ccb355c00e68386d287be103825adf388ba0465570b0b6aa3516",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/auth/AutoSignInDialog.kt"
+    },
+    {
+      "sha256": "b03c17b4d4f301617a73cb7534fe4e47eddc0f95aca8aa59085e0b8f48ac1acb",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/auth/SignInUi.kt"
+    },
+    {
+      "sha256": "b9f085de6209dfbb64a761fb32aecd6f476ed5e0346b3cf1429114df1068b9fa",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/auth/SignInViewModel.kt"
+    },
+    {
+      "sha256": "cc6e004f87a97a037de938ecafd71ab59c6ea4c30d5bb28f6aeec41b1fcbe1f0",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertPanel.kt"
+    },
+    {
+      "sha256": "60e88c0cdd6e33f938546e4328dc6f4160ec40685648db17426e9c9b7436e379",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlerts.kt"
+    },
+    {
+      "sha256": "ef9f057f59778a6c24a7db4977610cd9ac5e2aae990dccce72e8effdc0269ccc",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt"
+    },
+    {
+      "sha256": "77e8a3e85b15495c1aa4bbef19b8897e8bbab387f7ba4b9073f766bbb3617e4e",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInstitutionTile.kt"
+    },
+    {
+      "sha256": "36c3f3c8f4a426e7b4cc636acea956dd47b6fbfd54a104808f23f5498cf6f778",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt"
+    },
+    {
+      "sha256": "737737bc82e0a5ef115944ef0a70aafbcd820e674184e1aac4ed9484b6838b32",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt"
+    },
+    {
+      "sha256": "459b854efe9a73a67fde011b196ab5500015720a355a2b24b503baf6ea9d3436",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt"
+    },
+    {
+      "sha256": "170cc120f72afc4b486f50f6fecd966cd646833330f24e91717aa9ae2b53fb04",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardArtwork.kt"
+    },
+    {
+      "sha256": "123f1259c2d3a68b77d0b95de04f843ed5a18f4aa67d1b7558f00b9a46492c60",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt"
+    },
+    {
+      "sha256": "31600eb8d68683e1f1f50c610edaf1cd98dcd3fed96b836e56976bc965302323",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt"
+    },
+    {
+      "sha256": "b9e2f2bbe94d19c207981d6963147bf86e7e1d4da2b3d9d79ccda3305a8fb5d8",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt"
+    },
+    {
+      "sha256": "956942bd2f2bcdf63febe7ad15ab4668fb98822630548b813841bf5e87c4682b",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/catalog/CatalogViewModel.kt"
+    },
+    {
+      "sha256": "a4acea60b7d62cbc809ed97a3c2d231ee099a720529da3f67b187f4afdb03b65",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/catalog/ProgramCatalogScreen.kt"
+    },
+    {
+      "sha256": "27b56ba45f3a5964c1ca83f2efcb7a52ded348d9edbdcdfee8b78331fb8b9d12",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/components/ProgramBadge.kt"
+    },
+    {
+      "sha256": "82d8b23e3b26ae7084f3ec6140e0fd294cb5203128e53280d391f1fbf94cca37",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt"
+    },
+    {
+      "sha256": "05b940a42e803718c13de1c15b170622ee21cca88d2e355d7970a5e13f919476",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt"
+    },
+    {
+      "sha256": "9ba02203e6512dbd7aad4b21fcdd3a286bd39be76b6083cf0a03b45ca412f0fd",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/ProgramTile.kt"
+    },
+    {
+      "sha256": "27291ff2ddd867ca85fb62dfe94dfb06a74f376ecd0ce656f786d0c00227c5fe",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/SyncErrorChip.kt"
+    },
+    {
+      "sha256": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt"
+    },
+    {
+      "sha256": "4075c0b5a10b6e33ce986626ae6d65dabdeacefa4aa2ffe1c99ec35821d650d2",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+    },
+    {
+      "sha256": "eef50b8b20f1fe659a0880699c1883eb8581f9f9d23cff5f8f9cb2269b393d5f",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt"
+    },
+    {
+      "sha256": "a59dcb420afc30d2817ba6316b2a72802ddb8dad443c329b45d237a6d0e21013",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/settings/SettingsScreen.kt"
+    },
+    {
+      "sha256": "32d76e0aa15b006db4ffb14df8c11556c95506257d56ccf970bd48d94565cf4c",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/settings/SettingsViewModel.kt"
+    },
+    {
+      "sha256": "5f35c63fb066ab103e8703b4d2aafb47b8b48cc8b99ccd4fa5bf25476ef04e19",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt"
+    },
+    {
+      "sha256": "698a0077633031fd3b7b0ec4b695b38486c8cfd657e96e77b6e0259c9a01b499",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/theme/Color.kt"
+    },
+    {
+      "sha256": "c8b418e9ed654797965a0bcedf8b5e129ed1e23e258ca4880927efe61c151af1",
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/theme/Theme.kt"
+    },
+    {
+      "sha256": "642ecd5a9fea7296244187636895809cb31d2b2b9d063a4a5c7f3798f287c1cc",
+      "path": "app/src/main/res/drawable-nodpi/logo_aadvantage.png"
+    },
+    {
+      "sha256": "9edd41b791f2dc6da311fa1f7eb2f9823f3c6a422b9d6d8b9407865b603d8f63",
+      "path": "app/src/main/res/drawable-nodpi/logo_aeroplan.png"
+    },
+    {
+      "sha256": "bb300feaf155e10a5c12d81d9b5cc3745209c23121c7f64bf437528b97551036",
+      "path": "app/src/main/res/drawable-nodpi/logo_alaska.png"
+    },
+    {
+      "sha256": "9de7e4de20161c8a36c23759fd51997990f71b369f55cde60fd2e28d8274b7f6",
+      "path": "app/src/main/res/drawable-nodpi/logo_amex.png"
+    },
+    {
+      "sha256": "fcf377c52b3a2107ded0a7214ab7cde0efa655dcba9f6fe815a2d87ad4100515",
+      "path": "app/src/main/res/drawable-nodpi/logo_capitalone.png"
+    },
+    {
+      "sha256": "4a94645c9d86fd13e3d7a5bac3fe497f75954dc86b7046a3d021e993ff141fab",
+      "path": "app/src/main/res/drawable-nodpi/logo_chase.png"
+    },
+    {
+      "sha256": "3d36f4f22093304b6fa151fc5094bb470e377223416fecf8aa936a6ef5ea552c",
+      "path": "app/src/main/res/drawable-nodpi/logo_citi.png"
+    },
+    {
+      "sha256": "6cff14fc31a54c704e90816df4ce9dd81de074ce6e4016fc6477bc9fe47bebd0",
+      "path": "app/src/main/res/drawable-nodpi/logo_delta.png"
+    },
+    {
+      "sha256": "b86438a05f233f959f7580394fd4edf4ccc67e8285bec8be6302c97a38699977",
+      "path": "app/src/main/res/drawable-nodpi/logo_hilton.png"
+    },
+    {
+      "sha256": "b22ef6dc169df9a9cd9242a8187d764e3af23cd410a7ae89bfe8151b4eb41197",
+      "path": "app/src/main/res/drawable-nodpi/logo_hyatt.png"
+    },
+    {
+      "sha256": "610b00b1bfd72d0ba4d98be221a69b7be2b846e1955039839704d636407e8aa6",
+      "path": "app/src/main/res/drawable-nodpi/logo_marriott.png"
+    },
+    {
+      "sha256": "67f42f39f208485d3aa5caebeec9299cdb58de59cdcad4f4cc4809f4ec61198f",
+      "path": "app/src/main/res/drawable-nodpi/logo_united.png"
+    },
+    {
+      "sha256": "caaaa28bb2e9cd611a4fde8e77c6adaa92f639dbfcd8dc3a556bf538411d1641",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark.png"
+    },
+    {
+      "sha256": "f22b9ae8f91560d162362ca3d596d6d49ba56f869e320d0754c46cf2ca091beb",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_house.png"
+    },
+    {
+      "sha256": "bcccb274d86099f6f5688f4067a0d10ac0edf3930fda7faacb547577bae9335d",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_plane.png"
+    },
+    {
+      "sha256": "0d3956a922b4244a9d311d96732ec6404e59d05a52569eaf93eba4804c822e46",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_ribbon.png"
+    },
+    {
+      "sha256": "a4f12b1d1b8c50f24042e5c959141d60dddc52a8af3060f00f43183f1c2fba48",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_stone.png"
+    },
+    {
+      "sha256": "1be3020afba557cb621abbe089d7046551a848492e267c1094c4408577a6ae83",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_stone_gaps.png"
+    },
+    {
+      "sha256": "65efd2723568eb7137a2cf4d74b6d31fe9944409a2e044c16b4be393166ae9aa",
+      "path": "app/src/main/res/drawable-nodpi/milestone_mark_tree.png"
+    },
+    {
+      "sha256": "8c3aa2e5d7b962554ef9724e739ee0aeb520a38454078bbe44514bee0f40d974",
+      "path": "app/src/main/res/drawable/benefits_amex_business_platinum.png"
+    },
+    {
+      "sha256": "61c498d62799368d1975bbd8fed62548e45dcfa8f6253b6aa6726ece5b755eb7",
+      "path": "app/src/main/res/drawable/benefits_amex_delta_gold.png"
+    },
+    {
+      "sha256": "0ba7d706e714d9cdca83ed47fc3677b1dd8606fd9dc30510901944a352d74ddf",
+      "path": "app/src/main/res/drawable/benefits_amex_hilton_surpass.png"
+    },
+    {
+      "sha256": "20505058b179b3f8f1535af5fa02c913303307865c845cb2f6c37973ae3c4e57",
+      "path": "app/src/main/res/drawable/benefits_amex_platinum.png"
+    },
+    {
+      "sha256": "5bf21b4bc3fb5db6fd4b4c53e73a3099a3842f87a5acecd0ac4ff306dca8937b",
+      "path": "app/src/main/res/drawable/ic_notification.xml"
+    },
+    {
+      "sha256": "e1408d2f2da67d40902a32f7affb88bf7b6f8fe8cebc13154fac21f2cd02fc76",
+      "path": "app/src/main/res/drawable/splash_blank.xml"
+    },
+    {
+      "sha256": "5373e331e3d5b86f976339a95b5c4b92b0ba79951ee430227c4a8b245f0eb498",
+      "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+      "sha256": "5373e331e3d5b86f976339a95b5c4b92b0ba79951ee430227c4a8b245f0eb498",
+      "path": "app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+      "sha256": "8897d9bea6fbf56c5c82a01e79cfe921200ec614b965038997bb236fbc9f7132",
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+      "sha256": "26d28450df7007608c1105b78bbb94d7f60aa5bf07d1441ca367b1e2f3f2bb4d",
+      "path": "app/src/main/res/mipmap-hdpi/ic_launcher_monochrome.png"
+    },
+    {
+      "sha256": "5098d9eb7c9055477708480f6c5de555f098fd78d9d6ecf9ff33c76f43c237fc",
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+      "sha256": "2e4b068fd056583a707629949bcba40d9380c129da6e48e329ca0a8ce1622e1b",
+      "path": "app/src/main/res/mipmap-mdpi/ic_launcher_monochrome.png"
+    },
+    {
+      "sha256": "8c69964b8dfb8192bac86ad17f18002f6ded6fc0d67ca1a97f6edda5e4e14d30",
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "sha256": "ccedc81229028fec190ad143e733355559545f58da1a0a7766df672a6f7f5d3d",
+      "path": "app/src/main/res/mipmap-xhdpi/ic_launcher_monochrome.png"
+    },
+    {
+      "sha256": "21d0f9a9de0958c25ed49a5a79b3838bce20bf4c9c8d9029b7a2e680abf08adf",
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "sha256": "ebae071e912b746ab059b8ae5e16775ace1416e15e99e4309ac63af767ed7d2b",
+      "path": "app/src/main/res/mipmap-xxhdpi/ic_launcher_monochrome.png"
+    },
+    {
+      "sha256": "ad4d464eb8e9f931aee128619dde50b72012e069bcab3242bc0bd8528ca2af4c",
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "sha256": "8109d33e7fed2cd3398d9159539c9d6230e8cb7399a1b954e66d4e26fed7e129",
+      "path": "app/src/main/res/mipmap-xxxhdpi/ic_launcher_monochrome.png"
+    },
+    {
+      "sha256": "3157a15c9e58a44acd70fd94c4eff74f06a1822f69e7433d63b06ab1071aa1da",
+      "path": "app/src/main/res/values-v31/themes.xml"
+    },
+    {
+      "sha256": "455caae4cf117425edcea04126d716eb048935007e165877bc54b44b1d05dd22",
+      "path": "app/src/main/res/values/colors.xml"
+    },
+    {
+      "sha256": "b300cb4dd9595ebc79a4668df5f4fa693e856042a4a7dd191a7c66f42d6771c9",
+      "path": "app/src/main/res/values/strings.xml"
+    },
+    {
+      "sha256": "d9f64363c7ede08f88cb725998cc833f4fdcef6b97ebaf97b297ba9709c8e5ec",
+      "path": "app/src/main/res/values/themes.xml"
+    },
+    {
+      "sha256": "822376aafdb067c1742b78ca151a781fc78cb4cabaeaf713f380c7fb7c80cb75",
+      "path": "app/src/main/res/xml/backup_rules.xml"
+    },
+    {
+      "sha256": "ba752b66254d52874d147cc1849dd66cf28c37719f7e7c195f7d6a0a34201535",
+      "path": "app/src/main/res/xml/data_extraction_rules.xml"
+    },
+    {
+      "sha256": "3c14d364559fc544c4ed39a7445f520ba4d6b6633c7ee154a6759ebaed7eadc7",
+      "path": "app/src/main/res/xml/network_security_config.xml"
+    },
+    {
+      "sha256": "20adfbac7ed875e5550e2398d1f5edaf797bccd2a481fa742742f6c94bd56635",
+      "path": "app/src/test/java/com/bendourthe/milestone/AppContainerTest.kt"
+    },
+    {
+      "sha256": "f7b23e8e7102ce2188ed7d8e98f32f9f7fb2aba0f87232122daddedf39b0dcb5",
+      "path": "app/src/test/java/com/bendourthe/milestone/MainActivitySmokeTest.kt"
+    },
+    {
+      "sha256": "39ca82938761b0c5ad5565b8dd39a8c4dadd7618cc0ef3b8658a385e9128237f",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/DataStoreBenefitsDisplaySettingsTest.kt"
+    },
+    {
+      "sha256": "42483f4208aa141467dc89fe40d59d95ab93ab267cadba2e72993b5860c73861",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/DataStoreSettingsRepositoryTest.kt"
+    },
+    {
+      "sha256": "77868a099ae360bd5b9736700b6e72b02f6f597f729c9adc8be8a1823b4f0110",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/MigrationTest.kt"
+    },
+    {
+      "sha256": "07d226cff2a3594c992120eefd7a28b525848de464ed1552eaaa5675dfc6a666",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/RoomAccountRepositoryTest.kt"
+    },
+    {
+      "sha256": "2a9eea4e7e032939e59a65eef448569dfe12ede065e5213a926135d08b47babc",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/catalog/StaticCatalogRepositoryTest.kt"
+    },
+    {
+      "sha256": "f88da0ce91bb23fa3ee0d5da48ebe6fc6578a757399e7ca800f78203bb59c776",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/credentials/FileCredentialVaultTest.kt"
+    },
+    {
+      "sha256": "c57af9368efd3972d92c7d802fec867accb90052751a109e7da4d8648b4113c4",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/db/RoomCardRepositoryTest.kt"
+    },
+    {
+      "sha256": "5662ead2bdbf4d04103b20b1f4ee03a110c416f541d0b8ab39332c653ea15c4b",
+      "path": "app/src/test/java/com/bendourthe/milestone/data/session/TinkSessionStoreTest.kt"
+    },
+    {
+      "sha256": "970ec93a3526ff5060f8c3ba705d14117469eeaf03f809ef6f57af20115e55d3",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/BenefitPeriodsTest.kt"
+    },
+    {
+      "sha256": "976232ffeb356ea971940f41f15adbee79e3b0479f289d271990dac4f0e38538",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/BenefitsTest.kt"
+    },
+    {
+      "sha256": "5c9ae0ba0e38fab9cf4b78e8564144b60b897aad01b67cdc8a3e96ee5abba76b",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt"
+    },
+    {
+      "sha256": "14fac4623afed249a1e781b8021aec9d7a9362391ac3d71343658916055faf4f",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/ModelsTest.kt"
+    },
+    {
+      "sha256": "3a736e410d2803c915fd0bc8e894294e48f5f8cc21045ce9020b2c9fae1ce23f",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/RefreshIntervalTest.kt"
+    },
+    {
+      "sha256": "c53b3d881f2c369b824762735a895bcb83fc71ddc3d1732670e178aea93b3a7a",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/TestPrograms.kt"
+    },
+    {
+      "sha256": "b72f947ee3b38e64a09b05790da5f63e59a02a4fc3aa02997026dfe44a884b4a",
+      "path": "app/src/test/java/com/bendourthe/milestone/domain/usecase/ObserveDashboardTest.kt"
+    },
+    {
+      "sha256": "2fa342161d47ec7d70e9b0c663795ceb696188b55522720d6c20ed7c2c67684f",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/BenefitsFixtureTest.kt"
+    },
+    {
+      "sha256": "a31729490fc6fc15bceb2d73bd6983383f407ffd9ccaaf197980dd62b59e8ae2",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/ExtractorFixtureTest.kt"
+    },
+    {
+      "sha256": "01ae8ac964091fa9864fbb48a315d228d1c13b023557f571e54f364190187507",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/ForegroundSyncObserverTest.kt"
+    },
+    {
+      "sha256": "931ea9ee212a8313164eaa1bccccc94b7bd357081c55a1a425c02227c1dba22a",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/SyncManagerBenefitsTest.kt"
+    },
+    {
+      "sha256": "e9390de0012e5a1e46a7be6c90ffeb459bf8755ca569504b01b7d4a9a5302628",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/SyncManagerTest.kt"
+    },
+    {
+      "sha256": "77aaed1527739adc3af64fc5cbb60d881f2ab92bbfc08c81e47cf5e16cda4282",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/background/BenefitRemindersTest.kt"
+    },
+    {
+      "sha256": "c2fd23a063f9c7f74154447c734b275cb74903cb8ef8ef8ab5f2aa4d7e18eff4",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/background/KeepAliveTest.kt"
+    },
+    {
+      "sha256": "317e8f655feeb884705b16d782573a20c4034a0f7c3907ba0d3ace0b98d068cd",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BalanceParserTest.kt"
+    },
+    {
+      "sha256": "4a76cd21dbd0c09ef6ee2a22fef6eff4f324754efbc11182cc7427e60450d8b4",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsCardReadsTest.kt"
+    },
+    {
+      "sha256": "8b663c27679676127f442926423587862195cef5d9e2ef35e98884194b02a50a",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsProtocolTest.kt"
+    },
+    {
+      "sha256": "20c04b5f4bbe611dd0f4592ba077a097b7b1a8eb9c6ea14e9b096ef69acabc93",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BenefitsReadBudgetTest.kt"
+    },
+    {
+      "sha256": "749024fcfb81cbd6b064f93af37135291b2c648ed9f5281fca2ff81723e7a2b7",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/BridgeProtocolTest.kt"
+    },
+    {
+      "sha256": "ad7969c98687fcd4d69db4d4b642c7cb1851ff72271a8b309aaf87aa46d47046",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/extract/PageStateClassifierTest.kt"
+    },
+    {
+      "sha256": "6482411c7f55cd3ad39ba9da8e3a4894d19dbd87ddd8ce21648531e5e555292b",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/mfa/OneTimeCodeInboxTest.kt"
+    },
+    {
+      "sha256": "da4a9e6200ab4c7fed02f01a97e3f0272591c669a2d8d95daee9bed91549e60a",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/AutoSignInSessionTest.kt"
+    },
+    {
+      "sha256": "585736ee02aaeba92a7aa344943b3e40dacc78a855ab45214b006894f8258339",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/BridgeSessionTest.kt"
+    },
+    {
+      "sha256": "4079f3e0c6e65f4e6635eecd3e3dc70a35b6df6a10aecccf9e30b552213ea208",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/HeadlessWebViewBalanceSourceTest.kt"
+    },
+    {
+      "sha256": "313b8f9b3071b08f4242371013ab907b2461e4e4baf0c333673c4912fb5a5f0c",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/HostPolicyTest.kt"
+    },
+    {
+      "sha256": "9bcca7a941212a337554254ba96d491519dc403426f9957c985073c98c13881c",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/SessionProfilesTest.kt"
+    },
+    {
+      "sha256": "f706a3ec7aa149de28992cbecdc2916f1c23066e487a7fc0f5f4e7f9cdcaa219",
+      "path": "app/src/test/java/com/bendourthe/milestone/sync/webview/UserAgentTest.kt"
+    },
+    {
+      "sha256": "390667c35a496c232defca50072f199f2b902207eea1c25773a9be6ee23feae2",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/Fakes.kt"
+    },
+    {
+      "sha256": "1bb36bed39cbd2143baf9c427f359ae336c0a509982000c63307827c571e2982",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/MileStoneAppTest.kt"
+    },
+    {
+      "sha256": "4d1c41f23ba43910fb75623982fa6a6c58d706419486782f01368f41e38b4462",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/TurbineExt.kt"
+    },
+    {
+      "sha256": "dc5fb1d94893bc12518e34e7cf34b7bebef0a983af7c8754a19a91123c90bb7a",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/TypedNameTest.kt"
+    },
+    {
+      "sha256": "823376271ed03de1448ceb3ad615e2e7b91c16fd531a703105e05199e37dc5bd",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/auth/AutoSignInDialogTest.kt"
+    },
+    {
+      "sha256": "ba186d209a1c529429ddc30d7903164062f28e24b0a0ee471c7453da0d5cd5c5",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/auth/CaptureBuildTest.kt"
+    },
+    {
+      "sha256": "f3d7adba277d9f860e9ef7ae3dabdd2a6b733176ad1f106dc76a872aef195164",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/auth/SignInViewModelTest.kt"
+    },
+    {
+      "sha256": "f8f8af1a86121834618a11b0452a03374dde9d7889e26691cc3e2a7d18e64a05",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertLifecycleTest.kt"
+    },
+    {
+      "sha256": "3a56c116264d219bd04fec79b2ddde97c493906b5eca03eb7d70ec05f5057f04",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormattingTest.kt"
+    },
+    {
+      "sha256": "02554a41973f966a67044535006783aa7593dd4cca0cafff343b5a3031b48d26",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentationTest.kt"
+    },
+    {
+      "sha256": "fd8b9ad447400a4e350244a3bfa4db11696397e10eff21a0a2d1109ded4c762c",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsScreenTest.kt"
+    },
+    {
+      "sha256": "a3c45c192d66941a7a4bd9cb9ae2103dc347b7c6c06d232e2401f796788d1620",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt"
+    },
+    {
+      "sha256": "dbb596884e27ff3b4f6e67e412270ef0fcdfee6222662ccc4a295ba1aef77a58",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusInputTest.kt"
+    },
+    {
+      "sha256": "27bcb8090f68c6e5c122553828c18567ff6a696dc9f55aa197c0c3d287de092a",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/catalog/CatalogViewModelTest.kt"
+    },
+    {
+      "sha256": "f18976d34fb8f1153116e7c86d77ecc884db62ab8012ad6c28cc2a7c01b48464",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/dashboard/DashboardScreenTest.kt"
+    },
+    {
+      "sha256": "5ad87f9c0c245ee5b6e9b6789a34c8154236cc5821c1669e52f7a8e9bcc1d522",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/dashboard/DashboardScreenshotTest.kt"
+    },
+    {
+      "sha256": "02b099dcb466042fc9972a913882edde7c0b90b5afdf3fb5558311dbe664368f",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModelTest.kt"
+    },
+    {
+      "sha256": "3ba1bbe2b08a07369072daf7ed976f537a16b03fb0d604e2fc9caeb7c55a0184",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt"
+    },
+    {
+      "sha256": "dbee228c825b573dc8fb2389ec3ddae0dbed7e62810a55cbc7d27bac01def02a",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt"
+    },
+    {
+      "sha256": "502bb588d3b7cc1a5bf97b3b459e2257da07a25a8d5c8fd4bc7af1a79d30bfc3",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt"
+    },
+    {
+      "sha256": "cd732f329b9926c05c8e77927c99b304e1a44cc9dce668e287ef93dbb8225f10",
+      "path": "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRevealIndexTest.kt"
+    },
+    {
+      "sha256": "e8ad0b8059800cf3bf50d1e8af8f59c3ac6ff001df91be5e732f6cc22cffa141",
+      "path": "app/src/test/resources/fixtures/aeroplan.expected"
+    },
+    {
+      "sha256": "230905c4478c0b73e87f87f72be6b1b9be8410dec3d77fc0621fe6edb535a9cb",
+      "path": "app/src/test/resources/fixtures/aeroplan.html"
+    },
+    {
+      "sha256": "9b6dd0f55d1cea37555db317f53a0631f694bd46df8018cc2aeed3d9e2f32f5f",
+      "path": "app/src/test/resources/fixtures/alaska.expected"
+    },
+    {
+      "sha256": "ac471c191dc922b175b09ea6991149699799c2a3b9093aed36109e4f79326e4d",
+      "path": "app/src/test/resources/fixtures/alaska.html"
+    },
+    {
+      "sha256": "9dc5800f2c1c2dfd28844969740c242e87d26cac960ae09c2ee1e3cda17bb081",
+      "path": "app/src/test/resources/fixtures/amex.expected"
+    },
+    {
+      "sha256": "0660481d2beaf57c78b092db42ab7ccc695b1bfc887eb029743c5a4bf2149dc9",
+      "path": "app/src/test/resources/fixtures/amex.html"
+    },
+    {
+      "sha256": "03ec18e8f06df8cf599ba9dc66e3219644534f843b48f877aba7c0d1f871c64a",
+      "path": "app/src/test/resources/fixtures/benefits-activity.html"
+    },
+    {
+      "sha256": "0c0310f3a365a3c6386d7bffa02350f5bcb3345849b1474b12e4cb489eb2aa9b",
+      "path": "app/src/test/resources/fixtures/benefits-rewards-2.html"
+    },
+    {
+      "sha256": "3b35db88fcb6e7ed1a8e1a31b7efbfc59dbe3c852b1e4d1e27ccea3f74940f87",
+      "path": "app/src/test/resources/fixtures/benefits-rewards-3.html"
+    },
+    {
+      "sha256": "b360a93db2d360ff3a9ed10b47e5d84a29d20717d80740ee8e5d3ebb13928fb4",
+      "path": "app/src/test/resources/fixtures/benefits-rewards-cap.html"
+    },
+    {
+      "sha256": "721f6d00cb2f7cf18f602d58a22fa6f53abecc8cbb19f27b77f9742e4b4c0a70",
+      "path": "app/src/test/resources/fixtures/benefits-rewards-lazy.html"
+    },
+    {
+      "sha256": "b757738ab5fe624c645a9c4629567519a3261c238050abe249bde2e14ac605a2",
+      "path": "app/src/test/resources/fixtures/benefits-rewards.html"
+    },
+    {
+      "sha256": "9745e60b717d5258e5f7c322581d3927faafb1afb175275011cc023f24c28bca",
+      "path": "app/src/test/resources/fixtures/benefits-switch-late.html"
+    },
+    {
+      "sha256": "3555f2b893fa9fbafd860dcd700af63fa1e1f4929bccff8c2514f5ffcffe1ec2",
+      "path": "app/src/test/resources/fixtures/benefits-view-all.html"
+    },
+    {
+      "sha256": "e695e3308fa6b72ed6d95bf290a54f7ea2087973fce37fa8e74a04b7f6b523f0",
+      "path": "app/src/test/resources/fixtures/capitalone.expected"
+    },
+    {
+      "sha256": "1c9cebe3edd8432fe3dbd370d19a3cf1ccf5d106ec0558addfcc122e1daf03d9",
+      "path": "app/src/test/resources/fixtures/capitalone.html"
+    },
+    {
+      "sha256": "7dd0d9ab933027fc251c9031dd1b0babacbfe895d024bfe2a8a1dc7df2c70e9b",
+      "path": "app/src/test/resources/fixtures/chase.expected"
+    },
+    {
+      "sha256": "14acc15be416198b90dfc97f210f87ddaf3cb89e4e2db9520e8df6215fdcb5c5",
+      "path": "app/src/test/resources/fixtures/chase.html"
+    },
+    {
+      "sha256": "52b9829b59f08ade0b2d1c6a4b051584110c8bb19cbb1af83eec1369292c1cdd",
+      "path": "app/src/test/resources/fixtures/delta.expected"
+    },
+    {
+      "sha256": "463e497bd37379d4266f5707662faf904a8f23602f682073194b5f6c491727af",
+      "path": "app/src/test/resources/fixtures/delta.html"
+    },
+    {
+      "sha256": "3daca00e74647f61169c8a7bf302b3ff806bdc07d621f5d24e1c6cc3afdeab54",
+      "path": "app/src/test/resources/fixtures/hilton.expected"
+    },
+    {
+      "sha256": "fd3851e55cbcb424232eab0d4c8389d29a43ba78a0fa7a5c51ae6d6bb1cf37bd",
+      "path": "app/src/test/resources/fixtures/hilton.html"
+    },
+    {
+      "sha256": "06c071205320a1e0bd289a867f3d28ae3f8e6dbc196a877e5b3dcec6d662c8e2",
+      "path": "app/src/test/resources/fixtures/hyatt.expected"
+    },
+    {
+      "sha256": "03ac3ac3729d9c578e0b81ee357cfff29604af9f82aaed0864416043e01730ee",
+      "path": "app/src/test/resources/fixtures/hyatt.html"
+    },
+    {
+      "sha256": "27990d3d1fa28ca0ce7790f192f5f6cc8ece054db48bb62057c08650c958c27f",
+      "path": "app/src/test/resources/fixtures/marriott.expected"
+    },
+    {
+      "sha256": "2206f14fc7c7659b210e71883f2f7417022ed10e5e32c97b54d43843f460f3fc",
+      "path": "app/src/test/resources/fixtures/marriott.html"
+    },
+    {
+      "sha256": "fc43437bfbcaa428f258c2da1c5b113502ad8ea15d299fb1009200d4c8173ebc",
+      "path": "app/src/test/resources/fixtures/united.expected"
+    },
+    {
+      "sha256": "b7f20dd58527e48565f5cd53f4a68b7fdf16e0ee351046e7c5d5fac0901eed66",
+      "path": "app/src/test/resources/fixtures/united.html"
+    },
+    {
+      "sha256": "c6de98d8d6a97d70d16a39e28b8c8e5e07a10a221027d9d8881ec92f6e6b67aa",
+      "path": "app/src/test/resources/robolectric.properties"
+    },
+    {
+      "sha256": "0d89fa97c30d184724669f0d87334527ca9be21fecd763d7723cdf9b870abc75",
+      "path": "app/src/testDebug/java/com/bendourthe/milestone/debug/SiteCheckProgramsTest.kt"
+    },
+    {
+      "sha256": "96424426b9f04ff82b099d60dd5e50c41767a773418223592ff6914a390b2e5b",
+      "path": "build.gradle.kts"
+    },
+    {
+      "sha256": "108d29c0fb434102d897611bb6ed106d2ff4f58f18c8668b5ed12d22fe74171e",
+      "path": "gradle.properties"
+    },
+    {
+      "sha256": "f757db8e94998e3dbfd0758332a5e60189054334789bdf86157be7590192d150",
+      "path": "gradle/libs.versions.toml"
+    },
+    {
+      "sha256": "621008afc4f5d59357fcf06ffa644dd5aade5e091bdc363742710445f73cdaf8",
+      "path": "gradle/wrapper/gradle-wrapper.jar"
+    },
+    {
+      "sha256": "012c6ceacc06d4d1519e388b04d113ad7edf9ed1f69fead36bcd2b7d8d222a53",
+      "path": "gradle/wrapper/gradle-wrapper.properties"
+    },
+    {
+      "sha256": "944dd422984f622efc6c5a5a2d86e3ea20431118bbe6fc05bca2f810b2299b50",
+      "path": "settings.gradle.kts"
+    }
+  ],
+  "android_input_manifest_format": "Separate sha256 and path fields preserve every digest without credential-shaped assignment names."
+}

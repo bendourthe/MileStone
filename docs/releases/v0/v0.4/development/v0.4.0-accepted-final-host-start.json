@@ -1,0 +1,21 @@
+{
+  "started_at": "2026-11-15T06:41:56.419368+00:00",
+  "started_epoch": 1794724916.4193687,
+  "samples": [
+    {
+      "available_mb": 4230.2,
+      "cpu_percent": 28.7
+    },
+    {
+      "available_mb": 4207.2,
+      "cpu_percent": 27.3
+    },
+    {
+      "available_mb": 4204.9,
+      "cpu_percent": 23.3
+    }
+  ],
+  "renderer": "Google (Google Inc.), Android Emulator OpenGL ES Translator (Google SwiftShader), OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)",
+  "criterion": "200ms p95,30samples,3warmups,25programs/100cards/2000benefits unchanged",
+  "host_load_is_not_idle_comparison": true
+}

@@ -1,0 +1,19 @@
+{
+  "status": "author-reviewed-independent-delta-review-pending",
+  "changed_topics": [
+    "Canonical validation profiles and exact emulator runtime boundary",
+    "CI explicit ci-linux capture exclusion under ADR0001",
+    "Source-only release archive scope, separate debug sideloads",
+    "All three reading sources"
+  ],
+  "sources": [
+    "scripts/validate.py:groups,limitations,emulator_boundary,source_package,main",
+    ".github/workflows/ci.yml",
+    "scripts/requirements-validation.txt",
+    "scripts/tests/test_validate.py",
+    "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md",
+    ".gitleaks.toml"
+  ],
+  "observed": "280browser checks pass; Toolchain desktop/narrow captures and both14page JS/noJS print PDFs inspected without clipping or missing content",
+  "helper_limits": "Prior structural scorer schema mismatch/native data-dv-section marker incompatibility remain documented in reviews/v0.4.0-candidate; no model-schema hacks or builder migration applied."
+}

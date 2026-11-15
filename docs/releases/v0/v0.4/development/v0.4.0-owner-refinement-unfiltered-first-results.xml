@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="68" failures="1" errors="0" skipped="0" time="0.000" timestamp="2026-11-14T16:29:56" hostname="localhost">
+  <testsuite name="com.bendourthe.milestone.data.session.TinkSessionStoreKeystoreTest" tests="1" failures="0" errors="0" skipped="0" time="0.475" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="roundTripsWithTheKeystoreKeyAndStoresNoPlaintext" classname="com.bendourthe.milestone.data.session.TinkSessionStoreKeystoreTest" time="0.475" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.BenefitRemindersDeviceTest" tests="1" failures="0" errors="0" skipped="0" time="0.394" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="aDueCreditPostsOnePrivateReminder" classname="com.bendourthe.milestone.sync.BenefitRemindersDeviceTest" time="0.394" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" tests="6" failures="0" errors="0" skipped="0" time="111.277" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="25.425" />
+    <testcase name="aRewardsPageWaitsForItsLateLowerSectionThenFollowsTheActivityLink" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="22.873" />
+    <testcase name="aCardWithoutAnActivityPagePostsItsTrackersThenItsViewAllList" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="6.264" />
+    <testcase name="anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="12.178" />
+    <testcase name="aRewardsPageFollowsItsActivityLinkAtTheCapWhileItsHeightStillGrows" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="23.489" />
+    <testcase name="readsCardsThenEachCardsBenefitsWithoutIdentifiers" classname="com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest" time="21.048" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" tests="6" failures="0" errors="0" skipped="0" time="71.809" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="institutionsKeepUnreadProgramsAndSeparateTheirCardsWithBackNavigation" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="8.618" />
+    <testcase name="yellowAlertsAcknowledgeAndReturnOnlyAfterRelevantSuccessfulSectionRefresh" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="6.763" />
+    <testcase name="productImagesCategoriesControlsAndSavedNavigationStateWorkOnAndroid" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="15.059" />
+    <testcase name="editingInsideGroupedAmountAndFormattedDateSavesExactValues" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="13.962" />
+    <testcase name="sortMenusDisclosureAndFormattedCalendarInputWorkOnAndroid" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="24.091" />
+    <testcase name="failedAlertSaveShowsVisibleFeedbackAndKeepsTheAlertOnAndroid" classname="com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest" time="3.316" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.BridgeFixtureTest" tests="21" failures="0" errors="0" skipped="0" time="255.005" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="23.965" />
+    <testcase name="theHiddenWebViewBehindTheAppKeepsDrawingSoAnimationFramesRun" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="3.698" />
+    <testcase name="aMomentaryServerErrorOnTheBalancePageIsLoadedOnceMore" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="6.821" />
+    <testcase name="anEmailFirstSignInGetsTheEmailThenThePasswordAndReadsTheBalance" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="10.164" />
+    <testcase name="twoMatchesAreAmbiguous" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="4.357" />
+    <testcase name="aPersonalOrBusinessChoiceAfterSignInPicksPersonal" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="7.115" />
+    <testcase name="aBalanceShownOnlyInAnAccountPanelIsReadAfterPressingItsButton" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="6.345" />
+    <testcase name="forgedMessageFromSubframeIsIgnored" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="7.775" />
+    <testcase name="aUsernameMarkedInvalidWithoutAMessageIsNotARefusedPassword" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="23.292" />
+    <testcase name="aZeroShownWhileTheAccountLoadsIsNotReadAsTheBalance" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="6.585" />
+    <testcase name="aPasswordRefusedWithAnErrorStopsWithoutPressingAgain" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="21.994" />
+    <testcase name="aVisiblePasswordRefusalIsKeptWhenThePageDeadlineWins" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="12.209" />
+    <testcase name="dashboardFixtureCreatesConnectedAccount" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="4.089" />
+    <testcase name="aRefusalShownByChangingAStandingNoticeStillStopsAsRefused" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="21.628" />
+    <testcase name="aTextedCodeSplitIntoOneBoxPerDigitIsTypedDigitByDigit" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="7.195" />
+    <testcase name="aSubmitTheSiteNeverAnsweredIsPressedOnceMoreAndSignsIn" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="25.262" />
+    <testcase name="aTextedCodeBoxNamedOnlyByItsLabelGetsTheCodeAndSignsIn" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="7.681" />
+    <testcase name="loadingWordsInTheBalanceElementAreWaitedOutInsteadOfReadAsTheBalance" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="9.146" />
+    <testcase name="anEmailedLinkSignInTakesThePasswordRouteAndFillsEmailPasswordAndLastName" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="10.886" />
+    <testcase name="passwordFieldAtDashboardUrlRequiresLogin" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="7.395" />
+    <testcase name="aSignedOutHomePageOpensTheSignInPageAndReadsTheBalance" classname="com.bendourthe.milestone.sync.BridgeFixtureTest" time="27.403" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.HeadlessSyncFixtureTest" tests="3" failures="0" errors="0" skipped="0" time="147.739" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="aRefreshStoresTheBalanceThenEveryCardsBenefits" classname="com.bendourthe.milestone.sync.HeadlessSyncFixtureTest" time="33.116" />
+    <testcase name="connectedAccountRefreshesWhileActivityIsVisible" classname="com.bendourthe.milestone.sync.HeadlessSyncFixtureTest" time="6.651" />
+    <testcase name="aFailingViewAllPageKeepsTheStoredListWhileTheTrackersUpdate" classname="com.bendourthe.milestone.sync.HeadlessSyncFixtureTest" time="107.972" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.sync.webview.WebViewConfigTest" tests="1" failures="0" errors="0" skipped="0" time="0.254" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="acceptsThirdPartyCookiesSoSavedDevicesStickWhileKeepingTheHardening" classname="com.bendourthe.milestone.sync.webview.WebViewConfigTest" time="0.254" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.AddProgramFlowTest" tests="1" failures="0" errors="0" skipped="0" time="14.095" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="catalogShowsProgramsNotAddedByDefaultAndExplainsOnesThatCannotSync" classname="com.bendourthe.milestone.ui.AddProgramFlowTest" time="14.095" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.BenefitsScreenshotTest" tests="1" failures="0" errors="0" skipped="0" time="6.637" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="capturesTheTabAndACardPage" classname="com.bendourthe.milestone.ui.BenefitsScreenshotTest" time="6.637" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchLatencyTest" tests="1" failures="1" errors="0" skipped="0" time="15.979" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95" classname="com.bendourthe.milestone.ui.search.SearchLatencyTest" time="15.979">
+      <failure>java.lang.AssertionError: Query-to-visible p95 was 213.8725 ms; limit is 200 ms
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.bendourthe.milestone.ui.search.SearchLatencyTest.thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95(SearchLatencyTest.kt:192)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchNavigationTest" tests="15" failures="0" errors="0" skipped="0" time="150.127" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="11.769" />
+    <testcase name="savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="10.551" />
+    <testcase name="cardAndProgramRemovalDuringSelectionAreSafe" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="8.550" />
+    <testcase name="actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="6.657" />
+    <testcase name="identicalCardProductsAndBenefitsShowDistinctCardEndingContext" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="11.620" />
+    <testcase name="returningToTheSameQueryDoesNotReviveAnObsoleteSelection" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="9.236" />
+    <testcase name="descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="15.161" />
+    <testcase name="removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.690" />
+    <testcase name="removedOriginatingCardFallsBackToItsInstitution" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="9.013" />
+    <testcase name="lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="12.738" />
+    <testcase name="reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.660" />
+    <testcase name="rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="8.823" />
+    <testcase name="sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.344" />
+    <testcase name="programAndCardTargetsReturnToTheSameSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="10.395" />
+    <testcase name="combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="12.920" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchProcessFixtureTest" tests="1" failures="0" errors="0" skipped="0" time="1.033" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="unsupportedProgramFixtureCanBeSeededAndVerifiedWithoutIssuerAccess" classname="com.bendourthe.milestone.ui.search.SearchProcessFixtureTest" time="1.033" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchScreenTest" tests="10" failures="0" errors="0" skipped="0" time="74.629" timestamp="2026-11-14T16:29:56" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="rewardsHeaderAtDoubledFontRetainsAllActions" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.072" />
+    <testcase name="descriptionAndCompletedContextAreVisibleAndCountsDoNotIncludeHeadings" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="7.271" />
+    <testcase name="groupedContextClearAndFreshEntryUseRealNavigation" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="10.361" />
+    <testcase name="delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="6.327" />
+    <testcase name="everyBenefitsHeaderAndSystemBackReturnToTheOrigin" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="12.950" />
+    <testcase name="rewardsHeaderPreservesExistingActionsAtNarrowWidth" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.351" />
+    <testcase name="keyboardBackDismissesImeBeforeLeavingSearch" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="7.575" />
+    <testcase name="doubledFontKeepsSearchBackClearAndRowsUsable" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="6.305" />
+    <testcase name="actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="5.850" />
+    <testcase name="topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="10.567" />
+  </testsuite>
+</testsuites>

@@ -8,6 +8,7 @@ import com.bendourthe.milestone.data.settings.DataStoreBenefitsDisplaySettings
 import java.io.IOException
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModelStore
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
@@ -40,6 +41,7 @@ class SearchRepositoryTest {
     @get:Rule val tmp = TemporaryFolder()
     private val preferenceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val store = ViewModelStore()
+    private val modelJobs = mutableListOf<Job>()
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined)
     private val key = CardKey("amex", "1008")
 
@@ -53,15 +55,19 @@ class SearchRepositoryTest {
         replace("Airport lounge")
     }
     @After fun close() = runBlocking {
-        scope.cancel(); store.clear()
+        scope.coroutineContext[Job]!!.cancelAndJoin()
+        store.clear()
+        modelJobs.joinAll()
         preferenceScope.coroutineContext[Job]!!.cancelAndJoin()
-        db.close(); Dispatchers.resetMain()
+        if (::db.isInitialized) db.close()
+        Dispatchers.resetMain()
     }
     private suspend fun replace(description: String) = cards.applyCardBenefits(key,
         assignBenefitKeys(key, listOf(BenefitDraft(BenefitSection.CREDIT_EARNED, "Lounge Credit", 0, 5000, 5000,
             "January", false, description = description))), 11)
     private fun model(repository: CardRepository = cards, preferences: BenefitsDisplaySettings? = null): SearchViewModel {
         val model = SearchViewModel(accounts, repository, StaticCatalogRepository(), displaySettings = preferences, clock = { 100 }, zone = ZoneId.of("UTC"), locale = Locale.US)
+        modelJobs += model.viewModelScope.coroutineContext[Job]!!
         store.put("search", model); scope.launch { model.state.collect() }; return model
     }
     private suspend fun result(vm: SearchViewModel, predicate: (SearchUiState.Results) -> Boolean = { true }) =
@@ -88,7 +94,9 @@ class SearchRepositoryTest {
         assertEquals(1, updated.results.count)
         proof("updated", updated.results.groups.single().hits.single().entry.target, updated.results.count)
         accounts.markNeedsReconnect("amex")
-        vm.setQuery("American Express"); assertEquals(1, result(vm) { it.results.groups.single().hits.single().entry.target is SearchTarget.ProgramTarget }.results.count)
+        vm.setQuery("American Express"); val scoped = result(vm) { it.results.count(SearchTab.REWARDS) == 1 }
+        assertEquals(1, scoped.results.count(SearchTab.REWARDS))
+        assertTrue(scoped.results.cards("amex").single().benefits.isNotEmpty())
         accounts.removeAccount("amex")
         withTimeout(10_000) { vm.state.first { it == SearchUiState.Empty } }
         assertEquals(SearchValidation.UNAVAILABLE, vm.validate(target))
@@ -104,15 +112,19 @@ class SearchRepositoryTest {
         val old = result(vm).results.groups.single().hits.single().entry.target as SearchTarget.BenefitTarget
         cards.applyCardBenefits(key, assignBenefitKeys(key, listOf(draft("Later"))), 21)
         vm.setQuery("Later")
-        val current = result(vm) { it.results.groups.single().hits.single().entry.target.revision !== old.revision }
-            .results.groups.single().hits.single().entry.target as SearchTarget.BenefitTarget
+        // Card and benefit signals may briefly re-enter Loading after publishing this revision.
+        // A real selection fails closed during that interval; await an accepted fresh result.
+        suspend fun acceptedTarget(): SearchTarget.BenefitTarget = withTimeout(10_000) {
+            vm.state.filterIsInstance<SearchUiState.Results>().map { state ->
+                state.results.groups.single().hits.single().entry.target as SearchTarget.BenefitTarget
+            }.filter { target -> target.revision !== old.revision && vm.validate(target) == SearchValidation.CURRENT }.first()
+        }
+        val current = acceptedTarget()
         assertEquals(old.benefitKey, current.benefitKey)
-        assertEquals(SearchValidation.CURRENT, vm.validate(current))
         proof("reused-key", current, 1)
         assertEquals(SearchValidation.CHANGED, vm.validate(old))
-        val reselected = result(vm) { it.results.groups.single().hits.single().entry.target.revision === current.revision }
-            .results.groups.single().hits.single().entry.target
-        assertEquals(SearchValidation.CURRENT, vm.validate(reselected))
+        val reselected = acceptedTarget()
+        assertSame(current.revision, reselected.revision)
     }
 
     @Test fun cardClearRetainsTheAddedProgramAndDoesNotExposeUnaddedCatalogPrograms(): Unit = runBlocking {

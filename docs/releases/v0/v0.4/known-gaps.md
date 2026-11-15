@@ -2,7 +2,7 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-13
+**Last updated**: 2026-11-14
 
 All 29 remaining v0.3 gaps are carried here with their original IDs, conditions and sources. Existing Gxx IDs are deliberately retained. The native typed-ledger parser does not recognize this legacy prefix, so counts and carry-forward are verified from the table rows rather than inferred from its zero-item result. Global search G37 is authorized for local implementation; its delivery remains open.
 
@@ -49,3 +49,50 @@ All 29 remaining v0.3 gaps are carried here with their original IDs, conditions 
 
 | ID | Gap | Fix |
 |---|---|---|
+
+## Carry Status
+
+The 29 legacy rows above are copied without changing their IDs, conditions or sources from the local v0.3 closing proposal at e6ff16d332f87f9e7cd7dbdf52f2e69aadd1e368. That proposal was integrated and v0.3 was archived through green PR 15 at 09036c2037b42fa232679a4b2f0afd55b9cd3171. This copy preserves the forward record; Search delivery and authorized cleanup obligations remain open. G37 remains Open until Search delivery is actually verified. The legacy summary counts only those 29 rows. The project verification and protection items below are now resolved; the combined Open count remains 29 legacy conditions. Actual first hosted execution remains T020. MT-1 is resolved for project verification through actual adapter checks; external auxiliary helper compatibility is unchanged. The native typed parser does not recognize the legacy G-prefix rows; its result cannot be used to claim there are only three total gaps.
+
+## v0.4.0
+
+### Summary
+
+| Category | Open | Resolved |
+|---|---|---|
+| Not implemented (NI) | 0 | 0 |
+| Deferred (DF) | 0 | 0 |
+| Bugs / regressions (BG) | 0 | 0 |
+| Warnings (WN) | 0 | 0 |
+| Missing tests / coverage gaps (MT) | 0 | 1 |
+| Quality-gate gaps (QG) | 0 | 2 |
+
+### Open Items
+
+#### Quality-Gate Gaps
+
+No open item in this category. Approved configuration and actual protection resolutions are recorded below; first hosted execution remains T020.
+
+#### Missing Tests and Coverage Gaps
+
+No open item in this category. The MT-1 verification resolution is recorded below.
+
+### Resolved Items
+
+| ID | Gap | Resolution |
+|---|---|---|
+| QG-1 | Integration workflow omitted Android runtime execution. | Owner approved and local workflow now invokes full/platform/report with a bounded API 36 emulator. Independent review found no actionable defect. First actual hosted execution remains T020; no CI runtime success is claimed. |
+| QG-2 | PR requirement and administrator enforcement were missing. | Owner approved; both develop/main were updated and read back, preserving the app-bound CI result and all other settings. See development/v0.4.0-protection-applied.json. |
+| MT-1 | Current handbook viewport, source-value and control proof was missing behind incompatible helper schemas. | Resolved through project-native adapter checks and specific counterchecks; installed auxiliary helper schema compatibility remains unchanged. Current output b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc has 2,606 passing checks, 384 measurements, independent visual review and full native qualification. |
+
+#### MT-1 Resolution Detail
+
+The original source phase is Phase 4, T013/T016, owned by the handbook-tooling maintainer. The original condition was that installed auxiliary measurement expected data-dv-section attributes and its structural scorer expected different metadata nesting. Those raw non-pass/unverified results are preserved. The adapter in scripts/check_handbook_render.py now independently inventories actual sources/model, measures the required viewport/depth matrix, checks source values through animation frames, and exercises chapter/history/native controls, motion, fullscreen and forced-color behavior. Real presentation font-floor/palette failures and narrow table word splitting were corrected in project.css, with all content and reading styles preserved. The independent requirements audit found no remaining mandatory handbook behavior unproved within this scope. [Adjudication and current resolution](development/v0.4.0-handbook-helper-adjudication.md) retain exact bindings and limits. No installed helper was relabeled PASS, no renderer schema was migrated and no requirement was waived.
+
+The three confirmed T015 code defects were corrected and independently rechecked within the plan rather than deferred. QG-1 and QG-2 are resolved as configured-path/settings gaps; actual hosted execution remains a publication gate.
+
+
+The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are zero Open and three Resolved; combined legacy-plus-typed Open count is 29.
+
+
+Current owner Search refinements require program-only descendant browsing, Rewards images/stored points and compact exact-card headers with independent chevrons. These are current-plan work, not a waiver of G37 delivery. The original legacy rows and their source conditions remain unchanged.

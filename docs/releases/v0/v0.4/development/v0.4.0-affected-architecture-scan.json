@@ -1,0 +1,56 @@
+{
+  "mode": "read-only bounded structural scan; no move/delete",
+  "literal_plan_write_scopes": [
+    "docs/archives/v0/v0.1/development/v0.1.0-last-phase-evidence.md",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/settings/DataStoreBenefitsDisplaySettings.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/db/CardDao.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/db/RoomCardRepository.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/",
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+    "app/src/main/java/com/bendourthe/milestone/AppContainer.kt",
+    "app/src/main/res/values/strings.xml",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt",
+    "app/src/test/java/com/bendourthe/milestone/data/db/RoomCardRepositoryTest.kt",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/",
+    "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+    "docs/releases/v0/v0.4/development/",
+    "docs/handbooks/",
+    "docs/todos.md",
+    "docs/releases/v0/v0.4/known-gaps.md",
+    ".github/workflows/ci.yml"
+  ],
+  "validation_scope_additions": [
+    "scripts/validate.py",
+    "scripts/check_handbook_render.py",
+    "scripts/build_handbooks.py",
+    "scripts/tests/"
+  ],
+  "selected_public_paths": 188,
+  "live_full_hash_paths": 54,
+  "empty_directories": [],
+  "obsolete_name_candidates": [],
+  "byte_duplicate_live_groups": [],
+  "private_inputs_read": false,
+  "method_limits": [
+    "Git nonignored public inventory; no captured pages opened",
+    "Historical review copies and release evidence are intentionally retained and excluded from cleanup candidates",
+    "Kotlin package depth is mandated by Android package ownership, not a flattening proposal",
+    "No semantic unused-code conclusion is drawn from lexical inventory"
+  ],
+  "layout_review": {
+    "domain": "Pure matcher remains in domain/GlobalSearch.kt",
+    "ui": "Search snapshot/navigation memory remains within ui/search and existing MileStoneApp/Benefits owners",
+    "persistence": "No new schema/index/credential owner introduced",
+    "docs": "Living handbook sources remain in docs/handbooks; current evidence stays releases/v0/v0.4; shipped minors stay archives/v0",
+    "search_refinement": "Canonical section partitions are prepared upstream once; collapse choices remain in the existing Search ViewModel; program outline is visit-local Compose state; no new persistence/framework/issuer boundary."
+  },
+  "proposed_moves": [],
+  "proposed_deletions": [],
+  "remaining_manual_adjudication": [],
+  "coordinator_delta": "Exact prepared v0.1 archived evidence format correction; historical counts unchanged."
+}

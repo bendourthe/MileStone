@@ -1,0 +1,27 @@
+{
+  "method": "Actual unchanged plan measurement; host load declared, not an idle-host comparison",
+  "samples": [
+    {
+      "utc": "2026-11-15T02:32:08.130077+00:00",
+      "cpu_percent": 22.47,
+      "available_memory_mb": 3631
+    },
+    {
+      "utc": "2026-11-15T02:32:10.131240+00:00",
+      "cpu_percent": 15.2,
+      "available_memory_mb": 3668
+    },
+    {
+      "utc": "2026-11-15T02:32:12.132050+00:00",
+      "cpu_percent": 14.49,
+      "available_memory_mb": 3642
+    }
+  ],
+  "comparison_control_met": true,
+  "sdk_live_session": 92151,
+  "sdk_launcher_pid": 57692,
+  "qemu_pid": 3676,
+  "gpu": "host",
+  "prior_partial_run": "Interrupted after Windows-level emulator suspension/exiting; not an app assertion qualification",
+  "other_host_programs_unchanged": true
+}

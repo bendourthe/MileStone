@@ -1,0 +1,29 @@
+{
+  "status": "unverified",
+  "output_sha256": "593a3ea808e8f12f5e1267f7b323fef7ad8178f923b9243927b29907d6310850",
+  "rows": [],
+  "errors": [
+    "inventory mismatch: sections []; slides ['app', 'refresh', 'pages', 'switch', 'budget', 'storage', 'privacy', 'verification']"
+  ],
+  "qualitative_review": "required separately",
+  "verification_scope": "rendered geometry, inventory and declared browser behaviors",
+  "source_value_guard": {
+    "status": "unchecked",
+    "observations": [],
+    "findings": []
+  },
+  "control_behavior_guard": {
+    "status": "unchecked",
+    "scope": "declared controls only; one representative viewport",
+    "observations": [],
+    "findings": []
+  },
+  "browser": "Chromium 156.0.8078.4",
+  "font_px": null,
+  "coverage": {
+    "sections": 24,
+    "slides": 8,
+    "measured_states": 0
+  },
+  "fail_count": 1
+}

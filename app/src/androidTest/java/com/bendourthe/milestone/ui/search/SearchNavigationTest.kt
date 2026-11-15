@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.Density
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
+import androidx.navigation.toRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
@@ -45,6 +46,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import com.bendourthe.milestone.data.settings.DataStoreBenefitsDisplaySettings
 import androidx.navigation.NavDestination.Companion.hasRoute
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 
 /** Real app composables and navigation over an isolated synthetic Room corpus; no issuer or sign-in access. */
 @RunWith(AndroidJUnit4::class)
@@ -61,6 +63,7 @@ class SearchNavigationTest {
         override suspend fun setRefreshInterval(interval: RefreshInterval) { refreshInterval.value = interval }
     }
     private lateinit var nav: NavHostController
+    private lateinit var retainedContent: @Composable () -> Unit
     private lateinit var prefs: DataStoreBenefitsDisplaySettings
     private val preferenceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var preferenceFile: File
@@ -111,7 +114,7 @@ class SearchNavigationTest {
         val benefits = BenefitsViewModel(cards, catalog, accounts, displaySettings = prefs)
         val add = CatalogViewModel(catalog, accounts, debounceMs = 0)
         val prefs = SettingsViewModel(settings)
-        rule.setContent {
+        val content: @Composable () -> Unit = {
             nav = rememberNavController()
             val density = LocalDensity.current
             CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale)) {
@@ -119,6 +122,8 @@ class SearchNavigationTest {
                     benefitsViewModel = benefits, createSearchViewModel = { model() }) } }
             }
         }
+        retainedContent = content
+        rule.setContent(content)
     }
     private fun waitText(text: String) {
         rule.waitUntil(10_000) { rule.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
@@ -143,9 +148,14 @@ class SearchNavigationTest {
     }
     private fun select(kind: String, title: String) {
         rule.onNodeWithTag("globalSearchQuery").performImeAction()
-        val result = hasClickAction() and hasText(kind) and hasText(title)
-        rule.waitUntil(10_000) { rule.onAllNodes(result).fetchSemanticsNodes().size == 1 }
+        rule.onNodeWithTag(if (kind == "Program") "searchTabREWARDS" else "searchTabBENEFITS").performClick()
+        val result = hasClickAction() and hasText(title) and when (kind) {
+            "Benefit" -> hasTestTag("searchCompactBenefit")
+            "Program" -> hasTestTag("searchProgramTile")
+            else -> hasText("Card ending", substring = true)
+        }
         rule.onNodeWithTag("searchResults").performScrollToNode(result)
+        rule.waitUntil(10_000) { rule.onAllNodes(result).fetchSemanticsNodes().size == 1 }
         rule.onNode(result).performClick()
     }
     private fun openInstitution() {
@@ -169,12 +179,17 @@ class SearchNavigationTest {
         select("Program", "Delta SkyMiles")
         rule.waitUntil(10_000) { nav.currentDestination?.hasRoute(Dashboard::class) == true }
         rule.onNodeWithText("Delta SkyMiles").assertIsDisplayed()
+        rule.onNodeWithTag("searchProgramHighlight").assertIsDisplayed().assert(hasStateDescription("Search result"))
+        snapshot("program-outline")
+        rule.mainClock.advanceTimeBy(4_100)
+        rule.onNodeWithTag("searchProgramHighlight").assertDoesNotExist()
         returnToSearch("Delta")
         select("Card", "Delta Gold")
         waitText("Card benefits")
         rule.onNodeWithText("Delta Gold").assertIsDisplayed()
         returnToSearch("Delta")
-        rule.onNodeWithTag("searchResultCount").assertTextEquals("2 results")
+        rule.onNodeWithTag("searchTabBENEFITS").assertIsSelected()
+        rule.onNodeWithTag("searchResultCount").assertTextEquals("1 result")
     }
 
     @Test fun combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges() {
@@ -214,10 +229,16 @@ class SearchNavigationTest {
         returnToSearch("Dining")
         rule.onNodeWithContentDescription("Clear search").performClick()
         rule.onNodeWithTag("globalSearchQuery").performTextInput("points")
+        rule.waitUntil(10_000) {
+            lastSearch.query.value == "points" &&
+                (lastSearch.state.value as? SearchUiState.Results)?.results?.groups?.any { group ->
+                    group.hits.any { (it.entry.target as? SearchTarget.BenefitTarget)?.benefitKey == "local:welcome" }
+                } == true
+        }
         waitText("1 result")
-        rule.onNode(hasClickAction() and hasText("Benefit")).performClick()
+        select("Benefit", "Welcome bonus")
         waitText("Search result")
-        rule.onNode(hasStateDescription("Search result")).assertIsDisplayed()
+        highlighted("Welcome bonus").assertIsDisplayed()
         assertEquals(before, runBlocking { prefs.observe(key).first() })
     }
 
@@ -308,7 +329,17 @@ class SearchNavigationTest {
         rule.runOnIdle { assertEquals(1, nav.currentBackStack.value.count { it.destination.hasRoute(CardBenefits::class) }) }
         returnToSearch("Benefit")
         rule.onNodeWithText("Benefit 30").assertIsDisplayed()
-        assertTrue(lastSearch.firstVisibleItemIndex > 0)
+        assertTrue(lastSearch.position(SearchTab.BENEFITS).first > 0)
+        rule.onNodeWithTag("searchTabBENEFITS").assertIsSelected()
+        rule.onNodeWithTag("searchTabREWARDS").performClick()
+        rule.onNodeWithText("No matching rewards items").assertIsDisplayed()
+        rule.onNodeWithTag("searchTabBENEFITS").performClick()
+        rule.onNodeWithText("Benefit 30").assertIsDisplayed()
+        rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput("Benefit 00")
+        waitText("1 result")
+        rule.onNodeWithText("Benefit 00").assertIsDisplayed()
+        rule.onNodeWithText("Benefit 30").assertDoesNotExist()
     }
 
     @Test fun rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch() {
@@ -353,4 +384,121 @@ class SearchNavigationTest {
         rule.waitUntil(10_000) { rule.onAllNodesWithContentDescription("Back to institutions").fetchSemanticsNodes().isNotEmpty() }
         rule.onNodeWithContentDescription("Back to institutions").assertIsDisplayed()
     }
+
+    @Test fun returningToTheSameQueryDoesNotReviveAnObsoleteSelection() {
+        val gate = CompletableDeferred<Unit>()
+        launchApp(); search("terminal")
+        hook { beforeRead = null; gate.await() }
+        select("Benefit", "Lounge Credit")
+        rule.onNodeWithTag("searchSelectionLoading").assertIsDisplayed()
+        rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput("Dining")
+        rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput("terminal")
+        gate.complete(Unit)
+        rule.waitUntil(10_000) { rule.onAllNodesWithTag("searchSelectionLoading").fetchSemanticsNodes().isEmpty() }
+        rule.onNodeWithTag("globalSearchQuery").assertTextContains("terminal")
+        rule.runOnIdle { assertTrue(nav.currentBackStackEntry!!.destination.hasRoute(Search::class)) }
+        rule.onNodeWithText("Search result").assertDoesNotExist()
+    }
+
+    @Test fun savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt() {
+        val before = preferenceFile.readBytes()
+        launchApp(); search("Museum")
+        select("Benefit", "Museum access")
+        waitText("Search result")
+        highlighted("Museum access").assertIsDisplayed()
+        rule.onNodeWithTag("cardBenefitsList").performScrollToNode(hasText("Other") and hasClickAction())
+        rule.onNode(hasText("Other") and hasClickAction()).performClick()
+        rule.onNodeWithText("Museum access").assertDoesNotExist()
+        assertArrayEquals(before, preferenceFile.readBytes())
+    }
+
+    @Test fun identicalCardProductsAndBenefitsShowDistinctCardEndingContext() {
+        val other = CardKey("amex", "2009")
+        runBlocking {
+            cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta Gold", "1008"), CardDraft("Delta Gold", "2009")), true), 70)
+            cards.applyCardBenefits(other, assignBenefitKeys(other, listOf(
+                BenefitDraft(BenefitSection.LISTED, "Museum access", null, null, null, null, false, description = "Gallery passes")
+            )), 71)
+        }
+        launchApp(); search("Museum")
+        waitText("2 results")
+        rule.onNodeWithTag("globalSearchQuery").performImeAction()
+        rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Card ending 1008"))
+        rule.onNodeWithText("Card ending 1008").assertIsDisplayed()
+        rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Card ending 2009"))
+        rule.onNodeWithText("Card ending 2009").assertIsDisplayed()
+        snapshot("same-name-context")
+        val exact = hasTestTag("searchCompactBenefit") and hasContentDescription("Card ending 2009", substring = true)
+        rule.onNodeWithTag("searchResults").performScrollToNode(exact)
+        rule.onNode(exact).performClick()
+        waitText("Search result")
+        rule.runOnIdle { assertEquals(other.lastDigits, nav.currentBackStackEntry!!.toRoute<CardBenefits>().lastDigits) }
+        returnToSearch("Museum")
+        rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput("2009")
+        waitText("No matches in your stored items")
+    }
+
+    @Test fun actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt() {
+        val token = "SearchPrivacyFixtureTokenAlpha"
+        val control = "SavedStatePositiveControlMarker"
+        val captured = AtomicReference<ByteArray?>()
+        val application = context as android.app.Application
+        val targetActivity = rule.activity
+        val callbacks = object : android.app.Application.ActivityLifecycleCallbacks {
+            override fun onActivitySaveInstanceState(activity: android.app.Activity, state: android.os.Bundle) {}
+            override fun onActivityPostSaveInstanceState(activity: android.app.Activity, state: android.os.Bundle) {
+                if (activity === targetActivity) {
+                    val parcel = android.os.Parcel.obtain()
+                    try { parcel.writeBundle(state); captured.set(parcel.marshall()) } finally { parcel.recycle() }
+                }
+            }
+            override fun onActivityCreated(activity: android.app.Activity, state: android.os.Bundle?) {}
+            override fun onActivityStarted(activity: android.app.Activity) {}
+            override fun onActivityResumed(activity: android.app.Activity) {}
+            override fun onActivityPaused(activity: android.app.Activity) {}
+            override fun onActivityStopped(activity: android.app.Activity) {}
+            override fun onActivityDestroyed(activity: android.app.Activity) {}
+        }
+        val beforeRows = runBlocking { cards.allCardsWithBenefits() }
+        val beforePreferences = preferenceFile.readBytes()
+        launchApp()
+        rule.onNodeWithContentDescription("Search").performClick()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput(token)
+        waitText("No matches in your stored items")
+        val original = lastSearch
+        rule.runOnUiThread {
+            application.registerActivityLifecycleCallbacks(callbacks)
+            targetActivity.savedStateRegistry.registerSavedStateProvider("search_privacy_control") {
+                android.os.Bundle().apply { putString("marker", control) }
+            }
+        }
+        try {
+            rule.activityRule.scenario.recreate()
+            rule.activityRule.scenario.onActivity { activity -> activity.setContent(content = retainedContent) }
+            rule.waitUntil(10_000) { rule.onAllNodesWithTag("globalSearchQuery").fetchSemanticsNodes().size == 1 }
+            rule.onNodeWithTag("globalSearchQuery").assertTextContains(token)
+            assertSame(original, lastSearch)
+            val bytes = requireNotNull(captured.get()) { "No completed Activity saved-state callback was captured" }
+            fun contains(text: String): Boolean = listOf(Charsets.UTF_8, Charsets.UTF_16LE, Charsets.UTF_16BE).any { charset ->
+                val needle = text.toByteArray(charset)
+                (0..(bytes.size - needle.size).coerceAtLeast(-1)).any { offset -> needle.indices.all { bytes[offset + it] == needle[it] } }
+            }
+            assertTrue("Saved-state positive control was not captured", contains(control))
+            assertFalse("Query text was serialized into the Activity state", contains(token))
+            assertEquals(beforeRows, runBlocking { cards.allCardsWithBenefits() })
+            assertArrayEquals(beforePreferences, preferenceFile.readBytes())
+            val report = org.json.JSONObject().put("saved_state_positive_control", true).put("serialized_query_present", false)
+                .put("configuration_query_retained", true).put("same_navigation_scoped_model", true)
+                .put("issuer_rows_unchanged", true).put("preferences_unchanged", true)
+            val output = File(context.getExternalFilesDir(null), "search-state-privacy.json")
+            output.writeText(report.toString(2))
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand("cp ${output.absolutePath} /sdcard/Download/milestone-search-state-privacy.json").use {
+                java.io.FileInputStream(it.fileDescriptor).readBytes()
+            }
+        } finally { application.unregisterActivityLifecycleCallbacks(callbacks) }
+    }
+
 }

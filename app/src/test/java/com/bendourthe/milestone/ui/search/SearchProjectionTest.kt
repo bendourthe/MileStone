@@ -18,6 +18,20 @@ class SearchProjectionTest {
     private fun tracker(title: String = "Lounge Credit", description: String? = null) =
         BenefitDraft(BenefitSection.CREDIT_EARNED, title, 0, 5000, 5000, "January", false, description = description)
 
+    @Test fun programArtworkAndStoredBalanceAreDisplayOnlyAndObserveSourceRevisions() {
+        val source = input(emptyList()).copy(programs = listOf(SearchProgramSource(program, null, AccountStatus.CONNECTED, 123456)))
+        val first = factory.build(source)
+        val entry = first.entries.single { it.kind == SearchKind.PROGRAM }
+        assertEquals(program.logoKey, entry.programDisplay!!.logoKey)
+        assertEquals(program.formatBalance(123456, Locale.US), entry.programDisplay.balance)
+        assertEquals(0, GlobalSearch.match("123456", first.entries).count)
+        assertEquals(0, GlobalSearch.match("123,456", first.entries).count)
+        val changed = factory.build(source.copy(programs = source.programs.map { it.copy(balance = 987654) }))
+        assertNotSame(first.revision, changed.revision)
+        assertEquals(program.formatBalance(987654, Locale.US), changed.entries.first().programDisplay!!.balance)
+        assertEquals(123456L, first.source.programs.single().balance)
+    }
+
     @Test fun canonicalMergeKeepsAliasesDescriptionsEnrollmentAndRawRows() {
         val stored = rows(tracker(description = "Airport entry"), BenefitDraft(BenefitSection.LISTED,
             "Statement Lounge Benefit", null, null, null, null, false, description = "Terminal club", enrollment = Enrollment.ENROLLED))
@@ -71,5 +85,24 @@ class SearchProjectionTest {
         assertEquals((old as SearchTarget.BenefitTarget).benefitKey, reused.benefitKey)
         assertNotEquals(old, reused)
         assertTrue(factory.contains(input(rows(later)), old))
+    }
+
+    @Test fun everySavedSortAndCompletedLastMatchDestinationSectionAndRowOrder() {
+        val stored = rows(tracker("Shared Z Credit").copy(remainingCents = 9000),
+            tracker("Shared A Credit").copy(remainingCents = 2000),
+            tracker("Shared M Credit").copy(completed = true),
+            BenefitDraft(BenefitSection.LISTED, "Shared Museum", null, null, null, null, false))
+        BenefitsSort.entries.forEach { sort -> listOf(false, true).forEach { completedLast ->
+            val prefs = BenefitsDisplayPreferences(sort = sort, completedLast = completedLast)
+            val page = BenefitsViewModel.page(card, stored, 100, ZoneId.of("UTC"), Locale.US, prefs)
+            val snapshot = factory.build(input(stored, prefs))
+            val actual = GlobalSearch.match("Shared", snapshot.entries).groups.single().hits.map {
+                (it.entry.target as SearchTarget.BenefitTarget).benefitKey
+            }
+            assertEquals("$sort completedLast=$completedLast", page.sections.flatMap { it.items }.map { it.key }, actual)
+            assertEquals(actual, GlobalSearch.match("Shared", snapshot.entries.reversed()).groups.single().hits.map {
+                (it.entry.target as SearchTarget.BenefitTarget).benefitKey
+            })
+        } }
     }
 }

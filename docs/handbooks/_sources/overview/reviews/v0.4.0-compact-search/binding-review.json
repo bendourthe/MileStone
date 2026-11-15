@@ -1,0 +1,39 @@
+{
+  "output_sha256": "ec91405853afe73e0dcad4218917f0db4a15172718d7e7d1b20fe6e452c91127",
+  "prior_live_output_sha256": "85f703f3a8d809672f4c2802dd7b3a223599bf577c669262a2f01aa3e345c1d3",
+  "changed_input_records": [
+    {
+      "path": "docs/handbooks/overview.md",
+      "before_sha256": "3ec8a50354ac0ccacc1452165d7e8dc544e7cf03fffe072949a056da9f8b96f2",
+      "sha256": "cd006122fbb937ef8f94c5fe52c3da262a2d9361c01d1d766f3b82aa00c009c7"
+    },
+    {
+      "path": "docs/handbooks/global-search.md",
+      "before_sha256": "d0d8bee28377a6997a82abfee61fcdb3ea9d27d38abac6dd73ca2a5b6522b991",
+      "sha256": "2d5913be01c4e9bb9d591868ae4a6866cf4c61230feb35936f99be45df47a9c7"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+      "before_sha256": "61051cfbf6e822b356fee9e6505d22d30f0c14ad295918f9ee8112823eee96cc",
+      "sha256": "e3b584f0e1215888fe5491a7ab503ad5fe4da476a658d24e14f778f081e415c1"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+      "before_sha256": "4665fedddcd3699dfeb66ff72a296d27430c12536d2f5d1f3c796f6151edddcb",
+      "sha256": "96d75e711281c1239e3c96e45ba19ddc8231cbf2c53e481ee3e705d245c838a3"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+      "before_sha256": "1cb5b37f9a56fa50daf4bb62d07823081cf4290ff175ab5e07aab45d348ce601",
+      "sha256": "a128c9d13af7eb88d5eeec4e9d9538e651338656cdb90890cc172f664cef543e"
+    }
+  ],
+  "input_count": 65,
+  "input_records_roundtrip_native_pairs": true,
+  "standard_png_byte_equality": {
+    "compared": 225,
+    "identical": 225
+  },
+  "content_changes": "Latest compact Search hierarchy and program-only query expansion; retained8slide model/themes/runtime/CSS and configured hosted CI explanation unchanged.",
+  "prior_ci281_draft": "Historical stale binding, never adopted; current output independently rebuilt from all65 inputs."
+}

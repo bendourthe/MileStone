@@ -162,7 +162,10 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
                 val temporarilyExpanded = reveal?.expanded == true && !reveal.invalidated && target?.category == section.category
                 val collapsed = section.category in current.preferences.collapsed && !temporarilyExpanded
                 item("category:${section.category.name}") {
-                    Surface(onClick = { viewModel.setCollapsed(key, section.category, !collapsed) }, shape = MaterialTheme.shapes.medium,
+                    Surface(onClick = {
+                        if (temporarilyExpanded) reveal?.hideForVisit()
+                        viewModel.setCollapsed(key, section.category, !collapsed)
+                    }, shape = MaterialTheme.shapes.medium,
                         color = Color.Transparent, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
                         tonalElevation = 0.dp, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                             .testTag("category_${section.category.name}").semantics {
@@ -204,30 +207,45 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
 }
 
 @Composable
-private fun BenefitRow(item: BenefitUi, highlighted: Boolean = false) {
+internal fun BenefitRow(item: BenefitUi, highlighted: Boolean = false) {
     ElevatedCard(Modifier.fillMaxWidth().then(if (highlighted) Modifier.border(2.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.medium) else Modifier)
         .semantics(mergeDescendants = true) { if (highlighted) { stateDescription = "Search result"; liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite } }) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             if (highlighted) Text("Search result", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelLarge)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(item.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f),
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(item.title, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f).testTag("benefitTitle:${item.key}"),
                     textDecoration = if (item.completed) TextDecoration.LineThrough else null)
-                if (item.completed) Icon(Icons.Filled.CheckCircle, contentDescription = "Completed", tint = MaterialTheme.colorScheme.primary)
+                if (item.enrollment == "Enrolled") BenefitEnrollment(item.enrollment, Modifier.testTag("benefitEnrollment:${item.key}"))
+                if (item.completed) Icon(Icons.Filled.CheckCircle, contentDescription = "Completed", tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.testTag("benefitCompleted:${item.key}"))
             }
-            item.progress?.let { LinearProgressIndicator(progress = { it }, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) }
-            item.amounts?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+            item.progress?.let { progress ->
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    LinearProgressIndicator(progress = { progress }, modifier = Modifier.weight(1f).padding(vertical = 4.dp)
+                        .testTag("benefitProgress:${item.key}"))
+                    if (item.inlineProgressAmounts) item.amounts?.let {
+                        Text(it, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("benefitAmounts:${item.key}"))
+                    }
+                }
+            }
+            if (!item.inlineProgressAmounts || item.progress == null) item.amounts?.let {
+                Text(it, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.testTag("benefitAmounts:${item.key}"))
+            }
             item.period?.let { Text("Period: $it", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             if (item.noReminder) {
                 Text("No reminder for this credit", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            // A status label, not a control: full-contrast text in an outline rather than a disabled chip.
-            item.enrollment?.let {
-                Surface(shape = MaterialTheme.shapes.small, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline), color = Color.Transparent) {
-                    Text(it, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp))
-                }
-            }
+            item.enrollment?.takeUnless { it == "Enrolled" }?.let { BenefitEnrollment(it) }
             item.description?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         }
+    }
+}
+
+@Composable
+private fun BenefitEnrollment(label: String, modifier: Modifier = Modifier) {
+    // A status label with full-contrast text, rather than a disabled control.
+    Surface(modifier = modifier, shape = MaterialTheme.shapes.small, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline), color = Color.Transparent) {
+        Text(label, style = MaterialTheme.typography.labelLarge, modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
     }
 }
 
