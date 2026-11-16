@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-15
+
 ### Added
 
 - On-device search from a top-right icon finds added programs and their stored cards and displayed benefits, including contextual queries such as Delta lounge.

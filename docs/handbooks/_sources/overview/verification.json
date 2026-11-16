@@ -2,10 +2,10 @@
   "snapshot": {
     "entry_sha256": "0596f547289a5dfa92d6524392d49e5ed99fb615ee6382f0a235a3530ea72aee",
     "inputs": {
-      "docs/handbooks/overview.md": "a0a9418c18481dc4691aeaa3e334efd5cc81f70805cc46353ce4932db5150712",
+      "docs/handbooks/overview.md": "3c42de578d15c83a37582982619fa18345ad50f36bc1217c9fe1a71a8f408242",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
-      "docs/handbooks/global-search.md": "3d839150507e4a8430b94d844b8e4c0a16678fd60470d5b0dec602cc53e00e37",
-      "docs/handbooks/README.md": "67cbae76d6ec3454ede07771d2905174980393fa5da5293ae4b489c1633c122a",
+      "docs/handbooks/global-search.md": "4c11bbaedbc923a9cf53b574a8212da75deea1800fa83c58c4eccf94dc8a9d56",
+      "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
       "docs/handbooks/handbooks.json": "01ca395eb00f826de0abd87b7153873df73acc5f2c913c264af8d1785c0e56a0",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
@@ -16,7 +16,7 @@
       "docs/handbooks/_sources/overview/model.json": "4d7ba70107831c87eea89cc5f49133245dcb85733a4eca28c703ecb81e7cceb6",
       "docs/handbooks/_sources/overview/design.json": "62bf489d29d18799ad27bc7e0a08f0604773a45894e545d447b89fcda78f14b5",
       "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4",
-      "app/build.gradle.kts": "738bd40ab543e790d2aa529a8fed82c9eb9c2bb800623c1cc5ddd92d45be4956",
+      "app/build.gradle.kts": "16a474dbbc7f235a7bd4e6f2f51eb612e781fb20f792dbaffbeaeedc8985a005",
       "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db",
       "app/src/main/assets/extract.js": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3",
       "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "2c610ded646112c6c0fba15b697f37ffeba6a26477e880495ce83b211db75f4b",
@@ -68,27 +68,27 @@
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94"
+    "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/author-content-review.json",
-      "evidence_sha256": "911080983158fe9a341a4936abcacb80c3f442a784f508586874ec80f5bcef4d"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/author-content-review.json",
+      "evidence_sha256": "92918eda27a003cb370d208926f82bd38364fffafa2ebc8759cc5598c240dc1c"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/build.json",
-      "evidence_sha256": "e565bf119f58ed716cdb153d8bbc8a66a9dc492593e9308116efa61cd0779654"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/build.json",
+      "evidence_sha256": "2136fb66b1a626d258f1e44c86ecb08c354c449c043c16b12dea41aaa59b6e53"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/run-1/render.json",
-      "evidence_sha256": "79f466edeffa3fd8fbe45515c07f10c4c97e8f27b858d20e5896797fe6840de6",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/run-1/render.json",
+      "evidence_sha256": "20e54d0722ae4465157c252148e30a05f0f9489d8afa36c4892c31d9fe4e5ef3",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94"
+      "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e"
     }
   },
   "limitations": [],
-  "qualification_scope": "Current dirty-candidate handbook content, reproducible build and actual browser/print checks only. This proposed receipt awaits independent coordinator adoption; no product performance, integration, release or publication completion is asserted."
+  "qualification_scope": "Release preparation handbook at the actual dirty candidate; independent coordinator adoption pending. No release publication, product runtime or remote authority completion is asserted."
 }

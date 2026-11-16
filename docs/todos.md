@@ -1,8 +1,8 @@
 # MileStone: Progress Dashboard
 
-**Branch:** `develop` is integration; the active search candidate is `feat/v0.4.0-global-search` in its linked worktree.
+**Branch:** `develop` is integration; Search is merged through PR 16 at `2a41534`, and `chore/release-v0.4.0` prepares the release in its linked worktree.
 
-**Version:** v0.3.1 is published, source-archive verified and back-merged; Search Phases 1 through 3 are verified. The v0.3 archive is integrated through green PR 15. Original v0.3.0 cleanup and native PLAN COMPLETE are verified; historical native-run reconciliation remains open for other released plans.
+**Version:** v0.3.1 is published, source-archive verified and back-merged; v0.4.0 is in release preparation after green Search integration. The v0.3 archive is integrated through green PR 15. Original v0.3.0 cleanup and native PLAN COMPLETE are verified; historical native-run reconciliation remains open for other released plans.
 
 ## Expanded Completion Goal
 
@@ -37,7 +37,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | 0: released, archived and native PLAN COMPLETE after verified idle cleanup |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (published and back-merged with owner acceptance; historical native-run reconciliation remains open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 3 of 4; final local qualification passes | 4 of 4 | 1: current local full profile and 74/74 emulator cases pass; p95 84.37 ms; fresh scoped correction publication, hosted CI and release remain open |
+| v0.4.0 search plan phases complete | Final implementation and publication verified; release pending | 4 of 4 | 1: PR 16 merged with green CI; 74/74 hosted emulator cases pass, Search p95 189.86 ms against 200 ms; release, archive and native closure remain open |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline

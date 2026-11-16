@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e",
+  "prior_output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+  "identical_build_bytes": true,
+  "input_count": 65,
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/global-search.md",
+    "docs/handbooks/README.md",
+    "app/build.gradle.kts"
+  ],
+  "candidate": {
+    "revision": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+    "working_tree": "uncommitted"
+  }
+}

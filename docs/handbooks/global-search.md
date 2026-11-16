@@ -1,6 +1,6 @@
 # Global Search
 
-Global search is part of the local v0.4.0 candidate. The installed version metadata remains v0.3.1, version code 4; this candidate has not been released. A top-right Search icon sits with the dashboard and Benefits actions and opens a separate navigation entry. Search has Rewards and Benefits result tabs; the existing bottom navigation remains unchanged, with no Search tab. Search uses stored items without signing in, refreshing an account, or making a remote search request.
+A top-right Search icon sits with the dashboard and Benefits actions and opens a separate navigation entry. Search has Rewards and Benefits result tabs; the existing bottom navigation remains unchanged, with no Search tab. Search uses stored items without signing in, refreshing an account, or making a remote search request.
 
 ## Stored Corpus
 
@@ -30,4 +30,4 @@ Source errors show a retry action. Selection errors use the generic messages "Re
 
 ## Verification
 
-The matcher, snapshot and revision logic, navigation, temporary reveal, and screen behavior need separate checks. Unit tests can prove matching and stale-target rejection, while emulator interaction must confirm the right-side icon, counted result tabs, grouped compact matches, canonical benefit order, exact card-header navigation and independent chevrons, program-only child matching, exact full-tile destination, category reveal, Clear, keyboard, Back, and per-tab scrolling. The local v0.4 candidate's release and independent UI qualification remain separate from this handbook's reproducible build and browser checks.
+The matcher, snapshot and revision logic, navigation, temporary reveal, and screen behavior need separate checks. Unit tests can prove matching and stale-target rejection, while emulator interaction must confirm the right-side icon, counted result tabs, grouped compact matches, canonical benefit order, exact card-header navigation and independent chevrons, program-only child matching, exact full-tile destination, category reveal, Clear, keyboard, Back, and per-tab scrolling. Application release and runtime qualification remain separate from this handbook's reproducible build and browser checks.
