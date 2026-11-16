@@ -1,0 +1,385 @@
+{
+  "status": "PASS",
+  "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+  "apk_sha256": "0b7a4401033f5986570246d3fab2f16ef4f0a7675b6c38ed157e9b7620cea634",
+  "tests": 74,
+  "cases": [
+    {
+      "class": "com.bendourthe.milestone.data.session.TinkSessionStoreKeystoreTest",
+      "name": "roundTripsWithTheKeystoreKeyAndStoresNoPlaintext",
+      "seconds": "0.179"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitRemindersDeviceTest",
+      "name": "aDueCreditPostsOnePrivateReminder",
+      "seconds": "0.241"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap",
+      "seconds": "26.368"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "aRewardsPageWaitsForItsLateLowerSectionThenFollowsTheActivityLink",
+      "seconds": "14.605"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "aCardWithoutAnActivityPagePostsItsTrackersThenItsViewAllList",
+      "seconds": "7.398"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange",
+      "seconds": "12.913"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "aRewardsPageFollowsItsActivityLinkAtTheCapWhileItsHeightStillGrows",
+      "seconds": "22.892"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "name": "readsCardsThenEachCardsBenefitsWithoutIdentifiers",
+      "seconds": "21.223"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "institutionsKeepUnreadProgramsAndSeparateTheirCardsWithBackNavigation",
+      "seconds": "10.743"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "yellowAlertsAcknowledgeAndReturnOnlyAfterRelevantSuccessfulSectionRefresh",
+      "seconds": "14.380"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "productImagesCategoriesControlsAndSavedNavigationStateWorkOnAndroid",
+      "seconds": "37.321"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "editingInsideGroupedAmountAndFormattedDateSavesExactValues",
+      "seconds": "14.095"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "sortMenusDisclosureAndFormattedCalendarInputWorkOnAndroid",
+      "seconds": "44.099"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "name": "failedAlertSaveShowsVisibleFeedbackAndKeepsTheAlertOnAndroid",
+      "seconds": "4.491"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword",
+      "seconds": "32.013"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "theHiddenWebViewBehindTheAppKeepsDrawingSoAnimationFramesRun",
+      "seconds": "6.522"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aMomentaryServerErrorOnTheBalancePageIsLoadedOnceMore",
+      "seconds": "7.549"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "anEmailFirstSignInGetsTheEmailThenThePasswordAndReadsTheBalance",
+      "seconds": "10.265"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "twoMatchesAreAmbiguous",
+      "seconds": "3.720"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aPersonalOrBusinessChoiceAfterSignInPicksPersonal",
+      "seconds": "7.846"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aBalanceShownOnlyInAnAccountPanelIsReadAfterPressingItsButton",
+      "seconds": "7.802"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "forgedMessageFromSubframeIsIgnored",
+      "seconds": "9.941"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aUsernameMarkedInvalidWithoutAMessageIsNotARefusedPassword",
+      "seconds": "27.904"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aZeroShownWhileTheAccountLoadsIsNotReadAsTheBalance",
+      "seconds": "6.458"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aPasswordRefusedWithAnErrorStopsWithoutPressingAgain",
+      "seconds": "21.002"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aVisiblePasswordRefusalIsKeptWhenThePageDeadlineWins",
+      "seconds": "11.729"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "dashboardFixtureCreatesConnectedAccount",
+      "seconds": "3.519"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aRefusalShownByChangingAStandingNoticeStillStopsAsRefused",
+      "seconds": "21.795"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aTextedCodeSplitIntoOneBoxPerDigitIsTypedDigitByDigit",
+      "seconds": "8.266"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aSubmitTheSiteNeverAnsweredIsPressedOnceMoreAndSignsIn",
+      "seconds": "23.670"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aTextedCodeBoxNamedOnlyByItsLabelGetsTheCodeAndSignsIn",
+      "seconds": "9.896"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "loadingWordsInTheBalanceElementAreWaitedOutInsteadOfReadAsTheBalance",
+      "seconds": "9.087"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "anEmailedLinkSignInTakesThePasswordRouteAndFillsEmailPasswordAndLastName",
+      "seconds": "7.246"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "passwordFieldAtDashboardUrlRequiresLogin",
+      "seconds": "3.805"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "name": "aSignedOutHomePageOpensTheSignInPageAndReadsTheBalance",
+      "seconds": "24.275"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "name": "aRefreshStoresTheBalanceThenEveryCardsBenefits",
+      "seconds": "25.398"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "name": "connectedAccountRefreshesWhileActivityIsVisible",
+      "seconds": "2.947"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "name": "aFailingViewAllPageKeepsTheStoredListWhileTheTrackersUpdate",
+      "seconds": "97.978"
+    },
+    {
+      "class": "com.bendourthe.milestone.sync.webview.WebViewConfigTest",
+      "name": "acceptsThirdPartyCookiesSoSavedDevicesStickWhileKeepingTheHardening",
+      "seconds": "0.093"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.AddProgramFlowTest",
+      "name": "catalogShowsProgramsNotAddedByDefaultAndExplainsOnesThatCannotSync",
+      "seconds": "4.584"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.BenefitsScreenshotTest",
+      "name": "capturesTheTabAndACardPage",
+      "seconds": "3.486"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.benefits.BenefitRowTest",
+      "name": "completedAndUnfinishedCreditRowsKeepAmountsAndEnrollmentInline",
+      "seconds": "2.747"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.benefits.BenefitRowTest",
+      "name": "creditRowsRemainReadableWithLargeText",
+      "seconds": "2.877"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchLatencyTest",
+      "name": "thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95",
+      "seconds": "7.268"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack",
+      "seconds": "7.772"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt",
+      "seconds": "3.954"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "cardAndProgramRemovalDuringSelectionAreSafe",
+      "seconds": "4.051"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt",
+      "seconds": "2.866"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "identicalCardProductsAndBenefitsShowDistinctCardEndingContext",
+      "seconds": "4.870"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "returningToTheSameQueryDoesNotReviveAnObsoleteSelection",
+      "seconds": "4.618"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact",
+      "seconds": "7.423"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement",
+      "seconds": "4.191"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "removedOriginatingCardFallsBackToItsInstitution",
+      "seconds": "5.800"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally",
+      "seconds": "6.508"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected",
+      "seconds": "4.290"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch",
+      "seconds": "4.972"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity",
+      "seconds": "4.434"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "programAndCardTargetsReturnToTheSameSearch",
+      "seconds": "4.970"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "name": "combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges",
+      "seconds": "5.283"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchProcessFixtureTest",
+      "name": "unsupportedProgramFixtureCanBeSeededAndVerifiedWithoutIssuerAccess",
+      "seconds": "0.066"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "amexIncludesAllFourCardsAndEveryStoredBenefitWithTrailingIndependentChevrons",
+      "seconds": "4.810"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "rewardsProgramTileShowsStoredPointsAndImageWithoutGenericDetails",
+      "seconds": "4.511"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "rewardsHeaderAtDoubledFontRetainsAllActions",
+      "seconds": "2.980"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "benefitOnlyQueryCardHeaderOpensTheExactCard",
+      "seconds": "5.213"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "programCardAndSectionGroupsCollapseIndependentlyAndKeepCanonicalRows",
+      "seconds": "7.713"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "descriptionMatchesStaySearchableAsSingleLineTilesWithoutDetails",
+      "seconds": "4.880"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "groupedContextClearAndFreshEntryUseRealNavigation",
+      "seconds": "5.442"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData",
+      "seconds": "3.038"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "everyBenefitsHeaderAndSystemBackReturnToTheOrigin",
+      "seconds": "8.137"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "rewardsHeaderPreservesExistingActionsAtNarrowWidth",
+      "seconds": "2.077"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "keyboardBackDismissesImeBeforeLeavingSearch",
+      "seconds": "2.887"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "doubledFontKeepsSearchBackClearAndRowsUsable",
+      "seconds": "3.676"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus",
+      "seconds": "2.669"
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "name": "topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness",
+      "seconds": "4.999"
+    }
+  ],
+  "source_XML": [
+    {
+      "file": "TEST-milestone_ci_replica_20261115(AVD) - 16.xml",
+      "sha256": "a376e4f9582d089988283147b596907fb95fc16e0cb7c5aee1e8ea721cff1762"
+    }
+  ],
+  "private_or_owner_data": false
+}

@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    "scripts/check_handbook_render.py"
+  ],
+  "changed_html_lines": [
+    7,
+    457
+  ],
+  "all_other_html_lines_identical": true,
+  "before_output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+  "scope": "Only source metadata changes in HTML; all prose, model, styles, controls and runtimes remain unchanged"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "review_method": "Direct inspection of freshly captured reading and Deep dive screenshots plus rendered actual PDF page14",
+  "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "reviewed_images": [
+    "changed-region/reading-search-1366.png",
+    "changed-region/reading-search-390.png",
+    "changed-region/deep-search-1366.png",
+    "changed-region/deep-search-390-focused.png",
+    "changed-region/print-page-14.png"
+  ],
+  "observations": [
+    "Added sentences remain legible and wrapped within the reading column at1366 and390 pixels",
+    "Mobile Deep dive displays the complete changed paragraph with fitted controls remaining visible; source can scroll independently",
+    "Desktop Deep dive retains readable source text and boundaries",
+    "Actual print page14 retains headings and all Stored Corpus text with no clipping"
+  ],
+  "excluded_captures": [
+    {
+      "path": "changed-region/deep-search-390.png",
+      "reason": "Element screenshot expanded to11022px; inappropriate capture bounds, not visual success evidence"
+    },
+    {
+      "path": "changed-region/deep-search-390-viewport.png",
+      "reason": "Actual viewport captured the initial source position, not the changed paragraph; replaced by focused capture"
+    }
+  ],
+  "findings": []
+}

@@ -68,6 +68,23 @@ class SearchNavigationTest {
     private val preferenceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var preferenceFile: File
     private lateinit var lastSearch: SearchViewModel
+    private class HeldSearchDispatcher : CoroutineDispatcher() {
+        private val lock = Any()
+        private var held = false
+        private val queued = mutableListOf<Pair<kotlin.coroutines.CoroutineContext, Runnable>>()
+        fun hold() = synchronized(lock) { held = true }
+        fun release() {
+            val tasks = synchronized(lock) { held = false; queued.toList().also { queued.clear() } }
+            tasks.forEach { (context, task) -> Dispatchers.Default.dispatch(context, task) }
+        }
+        override fun dispatch(context: kotlin.coroutines.CoroutineContext, block: Runnable) {
+            val deferred = synchronized(lock) {
+                if (held) { queued += context to block; true } else false
+            }
+            if (!deferred) Dispatchers.Default.dispatch(context, block)
+        }
+    }
+    private val searchWorker = HeldSearchDispatcher()
     private val selectionReads = AtomicInteger()
     @Volatile private var beforeRead: (suspend (Int) -> Unit)? = null
     private fun guardedCards() = object : CardRepository by cards {
@@ -99,6 +116,7 @@ class SearchNavigationTest {
         prefs.setCompletedLast(key, true)
     }
     @After fun close(): Unit = runBlocking {
+        searchWorker.release()
         rule.waitForIdle()
         rule.mainClock.advanceTimeBy(1_000)
         rule.waitForIdle()
@@ -107,7 +125,7 @@ class SearchNavigationTest {
         db.close()
         preferenceFile.delete()
     }
-    private fun model(repository: CardRepository = guardedCards()) = SearchViewModel(accounts, repository, catalog, displaySettings = prefs).also { lastSearch = it }
+    private fun model(repository: CardRepository = guardedCards()) = SearchViewModel(accounts, repository, catalog, displaySettings = prefs, worker = searchWorker).also { lastSearch = it }
     private fun launchApp(fontScale: Float = 1f) {
         val dashboard = DashboardViewModel(catalog, ObserveDashboard(accounts, catalog), settings, accounts,
             MutableStateFlow<Map<String, ProgramSyncState>>(emptyMap()))
@@ -338,8 +356,26 @@ class SearchNavigationTest {
         rule.onNodeWithTag("globalSearchQuery").performTextClearance()
         rule.onNodeWithTag("globalSearchQuery").performTextInput("Benefit 00")
         waitText("1 result")
-        rule.onNodeWithText("Benefit 00").assertIsDisplayed()
+        rule.onNode(hasText("Benefit 00") and hasAnyAncestor(hasTestTag("searchResults"))).assertIsDisplayed()
         rule.onNodeWithText("Benefit 30").assertDoesNotExist()
+        rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+        rule.onNodeWithTag("globalSearchQuery").performTextInput("Benefit 30")
+        waitText("1 result")
+        rule.onNode(hasText("Benefit 30") and hasAnyAncestor(hasTestTag("searchResults"))).assertIsDisplayed()
+        searchWorker.hold()
+        try {
+            rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+            rule.onNodeWithTag("globalSearchQuery").performTextInput("Benefit")
+            rule.onNodeWithTag("globalSearchQuery").performImeAction()
+            rule.waitForIdle()
+            rule.onNode(hasText("Benefit 30") and hasAnyAncestor(hasTestTag("searchResults"))).assertIsDisplayed()
+            rule.onNodeWithTag("searchResults").captureToImage()
+        } finally {
+            searchWorker.release()
+        }
+        waitText("45 results")
+        rule.onNodeWithText("Benefit 00").assertIsDisplayed()
+        rule.onNodeWithText("Benefit 30").assertIsNotDisplayed()
     }
 
     @Test fun rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch() {

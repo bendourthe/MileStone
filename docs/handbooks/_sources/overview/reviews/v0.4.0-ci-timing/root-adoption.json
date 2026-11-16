@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "method": "Independent current-source delta inspection, native inventory comparison and direct visual inspection",
+  "inputs_verified": 65,
+  "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "reviewed_images": [
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/reading-search-390.png",
+      "sha256": "47e1be8eb33baa1f400470e461cff4295f2d012b599172062f01dd74535e6121"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/reading-search-1366.png",
+      "sha256": "d23bee7ce820855814cbbb9848b16178128784174d6b77c8e20df1f10bc5e3e2"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/deep-search-390-focused.png",
+      "sha256": "3830b43d18d392214929c2bfdedca4a4ac64eb7f71062049383f59e84aa0cc9e"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/print-page-14.png",
+      "sha256": "0cc498c101d073e09be0b9b84dbb7a5616a726d135e1f1208ffbd86d7f80a609"
+    }
+  ],
+  "limits": "Handbook evidence only; Search timing and release gates remain open"
+}

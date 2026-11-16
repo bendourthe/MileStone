@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "identical_build_bytes": true,
+  "input_count": 65,
+  "embedded_input_pairs_equal_current": true,
+  "changed_inputs": [
+    "docs/handbooks/global-search.md",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+    ".github/workflows/ci.yml"
+  ],
+  "candidate": {
+    "revision": "569b99fb9abcd2d9ac12ede07ebcf77630f042d2",
+    "working_tree": "uncommitted"
+  }
+}

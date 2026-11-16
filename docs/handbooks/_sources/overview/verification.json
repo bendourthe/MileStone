@@ -4,7 +4,7 @@
     "inputs": {
       "docs/handbooks/overview.md": "a0a9418c18481dc4691aeaa3e334efd5cc81f70805cc46353ce4932db5150712",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
-      "docs/handbooks/global-search.md": "edcb9e96a16600ac585df74605d6d441f6a9a3d6568d170a718fe3fc7e58e0c1",
+      "docs/handbooks/global-search.md": "3d839150507e4a8430b94d844b8e4c0a16678fd60470d5b0dec602cc53e00e37",
       "docs/handbooks/README.md": "67cbae76d6ec3454ede07771d2905174980393fa5da5293ae4b489c1633c122a",
       "docs/handbooks/handbooks.json": "01ca395eb00f826de0abd87b7153873df73acc5f2c913c264af8d1785c0e56a0",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
@@ -54,44 +54,41 @@
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt": "d5e41582739a0085a0526171031aec9a3a9e525471f288de98462b47dcb2cb76",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt": "d7b6879633aa2b6537e82f0ac3166e77ac5f68bf7081a687b31b9531db7686ba",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt": "dba728addf93b8cb8b97ecca381378be9ba80d3f36f775db255ff6d372d97b26",
-      "scripts/check_handbook_render.py": "81c1918f1a78b305eed1aeceef03bffe1495e22da8b0665c102b2d149c54347f",
+      "scripts/check_handbook_render.py": "609f6b21c32f872df0fa7ca1a215306450bc7e069a540c43188955227ff76b47",
       "docs/handbooks/_sources/overview/visual-allowlist.json": "6f723b213278d58a47c909e492f1e81298a27db5d3aab8359013039ca68800f6",
-      "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "2fd29f0396e5b7afb0c72a4f2df97e18ce03375009be9ccc081071895a41dd7c",
+      "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "96d75e711281c1239e3c96e45ba19ddc8231cbf2c53e481ee3e705d245c838a3",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
-      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "17bd28d5114db779b943df2528bd4fe74df2febdd52d51ff5ebd58d8e328542a",
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "66acb54fa890b691dcaff3d7cc40a75d7450637f3cd11d8f3942060342a904a1",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
       "scripts/validate.py": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
-      ".github/workflows/ci.yml": "1b285ed9bf8117cc593f558a8ac1f0c07d8fd938109f6b50c57283675e8e5e79",
+      ".github/workflows/ci.yml": "b8c8def2104d747e2e8bffae05542b8829fb3fe52e9e8c5bb7c87abd55fcf2c2",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea"
+    "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/independent-content-review.json",
-      "evidence_sha256": "2d50215d91f225c872ba359bf9c45d4ff1322945d2794b58d07e471d9b681ba7"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/author-content-review.json",
+      "evidence_sha256": "911080983158fe9a341a4936abcacb80c3f442a784f508586874ec80f5bcef4d"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/build.json",
-      "evidence_sha256": "bf78157abe0fd881bce95d731b766d375948cd67fbefee3c804dbe19e6a257bf"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/build.json",
+      "evidence_sha256": "e565bf119f58ed716cdb153d8bbc8a66a9dc492593e9308116efa61cd0779654"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-headless/run-1/render.json",
-      "evidence_sha256": "e8b58865176ce4733527a8ae54297557027065793b725bbdbc39ef4c4135ef6f",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/run-1/render.json",
+      "evidence_sha256": "79f466edeffa3fd8fbe45515c07f10c4c97e8f27b858d20e5896797fe6840de6",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea"
+      "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94"
     }
   },
-  "limitations": [
-    "Original auxiliary structural-scorer nonpass and native-measurement unverified results remain unchanged; this receipt does not relabel them or assert that those tools passed. Current project-native inventory, source-value, control, geometry, type and applicability proof is retained in contract-completion/run-3/render.json.",
-    "Fullscreen proof observes actual Chromium document API entry/exit/denial, not physical OS window/chrome, kiosk behavior or other browser engines."
-  ],
-  "qualification_scope": "Proposed fresh local Windows handbook metadata qualification for headless emulator version diagnostic; independent coordinator adoption pending. No hosted CI or new app runtime success inferred."
+  "limitations": [],
+  "qualification_scope": "Current dirty-candidate handbook content, reproducible build and actual browser/print checks only. This proposed receipt awaits independent coordinator adoption; no product performance, integration, release or publication completion is asserted."
 }

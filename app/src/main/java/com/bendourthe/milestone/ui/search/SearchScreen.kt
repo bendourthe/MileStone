@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bendourthe.milestone.domain.SearchHit
+import com.bendourthe.milestone.domain.SearchResults
 import com.bendourthe.milestone.domain.SearchKind
 import com.bendourthe.milestone.domain.SearchTarget
 import com.bendourthe.milestone.domain.SearchTab
@@ -67,7 +68,7 @@ fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (Sear
     LaunchedEffect(viewModel) {
         if (viewModel.consumeInitialFocus()) focus.requestFocus()
     }
-    LaunchedEffect(query) { if (viewModel.consumeScrollReset()) lists.values.forEach { it.scrollToItem(0) } }
+    LaunchedEffect(query) { if (viewModel.consumeScrollReset()) lists.values.forEach { it.requestScrollToItem(0) } }
     DisposableEffect(viewModel, lists) {
         onDispose { lists.forEach { (tab, list) -> viewModel.rememberPosition(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, tab) } }
     }
@@ -128,52 +129,56 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                     Text("Stored items could not be read")
                     TextButton(onClick = onRetry) { Text("Retry") }
                 }
-                is SearchUiState.Results -> {
-                    val groups = state.results.groups(activeTab)
-                    val count = state.results.count(activeTab)
-                    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-                        Text("$count ${if (count == 1) "result" else "results"}", Modifier.testTag("searchResultCount"))
-                        Text("${state.results.count} total", Modifier.testTag("searchTotalCount"), style = MaterialTheme.typography.bodySmall)
-                    }
-                    if (groups.isEmpty()) Text("No matching ${activeTab.label.lowercase()} items", Modifier.padding(16.dp))
-                    LazyColumn(state = listState, modifier = Modifier.weight(1f).fillMaxWidth().testTag("searchResults"),
-                        contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        groups.forEach { group ->
-                            val programKey = "${activeTab.name}:program:${group.programId}"
-                            if (activeTab == SearchTab.REWARDS) {
-                                items(group.hits, key = { it.entry.id }) { hit -> SearchProgramResult(hit, enabled = !selecting) { onSelect(hit.entry.target) } }
-                            } else {
-                                item("group:${group.programId}") {
-                                    SearchGroupHeader(group.programName, group.hits.size, programKey !in collapsed,
-                                        Modifier.testTag("searchProgramGroup"), program = true, display = group.programDisplay, onToggle = { onToggleGroup(programKey) })
+                is SearchUiState.Results -> SearchResultList(state.results, listState, activeTab, selecting, collapsed, onToggleGroup, onSelect)
+            }
+        }
+    }
+}
+
+@Composable
+private fun ColumnScope.SearchResultList(results: SearchResults, listState: LazyListState, activeTab: SearchTab,
+    selecting: Boolean, collapsed: Set<String>, onToggleGroup: (String) -> Unit, onSelect: (SearchTarget) -> Unit) {
+    val groups = results.groups(activeTab)
+    val count = results.count(activeTab)
+    Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+        Text("$count ${if (count == 1) "result" else "results"}", Modifier.testTag("searchResultCount"))
+        Text("${results.count} total", Modifier.testTag("searchTotalCount"), style = MaterialTheme.typography.bodySmall)
+    }
+    if (groups.isEmpty()) Text("No matching ${activeTab.label.lowercase()} items", Modifier.padding(16.dp))
+    LazyColumn(state = listState, modifier = Modifier.weight(1f).fillMaxWidth().testTag("searchResults"),
+        contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        groups.forEach { group ->
+            val programKey = "${activeTab.name}:program:${group.programId}"
+            if (activeTab == SearchTab.REWARDS) {
+                items(group.hits, key = { it.entry.id }, contentType = { "program" }) { hit -> SearchProgramResult(hit, enabled = !selecting) { onSelect(hit.entry.target) } }
+            } else {
+                item("group:${group.programId}", contentType = "programHeader") {
+                    SearchGroupHeader(group.programName, group.hits.size, programKey !in collapsed,
+                        Modifier.testTag("searchProgramGroup"), program = true, display = group.programDisplay, onToggle = { onToggleGroup(programKey) })
+                }
+                if (programKey !in collapsed) {
+                    results.cards(group.programId).forEach { cardGroup ->
+                        val card = cardGroup.card
+                        val first = cardGroup.context
+                        val cardHit = cardGroup.cardHit
+                        val cardKey = "card:${card.programId}:${card.lastDigits}"
+                        item(cardKey, contentType = "cardHeader") {
+                            SearchCardHeader(cardHit?.entry?.title ?: first.cardName.orEmpty(), card,
+                                cardGroup.benefits.size, cardKey !in collapsed, first.freshnessNote,
+                                onToggle = { onToggleGroup(cardKey) }, enabled = !selecting,
+                                onClick = { onSelect(SearchTarget.CardTarget(card, first.target.revision)) })
+                        }
+                        if (cardKey !in collapsed) {
+                            cardGroup.sections.forEach { (category, hits) ->
+                                val sectionKey = "$cardKey:${category.name}"
+                                item(sectionKey, contentType = "sectionHeader") {
+                                    SearchGroupHeader(category.title, hits.size, sectionKey !in collapsed,
+                                        Modifier.padding(start = 12.dp).testTag("searchSectionGroup"),
+                                        onToggle = { onToggleGroup(sectionKey) })
                                 }
-                                if (programKey !in collapsed) {
-                                    state.results.cards(group.programId).forEach { cardGroup ->
-                                        val card = cardGroup.card
-                                        val first = cardGroup.context
-                                        val cardHit = cardGroup.cardHit
-                                        val cardKey = "card:${card.programId}:${card.lastDigits}"
-                                        item(cardKey) {
-                                            SearchCardHeader(cardHit?.entry?.title ?: first.cardName.orEmpty(), card,
-                                                cardGroup.benefits.size, cardKey !in collapsed, first.freshnessNote,
-                                                onToggle = { onToggleGroup(cardKey) }, enabled = !selecting,
-                                                onClick = { onSelect(SearchTarget.CardTarget(card, first.target.revision)) })
-                                        }
-                                        if (cardKey !in collapsed) {
-                                            cardGroup.sections.forEach { (category, hits) ->
-                                                val sectionKey = "$cardKey:${category.name}"
-                                                item(sectionKey) {
-                                                    SearchGroupHeader(category.title, hits.size, sectionKey !in collapsed,
-                                                        Modifier.padding(start = 12.dp).testTag("searchSectionGroup"),
-                                                        onToggle = { onToggleGroup(sectionKey) })
-                                                }
-                                                if (sectionKey !in collapsed) {
-                                                    items(hits, key = { it.entry.id }) { hit ->
-                                                        CompactBenefitResult(hit, enabled = !selecting) { onSelect(hit.entry.target) }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                if (sectionKey !in collapsed) {
+                                    items(hits, key = { it.entry.id }, contentType = { "benefit" }) { hit ->
+                                        CompactBenefitResult(hit, enabled = !selecting) { onSelect(hit.entry.target) }
                                     }
                                 }
                             }

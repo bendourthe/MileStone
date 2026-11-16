@@ -23,7 +23,7 @@ Owner authorization, 2026-11-13: add implementation and delivery of v0.4.0 globa
 
 Native completion reconciliation remains open for historical records: a plain replacement at a post-implementation commit can lose recognition of earlier outputs, so signed data is preserved and no predicate is bypassed. The actual v0.3 archive is now integrated; its original v0.3.0 checker prints PLAN COMPLETE after verified authorized idle cleanup. Separately authorized v0.4 publication must bind the real implementation history before the final phase commit.
 
-The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal remains active and unfinished; this durable tracker records the expansion without falsely completing or replacing it.
+The supported goal API can create a goal or change its status, but cannot edit an active objective. The existing goal remains unfinished; this durable tracker records the expansion without falsely completing or replacing it.
 
 ## Scores
 
@@ -37,7 +37,7 @@ The supported goal API can create a goal or change its status, but cannot edit a
 | v0.3.0 plan phases complete | 4 of 4 | 4 of 4 | 0: released, archived and native PLAN COMPLETE after verified idle cleanup |
 | v0.3.1 redesign phases complete | 3 of 4 | 4 of 4 | 1 (published and back-merged with owner acceptance; historical native-run reconciliation remains open) |
 | Required Benefits redesign outcomes verified | 6 of 6 plus final institution/polish checks | 6 of 6 on phone | 0 |
-| v0.4.0 search plan phases complete | 3 of 4; T001-T019 locally verified | 4 of 4 | 1: phone acceptance, 74 emulator cases and p95 101.4965 ms verified; PR 16 needs green CI, integration and delivery |
+| v0.4.0 search plan phases complete | 3 of 4; final local qualification passes | 4 of 4 | 1: current local full profile and 74/74 emulator cases pass; p95 84.37 ms; fresh scoped correction publication, hosted CI and release remain open |
 | Application code | debug APK on a phone | sideloadable APK | release build pending |
 
 ## Phase 0: Governance baseline
@@ -322,9 +322,9 @@ Owner-confirmed release sequence, 2026-11-14: deliver v0.5.0 Chase personal/busi
 
 The isolated drafts are in the plan-chase-merchant-offers worktree under docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md and docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md. They await publication and are not represented as integrated production capability. The separate MileStone Capture package is installed for read-only owner-assisted discovery; the main installed APK is unchanged.
 
-## Accepted Final Search Qualification
+## Historical Search Qualification
 
-Current whole-emulator proof passes 74/74 cases, Search p95 101.4965 ms against 200 ms, and actual production-process replacement. The owner accepted Search images and the credit layout. The 422-case local gate has 412 passes, 10 optional missing-capture skips and zero failures/errors; coverage is 78.35 percent. T016/T019 local obligations are qualified. A final public-payload scan/report refresh and separately authorized delivery remain; original historical native-run reconciliation remains open.
+Historical candidate evidence passed 74/74 emulator cases, Search p95 101.4965 ms against 200 ms, and actual production-process replacement. Current-candidate qualification is reopened after hosted and local timing misses; these earlier results do not close the current gate. The owner accepted Search images and the credit layout. The 422-case local gate has 412 passes, 10 optional missing-capture skips and zero failures/errors; coverage is 78.35 percent. T016/T019 local obligations are qualified. A final public-payload scan/report refresh and separately authorized delivery remain; original historical native-run reconciliation remains open.
 
 
 ## Chase Captures and Offer Policy
@@ -345,3 +345,39 @@ The owner's genuine Approve message is recorded for v0.4.0 publication, green-on
 Earlier phone and publication-pending entries are historical checkpoints superseded by the recorded acceptance and approval above. Original release/cleanup reconciliation and the v0.5.0/v0.6.0 scope remain unfinished; no completion is inferred from local Search proof.
 
 Run 43740729706 passes the hosted full repository profile, including the corrected security scan whose input hashes match the local Linux reconstruction. CI remains red because the GUI version diagnostic fails on missing libpulse.so.0 before emulator launch. A controlled Linux probe reproduces exit 127 without that library and proves headless version detection succeeds. The local one-flag correction preserves all boot/runtime gates and is independently reviewed. The final source-bound local qualification and one additional push decision remain open; no merge or v0.4.0 release has occurred.
+
+## Search Runtime Requalification
+
+The owner explicitly approved one additional correction push through the current question reply. Commit 569b99f was pushed once under that approval; no further correction push is authorized. Run 43748306409 passes repository validation and emulator startup, then passes 72 of 74 runtime cases. Search p95 is 420.958033 ms against the unchanged 200 ms limit. A navigation assertion also matches both the query field and result text. Both failures reproduce locally; the local p95 is 487.2895 ms with host load recorded separately. T013, T015, T016, T017 and T019 reopen for current source-bound verification. The frozen plan's requirements, original approval record, budgets and previous evidence are preserved.
+
+Local work prepares unchanged context text once per Search snapshot entry and scopes the navigation assertion to the results list. These changes remain unverified and unpublished. Fresh focused tests, full runtime/timing, handbook, independent review and publication authority are required before another push. The existing phone acceptance remains evidence for the unchanged presentation and earlier accepted APK, not a new runtime pass.
+
+## Opening Animation Follow-up
+
+Owner request, November 15, 2026: show a complete coupon ribbon when it appears, without the airplane-wing dent; form the final overlap as the airplane arrives. Add this delivery obligation to the expanded completion goal without dropping original release/archive/cleanup, Benefits, Search, Chase or merchant-offer work. The native goal API cannot edit the unfinished objective, so this tracker retains the added scope.
+
+- [x] Implement and verify the ribbon before the airplane and the unchanged final mark in the isolated fix/opening-banner branch (local commit 6856cf7; build, lint, one smoke test and actual emulator recording verified).
+- [x] Install the verified animation APK with adb install -r; owner accepted the animation and confirmed Search and all four Amex cards remain available.
+- [ ] Integrate and publish the opening fix under separately verified authority; no remote publication has occurred.
+
+The local implementation draws a temporary ribbon-colored fill beneath the existing artwork and removes it as the airplane settles. Original image assets are unchanged. The Search-based APK passes build, lint and one smoke test. A production-flow emulator recording shows the complete ribbon before the plane, then the final mark and return to Rewards; opening-banner-evidence.json records the source and artifact hashes. Earlier obstructed or short recordings remain excluded from success evidence. The owner accepted phone delivery and retained Search/cards; publication remains open.
+
+## Personal Chase Capture Collection
+
+The owner supplied personal-account captures for both personal cards, their benefits, selector and offers. Seven new pages were sanitized before persistence into the planning worktree's gitignored private fixture directory. All original nine phone captures match the retained private fixtures, and zero private capture files are tracked. Both sign-in scenarios now have captured pages. Exact card/segment mapping, overlapping identity behavior, complete-list criteria and bounded read timing still require evidence; no Chase extractor or offer activation is declared complete.
+
+## Current Verification
+
+The current complete emulator run passes 73/74 cases, with zero errors or skips; only Search timing fails at p95 344.6799 ms against the unchanged 200 ms limit (30 measured queries, three warmups). The scoped result-row selector and delayed narrow-to-broad navigation both pass. All earlier failed timing candidates remain in v0.4.0-ci-stabilization-5.json. A fresh CI-equivalent Pixel 5 emulator is being checked separately; no environment-based timing success is claimed. CI retains the synthetic timing report before emulator shutdown. Current handbook source and visual verification pass after independent adoption. Full local qualification, green integration, release and native completion remain open. The four approved correction pushes have been used; another push requires separately recorded authority after a fully qualified correction is ready.
+
+The owner approved preserving and adopting the current Chase source-contract baseline. The official diff was reviewed, all current two-card/seven-capture evidence was retained, and official accept/check succeeded. This adoption changes no source-contract contents and does not establish extraction completeness.
+
+The Chase identity schema probe compared all nine linked and seven personal captures using field names and equality counts only. Its sole shared field is an accessibility separator, which proves no card identity. Exact cross-sign-in binding remains open; no merge, segment inference, extractor or offer activation was performed.
+
+## Inherited Release Records
+
+The current read-only checks leave v0.1 remote-approval/archive predicates, v0.2 T005 and owned-branch cleanup, and the v0.3 minor record open. v0.2 source commit d9b8a35 is integrated through merged PR 3, but its remote branch is protected as owned by another run. The cleanup dry run applied no removals. inherited-release-reconciliation-20261115.json records the exact observations; frozen plans, signed records and private captures remain unchanged.
+
+- [x] Verify Capture-only debugger transport on the owner phone: exact Capture package, one webpage target, two metadata requests, owned connection removed, and no page evaluation or issuer action.
+
+- [ ] Resolve Chase exact-card page binding and cross-profile identity: both bounded closed-selector observations exposed zero candidate identifiers; evaluate the plan-supported user-confirmed linking option while preserving all completeness, classification and timing gates.

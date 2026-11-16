@@ -19,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The pull-request gate includes the repository-native full validation profile and API 36 emulator execution before the required CI result.
 - Local validation exports source-bound test, coverage and security reports, verifies the engineering handbook, and preserves committed text bytes in source archives.
 
+### Fixed
+
+- The opening coupon ribbon appears complete before the airplane arrives, then forms the final overlap as the plane settles.
+
 ## [0.3.1] - 2026-11-13
 
 ### Added

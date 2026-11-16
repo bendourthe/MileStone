@@ -69,6 +69,7 @@ data class SearchEntry(
         is SearchTarget.CardTarget -> programName
         is SearchTarget.BenefitTarget -> "$programName ${cardName.orEmpty()}"
     })
+    internal val contextSources = GlobalSearch.contextSources(title, description, aliases)
     internal val cardIdentity get() = when (val t = target) {
         is SearchTarget.ProgramTarget -> ""
         is SearchTarget.CardTarget -> t.card.lastDigits
@@ -137,8 +138,7 @@ object GlobalSearch {
             val programContext = programs[entry.target.programId].orEmpty()
             if (!programOnly && (tokens.none { it in entry.ownText } ||
                     tokens.any { it !in entry.ownText && it !in entry.parentText && it !in programContext })) null
-            else SearchHit(entry, context(entry.description, tokens) ?: entry.aliases
-                .filter { normalize(it) != normalize(entry.title) }.firstNotNullOfOrNull { context(it, tokens) })
+            else SearchHit(entry, entry.contextSources.firstNotNullOfOrNull { (text, folded) -> context(text, folded, tokens) })
         }
         val ordering = compareBy<SearchHit> { it.entry.kind.ordinal }
             .thenBy { if (it.entry.kind == SearchKind.BENEFIT) it.entry.sortCardName else "" }
@@ -150,9 +150,15 @@ object GlobalSearch {
         }.sortedWith(compareBy<SearchGroup> { it.programName.lowercase(Locale.ROOT) }.thenBy { it.programId }))
     }
 
-    private fun context(description: String?, tokens: List<String>): String? {
-        if (description.isNullOrBlank()) return null
-        val folded = fold(description)
+    internal fun contextSources(title: String, description: String?, aliases: List<String>): List<Pair<String, String>> = buildList {
+        description?.takeIf { it.isNotBlank() }?.let { add(it to fold(it)) }
+        if (aliases.isNotEmpty()) {
+            val normalizedTitle = normalize(title)
+            aliases.filter { it.isNotBlank() && normalize(it) != normalizedTitle }.forEach { add(it to fold(it)) }
+        }
+    }
+
+    private fun context(description: String, folded: String, tokens: List<String>): String? {
         val position = tokens.map { folded.indexOf(it) }.filter { it >= 0 }.minOrNull() ?: return null
         val start = (position - 45).coerceAtLeast(0)
         val end = (start + 150).coerceAtMost(description.length)

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "candidate": "6856cf79413469276c8f45fad9a20da349f3f5ae plus preserved uncommitted candidate inputs",
+  "native_full_inventory_equals_proposed_snapshot": true,
+  "input_count": 65,
+  "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+  "semantic_review": "Reviewed checker observation against synchronous deck handler, retained actual click and150mslimit; positive/no-op browser controls discriminate0/550ms. No prose or runtime changes.",
+  "visual_review": "Inspected current actual print page14; inspected complete225canonicalPNG/everyPDFpage comparison reports, all identical to previously reviewed output.",
+  "scope": "Handbook qualification only; whole Search timing and release requirements remain open."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+  "identical_build_bytes": true,
+  "input_count": 65,
+  "embedded_input_pairs_equal_current": true,
+  "changed_inputs": [
+    "scripts/check_handbook_render.py"
+  ],
+  "candidate": {
+    "revision": "6856cf79413469276c8f45fad9a20da349f3f5ae",
+    "working_tree": "uncommitted"
+  }
+}

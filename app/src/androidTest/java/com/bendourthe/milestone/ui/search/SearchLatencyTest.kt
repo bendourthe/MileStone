@@ -135,7 +135,8 @@ class SearchLatencyTest {
             val activeTab = selectedTab ?: (state as? SearchUiState.Results)?.results?.initialTab ?: SearchTab.REWARDS
             val list = remember { LazyListState() }
             val focus = remember { FocusRequester() }
-            LaunchedEffect(query) { if (vm.consumeScrollReset()) list.scrollToItem(0) }
+            // Use the production next-layout reset; the expected visible-result draw still ends each sample.
+            LaunchedEffect(query) { if (vm.consumeScrollReset()) list.requestScrollToItem(0) }
             MileStoneTheme {
                 AuroraBackground(Modifier.fillMaxSize()) {
                     Box(Modifier.fillMaxSize().navigationBarsPadding().drawWithContent {

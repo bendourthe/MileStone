@@ -1,0 +1,403 @@
+{
+  "status": "LOCAL QUALIFICATION PASS; committed-range verification and fresh scoped publication authority remain pending",
+  "hosted": {
+    "head": "569b99fb9abcd2d9ac12ede07ebcf77630f042d2",
+    "run": 43748306409,
+    "url": "https://github.com/bendourthe/MileStone/actions/runs/43748306409",
+    "runtime_passed": 72,
+    "runtime_total": 74,
+    "failed": [
+      "SearchLatencyTest: p95 420.958033 ms exceeds 200 ms",
+      "SearchNavigationTest: query field and result both match Benefit 00"
+    ],
+    "full_profile": "PASS; 422 JVM cases, no failures/errors; 14 expected missing-private skips; handbook and security pass"
+  },
+  "local_measurements": [
+    {
+      "evidence": "local-red",
+      "apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 487.2895,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "local-candidate",
+      "apk_sha256": "a1b9805e60727ac952f0e8aecd179fc6a7e85bee7a833520d4b96a66b550f320",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 680.1462,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "local-content-types",
+      "apk_sha256": "0375e87f8909f4940fb039d3d5241c2765970c5ece008c916acc4f8155c77d92",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 515.0587,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "local-results-composition",
+      "apk_sha256": "74c3bbb03a680e784807983603cd693b9e1073e486f56e6d75912f61720339fc",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 245.7409,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "local-results-composition-repeat",
+      "apk_sha256": "74c3bbb03a680e784807983603cd693b9e1073e486f56e6d75912f61720339fc",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 324.9807,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "local-deferred-reset",
+      "apk_sha256": "34908db5c6d35f06ae4fef41ca117b5950bf5443b7f070cfc7d9bebeb5e8f361",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 317.5667,
+      "limit_ms": 200,
+      "timing_pass": false
+    },
+    {
+      "evidence": "platform-combined",
+      "apk_sha256": "0b7a4401033f5986570246d3fab2f16ef4f0a7675b6c38ed157e9b7620cea634",
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 84.36927,
+      "limit_ms": 200,
+      "timing_pass": true,
+      "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+      "qualification": "Complete74-case run; earlier failures retained. No idle-host or causal improvement claim."
+    }
+  ],
+  "verified_changes": [
+    "Scoped the result-row assertion to searchResults; that navigation method passes in all five correction candidate runs",
+    "Cached immutable snippet source folding; existing 15 GlobalSearch unit cases pass",
+    "Added five lazy row types and extracted the result list; independent read-only review reports no behavior regressions and confirms a compiled skip branch",
+    "Kept response-time limit 200 ms, 30 measured queries, three warmups and actual visible-result draw endpoint",
+    "Added always-run CI retention of only the synthetic timing report before assigned-emulator shutdown; YAML parses with two jobs"
+  ],
+  "current_probe": "Held-dispatcher narrow-to-broad navigation passes, including an old-results draw before release. No production result-generation change is justified by this probe.",
+  "host_limits": [
+    "System UI ANR obstructed early opening recordings; excluded from visual success",
+    "Latest sampled host CPU average 62.30 percent, maximum 70.03 percent; free memory 5609 MB; idleness not established",
+    "Local variability is not a proven explanation for the hosted failure"
+  ],
+  "open": [
+    "Final current committed-range security and packaging verification",
+    "Fresh authority for fifth correction push and accepted Opening scope outside frozen Search file list",
+    "Green required hosted CI and integration",
+    "Release, archive, eligible cleanup and historical native bookkeeping",
+    "Separate Chase and merchant-offer goals remain unfinished"
+  ],
+  "opening_followup": {
+    "local_commit": "6856cf79413469276c8f45fad9a20da349f3f5ae",
+    "runtime_visual_verified": true,
+    "phone_delivery": true,
+    "publication": false,
+    "owner_acceptance": true,
+    "retained": "Owner confirmed top-right Search and all four Amex cards remain available",
+    "local_integration": {
+      "method": "fast-forward",
+      "head": "6856cf79413469276c8f45fad9a20da349f3f5ae",
+      "dirty_search_edits_preserved": true,
+      "combined_qualification": "Full local profilePASS; whole combined emulator/timing qualification remains open",
+      "remote_publication": false
+    }
+  },
+  "full_emulator_candidate": {
+    "apk_sha256": "34908db5c6d35f06ae4fef41ca117b5950bf5443b7f070cfc7d9bebeb5e8f361",
+    "tests": 74,
+    "passed": 73,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "p95_ms": 344.6799,
+    "limit_ms": 200,
+    "samples": 30,
+    "warmups": 3,
+    "runtime_seconds": 967.281,
+    "failed_test": "SearchLatencyTest.thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95",
+    "evidence": "reports/v040-ci-stabilization-5/platform-current/results/platform-windows.json"
+  },
+  "ci_equivalent_full_emulator": {
+    "status": "FAIL",
+    "counts": {
+      "tests": 74,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "p95_ms": 400.925742,
+    "maximum_ms": 432.904036,
+    "samples": 30,
+    "warmups": 3,
+    "limit_ms": 200,
+    "source_sha256": "9b7457c1a9f6ffbfa0b881b9261fa6723e584592867b00473c730859bb0125a8",
+    "evidence": "reports/v040-ci-stabilization-5/platform-ci-replica/results/platform-windows.json",
+    "latency_evidence": "reports/v040-ci-stabilization-5/platform-ci-replica-latency.json",
+    "conclusion": "Focused 134.833228 ms result did not establish full-suite qualification; this full run failed timing."
+  },
+  "combined_full_profile_before_replay_correction": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "FAIL",
+    "source_sha256": "6f8b19d6fba94f8810afe4262e59c010a8f67ce3c5c7eaf001f5035a0cdf92af",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.25
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.266
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.219
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 5.859
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 240.375
+      },
+      {
+        "name": "handbook-render",
+        "status": "FAIL",
+        "seconds": 83.484,
+        "error": "RuntimeError: Command failed with exit 1; see logs/command-06.txt"
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 31.563
+      }
+    ],
+    "counts": {
+      "tests": 422,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 5028,
+      "total": 6423,
+      "percent": 78.28
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "463c5dca12b4d2b85ddcb2b47862a9ffb796aa786f57dcd5030c47588fa640a2",
+      "input_bytes": 37554548,
+      "scanned_input_sha256": "6a114d11a1194a08a1da00766d60a96913defc072083e867d403c437c73e20ce",
+      "scanned_bytes": 37548276,
+      "public_metadata_exemptions": 98,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "replay_check_correction": {
+    "status": "PASS: controlled positive/no-op probes, independent review, current source-bound full browser and full local profile",
+    "problem": "Separate driver roundtrip aged a successfully restarted animation before observation; full-combined observed216.739ms versus150ms.",
+    "change": "Capture currentTime in document bubble click listener after synchronous deck replay handler, using actual Playwright click; retain150ms limit.",
+    "controls": {
+      "working_restart_times": [
+        0
+      ],
+      "late_roundtrip_times": [
+        400.0279999983669
+      ],
+      "broken_restart_times": [
+        550
+      ],
+      "broken_late": [
+        550
+      ],
+      "browser": "156.0.8078.4",
+      "status": "PASS",
+      "actual_playwright_click": true,
+      "production_observer_extracted_from_ast": true,
+      "limit_ms_unchanged": 150,
+      "checker_sha256": "609f6b21c32f872df0fa7ca1a215306450bc7e069a540c43188955227ff76b47",
+      "prior_control": "Initial assertion-only control failed and is not success evidence; this record retains the second actual observation."
+    },
+    "first_control": "Initial assertion-only attempt failed; not counted as success."
+  },
+  "independent_goal_review": {
+    "status": "APPROVED for local T017 closure",
+    "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+    "method": "Independent source/evidence assessment; source fingerprint and all30observation percentile recomputed; no new device execution by reviewer.",
+    "runtime": {
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "p95_ms": 84.36927,
+      "maximum_ms": 131.028818,
+      "samples": 30,
+      "warmups": 3,
+      "limit_ms": 200
+    },
+    "findings": [],
+    "critical_high_findings": 0,
+    "reuse": "Earlier owner acceptance and process-restart proof remain valid for unchanged presentation and persistence behavior; current runtime covers changed rendering and reset paths.",
+    "goal_vs_plan": {
+      "learning": "Visible latency includes rendering and layout beyond matching; current complete qualification meets the requirement.",
+      "false_assumptions": "Earlier local passes did not predict hosted results; browser-driver roundtrip could misclassify Replay restart.",
+      "undelivered": "No reviewed local functional obligation remains; hosted integration and release remain open.",
+      "owner_task_coverage": "Recorded Search refinements are covered. Opening animation has separate accepted evidence and publication scope."
+    },
+    "scope_limits": [
+      "No host-load causal claim",
+      "All earlier failed measurements retained",
+      "Fresh scoped publication authority must cover Opening outside frozen Search file list",
+      "Current hosted CI, integration, release, committed-range security and native bookkeeping remain open"
+    ]
+  },
+  "combined_full_profile_current": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.297
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.266
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.219
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 3.328
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 17.531
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 60.281
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 27.125
+      }
+    ],
+    "counts": {
+      "tests": 422,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 5028,
+      "total": 6423,
+      "percent": 78.28
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "464ea4a7e56b6e9148d39a31f06cb139824d991dbb4d830bb1c79b9c25e34a2c",
+      "input_bytes": 38518404,
+      "scanned_input_sha256": "721a1f8327e2c4c4c1ae2fbd5b5c12cbca9695066b0630cec55eea84e96feebc",
+      "scanned_bytes": 38512004,
+      "public_metadata_exemptions": 100,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "handbook_current": {
+    "status": "PASS",
+    "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+    "input_count": 65,
+    "aggregate_inputs_sha256": "4e657c0141fd2cde7a0341bac547e92685da0615c00a64ff3b2414d4918e72e2",
+    "checks": 2607,
+    "measurements": 384,
+    "findings": 0,
+    "identical_standard_screenshots": 225,
+    "actual_pdf_pages_each": 16,
+    "all_pdf_text_and_rasters_unchanged": true,
+    "independent_adoption": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/root-adoption.json",
+    "native_full_scope_check": "PASS"
+  },
+  "combined_platform_current": {
+    "profile": "platform",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 811.906
+      }
+    ],
+    "counts": {
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": null,
+    "security": null,
+    "limitations": []
+  },
+  "combined_platform_measurement": {
+    "p95_ms": 84.36927,
+    "maximum_ms": 131.028818,
+    "minimum_ms": 14.297557,
+    "samples": 30,
+    "warmups": 3,
+    "limit_ms": 200,
+    "device": "emu64xa",
+    "hardware": "ranchu",
+    "api": 36,
+    "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+    "artifact_hashes": {
+      "app-debug.apk": "0b7a4401033f5986570246d3fab2f16ef4f0a7675b6c38ed157e9b7620cea634",
+      "app-debug-androidTest.apk": "cd1fa712e296ec6eccaf2660666124b2706fab4eb3e666f2d3e57444145a4e68"
+    }
+  }
+}

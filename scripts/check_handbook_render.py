@@ -255,8 +255,16 @@ def contract_checks(browser, inventory, check, out, errors, requests):
             check(f'normal motion applicability {slide["id"]} {depth}', not visible_motion or bool(middle) and all(a['time'] is not None for a in middle), {'visible_authored_targets':visible_motion,'animations':middle})
             check(f'normal motion states {slide["id"]} {depth}', not visible_motion or all(v['opacity'] >= .999 for v in final_state), {'initial':initial_state,'intermediate':middle_state,'final':final_state})
             if depth == 'balanced':
+                # Observe after the deck's click handler, before browser/driver scheduling can age the animation.
+                page.evaluate('''() => {
+                  window.__replayTimes = null;
+                  document.addEventListener('click', () => {
+                    window.__replayTimes = document.querySelector('[data-dv-slide]:not([hidden])')
+                      .getAnimations({subtree:true}).map(a=>a.currentTime);
+                  }, {once:true});
+                }''')
                 page.locator('[data-dv-replay]').click()
-                restarted = page.locator('[data-dv-slide]:not([hidden])').evaluate('(e)=>e.getAnimations({subtree:true}).map(a=>a.currentTime)')
+                restarted = page.evaluate('window.__replayTimes')
                 check('replay restarts ' + slide['id'], bool(restarted) and all(t is not None and t < 150 for t in restarted), restarted)
         if index < len(model['slides'])-1:
             old_id = slide['id']
