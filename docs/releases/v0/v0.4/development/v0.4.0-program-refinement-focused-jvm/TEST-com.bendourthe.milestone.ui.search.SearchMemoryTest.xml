@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.ui.search.SearchMemoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-15T03:35:03.015Z" hostname="SP-BDOURTHE5680" time="0.089">
+  <properties/>
+  <testcase name="collapseChoicesAreMemoryOnlyAndResetOnlyOnQueryChange" classname="com.bendourthe.milestone.ui.search.SearchMemoryTest" time="0.036"/>
+  <testcase name="onlyActualQueryChangesResetPositionAndFocusIsRequestedOnce" classname="com.bendourthe.milestone.ui.search.SearchMemoryTest" time="0.026"/>
+  <testcase name="tabsKeepIndependentMemoryPositionsAndNewEntryStartsFresh" classname="com.bendourthe.milestone.ui.search.SearchMemoryTest" time="0.022"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,35 @@
+{
+  "status": "pass",
+  "reviewer": "Independent coordinator after delegated Windows build/render and independent Linux execution",
+  "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32",
+  "only_css_and_snapshot_metadata_changed": true,
+  "canonical_pngs": 225,
+  "unchanged_pngs": 224,
+  "changed_pngs": [
+    "reading-320-200percent.png"
+  ],
+  "changed_image_visually_reviewed": true,
+  "linux_browser": "Chromium156.0.8078.4 with DejaVu Sans",
+  "linux_checks": 2607,
+  "windows_checks": 2607,
+  "findings": 0,
+  "linux_width_before": 351,
+  "linux_width_after": 320,
+  "viewport": 320,
+  "native_select_interaction": true,
+  "pdfs": [
+    {
+      "file": "print-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_unchanged": true
+    },
+    {
+      "file": "print-no-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_unchanged": true
+    }
+  ],
+  "scope": "Reading-control sizing only; no app runtime, hosted green or release pass inferred."
+}

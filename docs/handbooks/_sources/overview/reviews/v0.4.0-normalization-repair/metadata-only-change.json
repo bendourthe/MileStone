@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    "app/src/main/java/com/bendourthe/milestone/domain/Benefits.kt"
+  ],
+  "before_output_sha256": "82ab31f57f68233bb0e4f34b75490afdab72c26168776a4d371cbacd68b360e0",
+  "output_sha256": "d8658580cb3cf27515c790fcdeab0915534af2789a04bcf0451ce698b0d882ab",
+  "changed_line_numbers": [
+    7,
+    448
+  ],
+  "all_other_lines_identical": true,
+  "source_semantics": "Coordinator independently checked exact develop normalization restoration; handbook contract unchanged. No Gradle/ADB tests run by this task."
+}

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="26" failures="4" errors="0" skipped="0" time="0.000" timestamp="2026-11-14T15:59:12" hostname="localhost">
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchScreenTest" tests="10" failures="3" errors="0" skipped="0" time="50.425" timestamp="2026-11-14T15:59:12" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="rewardsHeaderAtDoubledFontRetainsAllActions" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="6.456" />
+    <testcase name="descriptionAndCompletedContextAreVisibleAndCountsDoNotIncludeHeadings" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.854">
+      <failure>java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Airport terminal access' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at com.bendourthe.milestone.ui.search.SearchScreenTest.descriptionAndCompletedContextAreVisibleAndCountsDoNotIncludeHeadings(SearchScreenTest.kt:163)
+</failure>
+    </testcase>
+    <testcase name="groupedContextClearAndFreshEntryUseRealNavigation" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="5.948">
+      <failure>java.lang.AssertionError: Assert failed: The component with Text + InputText + EditableText contains 'Lounge Credit' (ignoreCase: false) is not displayed!
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:34)
+	at com.bendourthe.milestone.ui.search.SearchScreenTest.groupedContextClearAndFreshEntryUseRealNavigation(SearchScreenTest.kt:123)
+</failure>
+    </testcase>
+    <testcase name="delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.780" />
+    <testcase name="everyBenefitsHeaderAndSystemBackReturnToTheOrigin" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="9.076" />
+    <testcase name="rewardsHeaderPreservesExistingActionsAtNarrowWidth" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.182" />
+    <testcase name="keyboardBackDismissesImeBeforeLeavingSearch" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.639" />
+    <testcase name="doubledFontKeepsSearchBackClearAndRowsUsable" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.317" />
+    <testcase name="actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.039" />
+    <testcase name="topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.134">
+      <failure>java.lang.AssertionError: Failed to assert the following: (Text + InputText + EditableText contains '1' (ignoreCase: false))
+Semantics of the node:
+Node #1800 at (l=0.0, t=336.0, r=360.0, b=432.0)px, Tag: 'searchTabREWARDS'
+Focused = 'false'
+Role = 'Tab'
+Selected = 'true'
+Text = '[Rewards (1)]'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, OnClick, RequestFocus, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 2 siblings
+Selector used: (TestTag = 'searchTabREWARDS')
+
+	at androidx.compose.ui.test.AssertionsKt.assert(Assertions.kt:293)
+	at androidx.compose.ui.test.AssertionsKt.assert$default(Assertions.kt:283)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains(Assertions.kt:237)
+	at androidx.compose.ui.test.AssertionsKt.assertTextContains$default(Assertions.kt:233)
+	at com.bendourthe.milestone.ui.search.SearchScreenTest.topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness(SearchScreenTest.kt:287)
+</failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchNavigationTest" tests="15" failures="0" errors="0" skipped="0" time="102.803" timestamp="2026-11-14T15:59:12" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="8.973" />
+    <testcase name="savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.156" />
+    <testcase name="cardAndProgramRemovalDuringSelectionAreSafe" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="9.267" />
+    <testcase name="actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="4.366" />
+    <testcase name="identicalCardProductsAndBenefitsShowDistinctCardEndingContext" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.968" />
+    <testcase name="returningToTheSameQueryDoesNotReviveAnObsoleteSelection" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.718" />
+    <testcase name="descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="11.035" />
+    <testcase name="removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.167" />
+    <testcase name="removedOriginatingCardFallsBackToItsInstitution" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.684" />
+    <testcase name="lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="8.043" />
+    <testcase name="reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.088" />
+    <testcase name="rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="6.988" />
+    <testcase name="sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.129" />
+    <testcase name="programAndCardTargetsReturnToTheSameSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="5.730" />
+    <testcase name="combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="6.491" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchLatencyTest" tests="1" failures="1" errors="0" skipped="0" time="3.717" timestamp="2026-11-14T15:59:12" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95" classname="com.bendourthe.milestone.ui.search.SearchLatencyTest" time="3.717">
+      <failure>java.lang.AssertionError: Failed to perform checkIsDisplayed check: Expected at most 1 node but found 2 nodes that satisfy (Text + InputText + EditableText contains 'Fixture InstitutionAAA' (ignoreCase: false))
+	at androidx.compose.ui.test.AndroidAssertions_androidKt.checkIsDisplayed(AndroidAssertions.android.kt:35)
+	at androidx.compose.ui.test.AssertionsKt.isDisplayed(Assertions.kt:380)
+	at androidx.compose.ui.test.AssertionsKt.assertIsDisplayed(Assertions.kt:33)
+	at com.bendourthe.milestone.ui.search.SearchLatencyTest.thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95$measure(SearchLatencyTest.kt:157)
+	at com.bendourthe.milestone.ui.search.SearchLatencyTest.thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95(SearchLatencyTest.kt:164)
+</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,64 @@
+{
+  "profile": "full",
+  "platform": "windows",
+  "status": "FAIL",
+  "source_sha256": "73b8fc505a8d79eb201bb386670cf50e38f8f9464473ee715233224e7fbc856b",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "private-input-boundary",
+      "status": "PASS",
+      "seconds": 0.078
+    },
+    {
+      "name": "syntax",
+      "status": "PASS",
+      "seconds": 0.25
+    },
+    {
+      "name": "handbook-freshness",
+      "status": "PASS",
+      "seconds": 0.172
+    },
+    {
+      "name": "profile-tests",
+      "status": "PASS",
+      "seconds": 2.313
+    },
+    {
+      "name": "android",
+      "status": "FAIL",
+      "seconds": 109.656,
+      "error": "RuntimeError: Command failed with exit 1; see logs/command-05.txt"
+    },
+    {
+      "name": "handbook-render",
+      "status": "PASS",
+      "seconds": 9.688
+    },
+    {
+      "name": "security",
+      "status": "PASS",
+      "seconds": 3.062
+    }
+  ],
+  "counts": {
+    "tests": 412,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 10
+  },
+  "evidence_origin": "partial reports written during this invocation; no old XML counted",
+  "coverage": null,
+  "security": {
+    "status": "PASS",
+    "base_ref": "origin/develop",
+    "positive_control_detected": true,
+    "input_sha256": "f4bde20eb751b865e545058d123f9bb55fef02c46b358b606398725613ae4147",
+    "scanned_bytes": 1128081,
+    "findings": 0
+  },
+  "limitations": [
+    "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+  ]
+}

@@ -1,0 +1,316 @@
+{
+  "recorded_utc": "2026-11-14T09:58:30.930761+00:00",
+  "candidate_base": "46f11541592de23aba421f223cc49679c6a53df6",
+  "uncommitted_changes": true,
+  "actual_correction_rounds": 4,
+  "iteration_exception": "Current user autonomy instruction applied to one-line restoration of released normalization; original three cycles remain counted",
+  "full_profile": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "09565504a20cad09bdc594ec16f17c04b1f15ca1b982c41be296b2a037301c1b",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.078
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.235
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.203
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 2.406
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 170.344
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 5.906
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 2.937
+      }
+    ],
+    "counts": {
+      "tests": 412,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 4936,
+      "total": 6217,
+      "percent": 79.4
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "5d44699d3ba38a957f7edd4b840fbd32e50381737450c4f637fa09494055bb95",
+      "scanned_bytes": 1258498,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "unfiltered_emulator_profile": {
+    "profile": "platform",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "09565504a20cad09bdc594ec16f17c04b1f15ca1b982c41be296b2a037301c1b",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 738.734
+      }
+    ],
+    "counts": {
+      "tests": 67,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": null,
+    "security": null,
+    "limitations": []
+  },
+  "final_latency": {
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "samples": 30,
+    "warmups": 3,
+    "p95_ms": 100.1,
+    "limit_ms": 200,
+    "minimum_ms": 13.6483,
+    "maximum_ms": 100.1844,
+    "device": "emu64xa",
+    "hardware": "ranchu",
+    "api": 36,
+    "method": "Monotonic wall-clock from ViewModel query update to completion of the production SearchContent draw with the expected query/result set; initial read, IME and initial focus excluded",
+    "observations": [
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 95.5344
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 18.9963
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 18.0402
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 14.234
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 17.3884
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 16.3331
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 82.4361
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 17.488
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 16.787
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 17.9234
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 17.1432
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 15.3466
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 84.2913
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 15.4788
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 16.1249
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 18.6059
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 17.5137
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 13.6483
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 100.1
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 17.8514
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 17.1026
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 16.3269
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 18.1769
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 15.5311
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 100.1844
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 18.642
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 15.9265
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 18.3775
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 15.2447
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 16.1542
+      }
+    ]
+  },
+  "actual_saved_state_privacy": {
+    "saved_state_positive_control": true,
+    "serialized_query_present": false,
+    "configuration_query_retained": true,
+    "same_navigation_scoped_model": true,
+    "issuer_rows_unchanged": true,
+    "preferences_unchanged": true
+  },
+  "private_benefit_fixtures": {
+    "suite_cases": 8,
+    "private_capture_cases": 4,
+    "private_capture_skipped": 0,
+    "private_files_present": 13
+  },
+  "optional_skips": {
+    "count": 10,
+    "scope": "Absent private program-balance captures; not the supplied Amex benefit captures"
+  },
+  "environment": {
+    "python": "3.12.10",
+    "jdk": "17.0.20.1",
+    "gradle": "9.9.0",
+    "node": "24.13.0",
+    "git": "2.52.0.windows.1",
+    "playwright": "1.64.0",
+    "emulator_api": 36,
+    "emulator_hardware": "ranchu",
+    "emulator_serial": "emulator-5554"
+  },
+  "debug_apk": {
+    "sha256": "aa5a3a891860a6bbede09d098411c7fcc7ed4f42d188fe8a92dfc2599478a6da",
+    "version_name": "0.3.1",
+    "version_code": 4
+  },
+  "phone_install": {
+    "method": "adb install -r",
+    "exit_code": 0,
+    "before": {
+      "version_name": "0.2.0",
+      "version_code": 2
+    },
+    "after": {
+      "version_name": "0.3.1",
+      "version_code": 4
+    },
+    "owner_search_acceptance": "pending",
+    "owner_data_confirmation": "pending"
+  },
+  "security_freshness": "This receipt preserves the completed scan scope; subsequent tracked evidence edits require a final scan before publication. Latest dynamic scan payload hashes stay under ignored reports or TEMP to avoid a self-referential source receipt.",
+  "publication": "not started",
+  "goal_complete": false
+}

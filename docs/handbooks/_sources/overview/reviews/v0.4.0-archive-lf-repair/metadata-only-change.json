@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    "scripts/validate.py",
+    "scripts/tests/test_validate.py"
+  ],
+  "before_output_sha256": "d8658580cb3cf27515c790fcdeab0915534af2789a04bcf0451ce698b0d882ab",
+  "output_sha256": "817fe4931ca9b19ab4bf65335a61b4c70ed48b4b0ef5fb9b028f364c49930ebb",
+  "changed_line_numbers": [
+    7,
+    448
+  ],
+  "all_other_lines_identical": true,
+  "source_contract": "Both git archive calls force core.autocrlf=false/core.eol=lf. Existing source-only archive contract unchanged. CI owner reports26focusedtests and real Windows-autocrlf reproduction; not run by this handbook task."
+}

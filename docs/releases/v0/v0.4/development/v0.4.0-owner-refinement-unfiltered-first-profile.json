@@ -1,0 +1,25 @@
+{
+  "profile": "platform",
+  "platform": "windows",
+  "status": "FAIL",
+  "source_sha256": "0e71c69f98e4ab057b4f5ec8be7750b3a9b9f8057686c2855e9859e0fc4538a5",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "android-emulator-runtime",
+      "status": "FAIL",
+      "seconds": 884.265,
+      "error": "RuntimeError: Command failed with exit 1; see logs/command-02.txt"
+    }
+  ],
+  "counts": {
+    "tests": 68,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "evidence_origin": "partial reports written during this invocation; no old XML counted",
+  "coverage": null,
+  "security": null,
+  "limitations": []
+}

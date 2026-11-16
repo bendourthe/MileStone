@@ -1,0 +1,400 @@
+{
+  "programs": 25,
+  "cards": 100,
+  "displayed_benefits": 2000,
+  "samples": 30,
+  "warmups": 3,
+  "p95_ms": 101.4965,
+  "limit_ms": 200,
+  "minimum_ms": 14.966855,
+  "maximum_ms": 115.045702,
+  "device": "emu64xa",
+  "hardware": "ranchu",
+  "api": 36,
+  "method": "Monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded",
+  "phase_diagnostics_including_warmups": [
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 161.961966,
+      "draw_after_results_ms": 70.16485500000002,
+      "gc_delta": 1
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 11.006328,
+      "draw_after_results_ms": 60.23390400000001,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 21.378389,
+      "draw_after_results_ms": 47.243109000000004,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 73.505525,
+      "draw_after_results_ms": 41.540177,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 5.856199,
+      "draw_after_results_ms": 61.127207,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 13.424053,
+      "draw_after_results_ms": 28.163370999999998,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 6.13014,
+      "draw_after_results_ms": 12.596926,
+      "gc_delta": 0
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "results_ready_ms": 7.862411,
+      "draw_after_results_ms": 52.642185999999995,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 3.980975,
+      "draw_after_results_ms": 13.640702999999998,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 64.423024,
+      "draw_after_results_ms": 37.073476,
+      "gc_delta": 1
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 3.876408,
+      "draw_after_results_ms": 57.458127000000005,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 10.007468,
+      "draw_after_results_ms": 37.606005999999994,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 3.658565,
+      "draw_after_results_ms": 15.112078,
+      "gc_delta": 0
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "results_ready_ms": 4.613822,
+      "draw_after_results_ms": 38.819371000000004,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 1.922749,
+      "draw_after_results_ms": 14.835614,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 49.730394,
+      "draw_after_results_ms": 16.89065200000001,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 2.837592,
+      "draw_after_results_ms": 53.895102,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 6.820498,
+      "draw_after_results_ms": 56.041351,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 3.690941,
+      "draw_after_results_ms": 12.470363,
+      "gc_delta": 0
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "results_ready_ms": 3.129522,
+      "draw_after_results_ms": 51.3394,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 1.609442,
+      "draw_after_results_ms": 15.830157999999999,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 43.821561,
+      "draw_after_results_ms": 8.197114999999997,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 3.558471,
+      "draw_after_results_ms": 55.892788,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 6.372708,
+      "draw_after_results_ms": 36.588915,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 3.811784,
+      "draw_after_results_ms": 13.316898000000002,
+      "gc_delta": 0
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "results_ready_ms": 3.359849,
+      "draw_after_results_ms": 40.355724,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 1.580856,
+      "draw_after_results_ms": 15.81549,
+      "gc_delta": 0
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "results_ready_ms": 65.191793,
+      "draw_after_results_ms": 2.673852999999994,
+      "gc_delta": 0
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "results_ready_ms": 3.738942,
+      "draw_after_results_ms": 49.560406,
+      "gc_delta": 0
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "results_ready_ms": 8.267567,
+      "draw_after_results_ms": 48.566617,
+      "gc_delta": 0
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "results_ready_ms": 3.535414,
+      "draw_after_results_ms": 13.644404999999999,
+      "gc_delta": 0
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "results_ready_ms": 3.343718,
+      "draw_after_results_ms": 39.345158999999995,
+      "gc_delta": 0
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "results_ready_ms": 2.910746,
+      "draw_after_results_ms": 12.056109000000001,
+      "gc_delta": 0
+    }
+  ],
+  "observations": [
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 115.045702
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 66.983406
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 41.587424
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 18.727066
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "elapsed_ms": 60.504597
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.621678
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 101.4965
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 61.334535
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 47.613474
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 18.770643
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "elapsed_ms": 43.433193
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 16.758363
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 66.621046
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 56.732694
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 62.861849
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 16.161304
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "elapsed_ms": 54.468922
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.4396
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 52.018676
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 59.451259
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 42.961623
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 17.128682
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "elapsed_ms": 43.715573
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 17.396346
+    },
+    {
+      "family": "all_entities",
+      "count": 2125,
+      "elapsed_ms": 67.865646
+    },
+    {
+      "family": "title",
+      "count": 1,
+      "elapsed_ms": 53.299348
+    },
+    {
+      "family": "description_only",
+      "count": 1000,
+      "elapsed_ms": 56.834184
+    },
+    {
+      "family": "contextual",
+      "count": 40,
+      "elapsed_ms": 17.179819
+    },
+    {
+      "family": "program_only",
+      "count": 85,
+      "elapsed_ms": 42.688877
+    },
+    {
+      "family": "empty",
+      "count": 0,
+      "elapsed_ms": 14.966855
+    }
+  ]
+}

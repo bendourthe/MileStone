@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="1" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-11-14T16:10:02" hostname="localhost">
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchScreenTest" tests="1" failures="0" errors="0" skipped="0" time="12.055" timestamp="2026-11-14T16:10:02" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="12.055" />
+  </testsuite>
+</testsuites>

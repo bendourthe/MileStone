@@ -1,0 +1,11 @@
+{
+  "exit": 0,
+  "output": "PASS assertions=72 failures=0",
+  "compiledMatcherSha256": "422445d8cdac7c6872de76746f11d12b24eb99bf72a06c566d4c925d17bdfb7a",
+  "sourceSha256": {
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "97cd6ab54afab7ba4bed27c09437180bc181cb1b13ef43495ce30bfd8911750c",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "7b3b25fc774392a499447de819df0733d149d2fb1be45c6657430e95d38923ed",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "eef50b8b20f1fe659a0880699c1883eb8581f9f9d23cff5f8f9cb2269b393d5f"
+  },
+  "scope": "compiled production matcher only; no UI/device proof"
+}

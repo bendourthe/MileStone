@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- On-device search from a top-right icon finds added programs and their stored cards and displayed benefits, including contextual queries such as Delta lounge.
+- Rewards Search shows program images and stored points. Benefits results use distinctly themed program headings with logos, compact clickable card headers with product images, independent chevrons, and single-line items in canonical section order.
+- Program-only queries such as Amex include all stored card benefits; mixed contextual queries still require an item token.
+- Exact result navigation highlights the destination temporarily; Back restores the query, selected tab, scroll and disclosure state. Search requests no issuer refresh or sign-in, and a new process starts with a blank query.
+
+### Changed
+
+- Completed credit tiles retain a full progress bar and target amount. Credit amounts sit beside progress, and Enrolled appears beside the title before the completion check.
+- The pull-request gate includes the repository-native full validation profile and API 36 emulator execution before the required CI result.
+- Local validation exports source-bound test, coverage and security reports, verifies the engineering handbook, and preserves committed text bytes in source archives.
+
+### Fixed
+
+- The opening coupon ribbon appears complete before the airplane arrives, then forms the final overlap as the plane settles.
+
 ## [0.3.1] - 2026-11-13
 
 ### Added

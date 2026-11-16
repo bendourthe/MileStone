@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "qualified_APK_sha256": "0b7a4401033f5986570246d3fab2f16ef4f0a7675b6c38ed157e9b7620cea634",
+  "installed_APK_matches": true,
+  "previous_accepted_APK_matches": true,
+  "method": "adb install -r",
+  "uninstall_or_data_clear_performed": false,
+  "main_app_debugger_accessed": false,
+  "owner_UI_recheck": "Earlier unchanged-feature acceptance reused; no new owner interaction claimed."
+}

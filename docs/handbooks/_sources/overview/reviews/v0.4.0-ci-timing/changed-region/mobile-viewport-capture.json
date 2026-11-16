@@ -1,0 +1,17 @@
+{
+  "status": "captured; direct visual review pending",
+  "viewport": [
+    390,
+    844
+  ],
+  "presentation_mode": "fitted after controlled fullscreen denial, same as canonical viewport checks",
+  "geometry": {
+    "scrollTop": 0,
+    "height": 9911,
+    "extent": 9911
+  },
+  "image": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/deep-search-390-viewport.png",
+  "image_sha256": "cd326118668ea1e6b1b1bb8556bc33a20435a0c9b5d87ff1ec283f719cbf1b78",
+  "excluded_prior_image": "deep-search-390.png",
+  "exclusion_reason": "Element capture expanded to11022 pixels; the actual viewport capture is the review artifact"
+}

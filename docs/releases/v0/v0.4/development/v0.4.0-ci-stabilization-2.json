@@ -1,0 +1,40 @@
+{
+  "failed_run": "https://github.com/bendourthe/MileStone/actions/runs/43732333117",
+  "failed_head": "4e43ee08c090714a63a273f93f30c61b54d88df6",
+  "hosted_jvm": {
+    "tests": 422,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 14
+  },
+  "hosted_failure": "Only320x900 reading at200percent overflow; emulator stage skipped and CI result red.",
+  "local_reproduction": {
+    "browser": "Chromium156.0.8078.4",
+    "platform": "Isolated Ubuntu24 Linux with DejaVu Sans",
+    "before_scroll_width": 351,
+    "viewport": 320,
+    "after_scroll_width": 320,
+    "native_select_interaction": true,
+    "failed_header_only_variants_preserved": true
+  },
+  "correction": "Constrain reading labels/selects and both reading-view presentation entry buttons; native text flow wraps enlarged button labels. No font, touch target, assertion or threshold reduction.",
+  "handbook": {
+    "output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32",
+    "linux_checks": 2607,
+    "windows_checks": 2607,
+    "findings": 0,
+    "canonical_pngs": 225,
+    "unchanged_pngs": 224,
+    "changed_png": "reading-320-200percent.png",
+    "print_pages": [
+      16,
+      16
+    ],
+    "print_rasters_unchanged": true
+  },
+  "app_tests_and_issuer_code_unchanged": true,
+  "runtime_reuse": "Byte-identical accepted APK; keep74-case runtime as retained artifact proof, not a newly executed wrapper fingerprint. Hosted emulator still required before merge.",
+  "correction_push_number": 2,
+  "authorized_maximum": 3,
+  "hosted_correction_result": "Pending"
+}

@@ -1,0 +1,208 @@
+{
+  "glob": "docs/**/known-gaps.md",
+  "files_found": 4,
+  "unreachable": [],
+  "files": [
+    {
+      "path": "docs/archives/v0/v0.1/known-gaps.md",
+      "sha256": "c662a216a6fbed94365555b0f7c57abc1bcbcc00e6c513c339beedf2c95b1cbc",
+      "status": "Closed",
+      "legacy_row_ids": [
+        "G07",
+        "G09",
+        "G13",
+        "G10"
+      ],
+      "typed_item_ids": []
+    },
+    {
+      "path": "docs/archives/v0/v0.2/known-gaps.md",
+      "sha256": "f0f2c05f5623e4e8661d01d888a98b2110bfb5484eadd9eb26e4495f7fbc3086",
+      "status": "Closed. v0.2.0 shipped; every remaining gap was carried to [v0.3 known gaps](../v0.3/known-gaps.md) with its ID unchanged.",
+      "legacy_row_ids": [
+        "G24"
+      ],
+      "typed_item_ids": []
+    },
+    {
+      "path": "docs/archives/v0/v0.3/known-gaps.md",
+      "sha256": "6c67b86e7e4b592531d9c18697c10f4b61bedd38ef45e301a5e48592ac83b6f4",
+      "status": "finalized",
+      "legacy_row_ids": [
+        "G27",
+        "G28",
+        "G29",
+        "G30",
+        "G32",
+        "G44",
+        "G45",
+        "G36",
+        "G39",
+        "G40",
+        "G42",
+        "G43",
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06",
+        "G17",
+        "G16",
+        "G08",
+        "G11",
+        "G12",
+        "G14",
+        "G18",
+        "G19",
+        "G20",
+        "G21",
+        "G22",
+        "G23",
+        "G15",
+        "G25",
+        "G26",
+        "G31",
+        "G33",
+        "G34",
+        "G35",
+        "G37",
+        "G38",
+        "G41",
+        "G46"
+      ],
+      "typed_item_ids": []
+    },
+    {
+      "path": "docs/releases/v0/v0.4/known-gaps.md",
+      "sha256": "2160fa4f7532f9720cada7099fe92fa7109db9c76310d983a8d9da826bc5b909",
+      "status": "in-progress",
+      "legacy_row_ids": [
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06",
+        "G17",
+        "G16",
+        "G08",
+        "G11",
+        "G12",
+        "G14",
+        "G18",
+        "G19",
+        "G20",
+        "G21",
+        "G22",
+        "G23",
+        "G15",
+        "G25",
+        "G26",
+        "G31",
+        "G33",
+        "G34",
+        "G35",
+        "G37",
+        "G38",
+        "G41",
+        "G46"
+      ],
+      "typed_item_ids": [
+        "QG-1",
+        "QG-2"
+      ],
+      "resolved_typed_item_ids": [
+        "MT-1"
+      ],
+      "typed_open_ids": [],
+      "typed_resolved_ids": [
+        "MT-1",
+        "QG-1",
+        "QG-2"
+      ]
+    }
+  ],
+  "current_legacy_rows": 29,
+  "legacy_conditions_preserved_against_archived_v03": true,
+  "typed_open_ids": [
+    "QG-1",
+    "QG-2"
+  ],
+  "combined_open": 31,
+  "dispositions": {
+    "v0.1": "Closed snapshot; 19 original carry IDs retained through v0.2/v0.3/current lineage; do not reopen shipped work",
+    "v0.2": "Closed snapshot; 28 original carry IDs retained in v0.3 fixed or carried rows; do not duplicate release/archive",
+    "v0.3": "Finalized archived snapshot, green closing PR15; remaining 29 legacy rows carried to v0.4 with unchanged conditions",
+    "v0.4": "Only active ledger; 29 legacy conditions preserved, two open CI decisions and MT-1 project verification resolved by actual adapter checks. External helper compatibility is unchanged; G37 stays open until actual Search delivery."
+  },
+  "scope": "Read-only reconciliation; historical tracker claims are not substituted for native completion or current test proof",
+  "carry_lineage_checks": {
+    "v01_carried_ids": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G08",
+      "G11",
+      "G12",
+      "G14",
+      "G15",
+      "G16",
+      "G17",
+      "G18",
+      "G19",
+      "G20",
+      "G21",
+      "G22",
+      "G23"
+    ],
+    "v02_carried_ids": [
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G08",
+      "G11",
+      "G12",
+      "G14",
+      "G15",
+      "G16",
+      "G17",
+      "G18",
+      "G19",
+      "G20",
+      "G21",
+      "G22",
+      "G23",
+      "G25",
+      "G26",
+      "G27",
+      "G28",
+      "G29",
+      "G30",
+      "G31",
+      "G32",
+      "G33"
+    ],
+    "v01_ids_present_in_v02_carry": true,
+    "v02_ids_present_in_v03_fixed_or_carried": true
+  },
+  "prior_checkpoint": {
+    "typed_open_ids": [
+      "QG-1",
+      "QG-2",
+      "MT-1"
+    ],
+    "combined_open": 32
+  },
+  "recorded_utc": "2026-11-14T19:27:50.368465+00:00",
+  "typed_resolved_ids": [
+    "MT-1"
+  ],
+  "current_reconciliation": "29 original legacy conditions preserved; MT-1, QG-1 and QG-2 resolved within their stated verification/configuration scopes; actual hosted execution remains T020."
+}

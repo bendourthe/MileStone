@@ -34,3 +34,7 @@ app/src/test/resources/fixtures-private/
 
 # Full working notes with account, device, and session details; the tracked docs are their de-identified versions
 docs/private/
+
+# Local validation output and isolated Python dependencies
+reports/
+.validation-venv/

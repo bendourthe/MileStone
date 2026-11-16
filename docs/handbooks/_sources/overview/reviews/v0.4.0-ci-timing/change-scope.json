@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "changed_html_lines": [
+    7,
+    289,
+    337,
+    457
+  ],
+  "all_other_html_lines_identical": true,
+  "changed_inputs": [
+    "docs/handbooks/global-search.md",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+    ".github/workflows/ci.yml"
+  ],
+  "embedded_input_pairs_equal_current": true,
+  "source_inventory_stable_across_review": true,
+  "scope": "Two metadata lines and two copies of the approved Stored Corpus paragraph; source units, slides, model, styles, runtime, themes and controls unchanged"
+}

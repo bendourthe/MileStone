@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.domain.GlobalSearchTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-15T03:35:02.942Z" hostname="SP-BDOURTHE5680" time="0.068">
+  <properties/>
+  <testcase name="retainedAliasesAndFarDescriptionContextCanMatch" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.012"/>
+  <testcase name="rootCaseMatchingDoesNotDependOnDeviceLocale" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <testcase name="programOnlyQueryIncludesEveryCardAndBenefitButMixedQueriesStillMatchTheItem" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.002"/>
+  <testcase name="resultTabsPartitionKindsAndBenefitRowsUseCanonicalDisplayOrder" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.0"/>
+  <testcase name="inputIsBoundedAt256Characters" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <testcase name="groupsAndKindsHaveDeterministicOrderingAndAccurateCounts" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.0"/>
+  <testcase name="partialCaseWhitespaceAndPunctuationShareNormalization" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <testcase name="resultPresentationPartitionsAreBuiltOnceBeforeRendering" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.031"/>
+  <testcase name="equalTitlesAcrossCardsAndPeriodsRemainDistinct" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <testcase name="unicodeCaseEquivalenceIsSymmetricAndDescriptionContextUsesTheSameFold" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.016"/>
+  <testcase name="nullDescriptionsAndIdentityDigitsAreNotSearchableFields" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.0"/>
+  <testcase name="anAliasOnlyHitExplainsTheRetainedSourceTitle" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <testcase name="blankAndSymbolsOnlyNeverDumpTheCorpus" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.0"/>
+  <testcase name="contextualTokensUseParentButRequireAnItemToken" classname="com.bendourthe.milestone.domain.GlobalSearchTest" time="0.001"/>
+  <system-out><![CDATA[SearchPresentation repeated_source_reads=0 elapsed_ns=3400
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

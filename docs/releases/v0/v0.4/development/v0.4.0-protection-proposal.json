@@ -1,0 +1,176 @@
+{
+  "status": "DRAFT_NOT_APPLIED",
+  "recorded_utc": "2026-11-14T19:04:43.258426+00:00",
+  "repository": "bendourthe/MileStone",
+  "requests": {
+    "develop": {
+      "endpoint": "repos/bendourthe/MileStone/branches/develop/protection",
+      "observed": {
+        "url": "https://api.github.com/repos/bendourthe/MileStone/branches/develop/protection",
+        "required_status_checks": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/develop/protection/required_status_checks",
+          "strict": false,
+          "contexts": [
+            "CI result"
+          ],
+          "contexts_url": "https://api.github.com/repos/bendourthe/MileStone/branches/develop/protection/required_status_checks/contexts",
+          "checks": [
+            {
+              "context": "CI result",
+              "app_id": 15368
+            }
+          ]
+        },
+        "required_signatures": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/develop/protection/required_signatures",
+          "enabled": false
+        },
+        "enforce_admins": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/develop/protection/enforce_admins",
+          "enabled": false
+        },
+        "required_linear_history": {
+          "enabled": false
+        },
+        "allow_force_pushes": {
+          "enabled": false
+        },
+        "allow_deletions": {
+          "enabled": false
+        },
+        "block_creations": {
+          "enabled": false
+        },
+        "required_conversation_resolution": {
+          "enabled": false
+        },
+        "lock_branch": {
+          "enabled": false
+        },
+        "allow_fork_syncing": {
+          "enabled": false
+        }
+      },
+      "proposed_put_body": {
+        "required_status_checks": {
+          "strict": false,
+          "contexts": [
+            "CI result"
+          ],
+          "checks": [
+            {
+              "context": "CI result",
+              "app_id": 15368
+            }
+          ]
+        },
+        "enforce_admins": true,
+        "required_pull_request_reviews": {
+          "dismiss_stale_reviews": false,
+          "require_code_owner_reviews": false,
+          "required_approving_review_count": 0,
+          "require_last_push_approval": false
+        },
+        "restrictions": null,
+        "required_linear_history": false,
+        "allow_force_pushes": false,
+        "allow_deletions": false,
+        "block_creations": false,
+        "required_conversation_resolution": false,
+        "lock_branch": false,
+        "allow_fork_syncing": false
+      },
+      "intended_changes": [
+        "enforce_admins false to true",
+        "require pull request with zero approving reviewers"
+      ],
+      "pre_apply_rule": "Refresh GET and compare exact observed baseline; abort/review if any setting changed. Native/current-session authority required before PUT."
+    },
+    "main": {
+      "endpoint": "repos/bendourthe/MileStone/branches/main/protection",
+      "observed": {
+        "url": "https://api.github.com/repos/bendourthe/MileStone/branches/main/protection",
+        "required_status_checks": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/main/protection/required_status_checks",
+          "strict": false,
+          "contexts": [
+            "CI result"
+          ],
+          "contexts_url": "https://api.github.com/repos/bendourthe/MileStone/branches/main/protection/required_status_checks/contexts",
+          "checks": [
+            {
+              "context": "CI result",
+              "app_id": 15368
+            }
+          ]
+        },
+        "required_signatures": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/main/protection/required_signatures",
+          "enabled": false
+        },
+        "enforce_admins": {
+          "url": "https://api.github.com/repos/bendourthe/MileStone/branches/main/protection/enforce_admins",
+          "enabled": false
+        },
+        "required_linear_history": {
+          "enabled": false
+        },
+        "allow_force_pushes": {
+          "enabled": false
+        },
+        "allow_deletions": {
+          "enabled": false
+        },
+        "block_creations": {
+          "enabled": false
+        },
+        "required_conversation_resolution": {
+          "enabled": false
+        },
+        "lock_branch": {
+          "enabled": false
+        },
+        "allow_fork_syncing": {
+          "enabled": false
+        }
+      },
+      "proposed_put_body": {
+        "required_status_checks": {
+          "strict": false,
+          "contexts": [
+            "CI result"
+          ],
+          "checks": [
+            {
+              "context": "CI result",
+              "app_id": 15368
+            }
+          ]
+        },
+        "enforce_admins": true,
+        "required_pull_request_reviews": {
+          "dismiss_stale_reviews": false,
+          "require_code_owner_reviews": false,
+          "required_approving_review_count": 0,
+          "require_last_push_approval": false
+        },
+        "restrictions": null,
+        "required_linear_history": false,
+        "allow_force_pushes": false,
+        "allow_deletions": false,
+        "block_creations": false,
+        "required_conversation_resolution": false,
+        "lock_branch": false,
+        "allow_fork_syncing": false
+      },
+      "intended_changes": [
+        "enforce_admins false to true",
+        "require pull request with zero approving reviewers"
+      ],
+      "pre_apply_rule": "Refresh GET and compare exact observed baseline; abort/review if any setting changed. Native/current-session authority required before PUT."
+    }
+  },
+  "remote_mutations_performed": false,
+  "reference": "https://docs.github.com/en/rest/branches/branch-protection#update-branch-protection",
+  "approval_boundary": "Genuine owner settings decision; no execution authority inferred from local implementation or this proposal"
+}

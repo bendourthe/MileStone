@@ -1,0 +1,16 @@
+{
+  "p95_ms": 84.36927,
+  "maximum_ms": 131.028818,
+  "minimum_ms": 14.297557,
+  "samples": 30,
+  "warmups": 3,
+  "limit_ms": 200,
+  "device": "emu64xa",
+  "hardware": "ranchu",
+  "api": 36,
+  "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+  "artifact_hashes": {
+    "app-debug.apk": "0b7a4401033f5986570246d3fab2f16ef4f0a7675b6c38ed157e9b7620cea634",
+    "app-debug-androidTest.apk": "cd1fa712e296ec6eccaf2660666124b2706fab4eb3e666f2d3e57444145a4e68"
+  }
+}

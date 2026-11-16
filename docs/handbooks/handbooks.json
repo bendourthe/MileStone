@@ -7,6 +7,7 @@
       "inputs": [
         "docs/handbooks/overview.md",
         "docs/handbooks/benefits-reader.md",
+        "docs/handbooks/global-search.md",
         "docs/handbooks/README.md",
         "docs/handbooks/handbooks.json",
         "scripts/build_handbooks.py",
@@ -57,7 +58,18 @@
         "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt",
         "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt",
         "scripts/check_handbook_render.py",
-        "docs/handbooks/_sources/overview/visual-allowlist.json"
+        "docs/handbooks/_sources/overview/visual-allowlist.json",
+        "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt",
+        "scripts/validate.py",
+        "scripts/requirements-validation.txt",
+        "scripts/tests/test_validate.py",
+        ".github/workflows/ci.yml",
+        "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md",
+        ".gitleaks.toml"
       ],
       "code_inputs": [
         "app/build.gradle.kts",
@@ -99,7 +111,16 @@
         "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInputFormatting.kt",
         "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt",
         "scripts/check_handbook_render.py",
-        "docs/handbooks/_sources/overview/visual-allowlist.json"
+        "docs/handbooks/_sources/overview/visual-allowlist.json",
+        "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt",
+        "scripts/validate.py",
+        "scripts/tests/test_validate.py",
+        ".github/workflows/ci.yml",
+        ".gitleaks.toml"
       ],
       "builder": {
         "identity": "milestone-handbook-stdlib-v1",

@@ -39,8 +39,12 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
     private fun readTime(card: CardKey) = longPreferencesKey(prefix(card) + "readTime")
     private fun sectionGeneration(card: CardKey, section: BenefitSection) = longPreferencesKey(prefix(card) + "read:" + section.name)
 
-    override fun observe(card: CardKey) = store.data.catch { error ->
-        if (error !is IOException) throw error
+    override fun observe(card: CardKey) = read(card, fallbackOnIo = true)
+
+    override fun observeForSearch(card: CardKey) = read(card, fallbackOnIo = false)
+
+    private fun read(card: CardKey, fallbackOnIo: Boolean) = store.data.catch { error ->
+        if (error !is IOException || !fallbackOnIo) throw error
         Log.w("MileStoneSettings", "Benefits display settings unreadable; using defaults")
         emit(emptyPreferences())
     }.map { prefs ->

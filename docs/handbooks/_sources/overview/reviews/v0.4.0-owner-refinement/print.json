@@ -1,0 +1,30 @@
+{
+  "output_sha256": "a0f58a007b749b2911d660b0b4911038c4f3dc971e6c6511c3ff121db9c64883",
+  "pdfs": [
+    {
+      "path": "print-js.pdf",
+      "pages": 14,
+      "checks": {
+        "counted Rewards tab": true,
+        "canonical Benefits page": true,
+        "not a separate selectable result": true,
+        "full benefit tile": true,
+        "both result list positions": true
+      },
+      "sha256": "905e5b2f8e5768ea7e2c8d61fd984746d09b452f1d29ac9680b066b395104c48"
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 14,
+      "checks": {
+        "counted Rewards tab": true,
+        "canonical Benefits page": true,
+        "not a separate selectable result": true,
+        "full benefit tile": true,
+        "both result list positions": true
+      },
+      "sha256": "94103083c58e1e59285dd122788cef6159b78d7a1ea1ed608341fe91cc448228"
+    }
+  ],
+  "independent_review": "pending coordinator review of new owner-refinement source/renders"
+}

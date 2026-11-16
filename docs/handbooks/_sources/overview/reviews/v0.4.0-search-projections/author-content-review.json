@@ -1,0 +1,18 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "changed_inputs": [
+    "docs/handbooks/global-search.md",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+  ],
+  "new_claim": "SearchViewModel prepares tab partitions, counts, and card groups on its worker dispatcher; the screen reuses those cached projections.",
+  "source_trace": [
+    "domain/GlobalSearch.kt: SearchResults eager partitions/counts/cards in GlobalSearch.match",
+    "ui/search/SearchViewModel.kt: matching state flowOn(worker)",
+    "ui/search/SearchScreen.kt: cached count/groups/cards access"
+  ],
+  "preserved": "65-input map; all headings/eight slide IDs/themes; matching, ordering, static-context header, exact target/privacy behavior; all prior reviews and owner acceptance",
+  "rendered_evidence": "Fresh280checks pass;13of13default PNGs byte-identical to independently approved owner-refinement renders; author inspected new StoredCorpus capture and both14page JS/noJS print contacts",
+  "runtime_scope": "No latency guarantee or new app acceptance claim. Handbook heavy qualification deliberately precedes controlled host-idle benchmark.",
+  "compatibility_limits": "Prior structural-scorer schema and native data-dv-section-marker incompatibilities remain explicitly retained; no builder/schema changes."
+}

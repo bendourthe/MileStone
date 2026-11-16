@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2",
+  "identical_build_bytes": true,
+  "input_count": 65,
+  "embedded_input_pairs_equal_current": true
+}

@@ -1,0 +1,39 @@
+{
+  "status": "pass",
+  "before_output_sha256": "6300d34c0c9d9f1787bb144d5303cdd33a3a270ffed4d4c038ab4e121d6f3c1f",
+  "output_sha256": "b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc",
+  "changed_inputs": [
+    "docs/handbooks/_sources/overview/project.css",
+    "scripts/check_handbook_render.py"
+  ],
+  "model_markdown_template_runtime_unchanged": true,
+  "all_html_except_style_and_fingerprint_records_identical": true,
+  "reading_captures_byte_identical_to_before_typography_fix": [
+    "reading-1000.png",
+    "reading-1001.png",
+    "reading-1024.png",
+    "reading-1200.png",
+    "reading-1366.png",
+    "reading-1440.png",
+    "reading-1920.png",
+    "reading-2560.png",
+    "reading-320-200percent.png",
+    "reading-320.png",
+    "reading-390.png",
+    "reading-420.png",
+    "reading-759.png",
+    "reading-760.png",
+    "reading-761.png",
+    "reading-900.png",
+    "reading-999.png"
+  ],
+  "reading_capture_count": 17,
+  "corrections": [
+    "Four presentation-only size roles satisfy actual2percent stage floor; native Deep dive prose/code/tables share body role",
+    "Deep-dive table cells use normal word wrapping; existing code/path rules and local horizontal scrolling preserved"
+  ],
+  "history": [
+    "run-1/render.json retains441actualtypefailures",
+    "run-2/render.json retains2574PASSfor6036bytes; run-3 covers later table correction"
+  ]
+}

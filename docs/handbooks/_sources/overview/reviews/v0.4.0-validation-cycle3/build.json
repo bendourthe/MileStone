@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "output_sha256": "82ab31f57f68233bb0e4f34b75490afdab72c26168776a4d371cbacd68b360e0",
+  "commands": [
+    "python scripts/build_handbooks.py",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "scope": "Final corrected helper/tests fingerprints; source prose/design/builder unchanged; prior two-build determinism retained in v0.4.0-validation-profiles/build.json",
+  "read_only_freshness_check": true
+}

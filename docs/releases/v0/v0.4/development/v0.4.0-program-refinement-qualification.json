@@ -1,0 +1,174 @@
+{
+  "status": "CURRENT_FULL_PLATFORM_RESTART_HANDBOOK_PASS_FINAL_SCAN_AND_PHONE_PENDING",
+  "source_records": [
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+      "sha256": "bcfcd1a497dc26ec04f99fab53ce7b7f0d5f2eaf3125c5c9df7dae73bff5dc79"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+      "sha256": "2b5fd6a9a7a5666812bdd486d75861aeda1895dc670b8c18ef3b6776488e0301"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+      "sha256": "b585220b9bfd9f119c35125a678becd3753bc9256ea73c316a8fd8c21f1e356b"
+    }
+  ],
+  "owner_delta": "Program-only complete descendants; Rewards image/name/stored points; themed headings, compact exact-card headers and independent chevrons; no Search card outline",
+  "focused_jvm": {
+    "tests": 33,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "raw_xml": "v0.4.0-program-refinement-focused-jvm/"
+  },
+  "prior_jvm_invocations": [
+    {
+      "scope": "Initial program-only expectations on prior implementation",
+      "tests": 14,
+      "failures": 3,
+      "evidence": "reports/program-refinement-red-xml"
+    },
+    {
+      "scope": "First implemented wider Search set",
+      "tests": 32,
+      "failures": 1,
+      "finding": "Old program-only query test expected exactly one whole result",
+      "evidence": "reports/program-refinement-first-green-xml"
+    }
+  ],
+  "device_invocations": [
+    {
+      "scope": "SearchScreenTest and SearchNavigationTest",
+      "tests": 29,
+      "failures": 2,
+      "errors": 0,
+      "skips": 0,
+      "finding": "Both old selectors required removed Program text; all three new owner regressions passed",
+      "raw_xml": "v0.4.0-program-refinement-first-device-results.xml"
+    },
+    {
+      "scope": "Two corrected program navigation cases only",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "raw_runner": "v0.4.0-program-refinement-corrected-navigation-runtime.txt",
+      "not_claimed": "Not combined with the prior 27 passes into a green whole invocation"
+    }
+  ],
+  "process_restart": {
+    "status": "PASS",
+    "artifact": "v0.4.0-program-refinement-process-restart.json",
+    "apk_sha256": "91aa0c8fc2c4ed7b8bf3edf377c10171a759b01810864ab2a2294d8ef69e44a7"
+  },
+  "handbook": {
+    "status": "PASS",
+    "output_sha256": "ec91405853afe73e0dcad4218917f0db4a15172718d7e7d1b20fe6e452c91127",
+    "inputs": 65,
+    "checks": 2606,
+    "measurements": 384,
+    "findings": 0,
+    "print_pages_per_version": 16,
+    "independent_review": "docs/handbooks/_sources/overview/reviews/v0.4.0-compact-search/independent-content-review.json"
+  },
+  "independent_source_review": {
+    "status": "No actionable source defect found",
+    "observed": [
+      "Program identity expansion limited to added program name/ID",
+      "Mixed own-item-token/parent aliases intact",
+      "Stored values display-only",
+      "Exact card/revision navigation and independent chevrons",
+      "Canonical order, revision validation and memory-only state intact"
+    ],
+    "limit": "No new whole runtime, latency, phone or release completion inferred"
+  },
+  "remaining": [
+    "Current complete72-case platform invocation and unchanged latency benchmark",
+    "Affected full, privacy/public-input security aggregation",
+    "Latest phone install and owner acceptance",
+    "Fresh publication/release authority and actual green delivery",
+    "Remaining historical native reconciliation; original v0.3.0 PLAN COMPLETE retained"
+  ],
+  "correction_history": {
+    "previous_global_cycles_retained": 7,
+    "new_owner_repairs": [
+      "Obsolete one-result repository expectation",
+      "Fixture scrolling API typo",
+      "Old Program-label navigation selector",
+      "Benchmark fixture program-only result count"
+    ],
+    "no_threshold_corpus_or_native_remote_retry_budget_changed": true
+  },
+  "first_complete_platform": {
+    "tests": 72,
+    "failures": 1,
+    "errors": 0,
+    "skips": 0,
+    "source_sha256": "edfed25fd87c1ec1378a3228eb1e2571dfaadcc5e85a0af931939c813c4c01ba",
+    "result": "FAIL; no valid new timing artifact",
+    "finding": "Latency fixture expected one result for InstitutionAAA; new owner-required scope correctly returns85: program+four cards+80 benefits",
+    "repair": "Only expected count1->85 and family name parent_only->program_only; corpus/query/warmups/sample count/draw endpoint/200ms limit unchanged",
+    "raw_xml": "v0.4.0-program-refinement-first-platform-results.xml"
+  },
+  "complete_platform": {
+    "artifact": "v0.4.0-program-refinement-platform.json",
+    "counts": {
+      "tests": 72,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "source_sha256": "1e8ca72cfce9848e66070a826a1ec9befa84963762db52549820a9165fc5d209",
+    "gpu": "SDK-supported SwiftShader software renderer"
+  },
+  "current_latency": {
+    "artifact": "v0.4.0-program-refinement-latency.json",
+    "p95_ms": 138.798331,
+    "maximum_ms": 156.273619,
+    "limit_ms": 200,
+    "samples": 30,
+    "warmups": 3,
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "program_only_count": 85,
+    "remote_epoch": 1794716238
+  },
+  "current_full_checkpoint": {
+    "artifact": "reports/program-refinement-final-full/results/full-windows.json",
+    "counts": {
+      "tests": 419,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 4991,
+      "total": 6372,
+      "percent": 78.33
+    },
+    "source_sha256": "1e8ca72cfce9848e66070a826a1ec9befa84963762db52549820a9165fc5d209",
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs"
+  },
+  "interrupted_run": {
+    "artifact": "reports/program-refinement-platform-final/results/platform-windows.json",
+    "counts": {
+      "tests": 26,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "expected": 72,
+    "completed_received": 24,
+    "sdk_exit": "0xC0000005",
+    "not_passed": true,
+    "fault_module_not_established": true,
+    "no_source_fix_or_threshold_waiver_claimed": true
+  },
+  "final_frozen_receipts": {
+    "full": "reports/program-refinement-frozen-full/results/full-windows.json",
+    "aggregate": "reports/program-refinement-frozen-aggregate/summary.json",
+    "instruction": "Read actual terminal status; these are not assumed passes"
+  }
+}

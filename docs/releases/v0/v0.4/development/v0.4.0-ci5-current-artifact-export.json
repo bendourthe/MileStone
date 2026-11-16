@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "boundary": "Exact workflow Bash run body on owned emulator",
+  "local_adapter": "MSYS_NO_PATHCONV=1 preserves Android POSIX paths when invoking Windows adb.exe; shipped Linux workflow unchanged.",
+  "initial_attempt": "Default Git Bash converted Android path; shell test exited2 and no artifact was produced. Failure retained.",
+  "script_sha256": "eb53bc944eded4b39b9de88a63eb7b4911481824681633b55e4aef4ff9fa8088",
+  "artifact_sha256": "5a7114ebf33fed33a790c78590941927be196b9b981a769a50967c4276456f3b",
+  "exit_code": 0,
+  "exact_current_timing_bytes_retained": true,
+  "phone_targeted": false,
+  "limit": "Hosted Linux and required CI remain pending."
+}

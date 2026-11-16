@@ -1,0 +1,881 @@
+{
+  "allowlist": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-v0.4.0-global-search\\docs\\handbooks\\_sources\\overview\\visual-allowlist.json",
+  "file": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-v0.4.0-global-search\\docs\\handbooks\\html\\overview.html",
+  "findings": [
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 29041.53,
+          "left": 0,
+          "right": 320,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 288,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 288,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 288,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 320,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 24214.52,
+          "left": 0,
+          "right": 390,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 358,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 358,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 358,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 390,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 14570.03,
+          "left": 0,
+          "right": 760,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 760
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 714.41,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 760
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 714.41,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 760
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 714.41,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 760
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 760,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 760
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 18967.3,
+          "left": 0,
+          "right": 761,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 761
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 715.34,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 761
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 715.34,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 761
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 715.34,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 761
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 761,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 761
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 14441.88,
+          "left": 0,
+          "right": 1024,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1024
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 950,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1024
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 780,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1024
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 740,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1024
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 1024,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1024
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 13209.23,
+          "left": 0,
+          "right": 1366,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 950,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 780,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 740,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 1180,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 13214.77,
+          "left": 0,
+          "right": 1920,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1920
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "950px",
+        "declarations": [
+          {
+            "resolved_value": "950px",
+            "selector": ".hero h1",
+            "value": "950px"
+          }
+        ],
+        "rendered_width_px": 950,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 950px",
+      "rule": "fixed-text-max-width",
+      "selector": "#handbook-title",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1920
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "780px",
+        "declarations": [
+          {
+            "resolved_value": "780px",
+            "selector": ".hero-lede",
+            "value": "780px"
+          }
+        ],
+        "rendered_width_px": 780,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 780px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(2)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1920
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "740px",
+        "declarations": [
+          {
+            "resolved_value": "740px",
+            "selector": ".hero-note",
+            "value": "740px"
+          }
+        ],
+        "rendered_width_px": 740,
+        "text_evidence": "semantic-text-tag"
+      },
+      "message": "Text-bearing element uses fixed max-width 740px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > section > p:nth-of-type(3)",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1920
+      }
+    },
+    {
+      "measurements": {
+        "computed_max_width": "1180px",
+        "declarations": [
+          {
+            "resolved_value": "1180px",
+            "selector": ".reading-footer",
+            "value": "1180px"
+          }
+        ],
+        "rendered_width_px": 1180,
+        "text_evidence": "direct-text"
+      },
+      "message": "Text-bearing element uses fixed max-width 1180px",
+      "rule": "fixed-text-max-width",
+      "selector": "body > div > footer",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1920
+      }
+    }
+  ],
+  "font_floor_px": 12.0,
+  "fragment": null,
+  "gate_findings": 35,
+  "minimum_text_box_px": {
+    "height": 12.0,
+    "width": 16.0
+  },
+  "page_pass": false,
+  "status": "fail",
+  "suppressed_findings": 0,
+  "theme": null,
+  "tolerance_px": 1.0,
+  "viewports": [
+    {
+      "height": 900,
+      "width": 320
+    },
+    {
+      "height": 900,
+      "width": 390
+    },
+    {
+      "height": 900,
+      "width": 760
+    },
+    {
+      "height": 900,
+      "width": 761
+    },
+    {
+      "height": 900,
+      "width": 1024
+    },
+    {
+      "height": 900,
+      "width": 1366
+    },
+    {
+      "height": 900,
+      "width": 1920
+    }
+  ]
+}

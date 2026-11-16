@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.ui.search.SearchRepositoryTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-15T03:34:48.662Z" hostname="SP-BDOURTHE5680" time="14.268">
+  <properties/>
+  <testcase name="cardClearRetainsTheAddedProgramAndDoesNotExposeUnaddedCatalogPrograms" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="11.639"/>
+  <testcase name="realWelcomePreferencesUpdateSearchWithoutAddingIssuerRows" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.455"/>
+  <testcase name="realRoomProjectionAndMatcherObserveChangeAndRemovalWithoutMutation" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.201"/>
+  <testcase name="readFailureIsDistinctFromEmptyAndLocalRetryRecovers" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.128"/>
+  <testcase name="earlierDuplicateRemovalRejectsOldKeyEvenWhenMembershipStillExists" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.133"/>
+  <testcase name="slowLocalReadShowsLoadingAndOnlyTheLatestQueryPublishes" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.118"/>
+  <testcase name="preferenceIoFailureIsAReadErrorWhileExistingBenefitsFallbackIsPreserved" classname="com.bendourthe.milestone.ui.search.SearchRepositoryTest" time="0.058"/>
+  <system-out><![CDATA[SearchFixture stage=read program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712
+SearchFixture stage=updated program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712
+SearchFixture stage=removed program=amex count=0 canonical_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+SearchFixture stage=reused-key program=amex count=1 canonical_sha256=0be53cdcb68afa088828a8052858eb84a976af7d154c365d20da5397ce794712
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

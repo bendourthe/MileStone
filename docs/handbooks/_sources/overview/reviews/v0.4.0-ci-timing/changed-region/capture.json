@@ -1,0 +1,41 @@
+{
+  "status": "captured; direct visual review pending",
+  "browser": "Chromium 156.0.8078.4",
+  "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9",
+  "observations": [
+    {
+      "width": 1366,
+      "height": 768,
+      "source_unit": "search-stored-corpus",
+      "slide_id": "app",
+      "deep_region_scroll_top": 2883
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "source_unit": "search-stored-corpus",
+      "slide_id": "app",
+      "deep_region_scroll_top": 0
+    }
+  ],
+  "console_errors": [],
+  "external_requests": [],
+  "images": [
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/deep-search-1366.png",
+      "sha256": "b619331e14b0a01a28d0d1cff8a11dfddf774404d5a6fd4229e42652135bc94f"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/deep-search-390.png",
+      "sha256": "091ec6b200ff10a420505ae701e23abd4257b9d48cabb46335ff499843963fc1"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/reading-search-1366.png",
+      "sha256": "d23bee7ce820855814cbbb9848b16178128784174d6b77c8e20df1f10bc5e3e2"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/reading-search-390.png",
+      "sha256": "47e1be8eb33baa1f400470e461cff4295f2d012b599172062f01dd74535e6121"
+    }
+  ]
+}

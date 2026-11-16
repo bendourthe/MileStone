@@ -96,4 +96,38 @@ class BenefitsViewModelTest {
         assertTrue(page.sections.single { it.title == "Credits" }.items.any { it.title == "Done credit" && it.completed })
         assertEquals("…71008", page.digitsLabel)
     }
+
+    @Test
+    fun completedCreditsKeepFullProgressAndTheirKnownTargetWithoutChangingIssuerRows() {
+        val original = credit("Example hotel credit", null, done = true).copy(earnedCents = null, targetCents = 20_000)
+        val ui = BenefitsViewModel.item(original, locale)
+        assertEquals(1f, ui.progress!!, 0f)
+        assertEquals("\$200/\$200", ui.amounts)
+        assertTrue(ui.inlineProgressAmounts)
+        assertNull(original.earnedCents)
+        assertNull(original.remainingCents)
+
+        val titleOnly = original.copy(title = "\$200 Example Hotel Statement Credit Benefit", targetCents = null)
+        assertEquals("\$200/\$200", BenefitsViewModel.item(titleOnly, locale).amounts)
+        val unknown = titleOnly.copy(title = "Example Hotel Credit")
+        assertEquals(1f, BenefitsViewModel.item(unknown, locale).progress!!, 0f)
+        assertNull(BenefitsViewModel.item(unknown, locale).amounts)
+        assertNull(BenefitsViewModel.item(titleOnly.copy(title = "\$200 Credit after \$500 spend"), locale).amounts)
+        listOf("\$200.5 Credit", "\$1,00 Credit", "\$200.500 Credit").forEach { title ->
+            assertNull(BenefitsViewModel.item(titleOnly.copy(title = title), locale).amounts)
+        }
+        assertEquals("\$200.50/\$200.50", BenefitsViewModel.item(titleOnly.copy(title = "\$200.50 Credit"), locale).amounts)
+        assertNull(BenefitsViewModel.item(titleOnly.copy(section = BenefitSection.OTHER, title = "\$200 Mystery"), locale).amounts)
+    }
+
+    @Test
+    fun unfinishedCreditsUseEarnedOverTargetAndKeepTheirActualProgress() {
+        val credit = credit("Example credit", 14_450).copy(earnedCents = 5_550, targetCents = 20_000)
+        val ui = BenefitsViewModel.item(credit, locale)
+        assertEquals(0.2775f, ui.progress!!, 0.0001f)
+        assertEquals("\$55.50/\$200", ui.amounts)
+        assertTrue(ui.inlineProgressAmounts)
+        assertFalse(BenefitsViewModel.item(credit.copy(section = BenefitSection.SPEND_PROGRESS), locale).inlineProgressAmounts)
+    }
+
 }

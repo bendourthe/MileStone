@@ -1,0 +1,30 @@
+{
+  "status": "author-reviewed-independent-final-review-pending",
+  "scope": "Current bounded3-source/8-slide handbook; no new renderer/schema/data attributes",
+  "observed": {
+    "browser_checks": 2606,
+    "findings": 0,
+    "slide_depth_viewport_measurements": 384,
+    "maximum_stage_font_sizes": 4,
+    "fullscreen": {
+      "entered": true,
+      "fullscreenEnabled": true,
+      "scope": "Actual Chromium document fullscreen API, not host OS window/chrome proof",
+      "closed_cleanly": true
+    },
+    "numeric_and_control_inventory": {
+      "source_units": 24,
+      "source_blocks": 107,
+      "digit_bearing_blocks": 31,
+      "features": {
+        "charts_maps_photos": "not applicable: no authored/observed figure, canvas or image",
+        "nested_modals": "not applicable: no authored/observed nested dialog",
+        "editable_inputs": "not applicable: no authored/observed editable input; native selects/scroll region checked",
+        "connector_routing": "not applicable: all observed SVGs are action icons inside presentation controls; no source figure/diagram"
+      }
+    }
+  },
+  "visual_scope": "Author inspected run2widebalanced/deep/narrow and prints; coordinator inspected run3individual390PageKinds fix. Current remaining views are available for independent inspection, with exact128balanced/17reading/14+14print-raster equality recorded.",
+  "auxiliary_tools": "Raw installed structural-scorer nonpass/native-measurement unverified results remain unchanged. Current project-native checks close their named observation gaps without claiming those helpers passed.",
+  "browser_boundary": "Chromium document fullscreen API only; no claim about OS window/chrome or other browser engines."
+}

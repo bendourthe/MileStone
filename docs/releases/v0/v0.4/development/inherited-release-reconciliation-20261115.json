@@ -1,0 +1,33 @@
+{
+  "status": "Historical releases remain distinct from native completion bookkeeping; no remote or cleanup action taken",
+  "v0.1": {
+    "compatibility_commit": "47606d2ad182be98e2e9b59b41add8795b7e6c03",
+    "compatibility_worktree_clean": true,
+    "native_verdict": "INCOMPLETE: approval.remote archive.minor",
+    "release_and_integration_checks": "met in the compatibility checkout",
+    "publication_performed": false
+  },
+  "v0.2": {
+    "native_verdict": "INCOMPLETE: v0.2.0:task.T005 v0.2.0:cleanup.branches cleanup.merged",
+    "approval_remote": "met",
+    "task_T005_last_token": "(gitignored)",
+    "capture_directory_exists": true,
+    "private_files_in_primary_checkout": 7,
+    "private_files_tracked": 0,
+    "literal_last_token_path_exists": false,
+    "native_qualification": "Available qualify-task command uses a different release-specific authority and is not applicable",
+    "source_branch": "feat/v0.2.0-benefits-tab-amex",
+    "source_head": "d9b8a352dc7aa42e6209405190999de0d0531adb",
+    "source_is_ancestor_of_develop": true,
+    "pull_request": 3,
+    "pull_request_state": "MERGED",
+    "remote_branch_exists": true,
+    "cleanup_dry_run": "KEEP: owned-by-run; notice scope-record-not-own",
+    "cleanup_applied": false
+  },
+  "v0.3": {
+    "native_minor_verdict": "INCOMPLETE: record.minor",
+    "original_v0.3.0_plan": "PLAN COMPLETE was previously verified; not rerun as new work"
+  },
+  "preservation": "Frozen plans, signed records, private captures and other owners were not modified. No synthetic artifact path was created."
+}

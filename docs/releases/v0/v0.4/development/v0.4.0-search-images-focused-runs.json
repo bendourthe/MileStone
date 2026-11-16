@@ -1,0 +1,20 @@
+{
+  "runs": [
+    {
+      "name": "first-screen-run",
+      "tests": 14,
+      "failed": [
+        "descriptionMatchesStaySearchableAsSingleLineTilesWithoutDetails"
+      ],
+      "raw": "reports/search-images-device-first-xml"
+    },
+    {
+      "name": "corrected-scrolled-case",
+      "tests": 1,
+      "failed": [],
+      "raw": "reports/search-images-description-corrected-xml"
+    }
+  ],
+  "explanation": "New thumbnail visibility assertion initially ran before scrolling. Corrected fixture scrolls to the card header. Product code unchanged by correction. Separate invocations are not combined into a whole-screen PASS.",
+  "whole_runtime_pending": true
+}

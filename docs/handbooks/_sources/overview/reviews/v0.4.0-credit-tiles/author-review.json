@@ -1,0 +1,33 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "output_sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96",
+  "scope": "Current3-source/8-slide/65-input handbook only; no application gate or release claim.",
+  "source_grounding": [
+    "Completed credits render full progress and inline earned/target amounts without changing stored issuer data.",
+    "Display target precedence is positive stored target, positive stored earned, then a complete single leading dollar token; malformed/multiple/unknown title amounts are not inferred.",
+    "Unfinished credits keep actual progress and inline ratio; noncredit trackers retain their existing labels.",
+    "Enrolled appears beside the title before completed check; Enrollment required remains body status.",
+    "Search prose/model/themes/runtime/CSS and hosted-not-observed CI explanation remain unchanged."
+  ],
+  "actual_checks": {
+    "browser_checks": 2607,
+    "findings": 0,
+    "measurements": 384,
+    "prints": [
+      {
+        "path": "print-js.pdf",
+        "pages": 16,
+        "empty_pages": [],
+        "all_source_checks": true
+      },
+      {
+        "path": "print-no-js.pdf",
+        "pages": 16,
+        "empty_pages": [],
+        "all_source_checks": true
+      }
+    ]
+  },
+  "author_visual_observation": "Inspected actual390px overviewSearch paragraph and1366pxToolchain capture; independent coordinator review of current paragraphs/prints/bindings remains required.",
+  "limits": []
+}

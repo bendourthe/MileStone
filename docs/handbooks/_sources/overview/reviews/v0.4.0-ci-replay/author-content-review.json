@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "reviewer": "Handbook content review; independent coordinator adoption pending",
+  "output_sha256": "6bfd562cfbdd2c25dbc86727423042acd547b14a56d37dc6b24e15dea3578c94",
+  "reviewed_sources": [
+    "scripts/check_handbook_render.py",
+    "docs/handbooks/_sources/overview/dual-view-runtime.js"
+  ],
+  "reviewed_changes": [
+    "Only the checker hash changed among65handbook inputs; no retained prose, model, style or runtime changes were needed",
+    "The deck click handler synchronously cancels previous motion and recreates its animations; the one-shot document bubble observer runs after that handler",
+    "The checker still drives a real Playwright replay click, requires a nonempty animation set, rejects null times and preserves the150mslimit",
+    "Capturing animation times within the browser event removes extra browser/driver roundtrip age from the observation; it does not bypass the actual replay action",
+    "Full native browser execution passed2607checks and384measurements with no findings or limitations",
+    "The prior failed full-render observation at216.739ms and initial unsuccessful control attempt remain retained by the coordinator; no historical failure was overwritten"
+  ],
+  "coordinator_control_observations": {
+    "evidence": "reports/v040-ci-stabilization-5/replay-observer-controls-probe.json",
+    "evidence_sha256": "cb2e540559dfd1304819c792d8a2f8639addf7a2b78079d1c40ea876747dd697",
+    "execution_owner": "coordinator",
+    "author_review": "Read actual probe values, reviewed observer/runtime source and applied the unchanged150msdecision",
+    "working_restart_times": [
+      0
+    ],
+    "broken_restart_times": [
+      550
+    ],
+    "late_roundtrip_times": [
+      400.0279999983669
+    ],
+    "checker_sha256": "609f6b21c32f872df0fa7ca1a215306450bc7e069a540c43188955227ff76b47"
+  },
+  "comparison_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/comparison.json",
+  "visual_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/visual-review.json",
+  "change_scope_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-replay/change-scope.json",
+  "findings": [],
+  "qualification_scope": "Candidate handbook and checker-observation review only; no product performance, CI integration, release or authority completion asserted"
+}

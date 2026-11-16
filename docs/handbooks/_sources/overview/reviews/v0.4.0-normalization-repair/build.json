@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "output_sha256": "d8658580cb3cf27515c790fcdeab0915534af2789a04bcf0451ce698b0d882ab",
+  "commands": [
+    "python scripts/build_handbooks.py",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "scope": "One-input normalization repair; no prose/design/builder change",
+  "freshness": "pass"
+}

@@ -1,0 +1,49 @@
+{
+  "output_sha256": "85f703f3a8d809672f4c2802dd7b3a223599bf577c669262a2f01aa3e345c1d3",
+  "prior_live_output_sha256": "b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc",
+  "changed_input_records": [
+    {
+      "path": "docs/handbooks/overview.md",
+      "before_sha256": "8dd1e15afd3fd853ad522fa198b61f555b269b20a74edbd13e422be20aff3457",
+      "sha256": "3ec8a50354ac0ccacc1452165d7e8dc544e7cf03fffe072949a056da9f8b96f2"
+    },
+    {
+      "path": "docs/handbooks/global-search.md",
+      "before_sha256": "8aac173016a03f03067d8763f513b0d0c0bd7d10677e6b16ba47bf664514fe18",
+      "sha256": "d0d8bee28377a6997a82abfee61fcdb3ea9d27d38abac6dd73ca2a5b6522b991"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt",
+      "before_sha256": "82d8b23e3b26ae7084f3ec6140e0fd294cb5203128e53280d391f1fbf94cca37",
+      "sha256": "95594bb1f26f4847c125cf8783ccc448148f2fb1e11f72a487eaed2c9366d64c"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+      "before_sha256": "a4536d02c910bba1bff158c8457f413331e6087b1c4ca073f055d5d19f621c0c",
+      "sha256": "61051cfbf6e822b356fee9e6505d22d30f0c14ad295918f9ee8112823eee96cc"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+      "before_sha256": "eef50b8b20f1fe659a0880699c1883eb8581f9f9d23cff5f8f9cb2269b393d5f",
+      "sha256": "4665fedddcd3699dfeb66ff72a296d27430c12536d2f5d1f3c796f6151edddcb"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+      "before_sha256": "4075c0b5a10b6e33ce986626ae6d65dabdeacefa4aa2ffe1c99ec35821d650d2",
+      "sha256": "1cb5b37f9a56fa50daf4bb62d07823081cf4290ff175ab5e07aab45d348ce601"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "before_sha256": "a36c3bd324974c249b67d0002fe169a19289f6e80ec566b43eed533ff67a7ae4",
+      "sha256": "cdadf364d741472ad705757ac7d7a558dfe36b9cc07292cffc6a1cf4dbde7bbe"
+    }
+  ],
+  "input_count": 65,
+  "input_records_roundtrip_native_pairs": true,
+  "standard_png_byte_equality": {
+    "compared": 225,
+    "identical": 225
+  },
+  "content_changes": "Current owner-approved Search hierarchy and configured hosted CI explanation; retained8slide model/themes/runtime/CSS unchanged.",
+  "prior_ci281_draft": "Historical stale binding, never adopted; current output independently rebuilt from all65 inputs."
+}

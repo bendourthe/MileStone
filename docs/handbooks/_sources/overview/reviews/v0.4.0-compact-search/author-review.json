@@ -1,0 +1,33 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "output_sha256": "ec91405853afe73e0dcad4218917f0db4a15172718d7e7d1b20fe6e452c91127",
+  "scope": "Current3-source/8-slide/65-input handbook only; no application gate or release claim.",
+  "source_grounding": [
+    "Program destination four-second outline after exact target validation.",
+    "Independent program/card/canonical subsection chevron state stays in navigation-entry VM memory; card-header navigation and separate right chevron have distinct actions.",
+    "Compact card headers show name+ending only, always open the exact card, and omit artwork/visible freshness/bright outline. Rewards tiles show only program image/name/stored points; benefit titles stay single-line.",
+    "Program-only identity queries include every canonical stored child; mixed contextual queries retain an item token. Canonical order, exact full-tile targets, and stored-only privacy remain.",
+    "Hosted full then SDK/KVM/emulator/platform/report is configured; hosted candidate execution remains unobserved."
+  ],
+  "actual_checks": {
+    "browser_checks": 2606,
+    "findings": 0,
+    "measurements": 384,
+    "prints": [
+      {
+        "path": "print-js.pdf",
+        "pages": 16,
+        "empty_pages": [],
+        "all_source_checks": true
+      },
+      {
+        "path": "print-no-js.pdf",
+        "pages": 16,
+        "empty_pages": [],
+        "all_source_checks": true
+      }
+    ]
+  },
+  "author_visual_observation": "Inspected actual390px overviewSearch paragraph and1366pxToolchain capture; independent coordinator review of current paragraphs/prints/bindings remains required.",
+  "limits": []
+}
