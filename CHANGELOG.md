@@ -23,6 +23,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- Search list resets wait for the new query's results instead of scrolling earlier results while matching is pending.
+- The moving background draws in its own layer, separate from screen content.
+- Completed credits keep their actual earned amount when no target is known, while retaining the full progress bar.
 - The opening coupon ribbon appears complete before the airplane arrives, then forms the final overlap as the plane settles.
 
 ## [0.3.1] - 2026-11-13

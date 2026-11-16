@@ -1,12 +1,12 @@
 {
   "snapshot": {
-    "entry_sha256": "0596f547289a5dfa92d6524392d49e5ed99fb615ee6382f0a235a3530ea72aee",
+    "entry_sha256": "3f0cec2d37328b46330dc20eb8fd9f1d0bccd607923b44a49d76c04bd9e6c1f1",
     "inputs": {
-      "docs/handbooks/overview.md": "3c42de578d15c83a37582982619fa18345ad50f36bc1217c9fe1a71a8f408242",
+      "docs/handbooks/overview.md": "86b8901b63391fa4fbe6a4696c7309a917febad50f937b2d7569b67ddf271f6e",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
-      "docs/handbooks/global-search.md": "4c11bbaedbc923a9cf53b574a8212da75deea1800fa83c58c4eccf94dc8a9d56",
+      "docs/handbooks/global-search.md": "86be0d2498de0488a70f6e318d2848e13760ee54ac2ca2b0021205f02ef9ddb4",
       "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
-      "docs/handbooks/handbooks.json": "01ca395eb00f826de0abd87b7153873df73acc5f2c913c264af8d1785c0e56a0",
+      "docs/handbooks/handbooks.json": "5325006b00cd8063fdcc4b00885dc23a268550e628f2f1d1923689334cd06e4d",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
       "docs/handbooks/_sources/overview/project.css": "893f5d093ef2dd44221574b03ecdf45b50d0471e0b33491e56e58da4d824d84c",
@@ -48,7 +48,7 @@
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsAlertPanel.kt": "205935cd0df14287dce67e75776e0bbbe6ee94c458d7cb77c9a4469499e907ec",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt": "737737bc82e0a5ef115944ef0a70aafbcd820e674184e1aac4ed9484b6838b32",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsInstitutionTile.kt": "4f754a73bfa3f5ecc50cba95b6b4de82acfb244ef0c7fa075b37a04af2944836",
-      "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "4908ac9a5ea8fdbeda546d41fb5dbac5d7cb5bcde45a9fca6acd211395fa76ff",
+      "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "71f8e29dcc3afe5b11c9029e5092b8fca5dd7124ec46440b1af9b09b4419096d",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardArtwork.kt": "e52094daa8feede2af45f623949b1ea734b4452eb4d46ee60582d25b63217901",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/WelcomeBonusDialog.kt": "d5e41582739a0085a0526171031aec9a3a9e525471f288de98462b47dcb2cb76",
@@ -57,9 +57,12 @@
       "scripts/check_handbook_render.py": "609f6b21c32f872df0fa7ca1a215306450bc7e069a540c43188955227ff76b47",
       "docs/handbooks/_sources/overview/visual-allowlist.json": "6f723b213278d58a47c909e492f1e81298a27db5d3aab8359013039ca68800f6",
       "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
-      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "96d75e711281c1239e3c96e45ba19ddc8231cbf2c53e481ee3e705d245c838a3",
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "cb20a8d5b6661361139b4d8a967aa21ff276e25bc64834f5a16df7d186338783",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
-      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "66acb54fa890b691dcaff3d7cc40a75d7450637f3cd11d8f3942060342a904a1",
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
+      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "d401b1fbd4cb7644cecf4c33160d527da58fa510083950b4fd484da2e6001a6b",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "112b87380b5ca63ae17197a89a181ba65b0b6109f9a99f0b4f48f5150929f5a1",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
       "scripts/validate.py": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
@@ -68,27 +71,27 @@
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
     },
-    "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e"
+    "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/author-content-review.json",
-      "evidence_sha256": "92918eda27a003cb370d208926f82bd38364fffafa2ebc8759cc5598c240dc1c"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/author-content-review.json",
+      "evidence_sha256": "45e2951596c85643cdbf9d7252ec54a6daa2784aeaba65b3703940b50b4f4c57"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/build.json",
-      "evidence_sha256": "2136fb66b1a626d258f1e44c86ecb08c354c449c043c16b12dea41aaa59b6e53"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/build.json",
+      "evidence_sha256": "235c25dd3d8bf0762a0c6f215cdea5d86b1d4f107cc53e147ff57e17db95b6ea"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release/run-1/render.json",
-      "evidence_sha256": "20e54d0722ae4465157c252148e30a05f0f9489d8afa36c4892c31d9fe4e5ef3",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/run-1/render.json",
+      "evidence_sha256": "971dd1052745b0db39a13c1b7891395b70ca1b9312f541945d73ab28ab3b777e",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e"
+      "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23"
     }
   },
   "limitations": [],
-  "qualification_scope": "Release preparation handbook at the actual dirty candidate; independent coordinator adoption pending. No release publication, product runtime or remote authority completion is asserted."
+  "qualification_scope": "Scope-v5 credit-target and updating-status handbook candidate; independent root adoption and actual native full-scope receipt check required. Application full/platform qualification and final goal review remain separate."
 }

@@ -421,8 +421,10 @@ class BenefitsRedesignDeviceTest {
         compose.onNodeWithContentDescription("Back to institutions").performClick()
         compose.onNodeWithTag("benefitsProgram_amex").performClick()
         compose.onNode(hasContentDescription("card ending ${drafts.first().lastDigits}", substring = true)).performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
         compose.onNodeWithContentDescription("Back to Benefits").performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("benefitsList").assertIsDisplayed()
         compose.onNodeWithContentDescription("Back to institutions").performClick()
         compose.runOnIdle { fontScale.value = 2f }

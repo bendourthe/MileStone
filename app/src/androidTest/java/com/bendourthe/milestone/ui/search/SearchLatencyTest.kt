@@ -6,18 +6,26 @@ import android.os.Build
 import android.os.Debug
 import android.os.SystemClock
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import android.view.View
+import android.view.ViewGroup
+import android.graphics.Rect as AndroidRect
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.LayoutInfo
+import androidx.compose.ui.platform.ViewRootForTest
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getAllSemanticsNodes
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.hasClickAction
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -35,6 +43,8 @@ import com.bendourthe.milestone.ui.theme.AuroraBackground
 import com.bendourthe.milestone.ui.theme.MileStoneTheme
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.combine
 import org.json.JSONArray
 import org.json.JSONObject
 import org.junit.*
@@ -43,13 +53,14 @@ import org.junit.runner.RunWith
 import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.atomic.AtomicReference
-import java.util.concurrent.atomic.AtomicLong
 import kotlin.math.ceil
 
 /** Wall-clock query-to-draw measurement of the production result content, excluding IME and initial loading. */
 @RunWith(AndroidJUnit4::class)
 class SearchLatencyTest {
-    @get:Rule val rule = createAndroidComposeRule<ComponentActivity>()
+    @get:Rule val rule = ActivityScenarioRule(ComponentActivity::class.java)
+    private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
+    private lateinit var activity: ComponentActivity
     private val context get() = ApplicationProvider.getApplicationContext<Context>()
     private lateinit var db: MileStoneDatabase
     private lateinit var cards: RoomCardRepository
@@ -68,15 +79,57 @@ class SearchLatencyTest {
         override fun search(query: String) = emptyList<Program>()
     }
     private data class Case(val family: String, val query: String, val count: Int, val firstTitle: String?)
+    private data class Ready(val at: Long, val processCpuMs: Long, val threadId: Long, val threadCpuNs: Long)
     private class Pending(val case: Case, val started: Long, val gcBefore: Long?, val latch: CountDownLatch = CountDownLatch(1)) {
         var elapsedMs: Double = 0.0
-        val readyAt = AtomicLong()
+        val ready = AtomicReference<Ready?>()
+        val startThreadId = Thread.currentThread().id
+        val startThreadCpuNs = Debug.threadCpuTimeNanos()
+        val startProcessCpuMs = android.os.Process.getElapsedCpuTime()
+        var drawThreadCpuNs = 0L
+        var drawProcessCpuMs = 0L
     }
     private val pending = AtomicReference<Pending?>()
     private fun matches(state: SearchUiState, case: Case): Boolean = when (state) {
         SearchUiState.Empty -> case.count == 0
         is SearchUiState.Results -> state.results.count == case.count && state.results.groups.firstOrNull()?.hits?.firstOrNull()?.entry?.title == case.firstTitle
         else -> false
+    }
+
+    private fun assertDisplayedTitle(title: String) {
+        fun roots(view: View): List<ViewRootForTest> = buildList {
+            if (view is ViewRootForTest) add(view)
+            if (view is ViewGroup) for (index in 0 until view.childCount) addAll(roots(view.getChildAt(index)))
+        }
+        val deadline = SystemClock.uptimeMillis() + 3000
+        var count = 0
+        var displayed = false
+        while (!displayed && SystemClock.uptimeMillis() < deadline) {
+            instrumentation.runOnMainSync {
+                val matches = roots(activity.window.decorView).flatMap { root ->
+                    root.semanticsOwner.getAllSemanticsNodes(mergingEnabled = true).map { root to it }
+                }.filter { (_, node) ->
+                    node.config.contains(SemanticsProperties.Text) && node.config[SemanticsProperties.Text].any { it.text == title } &&
+                        node.config.contains(SemanticsActions.OnClick)
+                }
+                count = matches.size
+                displayed = matches.singleOrNull()?.let { (root, node) ->
+                    var layout: LayoutInfo? = node.layoutInfo
+                    var placed = true
+                    while (layout != null) { placed = placed && layout.isPlaced; layout = layout.parentInfo }
+                    val location = IntArray(2)
+                    root.view.getLocationInWindow(location)
+                    val clipped = node.boundsInRoot.translate(Offset(location[0].toFloat(), location[1].toFloat()))
+                    val visible = AndroidRect()
+                    placed && ViewMatchers.isDisplayed().matches(root.view) && node.boundsInWindow.width > 0 && node.boundsInWindow.height > 0 &&
+                        root.view.getGlobalVisibleRect(visible) && clipped.width > 0 && clipped.height > 0 &&
+                        clipped.intersect(Rect(visible.left.toFloat(), visible.top.toFloat(), visible.right.toFloat(), visible.bottom.toFloat())).let { it.width > 0 && it.height > 0 }
+                } == true
+            }
+            if (!displayed) Thread.sleep(10)
+        }
+        assertEquals("Expected one clickable title", 1, count)
+        assertTrue("Expected clickable title is displayed", displayed)
     }
 
     @Before fun setup(): Unit = runBlocking {
@@ -106,7 +159,7 @@ class SearchLatencyTest {
     }
 
     @After fun close(): Unit = runBlocking {
-        rule.runOnUiThread { models.clear() }
+        instrumentation.runOnMainSync { models.clear() }
         preferenceScope.coroutineContext[Job]!!.cancelAndJoin()
         db.close(); preferenceFile.delete()
     }
@@ -120,23 +173,27 @@ class SearchLatencyTest {
         models.put("latency", vm)
         // Observational only: state delivery is not a replacement for the existing visible-draw endpoint.
         preferenceScope.launch(Dispatchers.Unconfined) {
-            vm.state.collect { state ->
+            combine(vm.state, vm.publishedQueryVersion) { state, version -> state to version }.collect { (state, version) ->
                 val request = pending.get()
-                if (request != null && vm.query.value == request.case.query && matches(state, request.case)) {
-                    request.readyAt.compareAndSet(0, SystemClock.elapsedRealtimeNanos())
+                if (request != null && version == vm.queryVersion && vm.query.value == request.case.query && matches(state, request.case) &&
+                    (state !is SearchUiState.Results || state.requestVersion == vm.queryVersion)) {
+                    request.ready.compareAndSet(null, Ready(SystemClock.elapsedRealtimeNanos(), android.os.Process.getElapsedCpuTime(), Thread.currentThread().id, Debug.threadCpuTimeNanos()))
                 }
             }
         }
         val phases = JSONArray()
-        rule.setContent {
+        rule.scenario.onActivity { host ->
+            activity = host
+            host.setContent {
             val query by vm.query.collectAsStateWithLifecycle()
             val state by vm.state.collectAsStateWithLifecycle()
+            val publishedVersion by vm.publishedQueryVersion.collectAsStateWithLifecycle()
             val selectedTab by vm.selectedTab.collectAsStateWithLifecycle()
             val activeTab = selectedTab ?: (state as? SearchUiState.Results)?.results?.initialTab ?: SearchTab.REWARDS
-            val list = remember { LazyListState() }
+            val lists = rememberSearchLists(vm, state)
+            val list = lists.getValue(activeTab)
             val focus = remember { FocusRequester() }
-            // Use the production next-layout reset; the expected visible-result draw still ends each sample.
-            LaunchedEffect(query) { if (vm.consumeScrollReset()) list.requestScrollToItem(0) }
+            // Use production per-tab viewports and reset; the expected visible-result draw still ends each sample.
             MileStoneTheme {
                 AuroraBackground(Modifier.fillMaxSize()) {
                     Box(Modifier.fillMaxSize().navigationBarsPadding().drawWithContent {
@@ -149,38 +206,56 @@ class SearchLatencyTest {
                             first?.title == request?.case?.firstTitle && list.layoutInfo.visibleItemsInfo.any {
                                 it.key == first?.id && it.offset < list.layoutInfo.viewportEndOffset && it.offset + it.size > list.layoutInfo.viewportStartOffset
                             }
-                        if (request != null && renderedQuery == request.case.query && matches(renderedState, request.case) && visible && pending.compareAndSet(request, null)) {
+                        if (request != null && renderedQuery == request.case.query && matches(renderedState, request.case) && visible &&
+                            publishedVersion == vm.queryVersion &&
+                            (renderedState !is SearchUiState.Results || renderedState.requestVersion == vm.queryVersion) && pending.compareAndSet(request, null)) {
                             request.elapsedMs = (SystemClock.elapsedRealtimeNanos() - request.started) / 1_000_000.0
+                            request.drawThreadCpuNs = Debug.threadCpuTimeNanos()
+                            request.drawProcessCpuMs = android.os.Process.getElapsedCpuTime()
                             request.latch.countDown()
                         }
                     }) {
                         SearchContent(query, state, list, focus, vm::setQuery, vm::clear, vm::retry, {}, {},
-                            selectedTab = activeTab, onTab = vm::selectTab)
+                            selectedTab = activeTab, onTab = vm::selectTab,
+                            updating = publishedVersion != vm.queryVersion ||
+                                ((state as? SearchUiState.Results)?.requestVersion?.let { it != vm.queryVersion } == true))
                     }
                 }
             }
         }
-        rule.waitUntil(30_000) { vm.state.value == SearchUiState.Start }
+        }
+        runBlocking { withTimeout(30_000) { vm.state.first { it == SearchUiState.Start } } }
+        val injectedDelayMs = InstrumentationRegistry.getArguments().getString("searchLatencyUiDelayMs")?.toLong() ?: 0L
+        require(injectedDelayMs in 0L..1000L)
         fun measure(case: Case): Double {
-            rule.waitForIdle()
+            // The preceding sample has completed its visible draw and title assertion.
+            // Drain queued UI work without waiting for the continuously animated background to become idle.
+            instrumentation.runOnMainSync { }
             lateinit var request: Pending
-            rule.runOnUiThread {
+            instrumentation.runOnMainSync {
                 val gcBefore = Debug.getRuntimeStat("art.gc.gc-count")?.toLongOrNull()
                 request = Pending(case, SystemClock.elapsedRealtimeNanos(), gcBefore)
                 assertTrue(pending.compareAndSet(null, request))
+                if (injectedDelayMs > 0) Thread.sleep(injectedDelayMs)
                 vm.setQuery(case.query)
             }
-            rule.waitUntil(3_000) { request.latch.count == 0L }
+            assertTrue("Expected matching result was visibly drawn", request.latch.await(3, java.util.concurrent.TimeUnit.SECONDS))
             val gcAfter = Debug.getRuntimeStat("art.gc.gc-count")?.toLongOrNull()
-            val readyAt = request.readyAt.get()
+            val ready = requireNotNull(request.ready.get())
+            val readyAt = ready.at
             assertTrue("Expected result-state delivery was observed", readyAt >= request.started)
             val readyMs = (readyAt - request.started) / 1_000_000.0
             assertTrue("State delivery precedes visible draw", readyMs <= request.elapsedMs)
             val gcDelta = request.gcBefore?.let { before -> gcAfter?.minus(before) }
             phases.put(JSONObject().put("family", case.family).put("count", case.count)
                 .put("results_ready_ms", readyMs).put("draw_after_results_ms", request.elapsedMs - readyMs)
-                .put("gc_delta", gcDelta ?: JSONObject.NULL))
-            case.firstTitle?.let { rule.onNode(hasText(it) and hasClickAction()).assertIsDisplayed() }
+                .put("gc_delta", gcDelta ?: JSONObject.NULL)
+                .put("main_cpu_ms", (request.drawThreadCpuNs - request.startThreadCpuNs) / 1_000_000.0)
+                .put("process_ready_cpu_ms", ready.processCpuMs - request.startProcessCpuMs)
+                .put("process_after_ready_cpu_ms", request.drawProcessCpuMs - ready.processCpuMs)
+                .put("ready_observer_is_main", ready.threadId == request.startThreadId)
+                .put("main_after_ready_cpu_ms", if (ready.threadId == request.startThreadId) (request.drawThreadCpuNs - ready.threadCpuNs) / 1_000_000.0 else JSONObject.NULL))
+            case.firstTitle?.let(::assertDisplayedTitle)
             assertTrue(request.elapsedMs >= 0)
             return request.elapsedMs
         }
@@ -188,6 +263,7 @@ class SearchLatencyTest {
         val contextual = Case("contextual", "InstitutionAAA terminal", 40, "Fixture benefit 0000")
         val description = Case("description_only", "terminal", 1000, "Fixture benefit 0000")
         listOf(broad, Case("title", "benefit 0001", 1, "Fixture benefit 0001"), contextual).forEach(::measure)
+        android.util.Log.i("MileStoneSearchFixture", "timing phase=measured samples=30")
         val observations = mutableListOf<Pair<Case, Double>>()
         repeat(5) { iteration ->
             val number = iteration + 2
@@ -200,10 +276,10 @@ class SearchLatencyTest {
         assertEquals(30, sorted.size)
         val p95 = sorted[ceil(sorted.size * .95).toInt() - 1]
         val result = JSONObject().put("programs", 25).put("cards", 100).put("displayed_benefits", 2000)
-            .put("samples", 30).put("warmups", 3).put("p95_ms", p95).put("limit_ms", 200)
+            .put("samples", 30).put("warmups", 3).put("frame_clock", "Android Choreographer").put("injected_ui_delay_ms", injectedDelayMs).put("p95_ms", p95).put("limit_ms", 200)
             .put("minimum_ms", sorted.first()).put("maximum_ms", sorted.last())
             .put("device", Build.DEVICE).put("hardware", Build.HARDWARE).put("api", Build.VERSION.SDK_INT)
-            .put("method", "Monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded")
+            .put("method", "Android real-frame monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded")
             .put("phase_diagnostics_including_warmups", phases)
             .put("observations", JSONArray().also { array -> observations.forEach { (case, elapsed) ->
                 array.put(JSONObject().put("family", case.family).put("count", case.count).put("elapsed_ms", elapsed))

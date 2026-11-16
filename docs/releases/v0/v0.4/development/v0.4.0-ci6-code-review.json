@@ -1,0 +1,135 @@
+{
+  "status": "CURRENT_CODE_REVIEW_COMPLETE_QUALIFICATION_OPEN",
+  "mode": "report-only",
+  "base": "d7c9148d0a6de5f012e7c1a2a76573601c42ec4d",
+  "intent": "Correct asynchronous query viewport ownership, faithful real-frame timing with unchanged 30/3/200 and visible-result assertions, bounded Benefits readiness, and unchanged-look background drawing isolation; no issuer/auth/schema or publication actions. DoD8 correction marks pending matches and prior empty/start states as updating; publication generation metadata is set on Main before public state emission, without changing public state variants. The updating regression now drives actual SearchScreen and real Room-backed SearchViewModel with a paused standard executor, checking matches and empty-state transitions at320dp/200%font. Completed credit amounts must not infer an unknown target from earned alone; retain full completed progress, actual earned-only labels, and known stored or explicit title targets.",
+  "sha256": {
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt": "a49d274e3034392b0eafc9bd3255076acf44301ff875d2cc63841d60b99fefed",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "65d29ee98b5d379fa73e4caa8ee54dcfc6b40d28c8653c52812a0ed711187299",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "867a27e23f37c0b1f07e767fb538e0cdf703c5d2f1348943591c303565e81343",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "c685964536e6740edee9b97d80f9d1e8148e146716ce3716f91a404d6a8a9c77",
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "65e252730c064186c68cbefbe9b6c9cf8da32909fb5c31482145091f27daf81b",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt": "1f63edda44f1d0c89348ee95ab8e8856bdcb10b96b5fa8b1428bbe6d3057ad01",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt": "e24b91a2fc08b48f936d05b5026a75c5b787414b1db75c044b7c043364087d64",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": "e384bef2778712097edc43746c1e9a7deb03dd3592b363579be2cf4892a6d2da",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt": "957dbdec02b8b5632f03cf3fc8b876f959168a4476453a5a8924561c566d9fed"
+  },
+  "changed_files": 10,
+  "bundles": {
+    "app/src/androidTest/java/com/bendourthe/milestone/sync": [
+      "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt"
+    ],
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search": [
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt"
+    ],
+    "app/src/main/java/com/bendourthe/milestone/ui/search": [
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt"
+    ],
+    "app/src/main/java/com/bendourthe/milestone/ui/theme": [
+      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt"
+    ],
+    "app/src/test/java/com/bendourthe/milestone/ui/search": [
+      "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt"
+    ],
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits": [
+      "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt"
+    ],
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits": [
+      "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt"
+    ]
+  },
+  "bundle_count": 7,
+  "scope_complete_disjoint": true,
+  "review_method": "Prior eight-file v4 findings and source hashes retained; all seven lenses independently reviewed the two-file v5 credit delta. No source edits by reviewers.",
+  "selected": [
+    "correctness",
+    "maintainability",
+    "testing",
+    "project-standards",
+    "performance",
+    "reliability",
+    "api-contract"
+  ],
+  "skipped": {
+    "security": "No new production validation, credential/session access, persistence or outbound trust boundary; query remains bounded memory-only.",
+    "adversarial": "No new production endpoint or trust boundary; bounded test-only delay args can only make the gate stricter.",
+    "agent-native": "No new user-facing capability; existing search navigation/actions unchanged."
+  },
+  "final_findings": [],
+  "retained_findings": [
+    {
+      "title": "Pending-query disposal lacked a regression",
+      "severity": "P2",
+      "confidence": 100,
+      "verification": "deterministic",
+      "disposition": "resolved",
+      "evidence": "New navigation disposal case passes; disabling the production generation check fails with expected (0,0), actual (29,12). Test baseline adoption remains pending genuine owner agreement."
+    },
+    {
+      "title": "Timing ended before title visibility",
+      "severity": "P2",
+      "confidence": 100,
+      "verification": "evidence-based",
+      "disposition": "refuted",
+      "reason": "Fixed fixture has no scroll/font change or asynchronous text. Actual current viewport intersection is checked at draw, and a later clipped-title assertion would remain clipped and fail. Reviewer withdrew."
+    },
+    {
+      "title": "Updating component test did not cover production binding",
+      "severity": "P2",
+      "confidence": 100,
+      "verification": "deterministic",
+      "disposition": "resolved",
+      "evidence": "Real SearchScreen and Room-backed SearchViewModel test holds matching executor and verifies retained results and empty-state transitions; 1/1 observed pass."
+    },
+    {
+      "title": "Prefer a single versioned internal flow",
+      "severity": "P2",
+      "confidence": 100,
+      "verification": "model-based",
+      "disposition": "refuted",
+      "reason": "Main-side publication immediately precedes state storage without suspension, while separate metadata preserves existing public state equality and subscription behavior. No concrete failure identified; reviewer final findings empty."
+    },
+    {
+      "title": "Earned-only completed credit invents unknown target",
+      "severity": "P2",
+      "confidence": 100,
+      "verification": "deterministic",
+      "disposition": "resolved",
+      "evidence": "Pre-fix earned-only regression fails: expected $50 earned, actual $50/$50. Corrected target fallback passes focused suite and preserves explicit-title known targets."
+    }
+  ],
+  "scoring": {
+    "order": [
+      "fingerprint_dedup",
+      "independent_agreement_promotion",
+      "noninteractive_advisory_demotion",
+      "late_confidence_gate",
+      "independent_validation"
+    ],
+    "advisory_p2_p3_demotion": "100 to 75 where applicable before independent validation",
+    "final_survivors": 0,
+    "retained_dispositions": "Resolved and independently refuted candidates remain in this report; no candidate is deleted."
+  },
+  "considered_but_rejected": [
+    {
+      "candidate": "Single-flow internal redesign",
+      "location": "SearchViewModel state publication",
+      "reason": "The change would add complexity without user benefit; no observed ordering failure remains."
+    },
+    {
+      "candidate": "Timing title check is too late",
+      "location": "SearchLatencyTest draw/semantics assertions",
+      "reason": "Evidence was insufficient for the alleged false pass; fixed fixture and actual visible-row intersection refute it."
+    }
+  ],
+  "limits": [
+    "Full current-source local and runtime qualification remains pending.",
+    "No new remote authority is granted by review.",
+    "Navigation test preservation baseline still requires genuine owner agreement.",
+    "Review is not release, archive, native PLAN COMPLETE or global goal completion."
+  ]
+}

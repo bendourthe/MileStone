@@ -1,0 +1,943 @@
+{
+  "status": "pass",
+  "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23",
+  "checks": 2609,
+  "measurements": 384,
+  "findings": [],
+  "canonical_pngs": 225,
+  "identical_pngs": 225,
+  "changed_pngs": [],
+  "png_comparison": [
+    {
+      "path": "1000x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1000x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1001x900-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1024x640-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1200x800-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1366x768-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1440x1000-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "1920x1080-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "2560x1300-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "320x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "390x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "420x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "759x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "760x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "761x844-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "900x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-balanced-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "999x900-deep-dive-slide-8.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1000.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1001.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1024.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1200.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1366.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1440.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-1920.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-2560.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-320-200percent.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-320.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-390.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-420.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-759.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-760.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-761.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-900.png",
+      "byte_identical": true
+    },
+    {
+      "path": "reading-999.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-1.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-2.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-3.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-4.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-5.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-6.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-7.png",
+      "byte_identical": true
+    },
+    {
+      "path": "slide-8.png",
+      "byte_identical": true
+    }
+  ],
+  "prior_visual_baseline": "v0.4.0-release-updating-status (unadopted candidate, not live receipt)",
+  "retained_updating_targeted_images": [
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-updating-status/run-1/updating-memory-version-390.png",
+      "raw_sha256": "300c3f6e42b1af6208a653a00468de4dd7e0e0a129237b33f197c13397d965e5",
+      "reuse_scope": "Prior targeted content view; not a new capture or proven byte-identical current screenshot"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-updating-status/run-1/updating-verification-390.png",
+      "raw_sha256": "b80405d10ebe5b2e12ec486a4b07bd0fa4b2d541356fcf07fb90595640013bd8",
+      "reuse_scope": "Prior targeted content view; not a new capture or proven byte-identical current screenshot"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-updating-status/run-1/updating-memory-deep-1366.png",
+      "raw_sha256": "53c40192d2f89576ba5abe53d4d75f63dacefca286c14d542dc44ad90bf569ba",
+      "reuse_scope": "Prior targeted content view; not a new capture or proven byte-identical current screenshot"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-updating-status/run-1/updating-verification-deep-1366.png",
+      "raw_sha256": "3293ae379cf5250763ebdce8b50d470ee36135cb494131222d1e441f4794e6ee",
+      "reuse_scope": "Prior targeted content view; not a new capture or proven byte-identical current screenshot"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-updating-status/print-review-page16.png",
+      "raw_sha256": "8e92903052fd02dde9302b71ab9f11c966b5a42d34b3ad7a5fe4534ca04849bb",
+      "reuse_scope": "Current actual PDF page16 text and raster proven identical to prior PDF page16"
+    }
+  ],
+  "current_pdf_page16_raster_identical_to_prior": true,
+  "print_evidence": "print-review.json",
+  "source_scope_v5_files_matched": 10
+}

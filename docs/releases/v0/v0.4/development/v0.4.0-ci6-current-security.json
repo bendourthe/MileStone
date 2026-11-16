@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "base_ref": "origin/develop",
+  "positive_control_detected": true,
+  "input_sha256": "4b695a48ac088e3a20a1fcd9a9f64c4a9541665c431933934950c3f7e7440f98",
+  "input_bytes": 5606780,
+  "scanned_input_sha256": "f56d11a66c36590cf92581cd6e5c4d4a29fb9cd34b22ac2fed3fcf83bb7e3954",
+  "scanned_bytes": 5605244,
+  "public_metadata_exemptions": 24,
+  "findings": 0
+}

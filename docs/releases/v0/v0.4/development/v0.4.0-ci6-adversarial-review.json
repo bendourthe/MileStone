@@ -1,0 +1,49 @@
+{
+  "verdict": "PASS_FOR_DECLARED_LOCAL_CORRECTION_AND_TESTED_ATTACK_ROUTES",
+  "findings": [],
+  "confirmed_vulnerabilities": 0,
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "independent_source_fingerprint_recomputed": true,
+  "scope_v5_hash_mismatches": 0,
+  "independently_verified_mapped_cases": 57,
+  "current_receipts": {
+    "jvm": "425cases0failures0errors10optionalExtractorFixtureTestskips",
+    "android": "76cases0failures0errors0skips"
+  },
+  "mapped_suites": {
+    "GlobalSearchTest": 15,
+    "SearchRepositoryTest": 9,
+    "BenefitsViewModelTest": 9,
+    "SearchNavigationTest": 16,
+    "SearchUpdatingStatusTest": 1,
+    "SearchLatencyTest": 1,
+    "BenefitsRedesignDeviceTest": 6
+  },
+  "tested_routes": {
+    "A1": "Bounded/malformed/Unicode query normalization and no evaluation sink.",
+    "A2": "Added/removed/disconnected corpus, card clear, local welcome, excluded identity/financial fields, canonical aliases.",
+    "A3": "Program-only expansion, mixed contextual own-token rule, duplicate titles and display order.",
+    "A4": "Removal/revision/reveal races, reused keys, query ABA, repeated taps and removed origin.",
+    "A5": "Real Screen/Room retained matches and empty transitions, equal-empty generation, pending disposal, separate tabs and Back/collapse.",
+    "A6": "Slow reads, transaction/preference IO failures and local retry.",
+    "A7": "Actual rotation/saved-state privacy and unchanged rows/preferences; no auth/network dispatch by inspected local wiring.",
+    "A8": "Real-frame timing and canonical prebuilt partitions; unchanged endpoint historical300mscontrol only supports sensitivity."
+  },
+  "credit_delta": "Current unknown-target regression and known-target/unfinished companion cases pass; retained pre-fix RED remains coordinator-owned evidence.",
+  "timing": {
+    "samples": 30,
+    "warmups": 3,
+    "limit_ms": 200,
+    "delay_ms": 0,
+    "p95_ms": 144.4722,
+    "maximum_ms": 224.2012,
+    "minimum_ms": 46.1051,
+    "independently_recomputed": true
+  },
+  "limits": [
+    "Finite tested attack matrix is not proof for every corpus/interleaving.",
+    "Held initialStart and Android distinctEmpty-to-Empty are not separate instrumentation cases; source/JVM/real-screen integration cover mechanisms and no defect was demonstrated.",
+    "No issuer/private/capture/credential/phone/debugger access by verifier.",
+    "No global/native/publication/main/release/archive completion follows from this local assessment."
+  ]
+}

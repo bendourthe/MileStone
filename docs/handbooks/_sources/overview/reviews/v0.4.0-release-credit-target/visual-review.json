@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23",
+  "review_method": "Direct inspection of five current images and full native browser/actual PDF comparison",
+  "reviewed_images": [
+    "run-1/credit-target-reading-390.png",
+    "run-1/credit-target-paragraph-1366.png",
+    "run-1/credit-target-deep-1366.png",
+    "print-review-page8.png",
+    "print-review-page9.png"
+  ],
+  "observations": [
+    "390 px reading viewport keeps navigation and title readable without horizontal clipping",
+    "Complete credit paragraph is readable and states stored positive target then single explicit leading dollar title only; earned alone does not establish a target",
+    "Deep dive source pane retains scrolling and readable text; clipped continuation is expected within its bounded scroll area",
+    "Actual print pages8/9 retain complete text, section separation, and readable wrapping without overlap",
+    "Both actual print cohorts have16nonempty pages and identical text/rasters; only pages8/9 differ from prior812 candidate"
+  ],
+  "comparison_evidence": "comparison.json",
+  "print_evidence": "print-review.json",
+  "findings": []
+}

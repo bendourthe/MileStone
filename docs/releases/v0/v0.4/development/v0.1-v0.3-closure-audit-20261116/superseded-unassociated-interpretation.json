@@ -1,0 +1,69 @@
+{
+  "recorded_utc": "2026-11-16T12:01:46.383696+00:00",
+  "scope": "Original released v0.1-v0.3 obligations, read-only native reconciliation against current tools and remote release metadata.",
+  "checker_sha256": "cdb0c05afeaae3b79f010b2c82b28a6079a8906e52701e4901084907dfc5aca5",
+  "primary_head": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "primary_clean": true,
+  "releases": [
+    {
+      "tag_name": "v0.3.1",
+      "draft": false,
+      "published_at": "2026-11-14T04:07:29Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.1"
+    },
+    {
+      "tag_name": "v0.3.0",
+      "draft": false,
+      "published_at": "2026-11-13T23:20:21Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.0"
+    },
+    {
+      "tag_name": "v0.2.0",
+      "draft": false,
+      "published_at": "2026-11-12T23:04:21Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.2.0"
+    },
+    {
+      "tag_name": "v0.1.0",
+      "draft": false,
+      "published_at": "2026-11-12T04:32:34Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.1.0"
+    }
+  ],
+  "canonical_archives": {
+    "v0.1": {
+      "tracked_archive_files": 15,
+      "active_minor_tree_absent": true
+    },
+    "v0.2": {
+      "tracked_archive_files": 11,
+      "active_minor_tree_absent": true
+    },
+    "v0.3": {
+      "tracked_archive_files": 148,
+      "active_minor_tree_absent": true
+    }
+  },
+  "v01_current_primary_verdict": "INCOMPLETE: approval.remote archive.minor",
+  "v02_current_primary_verdict": "INCOMPLETE: approval.remote cleanup.branches archive.minor",
+  "v03_minor_verdict": "INCOMPLETE: record.minor",
+  "new_findings": [
+    "Current checker accepts original v0.1 primary evidence; compatibility commit47606d2 publication is no longer required for those predicates. Preserve its branch rather than publishing unnecessary changes.",
+    "Current v0.2 task predicates includingT005 are met; prior literal capture-path parser blocker is superseded.",
+    "All four original releases are published, non-draft; all three minor trees are canonically archived in clean primarydevelop."
+  ],
+  "remaining": [
+    "v0.1 native approval.remote and archive.minor",
+    "v0.2 native approval.remote,cleanup.branches and archive.minor",
+    "v0.3 native schema2minor record absent"
+  ],
+  "authority_limits": [
+    "Archive predicate requires recorded archive-minor approval, not just an existing archive tree.",
+    "Current remote approval is cannot-verify; no key, credential or raw transport configuration was read to bypass it.",
+    "No signed record, installed checker, branch, worktree, release or remote was modified.",
+    "No old release was rebuilt or republished; original v0.3.0 PLAN COMPLETE was not redone.",
+    "Search pending baseline/publication and future Chase/offers obligations are retained."
+  ],
+  "status": "SUPERSEDED: unassociated per-plan interpretation; use reconciliation.json with authoritative parent context",
+  "superseded_reason": "Unassociated diagnostics cannot establish the signed minor member task/approval predicates."
+}

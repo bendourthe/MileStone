@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalContext
 import kotlin.math.PI
@@ -42,7 +43,10 @@ fun AuroraBackground(modifier: Modifier = Modifier, content: @Composable BoxScop
     } else {
         remember { mutableFloatStateOf(0.15f) }
     }
-    Box(modifier.drawBehind { drawAurora(phase.value) }, content = content)
+    Box(modifier) {
+        Box(Modifier.matchParentSize().graphicsLayer { }.drawBehind { drawAurora(phase.value) })
+        content()
+    }
 }
 
 private const val LOOP_MS = 60_000

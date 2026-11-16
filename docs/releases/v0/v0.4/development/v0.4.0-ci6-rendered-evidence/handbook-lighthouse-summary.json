@@ -1,0 +1,12 @@
+{
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 96.0,
+    "seo": 90.0
+  },
+  "version": "13.6.0",
+  "runtime_error": null,
+  "surface": "Current offline handbook served only through an ephemeral127.0.0.1 listener",
+  "cleanup": "Owned server shut down in finally"
+}
