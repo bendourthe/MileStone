@@ -206,7 +206,7 @@ class SearchLatencyTest {
                             first?.title == request?.case?.firstTitle && list.layoutInfo.visibleItemsInfo.any {
                                 it.key == first?.id && it.offset < list.layoutInfo.viewportEndOffset && it.offset + it.size > list.layoutInfo.viewportStartOffset
                             }
-                        if (request != null && renderedQuery == request.case.query && matches(renderedState, request.case) && visible &&
+                        if (request != null && renderedQuery == request.case.query && matches(renderedState, request.case) && visible && activity.hasWindowFocus() &&
                             publishedVersion == vm.queryVersion &&
                             (renderedState !is SearchUiState.Results || renderedState.requestVersion == vm.queryVersion) && pending.compareAndSet(request, null)) {
                             request.elapsedMs = (SystemClock.elapsedRealtimeNanos() - request.started) / 1_000_000.0
@@ -230,7 +230,9 @@ class SearchLatencyTest {
         fun measure(case: Case): Double {
             // The preceding sample has completed its visible draw and title assertion.
             // Drain queued UI work without waiting for the continuously animated background to become idle.
-            instrumentation.runOnMainSync { }
+            var focused = false
+            instrumentation.runOnMainSync { focused = activity.hasWindowFocus() }
+            assertTrue("Synthetic Search window must have foreground focus", focused)
             lateinit var request: Pending
             instrumentation.runOnMainSync {
                 val gcBefore = Debug.getRuntimeStat("art.gc.gc-count")?.toLongOrNull()

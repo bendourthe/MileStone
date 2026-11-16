@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "browser": "156.0.8078.4",
+  "checks": [
+    {
+      "width": 420,
+      "before": {
+        "x": 8,
+        "y": -74.0406265258789,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "focused": {
+        "x": 8,
+        "y": 8,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "activation": "#handbook-content"
+    },
+    {
+      "width": 900,
+      "before": {
+        "x": 8,
+        "y": -74.0406265258789,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "focused": {
+        "x": 8,
+        "y": 8,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "activation": "#handbook-content"
+    },
+    {
+      "width": 1440,
+      "before": {
+        "x": 8,
+        "y": -74.0406265258789,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "focused": {
+        "x": 8,
+        "y": 8,
+        "width": 197.609375,
+        "height": 45.578125
+      },
+      "activation": "#handbook-content"
+    }
+  ]
+}

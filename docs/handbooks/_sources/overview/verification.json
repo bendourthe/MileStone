@@ -1,12 +1,12 @@
 {
   "snapshot": {
-    "entry_sha256": "3f0cec2d37328b46330dc20eb8fd9f1d0bccd607923b44a49d76c04bd9e6c1f1",
+    "entry_sha256": "c120c67d27487db0af1e8f80a1d1db688b7ac0aa9a4592ccb9d504dfc9cac69a",
     "inputs": {
-      "docs/handbooks/overview.md": "86b8901b63391fa4fbe6a4696c7309a917febad50f937b2d7569b67ddf271f6e",
+      "docs/handbooks/overview.md": "19eb835a04f82202fcaf063b08e1069c8f5a8b282df8002714ffb8d7ea608fb6",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
       "docs/handbooks/global-search.md": "86be0d2498de0488a70f6e318d2848e13760ee54ac2ca2b0021205f02ef9ddb4",
       "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
-      "docs/handbooks/handbooks.json": "5325006b00cd8063fdcc4b00885dc23a268550e628f2f1d1923689334cd06e4d",
+      "docs/handbooks/handbooks.json": "82e98e5c6e7c928e97260ce25ea1e52ec3a52d60dfa7ecf7e18cea759a7b5976",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
       "docs/handbooks/_sources/overview/project.css": "893f5d093ef2dd44221574b03ecdf45b50d0471e0b33491e56e58da4d824d84c",
@@ -60,38 +60,40 @@
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "cb20a8d5b6661361139b4d8a967aa21ff276e25bc64834f5a16df7d186338783",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
-      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "d401b1fbd4cb7644cecf4c33160d527da58fa510083950b4fd484da2e6001a6b",
-      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "112b87380b5ca63ae17197a89a181ba65b0b6109f9a99f0b4f48f5150929f5a1",
+      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "e0a04ffcc23c450bfe1fba76889ee969f0158bbd4db3dff97e131eb68a4b04b1",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "f110c6f81dbe17538aa1de19b7033e7fee735e15f6508045865d7d5a8fb215ba",
       "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
-      "scripts/validate.py": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
+      "scripts/validate.py": "3b36023f80b08575fc1b1df1de5ff99d9985f8fa6c648057779f96b6c7a4d4a4",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
       ".github/workflows/ci.yml": "b8c8def2104d747e2e8bffae05542b8829fb3fe52e9e8c5bb7c87abd55fcf2c2",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
-      ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af"
+      ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt": "3aca77af40892f4f3efad853806bd2003aa69d6040bbd4986de11c5b636ae203",
+      "scripts/tests/test_junit_task_status.py": "401730823cf5cc5b76e617a21bb512ac3a679dc27d4b38509daa79fc8d621d7a"
     },
-    "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23"
+    "output_sha256": "2e3b6096ea3999d54da28d15206f06b66f2c37470d30412eac01046982803227"
   },
   "checks": {
-    "content": {
-      "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/author-content-review.json",
-      "evidence_sha256": "45e2951596c85643cdbf9d7252ec54a6daa2784aeaba65b3703940b50b4f4c57"
-    },
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/build.json",
-      "evidence_sha256": "235c25dd3d8bf0762a0c6f215cdea5d86b1d4f107cc53e147ff57e17db95b6ea"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/build.json",
+      "evidence_sha256": "dd344aa2343a5feadd5938d3667c27d16b31f62b4dda9f5a6544c59a4ec606dc"
+    },
+    "content": {
+      "status": "pass",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/content.json",
+      "evidence_sha256": "b90d9271b24a69f9cf95f16364cad88c32da4a10b535920b3ce2ed38efd6383d"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/run-1/render.json",
-      "evidence_sha256": "971dd1052745b0db39a13c1b7891395b70ca1b9312f541945d73ab28ab3b777e",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/render/render.json",
+      "evidence_sha256": "b1a4fb41c411255a718c6b3cdbdc1e8cd680f162e8710585141c1ca0fb1e1628",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23"
+      "output_sha256": "2e3b6096ea3999d54da28d15206f06b66f2c37470d30412eac01046982803227"
     }
   },
   "limitations": [],
-  "qualification_scope": "Scope-v5 credit-target and updating-status handbook candidate; independent root adoption and actual native full-scope receipt check required. Application full/platform qualification and final goal review remain separate."
+  "qualification_scope": "Local ci7 handbook candidate at 969264d with uncommitted changes; actual build, source review and Chromium rendering. Application qualification, timing, hosted CI, release and expanded-goal closure remain separate and open."
 }

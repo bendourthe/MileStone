@@ -19,7 +19,7 @@ Local full gate, run from the repository root in PowerShell:
 python scripts/validate.py --profile full --quiet
 ```
 
-Use `python scripts/validate.py --profile fast --quiet` for the smaller checks. `--list --json` lists a profile's commands without running them or writing reports. Profiles write results under `reports/` by default; `python scripts/validate.py --profile report --quiet` aggregates existing receipts without rerunning checks. The `release` profile packages a clean committed source archive, verifies reproducible archive bytes and safe paths, and records version, commit, and SHA-256 metadata. It does not build an APK, use signing secrets, rerun tests, publish, or tag a release; debug sideloads remain separate.
+Use `python scripts/validate.py --profile fast --quiet` for the smaller checks. `--list --json` lists a profile's commands without running them or writing reports. Profiles write results under `reports/` by default; `python scripts/validate.py --profile report --quiet` aggregates existing receipts without rerunning checks. The collector preserves JUnit exports and rejects reported failures or errors even if Gradle returns zero; the platform profile reads the Debug variant it requests. The `release` profile packages a clean committed source archive, verifies reproducible archive bytes and safe paths, and records version, commit, and SHA-256 metadata. It does not build an APK, use signing secrets, rerun tests, publish, or tag a release; debug sideloads remain separate.
 
 The local emulator runtime gate is separate from `full`:
 
@@ -49,6 +49,8 @@ All code is in the single `app` module under `com.bendourthe.milestone`.
 | `sync.mfa` | `OneTimeCodeInbox` and `SmsCodeReceiver`: texted sign-in codes held in memory for five minutes, matched by sender keywords, handed out once. |
 | `sync.background` | `KeepAliveScheduler`, `KeepAliveReceiver`, and `KeepAliveService` (a refresh every 15 minutes as a short `dataSync` foreground task), `ScheduledRefreshScheduler` (an alarm at the next scheduled midnight, allowed while the phone idles), `VirtualDisplayWebViewHost` (an off-screen WebView), `BenefitReminders` (the daily credit reminder check, its private notifications, and its 9:00 alarm), and the notification channels. |
 | `ui` | `MainActivity`, the navigation host (Rewards, Benefits, Settings), the dashboard, the Benefits tab and card pages (`ui.benefits`), the program catalog, settings, and the sign-in sheet (`AuthWebViewModal`, `AutoSignInDialog`). `ui.theme` holds the single dark teal color scheme and `AuroraBackground`, a slow animated gradient drawn in its own graphics layer behind the foreground. Its dark teal gradient and three drifting glows share a minute-long loop and stay still when system animations are off. |
+
+The aurora combines its base and three glow brushes in the original source-over order before one viewport draw. The native rendering regression compares that output with the separate-draw reference across phases, viewports and color buffer formats; this color comparison does not qualify Search timing.
 
 `AppContainer` wires these together by hand; there is no dependency-injection framework.
 

@@ -72,7 +72,9 @@
         "scripts/tests/test_validate.py",
         ".github/workflows/ci.yml",
         "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md",
-        ".gitleaks.toml"
+        ".gitleaks.toml",
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt",
+        "scripts/tests/test_junit_task_status.py"
       ],
       "code_inputs": [
         "app/build.gradle.kts",
@@ -126,7 +128,9 @@
         "scripts/validate.py",
         "scripts/tests/test_validate.py",
         ".github/workflows/ci.yml",
-        ".gitleaks.toml"
+        ".gitleaks.toml",
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt",
+        "scripts/tests/test_junit_task_status.py"
       ],
       "builder": {
         "identity": "milestone-handbook-stdlib-v1",

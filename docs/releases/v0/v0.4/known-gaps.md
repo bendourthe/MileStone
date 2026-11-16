@@ -2,13 +2,13 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-15
+**Last updated**: 2026-11-16
 
 All 29 remaining v0.3 gaps are carried here with their original IDs, conditions and sources. Existing Gxx IDs are deliberately retained. The native typed-ledger parser does not recognize this legacy prefix, so counts and carry-forward are verified from the table rows rather than inferred from its zero-item result. Global search G37 is authorized for local implementation; its delivery remains open.
 
 | Status | Count |
 |---|---|
-| Open | 29 |
+| Open | 30 |
 | Fixed | 0 |
 
 ## Open
@@ -62,12 +62,23 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
 | Deferred (DF) | 0 | 0 |
-| Bugs / regressions (BG) | 0 | 0 |
+| Bugs / regressions (BG) | 1 | 0 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 1 |
 | Quality-gate gaps (QG) | 0 | 2 |
 
 ### Open Items
+
+#### Bugs / Regressions
+
+##### BG-1 - Search Real-Frame Timing
+
+- **Source phase**: Phase 4, T013 and T019; release qualification remains open.
+- **Plan reference**: `docs/releases/v0/v0.4/plans/v0.4.0-global-search.md`.
+- **Reason**: Hosted run 43909113839 on 969264d measured p95 386.95086 ms against the required 200 ms. Clean-emulator local foreground measurements also miss the requirement. A worker-publication trial failed at 660.9495 ms and was reverted; a single-pass background candidate remains unqualified. No threshold, corpus, sample-count or real-frame endpoint waiver is approved.
+- **Local correction**: The retained candidate subsequently passed the full 77-case emulator suite with Search p95 163.3076 ms, and its full local profile passed at the same final source fingerprint. Earlier misses remain retained. Current-head hosted qualification is still required, so this bug stays Open and is not approved for deferral.
+- **Suggested next step**: Android rendering/test maintainer must establish the cause and qualify a reviewed correction with the original 30 samples, three warmups and 200 ms real-frame gate, full emulator suite and current-head hosted CI. Keep PR 17, release, primary fast-forward and minor close on hold until the required gate passes.
+- **Evidence**: `development/history/2026-11-16-v0.4.0-ci-stabilization-7.md`; local reports `reports/release-v040/ci7-clean-focused-search-latency/` and `ci7-clean-worker-publication/`. This is current-plan work, not an approved deferral.
 
 #### Quality-Gate Gaps
 
@@ -92,7 +103,7 @@ The original source phase is Phase 4, T013/T016, owned by the handbook-tooling m
 The three confirmed T015 code defects were corrected and independently rechecked within the plan rather than deferred. QG-1 and QG-2 are resolved as configured-path/settings gaps; actual hosted execution remains a publication gate.
 
 
-The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are zero Open and three Resolved; combined legacy-plus-typed Open count is 29.
+The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are one Open and three Resolved; combined legacy-plus-typed Open count is 30. BG-1 blocks the current release and has not been approved for deferral.
 
 
 Current owner Search refinements require program-only descendant browsing, Rewards images/stored points and compact exact-card headers with independent chevrons. These are current-plan work, not a waiver of G37 delivery. The original legacy rows and their source conditions remain unchanged.

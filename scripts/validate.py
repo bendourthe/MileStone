@@ -350,7 +350,7 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
     clear_exports(run)
     counts = dict(tests=0, failures=0, errors=0, skipped=0)
     evidence_origin = "selected task outputs, including Gradle-validated up-to-date outputs" if succeeded else "partial reports written during this invocation; no old XML counted"
-    source = "app/build/outputs/androidTest-results/connected" if run.args.profile == "platform" else "app/build/test-results/testDebugUnitTest"
+    source = "app/build/outputs/androidTest-results/connected/debug" if run.args.profile == "platform" else "app/build/test-results/testDebugUnitTest"
     if run.args.profile in ("full", "platform"):
         for index, path in enumerate(sorted((run.root / source).rglob("*.xml"))):
             if not succeeded and path.stat().st_mtime < run.started:
@@ -374,6 +374,8 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
                 (run.reports / path.name).write_text(redact(path.read_text(), run.root, run.env), encoding="utf-8")
     if run.args.profile in ("full", "platform") and succeeded and counts["tests"] == 0:
         raise RuntimeError("The successful test task produced no JUnit evidence")
+    if succeeded and (counts["failures"] or counts["errors"]):
+        raise RuntimeError("The test task returned success but JUnit reports failures or errors")
     index = [{"tool": "gitleaks", "path": "sarif/" + p.name} for p in sorted((run.reports / "sarif").glob("*.sarif"))]
     (run.reports / "sarif" / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     counts["evidence_origin"] = evidence_origin if run.args.profile in ("full", "platform") else "No Android test runner selected"
