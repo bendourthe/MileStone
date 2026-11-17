@@ -1,0 +1,20 @@
+{
+  "plan": "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+  "kind": "Phase 4 T019 local runtime stabilization scope correction",
+  "base_head": "29950f7ce1ded389a7ff616224601d9ff577d900",
+  "authority": "Existing reversible local implementation/stabilization goal. Owner explicitly approved the notification test preservation baseline and bounded delivery wait. The one-import Compose test-rule experiment is a local harness correction under T019; it changes no product behavior or acceptance. No additional remote authority.",
+  "additional_write_paths": [
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitRemindersDeviceTest.kt",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt"
+  ],
+  "notification_scope": "Wait for the existing posted notification before unchanged duplicate/privacy assertions; production notifier unchanged. Temporary delayed-post controls are not retained.",
+  "compose_scope": "Use existing Compose 1.12.1 v2 test rule with queued coroutine dispatch; preserve all six existing test flows, interactions, assertions and timeouts. Treat this as a candidate until fresh runtime verification; do not claim hosted root-cause proof.",
+  "preserved": [
+    "Original Search corpus, navigation, data/sign-in preservation and30/3/200ms contract",
+    "All original and expanded completion obligations",
+    "Phone test prohibition and private-data rules",
+    "Existing approvals and native records",
+    "Separate push/CI/merge/release/destructive authority"
+  ],
+  "publication": "This preflight sidecar is not permission to publish and does not close T019 or T020."
+}
