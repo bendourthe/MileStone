@@ -84,7 +84,9 @@
         "searchBenchmark/src/main/AndroidManifest.xml",
         "searchBenchmark/src/main/java/com/bendourthe/milestone/searchbenchmark/SearchBenchmarkTest.java",
         "scripts/search_benchmark.py",
-        "scripts/tests/test_search_benchmark.py"
+        "scripts/tests/test_search_benchmark.py",
+        "scripts/search_diagnostics.py",
+        "scripts/tests/test_search_diagnostics.py"
       ],
       "code_inputs": [
         "app/build.gradle.kts",
@@ -150,7 +152,9 @@
         "searchBenchmark/src/main/AndroidManifest.xml",
         "searchBenchmark/src/main/java/com/bendourthe/milestone/searchbenchmark/SearchBenchmarkTest.java",
         "scripts/search_benchmark.py",
-        "scripts/tests/test_search_benchmark.py"
+        "scripts/tests/test_search_benchmark.py",
+        "scripts/search_diagnostics.py",
+        "scripts/tests/test_search_diagnostics.py"
       ],
       "builder": {
         "identity": "milestone-handbook-stdlib-v1",

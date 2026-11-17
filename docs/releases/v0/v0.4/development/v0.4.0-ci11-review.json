@@ -1,0 +1,114 @@
+{
+  "base_head": "2a939166a522235218bc0d386a4bc2172630d681",
+  "mode": "Local report-only review; no posting, devices, network or private captures",
+  "lenses": [
+    "correctness",
+    "maintainability",
+    "testing",
+    "project standards",
+    "security",
+    "reliability",
+    "adversarial",
+    "API contract"
+  ],
+  "scope_sha256": {
+    ".github/workflows/ci.yml": "7c8d2556ac7dad3b0184d3c66d3ed34403856a2dacf3ae72232cfbda4a1cc571",
+    "app/src/main/assets/extract.js": "739796f237f64e8100577fbad58ebbff5876324b8963c8b988522688a5ee86a8",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt": "8c142731243eb13043ae0df3916ffe9f69268a6cfbbe8e3b42d0171dc7d296a3",
+    "scripts/validate.py": "ba81d71de44aa310db7fd82fa2b17e0b88e771298ef0cbe0b30af6926c7e1c78",
+    "scripts/search_benchmark.py": "6bba7e0e24a4d2c3c3a4e0e2457b91b219bd74498f095e7bd8f70348f944fe17",
+    "scripts/search_diagnostics.py": "3123202ef78e56ae808bef2b2c0cfcce20053d48193c7aa754721092ea0b5806",
+    "scripts/tests/test_search_diagnostics.py": "e055d0d03e2cf8b707e9edfdd15fdd8d9d4eb654149b1414255657bfc1fb064c"
+  },
+  "findings": [
+    {
+      "id": "C1",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Windows cancellation could drain output indefinitely",
+      "resolution": "Bounded drain and taskkill paths preserve original interruption; independent mock recheck passed"
+    },
+    {
+      "id": "C2",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Successful drain after wrapper exit falsely confirmed descendant cleanup",
+      "resolution": "Exited wrapper always records uncertainty; four interruption/timeout and drain-success/failure cases pass"
+    },
+    {
+      "id": "T1",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Producer parent invocation field was not asserted",
+      "resolution": "Actual producer FakeRun test asserts parent and run IDs; omission negative control is detected"
+    },
+    {
+      "id": "S1",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Frozen plan scope did not name stabilization paths",
+      "resolution": "Linked scope correction sidecar names five additional write paths and narrow auth exception; independent standards recheck passed"
+    },
+    {
+      "id": "R1",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Native cleanup failure could become successful diagnostic collection",
+      "resolution": "Typed BenchmarkCleanupError propagates to failed diagnostic; producer and consumer controls pass"
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "status": "closed",
+      "issue": "Worker completion wait was shorter than permitted operations",
+      "resolution": "One shared 240-second completion budget, no unbounded join, explicit uncertainty for unfinished worker; slow/expired worker controls pass"
+    }
+  ],
+  "remaining_findings": [],
+  "considered_but_rejected": [
+    {
+      "candidate": "Timer reset bypasses refusal or expands retries",
+      "location": "extract.js successful password callback",
+      "reason": "Existing refusal-marker rules, second-press guard and caller budgets are unchanged"
+    },
+    {
+      "candidate": "Diagnostic success replaces original CI failure",
+      "location": "ci.yml diagnostic step",
+      "reason": "Original failed step and exports remain; no continue-on-error or qualification waiver"
+    },
+    {
+      "candidate": "Stale or hostile metrics authorize unrestricted collection",
+      "location": "search_diagnostics.py load_failure",
+      "reason": "Bounded contained evidence, invocation/source/run/APK identities and terminal native latency validation fail closed"
+    },
+    {
+      "candidate": "More orchestration classes are required",
+      "location": "search_diagnostics.py",
+      "reason": "Existing functional boundaries suffice; another abstraction provides no demonstrated user benefit"
+    },
+    {
+      "candidate": "Trace presence proves complete coverage",
+      "location": "diagnostic receipt",
+      "reason": "Status explicitly remains pending offline validation and all-query coverage is not claimed"
+    }
+  ],
+  "verification": {
+    "windows_helper_cases": 57,
+    "windows_passed": 56,
+    "windows_posix_skip": 1,
+    "focused_wsl_cases": 14,
+    "focused_wsl_passed": 14,
+    "negative_controls": "reports/release-v040/ci11-review-negative-controls-final.json",
+    "negative_controls_detected": 6,
+    "verification_classes": [
+      "deterministic unit and mutation controls",
+      "evidence-based source and plan checks",
+      "independent model review"
+    ]
+  },
+  "limits": [
+    "Prior full/platform qualification predates review-driven helper corrections; final qualification must be refreshed",
+    "Positive eligible failure-only CLI runtime path remains unexercised; real collector API smoke and controls retain their narrower scopes",
+    "No hosted success, new publication authority or full-goal completion is asserted"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "status": "LOCAL_REQUIRED_GATES_PASS_HOSTED_UNPROVEN",
+  "source_sha256": "06b021f5c5b629a78896e8c2b76f7e1f6f0783908538643af73fa9ebc85d4223",
+  "full": {
+    "invocation_id": "842d665c-46b1-4cda-a026-48763d51dd9c",
+    "counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 5065,
+      "total": 6477,
+      "percent": 78.2
+    },
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.469
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.25
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.265
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 8.703
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 15.782
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 58.64
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 10.469
+      }
+    ]
+  },
+  "platform": {
+    "invocation_id": "4525c393-c8aa-4ccc-adc1-fee3a580207e",
+    "counts": {
+      "tests": 78,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 803.75
+      },
+      {
+        "name": "optimized-search-performance",
+        "status": "PASS",
+        "seconds": 60.563
+      }
+    ]
+  },
+  "latency": {
+    "p95_ms": 170.002,
+    "samples": 30,
+    "warmups": 3,
+    "limit_ms": 200,
+    "preservation_passed": true,
+    "run_id": "3b911ef7-4a7b-4fd2-8d23-ef18a6201302"
+  },
+  "aggregate": "PASS",
+  "helper_tests": {
+    "windows_total": 57,
+    "windows_passed": 56,
+    "windows_posix_skip": 1,
+    "focused_wsl_passed": 14,
+    "negative_controls_detected": 6
+  },
+  "private_benefits_fixture": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "handbook": "v0.4.0-ci11-handbook-refresh.json",
+  "review": "v0.4.0-ci11-review.json",
+  "real_windows_timeout": {
+    "scope": "Actual Windows exited-wrapper/held-stdout timeout with a one-second synthetic child; no app/device/issuer access",
+    "exit_code": 124,
+    "elapsed_seconds": 1.25,
+    "cleanup_uncertainty_reported": true,
+    "descendant_cleanup_claimed": false,
+    "source_sha256": "ba81d71de44aa310db7fd82fa2b17e0b88e771298ef0cbe0b30af6926c7e1c78"
+  },
+  "collector_followup": {
+    "status": "HOST_NOT_IDLE",
+    "python_launcher_invoked": false,
+    "workloads_started": 0,
+    "affinity_restored_verified": true,
+    "resource_receipt": "reports/release-v040/ci10-resource-2f66049fe3f140e4b657b2e73cf834c2/affinity-restored.json",
+    "passing_native_cli": "SKIPPED; zero device calls; current optimized failure not established",
+    "positive_eligible_cli": "Not exercised; no fabricated native failure report or hosted success claimed"
+  },
+  "publication_gates": [
+    "Fresh post-commit full/security validation after final evidence writes",
+    "Committed-source packaging and unchanged-source check",
+    "Separate exact-path one-push authority",
+    "Current-head hosted CI green before merge",
+    "All release/archive/original and expanded goal obligations"
+  ],
+  "remote_actions": {
+    "pushes": 0,
+    "ci_runs": 0,
+    "merges": 0
+  },
+  "issuer_actions": 0
+}

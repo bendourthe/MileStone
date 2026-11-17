@@ -1,12 +1,12 @@
 {
   "snapshot": {
-    "entry_sha256": "ea56e15e940dc3f90852b06ee61abf01761e2348629a56e569a15dd09e89d4bf",
+    "entry_sha256": "4ff98af808dcf4e940fc6b29cc7624c668befeef8fb6ca783619c8d68f780a6a",
     "inputs": {
-      "docs/handbooks/overview.md": "6dace1b16a9cd60d5b2059ad9b82b8e6e8d1f38b51d2451cc42ad67b5138d18b",
+      "docs/handbooks/overview.md": "6e25c98665fee5daa493c15d63c57456bbf457592062c531ad0ab5bd3a6b79bd",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
       "docs/handbooks/global-search.md": "c8f158168cb327b3a9eeae4e41c423fff9f10f4c3f87e9c23519ea996c54c6db",
       "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
-      "docs/handbooks/handbooks.json": "bfc5429ce167a7221c392c76d91bd7fe15fbe23c50df1e0ba24b5a972afb47ac",
+      "docs/handbooks/handbooks.json": "83d4764128e0395ad134f446c09fed1fffd5e5ea37eba7b3317e2ff27b2f591d",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
       "docs/handbooks/_sources/overview/project.css": "893f5d093ef2dd44221574b03ecdf45b50d0471e0b33491e56e58da4d824d84c",
@@ -18,7 +18,7 @@
       "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4",
       "app/build.gradle.kts": "90c95e46faf207ed9969d2458f99f1d59564a5974fdff219a6fe7f126fc3d610",
       "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db",
-      "app/src/main/assets/extract.js": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3",
+      "app/src/main/assets/extract.js": "011e2b86f1ffd44a8ae9307fd1d2ebdc2079c522d1a3ae5b236f6526387ad054",
       "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "2c610ded646112c6c0fba15b697f37ffeba6a26477e880495ce83b211db75f4b",
       "app/src/main/java/com/bendourthe/milestone/data/catalog/StaticCatalogRepository.kt": "dc8f496fd12f0fede35fbe8ee390a763bf2d37e81ad0a942bfbe4d4663426ae5",
       "app/src/main/java/com/bendourthe/milestone/data/db/MileStoneDatabase.kt": "c9c7dafb4be241192f5c7bee96d82598901cfa33032337bf5b1308bc5241b5c2",
@@ -64,10 +64,10 @@
       "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "c51ed7f236e38bc3c356c4cf9eeeab332e59b87e308c9710accb0c60f79799be",
       "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
-      "scripts/validate.py": "7ce149ec9881e6eec2935fd493ba37eb9d0746a7d153e08a015acbf380c304ff",
+      "scripts/validate.py": "ba81d71de44aa310db7fd82fa2b17e0b88e771298ef0cbe0b30af6926c7e1c78",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
-      ".github/workflows/ci.yml": "1b285ed9bf8117cc593f558a8ac1f0c07d8fd938109f6b50c57283675e8e5e79",
+      ".github/workflows/ci.yml": "a1dd126fe552a21fc440dd1d5db11db6139f001f66bc363318a64362017d485a",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af",
       "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt": "3aca77af40892f4f3efad853806bd2003aa69d6040bbd4986de11c5b636ae203",
@@ -80,30 +80,53 @@
       "searchBenchmark/build.gradle.kts": "0f7c178e22fbd2cca67f3fca19dd974e38faf83ddb7fe4d3eac188f340c4290d",
       "searchBenchmark/src/main/AndroidManifest.xml": "a3749a7dd3830e386c3e9fc51ad173e1cc889f78da6b1704a8d33ed36dc20034",
       "searchBenchmark/src/main/java/com/bendourthe/milestone/searchbenchmark/SearchBenchmarkTest.java": "f89a74cd14664b923da5b857308b5eafdb5bcb864cf05c7af23a4b37d98d0b99",
-      "scripts/search_benchmark.py": "51b6bbb8fe1709ce1a806542b6ab7585abdcb5ddc21cb0b498473c23613ba0de",
-      "scripts/tests/test_search_benchmark.py": "aaf1e8f1c1a0f7998135fece6bd158858b53f490b0955e26de8371b695bf40bd"
+      "scripts/search_benchmark.py": "6bba7e0e24a4d2c3c3a4e0e2457b91b219bd74498f095e7bd8f70348f944fe17",
+      "scripts/tests/test_search_benchmark.py": "aaf1e8f1c1a0f7998135fece6bd158858b53f490b0955e26de8371b695bf40bd",
+      "scripts/search_diagnostics.py": "3123202ef78e56ae808bef2b2c0cfcce20053d48193c7aa754721092ea0b5806",
+      "scripts/tests/test_search_diagnostics.py": "e055d0d03e2cf8b707e9edfdd15fdd8d9d4eb654149b1414255657bfc1fb064c"
     },
-    "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b"
+    "output_sha256": "93bbdfad44589e2564fe7ffbdaf04fa845bdd5e130c0f320b1043ec8a61cac08"
   },
   "checks": {
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/build.json",
-      "evidence_sha256": "2a9f21aa4d0d60cd7cc674d863f4bb529a474dca669f8247206401c490a1aad7"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci11/build.json",
+      "evidence_sha256": "ba6b4c738378a71efc882780f59036cf6cde67b1c259d6ff1ea4899468c3de03"
     },
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/content.json",
-      "evidence_sha256": "19ce2fe9f565b30dc66fcebb50f98711c238e669bb9cd4ed6a9fed2df1aa7df6"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci11/content.json",
+      "evidence_sha256": "83d333e0a5f3e7c482d731fe2beac26dd6e3f362830f0d96c7af257d214ef7ab"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/render.json",
-      "evidence_sha256": "98c58697bd9e59490f9341eab620f9c645076e1af880265e0d328b293ec6163c",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci11/render.json",
+      "evidence_sha256": "ac19cf2f1cfa255abb628ab5d80e20afa33001bea4a67690c83049bcdcbda286",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b"
+      "output_sha256": "93bbdfad44589e2564fe7ffbdaf04fa845bdd5e130c0f320b1043ec8a61cac08"
     }
   },
   "limitations": [],
-  "qualification_scope": "Local CI9 handbook content, identical builds and Chromium verification on the dirty correction candidate; application full/platform gates, hosted CI, release and expanded-goal closure remain separate."
+  "qualification_scope": "Local CI11 handbook semantic, identical-build and Chromium verification on the dirty candidate. Application, hosted CI, publication and expanded goal completion remain separate; previous runtime receipts retain their own fingerprints.",
+  "prior_evidence": [
+    {
+      "build": {
+        "status": "pass",
+        "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/build.json",
+        "evidence_sha256": "2a9f21aa4d0d60cd7cc674d863f4bb529a474dca669f8247206401c490a1aad7"
+      },
+      "content": {
+        "status": "pass",
+        "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/content.json",
+        "evidence_sha256": "19ce2fe9f565b30dc66fcebb50f98711c238e669bb9cd4ed6a9fed2df1aa7df6"
+      },
+      "rendered": {
+        "status": "pass",
+        "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/render.json",
+        "evidence_sha256": "98c58697bd9e59490f9341eab620f9c645076e1af880265e0d328b293ec6163c",
+        "browser": "Chromium 156.0.8078.4",
+        "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b"
+      }
+    }
+  ]
 }

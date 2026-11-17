@@ -37,6 +37,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -220,6 +221,20 @@ class BridgeFixtureTest {
     @Test
     fun aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword() = runBlocking {
         val event = withTimeout(45_000) { open("standing-notice-signin.html", headless = true, autoSignIn = saved()).events.first() }
+        assertEquals(BridgeEvent.Extracted(9_876), event)
+    }
+
+    @Test
+    fun aLateSavedPasswordStillGetsTheExistingSecondPress() = runBlocking {
+        val existing = saved()
+        val delayed = AutoSignInSupport(
+            existing.plan,
+            credentials = { delay(7_000); existing.credentials() },
+            awaitCode = existing.awaitCode,
+        )
+        val event = withTimeout(45_000) {
+            open("standing-notice-signin.html", headless = true, autoSignIn = delayed, scriptTimeoutMs = 20_000).events.first()
+        }
         assertEquals(BridgeEvent.Extracted(9_876), event)
     }
 

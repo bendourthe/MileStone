@@ -1,0 +1,85 @@
+{
+  "recorded_utc": "2026-11-17T12:25:46.791227+00:00",
+  "status": "LOCAL_CANDIDATE_NOT_PUBLICATION_READY",
+  "qualification": false,
+  "source_sha256": "c4d13edc85a83647bc83ac46334d7f89300b0c902fa4ee8879001763c409422c",
+  "changed_code": [
+    "scripts/validate.py",
+    "scripts/search_benchmark.py",
+    "scripts/search_diagnostics.py",
+    "scripts/tests/test_search_diagnostics.py",
+    ".github/workflows/ci.yml"
+  ],
+  "helper_checks": {
+    "windows_cases": 54,
+    "windows_passed": 53,
+    "windows_skipped": 1,
+    "skip_reason": "POSIX-only process-group regression",
+    "focused_WSL_cases": 11,
+    "focused_WSL_passed": 11,
+    "real_POSIX_descendant_cleanup_exercised": true
+  },
+  "review": {
+    "remaining_concrete_prototype_findings": 0,
+    "closed_findings": [
+      "Original invocation/stale artifact binding",
+      "Exited leader/live descendant process-group cleanup",
+      "Controller completion timestamp retained",
+      "Oversized integer and recursive JSON handling"
+    ]
+  },
+  "native_platform": {
+    "receipt": "reports/release-v040/ci11-platform/results/platform-windows.json",
+    "tests": 76,
+    "passed": 75,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "failure": "BridgeFixtureTest.aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword returned UNFINISHED",
+    "optimized_search": "BLOCKED",
+    "failure_only_CLI": "SKIPPED with zero device calls for unrelated failure"
+  },
+  "focused_auth": {
+    "reports": "reports/release-v040/ci11-standing-notice-focused",
+    "tests": 1,
+    "passed": 1,
+    "seconds": 24.528,
+    "interpretation": "Does not erase full-order failure or prove its cause."
+  },
+  "collector_API_smoke": {
+    "parent": "reports\\release-v040\\ci11-collector-87a9293af85c466a9615fcadbf693ae1",
+    "receipt": "reports\\release-v040\\ci11-collector-87a9293af85c466a9615fcadbf693ae1\\search-diagnostic-983baa01b1134555958fa0f7375a99d5\\receipt.json",
+    "offline": "reports\\release-v040\\ci11-collector-87a9293af85c466a9615fcadbf693ae1\\search-diagnostic-983baa01b1134555958fa0f7375a99d5\\offline-validation.json",
+    "baseline_p95_ms": 464.7908,
+    "traced_p95_ms": 613.0809,
+    "frames": 139,
+    "trace_error_or_loss_stats": 0,
+    "trace_sha256": "6dfe551429e977f165e81cf475a99215c78e935c5356eaa66bf354e3eccd91f6",
+    "original_evidence_preserved": true,
+    "source_unchanged": true,
+    "owned_remote_trace_removed": true,
+    "emulator_affinity_restored": true,
+    "scope": "Direct collector API, not positive CLI failure-gate or hosted CI proof. Window overlap and completion end are verified; all-query coverage is not claimed."
+  },
+  "auth_proposal": {
+    "patch": "reports/release-v040/ci11-auth-proposal/proposed.patch",
+    "syntax": "node --check passed for candidate copy",
+    "production_files_modified": false,
+    "runtime_red_green": "PENDING",
+    "baseline_consent": "PENDING for exact two paths; official diffs against published HEAD empty."
+  },
+  "remaining": [
+    "Authentication baseline agreement and deterministic regression/proof",
+    "Current complete native/full/handbook/security qualification",
+    "Positive failure-only CLI integration path",
+    "Separate exact publication authority",
+    "Current-head hosted green, release/archive and original reconciliation",
+    "All Chase/merchant-offer implementation and delivery obligations"
+  ],
+  "remote_actions": {
+    "pushes": 0,
+    "CI_runs": 0,
+    "merges": 0
+  },
+  "issuer_actions": 0
+}

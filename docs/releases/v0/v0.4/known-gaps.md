@@ -2,7 +2,7 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-16
+**Last updated**: 2026-11-17
 
 All 29 remaining v0.3 gaps are carried here with their original IDs, conditions and sources. Existing Gxx IDs are deliberately retained. The native typed-ledger parser does not recognize this legacy prefix, so counts and carry-forward are verified from the table rows rather than inferred from its zero-item result. Global search G37 is authorized for local implementation; its delivery remains open.
 
@@ -62,7 +62,7 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
 | Deferred (DF) | 0 | 0 |
-| Bugs / regressions (BG) | 1 | 0 |
+| Bugs / regressions (BG) | 1 | 1 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 1 |
 | Quality-gate gaps (QG) | 0 | 2 |
@@ -72,6 +72,8 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 #### Bugs / Regressions
 
 ##### BG-1 - Search Real-Frame Timing
+
+- **CI11 update, 2026-11-17**: Published 2a93916 remains red at hosted p95 237.467321 ms in run 44037140859. Animation A/B/A and a separate CPU-placement diagnostic support no speculative production fix. The new local failure-only collector passes helper/WSL controls and a real collector API smoke with 139 target frames and zero trace errors/loss; positive CLI integration and hosted evidence remain open. After the BG-2 correction, the complete local platform profile passes all 78 cases with p95 90.1253 ms at the unchanged limit. This local result does not replace hosted qualification. No additional push or CI rerun is authorized. See [CI11 preparation](development/v0.4.0-ci11-diagnostics-preparation.json) and [current local proof](development/v0.4.0-ci11-auth-red-green.json).
 
 - **CI9 local qualification**: Snapshot-index correction passes 429 unit cases and all 77 emulator cases at matching source fingerprint; p95 is 138.7748 ms with the unchanged 30/3/200 contract and preservation complete. Published d3df074 remains red, so BG-1 remains Open pending separately authorized publication and current-head hosted green. See [CI9 local disposition](development/v0.4.0-ci9-tier3-disposition.json).
 
@@ -101,6 +103,11 @@ No open item in this category. The MT-1 verification resolution is recorded belo
 | QG-1 | Integration workflow omitted Android runtime execution. | Owner approved and local workflow now invokes full/platform/report with a bounded API 36 emulator. Independent review found no actionable defect. First actual hosted execution remains T020; no CI runtime success is claimed. |
 | QG-2 | PR requirement and administrator enforcement were missing. | Owner approved; both develop/main were updated and read back, preserving the app-bound CI result and all other settings. See development/v0.4.0-protection-applied.json. |
 | MT-1 | Current handbook viewport, source-value and control proof was missing behind incompatible helper schemas. | Resolved through project-native adapter checks and specific counterchecks; installed auxiliary helper schema compatibility remains unchanged. Current output b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc has 2,606 passing checks, 384 measurements, independent visual review and full native qualification. |
+| BG-2 | Standing-notice sign-in returned UNFINISHED in the complete native profile. | Owner-approved delayed-fill regression fails on the original script and passes after resetting the existing page window on successful password submission. All 22 bridge cases and the complete 78-case platform profile pass, including the original case; retry counts, refusal rules and caller budgets are unchanged. This is a locally verified correction, not hosted or release completion. See development/v0.4.0-ci11-auth-red-green.json. |
+
+#### BG-2 Resolution Detail
+
+Source phase: Phase 4, CI11 stabilization and T019 in docs/releases/v0/v0.4/plans/v0.4.0-global-search.md. The earlier complete profile passed 75 of 76 cases and returned UNFINISHED for the standing-notice case; its isolated pass did not resolve the failure. The owner approved preserving the exact current authentication files before baseline recording and edits. The seven-second delayed-fill regression proves that the original document deadline can expire before the existing second press; resetting the same page window after successful password submission resolves that race. The current complete platform profile passes 78 of 78 cases with zero failures, errors or skips, including the original standing-notice test and the new regression. This does not independently prove why the earlier order-dependent run was delayed. Current repository qualification and separately authorized hosted green remain release gates. [Red/green and complete-platform proof](development/v0.4.0-ci11-auth-red-green.json) retains the original failures and exact bindings.
 
 #### MT-1 Resolution Detail
 
@@ -109,7 +116,7 @@ The original source phase is Phase 4, T013/T016, owned by the handbook-tooling m
 The three confirmed T015 code defects were corrected and independently rechecked within the plan rather than deferred. QG-1 and QG-2 are resolved as configured-path/settings gaps; actual hosted execution remains a publication gate.
 
 
-The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are one Open and three Resolved; combined legacy-plus-typed Open count is 30. BG-1 blocks the current release and has not been approved for deferral.
+The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are one Open and four Resolved; combined legacy-plus-typed Open count is 30. BG-1 blocks the current release and has not been approved for deferral.
 
 
 Current owner Search refinements require program-only descendant browsing, Rewards images/stored points and compact exact-card headers with independent chevrons. These are current-plan work, not a waiver of G37 delivery. The original legacy rows and their source conditions remain unchanged.

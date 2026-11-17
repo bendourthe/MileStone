@@ -22,6 +22,7 @@ import subprocess
 import sys
 import time
 import tomllib
+import uuid
 from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
 import zipfile
@@ -131,6 +132,7 @@ class Run:
         if args.profile == "platform":
             self.env["ANDROID_SERIAL"] = EMULATOR
         self.started = time.time()
+        self.invocation_id = str(uuid.uuid4())
         self.logs = 0
         self.tools = {"python": platform.python_version()}
 
@@ -140,13 +142,38 @@ class Run:
         try:
             output, _ = process.communicate(data, timeout=timeout)
             return process.returncode, output
-        except subprocess.TimeoutExpired:
-            if os.name == "nt":
-                killer = spawn(["taskkill", "/PID", str(process.pid), "/T", "/F"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                killer.communicate(timeout=15)
-            else:
-                os.killpg(process.pid, signal.SIGKILL)
-            process.communicate()
+        except BaseException as error:
+            cleanup_complete = True
+            try:
+                if os.name == "nt":
+                    if process.poll() is None:
+                        killer = spawn(["taskkill", "/PID", str(process.pid), "/T", "/F"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        try:
+                            killer.communicate(timeout=15)
+                        except subprocess.TimeoutExpired:
+                            killer.kill()
+                            killer.communicate(timeout=5)
+                            cleanup_complete = False
+                        cleanup_complete = cleanup_complete and killer.returncode == 0
+                    else:
+                        cleanup_complete = False
+                else:
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+            except (OSError, subprocess.TimeoutExpired):
+                cleanup_complete = False
+            try:
+                process.communicate(timeout=5)
+            except (OSError, subprocess.TimeoutExpired):
+                cleanup_complete = False
+            if not isinstance(error, subprocess.TimeoutExpired):
+                if not cleanup_complete:
+                    error.add_note("Owned process cleanup could not be confirmed.")
+                raise
+            if not cleanup_complete:
+                return 124, b"Command timed out; owned process cleanup could not be confirmed."
             return 124, b"Command timed out; the owned process tree was stopped."
 
     def command(self, argv: tuple[str, ...] | list[str], timeout=60, data=None, allowed=(0,)) -> bytes:
@@ -451,6 +478,7 @@ def main(argv=None, *, root=ROOT) -> int:
     run = Run(root, reports, args)
     environment = dict(profile=args.profile, host=args.platform, os=platform.system(), os_release=platform.release(), shell=Path(os.environ.get("SHELL", "Windows process" if os.name == "nt" else "POSIX process")).name, python=platform.python_version(), tools=run.tools, started_at=datetime.now(timezone.utc).isoformat())
     receipts = []
+    results = []
     current = None
     try:
         if args.profile != "report":
@@ -516,11 +544,11 @@ def main(argv=None, *, root=ROOT) -> int:
             security_result = json.loads(scan.read_text()) if any(item["name"] == "security" and item["status"] == "PASS" for item in results) and scan.is_file() else None
             package_metadata = reports / "release/artifacts.json"
             package_head = json.loads(package_metadata.read_text())["commit"] if args.profile == "release" and passed else None
-            receipt = dict(profile=args.profile, platform=args.platform, status="PASS" if passed else "FAIL", source_sha256=current, package_head=package_head, groups=results, counts=counts, evidence_origin=evidence_origin, coverage=coverage, security=security_result, limitations=limitations(args.profile, args.platform))
+            receipt = dict(profile=args.profile, platform=args.platform, invocation_id=run.invocation_id, status="PASS" if passed else "FAIL", source_sha256=current, package_head=package_head, groups=results, counts=counts, evidence_origin=evidence_origin, coverage=coverage, security=security_result, limitations=limitations(args.profile, args.platform))
             (reports / "results" / f"{args.profile}-{args.platform}.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
             receipts = [receipt]
     except Exception as error:
-        receipts = [dict(profile=args.profile, platform=args.platform, source_sha256=current, status="FAIL", groups=[dict(name="profile", status="FAIL", seconds=0.0, error=redact(f"{type(error).__name__}: {error}", root, run.env))])]
+        receipts = [dict(profile=args.profile, platform=args.platform, invocation_id=run.invocation_id, source_sha256=current, status="FAIL", groups=[dict(name="profile", status="FAIL", seconds=0.0, error=redact(f"{type(error).__name__}: {error}", root, run.env))] + results)]
         if args.profile != "report":
             (reports / "results" / f"{args.profile}-{args.platform}.json").write_text(json.dumps(receipts[0], indent=2) + "\n", encoding="utf-8")
     summary = write_summary(run, receipts, environment)

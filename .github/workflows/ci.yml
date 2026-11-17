@@ -69,9 +69,17 @@ jobs:
           adb -s emulator-5554 shell input keyevent 82
 
       - name: Validate Android runtime before merge
+        id: android_runtime
         env:
           ANDROID_SERIAL: emulator-5554
         run: .validation-venv/bin/python scripts/validate.py --profile platform --platform ci-linux --quiet
+
+      - name: Retain Search failure diagnostics
+        if: ${{ failure() && steps.android_runtime.outcome == 'failure' }}
+        timeout-minutes: 10
+        env:
+          ANDROID_SERIAL: emulator-5554
+        run: .validation-venv/bin/python scripts/search_diagnostics.py --platform ci-linux --reports-dir reports
 
       - name: Stop the assigned emulator
         if: ${{ always() }}

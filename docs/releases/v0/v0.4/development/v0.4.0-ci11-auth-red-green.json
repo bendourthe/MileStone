@@ -1,0 +1,146 @@
+{
+  "recorded_at": "2026-11-17T15:09:08.405161+00:00",
+  "scope": "Local emulator synthetic sign-in regression; not whole-platform, phone, hosted or release qualification",
+  "authority": "Owner approved preserving current extract.js and BridgeFixtureTest.kt baselines and conditional red/green timer correction; no push or remote CI authority",
+  "baseline_comparison": "Both current files matched reviewed published copies before official baseline recording; all previous contents retained",
+  "red": {
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "result": "AutoSignInStopped UNFINISHED",
+    "xml": "reports\\release-v040\\ci11-auth-proposal\\red-app.xml",
+    "xml_sha256": "8fac17019b4a45c92af046f80fec1014c03dca9d037ac9fff292a210a92392c8",
+    "script_sha256": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3"
+  },
+  "green": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "xml": "reports\\release-v040\\ci11-auth-proposal\\green-app.xml",
+    "xml_sha256": "46903ad5128ae44f68ecbb34cb86000039d85c20cc14c00f4441bb7264aa3e5b",
+    "script_sha256": "739796f237f64e8100577fbad58ebbff5876324b8963c8b988522688a5ee86a8",
+    "test_sha256": "8c142731243eb13043ae0df3916ffe9f69268a6cfbbe8e3b42d0171dc7d296a3"
+  },
+  "change": "Reset the existing page window after successful password submission only; retry count, fresh-error rules and caller budgets unchanged",
+  "emulator": {
+    "serial": "emulator-5554",
+    "qemu": "1",
+    "avd": "milestone_ci_clean_20261116"
+  },
+  "excluded_attempt": "Initial unqualified root Gradle task selected benchmark module; excluded from red proof",
+  "remaining": [
+    "Final current-candidate review and source binding reconciliation",
+    "Hosted green under separately granted publication authority",
+    "Original and expanded goal obligations"
+  ],
+  "remote_actions": 0,
+  "issuer_actions": 0,
+  "bridge_suite": {
+    "tests": 22,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "xml": "reports\\release-v040\\ci11-auth-proposal\\bridge-suite.xml",
+    "xml_sha256": "2b16a640cbd19d46790acb35868ac2c11d6f5844ecbcc3884a82c5dd6f88666b",
+    "scope": "Complete BridgeFixtureTest class only; full native profile remains open"
+  },
+  "local_gate": {
+    "exit_code": 0,
+    "unit_counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "tasks": [
+      "testDebugUnitTest",
+      "lintDebug",
+      "assembleDebug",
+      "assembleCapture",
+      "compileDebugAndroidTestKotlin"
+    ]
+  },
+  "whole_platform": {
+    "status": "PASS",
+    "source_sha256": "1f6cfecbc8058e4085ebdb8b42cd879a9de47c4fea8d4ad7a464321000a9409e",
+    "invocation_id": "20af3d27-8412-456a-a755-dd26001d6170",
+    "counts": {
+      "tests": 78,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "p95_ms": 90.1253,
+    "samples": 30,
+    "warmups": 3,
+    "preservation_passed": true,
+    "reports": "reports\\release-v040\\ci11-auth-platform",
+    "scope": "Complete app runtime and optimized Search; prior to generated-handbook hash refresh only"
+  },
+  "current_full_profile": {
+    "status": "PASS",
+    "source_sha256": "ae307624ce4d8c0a437234722ee3e7aca4263c7adc462d1b81da993be6735036",
+    "invocation_id": "848ced05-ef04-4580-a937-3fcac03cb580",
+    "counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 5065,
+      "total": 6477,
+      "percent": 78.2
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "7495d7354261138271555fbd29dfa6e005461755aefd754d19b678dce022548b",
+      "input_bytes": 21257736,
+      "scanned_input_sha256": "eeb7722381f50c30bac0625ec06e3555c532e52d54274357d84efaba8e1b236b",
+      "scanned_bytes": 21254920,
+      "public_metadata_exemptions": 44,
+      "findings": 0
+    },
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.375
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.266
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.188
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 6.328
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 15.875
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 58.75
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 9.234
+      }
+    ],
+    "reports": "reports/release-v040/ci11-auth-full"
+  },
+  "source_binding_limit": "The whole-platform run preceded generated handbook hash refresh. The full profile qualifies the later tree; do not claim the two receipts share a fingerprint. Prepared comparison proves handbook visible content and record structure unchanged; four embedded source hashes refreshed."
+}

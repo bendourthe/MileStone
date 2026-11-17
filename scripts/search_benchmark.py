@@ -51,6 +51,10 @@ def _digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+class BenchmarkCleanupError(RuntimeError):
+    """The workload ended without confirmed native cleanup."""
+
+
 def execute(run, gradle_step, emulator_boundary):
     """Use the existing native Gradle/JUnit runner; no issuer data or phone access."""
     emulator_boundary(run)
@@ -66,7 +70,7 @@ def execute(run, gradle_step, emulator_boundary):
         raise RuntimeError("Benchmark UUID output is not proven absent before launch")
     metadata = run.reports / "metadata"
     metadata.mkdir(parents=True, exist_ok=True)
-    (metadata / "search-benchmark-artifacts.json").write_text(json.dumps(dict(run_id=run_id, build_type="benchmark", **hashes), indent=2) + "\n", encoding="utf-8")
+    (metadata / "search-benchmark-artifacts.json").write_text(json.dumps(dict(run_id=run_id, build_type="benchmark", validation_invocation_id=getattr(run, "invocation_id", None), **hashes), indent=2) + "\n", encoding="utf-8")
     task = gradle_step(run.args.platform, ":searchBenchmark:connectedBenchmarkAndroidTest",
                        f"-Pandroid.testInstrumentationRunnerArguments.run_id={run_id}",
                        f"-Pandroid.testInstrumentationRunnerArguments.expectedTargetSha256={hashes['target_sha256']}",
@@ -106,10 +110,10 @@ def execute(run, gradle_step, emulator_boundary):
             export_error = error
     if failure is not None:
         if cleanup_errors:
-            raise RuntimeError(f"{failure}; cleanup errors: {'; '.join(cleanup_errors)}") from failure
+            raise BenchmarkCleanupError(f"{failure}; cleanup errors: {'; '.join(cleanup_errors)}") from failure
         raise failure
     if cleanup_errors:
-        raise RuntimeError("Benchmark cleanup errors: " + "; ".join(cleanup_errors))
+        raise BenchmarkCleanupError("Benchmark cleanup errors: " + "; ".join(cleanup_errors))
     if export_error is not None:
         raise RuntimeError("Fresh benchmark metrics collection failed") from export_error
     if value is None:

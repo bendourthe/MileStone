@@ -465,6 +465,7 @@
             if ((fields || '').split(',').indexOf('password') >= 0) {
               submittedHere = true;
               submittedField = passwordFields()[0] || null;
+              armTimeout();
             }
             loginSent = false;
             passwordSince = null;
@@ -502,7 +503,7 @@
     }
 
     var timeoutTimer = null;
-    // Restarted when the script presses a sign-in button again, so the second press gets a whole page's time.
+    // Each successful password submission, including the existing second press, gets the same page window.
     function armTimeout() {
       clearTimeout(timeoutTimer);
       timeoutTimer = setTimeout(function () {
