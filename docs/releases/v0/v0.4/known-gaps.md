@@ -73,6 +73,10 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 
 ##### BG-1 - Search Real-Frame Timing
 
+- **CI9 local qualification**: Snapshot-index correction passes 429 unit cases and all 77 emulator cases at matching source fingerprint; p95 is 138.7748 ms with the unchanged 30/3/200 contract and preservation complete. Published d3df074 remains red, so BG-1 remains Open pending separately authorized publication and current-head hosted green. See [CI9 local disposition](development/v0.4.0-ci9-tier3-disposition.json).
+
+- **Current hosted result**: Approved commit d3df074 failed run 44016321789 at p95 248.921593 ms against the unchanged 200 ms limit. The one-push grant is used; PR 17 remains unmerged. A two-core local diagnostic also fails, with preservation complete and original affinity restored; it is not hosted parity. Snapshot-index optimization and semantic regressions are planned locally, pending preservation-baseline adoption. See [CI9 reproduction](development/v0.4.0-ci9-reproduction.json).
+
 - **Source phase**: Phase 4, T013 and T019; release qualification remains open.
 - **Plan reference**: `docs/releases/v0/v0.4/plans/v0.4.0-global-search.md`.
 - **Reason**: Hosted run 43909113839 on 969264d measured p95 386.95086 ms against the required 200 ms. Clean-emulator local foreground measurements also miss the requirement. A worker-publication trial failed at 660.9495 ms and was reverted; a single-pass background candidate remains unqualified. No threshold, corpus, sample-count or real-frame endpoint waiver is approved.

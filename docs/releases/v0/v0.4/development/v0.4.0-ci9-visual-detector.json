@@ -1,0 +1,83 @@
+{
+  "allowlist": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-worktrees\\release-v0.4.0\\docs\\releases\\v0\\v0.4\\development\\v0.4.0-ci6-rendered-evidence\\handbook-visual-allowlist.json",
+  "file": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-worktrees\\release-v0.4.0\\docs\\handbooks\\html\\overview.html",
+  "findings": [],
+  "font_floor_px": 12.0,
+  "fragment": null,
+  "gate_findings": 0,
+  "minimum_text_box_px": {
+    "height": 12.0,
+    "width": 16.0
+  },
+  "page_pass": true,
+  "status": "pass",
+  "suppressed_findings": 16,
+  "theme": null,
+  "tolerance_px": 1.0,
+  "viewports": [
+    {
+      "height": 900,
+      "width": 320
+    },
+    {
+      "height": 900,
+      "width": 390
+    },
+    {
+      "height": 900,
+      "width": 420
+    },
+    {
+      "height": 900,
+      "width": 759
+    },
+    {
+      "height": 900,
+      "width": 760
+    },
+    {
+      "height": 900,
+      "width": 761
+    },
+    {
+      "height": 900,
+      "width": 900
+    },
+    {
+      "height": 900,
+      "width": 999
+    },
+    {
+      "height": 900,
+      "width": 1000
+    },
+    {
+      "height": 900,
+      "width": 1001
+    },
+    {
+      "height": 900,
+      "width": 1024
+    },
+    {
+      "height": 900,
+      "width": 1200
+    },
+    {
+      "height": 900,
+      "width": 1366
+    },
+    {
+      "height": 900,
+      "width": 1440
+    },
+    {
+      "height": 900,
+      "width": 1920
+    },
+    {
+      "height": 900,
+      "width": 2560
+    }
+  ]
+}

@@ -29,7 +29,9 @@ internal data class SearchInput(val programs: List<SearchProgramSource>, val car
     }, preferences = preferences.mapValues { (_, p) -> p.copy(collapsed = p.collapsed.toSet(), acknowledged = p.acknowledged.toMap(), readState = p.readState.copy(sections = p.readState.sections.toMap())) })
 }
 
-internal class SearchSnapshot(val revision: SearchRevision, val source: SearchInput, val entries: List<SearchEntry>)
+internal class SearchSnapshot(val revision: SearchRevision, val source: SearchInput, val entries: List<SearchEntry>) {
+    val prepared = GlobalSearch.prepare(entries)
+}
 
 /** Uses the same page and duplicate owner as the destination; no second matching/deduplication policy. */
 internal class SearchSnapshotFactory(private val clock: () -> Long, private val zone: ZoneId, private val locale: Locale) {
@@ -154,7 +156,7 @@ class SearchViewModel(
                 SourceState.Loading -> SearchUiState.Loading
                 SourceState.Error -> SearchUiState.ReadError
                 is SourceState.Ready -> if (GlobalSearch.isBlank(text)) SearchUiState.Start else {
-                    val result = GlobalSearch.match(text, status.snapshot.entries)
+                    val result = GlobalSearch.match(text, status.snapshot.prepared)
                     if (result.count == 0) SearchUiState.Empty else SearchUiState.Results(result, request.version)
                 }
             }

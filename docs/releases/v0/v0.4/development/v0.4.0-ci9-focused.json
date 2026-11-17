@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "seconds": 42.04262948036194,
+  "cases": 40,
+  "classes": [
+    {
+      "class": "com.bendourthe.milestone.domain.GlobalSearchTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchProjectionTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchRepositoryTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchMemoryTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "com.bendourthe.milestone.ui.search.SearchRevealIndexTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

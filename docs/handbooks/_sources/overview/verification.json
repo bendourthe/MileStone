@@ -4,7 +4,7 @@
     "inputs": {
       "docs/handbooks/overview.md": "6dace1b16a9cd60d5b2059ad9b82b8e6e8d1f38b51d2451cc42ad67b5138d18b",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
-      "docs/handbooks/global-search.md": "7a5f079f671231ed8ba305cd07a0fe880270740859a4398bc23cf92c74dcf45a",
+      "docs/handbooks/global-search.md": "c8f158168cb327b3a9eeae4e41c423fff9f10f4c3f87e9c23519ea996c54c6db",
       "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
       "docs/handbooks/handbooks.json": "bfc5429ce167a7221c392c76d91bd7fe15fbe23c50df1e0ba24b5a972afb47ac",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
@@ -56,8 +56,8 @@
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsMenus.kt": "dba728addf93b8cb8b97ecca381378be9ba80d3f36f775db255ff6d372d97b26",
       "scripts/check_handbook_render.py": "609f6b21c32f872df0fa7ca1a215306450bc7e069a540c43188955227ff76b47",
       "docs/handbooks/_sources/overview/visual-allowlist.json": "6f723b213278d58a47c909e492f1e81298a27db5d3aab8359013039ca68800f6",
-      "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
-      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "cb20a8d5b6661361139b4d8a967aa21ff276e25bc64834f5a16df7d186338783",
+      "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "89fe62f447f92a4f867b505336e3dc09ca8a7eb5307ab61875f4f6b813c5cb3b",
+      "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "de5d1ec85545488f285261d5bc7a568c4f179ca8bea335525263b5e6a3cf3463",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
       "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "e0a04ffcc23c450bfe1fba76889ee969f0158bbd4db3dff97e131eb68a4b04b1",
@@ -83,27 +83,27 @@
       "scripts/search_benchmark.py": "51b6bbb8fe1709ce1a806542b6ab7585abdcb5ddc21cb0b498473c23613ba0de",
       "scripts/tests/test_search_benchmark.py": "aaf1e8f1c1a0f7998135fece6bd158858b53f490b0955e26de8371b695bf40bd"
     },
-    "output_sha256": "575cd730f36ff08e09704b6d639622f2d7c10540b265297ae174403cca8000cb"
+    "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b"
   },
   "checks": {
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/build.json",
-      "evidence_sha256": "d2c836dcb590dac28000f71ee22c9881784d4b69aa0db41ffc34bf9599c2bfd2"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/build.json",
+      "evidence_sha256": "2a9f21aa4d0d60cd7cc674d863f4bb529a474dca669f8247206401c490a1aad7"
     },
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/content.json",
-      "evidence_sha256": "96bd78dd445eda7e2d15ea2f4c9e605ac23af934ffb6e0d9145f9565a80eef94"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/content.json",
+      "evidence_sha256": "19ce2fe9f565b30dc66fcebb50f98711c238e669bb9cd4ed6a9fed2df1aa7df6"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/render.json",
-      "evidence_sha256": "0402d943651364217e9e8494766f8dc374a22bd92344f30063be90a06b940a50",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/render.json",
+      "evidence_sha256": "98c58697bd9e59490f9341eab620f9c645076e1af880265e0d328b293ec6163c",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "575cd730f36ff08e09704b6d639622f2d7c10540b265297ae174403cca8000cb"
+      "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b"
     }
   },
   "limitations": [],
-  "qualification_scope": "Local ci8 handbook at 2bbbb28 with uncommitted harness changes: current source/content review, identical builds and Chromium rendering. Application full/platform gates, hosted CI, release and expanded-goal closure remain separate and open."
+  "qualification_scope": "Local CI9 handbook content, identical builds and Chromium verification on the dirty correction candidate; application full/platform gates, hosted CI, release and expanded-goal closure remain separate."
 }

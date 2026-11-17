@@ -1,0 +1,29 @@
+{
+  "profile": "platform",
+  "platform": "windows",
+  "status": "PASS",
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "android-emulator-runtime",
+      "status": "PASS",
+      "seconds": 874.75
+    },
+    {
+      "name": "optimized-search-performance",
+      "status": "PASS",
+      "seconds": 51.875
+    }
+  ],
+  "counts": {
+    "tests": 77,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+  "coverage": null,
+  "security": null,
+  "limitations": []
+}

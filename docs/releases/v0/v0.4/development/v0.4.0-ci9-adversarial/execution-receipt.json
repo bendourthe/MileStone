@@ -1,0 +1,45 @@
+{
+  "scope": "Synthetic standalone JVM domain only; no Gradle, device, phone, private capture, or network",
+  "baseline": "d3df074",
+  "shared_declarations_exact_equal": true,
+  "reference_object_only_renamed": true,
+  "normalization_and_contextSources_unchanged": true,
+  "checks": [
+    {
+      "variant": "current",
+      "compile_exit": 0,
+      "execution_exit": 0,
+      "status": "PASS",
+      "corpora": 64,
+      "queries_per_corpus": 45,
+      "query_cases": 2880,
+      "result_comparisons": 5838,
+      "assertions": 73481,
+      "copied_membership_checks": 64
+    },
+    {
+      "variant": "mutation",
+      "compile_exit": 0,
+      "execution_exit": 1,
+      "mutation_detected": true,
+      "failure_case": "s0-q3-prepared-structured"
+    }
+  ],
+  "inputs": {
+    "current_raw_sha256": "bfee45651a95a9ebec194ba675a28c9f468db3fdf0a5edcf21f26362453fcbc0",
+    "reference_original_git_sha256": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
+    "reference_renamed_sha256": "2759f09efd6459ed03c999c4f43206b409aa5515f281ad162a7ab68e0db47deb",
+    "types_sha256": "8ae606a49fa02b3ce90518487776f9063db9e64d83d24541f3e8a06496b27fd3"
+  },
+  "artifacts_sha256": {
+    "AdversarialParity.kt": "e5adfc0f4d893a592575af327c27fc453df0b8ff89b7b67a9e80cdeb308e0f01",
+    "current-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "current-execution.log": "86a994cbed2f99e8655d05ceef93e35a57f37e92839f97625a5b6d7c9b93a658",
+    "IsolatedDomainTypes.kt": "de1a9a106ee3c0d7b6b42824ec1f5d8d0465c7e0780ab846fa67c2381e61be94",
+    "MutantGlobalSearch.kt": "4424f280aa0ab8f1bba994456f3d5317c67c669e9ef12aa8c95fa13c4767a29f",
+    "mutation-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mutation-execution.log": "6c5ab1810e4b3a031a526a65ad6bb0361be379b4e79ca62499a5d5e3bb573e4f",
+    "ReferenceGlobalSearch.kt": "12db4cdf89406c21c31b06576ce7c74ac3a2d94764bd1eabb936d454c979e399",
+    "run_adversarial.py": "b3c3a5d612da79885fcaa6a96181b455b2f77e5afe08393ebf437856aba3d574"
+  }
+}
