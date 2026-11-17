@@ -50,7 +50,7 @@ class JUnitTaskStatusTest(unittest.TestCase):
             self.assertIn("JUnit reports failures or errors", receipt["groups"][0]["error"])
             self.assertTrue(list((reports / "junit").glob("platform-*.xml")))
 
-    def test_platform_collects_only_the_debug_variant_selected_by_its_task(self):
+    def test_platform_collects_both_selected_tasks_and_ignores_inprocess_benchmark_reports(self):
         with tempfile.TemporaryDirectory(prefix="milestone-variant-reports-") as directory:
             root = Path(directory).resolve()
             reports = root / "reports"
@@ -61,5 +61,8 @@ class JUnitTaskStatusTest(unittest.TestCase):
                 result = root / f"app/build/outputs/androidTest-results/connected/{variant}/TEST-result.xml"
                 result.parent.mkdir(parents=True)
                 result.write_text(f'<testsuite tests="1" failures="{failures}" errors="0" skipped="0"/>')
+            result = root / "searchBenchmark/build/outputs/androidTest-results/connected/benchmark/TEST-result.xml"
+            result.parent.mkdir(parents=True)
+            result.write_text('<testsuite tests="1" failures="0" errors="0" skipped="0"/>')
             counts = validate.collect_reports(run, succeeded=True)
-            self.assertEqual((1, 0, 0), (counts["tests"], counts["failures"], counts["errors"]))
+            self.assertEqual((2, 0, 0), (counts["tests"], counts["failures"], counts["errors"]))

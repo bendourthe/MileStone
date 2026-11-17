@@ -1,12 +1,12 @@
 {
   "snapshot": {
-    "entry_sha256": "c120c67d27487db0af1e8f80a1d1db688b7ac0aa9a4592ccb9d504dfc9cac69a",
+    "entry_sha256": "ea56e15e940dc3f90852b06ee61abf01761e2348629a56e569a15dd09e89d4bf",
     "inputs": {
-      "docs/handbooks/overview.md": "19eb835a04f82202fcaf063b08e1069c8f5a8b282df8002714ffb8d7ea608fb6",
+      "docs/handbooks/overview.md": "6dace1b16a9cd60d5b2059ad9b82b8e6e8d1f38b51d2451cc42ad67b5138d18b",
       "docs/handbooks/benefits-reader.md": "f16ba83713a062ee78f392a76094a7cbbdf11e62b442fa0df30eb78c2a8dfc7b",
-      "docs/handbooks/global-search.md": "86be0d2498de0488a70f6e318d2848e13760ee54ac2ca2b0021205f02ef9ddb4",
+      "docs/handbooks/global-search.md": "7a5f079f671231ed8ba305cd07a0fe880270740859a4398bc23cf92c74dcf45a",
       "docs/handbooks/README.md": "b9dbffc0ee032a295c03c2df99c849e7199972022384cd72911a698f83eee00e",
-      "docs/handbooks/handbooks.json": "82e98e5c6e7c928e97260ce25ea1e52ec3a52d60dfa7ecf7e18cea759a7b5976",
+      "docs/handbooks/handbooks.json": "bfc5429ce167a7221c392c76d91bd7fe15fbe23c50df1e0ba24b5a972afb47ac",
       "scripts/build_handbooks.py": "885b8a63e0f837451d36040a75f595123dab43a52f75fe66199c62bc5017f3a4",
       "docs/handbooks/_sources/overview/template.html.in": "4b0ba310264e7113d2b509655ab4ffc18948ea2900141fe39d4477812892821b",
       "docs/handbooks/_sources/overview/project.css": "893f5d093ef2dd44221574b03ecdf45b50d0471e0b33491e56e58da4d824d84c",
@@ -16,7 +16,7 @@
       "docs/handbooks/_sources/overview/model.json": "4d7ba70107831c87eea89cc5f49133245dcb85733a4eca28c703ecb81e7cceb6",
       "docs/handbooks/_sources/overview/design.json": "62bf489d29d18799ad27bc7e0a08f0604773a45894e545d447b89fcda78f14b5",
       "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4",
-      "app/build.gradle.kts": "16a474dbbc7f235a7bd4e6f2f51eb612e781fb20f792dbaffbeaeedc8985a005",
+      "app/build.gradle.kts": "90c95e46faf207ed9969d2458f99f1d59564a5974fdff219a6fe7f126fc3d610",
       "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db",
       "app/src/main/assets/extract.js": "b1293ac1f4ee75b0da0e9174ff38d17c6aba1c9d474959e9b429bb3bed875cb3",
       "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "2c610ded646112c6c0fba15b697f37ffeba6a26477e880495ce83b211db75f4b",
@@ -61,39 +61,49 @@
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
       "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
       "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "e0a04ffcc23c450bfe1fba76889ee969f0158bbd4db3dff97e131eb68a4b04b1",
-      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "f110c6f81dbe17538aa1de19b7033e7fee735e15f6508045865d7d5a8fb215ba",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "c51ed7f236e38bc3c356c4cf9eeeab332e59b87e308c9710accb0c60f79799be",
       "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
-      "scripts/validate.py": "3b36023f80b08575fc1b1df1de5ff99d9985f8fa6c648057779f96b6c7a4d4a4",
+      "scripts/validate.py": "7ce149ec9881e6eec2935fd493ba37eb9d0746a7d153e08a015acbf380c304ff",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
       "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
-      ".github/workflows/ci.yml": "b8c8def2104d747e2e8bffae05542b8829fb3fe52e9e8c5bb7c87abd55fcf2c2",
+      ".github/workflows/ci.yml": "1b285ed9bf8117cc593f558a8ac1f0c07d8fd938109f6b50c57283675e8e5e79",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af",
       "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt": "3aca77af40892f4f3efad853806bd2003aa69d6040bbd4986de11c5b636ae203",
-      "scripts/tests/test_junit_task_status.py": "401730823cf5cc5b76e617a21bb512ac3a679dc27d4b38509daa79fc8d621d7a"
+      "scripts/tests/test_junit_task_status.py": "69e495cd8106e873d16cc22a9f276bdc0d01222846e7170dce46360c76624500",
+      "build.gradle.kts": "b97199086be98dcd25de584c91daac2eee778048f66ad5d4cb4e7ccd645febe5",
+      "settings.gradle.kts": "e2dc8e342cc0c614278b1d7f8cd2ce274a49f3c3c47c209427b04f767b8ec773",
+      "app/src/searchScenario/kotlin/com/bendourthe/milestone/ui/search/SearchLatencyScenario.kt": "38060f6800e904723efe3dbae258b3a9fb89e0a0d1778527203565d765bb4517",
+      "app/src/benchmark/AndroidManifest.xml": "47ec8c16daccef471742bb49e982a7675f55778ab08eb5bac753f33628ab023c",
+      "app/src/benchmark/kotlin/com/bendourthe/milestone/ui/search/SearchBenchmarkActivity.kt": "36aa843582ca1318fef7351da75b7dcb9ca76fb15a361cf47bf98479d22e11e9",
+      "searchBenchmark/build.gradle.kts": "0f7c178e22fbd2cca67f3fca19dd974e38faf83ddb7fe4d3eac188f340c4290d",
+      "searchBenchmark/src/main/AndroidManifest.xml": "a3749a7dd3830e386c3e9fc51ad173e1cc889f78da6b1704a8d33ed36dc20034",
+      "searchBenchmark/src/main/java/com/bendourthe/milestone/searchbenchmark/SearchBenchmarkTest.java": "f89a74cd14664b923da5b857308b5eafdb5bcb864cf05c7af23a4b37d98d0b99",
+      "scripts/search_benchmark.py": "51b6bbb8fe1709ce1a806542b6ab7585abdcb5ddc21cb0b498473c23613ba0de",
+      "scripts/tests/test_search_benchmark.py": "aaf1e8f1c1a0f7998135fece6bd158858b53f490b0955e26de8371b695bf40bd"
     },
-    "output_sha256": "2e3b6096ea3999d54da28d15206f06b66f2c37470d30412eac01046982803227"
+    "output_sha256": "575cd730f36ff08e09704b6d639622f2d7c10540b265297ae174403cca8000cb"
   },
   "checks": {
     "build": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/build.json",
-      "evidence_sha256": "dd344aa2343a5feadd5938d3667c27d16b31f62b4dda9f5a6544c59a4ec606dc"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/build.json",
+      "evidence_sha256": "d2c836dcb590dac28000f71ee22c9881784d4b69aa0db41ffc34bf9599c2bfd2"
     },
     "content": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/content.json",
-      "evidence_sha256": "b90d9271b24a69f9cf95f16364cad88c32da4a10b535920b3ce2ed38efd6383d"
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/content.json",
+      "evidence_sha256": "96bd78dd445eda7e2d15ea2f4c9e605ac23af934ffb6e0d9145f9565a80eef94"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci7/render/render.json",
-      "evidence_sha256": "b1a4fb41c411255a718c6b3cdbdc1e8cd680f162e8710585141c1ca0fb1e1628",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/render.json",
+      "evidence_sha256": "0402d943651364217e9e8494766f8dc374a22bd92344f30063be90a06b940a50",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "2e3b6096ea3999d54da28d15206f06b66f2c37470d30412eac01046982803227"
+      "output_sha256": "575cd730f36ff08e09704b6d639622f2d7c10540b265297ae174403cca8000cb"
     }
   },
   "limitations": [],
-  "qualification_scope": "Local ci7 handbook candidate at 969264d with uncommitted changes; actual build, source review and Chromium rendering. Application qualification, timing, hosted CI, release and expanded-goal closure remain separate and open."
+  "qualification_scope": "Local ci8 handbook at 2bbbb28 with uncommitted harness changes: current source/content review, identical builds and Chromium rendering. Application full/platform gates, hosted CI, release and expanded-goal closure remain separate and open."
 }

@@ -73,17 +73,6 @@ jobs:
           ANDROID_SERIAL: emulator-5554
         run: .validation-venv/bin/python scripts/validate.py --profile platform --platform ci-linux --quiet
 
-      - name: Retain synthetic Search timing evidence
-        if: ${{ always() }}
-        timeout-minutes: 2
-        run: |
-          if [ "$(adb -s emulator-5554 shell getprop ro.kernel.qemu 2>/dev/null | tr -d '\r')" = "1" ]; then
-            if adb -s emulator-5554 shell test -f /sdcard/Download/milestone-search-latency.json; then
-              mkdir -p reports/metadata
-              adb -s emulator-5554 exec-out cat /sdcard/Download/milestone-search-latency.json > reports/metadata/search-latency.json
-            fi
-          fi
-
       - name: Stop the assigned emulator
         if: ${{ always() }}
         timeout-minutes: 2

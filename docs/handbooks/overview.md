@@ -19,7 +19,7 @@ Local full gate, run from the repository root in PowerShell:
 python scripts/validate.py --profile full --quiet
 ```
 
-Use `python scripts/validate.py --profile fast --quiet` for the smaller checks. `--list --json` lists a profile's commands without running them or writing reports. Profiles write results under `reports/` by default; `python scripts/validate.py --profile report --quiet` aggregates existing receipts without rerunning checks. The collector preserves JUnit exports and rejects reported failures or errors even if Gradle returns zero; the platform profile reads the Debug variant it requests. The `release` profile packages a clean committed source archive, verifies reproducible archive bytes and safe paths, and records version, commit, and SHA-256 metadata. It does not build an APK, use signing secrets, rerun tests, publish, or tag a release; debug sideloads remain separate.
+Use `python scripts/validate.py --profile fast --quiet` for the smaller checks. `--list --json` lists a profile's commands without running them or writing reports. Profiles write results under `reports/` by default; `python scripts/validate.py --profile report --quiet` aggregates existing receipts without rerunning checks. The collector preserves JUnit exports and rejects reported failures or errors even if Gradle returns zero; the platform profile requires JUnit cases from both its debug functional task and its optimized Search task, rejects skipped runtime cases, and ignores unrelated variant reports. The `release` profile packages a clean committed source archive, verifies reproducible archive bytes and safe paths, and records version, commit, and SHA-256 metadata. It does not build an APK, use signing secrets, rerun tests, publish, or tag a release; debug sideloads remain separate.
 
 The local emulator runtime gate is separate from `full`:
 
@@ -27,13 +27,13 @@ The local emulator runtime gate is separate from `full`:
 python scripts/validate.py --profile platform --quiet
 ```
 
-This profile accepts only `emulator-5554`, verifies `ro.kernel.qemu` is `1`, and sets the test child's `ANDROID_SERIAL` to that emulator before `connectedDebugAndroidTest`. Do not run connected tests against the owner's phone: installing the test app clears its sign-ins. Instrumented-test compilation in `full` is not runtime proof.
+This profile accepts only `emulator-5554`, verifies `ro.kernel.qemu` is `1`, and sets each test child's `ANDROID_SERIAL` to that emulator. It runs the debug functional suite with only the optional debug latency diagnostic excluded, then measures the shared Search scenario through `searchBenchmark` against a non-debuggable, R8-optimized `benchmark` app. The 30 samples, three warmups, real visible-draw endpoint, animated background and 200 ms p95 limit remain unchanged. Both tasks and their JUnit evidence must pass. The native profile retains fresh UUID-correlated metrics in `reports/metadata/search-latency.json` and expected APK hashes in `search-benchmark-artifacts.json`; the controller checks the installed target and controller hashes before measuring. Do not run connected tests against the owner's phone: installing the test app clears its sign-ins. Instrumented-test compilation in `full` is not runtime proof.
 
 CI (`.github/workflows/ci.yml`) is configured to validate pull requests to `develop` or `main` on Ubuntu 24.04 with Java 17. After preparing the pinned dependencies, it runs `.validation-venv/bin/python scripts/validate.py --profile full --platform ci-linux --quiet`, installs the Android 36 Google APIs x86_64 image, verifies KVM acceleration, boots an isolated headless `emulator-5554`, and runs `.validation-venv/bin/python scripts/validate.py --profile platform --platform ci-linux --quiet`. Emulator cleanup, report aggregation, and report upload are configured to run even after failure. `CI result` requires the validation job to succeed for those target branches. The explicit `ci-linux` full profile still excludes the local-only capture build under [ADR-0001](../decisions/0001-login-bridge-sessions-fixtures-logging.md).
 
 ## Module Layout
 
-All code is in the single `app` module under `com.bendourthe.milestone`.
+Production code is in the `app` module under `com.bendourthe.milestone`. The test-only `searchBenchmark` module runs its own instrumentation process so normal release shrinking does not remove APIs that its runner expects. `app/src/searchScenario/` holds one synthetic scenario shared by the debug diagnostic and optimized fixture. `app/src/benchmark/` supplies a signature-protected, emulator-only activity in a separate `.benchmark` package, with an empty Application and disabled production entry points. These fixtures are absent from the normal debug, capture and release app APKs; they use an in-memory database and private scratch preferences rather than issuer sessions.
 
 | Package | Responsibility |
 |---|---|

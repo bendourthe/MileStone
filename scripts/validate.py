@@ -36,7 +36,7 @@ PRIVATE = ("app/src/test/resources/fixtures-private/", "docs/private/")
 INPUT_SCOPE = ("app/src", "app/schemas", "app/build.gradle.kts", "app/proguard-rules.pro",
                "build.gradle.kts", "settings.gradle.kts", "gradle", "gradle.properties",
                "gradlew", "gradlew.bat", ".gitignore", ".gitleaks.toml", ".github/workflows",
-               "scripts", "docs/handbooks")
+               "scripts", "searchBenchmark", "docs/handbooks")
 
 
 @dataclass(frozen=True)
@@ -81,7 +81,9 @@ def groups(profile: str, host: str) -> list[Group]:
             Group("security", (Step(("@security",), 600),)),
         ]
     if profile == "platform":
-        return [Group("android-emulator-runtime", (Step(("@emulator",)), gradle(host, "connectedDebugAndroidTest")), True)]
+        return [Group("android-emulator-runtime", (Step(("@emulator",)), gradle(host, ":app:connectedDebugAndroidTest",
+                      "-Pandroid.testInstrumentationRunnerArguments.notClass=com.bendourthe.milestone.ui.search.SearchLatencyTest")), True),
+                Group("optimized-search-performance", (Step(("@optimized-search",), 2700),), True)]
     if profile == "release":
         return [Group("source-package", (Step(("@private",)), Step(("@source-package",), 300)), True)]
     return []
@@ -235,6 +237,11 @@ def emulator_boundary(run: Run):
         raise RuntimeError("The assigned serial is not a verified Android emulator; no device tests were started")
 
 
+def optimized_search(run: Run):
+    from search_benchmark import execute
+    execute(run, gradle, emulator_boundary)
+
+
 def apply_public_digest_allowlist(run: Run, payload: bytes) -> tuple[bytes, int]:
     # Gitleaks stdin fragments can cut a full public digest into a secret-like
     # prefix. Apply only the existing exact match exception before fragmentation.
@@ -327,7 +334,7 @@ def source_package(run: Run):
     (directory / "artifacts.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
 
-ACTIONS = {"@private": private_boundary, "@schema": schema_boundary, "@emulator": emulator_boundary, "@security": security, "@source-package": source_package}
+ACTIONS = {"@private": private_boundary, "@schema": schema_boundary, "@emulator": emulator_boundary, "@optimized-search": optimized_search, "@security": security, "@source-package": source_package}
 
 
 def clear_exports(run: Run, *, security_outputs=False):
@@ -350,14 +357,18 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
     clear_exports(run)
     counts = dict(tests=0, failures=0, errors=0, skipped=0)
     evidence_origin = "selected task outputs, including Gradle-validated up-to-date outputs" if succeeded else "partial reports written during this invocation; no old XML counted"
-    source = "app/build/outputs/androidTest-results/connected/debug" if run.args.profile == "platform" else "app/build/test-results/testDebugUnitTest"
+    sources = ("app/build/outputs/androidTest-results/connected/debug",
+               "searchBenchmark/build/outputs/androidTest-results/connected/benchmark") if run.args.profile == "platform" else ("app/build/test-results/testDebugUnitTest",)
+    task_cases = {source: 0 for source in sources}
     if run.args.profile in ("full", "platform"):
-        for index, path in enumerate(sorted((run.root / source).rglob("*.xml"))):
+        paths = [(source, path) for source in sources for path in sorted((run.root / source).rglob("*.xml"))]
+        for index, (source, path) in enumerate(paths):
             if not succeeded and path.stat().st_mtime < run.started:
                 continue
             document = ET.fromstring(path.read_text(encoding="utf-8"))
             suites = [document] if document.tag == "testsuite" else document.findall("testsuite")
             for suite in suites:
+                task_cases[source] += int(suite.get("tests", "0"))
                 for key in counts:
                     counts[key] += int(suite.get(key, "0"))
             destination = run.reports / "junit" / f"{run.args.profile}-{index:03}.xml"
@@ -376,6 +387,10 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
         raise RuntimeError("The successful test task produced no JUnit evidence")
     if succeeded and (counts["failures"] or counts["errors"]):
         raise RuntimeError("The test task returned success but JUnit reports failures or errors")
+    if run.args.profile == "platform" and succeeded and any(total == 0 for total in task_cases.values()):
+        raise RuntimeError("A selected Android task produced no JUnit cases")
+    if run.args.profile == "platform" and succeeded and counts["skipped"]:
+        raise RuntimeError("Required Android runtime cases were skipped")
     index = [{"tool": "gitleaks", "path": "sarif/" + p.name} for p in sorted((run.reports / "sarif").glob("*.sarif"))]
     (run.reports / "sarif" / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     counts["evidence_origin"] = evidence_origin if run.args.profile in ("full", "platform") else "No Android test runner selected"
