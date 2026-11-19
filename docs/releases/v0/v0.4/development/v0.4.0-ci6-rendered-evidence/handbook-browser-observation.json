@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "surface": "Current offline HTML handbook",
+  "skip_link_before": {
+    "x": 8,
+    "y": -74.0406265258789,
+    "width": 197.609375,
+    "height": 45.578125
+  },
+  "skip_link_focused": {
+    "x": 8,
+    "y": 8,
+    "width": 197.609375,
+    "height": 45.578125
+  },
+  "keyboard_destination": "#handbook-content",
+  "console_errors": [],
+  "external_requests": [],
+  "storage_keys_only": [],
+  "scope": "Fresh browser keyboard/console/network/storage observation; native full matrix covers additional interaction/contrast/forced-color/reduced-motion states."
+}

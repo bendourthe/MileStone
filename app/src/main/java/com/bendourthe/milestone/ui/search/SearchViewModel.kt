@@ -14,7 +14,7 @@ import java.util.Locale
 sealed interface SearchUiState {
     data object Loading : SearchUiState
     data object Start : SearchUiState
-    data class Results(val results: SearchResults) : SearchUiState
+    data class Results(val results: SearchResults, val requestVersion: Long = 0) : SearchUiState
     data object Empty : SearchUiState
     data object ReadError : SearchUiState
 }
@@ -29,7 +29,9 @@ internal data class SearchInput(val programs: List<SearchProgramSource>, val car
     }, preferences = preferences.mapValues { (_, p) -> p.copy(collapsed = p.collapsed.toSet(), acknowledged = p.acknowledged.toMap(), readState = p.readState.copy(sections = p.readState.sections.toMap())) })
 }
 
-internal class SearchSnapshot(val revision: SearchRevision, val source: SearchInput, val entries: List<SearchEntry>)
+internal class SearchSnapshot(val revision: SearchRevision, val source: SearchInput, val entries: List<SearchEntry>) {
+    val prepared = GlobalSearch.prepare(entries)
+}
 
 /** Uses the same page and duplicate owner as the destination; no second matching/deduplication policy. */
 internal class SearchSnapshotFactory(private val clock: () -> Long, private val zone: ZoneId, private val locale: Locale) {
@@ -86,6 +88,8 @@ class SearchViewModel(
     private val factory = SearchSnapshotFactory(clock, zone, locale)
     private val input = MutableStateFlow("")
     private val edits = java.util.concurrent.atomic.AtomicLong()
+    private class QueryRequest(val text: String, val version: Long)
+    private val requests = MutableStateFlow(QueryRequest("", 0))
     val queryVersion: Long get() = edits.get()
     val query: StateFlow<String> = input.asStateFlow()
     private val retries = MutableStateFlow(0)
@@ -141,17 +145,23 @@ class SearchViewModel(
     private val source = retries.flatMapLatest { watchSource() }.flowOn(worker)
         .stateIn(viewModelScope, sharing, SourceState.Loading)
 
-    val state: StateFlow<SearchUiState> = combine(input, source) { text, snapshot -> text to snapshot }
-        .mapLatest { (text, status) ->
-            when (status) {
+    // Publish on Main immediately before stateIn stores state; equal Empty values still need a new generation.
+    private val publishedVersion = MutableStateFlow(0L)
+    internal val publishedQueryVersion: StateFlow<Long> = publishedVersion.asStateFlow()
+
+    val state: StateFlow<SearchUiState> = combine(requests, source) { request, snapshot -> request to snapshot }
+        .mapLatest { (request, status) ->
+            val text = request.text
+            request.version to when (status) {
                 SourceState.Loading -> SearchUiState.Loading
                 SourceState.Error -> SearchUiState.ReadError
                 is SourceState.Ready -> if (GlobalSearch.isBlank(text)) SearchUiState.Start else {
-                    val result = GlobalSearch.match(text, status.snapshot.entries)
-                    if (result.count == 0) SearchUiState.Empty else SearchUiState.Results(result)
+                    val result = GlobalSearch.match(text, status.snapshot.prepared)
+                    if (result.count == 0) SearchUiState.Empty else SearchUiState.Results(result, request.version)
                 }
             }
-        }.flowOn(worker).stateIn(viewModelScope, sharing, SearchUiState.Loading)
+        }.flowOn(worker).onEach { (version, _) -> publishedVersion.value = version }
+        .map { (_, state) -> state }.stateIn(viewModelScope, sharing, SearchUiState.Loading)
 
     // These belong to this navigation entry only, never to saved instance state or storage.
     private val tab = MutableStateFlow<SearchTab?>(null)
@@ -173,13 +183,14 @@ class SearchViewModel(
     fun setQuery(value: String) {
         val bounded = GlobalSearch.boundQuery(value)
         if (input.value != bounded) {
-            edits.incrementAndGet()
+            val version = edits.incrementAndGet()
             notification.value = null
-            input.value = bounded
             positions.clear()
             collapsedGroups.value = emptySet()
             tab.value = null
             resetScroll = true
+            input.value = bounded
+            requests.value = QueryRequest(bounded, version)
         }
     }
     fun clear() { setQuery("") }

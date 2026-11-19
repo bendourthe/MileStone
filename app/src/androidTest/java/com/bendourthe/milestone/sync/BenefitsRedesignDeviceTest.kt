@@ -13,7 +13,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -421,8 +421,10 @@ class BenefitsRedesignDeviceTest {
         compose.onNodeWithContentDescription("Back to institutions").performClick()
         compose.onNodeWithTag("benefitsProgram_amex").performClick()
         compose.onNode(hasContentDescription("card ending ${drafts.first().lastDigits}", substring = true)).performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
         compose.onNodeWithContentDescription("Back to Benefits").performClick()
+        compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("benefitsList").assertIsDisplayed()
         compose.onNodeWithContentDescription("Back to institutions").performClick()
         compose.runOnIdle { fontScale.value = 2f }

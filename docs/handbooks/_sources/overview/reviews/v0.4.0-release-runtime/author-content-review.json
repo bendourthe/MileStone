@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "reviewer": "Handbook author source review; independent root adoption pending",
+  "output_sha256": "cbee724fdf316e8de63e7c048553e75a6585fcc317106b134e60cddaa27c8a69",
+  "reviewed_sources": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/global-search.md",
+    "docs/handbooks/handbooks.json",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt"
+  ],
+  "source_findings": [],
+  "reviewed_changes": [
+    "SearchViewModel binds completed Results to a monotonic request version and publishes the public query before the matching request",
+    "SearchScreen retains one list state per tab, guards pending resets against the current query version and saves positions only for the current observed version on disposal",
+    "AuroraBackground draws the same minute-loop gradient and glows in an isolated match-parent background graphics layer without changing foreground layout or input",
+    "The benchmark source uses ordinary Android frames, production content/background, 25 programs, 100 cards, 2000 benefits, 30 samples, three warmups and an unchanged 200 ms p95 threshold; the handbook states protocol only",
+    "The old run-specific hosted success sentence is removed from living overview prose; historical release receipts remain intact",
+    "The native map adds AuroraBackground and SearchLatencyTest to both inputs and code_inputs so the new claims have freshness coverage",
+    "All other retained handbook content, slide IDs, design, CSS, runtime and checker are unchanged; there are 67 inputs and 51 code inputs",
+    "The native browser run passes 2609 checks and 384 measurements with no findings or limitations; changed reading/deep-source text and actual print pages were directly inspected"
+  ],
+  "comparison_evidence": "comparison.json",
+  "visual_evidence": "visual-review.json",
+  "change_scope_evidence": "change-scope.json",
+  "qualification_scope": "Handbook source fidelity, reproducible build, browser and print proof only. No full application, constrained performance, hosted CI, publication, release or completion claim is made."
+}

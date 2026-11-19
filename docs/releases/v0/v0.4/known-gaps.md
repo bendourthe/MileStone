@@ -2,13 +2,13 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-14
+**Last updated**: 2026-11-17
 
 All 29 remaining v0.3 gaps are carried here with their original IDs, conditions and sources. Existing Gxx IDs are deliberately retained. The native typed-ledger parser does not recognize this legacy prefix, so counts and carry-forward are verified from the table rows rather than inferred from its zero-item result. Global search G37 is authorized for local implementation; its delivery remains open.
 
 | Status | Count |
 |---|---|
-| Open | 29 |
+| Open | 30 |
 | Fixed | 0 |
 
 ## Open
@@ -40,7 +40,7 @@ All 29 remaining v0.3 gaps are carried here with their original IDs, conditions 
 | G33 | Period labels near their edges: a single-month label read in the next month (for example "Dec" read on Jan 2) resolves to the next December, and yearly labels ("Annual") are understood but the page script reports only month labels. Tiles skip ended periods and reminders need a period end within the lead time, so no wrong reminder results. | Adjust once a live capture shows such a label. | v0.2.0 Phase 6 deep pass (WN); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
 | G34 | During an all-programs refresh on 2026-11-12, Marriott Bonvoy and Hilton Honors stopped as `Timed out`; one or two manual refreshes then read them. A timed-out read is not retried by itself, and the owner expects it to be. | Read the diagnostics lines of the next such stop, then retry a timed-out read once within the same refresh if the cause is transient. | v0.3.0 Phase 1 owner session (BG); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
 | G35 | A texted code that MileStone reads (Air Canada, 2026-11-12) stays in the phone's Messages. Android lets only the default SMS app delete texts, and MileStone reads them through the incoming-text broadcast, so it cannot delete them. | Decide between leaving the texts, offering a notification that opens Messages, or another code source; deletion itself needs MileStone to be the default SMS app. | v0.3.0 Phase 1 owner session (NI); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
-| G37 | Owner direction for v0.4, confirmed 2026-11-13: a top search icon opens global search that finds a keyword (for example "Delt") across added programs, stored cards, and benefits, grouped per program. Contextual queries such as "Delta lounge" may use parent names with at least one token matching the item itself. This replaces the earlier bottom Search tab idea. | Finalized [v0.4.0 global search plan](plans/v0.4.0-global-search.md); implementation remains open and requires the integrated v0.3.1 presentation contract. | v0.3.0 Phase 1 owner request; placement and plan choices confirmed 2026-11-13 (NI); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
+| G37 | Owner direction for v0.4, confirmed 2026-11-13: a top search icon opens global search that finds a keyword (for example "Delt") across added programs, stored cards, and benefits, grouped per program. Contextual queries such as "Delta lounge" may use parent names with at least one token matching the item itself. This replaces the earlier bottom Search tab idea. | Implemented against the integrated v0.3.1 presentation contract, owner accepted and merged through green PR16; keep Open until v0.4.0 release publication. See [hosted integration evidence](development/v0.4.0-hosted-integration.json). | v0.3.0 Phase 1 owner request; placement and plan choices confirmed 2026-11-13 (NI); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
 | G38 | The capture build no longer saves a balance after a read: to keep the window open it holds back the read events, because `SignInViewModel` saves and closes in one step and is outside v0.3.0's write paths. The capture build is uninstalled after each session, so no stored data depends on it. | Split the save from the close in `SignInViewModel` in a plan that owns `ui/auth/`. | v0.3.0 Phase 1 T001 (NI); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
 | G41 | Leaving MileStone during a refresh stops it: on 2026-11-12 a refresh whose balance was already read lost its benefits read after 16.8 s (`read=0 ... stop=budget`), and another stopped right after the automatic sign-in; the tile then showed the old update time with no message. | Keep a started refresh running when the app goes to the background (a foreground service or WorkManager work that owns the hidden WebView), or show that it stopped and offer to resume. | v0.3.0 Phase 4 owner check (BG); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
 | G46 | An earlier full emulator run failed in BridgeFixtureTest teardown: ActivityScenario.close could not reach DESTROYED and last saw PAUSED. The exact case passed alone; no root cause is confirmed. After cold-booting only the unresponsive assigned emulator, the current full suite passes 35/35 without skips or suppression. | Owner: Android test infrastructure maintainer. Retain this historical stability warning; if it recurs, capture lifecycle callbacks and UI-thread state in the full-order run before changing timeouts or suppressing errors. The current local gate is green, but recovery alone does not prove a root-cause fix. | v0.3.0 Phase 4 T025, final-validation.json (WN); carried from [v0.3](../../../archives/v0/v0.3/known-gaps.md) by v0.3.1 on 2026-11-13. |
@@ -52,7 +52,7 @@ All 29 remaining v0.3 gaps are carried here with their original IDs, conditions 
 
 ## Carry Status
 
-The 29 legacy rows above are copied without changing their IDs, conditions or sources from the local v0.3 closing proposal at e6ff16d332f87f9e7cd7dbdf52f2e69aadd1e368. That proposal was integrated and v0.3 was archived through green PR 15 at 09036c2037b42fa232679a4b2f0afd55b9cd3171. This copy preserves the forward record; Search delivery and authorized cleanup obligations remain open. G37 remains Open until Search delivery is actually verified. The legacy summary counts only those 29 rows. The project verification and protection items below are now resolved; the combined Open count remains 29 legacy conditions. Actual first hosted execution remains T020. MT-1 is resolved for project verification through actual adapter checks; external auxiliary helper compatibility is unchanged. The native typed parser does not recognize the legacy G-prefix rows; its result cannot be used to claim there are only three total gaps.
+The 29 legacy rows above are copied without changing their IDs, conditions or sources from the local v0.3 closing proposal at e6ff16d332f87f9e7cd7dbdf52f2e69aadd1e368. That proposal was integrated and v0.3 was archived through green PR 15 at 09036c2037b42fa232679a4b2f0afd55b9cd3171. This copy preserves the forward record; Search delivery and authorized cleanup obligations remain open. G37 remains Open until Search delivery is actually verified. The legacy summary counts only those 29 rows. The project verification and protection items below are now resolved; the combined Open count remains 29 legacy conditions. Hosted execution and T020 integration now pass in PR16; release publication remains pending. MT-1 is resolved for project verification through actual adapter checks; external auxiliary helper compatibility is unchanged. The native typed parser does not recognize the legacy G-prefix rows; its result cannot be used to claim there are only three total gaps.
 
 ## v0.4.0
 
@@ -62,12 +62,31 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
 | Deferred (DF) | 0 | 0 |
-| Bugs / regressions (BG) | 0 | 0 |
+| Bugs / regressions (BG) | 1 | 1 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 1 |
 | Quality-gate gaps (QG) | 0 | 2 |
 
 ### Open Items
+
+#### Bugs / Regressions
+
+##### BG-1 - Search Real-Frame Timing
+
+- **CI11 update, 2026-11-17**: Published 2a93916 remains red at hosted p95 237.467321 ms in run 44037140859. Animation A/B/A and a separate CPU-placement diagnostic support no speculative production fix. The new local failure-only collector passes helper/WSL controls and a real collector API smoke with 139 target frames and zero trace errors/loss; positive CLI integration and hosted evidence remain open. After the BG-2 correction, the complete local platform profile passes all 78 cases with p95 90.1253 ms at the unchanged limit. This local result does not replace hosted qualification. No additional push or CI rerun is authorized. See [CI11 preparation](development/v0.4.0-ci11-diagnostics-preparation.json) and [current local proof](development/v0.4.0-ci11-auth-red-green.json).
+
+- **CI9 local qualification**: Snapshot-index correction passes 429 unit cases and all 77 emulator cases at matching source fingerprint; p95 is 138.7748 ms with the unchanged 30/3/200 contract and preservation complete. Published d3df074 remains red, so BG-1 remains Open pending separately authorized publication and current-head hosted green. See [CI9 local disposition](development/v0.4.0-ci9-tier3-disposition.json).
+
+- **Current hosted result**: Approved commit d3df074 failed run 44016321789 at p95 248.921593 ms against the unchanged 200 ms limit. The one-push grant is used; PR 17 remains unmerged. A two-core local diagnostic also fails, with preservation complete and original affinity restored; it is not hosted parity. Snapshot-index optimization and semantic regressions are planned locally, pending preservation-baseline adoption. See [CI9 reproduction](development/v0.4.0-ci9-reproduction.json).
+
+- **Source phase**: Phase 4, T013 and T019; release qualification remains open.
+- **Plan reference**: `docs/releases/v0/v0.4/plans/v0.4.0-global-search.md`.
+- **Reason**: Hosted run 43909113839 on 969264d measured p95 386.95086 ms against the required 200 ms. Clean-emulator local foreground measurements also miss the requirement. A worker-publication trial failed at 660.9495 ms and was reverted; a single-pass background candidate remains unqualified. No threshold, corpus, sample-count or real-frame endpoint waiver is approved.
+- **Local correction**: The retained candidate subsequently passed the full 77-case emulator suite with Search p95 163.3076 ms, and its full local profile passed at the same final source fingerprint. Earlier misses remain retained. Current-head hosted qualification is still required, so this bug stays Open and is not approved for deferral.
+- **Hosted correction result**: The owner-approved push of 2bbbb28 reached PR 17. Run 43964032366 passed full validation and 76 of 77 Android cases, but Search p95 was 322.803223 ms. Median result readiness was 135.12 ms and subsequent draw 62.77 ms. This confirms a remaining timing miss; merge and release stay held while local diagnosis continues. The one additional push grant is used.
+- **Optimized local candidate**: The shared-scenario, independent-controller candidate passes focused artifact-bound execution at p95 115.2237 ms and rejects an actual 250 ms delay at 312.0426 ms. All 43 script regressions pass. A separate CPU stress prototype still fails at 336.053 ms; it is not Linux parity. Complete local full/platform qualification subsequently passes at matching source fingerprint, with all 77 runtime cases and Search p95 91.3696 ms. Fresh publication authority and current-head hosted qualification remain open. No threshold, corpus, warmup, sample or visible-draw waiver is applied; BG-1 stays Open.
+- **Suggested next step**: Android rendering/test maintainer must establish the cause and qualify a reviewed correction with the original 30 samples, three warmups and 200 ms real-frame gate, full emulator suite and current-head hosted CI. Keep PR 17, release, primary fast-forward and minor close on hold until the required gate passes.
+- **Evidence**: `development/history/2026-11-16-v0.4.0-ci-stabilization-7.md`; local reports `reports/release-v040/ci7-clean-focused-search-latency/` and `ci7-clean-worker-publication/`. This is current-plan work, not an approved deferral.
 
 #### Quality-Gate Gaps
 
@@ -84,6 +103,11 @@ No open item in this category. The MT-1 verification resolution is recorded belo
 | QG-1 | Integration workflow omitted Android runtime execution. | Owner approved and local workflow now invokes full/platform/report with a bounded API 36 emulator. Independent review found no actionable defect. First actual hosted execution remains T020; no CI runtime success is claimed. |
 | QG-2 | PR requirement and administrator enforcement were missing. | Owner approved; both develop/main were updated and read back, preserving the app-bound CI result and all other settings. See development/v0.4.0-protection-applied.json. |
 | MT-1 | Current handbook viewport, source-value and control proof was missing behind incompatible helper schemas. | Resolved through project-native adapter checks and specific counterchecks; installed auxiliary helper schema compatibility remains unchanged. Current output b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc has 2,606 passing checks, 384 measurements, independent visual review and full native qualification. |
+| BG-2 | Standing-notice sign-in returned UNFINISHED in the complete native profile. | Owner-approved delayed-fill regression fails on the original script and passes after resetting the existing page window on successful password submission. All 22 bridge cases and the complete 78-case platform profile pass, including the original case; retry counts, refusal rules and caller budgets are unchanged. This is a locally verified correction, not hosted or release completion. See development/v0.4.0-ci11-auth-red-green.json. |
+
+#### BG-2 Resolution Detail
+
+Source phase: Phase 4, CI11 stabilization and T019 in docs/releases/v0/v0.4/plans/v0.4.0-global-search.md. The earlier complete profile passed 75 of 76 cases and returned UNFINISHED for the standing-notice case; its isolated pass did not resolve the failure. The owner approved preserving the exact current authentication files before baseline recording and edits. The seven-second delayed-fill regression proves that the original document deadline can expire before the existing second press; resetting the same page window after successful password submission resolves that race. The current complete platform profile passes 78 of 78 cases with zero failures, errors or skips, including the original standing-notice test and the new regression. This does not independently prove why the earlier order-dependent run was delayed. Current repository qualification and separately authorized hosted green remain release gates. [Red/green and complete-platform proof](development/v0.4.0-ci11-auth-red-green.json) retains the original failures and exact bindings.
 
 #### MT-1 Resolution Detail
 
@@ -92,7 +116,7 @@ The original source phase is Phase 4, T013/T016, owned by the handbook-tooling m
 The three confirmed T015 code defects were corrected and independently rechecked within the plan rather than deferred. QG-1 and QG-2 are resolved as configured-path/settings gaps; actual hosted execution remains a publication gate.
 
 
-The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are zero Open and three Resolved; combined legacy-plus-typed Open count is 29.
+The original QG-1/QG-2 pre-approval conditions are retained in the historical CI proposal and comparison. All 29 legacy Open rows remain unchanged. Typed totals are one Open and four Resolved; combined legacy-plus-typed Open count is 30. BG-1 blocks the current release and has not been approved for deferral.
 
 
 Current owner Search refinements require program-only descendant browsing, Rewards images/stored points and compact exact-card headers with independent chevrons. These are current-plan work, not a waiver of G37 delivery. The original legacy rows and their source conditions remain unchanged.

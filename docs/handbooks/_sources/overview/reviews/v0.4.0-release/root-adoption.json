@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e",
+  "input_count": 65,
+  "independent_native_inventory_exact_match": true,
+  "review_evidence_hashes_verified": true,
+  "changed_inputs_reviewed": [
+    "app/build.gradle.kts",
+    "docs/handbooks/overview.md",
+    "docs/handbooks/global-search.md",
+    "docs/handbooks/README.md"
+  ],
+  "directly_viewed": [
+    "run-1/reading-1440.png",
+    "run-1/1366x768-deep-dive-slide-8.png",
+    "root-global-search.png",
+    "print-review-page3.png",
+    "print-review-page13.png"
+  ],
+  "observations": [
+    "Release metadata is version 0.4.0 and code5; no application behavior source changes",
+    "Updated CI claim matches the actual passing run and merged candidate, distinct from release metadata validation",
+    "Changed Search reading text and print content remain readable, complete and unclipped",
+    "All other61 source hashes and all225 canonical screenshot bytes match prior qualified evidence",
+    "Worker separately reviewed all four changed print pages and narrow reading/deep-source views"
+  ],
+  "findings": [],
+  "release_publication_claimed": false
+}

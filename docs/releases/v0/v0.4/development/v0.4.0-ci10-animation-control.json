@@ -1,0 +1,78 @@
+{
+  "recorded_utc": "2026-11-17T10:27:36.423959+00:00",
+  "status": "DIAGNOSTIC_CONTROL_COLLECTED_NOT_QUALIFICATION",
+  "qualification": false,
+  "purpose": "Test animation-related rendering contribution before any production change or host-wide trace.",
+  "script": "reports\\release-v040\\ci10_animation_control.py",
+  "script_sha256": "885c480fd6cc3368140731572edae77a9d568898030ab7ac502ccf6651c7202b",
+  "design": [
+    "Same frozen production source, optimized APK pair, four-core affinity, admission threshold and thirty-query workload.",
+    "A1 uses exact original absent/default-one animation setting; B uses zero; A2 restores the original presence/value.",
+    "Fresh target process per run, same APK hashes and source fingerprint required.",
+    "Require complete timing/phase pairing and preserve per-family ready/draw/CPU medians.",
+    "Stop on any missing result, mismatch or failure; verify exact setting restoration and original emulator boot."
+  ],
+  "review": {
+    "reviewer": "ci9_search_cost",
+    "findings_closed": [
+      "Interrupt/communication failure could release settings while child remained active.",
+      "Unequal metric arrays could truncate comparison data."
+    ],
+    "remaining_findings": 0,
+    "current_child_lifetime_controls": 5,
+    "current_control_actual_device_calls": 0,
+    "retained_unaffected_controls": [
+      "ci10-animation-controls.json",
+      "ci10-animation-review-controls.json"
+    ]
+  },
+  "first_live_attempt": {
+    "receipt": "reports\\release-v040\\ci10-animation-control-2753a32cbda54d8f9bcf91f240b632ed\\receipt.json",
+    "status": "CONTROL_INCOMPLETE",
+    "completed_conditions": 0,
+    "python_benchmark_launcher_invoked": false,
+    "host_admission_samples": [
+      22.691242592860494,
+      13.523680724685395,
+      10.689077069162977
+    ],
+    "original_setting_absence_verified": true,
+    "emulator_affinity_restored": true
+  },
+  "interpretation_limits": [
+    "B is deliberately not qualification evidence and cannot close the unchanged animation-enabled release gate.",
+    "Any contribution is animation-related, not Aurora-only attribution.",
+    "Inconsistent A conditions leave host drift unresolved.",
+    "No production or issuer-account data changes are made."
+  ],
+  "second_live_attempt": {
+    "receipt": "reports/release-v040/ci10-animation-control-396dd2b53efd4698acb2b2b47405b744/receipt.json",
+    "resource": "reports/release-v040/ci10-resource-64a155d412a44bcc88b251f2ef46b430",
+    "status": "CONTROL_INCOMPLETE",
+    "completed_conditions": 0,
+    "python_benchmark_launcher_invoked": false,
+    "host_admission_samples": [31.39098466561063, 27.90493137877592, 30.335802162168168],
+    "original_setting_absence_verified": true,
+    "emulator_affinity_restored": true
+  },
+  "completed_live_control": {
+    "receipt": "reports/release-v040/ci10-animation-control-fbc59302996142acaae5517dfe68863d/receipt.json",
+    "completed_conditions": 3,
+    "p95_ms": {"A1": 538.2783, "B": 552.6509, "A2": 562.3096},
+    "same_source_and_apk_pair": true,
+    "all_samples_and_preservation_verified": true,
+    "exact_original_setting_restored": true,
+    "emulator_affinity_restored_each_run": true,
+    "interpretation": "The disabled condition has no clear overall p95 advantage over the two enabled conditions. This comparison does not support an animation-based production fix.",
+    "limit": "One local diagnostic comparison, with per-family variation and host drift; this does not prove animations have zero cost or explain the hosted failure."
+  },
+  "host_topology_correction": {
+    "evidence": "reports/release-v040/ci10-host-topology.json",
+    "host_physical_cores": 14,
+    "host_logical_processors": 20,
+    "selected_logical_processors": 4,
+    "selected_physical_cores": 2,
+    "explanation": "Mask 15 selects logical processors 0/1 and 2/3 on two physical cores. Existing four-core diagnostic filenames describe four logical processors, not four independent physical cores. Hosted topology and Linux parity remain unproven."
+  },
+  "next": "Investigate scheduling and resource placement without changing production behavior or the gate; no animation fix is supported by this control."
+}

@@ -20,6 +20,8 @@ import com.bendourthe.milestone.domain.ReminderSettings
 import com.bendourthe.milestone.domain.assignBenefitKeys
 import com.bendourthe.milestone.sync.background.AndroidReminderNotifier
 import com.bendourthe.milestone.sync.background.BenefitReminders
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -73,7 +75,14 @@ class BenefitRemindersDeviceTest {
         assertEquals(1, reminders.check())
         assertEquals(0, reminders.check())
 
-        val posted = manager.activeNotifications.filter { it.notification.channelId == AndroidReminderNotifier.CHANNEL }
+        val posted = withTimeout(5_000) {
+            var active = manager.activeNotifications.filter { it.notification.channelId == AndroidReminderNotifier.CHANNEL }
+            while (active.isEmpty()) {
+                delay(25)
+                active = manager.activeNotifications.filter { it.notification.channelId == AndroidReminderNotifier.CHANNEL }
+            }
+            active
+        }
         assertEquals(1, posted.size)
         val notification = posted.single().notification
         assertEquals(Notification.VISIBILITY_PRIVATE, notification.visibility)

@@ -1,0 +1,102 @@
+{
+  "scope": "Version metadata and documentation release preparation; application behavior remains the green integrated PR16 candidate",
+  "integration": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "version": "0.4.0",
+  "versionCode": 5,
+  "full": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "219b7a4be6d1be320a31c4f27ba353907a7e9e6359c2d91890d8404a2a562743",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.265
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.297
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.172
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 3.109
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 27.094
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 86.235
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 3.296
+      }
+    ],
+    "counts": {
+      "tests": 422,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 14
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 5028,
+      "total": 6423,
+      "percent": 78.28
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "edc6bf49918ff48f06098da379a61283c0e84ff9b94a26aeac8fc96d85d68b47",
+      "input_bytes": 1072284,
+      "scanned_input_sha256": "4abac82ef5a8ed18618e19bbe99f946a0dded88275274c63075f7583ac6d56a2",
+      "scanned_bytes": 1071900,
+      "public_metadata_exemptions": 6,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "apk_metadata": [
+    {
+      "kind": "debug",
+      "version": "0.4.0",
+      "code": 5,
+      "sha256": "7718c181a0e706b0b47f7c7d984c11ceed2d15b32acaf5c53155f26d641e0eee",
+      "bytes": 74507893
+    },
+    {
+      "kind": "capture",
+      "version": "0.4.0",
+      "code": 5,
+      "sha256": "57a234243f7a4645cc92298e49bef39eaeea76669ce58ce8557665eb2d95f5a2",
+      "bytes": 74139293
+    }
+  ],
+  "native_handbook": {
+    "status": "pass",
+    "scope": "full",
+    "inputs": 65,
+    "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e",
+    "receipt_hash_correction": "Initial raw CRLF review pointers were rejected; official LF-content hashes now pass without artifact changes"
+  },
+  "runtime_scope": "The unchanged application behavior was qualified in hosted PR16:74 tests, p95 189.86024ms; the release pull request will independently execute runtime validation for version5",
+  "private_capture_scope": "Not copied into this release worktree. Full profile14 expected skips; earlier source-bound private Amex qualification is retained in Search evidence.",
+  "release_published": false
+}

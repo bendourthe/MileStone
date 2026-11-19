@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "scope": "Full current handbook refresh; no application, hosted or release completion claim",
+  "candidate": {
+    "revision": "2a939166a522235218bc0d386a4bc2172630d681",
+    "working_tree": "uncommitted"
+  },
+  "inputs": 82,
+  "code_inputs": 66,
+  "html_sha256": "93bbdfad44589e2564fe7ffbdaf04fa845bdd5e130c0f320b1043ec8a61cac08",
+  "checks": {
+    "content": "Independent two-paragraph current-code delta review; 74 unchanged existing hashes, six changed and two added inputs",
+    "build": "Two actual builder invocations identical; read-only native freshness passes",
+    "rendered": "2611 Chromium checks pass, zero findings or limitations; reading and balanced-slide images inspected",
+    "native": "Full-scope check_handbooks.py passes"
+  },
+  "evidence": "docs/handbooks/_sources/overview/verification.json",
+  "reports": "reports/release-v040/ci11-handbook-check-final.json",
+  "previous_runtime_scope": "Both prior profiles passed at f6e6bfba677a5f34c33ff6738e06f3f5a672d3403eff400edd9dedb7984952b0, including 78 platform cases and p95 95.4381 ms. Those receipts predate this complete handbook refresh and are not relabeled."
+}

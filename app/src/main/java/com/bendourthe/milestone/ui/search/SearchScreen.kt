@@ -54,28 +54,50 @@ fun SearchAction(onClick: () -> Unit) {
 fun SearchScreen(viewModel: SearchViewModel, onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val publishedVersion by viewModel.publishedQueryVersion.collectAsStateWithLifecycle()
     val notice by viewModel.notice.collectAsStateWithLifecycle()
     val chosenTab by viewModel.selectedTab.collectAsStateWithLifecycle()
     val collapsed by viewModel.collapsed.collectAsStateWithLifecycle()
     val activeTab = chosenTab ?: (state as? SearchUiState.Results)?.results?.initialTab ?: SearchTab.REWARDS
-    val lists = remember(viewModel) { SearchTab.entries.associateWith { tab ->
-        val (index, offset) = viewModel.position(tab)
-        LazyListState(index, offset)
-    } }
+    val lists = rememberSearchLists(viewModel, state)
     val listState = lists.getValue(activeTab)
     val focus = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     LaunchedEffect(viewModel) {
         if (viewModel.consumeInitialFocus()) focus.requestFocus()
     }
-    LaunchedEffect(query) { if (viewModel.consumeScrollReset()) lists.values.forEach { it.requestScrollToItem(0) } }
-    DisposableEffect(viewModel, lists) {
-        onDispose { lists.forEach { (tab, list) -> viewModel.rememberPosition(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, tab) } }
+    val latestLists by rememberUpdatedState(lists)
+    val latestVersion by rememberUpdatedState((state as? SearchUiState.Results)?.requestVersion ?: viewModel.queryVersion)
+    DisposableEffect(viewModel) {
+        onDispose {
+            if (latestVersion == viewModel.queryVersion) latestLists.forEach { (tab, list) ->
+                viewModel.rememberPosition(list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset, tab)
+            }
+        }
     }
     SearchContent(query, state, listState, focus, viewModel::setQuery,
         onClear = { viewModel.clear(); focus.requestFocus() }, onRetry = viewModel::retry,
         onBack = { keyboard?.hide(); onBack() }, onSelect = { keyboard?.hide(); onSelect(it) }, selecting = selecting, notice = notice,
-        selectedTab = activeTab, onTab = viewModel::selectTab, collapsed = collapsed, onToggleGroup = viewModel::toggleGroup)
+        selectedTab = activeTab, onTab = viewModel::selectTab, collapsed = collapsed, onToggleGroup = viewModel::toggleGroup,
+        updating = publishedVersion != viewModel.queryVersion ||
+            ((state as? SearchUiState.Results)?.requestVersion?.let { it != viewModel.queryVersion } == true))
+}
+
+/** Shares the production per-tab viewport and query reset with boundary tests. */
+@Composable
+internal fun rememberSearchLists(viewModel: SearchViewModel, state: SearchUiState): Map<SearchTab, LazyListState> {
+    // Keep old results at their current position while matching. Reset only with the new result set.
+    val version = (state as? SearchUiState.Results)?.requestVersion ?: viewModel.queryVersion
+    val lists = remember(viewModel) { SearchTab.entries.associateWith { tab ->
+        val (index, offset) = viewModel.position(tab)
+        LazyListState(index, offset)
+    } }
+    LaunchedEffect(viewModel, version) {
+        if (version == viewModel.queryVersion && viewModel.consumeScrollReset()) {
+            lists.values.forEach { it.requestScrollToItem(0) }
+        }
+    }
+    return lists
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,7 +106,7 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
     focus: FocusRequester, onQuery: (String) -> Unit, onClear: () -> Unit, onRetry: () -> Unit,
     onBack: () -> Unit, onSelect: (SearchTarget) -> Unit, selecting: Boolean = false, notice: String? = null,
     selectedTab: SearchTab? = null, onTab: (SearchTab) -> Unit = {},
-    collapsed: Set<String> = emptySet(), onToggleGroup: (String) -> Unit = {}) {
+    collapsed: Set<String> = emptySet(), onToggleGroup: (String) -> Unit = {}, updating: Boolean = false) {
     val keyboard = LocalSoftwareKeyboardController.current
     Scaffold(topBar = {
         TopAppBar(title = { Text("Search") }, navigationIcon = {
@@ -123,13 +145,14 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
                     LinearProgressIndicator(Modifier.fillMaxWidth().testTag("searchLoading"))
                     Text("Reading stored items", Modifier.padding(16.dp))
                 }
-                SearchUiState.Start -> Text("Search programs, cards, and benefits", Modifier.padding(16.dp))
-                SearchUiState.Empty -> Text("No matches in your stored items", Modifier.padding(16.dp).testTag("searchEmpty"))
+                SearchUiState.Start -> Text(if (updating) "Updating results" else "Search programs, cards, and benefits", Modifier.padding(16.dp))
+                SearchUiState.Empty -> Text(if (updating) "Updating results" else "No matches in your stored items",
+                    Modifier.padding(16.dp).testTag(if (updating) "searchUpdating" else "searchEmpty"))
                 SearchUiState.ReadError -> Column(Modifier.padding(16.dp)) {
                     Text("Stored items could not be read")
                     TextButton(onClick = onRetry) { Text("Retry") }
                 }
-                is SearchUiState.Results -> SearchResultList(state.results, listState, activeTab, selecting, collapsed, onToggleGroup, onSelect)
+                is SearchUiState.Results -> SearchResultList(state.results, listState, activeTab, selecting, collapsed, onToggleGroup, onSelect, updating)
             }
         }
     }
@@ -137,12 +160,13 @@ internal fun SearchContent(query: String, state: SearchUiState, listState: LazyL
 
 @Composable
 private fun ColumnScope.SearchResultList(results: SearchResults, listState: LazyListState, activeTab: SearchTab,
-    selecting: Boolean, collapsed: Set<String>, onToggleGroup: (String) -> Unit, onSelect: (SearchTarget) -> Unit) {
+    selecting: Boolean, collapsed: Set<String>, onToggleGroup: (String) -> Unit, onSelect: (SearchTarget) -> Unit, updating: Boolean) {
     val groups = results.groups(activeTab)
     val count = results.count(activeTab)
     Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-        Text("$count ${if (count == 1) "result" else "results"}", Modifier.testTag("searchResultCount"))
-        Text("${results.count} total", Modifier.testTag("searchTotalCount"), style = MaterialTheme.typography.bodySmall)
+        Text(if (updating) "Updating results" else "$count ${if (count == 1) "result" else "results"}",
+            Modifier.weight(1f).testTag("searchResultCount").semantics { if (updating) liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite })
+        Text("${results.count} total", Modifier.padding(start = 8.dp).testTag("searchTotalCount"), style = MaterialTheme.typography.bodySmall)
     }
     if (groups.isEmpty()) Text("No matching ${activeTab.label.lowercase()} items", Modifier.padding(16.dp))
     LazyColumn(state = listState, modifier = Modifier.weight(1f).fillMaxWidth().testTag("searchResults"),

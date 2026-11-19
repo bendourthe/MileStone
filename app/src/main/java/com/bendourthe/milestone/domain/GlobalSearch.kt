@@ -126,28 +126,66 @@ object GlobalSearch {
     internal fun normalize(text: String) = fold(text).replace(separators, " ").trim()
     fun isBlank(query: String) = normalize(boundQuery(query)).isBlank()
 
+    internal class Prepared internal constructor(
+        internal val rows: List<IndexedValue<SearchEntry>>,
+        internal val programEntries: Map<String, SearchEntry>,
+        internal val programIdentities: Map<String, String>,
+    )
+
+    private val entryOrdering = compareBy<SearchEntry> { it.kind.ordinal }
+        .thenBy { if (it.kind == SearchKind.BENEFIT) it.sortCardName else "" }
+        .thenBy { if (it.kind == SearchKind.BENEFIT) it.cardIdentity else "" }
+        .thenBy { if (it.kind == SearchKind.BENEFIT) it.displayOrder else 0 }
+        .thenBy { it.sortTitle }.thenBy { it.id }
+    private val hitOrdering = Comparator<SearchHit> { left, right -> entryOrdering.compare(left.entry, right.entry) }
+
+    internal fun prepare(entries: List<SearchEntry>): Prepared {
+        val copied = entries.toList()
+        val programs = copied.filter { it.kind == SearchKind.PROGRAM }.associateBy { it.target.programId }
+        return Prepared(copied.withIndex().sortedWith { left, right -> entryOrdering.compare(left.value, right.value) },
+            programs, programs.mapValues { it.value.programIdentityText })
+    }
+
     fun match(query: String, entries: List<SearchEntry>): SearchResults {
         val normalized = normalize(boundQuery(query))
         if (normalized.isEmpty()) return SearchResults(emptyList())
-        val tokens = normalized.split(' ')
-        val programEntries = entries.filter { it.kind == SearchKind.PROGRAM }.associateBy { it.target.programId }
-        val programs = programEntries.mapValues { it.value.programIdentityText }
+        val programs = entries.filter { it.kind == SearchKind.PROGRAM }.associateBy { it.target.programId }
+        return matching(normalized.split(' '), entries.withIndex(), programs,
+            programs.mapValues { it.value.programIdentityText }, ordered = false)
+    }
+
+    internal fun match(query: String, prepared: Prepared): SearchResults {
+        val normalized = normalize(boundQuery(query))
+        if (normalized.isEmpty()) return SearchResults(emptyList())
+        return matching(normalized.split(' '), prepared.rows, prepared.programEntries, prepared.programIdentities, ordered = true)
+    }
+
+    private fun matching(tokens: List<String>, rows: Iterable<IndexedValue<SearchEntry>>,
+                         programEntries: Map<String, SearchEntry>, programs: Map<String, String>, ordered: Boolean): SearchResults {
         val scopedPrograms = programs.filterValues { identity -> tokens.all { it in identity } }.keys
-        val hits = entries.mapNotNull { entry ->
-            val programOnly = entry.kind != SearchKind.PROGRAM && entry.target.programId in scopedPrograms
-            val programContext = programs[entry.target.programId].orEmpty()
-            if (!programOnly && (tokens.none { it in entry.ownText } ||
-                    tokens.any { it !in entry.ownText && it !in entry.parentText && it !in programContext })) null
-            else SearchHit(entry, entry.contextSources.firstNotNullOfOrNull { (text, folded) -> context(text, folded, tokens) })
+        val groups = linkedMapOf<String, MutableList<SearchHit>>()
+        val firstInput = mutableMapOf<String, Pair<Int, String>>()
+        for ((index, entry) in rows) {
+            val programId = entry.target.programId
+            val programOnly = entry.kind != SearchKind.PROGRAM && programId in scopedPrograms
+            if (!programOnly && !matches(entry, tokens, programs[programId].orEmpty())) continue
+            val hit = SearchHit(entry, entry.contextSources.firstNotNullOfOrNull { (text, folded) -> context(text, folded, tokens) })
+            groups.getOrPut(programId) { mutableListOf() }.add(hit)
+            if (index < (firstInput[programId]?.first ?: Int.MAX_VALUE)) firstInput[programId] = index to entry.programName
         }
-        val ordering = compareBy<SearchHit> { it.entry.kind.ordinal }
-            .thenBy { if (it.entry.kind == SearchKind.BENEFIT) it.entry.sortCardName else "" }
-            .thenBy { if (it.entry.kind == SearchKind.BENEFIT) it.entry.cardIdentity else "" }
-            .thenBy { if (it.entry.kind == SearchKind.BENEFIT) it.entry.displayOrder else 0 }
-            .thenBy { it.entry.sortTitle }.thenBy { it.entry.id }
-        return SearchResults(hits.groupBy { it.entry.target.programId }.map { (id, rows) ->
-            SearchGroup(id, rows.first().entry.programName, rows.sortedWith(ordering), programEntries[id]?.programDisplay)
+        return SearchResults(groups.map { (id, hits) ->
+            SearchGroup(id, firstInput.getValue(id).second, if (ordered) hits else hits.sortedWith(hitOrdering), programEntries[id]?.programDisplay)
         }.sortedWith(compareBy<SearchGroup> { it.programName.lowercase(Locale.ROOT) }.thenBy { it.programId }))
+    }
+
+    private fun matches(entry: SearchEntry, tokens: List<String>, programContext: String): Boolean {
+        var ownMatch = false
+        for (token in tokens) {
+            val own = token in entry.ownText
+            if (own) ownMatch = true
+            else if (token !in entry.parentText && token !in programContext) return false
+        }
+        return ownMatch
     }
 
     internal fun contextSources(title: String, description: String?, aliases: List<String>): List<Pair<String, String>> = buildList {
@@ -159,7 +197,12 @@ object GlobalSearch {
     }
 
     private fun context(description: String, folded: String, tokens: List<String>): String? {
-        val position = tokens.map { folded.indexOf(it) }.filter { it >= 0 }.minOrNull() ?: return null
+        var position = Int.MAX_VALUE
+        for (token in tokens) {
+            val found = folded.indexOf(token)
+            if (found >= 0 && found < position) position = found
+        }
+        if (position == Int.MAX_VALUE) return null
         val start = (position - 45).coerceAtLeast(0)
         val end = (start + 150).coerceAtMost(description.length)
         return (if (start > 0) "..." else "") + description.substring(start, end) + (if (end < description.length) "..." else "")

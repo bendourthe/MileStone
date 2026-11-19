@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "review_method": "Direct agent inspection of targeted fresh reading/deep-source screenshots and every actual changed print page; all 225 canonical screenshots compared byte-for-byte with prior independently reviewed artifacts",
+  "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e",
+  "reviewed_images": [
+    "run-1/release-reading-ci-390.png",
+    "run-1/release-reading-overview-search-390.png",
+    "run-1/release-reading-search-intro-390.png",
+    "run-1/release-deep-search-1366.png",
+    "print-review-page3.png",
+    "print-review-page9.png",
+    "print-review-page13.png",
+    "print-review-page16.png"
+  ],
+  "observations": [
+    "Updated CI paragraph is legible at 390 px; long inline commands wrap within the reading width and the actual hosted run link is visible",
+    "Overview and Search introduction paragraphs preserve readable wrapping and exact navigation/privacy explanation without stale version 0.3.1 or unreleased-candidate claims",
+    "Desktop Deep dive retains the large readable native scrolling source region and visible navigation controls",
+    "Actual changed print pages 3, 9, 13, 16 contain the complete updated CI, overview Search, Search introduction and qualification wording without overlap or clipping",
+    "All 225 canonical reading/presentation screenshots are byte-identical to prior reviewed output",
+    "Both actual A4 print PDFs have 16 nonempty pages; JS/no-JS text and raster outputs match across all 16 pages"
+  ],
+  "findings": [],
+  "comparison_evidence": "comparison.json",
+  "print_evidence": "print-review.json"
+}

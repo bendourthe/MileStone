@@ -105,4 +105,14 @@ class SearchProjectionTest {
             })
         } }
     }
+
+    @Test fun preparedSnapshotChangesOnlyWithItsOwnSource() {
+        val earlier = factory.build(input(rows(tracker("Earlier credit"))))
+        val later = factory.build(input(rows(tracker("Later credit"))))
+        assertEquals(1, GlobalSearch.match("Earlier", earlier.prepared).count)
+        assertEquals(0, GlobalSearch.match("Later", earlier.prepared).count)
+        assertEquals(1, GlobalSearch.match("Later", later.prepared).count)
+        assertEquals(0, GlobalSearch.match("Earlier", later.prepared).count)
+        assertNotSame(earlier.revision, later.revision)
+    }
 }

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "v01-compat",
+    "exit": 1,
+    "verdict": "INCOMPLETE: approval.remote archive.minor"
+  },
+  {
+    "name": "v02",
+    "exit": 1,
+    "verdict": "INCOMPLETE: approval.remote cleanup.branches archive.minor"
+  },
+  {
+    "name": "v03-minor",
+    "exit": 1,
+    "verdict": "INCOMPLETE: record.minor"
+  }
+]

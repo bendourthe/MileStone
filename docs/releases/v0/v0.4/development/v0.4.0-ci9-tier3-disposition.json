@@ -1,0 +1,76 @@
+{
+  "verdict": "PASS_FOR_DECLARED_LOCAL_ARTIFACT_SCOPE; DELIVERY_HELD",
+  "revision": "d3df074 plus reviewed four-file CI9 correction and final evidence",
+  "integration_base": "origin/develop at2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "blast_radius": {
+    "verdict": "run",
+    "triggers": [
+      "Search matching and snapshot preparation changed",
+      "Generated handbook output changed"
+    ],
+    "changed_code": [
+      "GlobalSearch.kt",
+      "SearchViewModel.kt",
+      "GlobalSearchTest.kt",
+      "SearchProjectionTest.kt"
+    ]
+  },
+  "hard_inputs": [
+    "Approved v0.4.0 plan including appended owner deltas",
+    "docs/todos.md expanded goal",
+    "Current source diff and raw hashes in v0.4.0-ci9-code-review.json",
+    "Native full/platform receipts and runtime/handbook artifacts"
+  ],
+  "feature_inventory": {
+    "source": "v0.4.0-ci9-independent-goal-review.json",
+    "count": 26,
+    "qualification_addendum": "v0.4.0-ci9-goal-qualification-addendum.json",
+    "product_code_findings": 0,
+    "current_exercises": [
+      "429 unit cases,0 failures/errors,10 optional private balance skips",
+      "8 Amex benefits fixture cases without skips",
+      "77 emulator cases,0 failures/errors/skips",
+      "Shared25program/100card/2000benefit scenario,30samples/3warmups,p95 138.7748ms,limit200ms,preservation complete",
+      "2611 Chromium checks and16-width visual detector",
+      "2880 adversarial query cases,5838 comparisons,73481 assertions; injected group-order mutant rejected"
+    ],
+    "current_runtime": "v0.4.0-ci9-runtime-cases.xml",
+    "limits": "Manual screen-reader, physical hardware keyboard and new owner phone acceptance are not claimed. Unchanged feature mappings and accepted UI behavior are reused only within the explicit source-owner limits."
+  },
+  "rendered_owners": "v0.4.0-ci9-rendered-owner-assessments.json",
+  "visual_detector": "v0.4.0-ci9-visual-detector.json",
+  "adversarial": "v0.4.0-ci9-adversarial/ADVERSARIAL-REPORT.md",
+  "code_vs_plan": {
+    "product_code": "converged",
+    "new_missing": 0,
+    "new_partial": 0,
+    "new_contradicts": 0,
+    "new_unrequested": 0,
+    "plan_writes": 0,
+    "delivery": "T020 and BG-1 remain open"
+  },
+  "goal_vs_plan_sufficiency": "All four questions and26-row traceability retained in independent review; new qualification addendum independently confirms current full/platform evidence. Broader original and v0.5/v0.6 obligations remain open.",
+  "iteration_accounting": {
+    "known_CI7_checkpoint": 23,
+    "subsequent_production_correction_episodes": [
+      "CI8 d3df074 optimized harness",
+      "CI9 snapshot-index correction"
+    ],
+    "cumulative_lower_bound": 25,
+    "exact_earlier_prototype_count": "Not reconstructed or reset",
+    "policy": "Retains the autonomy exception recorded in v0.4.0-ci6-tier3-disposition.json and the current explicit owner approval of this local correction. No signed record, remote retry limit or publication authority changed."
+  },
+  "gate_disposition": {
+    "local_artifact": "PASS",
+    "published_candidate": "FAIL; d3df074 hosted run44016321789 remains red",
+    "new_publication": "Not authorized",
+    "release_archive_cleanup_native_goal": "Incomplete"
+  },
+  "not_claimed": [
+    "Linux parity from Windows",
+    "Current-head hosted green",
+    "New phone acceptance",
+    "PLAN COMPLETE or expanded-goal completion"
+  ]
+}

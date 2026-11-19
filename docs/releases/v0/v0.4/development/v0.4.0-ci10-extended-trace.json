@@ -1,0 +1,46 @@
+{
+  "recorded_utc": "2026-11-17T10:10:43.048716+00:00",
+  "status": "DIAGNOSTIC_WINDOW_CHECKS_PASS_LATENCY_FAIL",
+  "qualification": false,
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "receipt": "reports\\release-v040\\ci10-four-core-trace-ae6d3521801348739632e29e055851be\\receipt.json",
+  "trace_sha256": "cc827a0fa2b566bf2d2f70eb48a71c72b23dce974a307d8fd73f1f16419aa5f9",
+  "trace_bytes": 1839165,
+  "configured_capture_seconds": 35,
+  "command_timeout_seconds": 45,
+  "same_apk_pair_as_untraced_baseline": true,
+  "p95_ms": 620.0618,
+  "limit_ms": 200,
+  "samples": 30,
+  "preservation_passed": true,
+  "trace_error_stats": 0,
+  "target_frame_rows": 146,
+  "coverage": {
+    "measured_work_overlap_proven": true,
+    "end_after_current_uuid_completion": true,
+    "all_thirty_query_intervals_captured": false,
+    "first_target_data_after_marker_ms": 3656.6986,
+    "completion_after_first_target_data_ms": 23375.3014,
+    "explanation": "Capture begins after the measured marker. Passing decoder establishes overlap and completion coverage, not a complete per-query trace."
+  },
+  "captured_window_scheduler_ms": {
+    "main_running": 6321.017,
+    "main_runnable": 6923.736,
+    "render_running": 11902.71,
+    "jit_running": 2507.066,
+    "workers_running": 780.119,
+    "workers_runnable": 2307.189
+  },
+  "cleanup": {
+    "owned_device_trace_removed": true,
+    "original_emulator_affinity_restored": true
+  },
+  "limits": [
+    "Windows four-core affinity is not hosted Linux parity.",
+    "Thread-state durations are not method attribution or independent host CPU accounting.",
+    "The window includes between-query assertions and other UI work.",
+    "Tracing overhead and uncontrolled host variation prevent cross-run causal speed comparisons.",
+    "No production change or hosted cause is justified by this evidence alone."
+  ],
+  "next": "Use the saved trace to choose a bounded causal diagnostic; preserve unchanged gate and every original/Chase/offer obligation."
+}

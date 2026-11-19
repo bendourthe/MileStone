@@ -276,12 +276,12 @@ class BenefitsViewModel(
             // Completed issuer tiles may omit the earned figure and progress element.
             // A single leading dollar credit title supplies a display-only fallback.
             val target = benefit.targetCents?.takeIf { it > 0 } ?: if (credit && benefit.completed) {
-                benefit.earnedCents?.takeIf { it > 0 } ?: benefit.title
+                benefit.title
                     .takeIf { it.count { c -> c == '$' } == 1 }
                     ?.let { completedCreditAmount.find(it)?.groupValues?.get(1) }
                     ?.let(BenefitAmountParser::parse)?.takeIf { it > 0 }
             } else null
-            val earned = if (credit && benefit.completed) target else benefit.earnedCents
+            val earned = if (credit && benefit.completed) target ?: benefit.earnedCents else benefit.earnedCents
             val amountLabel = if (benefit.stableKey == "local:welcome") "spent" else "earned"
             val amounts = if (credit && earned != null && target != null) "${money(earned, locale)}/${money(target, locale)}" else listOfNotNull(earned?.let { "${money(it, locale)} $amountLabel" }, left?.let { "${money(it, locale)} left" })
                 .joinToString(" · ").ifEmpty { null }

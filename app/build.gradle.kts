@@ -40,8 +40,8 @@ android {
         applicationId = "com.bendourthe.milestone"
         minSdk = 29
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.3.1"
+        versionCode = 5
+        versionName = "0.4.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -73,6 +73,17 @@ android {
             applicationIdSuffix = ".capture"
             matchingFallbacks += listOf("debug")
         }
+        create("benchmark") {
+            initWith(getByName("release"))
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            enableUnitTestCoverage = false
+            enableAndroidTestCoverage = false
+            signingConfig = signingConfigs.getByName("debug")
+            applicationIdSuffix = ".benchmark"
+            matchingFallbacks += listOf("release")
+        }
     }
 
     compileOptions {
@@ -99,6 +110,8 @@ android {
     sourceSets {
         // Robolectric reads only the tested variant's merged assets, so MigrationTest needs the schemas in debug.
         getByName("debug").assets.srcDir("$projectDir/schemas")
+        getByName("androidTest").kotlin.srcDir("src/searchScenario/kotlin")
+        getByName("benchmark").kotlin.srcDir("src/searchScenario/kotlin")
     }
 }
 

@@ -1,0 +1,335 @@
+{
+  "allowlist": null,
+  "file": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-worktrees\\release-v0.4.0\\docs\\handbooks\\html\\overview.html",
+  "findings": [
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 34978.11,
+          "left": 0,
+          "right": 320,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 320
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 28962.67,
+          "left": 0,
+          "right": 390,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 390
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 22476.11,
+          "left": 0,
+          "right": 768,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 768
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 19078.53,
+          "left": 0,
+          "right": 900,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 900
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 17467.98,
+          "left": 0,
+          "right": 1000,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1000
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 17389.72,
+          "left": 0,
+          "right": 1001,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1001
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 15183.13,
+          "left": 0,
+          "right": 1280,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1280
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 15217.55,
+          "left": 0,
+          "right": 1366,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1366
+      }
+    },
+    {
+      "measurements": {
+        "child": {
+          "bottom": -28.46,
+          "left": 8,
+          "right": 205.61,
+          "top": -74.04
+        },
+        "excess_px": {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 74.04
+        },
+        "parent_padding_box": {
+          "bottom": 15220.31,
+          "left": 0,
+          "right": 1440,
+          "top": 0
+        },
+        "tolerance_px": 1
+      },
+      "message": "Element escapes its parent's padding box",
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "severity": "high",
+      "viewport": {
+        "height": 900,
+        "width": 1440
+      }
+    }
+  ],
+  "font_floor_px": 12.0,
+  "fragment": null,
+  "gate_findings": 9,
+  "minimum_text_box_px": {
+    "height": 12.0,
+    "width": 16.0
+  },
+  "page_pass": false,
+  "status": "fail",
+  "suppressed_findings": 0,
+  "theme": null,
+  "tolerance_px": 1.0,
+  "viewports": [
+    {
+      "height": 900,
+      "width": 320
+    },
+    {
+      "height": 900,
+      "width": 390
+    },
+    {
+      "height": 900,
+      "width": 768
+    },
+    {
+      "height": 900,
+      "width": 900
+    },
+    {
+      "height": 900,
+      "width": 1000
+    },
+    {
+      "height": 900,
+      "width": 1001
+    },
+    {
+      "height": 900,
+      "width": 1280
+    },
+    {
+      "height": 900,
+      "width": 1366
+    },
+    {
+      "height": 900,
+      "width": 1440
+    }
+  ]
+}

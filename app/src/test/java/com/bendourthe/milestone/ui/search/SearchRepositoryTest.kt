@@ -79,6 +79,35 @@ class SearchRepositoryTest {
         println("SearchFixture stage=$stage program=amex count=$count canonical_sha256=$hash")
     }
 
+    @Test fun successiveEmptyMatchesPublishTheirOwnRequestVersion(): Unit = runBlocking {
+        val vm = model()
+        listOf("zzznomatchone", "zzznomatchtwo").forEach { query ->
+            vm.setQuery(query)
+            val version = vm.queryVersion
+            withTimeout(10_000) { vm.publishedQueryVersion.first { it == version } }
+            withTimeout(10_000) { vm.state.first { it == SearchUiState.Empty } }
+            assertEquals(version, vm.publishedQueryVersion.value)
+        }
+    }
+
+    @Test fun successiveQueriesKeepResultsBoundToTheirOwnRequestVersion(): Unit = runBlocking {
+        val vm = model()
+        vm.setQuery("lounge")
+        val firstVersion = vm.queryVersion
+        val first = result(vm) { it.requestVersion == firstVersion }
+        assertEquals(1, first.results.count)
+        vm.rememberPosition(8, 20, SearchTab.BENEFITS)
+        vm.setQuery("American Express")
+        val nextVersion = vm.queryVersion
+        assertTrue(nextVersion > firstVersion)
+        val next = result(vm) { it.requestVersion == nextVersion }
+        assertTrue(next.results.count > first.results.count)
+        assertEquals(firstVersion, first.requestVersion)
+        assertEquals(0 to 0, vm.position(SearchTab.BENEFITS))
+        vm.setQuery("American Express")
+        assertEquals(nextVersion, vm.queryVersion)
+    }
+
     @Test fun realRoomProjectionAndMatcherObserveChangeAndRemovalWithoutMutation(): Unit = runBlocking {
         val vm = model(); vm.setQuery("Delta lounge")
         val first = result(vm); assertEquals(1, first.results.count)

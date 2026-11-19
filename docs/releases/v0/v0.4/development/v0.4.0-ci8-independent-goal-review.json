@@ -1,0 +1,36 @@
+{
+  "status": "LOCAL_SEARCH_IMPLEMENTED_AND_QUALIFIED",
+  "findings": [],
+  "independent_review": true,
+  "coverage": {
+    "DoD1-4": "Entry, local corpus, matching and owner-approved hierarchical presentation covered",
+    "DoD5-6": "Canonical items, opaque revisions, fresh reads, exact navigation and safe reveal covered",
+    "DoD7": "Keyboard/Back and memory-only query,tab,collapse,scroll state covered",
+    "DoD8": "Updates/cancellation/errors/local-only operations covered",
+    "DoD9": "Current local full/platform pass; hosted qualification open",
+    "DoD10": "Publication,green integration,release/native closure remain open"
+  },
+  "source_sha256": "dcea14a76bc9582e58509d9c43a4e976294fede4e7bbdf6dcc7920469aaf308a",
+  "full": {
+    "tests": 425,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10,
+    "coverage_percent": 78.11
+  },
+  "platform": {
+    "tests": 77,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "p95_ms": 91.3696,
+    "maximum_ms": 94.9592,
+    "samples": 30,
+    "warmups": 3
+  },
+  "limitations": [
+    "Current PR17 head2bbbb28 remains red",
+    "No Linux parity or hosted success inferred from local results",
+    "Fresh scope/publication authority and all expanded original/Chase/offer obligations remain outstanding"
+  ]
+}

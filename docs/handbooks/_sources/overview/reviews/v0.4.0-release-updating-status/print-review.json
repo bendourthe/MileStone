@@ -1,0 +1,201 @@
+{
+  "status": "pass",
+  "browser": "Chromium 156.0.8078.4",
+  "output_sha256": "81211ab70d2e7190ffaed023a761059a580817903d91ab60cc7f0d762b99e4c7",
+  "actual_pdf_review": [
+    {
+      "path": "print-js.pdf",
+      "pages": 16,
+      "prior_pages": 16,
+      "all_pages_nonempty": true,
+      "sha256": "00db84db698d413ad772ed1d577579a72c3d471bdc267351178f33c8792368a0",
+      "changed_pages": [
+        16
+      ],
+      "page_comparison": [
+        {
+          "page": 1,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 2,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 3,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 4,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 5,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 6,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 7,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 8,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 9,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 10,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 11,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 12,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 13,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 14,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 15,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 16,
+          "text_identical": false,
+          "raster_identical": false
+        }
+      ]
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 16,
+      "prior_pages": 16,
+      "all_pages_nonempty": true,
+      "sha256": "1185bf3f4f4014f56ae5cc9506e44db101446366e5283dcd2609705012b11e7f",
+      "changed_pages": [
+        16
+      ],
+      "page_comparison": [
+        {
+          "page": 1,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 2,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 3,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 4,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 5,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 6,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 7,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 8,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 9,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 10,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 11,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 12,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 13,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 14,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 15,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 16,
+          "text_identical": false,
+          "raster_identical": false
+        }
+      ]
+    }
+  ],
+  "js_no_js_text_and_rasters_identical": true,
+  "changed_source_markers_present": [
+    "published-query version",
+    "consecutive empty results",
+    "Updating results",
+    "visible updating states",
+    "200 ms"
+  ],
+  "runtime_errors": [],
+  "external_requests": []
+}

@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "reviewer": "Release handbook author review; independent root adoption pending",
+  "output_sha256": "f2853a4605d8af684403dd46402bd9bdd33cb657b828b21c4cbefbfb9c859a8e",
+  "reviewed_sources": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/global-search.md",
+    "docs/handbooks/README.md",
+    "app/build.gradle.kts"
+  ],
+  "reviewed_changes": [
+    "app/build.gradle.kts changes only versionName 0.3.1 to 0.4.0 and versionCode 4 to 5; the other 61 native inputs retain their prior reviewed hashes",
+    "The source text removes obsolete unreleased/version 0.3.1 framing while preserving every matching, snapshot, navigation, disclosure, privacy and read-boundary explanation",
+    "The CI paragraph now cites actual integrated candidate run 43806448461 and 74 passing emulator cases; it does not claim the later release-metadata candidate was that runtime test subject",
+    "The Search verification paragraph distinguishes application release/runtime qualification from the handbook reproducible build/browser checks, without claiming release publication",
+    "The handbooks index identifies the stable on-device Search companion",
+    "Slide count, IDs, theme sequence, source coverage, assets, style, runtime and checker are unchanged; all 48 source sections remain available",
+    "Fresh full browser execution passed 2,607 checks and 384 measurements with 0 findings/limitations; targeted reading/deep-source views and all 4 changed print pages were directly inspected"
+  ],
+  "comparison_evidence": "comparison.json",
+  "visual_evidence": "visual-review.json",
+  "change_scope_evidence": "change-scope.json",
+  "findings": [],
+  "qualification_scope": "Handbook source fidelity, reproducible build, browser/print behavior and visual review only; independent coordinator adoption and application release qualification remain separate"
+}

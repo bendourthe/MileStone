@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "runtime": {
+    "tests": 76,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "runtime_seconds": 631.938,
+  "timing_export_device_mtime_epoch": 1794828642,
+  "timing_export_generated_utc": "2026-11-16T11:30:42+00:00",
+  "device_mtime_within_recorded_runtime": true,
+  "ui_capture_inspection": [
+    "Pending update labels retained45matches and preserves scrolled rows.",
+    "After current matching publishes, query and45matches retained with program/card/sectionimages andchevrons; viewportreset toBenefit00."
+  ],
+  "artifact_sha256": {
+    "app/build/outputs/apk/debug/app-debug.apk": "03de4f24c002a0e796b81722548e28f621b0c1a9f4bec08c3a800fcb663f4718",
+    "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "cbd2af19a9775c2e4f8c7b451d94946196160ccb347a54416eb31e0edbd7baa1"
+  },
+  "limits": [
+    "Normal declared localemulator qualified; historicalfourthreadstressmisses retained andnotLinuxCIparity.",
+    "PR17publishedheadremainsred; no additionalpushauthorized.",
+    "Testbaselineadoptionpendinggenuineowneragreement."
+  ]
+}
