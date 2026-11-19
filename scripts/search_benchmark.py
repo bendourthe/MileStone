@@ -45,6 +45,38 @@ def validate_metrics(value: dict, run_id: str) -> dict:
     return value
 
 
+def validate_phase_anchors(value: dict) -> list[dict]:
+    """Validate optional diagnostic clock anchors without changing the latency gate."""
+    if not isinstance(value, dict) or value.get('phase_anchor_clock') != 'android.os.SystemClock.elapsedRealtimeNanos':
+        raise ValueError('Diagnostic phase clock is missing or unknown')
+    phases = value.get('phase_diagnostics_including_warmups')
+    observations = value.get('observations')
+    sequence = (('all_entities', 2125), ('title', 1), ('contextual', 40)) + CASES
+    if not isinstance(phases, list) or len(phases) != len(sequence) or not isinstance(observations, list) or len(observations) != len(CASES):
+        raise ValueError('Diagnostic anchors require all warmup and measured phases')
+    previous_draw = 0
+    for index, (phase, (family, count)) in enumerate(zip(phases, sequence)):
+        if not isinstance(phase, dict) or phase.get('family') != family or type(phase.get('count')) is not int or phase['count'] != count:
+            raise ValueError('Diagnostic phase sequence changed')
+        anchors = [phase.get(key) for key in ('start_elapsed_ns', 'ready_elapsed_ns', 'draw_elapsed_ns')]
+        if any(type(anchor) is not int or not 0 <= anchor <= 2**63-1 for anchor in anchors):
+            raise ValueError('Diagnostic anchors must be nonnegative signed 64-bit nanoseconds')
+        start, ready, draw = anchors
+        if not previous_draw <= start <= ready <= draw:
+            raise ValueError('Diagnostic phase anchors overlap or are not monotonic')
+        previous_draw = draw
+        for key, actual in (('results_ready_ms', (ready-start)/1_000_000), ('draw_after_results_ms', (draw-ready)/1_000_000)):
+            if abs(_number(phase.get(key)) - actual) > 0.000001:
+                raise ValueError('Diagnostic phase durations disagree with their clock anchors')
+        if index >= 3:
+            row = observations[index-3]
+            if not isinstance(row, dict) or row.get('family') != family or type(row.get('count')) is not int or row['count'] != count:
+                raise ValueError('Measured observation disagrees with its diagnostic phase')
+            if abs(_number(row.get('elapsed_ms')) - (draw-start)/1_000_000) > 0.000001:
+                raise ValueError('Measured latency disagrees with its diagnostic clock anchors')
+    return phases
+
+
 def _digest(path: Path) -> str:
     if path.is_symlink() or not path.is_file():
         raise RuntimeError("Benchmark APK is missing or is a link")

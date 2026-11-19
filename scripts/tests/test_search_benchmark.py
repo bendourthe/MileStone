@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from search_benchmark import validate_metrics, execute, TARGET, CONTROLLER
+from search_benchmark import validate_metrics, validate_phase_anchors, execute, TARGET, CONTROLLER
 import validate
 
 RUN_ID = "b8a0615e-c5b0-4c40-8cd9-07975a627c36"
@@ -25,6 +25,55 @@ def metrics():
 
 
 class SearchBenchmarkMetricsTest(unittest.TestCase):
+    def test_phase_anchors_match_actual_elapsed_observations(self):
+        value = metrics()
+        value['phase_anchor_clock'] = 'android.os.SystemClock.elapsedRealtimeNanos'
+        cases = [('all_entities', 2125), ('title', 1), ('contextual', 40)] + [(row['family'], row['count']) for row in value['observations']]
+        value['phase_diagnostics_including_warmups'] = [dict(family=family, count=count,
+            start_elapsed_ns=1_000_000_000 + index * 200_000_000,
+            ready_elapsed_ns=1_020_000_000 + index * 200_000_000,
+            draw_elapsed_ns=1_100_000_000 + index * 200_000_000,
+            results_ready_ms=20.0, draw_after_results_ms=80.0) for index, (family, count) in enumerate(cases)]
+        self.assertEqual(33, len(validate_phase_anchors(value)))
+        self.assertIs(value, validate_metrics(value, RUN_ID))
+        for field, replacement in [('start_elapsed_ns', True), ('start_elapsed_ns', -1), ('ready_elapsed_ns', 0),
+                                   ('draw_elapsed_ns', 1), ('results_ready_ms', 21.0), ('draw_after_results_ms', 81.0),
+                                   ('family', 'empty'), ('count', 0)]:
+            with self.subTest(field=field):
+                altered = json.loads(json.dumps(value))
+                altered['phase_diagnostics_including_warmups'][0][field] = replacement
+                with self.assertRaises(ValueError):
+                    validate_phase_anchors(altered)
+        altered = json.loads(json.dumps(value))
+        altered['phase_diagnostics_including_warmups'][3]['start_elapsed_ns'] -= 1_000_000_000
+        with self.assertRaises(ValueError):
+            validate_phase_anchors(altered)
+        altered = json.loads(json.dumps(value))
+        altered['observations'][0]['elapsed_ms'] = 101.0
+        with self.assertRaises(ValueError):
+            validate_phase_anchors(altered)
+        for index, replacement in [(0, None), (0, {'family': 'empty', 'count': 2125, 'elapsed_ms': 100.0}),
+                                   (0, {'family': 'all_entities', 'count': 0, 'elapsed_ms': 100.0}),
+                                   (1, {'family': 'title', 'count': True, 'elapsed_ms': 100.0})]:
+            altered = json.loads(json.dumps(value))
+            altered['observations'][index] = replacement
+            with self.assertRaises(ValueError):
+                validate_phase_anchors(altered)
+        for offset in (2**63, 10**1000):
+            altered = json.loads(json.dumps(value))
+            for phase in altered['phase_diagnostics_including_warmups']:
+                for field in ('start_elapsed_ns', 'ready_elapsed_ns', 'draw_elapsed_ns'):
+                    phase[field] += offset
+            with self.assertRaises(ValueError):
+                validate_phase_anchors(altered)
+        altered = json.loads(json.dumps(value))
+        altered['phase_diagnostics_including_warmups'].pop()
+        with self.assertRaises(ValueError):
+            validate_phase_anchors(altered)
+        value['phase_anchor_clock'] = 'another-clock'
+        with self.assertRaises(ValueError):
+            validate_phase_anchors(value)
+
     def test_complete_correlated_draw_evidence_is_accepted(self):
         self.assertEqual(100.0, validate_metrics(metrics(), RUN_ID)["p95_ms"])
 

@@ -70,6 +70,7 @@ class SearchLatencyScenario(private val activity: ComponentActivity, private val
     private data class Ready(val at: Long, val processCpuMs: Long, val threadId: Long, val threadCpuNs: Long)
     private class Pending(val case: Case, val started: Long, val gcBefore: Long?, val latch: CountDownLatch = CountDownLatch(1)) {
         var elapsedMs: Double = 0.0
+        var drawElapsedNs: Long = 0
         val ready = AtomicReference<Ready?>()
         val startThreadId = Thread.currentThread().id
         val startThreadCpuNs = Debug.threadCpuTimeNanos()
@@ -203,7 +204,9 @@ class SearchLatencyScenario(private val activity: ComponentActivity, private val
                         if (request != null && renderedQuery == request.case.query && matches(renderedState, request.case) && visible && activity.hasWindowFocus() &&
                             publishedVersion == vm.queryVersion &&
                             (renderedState !is SearchUiState.Results || renderedState.requestVersion == vm.queryVersion) && pending.compareAndSet(request, null)) {
-                            request.elapsedMs = (SystemClock.elapsedRealtimeNanos() - request.started) / 1_000_000.0
+                            val drawnAt = SystemClock.elapsedRealtimeNanos()
+                            request.elapsedMs = (drawnAt - request.started) / 1_000_000.0
+                            request.drawElapsedNs = drawnAt
                             request.drawThreadCpuNs = Debug.threadCpuTimeNanos()
                             request.drawProcessCpuMs = android.os.Process.getElapsedCpuTime()
                             request.latch.countDown()
@@ -243,6 +246,7 @@ class SearchLatencyScenario(private val activity: ComponentActivity, private val
             assertTrue("State delivery precedes visible draw", readyMs <= request.elapsedMs)
             val gcDelta = request.gcBefore?.let { before -> gcAfter?.minus(before) }
             phases.put(JSONObject().put("family", case.family).put("count", case.count)
+                .put("start_elapsed_ns", request.started).put("ready_elapsed_ns", readyAt).put("draw_elapsed_ns", request.drawElapsedNs)
                 .put("results_ready_ms", readyMs).put("draw_after_results_ms", request.elapsedMs - readyMs)
                 .put("gc_delta", gcDelta ?: JSONObject.NULL)
                 .put("main_cpu_ms", (request.drawThreadCpuNs - request.startThreadCpuNs) / 1_000_000.0)
@@ -276,6 +280,7 @@ class SearchLatencyScenario(private val activity: ComponentActivity, private val
             .put("device", Build.DEVICE).put("hardware", Build.HARDWARE).put("api", Build.VERSION.SDK_INT)
             .put("method", "Android real-frame monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted for populated samples and Empty state drawn for empty queries; initial read, IME and initial focus excluded")
             .put("phase_diagnostics_including_warmups", phases)
+            .put("phase_anchor_clock", "android.os.SystemClock.elapsedRealtimeNanos")
             .put("observations", JSONArray().also { array -> observations.forEach { (case, elapsed) ->
                 array.put(JSONObject().put("family", case.family).put("count", case.count).put("elapsed_ms", elapsed))
             } })
