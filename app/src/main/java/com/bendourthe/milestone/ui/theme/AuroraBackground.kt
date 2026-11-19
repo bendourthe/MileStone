@@ -18,15 +18,14 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.ImageBitmapConfig
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
-import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.graphics.graphicsLayer
@@ -35,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.roundToInt
 
 /**
  * A deep teal gradient with three soft aurora glows drifting over a minute-long loop. The glows hold still when the
@@ -54,45 +54,51 @@ fun AuroraBackground(modifier: Modifier = Modifier, content: @Composable BoxScop
     } else {
         remember { mutableFloatStateOf(0.15f) }
     }
+    val renderer = remember { AuroraRenderer() }
     Box(modifier) {
-        Box(Modifier.matchParentSize().graphicsLayer { }.drawBehind { drawAurora(phase.value) })
+        Box(Modifier.matchParentSize().graphicsLayer { }.drawBehind { renderer.draw(this, phase.value) })
         content()
     }
 }
 
 private const val LOOP_MS = 60_000
 
-// Immutable textures keep the radial-gradient math off the full-resolution render path.
-private const val GLOW_SIZE = 256
-private val greenGlow by lazy { glowTexture(AuroraGreen, 0.12f) }
-private val cyanGlow by lazy { glowTexture(AuroraCyan, 0.09f) }
-private val violetGlow by lazy { glowTexture(AuroraViolet, 0.07f) }
+// Rasterize the complete gradient at a bounded resolution, then draw one opaque image.
+// Each background owns its mutable image; resizing replaces it and a stable phase reuses it.
+internal class AuroraRenderer {
+    private var image: ImageBitmap? = null
+    private val raster = CanvasDrawScope()
+    private var previousPhase = Float.NaN
 
-private fun glowTexture(color: Color, alpha: Float): ImageBitmap {
-    val image = ImageBitmap(GLOW_SIZE, GLOW_SIZE, ImageBitmapConfig.F16)
-    val extent = GLOW_SIZE.toFloat()
-    CanvasDrawScope().draw(Density(1f), LayoutDirection.Ltr, Canvas(image), Size(extent, extent)) {
-        drawRect(Brush.radialGradient(listOf(color.copy(alpha = alpha), Color.Transparent),
-            Offset(extent / 2, extent / 2), extent / 2))
+    fun draw(scope: DrawScope, phase: Float) = with(scope) {
+        if (size.width <= 0f || size.height <= 0f) return@with
+        val scale = minOf(1f, 256f / maxOf(size.width, size.height))
+        val width = (size.width * scale).roundToInt().coerceAtLeast(1)
+        val height = (size.height * scale).roundToInt().coerceAtLeast(1)
+        var texture = image
+        if (texture == null || texture.width != width || texture.height != height) {
+            texture = ImageBitmap(width, height, ImageBitmapConfig.F16)
+            image = texture
+            previousPhase = Float.NaN
+        }
+        if (phase != previousPhase) {
+            raster.draw(Density(1f), LayoutDirection.Ltr, Canvas(texture), Size(width.toFloat(), height.toFloat())) {
+                drawOriginalAurora(phase)
+            }
+            previousPhase = phase
+        }
+        drawImage(texture, dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()), filterQuality = FilterQuality.Low)
     }
-    return image
 }
 
-internal fun DrawScope.drawAurora(phase: Float) {
-    if (size.width <= 0f || size.height <= 0f) return
-    drawRect(Brush.verticalGradient(listOf(MidnightTeal, AbyssTeal, VoidTeal)))
+private fun DrawScope.drawOriginalAurora(phase: Float) {
+    var brush = Brush.verticalGradient(listOf(MidnightTeal, AbyssTeal, VoidTeal))
     val t = phase * 2 * PI.toFloat()
-    glow(greenGlow, x = 0.30f + 0.18f * sin(t), y = 0.22f + 0.08f * cos(2 * t), radius = 0.75f)
-    glow(cyanGlow, x = 0.75f + 0.15f * cos(t + 1.3f), y = 0.48f + 0.10f * sin(t + 0.7f), radius = 0.70f)
-    glow(violetGlow, x = 0.40f + 0.20f * sin(t + 2.6f), y = 0.82f + 0.06f * cos(t + 2.1f), radius = 0.65f)
-}
-
-private fun DrawScope.glow(image: ImageBitmap, x: Float, y: Float, radius: Float) {
-    val r = maxOf(size.width, size.height) * radius
-    withTransform({
-        translate(size.width * x - r, size.height * y - r)
-        scale(2 * r / GLOW_SIZE, 2 * r / GLOW_SIZE, pivot = Offset.Zero)
-    }) {
-        drawImage(image, srcOffset = IntOffset.Zero, dstSize = IntSize(GLOW_SIZE, GLOW_SIZE), filterQuality = FilterQuality.Low)
-    }
+    fun glow(color: Color, alpha: Float, x: Float, y: Float, radius: Float): Brush =
+        Brush.radialGradient(listOf(color.copy(alpha = alpha), Color.Transparent),
+            Offset(size.width * x, size.height * y), maxOf(size.width, size.height) * radius)
+    brush = Brush.composite(brush, glow(AuroraGreen, 0.12f, 0.30f + 0.18f * sin(t), 0.22f + 0.08f * cos(2 * t), 0.75f), BlendMode.SrcOver)
+    brush = Brush.composite(brush, glow(AuroraCyan, 0.09f, 0.75f + 0.15f * cos(t + 1.3f), 0.48f + 0.10f * sin(t + 0.7f), 0.70f), BlendMode.SrcOver)
+    brush = Brush.composite(brush, glow(AuroraViolet, 0.07f, 0.40f + 0.20f * sin(t + 2.6f), 0.82f + 0.06f * cos(t + 2.1f), 0.65f), BlendMode.SrcOver)
+    drawRect(brush)
 }

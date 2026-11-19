@@ -29,6 +29,7 @@ import kotlin.math.sin
 class AuroraRenderingTest {
     @Test fun texturedDrawPreservesOriginalGradientsAcrossMotionAndViewportChanges() {
         assertTrue("Synthetic rendering fixture is emulator-only", Build.HARDWARE.contains("ranchu") || Build.HARDWARE.contains("goldfish"))
+        val renderer = AuroraRenderer()
         val measurements = JSONArray()
         var rasterMismatch = 0
         var preciseMismatch = 0
@@ -36,7 +37,8 @@ class AuroraRenderingTest {
         val directory = File(context.getExternalFilesDir(null), "aurora-rendering").apply { mkdirs() }
         for (config in listOf(ImageBitmapConfig.Argb8888, ImageBitmapConfig.F16)) {
         for ((width, height) in listOf(96 to 208, 208 to 96, 360 to 780, 1080 to 2340)) {
-            for (phase in listOf(0f, 0.15f, 0.25f, 0.5f, 0.75f, 1f)) {
+            // Repeated phase covers cache hits; matching boundary phases cover fixed-phase viewport changes.
+            for (phase in listOf(0.15f, 0.15f, 0f, 0.25f, 0.5f, 0.75f, 1f, 0.15f)) {
                 fun pixels(name: String, draw: DrawScope.() -> Unit): IntArray {
                     val image = ImageBitmap(width, height, config)
                     CanvasDrawScope().draw(Density(1f), LayoutDirection.Ltr, Canvas(image), Size(width.toFloat(), height.toFloat()), draw)
@@ -56,7 +58,7 @@ class AuroraRenderingTest {
                     glow(AuroraCyan, 0.09f, 0.75f + 0.15f * cos(t + 1.3f), 0.48f + 0.10f * sin(t + 0.7f), 0.70f)
                     glow(AuroraViolet, 0.07f, 0.40f + 0.20f * sin(t + 2.6f), 0.82f + 0.06f * cos(t + 2.1f), 0.65f)
                 }
-                val actual = pixels("actual") { drawAurora(phase) }
+                val actual = pixels("actual") { renderer.draw(this, phase) }
                 var largestDelta = 0
                 var totalDelta = 0L
                 for (index in expected.indices) for (shift in 0..24 step 8) {
