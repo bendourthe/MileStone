@@ -1,0 +1,70 @@
+{
+  "profile": "full",
+  "platform": "windows",
+  "status": "PASS",
+  "source_sha256": "dcea14a76bc9582e58509d9c43a4e976294fede4e7bbdf6dcc7920469aaf308a",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "private-input-boundary",
+      "status": "PASS",
+      "seconds": 0.344
+    },
+    {
+      "name": "syntax",
+      "status": "PASS",
+      "seconds": 0.25
+    },
+    {
+      "name": "handbook-freshness",
+      "status": "PASS",
+      "seconds": 0.218
+    },
+    {
+      "name": "profile-tests",
+      "status": "PASS",
+      "seconds": 4.61
+    },
+    {
+      "name": "android",
+      "status": "PASS",
+      "seconds": 106.109
+    },
+    {
+      "name": "handbook-render",
+      "status": "PASS",
+      "seconds": 55.016
+    },
+    {
+      "name": "security",
+      "status": "PASS",
+      "seconds": 9.609
+    }
+  ],
+  "counts": {
+    "tests": 425,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10
+  },
+  "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+  "coverage": {
+    "covered": 5039,
+    "total": 6451,
+    "percent": 78.11
+  },
+  "security": {
+    "status": "PASS",
+    "base_ref": "origin/develop",
+    "positive_control_detected": true,
+    "input_sha256": "a9c8295084cfb1f188ed80ad2864fdf63d8a5d05c99cd3a62d8d94d95b5aea96",
+    "input_bytes": 17621494,
+    "scanned_input_sha256": "4162b43c7eb52e5a351d95a68ce0852f7187f3073673f74466c2b2181020f792",
+    "scanned_bytes": 17618934,
+    "public_metadata_exemptions": 40,
+    "findings": 0
+  },
+  "limitations": [
+    "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+  ]
+}

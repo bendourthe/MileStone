@@ -1,0 +1,154 @@
+{
+  "review": "Independent CI9 whole-v0.4 Goal fit and convergence",
+  "mode": "READ_ONLY",
+  "base": "d3df074c6b9efc8fedb04443021c07a2a5431d9c",
+  "candidate": "Current four-file source/test correction and scoped handbook update",
+  "goal": "Find added programs, stored cards and canonical displayed benefits through top Search; open exact targets and return with context preserved, entirely locally without changing issuer data or sign-ins.",
+  "bounded_local_goal_verdict": "CODE_INTENT_FIT_PASS; FOCUSED_VERIFICATION_PASS; COMPLETE_QUALIFICATION_AND_DELIVERY_OPEN",
+  "convergence": {
+    "product_code": "converged",
+    "new_missing": 0,
+    "new_partial": 0,
+    "new_contradicts": 0,
+    "new_unrequested": 0,
+    "whole_delivery": "partial",
+    "plan_or_task_writes": 0,
+    "new_tasks_recommended": 0,
+    "reason": "Remaining qualification and delivery work already belongs to T019, T020 and BG-1. No new product-code requirement gap was found."
+  },
+  "findings": [],
+  "confidence": 100,
+  "current_evidence": {
+    "focused_xml": {
+      "GlobalSearchTest": 18,
+      "SearchProjectionTest": 7,
+      "SearchRepositoryTest": 9,
+      "SearchMemoryTest": 3,
+      "SearchRevealIndexTest": 3,
+      "total": 40,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "interpretation": "Retained XML independently read; this reviewer did not execute Gradle."
+    },
+    "optimized_normal": {
+      "path": "reports/release-v040/ci9-optimized-normal",
+      "status": "PASS",
+      "source_sha256": "94339730a1ae949ee86bcec5806121b12b0551e08bb48678b1da5471add5da67",
+      "programs": 25,
+      "cards": 100,
+      "displayed_benefits": 2000,
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms_independently_recomputed": 120.8334,
+      "maximum_ms": 125.9791,
+      "limit_ms": 200,
+      "complete": true,
+      "preservation_passed": true,
+      "run_id": "3af51f6c-f94d-4d6b-85bc-bafd3230abdf",
+      "limit": "Focused normal-emulator evidence only; not complete platform qualification or Linux parity."
+    },
+    "full_profile": "Pending at task assignment; no PASS inferred.",
+    "full_platform": "Not run at task assignment; no PASS inferred.",
+    "hosted": {
+      "run": 44016321789,
+      "published_head": "d3df074",
+      "status": "FAIL",
+      "p95_ms": 248.921593,
+      "interpretation": "Retained hosted failure remains authoritative for the published candidate."
+    }
+  },
+  "reuse": {
+    "inventory_source": "docs/releases/v0/v0.4/development/v0.4.0-ci6-independent-goal-review.json",
+    "inventory_rows": 26,
+    "reason": "Its complete feature decomposition still covers the approved plan and appended owner deltas. Current-tree owners were inspected, and CI9 changes were mapped to matching, snapshot preparation, context and ordering.",
+    "valid": [
+      "Unchanged UI, navigation, persistence, credit-layout and opening-animation implementation mappings.",
+      "Earlier genuine owner acceptance for unchanged presentation and exact accepted behavior.",
+      "Historical runtime and process-privacy evidence as historical evidence with explicit reuse limits."
+    ],
+    "invalid": [
+      "Calling CI6 or CI8 runtime evidence a current CI9 full-platform pass.",
+      "Reusing prior latency observations for the changed matcher.",
+      "Inferring hosted green, new phone acceptance or native completion from focused local results."
+    ]
+  },
+  "traceability_columns": [
+    "id",
+    "feature",
+    "source_ref",
+    "current_artifact_or_boundary",
+    "CI9_assessment"
+  ],
+  "traceability": [
+    [1, "Added-only reactive local corpus", "DoD2; T001-T003", "SearchViewModel.readInput, watchSource, SearchSnapshotFactory", "Preserved. Preparation consumes the same added-only canonical snapshot; repository regressions pass."],
+    [2, "Contextual and bounded normalization", "DoD3; T001-T003", "GlobalSearch.matches, normalize, boundQuery, prepared matching", "Rechecked. All-token contextual matching and own-item token remain, with the approved program-only expansion. Focused matcher cases pass."],
+    [3, "Canonical projection and aliases", "DoD5; T002", "SearchSnapshotFactory.entries, BenefitsPresentation, BenefitsViewModel.page", "Rechecked. Same canonical entries feed the prepared snapshot; alias and source-isolation cases pass."],
+    [4, "Top-right Search entry", "DoD1; T004", "SearchAction, DashboardScreen, BenefitsScreen, CardBenefitsScreen", "Present in current tree. Unchanged owner and historical acceptance reused; CI9 full runtime pending."],
+    [5, "Rewards program tiles", "DoD4; third owner delta", "SearchProgramResult and SearchProgramDisplay", "Images, names and stored points preserved. Prepared metadata retains last-program precedence; focused regression passes."],
+    [6, "Benefits hierarchy and images", "DoD4; second-fourth owner deltas", "SearchResultList, SearchCardHeader, CompactBenefitResult", "Present. Prepared ordering preserves canonical result order and program/card metadata; current runtime requalification pending."],
+    [7, "Independent disclosures", "DoD4; owner deltas", "Program/card/section collapse keys and separate card chevron", "Unchanged current implementation; historical UI proof reused within that limit."],
+    [8, "Keyboard, Clear and explanatory states", "DoD7; T005-T007", "SearchScreen focus and Android Back flow", "Unchanged current implementation. Blank and punctuation matcher cases remain passing."],
+    [9, "Loading, errors and local retry", "DoD8; T002/T005", "SourceState, SearchUiState, retry", "Preserved. Preparation occurs inside existing worker source construction; failures retain explicit error ownership."],
+    [10, "Visible updating across states", "DoD8 correction", "publishedQueryVersion, requestVersion, SearchContent updating", "Preserved. CI9 changes no generation publication or visible updating logic; complete current runtime pending."],
+    [11, "Exact program reveal", "DoD6; T008", "MileStoneApp and DashboardScreen reveal validation", "Present. Prepared entries retain original typed targets and revisions; no routing change."],
+    [12, "Exact card and benefit reveal", "DoD6; T008-T010", "SearchReveal, CardBenefitsScreen, benefitRevealIndex", "Present. Target identity, category reveal, final validation and announcement remain unchanged."],
+    [13, "Revision, removal and ABA safety", "DoD6; T008-T010", "validateAgainst, validateReveal, SearchSnapshot.revision", "Rechecked. Each prepared index belongs to its own snapshot; earlier/later-source isolation regression passes."],
+    [14, "Cancellation and repeated taps", "DoD8; T008-T010", "mapLatest, queryVersion and navigation selection guard", "Preserved. Prepared matching is used under the existing request-generation and selection guards."],
+    [15, "Memory-only Back, tabs and viewport", "DoD7; T006/T010", "Navigation-entry SearchViewModel and rememberSearchLists", "Unchanged current ownership. Three SearchMemory tests pass; full current runtime pending."],
+    [16, "Pending-disposal viewport ownership", "DoD7; CI6 correction", "SearchScreen disposal version guard", "Guard remains in current tree; prior regression evidence retained as historical, not a CI9 platform pass."],
+    [17, "Saved-state and process privacy", "DoD7; T006/T016", "Memory-only query, prepared snapshot and process fixtures", "Preparation adds only in-memory fields. No persistence, logging, saved-state or credential boundary was added."],
+    [18, "Credit header and progress layout", "Owner Credit Tracker Delta", "BenefitsViewModel and CardBenefitsScreen", "Unchanged implementation; prior exact presentation acceptance reused only for unchanged behavior."],
+    [19, "Unknown credit target safeguard", "Owner Credit Tracker Delta; IC01", "BenefitsViewModel.item and target regression", "Unchanged current safeguard; no new denominator or amount handling introduced."],
+    [20, "Aurora drawing isolation", "Approved CI6 correction", "AuroraBackground graphics layer", "Unchanged owner and historical evidence reused; no new current runtime claim."],
+    [21, "Opening animation correction", "Approved opening delta", "Current opening animation implementation", "Unchanged accepted implementation; this Search correction does not reopen its source behavior."],
+    [22, "Query-to-visible latency", "DoD9; T016/T019", "Shared SearchLatencyScenario and optimized benchmark boundary", "Current focused PASS: independently recomputed p95 120.8334 ms, unchanged workload, endpoint and limit. Full/platform/hosted qualification remains open."],
+    [23, "Generated handbook and companions", "T013/T016", "global-search.md, generated overview and source verification", "One paragraph accurately describes per-snapshot copying, preparation, order and metadata precedence. Final documentation qualification belongs to coordinator."],
+    [24, "Validation, security and source packaging", "T015/T019", "scripts/validate.py and retained benchmark controller", "No CI9 validator or packaging behavior change. Existing fail-closed gates remain; current full profile is pending."],
+    [25, "CI, protection and integration", "T015/T020; DoD10", "Required merge-result checks and PR17", "Incomplete delivery. Published d3df074 remains red; used grant authorizes no additional push or rerun."],
+    [26, "Original lifecycle compatibility", "Original Goal Coordinator Delta", "Archived compatibility evidence and original completion predicates", "Separate unfinished obligation. Search-local fit does not close original release/native duties or v0.5/v0.6 work."]
+  ],
+  "goal_vs_plan_questions": [
+    {
+      "question": "What did implementing this teach that the plan did not know?",
+      "answer": "Repeated query work can reuse canonical order and program lookups prepared per source snapshot. Original input positions must still determine group-label precedence, stable ties must remain stable, and context excerpts must preserve earliest-token and description priority.",
+      "current_response": "The current implementation and focused regressions explicitly preserve those behaviors."
+    },
+    {
+      "question": "What did the plan assume that turned out false?",
+      "answer": "A passing normal local measurement did not establish hosted performance. CI8's optimized harness still failed the unchanged 200 ms threshold on the hosted runner.",
+      "current_response": "Retain that failure, the unchanged measurement contract and separate hosted qualification. No Linux-parity claim."
+    },
+    {
+      "question": "What would a reader of the Goal expect that no phase delivered?",
+      "answer": "No additional absent product-code behavior was identified in the present tree. Complete current-source qualification, corrected green integration and release/native delivery remain undelivered.",
+      "current_response": "Keep T019, T020 and BG-1 open; do not replace them with duplicate convergence tasks."
+    },
+    {
+      "question": "What did the maintainer ask for that no task line captured?",
+      "answer": "The appended Search presentation, descendant-query, image and credit deltas plus the separately accepted opening correction remain applicable. Original lifecycle duties, v0.5 Chase identity/benefits and v0.6 dynamic merchant offers with default-on adding to every independently eligible card remain broader open obligations.",
+      "current_response": "Preserve the expanded goal; this review neither completes nor narrows it."
+    }
+  ],
+  "iteration_accounting": {
+    "reset_performed": false,
+    "new_three_cycle_budget_claimed": false,
+    "retained_ledger": "docs/releases/v0/v0.4/development/v0.4.0-ci6-correction-ledger.json and subsequent coordinator correction history",
+    "known_historical_checkpoint": "CI6 recorded 22 cumulative observed correction episodes.",
+    "current_total": "Coordinator must retain and extend the cumulative ledger; this review does not invent a new total or alter signed records."
+  },
+  "open": [
+    "Current complete full and platform qualification.",
+    "Final current-source documentation, Tier3 and gate-owner disposition.",
+    "Coordinator reconciliation of current tracker/reproduction wording that still describes the correction as unapplied.",
+    "Fresh scoped publication authority and current-head hosted green.",
+    "Green integration, release, archive and applicable cleanup.",
+    "Native completion and original lifecycle reconciliation.",
+    "v0.5 Chase and v0.6 merchant-offer delivery obligations."
+  ],
+  "completed": "Read-only current-tree Goal fit, 26-row traceability and four-question sufficiency assessment.",
+  "verified": "40 focused retained XML cases and independently recomputed current focused optimized timing.",
+  "next": "Finish current-source qualification and evidence reconciliation before any separately authorized publication.",
+  "overall": "COMMENT",
+  "rationale": "Current Search code fits the approved intent; complete qualification and delivery remain open."
+}

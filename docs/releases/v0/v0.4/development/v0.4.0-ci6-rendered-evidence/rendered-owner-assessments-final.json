@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "owners": [
+    "browser-testing-with-devtools",
+    "accessibility-engineering",
+    "color-systems",
+    "hallmark-design audit"
+  ],
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "handbook_output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23",
+  "browser_evidence": [
+    "handbook-browser-observation.json",
+    "handbook-lighthouse.json",
+    "full/handbook-render/render.json"
+  ],
+  "lighthouse_scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 96.0,
+    "seo": 90.0
+  },
+  "visual_detector": {
+    "initial": "9flags only intentional unfocused skip link; raw retained",
+    "reviewed": "0gatefindings,9 precisely reviewed exceptions; keyboard proof retained",
+    "evidence": "handbook-visual-detector-reviewed.json"
+  },
+  "contrast_measured_pairs": [
+    {
+      "theme": "light",
+      "selector": ".source-section p",
+      "foreground": "rgb(21, 26, 44)",
+      "background": "rgb(246, 247, 250)",
+      "fontSize": 16,
+      "fontWeight": 400,
+      "ratio": 16.120953692339036,
+      "required": 4.5
+    },
+    {
+      "theme": "light",
+      "selector": ".source-section h2",
+      "foreground": "rgb(21, 26, 44)",
+      "background": "rgb(246, 247, 250)",
+      "fontSize": 30.4,
+      "fontWeight": 700,
+      "ratio": 16.120953692339036,
+      "required": 3
+    },
+    {
+      "theme": "light",
+      "selector": ".reading-controls label",
+      "foreground": "rgb(227, 244, 242)",
+      "background": "rgb(7, 41, 47)",
+      "fontSize": 13,
+      "fontWeight": 400,
+      "ratio": 13.52241616066143,
+      "required": 4.5
+    },
+    {
+      "theme": "light",
+      "selector": ".reading-controls button",
+      "foreground": "rgb(4, 29, 34)",
+      "background": "rgb(46, 230, 168)",
+      "fontSize": 16,
+      "fontWeight": 650,
+      "ratio": 10.797549529368068,
+      "required": 4.5
+    },
+    {
+      "theme": "dark",
+      "selector": ".source-section p",
+      "foreground": "rgb(227, 244, 242)",
+      "background": "rgb(4, 29, 34)",
+      "fontSize": 16,
+      "fontWeight": 400,
+      "ratio": 15.355902126330589,
+      "required": 4.5
+    },
+    {
+      "theme": "dark",
+      "selector": ".source-section h2",
+      "foreground": "rgb(227, 244, 242)",
+      "background": "rgb(4, 29, 34)",
+      "fontSize": 30.4,
+      "fontWeight": 700,
+      "ratio": 15.355902126330589,
+      "required": 3
+    },
+    {
+      "theme": "dark",
+      "selector": ".reading-controls label",
+      "foreground": "rgb(227, 244, 242)",
+      "background": "rgb(7, 41, 47)",
+      "fontSize": 13,
+      "fontWeight": 400,
+      "ratio": 13.52241616066143,
+      "required": 4.5
+    },
+    {
+      "theme": "dark",
+      "selector": ".reading-controls button",
+      "foreground": "rgb(4, 29, 34)",
+      "background": "rgb(46, 230, 168)",
+      "fontSize": 16,
+      "fontWeight": 650,
+      "ratio": 10.797549529368068,
+      "required": 4.5
+    }
+  ],
+  "hallmark_contextual_audit": {
+    "findings": [],
+    "verdict": "Content-specific engineering handbook with clear hierarchy and functional reading/presentation composition.",
+    "positive_observations": [
+      "Existing cyan/teal branding and neutral reading surfaces retained.",
+      "Left-aligned title/source headings, sidebar and bounded panes express reference hierarchy.",
+      "Accent distinguishes presentation action; forms have visible labels and focus behavior.",
+      "Real code/tables have content-specific grouping; no filler or repeated feature-card composition introduced."
+    ],
+    "considered_but_rejected": [
+      {
+        "candidate": "Long technical reference paragraphs",
+        "reason": "Established bounded reading grid and deep pane retain hierarchy; no new full-viewport body composition or observed usability defect."
+      },
+      {
+        "candidate": "Offscreen skip link",
+        "reason": "Intentional keyboard behavior verified before exact selector/rule exception."
+      },
+      {
+        "candidate": "Loopback favicon404 and missing SEOdescription",
+        "reason": "Distribution is offline HTML, with no console errors or externalrequests there; loopback Lighthouse96/90 meets thresholds, and no HTTPsite or indexing feature is shipped."
+      }
+    ]
+  },
+  "cleanup": {
+    "owned_loopback_server_connection_refused_after_audit": true
+  },
+  "limits": [
+    "Automated accessibility/keyboard evidence does not claim manual screenreader or hardwarekeyboard testing.",
+    "Loopback Lighthouse retains optional favicon404 and missing SEOdescription advisory.",
+    "Native Compose uses Android runtime evidence; HTML detector is inapplicable to APK."
+  ]
+}

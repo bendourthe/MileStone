@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "package": "com.bendourthe.milestone",
+  "command": "adb -s OWNER_PHONE install -r app/build/outputs/apk/debug/app-debug.apk",
+  "result": "Success",
+  "versionName": "0.4.0",
+  "versionCode": 5,
+  "apk_sha256": "03de4f24c002a0e796b81722548e28f621b0c1a9f4bec08c3a800fcb663f4718",
+  "qualified_source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "data_mode": "Replace install; no uninstall or data-clear command.",
+  "observations": "Package installation and version metadata only; no app launch, issuer action, credential field, private page or financial content accessed.",
+  "manual_ui_acceptance": "No fresh owner UI observation claimed; prior accepted behavior and current emulator76case proof retained."
+}

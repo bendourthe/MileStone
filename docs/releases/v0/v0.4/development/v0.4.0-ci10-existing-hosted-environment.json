@@ -1,0 +1,34 @@
+{
+  "observed_utc": "2026-11-17T10:58:34.955731+00:00",
+  "status": "EXISTING_ARTIFACT_READ_ONLY_REVIEW",
+  "run_id": 44037140859,
+  "commit": "2a939166a522235218bc0d386a4bc2172630d681",
+  "new_CI_runs": 0,
+  "artifact_sha256": {
+    "metadata/emulator-acceleration.txt": "4484bdd6d5e16c817d4dfc5cda05334055c86428c861c1d22e8cf67ce42fee49",
+    "metadata/emulator-version.txt": "1a523c9091747b7bf48a755396278f2eca455352b40c281336f1c3e075607b54",
+    "metadata/environment.json": "735fd15603e107a0abfe8e8beb377f09a96d7c3b724dbe5855b7ba7c019077da",
+    "emulator.log": "11bd77af43bbc877d03072ddbaae38212a3c262b47b5d9dc206f33cb79d91785",
+    "emulator-avd.log": "5ea23005c8bfbe12ef159c879277e0d54cb0eec0fcd5ec3cd4ed72c04c39cb4b"
+  },
+  "confirmed": [
+    "KVM version 12 reports installed and usable.",
+    "Android emulator 37.2.13.0 build 16740729.",
+    "Software SwiftShader GLES/Vulkan mode selected.",
+    "Emulator reports increasing RAM to 2560 MB.",
+    "Saved environment.json describes the report profile rather than full/platform execution."
+  ],
+  "noncausal_observation": "AVD creation log contains devices.xml warnings; the emulator nevertheless boots and runs the complete workload. No causal relation to the timing failure is established.",
+  "not_available": [
+    "Actual hosted CPU topology",
+    "Guest CPU count and AVD config.ini",
+    "Scheduler/frame trace from the hosted workload",
+    "Per-query scheduling attribution"
+  ],
+  "interpretation": "Existing artifacts do not identify the hosted cause. No production fix, easier timing gate, new push or remote retry is justified or performed.",
+  "next_evidence_scope": [
+    "Record actual host/guest CPU configuration with the failing workload.",
+    "Capture fixed scheduler/frame metadata without issuer data or process command lines.",
+    "Keep the unchanged metric, workload, red result and publication authority boundaries."
+  ]
+}

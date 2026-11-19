@@ -13,6 +13,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.unit.Density
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.navigation.toRoute
 import androidx.navigation.NavHostController
@@ -376,6 +377,48 @@ class SearchNavigationTest {
         waitText("45 results")
         rule.onNodeWithText("Benefit 00").assertIsDisplayed()
         rule.onNodeWithText("Benefit 30").assertIsNotDisplayed()
+    }
+
+    @Test fun pendingQueryDisposalCannotSaveAnEarlierViewport(): Unit = runBlocking {
+        cards.applyCardBenefits(key, assignBenefitKeys(key, (0 until 45).map { index ->
+            BenefitDraft(BenefitSection.LISTED, "Benefit %02d".format(index), null, null, null, null, false)
+        }), 40)
+        val vm = model()
+        val store = ViewModelStore().apply { put("pending-search", vm) }
+        val attached = mutableStateOf(true)
+        rule.setContent {
+            MileStoneTheme { AuroraBackground(Modifier.fillMaxSize()) {
+                if (attached.value) SearchScreen(vm, onBack = {}, onSelect = {})
+            } }
+        }
+        try {
+            rule.onNodeWithTag("globalSearchQuery").performTextInput("Benefit")
+            waitText("45 results")
+            rule.onNodeWithTag("globalSearchQuery").performImeAction()
+            rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Benefit 30"))
+            rule.onNodeWithText("Benefit 30").assertIsDisplayed()
+            assertTrue(rule.onNodeWithTag("searchResults").fetchSemanticsNode().config[
+                androidx.compose.ui.semantics.SemanticsProperties.VerticalScrollAxisRange].value() > 0)
+            searchWorker.hold()
+            try {
+                rule.onNodeWithTag("globalSearchQuery").performTextClearance()
+                rule.onNodeWithTag("globalSearchQuery").performTextInput("benefit")
+                rule.onNodeWithText("Benefit 30").assertIsDisplayed()
+                snapshot("pending-before-disposal")
+                rule.runOnIdle { attached.value = false }
+                rule.waitForIdle()
+                rule.runOnIdle {
+                    SearchTab.entries.forEach { assertEquals(0 to 0, vm.position(it)) }
+                    attached.value = true
+                }
+                rule.waitForIdle()
+            } finally { searchWorker.release() }
+            waitText("45 results")
+            rule.onNodeWithTag("globalSearchQuery").assertTextContains("benefit")
+            rule.onNodeWithText("Benefit 00").assertIsDisplayed()
+            rule.onNodeWithText("Benefit 30").assertIsNotDisplayed()
+            snapshot("pending-after-remount")
+        } finally { rule.runOnIdle { store.clear() } }
     }
 
     @Test fun rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch() {

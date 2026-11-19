@@ -1,0 +1,864 @@
+{
+  "status": "INDEPENDENT LOCAL GOAL FIT PASS; DELIVERY AND WHOLE TIER3 DISPOSITION OPEN",
+  "final_verdict": "Current source satisfies the inspected Search Goal and owner refinements locally; this is not complete delivery or global-goal completion.",
+  "t017_closure_approved": false,
+  "plan": "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+  "goal": "Find added stored programs, cards and canonical displayed benefits from top-right Search, open exact targets, and return with context intact without issuer-data or sign-in changes.",
+  "revision": "d7c9148d0a6de5f012e7c1a2a76573601c42ec4d plus public scope-v5 working diff",
+  "original_feature_integration_base": "09036c2037b42fa232679a4b2f0afd55b9cd3171",
+  "current_correction_base": "d7c9148d0a6de5f012e7c1a2a76573601c42ec4d",
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "native_source_fingerprint_independently_recomputed": true,
+  "scope_v5_raw_source_hashes_independently_matched": 10,
+  "full_receipt": "reports/release-v040/final-scope-v5/full/results/full-windows.json",
+  "full_status": "PASS: seven groups, 425 JVM cases, 10 optional ExtractorFixture skips, zero failures/errors; coverage 5039/6451 (78.11 percent)",
+  "platform_status": "PASS:76 cases,0failures/errors/skips at identical current source",
+  "method": "Independent approved-plan, owner-delta, public-source and retained-evidence review. No app/handbook edits, Chrome, Gradle, device or private-capture access.",
+  "blast_radius": {
+    "verdict": "run",
+    "positive_triggers": [
+      "Native UI and exact navigation",
+      "Memory-only query/privacy boundary",
+      "Generated HTML and PDF",
+      "Validation, security and pipeline contracts"
+    ],
+    "scope": "All four phases and every appended owner refinement, not only CI6 changes"
+  },
+  "inventory_columns": [
+    "Feature",
+    "Phase/task",
+    "Artifact and real boundary",
+    "Representative input",
+    "Observable result",
+    "Evidence and current status"
+  ],
+  "inventory_environment": "Public synthetic Android emulator and Windows native validator; browser/PDF proof is retained current-source evidence, not a new browser run by this review",
+  "inventory_count": 26,
+  "inventory": [
+    [
+      "Added-only reactive local corpus",
+      "1:T001-T003",
+      "Room -> SearchSnapshotFactory -> GlobalSearch",
+      "Added/disconnected/removed program and card",
+      "Only added programs and their stored descendants searchable",
+      "SearchRepositoryTest / GlobalSearchTest; current full and platform PASS"
+    ],
+    [
+      "Contextual and bounded normalization",
+      "1:T001-T003",
+      "domain/GlobalSearch.kt compiled matcher",
+      "Delt, Delta lounge, Amex, punctuation/Unicode, 256-character boundary",
+      "Own-item token except explicit program-identity descendant expansion; private identity fields excluded",
+      "GlobalSearchTest and retained adversarial regressions; current full PASS"
+    ],
+    [
+      "Canonical projection and aliases",
+      "1:T002; owner deltas",
+      "BenefitsPresentation/BenefitsViewModel -> search snapshot",
+      "Merged tracker/list aliases, local welcome, completed and collapsed rows",
+      "One canonical result; enrollment/aliases retained; raw issuer rows unchanged",
+      "SearchRepositoryTest / SearchNavigationTest; current full and platform PASS"
+    ],
+    [
+      "Top-right search entry",
+      "2:T004; owner delta",
+      "MileStoneApp.kt / SearchAction real headers",
+      "Rewards, Benefits and opened card at narrow width/200 percent font",
+      "Labeled Search action beside other controls; no bottom Search tab",
+      "SearchScreenTest header cases; current platform PASS"
+    ],
+    [
+      "Rewards program tiles",
+      "2:T005; third owner delta",
+      "SearchScreen.kt Rewards tab",
+      "Amex",
+      "Program logo, name and stored points",
+      "SearchScreenTest; retained genuine acceptance only for unchanged presentation; current platform PASS"
+    ],
+    [
+      "Benefits hierarchy and images",
+      "2:T005; second-fourth owner deltas",
+      "SearchScreen.kt Benefits tab",
+      "Program-only and benefit-only queries",
+      "Larger themed program/logo; compact card artwork/name/ending; canonical sections and title-only rows",
+      "SearchScreenTest / SearchNavigationTest; current platform PASS"
+    ],
+    [
+      "Independent disclosures",
+      "2:T005; owner deltas",
+      "Program/card/section chevrons",
+      "Toggle each hierarchy level separately",
+      "Independent collapse; card right chevron separate from card navigation; no bright card outline",
+      "SearchScreenTest; current platform PASS"
+    ],
+    [
+      "Keyboard, clear and explanatory states",
+      "2:T005-T007",
+      "Actual Compose input and Android Back",
+      "Blank/symbol-only query, Clear, IME Back",
+      "Start prompt; Clear retains focus; keyboard dismissal before screen exit",
+      "SearchScreenTest; current platform PASS"
+    ],
+    [
+      "Loading, errors and local retry",
+      "1:T002; 2:T005",
+      "Repository failure/paused-read flow",
+      "Delayed local read; failed transaction; Retry",
+      "Explicit loading/error, not fabricated empty; retry reads local data only",
+      "SearchScreenTest delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData; current platform PASS"
+    ],
+    [
+      "Visible updating status across states",
+      "DoD8 correction",
+      "Actual SearchScreen + Room/ViewModel paused worker",
+      "Matches->empty and empty->matches at 320dp/200 percent font",
+      "Earlier states visibly Updating results until current published generation, including equal Empty states",
+      "SearchUpdatingStatusTest / successive-empty JVM regression; current full and platform PASS"
+    ],
+    [
+      "Exact program reveal",
+      "3:T008",
+      "NavController -> Rewards destination",
+      "Select program result",
+      "Exact program tile temporarily outlined",
+      "SearchNavigationTest programAndCardTargetsReturnToTheSameSearch; platform PASS"
+    ],
+    [
+      "Exact card/benefit reveal",
+      "3:T008-T010",
+      "SearchReveal / CardBenefitsScreen",
+      "Hidden category; equal title across cards/periods",
+      "Exact canonical row revealed and identified; saved collapse/sort unchanged",
+      "SearchNavigationTest; current platform PASS"
+    ],
+    [
+      "Revision/removal/ABA safety",
+      "3:T008-T010",
+      "Fresh transaction validateAgainst/validateReveal",
+      "Removed target, replaced duplicate, reused occurrence key",
+      "Changed/unavailable notice; never opens a similar replacement",
+      "SearchNavigationTest removal/reused-key cases; platform PASS"
+    ],
+    [
+      "Cancellation and repeated taps",
+      "3:T008-T010",
+      "Asynchronous selection/navigation entry",
+      "Query changes during validation; repeated taps",
+      "Late selection cannot navigate; no duplicate destination stack",
+      "SearchNavigationTest; platform PASS"
+    ],
+    [
+      "Memory-only Back/tab/viewport",
+      "2:T006; 3:T010",
+      "Navigation-entry ViewModel and two LazyListStates",
+      "Scroll both tabs, visit result, Back, recreation",
+      "Query/tab/disclosure/per-tab position restored; fresh entry blank",
+      "SearchNavigationTest / SearchScreenTest; platform PASS"
+    ],
+    [
+      "Pending disposal viewport ownership",
+      "CI6 correction",
+      "Real SearchScreen dispose/remount with paused matching",
+      "Old position29/12, new query, dispose",
+      "Earlier results cannot overwrite cleared current-query position",
+      "pending-disposal green and guard-only removal RED; current platform PASS"
+    ],
+    [
+      "Saved-state/process privacy",
+      "2:T006; 4:T016",
+      "Actual Activity saved-state/process replacement",
+      "Synthetic unique query; replacement PID",
+      "Query absent from storage/logs; process restart blank",
+      "Retained search-images process receipt and current navigation tests; reuse only unchanged persistence, no new phone execution"
+    ],
+    [
+      "Credit header/progress layout",
+      "Owner Credit Tracker Delta",
+      "BenefitsViewModel/CardBenefitsScreen canonical tile",
+      "Completed/unfinished enrolled credit",
+      "Enrolled beside name before check; amount beside bar; completed full bar",
+      "BenefitRowTest, current full JVM, retained genuine owner format acceptance; platform PASS"
+    ],
+    [
+      "Unknown credit target safeguard",
+      "Owner Credit Tracker Delta; IC01",
+      "BenefitsViewModel.item",
+      "Earned5000 unknown target; explicit leading $200 title",
+      "Actual $50 earned preserved without invented denominator; valid target ratio; progress1",
+      "BenefitsViewModelTest.completedCreditDoesNotTreatItsEarnedAmountAsAnUnknownTarget; deterministic RED/GREEN and current full PASS"
+    ],
+    [
+      "Aurora drawing isolation",
+      "CI6 integration path",
+      "AuroraBackground native sibling graphics layer",
+      "Normal animation and reduced motion",
+      "Same gradient/math/colors/layout/input with isolated drawing",
+      "Independent source review; reduced-motion-restoration.json test exit0/restored; current platform PASS"
+    ],
+    [
+      "Opening animation correction",
+      "Approved additional correction",
+      "App launch animation",
+      "Stone, coupon ribbon, then airplane",
+      "Ribbon initially complete; final overlap forms with plane",
+      "Retained exact-code emulator visual and genuine owner acceptance; reuse only unchanged opening implementation"
+    ],
+    [
+      "Query-to-visible latency",
+      "4:T016/T019",
+      "SearchLatencyTest ordinary Android frame draw and exact displayed/clickable title semantics",
+      "25 programs/100 cards/2000 displayed benefits;3 warmups/30 queries;delay0",
+      "p95 <=200ms, unchanged draw endpoint and assertions",
+      "Current identical-source platform PASS; all30 observations independently recomputed p95144.4722<=200; draw/semantics endpoint retained"
+    ],
+    [
+      "Generated handbook/companions",
+      "4:T013/T016",
+      "Native builder -> Chromium/actual A4 PDF",
+      "Reading/deep views, full matrix, JS/no-JS print",
+      "68-input/52-code binding; reproducible output;2609 checks/384 measurements;16 nonempty print pages",
+      "Adopted verification + release-credit-target reviews + current full browser PASS"
+    ],
+    [
+      "Validation/security/source packaging",
+      "4:T015/T019",
+      "scripts/validate.py and native helper tests",
+      "Malformed reports, positive secret controls, CRLF Git archive",
+      "Fail-closed reports and exact metadata exceptions; correct package bytes",
+      "Current full PASS; actual clean release package remains delivery duty"
+    ],
+    [
+      "CI/protection/integration",
+      "4:T015/T020",
+      "GitHub PR merge-result gate/branch protections",
+      "Required CI result; pre-merge emulator; admin enforcement",
+      "Green merged integration required",
+      "Published protection/CI receipts; corrected PR17 remains red/unmerged, not delivered"
+    ],
+    [
+      "Original lifecycle compatibility",
+      "Original Goal Coordinator Delta",
+      "Six-line archived v0.1 compatibility evidence/native checker",
+      "Historical tagged paths and original completion predicates",
+      "Preserve historical facts and remaining obligations without artificial task targets",
+      "Original obligation checks/native parser blocker; separate unfinished lifecycle work"
+    ]
+  ],
+  "goal_vs_plan_sufficiency": [
+    {
+      "question": "What did implementing this teach that the plan did not know?",
+      "answer": "Completed matching and viewport disposal need edit-generation ownership. Every public state needs a published generation even successive equal Empty states. Faithful timing includes ordinary Android frame scheduling/drawing and must avoid implicit animation-idle waits. Earned credit value does not establish a target.",
+      "evidence": [
+        "SearchViewModel.kt",
+        "SearchScreen.kt",
+        "SearchUpdatingStatusTest.kt",
+        "pending-disposal/",
+        "clock-review/",
+        "BenefitsViewModelTest.kt"
+      ],
+      "change_needed_now": "No further in-scope behavior correction identified after identical-source full/platform and timing verification; preserve version/disposal/target safeguards.",
+      "owner": "Implementation and verification coordinator"
+    },
+    {
+      "question": "What did the plan assume that turned out false?",
+      "answer": "The Goal remains sound. Implementation assumptions failed: a single benchmark viewport did not reproduce two production tab viewports, test-controlled frames were not ordinary app frames, equal Empty states still needed generation publication, and earned-only values did not prove a denominator. A normal local pass never guaranteed hosted timing.",
+      "evidence": [
+        "Approved plan DoD7-10",
+        "CI6 history",
+        "Installed clock bytecode review",
+        "IC01 deterministic counterexample"
+      ],
+      "change_needed_now": "Retain all failures/negative controls and unchanged200ms criterion; keep actual hosted gate separate.",
+      "owner": "Verification coordinator"
+    },
+    {
+      "question": "What would a reader of the Goal expect that no phase delivered?",
+      "answer": "No unimplemented local Search behavior identified in scope-v5 source and complete current runtime. Corrected hosted integration, release/archive/cleanup and native completion remain undelivered.",
+      "evidence": [
+        "Approved plan Goal/DoD",
+        "scope-v5 ten-file public source",
+        "Current full receipt",
+        "PR17 red/unmerged"
+      ],
+      "change_needed_now": "Separately authorized green integration and release/lifecycle reconciliation remain required.",
+      "owner": "Goal/release coordinator"
+    },
+    {
+      "question": "What did the maintainer ask for that no task line captured?",
+      "answer": "Search UI/images/Amex descendant expansion and credit layout are appended owner deltas. Opening animation has separate accepted correction scope. Original v0.1/v0.2/v0.3 obligations, v0.5 Chase personal/business benefits with combined/separate sign-in handling, and v0.6 dynamic merchant offers/default-on eligible adding to each eligible card remain broader obligations. They are not completed by this Search review.",
+      "evidence": [
+        "Appended approved-plan owner deltas",
+        "docs/todos.md",
+        "Retained original owner requests and scope expansion"
+      ],
+      "change_needed_now": "Preserve overall goal/tracker and their delivery duties; obtain separate publication/destructive authority where required.",
+      "owner": "Overall goal coordinator"
+    }
+  ],
+  "rendered_owners": [
+    {
+      "surface": "Native Compose APK",
+      "browser_testing_and_HTML_detector": "NOT APPLICABLE: native Android renderer, not HTML",
+      "boundary": "Actual Compose semantics/layout/runtime captures and native accessibility context",
+      "status": "Current native platform76/76 PASS; root independently observed pending-before/after captures (oldviewport30 whileUpdating thennew0), retained current credit/handbook images; no fresh phone observation by reviewer. TalkBack/hardware keyboard limits remain."
+    },
+    {
+      "surface": "Generated offline HTML handbook",
+      "browser_accessibility_geometry_design": "Applicable; current full browser matrix and retained source/render/independent review receipts",
+      "evidence": [
+        "docs/handbooks/_sources/overview/reviews/v0.4.0-release-credit-target/",
+        "final-scope-v5/full/handbook-render/render.json"
+      ],
+      "limit": "Do not invent named-owner skill invocation receipts. Any applicable required owner absent from retained evidence remains NOT COVERED for the final Tier3 coordinator; this review does not waive it."
+    },
+    {
+      "surface": "Actual A4 PDFs",
+      "browser_testing_and_HTML_detector": "NOT APPLICABLE to PDF format itself; actual PDF text/raster consumer review used",
+      "evidence": "release-credit-target/print-review.json and directly inspected changed pages8/9"
+    }
+  ],
+  "iteration_ledger": {
+    "historical_global_fix_rerun_cycles_used": 9,
+    "additional_ci6_episodes": 13,
+    "cumulative_observed_fix_rerun_episodes": 22,
+    "ledger": "docs/releases/v0/v0.4/development/v0.4.0-ci6-correction-ledger.json",
+    "reset_performed": false,
+    "native_signed_or_budget_record_changed": false,
+    "scope": "Coordinator confirmed13 episodes including test-observation/coverage corrections. Diagnostics, profiling, deliberate negative controls/restoration, comments/import-only changes and report/index writes excluded. Prior disclosed user-autonomy exception retained; no new remote allowance inferred."
+  },
+  "resolved_findings": [
+    "DoD8: visible Updating results across earlier matches/start/empty; actual Room-backed screen test passes at320dp/200percent font in current full platform",
+    "IC01: no earned-only fabricated denominator; deterministic RED/GREEN retained; current425-case JVM/full and credit row runtime pass"
+  ],
+  "stress_diagnostic": {
+    "four_host_thread_p95_ms": 533.9365,
+    "status": "FAIL against unchanged200ms",
+    "scope": "Different host constraints; not normal qualification or hosted parity; retained, not waived"
+  },
+  "open": [
+    "Final Tier3 adversarial and gate-owner disposition, including any missing applicable named rendered-owner receipt",
+    "Genuine preservation-baseline adoption for SearchNavigationTest",
+    "Fresh scoped publication authority including Aurora/Benefits fixture/status paths",
+    "PR17 red/unmerged; corrected green hosted integration delivery",
+    "Release/archive/eligible cleanup/native parser bookkeeping",
+    "Originalv0.1/v0.2/v0.3 and futureChase/merchant-offer obligations"
+  ],
+  "reuse_limits": "Earlier genuine phone acceptance and process-restart proof apply only to unchanged presentation/persistence and exact opening code. No new phone confirmation, final Tier3 verdict or T017 closure is claimed.",
+  "ownership": "This new ignored report only. No product/handbook edits, builds, Chrome, device or private captures.",
+  "t017_local_implementation_goal_fit": "PASS",
+  "t017_closure_owner": "Coordinator must record this independent verdict with remaining delivery and native/approval predicates; reviewer does not tick task boxes.",
+  "created_utc": "2026-11-16T11:34:46.315205+00:00",
+  "full": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.281
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.25
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.188
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 3.297
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 127.687
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 55.438
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 5.062
+      }
+    ],
+    "counts": {
+      "tests": 425,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 5039,
+      "total": 6451,
+      "percent": 78.11
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "4b695a48ac088e3a20a1fcd9a9f64c4a9541665c431933934950c3f7e7440f98",
+      "input_bytes": 5606780,
+      "scanned_input_sha256": "f56d11a66c36590cf92581cd6e5c4d4a29fb9cd34b22ac2fed3fcf83bb7e3954",
+      "scanned_bytes": 5605244,
+      "public_metadata_exemptions": 24,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "platform": {
+    "profile": "platform",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 631.938
+      }
+    ],
+    "counts": {
+      "tests": 76,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": null,
+    "security": null,
+    "limitations": []
+  },
+  "timing_independently_recomputed": {
+    "samples": 30,
+    "warmups": 3,
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "p95_ms": 144.4722,
+    "minimum_ms": 46.1051,
+    "maximum_ms": 224.2012,
+    "limit_ms": 200,
+    "injected_ui_delay_ms": 0,
+    "frame_clock": "Android Choreographer",
+    "interpretation": "p95 passes; maximum224.2012 exceeds200 and is retained, not an all-sample guarantee. Four-thread stress failure remains a different declared environment, not waived."
+  },
+  "timing_provenance": {
+    "profile_started": "2026-11-16T11:21:51.615340+00:00",
+    "profile_finished": "2026-11-16T11:32:25.947420+00:00",
+    "device_generation_epoch_reported_by_acquisition_owner": 1794828642,
+    "device_generation_utc": "2026-11-16T11:30:42+00:00",
+    "generation_inside_profile_independently_checked": true,
+    "independent_device_access": false,
+    "limit": "Generation timestamp is acquisition-owner provenance. Later host acquisition time is not represented as generation time; current XML independently contains the passing latency case."
+  },
+  "whole_plan_tier3_disposition": "NOT CERTIFIED: local code/feature evidence reviewed; final adversarial/gate owner and delivery prerequisites remain distinct.",
+  "draft_preservation_audit": {
+    "path": "reports/release-v040/final-scope-v5/goal-review-preparation.json",
+    "status": "Official record refused after reviewer replaced its own initial draft without required immediate check; official diff reviewed, no accept/adoption performed, existing draft preserved untouched afterward. Final report is the expected separate uniquely named evidence deliverable, not a claim guard refusal was resolved.",
+    "no_user_or_product_edits_lost": true
+  },
+  "artifact_raw_sha256": {
+    "full/results/full-windows.json": "88c76733ec0342e714de2cf6983938f86ce212210bdc3ea3d69ba2d42bfeb3e2",
+    "platform/results/platform-windows.json": "4481f32318e371ae48be8d24a958d4a6dbba2531847e8350ed42f8b3c1e5b6d1",
+    "platform/junit/platform-000.xml": "78dfa14a2c67314aeb223b90d9408e6239f7539aacd31c725431bcc7ab85afac",
+    "platform/metadata/environment.json": "45bfe99915b18d535cd1266fa46f7fd1756ef8ea7503691b602e7a3729ec50e0",
+    "platform/metadata/search-latency.json": "07a188c753f982c057d71c0943993cc6d0c34596fa77ddfc5dc5c125334ddc21"
+  },
+  "runtime_case_inventory": [
+    {
+      "name": "roundTripsWithTheKeystoreKeyAndStoresNoPlaintext",
+      "classname": "com.bendourthe.milestone.data.session.TinkSessionStoreKeystoreTest",
+      "time": "0.484"
+    },
+    {
+      "name": "aDueCreditPostsOnePrivateReminder",
+      "classname": "com.bendourthe.milestone.sync.BenefitRemindersDeviceTest",
+      "time": "0.650"
+    },
+    {
+      "name": "aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "23.886"
+    },
+    {
+      "name": "aRewardsPageWaitsForItsLateLowerSectionThenFollowsTheActivityLink",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "12.291"
+    },
+    {
+      "name": "aCardWithoutAnActivityPagePostsItsTrackersThenItsViewAllList",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "5.710"
+    },
+    {
+      "name": "anInPlaceSwitchWaitsForTheNewCardsTrackersAcrossTheAddressChange",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "11.352"
+    },
+    {
+      "name": "aRewardsPageFollowsItsActivityLinkAtTheCapWhileItsHeightStillGrows",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "22.031"
+    },
+    {
+      "name": "readsCardsThenEachCardsBenefitsWithoutIdentifiers",
+      "classname": "com.bendourthe.milestone.sync.BenefitsBridgeFixtureTest",
+      "time": "19.518"
+    },
+    {
+      "name": "institutionsKeepUnreadProgramsAndSeparateTheirCardsWithBackNavigation",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "8.402"
+    },
+    {
+      "name": "yellowAlertsAcknowledgeAndReturnOnlyAfterRelevantSuccessfulSectionRefresh",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "5.736"
+    },
+    {
+      "name": "productImagesCategoriesControlsAndSavedNavigationStateWorkOnAndroid",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "11.234"
+    },
+    {
+      "name": "editingInsideGroupedAmountAndFormattedDateSavesExactValues",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "6.189"
+    },
+    {
+      "name": "sortMenusDisclosureAndFormattedCalendarInputWorkOnAndroid",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "12.143"
+    },
+    {
+      "name": "failedAlertSaveShowsVisibleFeedbackAndKeepsTheAlertOnAndroid",
+      "classname": "com.bendourthe.milestone.sync.BenefitsRedesignDeviceTest",
+      "time": "1.716"
+    },
+    {
+      "name": "aStandingNoticeAndAScreenReaderAnnouncementAreNotARefusedPassword",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "21.127"
+    },
+    {
+      "name": "theHiddenWebViewBehindTheAppKeepsDrawingSoAnimationFramesRun",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "2.630"
+    },
+    {
+      "name": "aMomentaryServerErrorOnTheBalancePageIsLoadedOnceMore",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "5.917"
+    },
+    {
+      "name": "anEmailFirstSignInGetsTheEmailThenThePasswordAndReadsTheBalance",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "8.658"
+    },
+    {
+      "name": "twoMatchesAreAmbiguous",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "2.985"
+    },
+    {
+      "name": "aPersonalOrBusinessChoiceAfterSignInPicksPersonal",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "6.285"
+    },
+    {
+      "name": "aBalanceShownOnlyInAnAccountPanelIsReadAfterPressingItsButton",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "5.246"
+    },
+    {
+      "name": "forgedMessageFromSubframeIsIgnored",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "7.064"
+    },
+    {
+      "name": "aUsernameMarkedInvalidWithoutAMessageIsNotARefusedPassword",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "22.347"
+    },
+    {
+      "name": "aZeroShownWhileTheAccountLoadsIsNotReadAsTheBalance",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "6.260"
+    },
+    {
+      "name": "aPasswordRefusedWithAnErrorStopsWithoutPressingAgain",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "20.283"
+    },
+    {
+      "name": "aVisiblePasswordRefusalIsKeptWhenThePageDeadlineWins",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "11.406"
+    },
+    {
+      "name": "dashboardFixtureCreatesConnectedAccount",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "3.085"
+    },
+    {
+      "name": "aRefusalShownByChangingAStandingNoticeStillStopsAsRefused",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "19.669"
+    },
+    {
+      "name": "aTextedCodeSplitIntoOneBoxPerDigitIsTypedDigitByDigit",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "6.214"
+    },
+    {
+      "name": "aSubmitTheSiteNeverAnsweredIsPressedOnceMoreAndSignsIn",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "22.222"
+    },
+    {
+      "name": "aTextedCodeBoxNamedOnlyByItsLabelGetsTheCodeAndSignsIn",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "6.300"
+    },
+    {
+      "name": "loadingWordsInTheBalanceElementAreWaitedOutInsteadOfReadAsTheBalance",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "6.990"
+    },
+    {
+      "name": "anEmailedLinkSignInTakesThePasswordRouteAndFillsEmailPasswordAndLastName",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "7.274"
+    },
+    {
+      "name": "passwordFieldAtDashboardUrlRequiresLogin",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "4.538"
+    },
+    {
+      "name": "aSignedOutHomePageOpensTheSignInPageAndReadsTheBalance",
+      "classname": "com.bendourthe.milestone.sync.BridgeFixtureTest",
+      "time": "23.596"
+    },
+    {
+      "name": "aRefreshStoresTheBalanceThenEveryCardsBenefits",
+      "classname": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "time": "25.620"
+    },
+    {
+      "name": "connectedAccountRefreshesWhileActivityIsVisible",
+      "classname": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "time": "2.958"
+    },
+    {
+      "name": "aFailingViewAllPageKeepsTheStoredListWhileTheTrackersUpdate",
+      "classname": "com.bendourthe.milestone.sync.HeadlessSyncFixtureTest",
+      "time": "98.297"
+    },
+    {
+      "name": "acceptsThirdPartyCookiesSoSavedDevicesStickWhileKeepingTheHardening",
+      "classname": "com.bendourthe.milestone.sync.webview.WebViewConfigTest",
+      "time": "0.100"
+    },
+    {
+      "name": "catalogShowsProgramsNotAddedByDefaultAndExplainsOnesThatCannotSync",
+      "classname": "com.bendourthe.milestone.ui.AddProgramFlowTest",
+      "time": "3.813"
+    },
+    {
+      "name": "capturesTheTabAndACardPage",
+      "classname": "com.bendourthe.milestone.ui.BenefitsScreenshotTest",
+      "time": "2.781"
+    },
+    {
+      "name": "completedAndUnfinishedCreditRowsKeepAmountsAndEnrollmentInline",
+      "classname": "com.bendourthe.milestone.ui.benefits.BenefitRowTest",
+      "time": "2.494"
+    },
+    {
+      "name": "creditRowsRemainReadableWithLargeText",
+      "classname": "com.bendourthe.milestone.ui.benefits.BenefitRowTest",
+      "time": "2.685"
+    },
+    {
+      "name": "thirtySettledQueriesRenderWithinTwoHundredMillisecondsAtP95",
+      "classname": "com.bendourthe.milestone.ui.search.SearchLatencyTest",
+      "time": "11.288"
+    },
+    {
+      "name": "resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "7.130"
+    },
+    {
+      "name": "savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.569"
+    },
+    {
+      "name": "cardAndProgramRemovalDuringSelectionAreSafe",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.781"
+    },
+    {
+      "name": "actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.224"
+    },
+    {
+      "name": "identicalCardProductsAndBenefitsShowDistinctCardEndingContext",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "4.173"
+    },
+    {
+      "name": "returningToTheSameQueryDoesNotReviveAnObsoleteSelection",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "3.553"
+    },
+    {
+      "name": "descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "4.911"
+    },
+    {
+      "name": "pendingQueryDisposalCannotSaveAnEarlierViewport",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "4.456"
+    },
+    {
+      "name": "removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.261"
+    },
+    {
+      "name": "removedOriginatingCardFallsBackToItsInstitution",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.647"
+    },
+    {
+      "name": "lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "3.797"
+    },
+    {
+      "name": "reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.514"
+    },
+    {
+      "name": "rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "3.239"
+    },
+    {
+      "name": "sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "2.887"
+    },
+    {
+      "name": "programAndCardTargetsReturnToTheSameSearch",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "4.494"
+    },
+    {
+      "name": "combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges",
+      "classname": "com.bendourthe.milestone.ui.search.SearchNavigationTest",
+      "time": "4.273"
+    },
+    {
+      "name": "unsupportedProgramFixtureCanBeSeededAndVerifiedWithoutIssuerAccess",
+      "classname": "com.bendourthe.milestone.ui.search.SearchProcessFixtureTest",
+      "time": "0.051"
+    },
+    {
+      "name": "amexIncludesAllFourCardsAndEveryStoredBenefitWithTrailingIndependentChevrons",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "4.102"
+    },
+    {
+      "name": "rewardsProgramTileShowsStoredPointsAndImageWithoutGenericDetails",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "2.640"
+    },
+    {
+      "name": "rewardsHeaderAtDoubledFontRetainsAllActions",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "1.899"
+    },
+    {
+      "name": "benefitOnlyQueryCardHeaderOpensTheExactCard",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "3.054"
+    },
+    {
+      "name": "programCardAndSectionGroupsCollapseIndependentlyAndKeepCanonicalRows",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "4.435"
+    },
+    {
+      "name": "descriptionMatchesStaySearchableAsSingleLineTilesWithoutDetails",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "2.732"
+    },
+    {
+      "name": "groupedContextClearAndFreshEntryUseRealNavigation",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "3.064"
+    },
+    {
+      "name": "delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "1.852"
+    },
+    {
+      "name": "everyBenefitsHeaderAndSystemBackReturnToTheOrigin",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "3.215"
+    },
+    {
+      "name": "rewardsHeaderPreservesExistingActionsAtNarrowWidth",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "1.580"
+    },
+    {
+      "name": "keyboardBackDismissesImeBeforeLeavingSearch",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "2.360"
+    },
+    {
+      "name": "doubledFontKeepsSearchBackClearAndRowsUsable",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "2.365"
+    },
+    {
+      "name": "actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "1.961"
+    },
+    {
+      "name": "topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness",
+      "classname": "com.bendourthe.milestone.ui.search.SearchScreenTest",
+      "time": "3.116"
+    },
+    {
+      "name": "retainedMatchesAndEmptyStatesShowUpdatingAtNarrowWidthAndLargeFont",
+      "classname": "com.bendourthe.milestone.ui.search.SearchUpdatingStatusTest",
+      "time": "2.612"
+    }
+  ],
+  "current_source_fingerprint_independently_recomputed": true
+}

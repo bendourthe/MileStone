@@ -1,0 +1,10 @@
+{
+  "allow": [
+    {
+      "rule": "parent-padding-escape",
+      "selector": ".skip-link:not(:focus)",
+      "viewport": "*",
+      "reason": "Intentional off-screen skip link becomes visible when Tab focused; actual keyboard proof in handbook-browser-observation.json and screenshot. Exception applies only before focus, preserving all other geometry checks."
+    }
+  ]
+}

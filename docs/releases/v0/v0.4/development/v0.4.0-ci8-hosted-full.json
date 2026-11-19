@@ -1,0 +1,71 @@
+{
+  "profile": "full",
+  "platform": "ci-linux",
+  "status": "PASS",
+  "source_sha256": "93b2a816ba31c04e512b4f8a0a33fb04b54d34a4bb05849ae546da05858be597",
+  "package_head": null,
+  "groups": [
+    {
+      "name": "private-input-boundary",
+      "status": "PASS",
+      "seconds": 0.19
+    },
+    {
+      "name": "syntax",
+      "status": "PASS",
+      "seconds": 0.121
+    },
+    {
+      "name": "handbook-freshness",
+      "status": "PASS",
+      "seconds": 0.044
+    },
+    {
+      "name": "profile-tests",
+      "status": "PASS",
+      "seconds": 0.26
+    },
+    {
+      "name": "android",
+      "status": "PASS",
+      "seconds": 327.792
+    },
+    {
+      "name": "handbook-render",
+      "status": "PASS",
+      "seconds": 45.114
+    },
+    {
+      "name": "security",
+      "status": "PASS",
+      "seconds": 2.181
+    }
+  ],
+  "counts": {
+    "tests": 425,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 14
+  },
+  "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+  "coverage": {
+    "covered": 5037,
+    "total": 6451,
+    "percent": 78.08
+  },
+  "security": {
+    "status": "PASS",
+    "base_ref": "origin/develop",
+    "positive_control_detected": true,
+    "input_sha256": "43a1145f2f4a90afa7eceac7a996a30a0b40c37e7b16e1868802765f4951d69e",
+    "input_bytes": 18213466,
+    "scanned_input_sha256": "d522f0e12e6e22668bb42b2e06e936ebbe3727928630647a3ac25920ae456a44",
+    "scanned_bytes": 18210778,
+    "public_metadata_exemptions": 42,
+    "findings": 0
+  },
+  "limitations": [
+    "Device runtime belongs to the separate platform profile; compilation is not runtime proof.",
+    "Capture is local-only under ADR-0001; ci-linux never selects assembleCapture."
+  ]
+}

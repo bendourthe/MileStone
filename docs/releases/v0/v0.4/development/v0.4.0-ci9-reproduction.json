@@ -1,0 +1,42 @@
+{
+  "status": "CI8 hosted red; CI9 correction locally applied and qualification in progress",
+  "published_head": "d3df074c6b9efc8fedb04443021c07a2a5431d9c",
+  "run": 44016321789,
+  "url": "https://github.com/bendourthe/MileStone/actions/runs/44016321789",
+  "required_CI_result": "failure",
+  "hosted_p95_ms": 248.921593,
+  "limit_ms": 200,
+  "hosted_unit_cases": 425,
+  "hosted_unit_failures": 0,
+  "only_JUnit_failure": "SearchBenchmarkTest.sameWorkloadDrawsWithinTwoHundredMillisecondsAtP95",
+  "local_reproduction": {
+    "source": "d3df074",
+    "emulator": "emulator-5554",
+    "verified_AVD": "milestone_ci_clean_20261116",
+    "host_CPU_affinity_mask": 3,
+    "restored_CPU_affinity_mask": 1048575,
+    "p95_ms": 1726.891,
+    "samples": 30,
+    "warmups": 3,
+    "preservation_passed": true,
+    "scope": "Controlled two-core diagnostic, not hosted parity or release qualification"
+  },
+  "analysis": "Worst hosted samples are one-result title queries. Repeated per-query corpus scans and canonical sort preparation are candidates; no method-level CPU attribution is claimed.",
+  "next_local_correction": "Prepare immutable program lookup and canonical entry order per source snapshot, retain standalone semantics and exact context snippets; add semantic parity and lifecycle regressions.",
+  "preservation": "Three unchanged published source/test baselines require genuine adoption; official diffs are empty. No production source changed.",
+  "authority": "d3df074 one-push grant used; no new push or CI rerun authorized",
+  "completion": "T020 and BG-1 open; merge/release/archive blocked on green; expanded original/Chase/offer goal remains active",
+  "current_correction": {
+    "genuine_baseline_adoption": 3,
+    "focused_cases": 40,
+    "focused_p95_ms": 120.8334,
+    "full_status": "PASS",
+    "full_unit_cases": 429,
+    "full_source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+    "full_platform": "PASS:77 cases,0 failures/errors/skips",
+    "new_push_or_rerun_authority": false,
+    "current_platform_p95_ms": 138.7748,
+    "current_source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+    "current_local_qualification": "PASS; publication and delivery pending"
+  }
+}

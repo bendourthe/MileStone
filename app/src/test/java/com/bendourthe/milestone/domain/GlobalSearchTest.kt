@@ -167,4 +167,39 @@ class GlobalSearchTest {
         assertEquals(2000, result.count(SearchTab.BENEFITS))
         assertEquals("Rendering never traverses source hits", afterConstruction, reads)
     }
+
+    @Test fun preparedIndexPreservesOrderingContextAndInputGroupName() {
+        val first = lounge.copy(title = "Zulu American lounge", programName = "Original first group", displayOrder = 2)
+        val later = lounge.copy(title = "Alpha American lounge", target = SearchTarget.BenefitTarget(card, "second", BenefitsCategory.CREDITS, revision), displayOrder = 1)
+        val rows = mutableListOf(first, later, product, program)
+        val prepared = GlobalSearch.prepare(rows)
+        for (query in listOf("American", "amex", "Delta lounge", "terminal", "credit cards", "1008", "!", "")) {
+            assertEquals(query, GlobalSearch.match(query, rows), GlobalSearch.match(query, prepared))
+        }
+        val american = GlobalSearch.match("American", prepared)
+        assertEquals("Original first group", american.groups.single().programName)
+        assertEquals(listOf(program.target, product.target, later.target, first.target), american.groups.single().hits.map { it.entry.target })
+        rows.clear()
+        assertEquals(american, GlobalSearch.match("American", prepared))
+    }
+
+    @Test fun preparedContextKeepsEarliestTokenAndDescriptionPriority() {
+        val text = "x".repeat(60) + "beta " + "x".repeat(60) + "alpha " + "z".repeat(160)
+        val row = lounge.copy(title = "Alpha Beta", description = text, aliases = listOf("alpha beta alias"))
+        val expected = "..." + text.substring(15, 165) + "..."
+        assertEquals(expected, GlobalSearch.match("alpha beta", GlobalSearch.prepare(listOf(row))).groups.single().hits.single().descriptionContext)
+        assertEquals(expected, GlobalSearch.match("alpha beta", listOf(row)).groups.single().hits.single().descriptionContext)
+    }
+
+    @Test fun preparedIndexKeepsStableTiesAndLastProgramMetadata() {
+        val original = lounge.copy(title = "Same")
+        val duplicate = original.copy(description = "Different retained source")
+        val firstProgram = program.copy(programDisplay = SearchProgramDisplay("A", null, 1, "first"))
+        val lastProgram = program.copy(programDisplay = SearchProgramDisplay("B", null, 2, "last"))
+        val rows = listOf(original, firstProgram, duplicate, lastProgram)
+        val result = GlobalSearch.match("amex", GlobalSearch.prepare(rows))
+        assertEquals(GlobalSearch.match("amex", rows), result)
+        assertEquals(listOf(original, duplicate), result.groups.single().hits.filter { it.entry.kind == SearchKind.BENEFIT }.map { it.entry })
+        assertEquals("last", result.groups.single().programDisplay!!.balance)
+    }
 }

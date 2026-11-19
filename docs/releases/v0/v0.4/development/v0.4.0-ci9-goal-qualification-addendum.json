@@ -1,0 +1,246 @@
+{
+  "review": "CI9 independent Goal qualification addendum",
+  "mode": "Evidence-only addendum; no source, plan, tracker, native record or original-review changes",
+  "supersedes": null,
+  "original_review_retained": "reports/release-v040/ci9-independent-goal-review.json",
+  "original_task_time_pending_wording_preserved": true,
+  "bounded_local_verdict": "PASS: inspected local Search Goal and DoD behavior with complete same-source full/platform qualification",
+  "whole_delivery_verdict": "OPEN: T020, BG-1 hosted qualification and expanded lifecycle obligations remain unfinished",
+  "findings": [],
+  "confidence": 100,
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "source_binding": "Full and platform native reports independently read and matched. Current production matcher/ViewModel raw hashes independently match the adversarial inventory; four current correction hashes retained below. Coordinator reports no code changes since the original review.",
+  "current_code_raw_sha256": {
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "bfee45651a95a9ebec194ba675a28c9f468db3fdf0a5edcf21f26362453fcbc0",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "a91479fa84ff6bb7aacbc39369b541b15f8bb69b6f2e23ece830e80bd15439bb",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt": "78ed2a3de29a8afe207456ce82ba135c70c82a57f028e514a6283ecb58e511a9",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt": "0da0c5d531360c952863b86332939c463f0c013e41a3c565dfe7beb05df9d60c"
+  },
+  "full": {
+    "status": "PASS",
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.438
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.406
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.234
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 5.313
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 297.812
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 78.86
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 12.25
+      }
+    ],
+    "counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 5065,
+      "total": 6477,
+      "percent": 78.2
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "ab3c9a55715bdaede4d8bba98a05ebaac1ffbe0f94d4c7fbc5e02a7a26d58580",
+      "input_bytes": 19792775,
+      "scanned_input_sha256": "d10553284ffa57a6074d4c25a8a598e869fe1e5ad5836430af6e304579b48e7d",
+      "scanned_bytes": 19790087,
+      "public_metadata_exemptions": 42,
+      "findings": 0
+    },
+    "helper_cases": 43,
+    "helper_evidence": "ci9-full/logs/command-04.txt records Ran 43 tests and OK",
+    "benefits_fixture": {
+      "cases": 8,
+      "skips": 0,
+      "evidence": "ci9-full/junit/full-019.xml independently read; BenefitsFixtureTest"
+    }
+  },
+  "platform": {
+    "status": "PASS",
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 874.75
+      },
+      {
+        "name": "optimized-search-performance",
+        "status": "PASS",
+        "seconds": 51.875
+      }
+    ],
+    "counts": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "latency": {
+    "p95_ms_independently_recomputed": 138.7748,
+    "maximum_ms": 151.8424,
+    "observations": 30,
+    "warmups": 3,
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "limit_ms": 200,
+    "preservation_passed": true,
+    "complete": true,
+    "run_id": "15cdb2d1-75c8-4d63-a28a-e043593f4073",
+    "interpretation": "Complete current local platform measurement; no hosted or Linux-parity inference."
+  },
+  "adversarial": {
+    "scope": "Synthetic standalone JVM domain only; no Gradle, device, phone, private capture, or network",
+    "checks": [
+      {
+        "variant": "current",
+        "compile_exit": 0,
+        "execution_exit": 0,
+        "status": "PASS",
+        "corpora": 64,
+        "queries_per_corpus": 45,
+        "query_cases": 2880,
+        "result_comparisons": 5838,
+        "assertions": 73481,
+        "copied_membership_checks": 64
+      },
+      {
+        "variant": "mutation",
+        "compile_exit": 0,
+        "execution_exit": 1,
+        "mutation_detected": true,
+        "failure_case": "s0-q3-prepared-structured"
+      }
+    ],
+    "production_hash_match_independently_checked": true,
+    "inventory_rows": 26,
+    "reuse_constraints": "Retain original review and mapped inventory limits. Standalone domain parity supports matching semantics; it is not Android runtime or global product closure."
+  },
+  "handbook": {
+    "render_status": "pass",
+    "checks": 2611,
+    "browser": "Chromium 156.0.8078.4",
+    "input_count": 80,
+    "code_input_count": 64,
+    "reproducible_output": true,
+    "output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b",
+    "visual_inspection": "Retained content receipt attributes two representative image inspections to coordinator; this reviewer did not inspect images or drive a browser.",
+    "additional_owner_report": "Coordinator reports full-scope native check PASS, 16-width detector PASS and independent bounded surface-owner review. These additional receipts were not independently opened by this reviewer."
+  },
+  "traceability_update": {
+    "inventory_rows": 26,
+    "source": "reports/release-v040/ci9-independent-goal-review.json",
+    "rule": "All 26 original mappings and four Goal-vs-plan answers remain. This addendum replaces pending local full/platform qualification only; unchanged acceptance and evidence-reuse limits remain.",
+    "impacted_rows": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      23,
+      24
+    ],
+    "local_runtime": "Current same-source platform now passes for affected functional and optimized performance boundaries.",
+    "rows_25_26": "Integration/publication and original lifecycle compatibility remain open."
+  },
+  "iteration_accounting": {
+    "reset_performed": false,
+    "new_three_cycle_budget_claimed": false,
+    "instruction": "Preserve original cumulative correction ledger and subsequent coordinator episodes; this evidence-only addendum does not create or reset an iteration allowance."
+  },
+  "open": [
+    "Published PR17 at d3df074 remains red after run44016321789; unchanged 200ms hosted criterion still unmet.",
+    "The one-push grant is used; no additional push or remote rerun is authorized.",
+    "T020 and BG-1 remain open pending separately authorized correction publication and green hosted integration.",
+    "Release/archive/applicable cleanup/native closure remain separate duties.",
+    "Original v0.1/v0.2/v0.3, v0.5 Chase and v0.6 merchant-offer obligations remain open.",
+    "No new owner-phone acceptance or native completion is claimed."
+  ],
+  "provenance": {
+    "method": "Read retained public local reports and hashes only; no Gradle, device, network or private-capture access.",
+    "artifacts": {
+      "original_review": {
+        "path": "reports/release-v040/ci9-independent-goal-review.json",
+        "raw_sha256": "34ec340d69936ba8b7669578d0fa82cecc3fa9151efa3e24cac985079781f66c"
+      },
+      "full": {
+        "path": "reports/release-v040/ci9-full/results/full-windows.json",
+        "raw_sha256": "24d7734d38e181a86b11add8b4bbf320d72dc84a29f29f132412388f48d70991"
+      },
+      "platform": {
+        "path": "reports/release-v040/ci9-platform/results/platform-windows.json",
+        "raw_sha256": "a5fce721a12469c18643c2691318e4a79ea001b79600cc33e94c59d20242d155"
+      },
+      "latency": {
+        "path": "reports/release-v040/ci9-platform/metadata/search-latency.json",
+        "raw_sha256": "af7ab125f6f89cf8eb4b2a505f9653b34f00f791a52e1d77ed265dbe8ba86abb"
+      },
+      "adversarial": {
+        "path": "reports/release-v040/ci9-adversarial/execution-receipt.json",
+        "raw_sha256": "71280b7352de281021bc2069565ac6bba83a3b1ece862e12192b75a40bbc072d"
+      },
+      "inventory": {
+        "path": "reports/release-v040/ci9-adversarial/feature-inventory.json",
+        "raw_sha256": "bca169a7fe5576d88dc3cc88f7f47aaa6d204ae7faae7e3eb8c9abe4fb4611da"
+      },
+      "handbook_render": {
+        "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/render.json",
+        "raw_sha256": "8bc1301569cdd43631fd0aa64f3422136636256bcc43f04f7b59edc3e04406f5"
+      },
+      "handbook_content": {
+        "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/content.json",
+        "raw_sha256": "289a24e9f04f90bbe2c9630526dd668ce05856b22902c8f13093b403500a0fe9"
+      },
+      "handbook_build": {
+        "path": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/build.json",
+        "raw_sha256": "d7edc4f5d0c1028d968c1b4d9ef961bcebdcc16d7877e0899c7e058e650567ff"
+      }
+    }
+  },
+  "completed": "Independent qualification addendum created as a separate new artifact.",
+  "verified": "Current native full/platform evidence and independent timing recomputation; source/adversarial bindings checked.",
+  "next": "Coordinator reconciles current evidence and prepares separately authorized publication; retain all outstanding delivery predicates.",
+  "overall": "COMMENT",
+  "rationale": "Local Search implementation and qualification pass; hosted delivery and expanded-goal completion remain open."
+}

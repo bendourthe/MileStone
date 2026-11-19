@@ -1,0 +1,10 @@
+{
+  "allow": [
+    {
+      "rule": "parent-padding-escape",
+      "selector": "body > div > a",
+      "viewport": "*",
+      "reason": "Exact template skip-link is intentionally translated above viewport until keyboard focus. skip-link-focus.json proves focused bounds and target activation at all three detector widths."
+    }
+  ]
+}

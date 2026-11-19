@@ -1,0 +1,39 @@
+{
+  "diagnostic_only": true,
+  "qualification": false,
+  "source_sha256_from_unchanged_full_platform": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "trace_sha256": "e11bb9928a36f0750d36a15db24043f317cd55a19fad8ea449068b496eeb0ee8",
+  "records": 32713,
+  "decoder_issues": {},
+  "matching_by_thread": [
+    {
+      "thread": "DefaultDispatcher-worker-2",
+      "method": "com.bendourthe.milestone.domain.GlobalSearch.matching",
+      "cpu_ms": 40.491
+    },
+    {
+      "thread": "DefaultDispatcher-worker-4",
+      "method": "com.bendourthe.milestone.domain.GlobalSearch.matching",
+      "cpu_ms": 22.568
+    },
+    {
+      "thread": "DefaultDispatcher-worker-6",
+      "method": "com.bendourthe.milestone.domain.GlobalSearch.matching",
+      "cpu_ms": 4.85
+    }
+  ],
+  "main_self_sum_ms": 1305.123,
+  "sampling_microseconds": 1000,
+  "window_seconds": 2,
+  "runner_outcomes": [
+    "first runner failed at incomplete trace binary-header assertion",
+    "second runner failed removing trace while asynchronous trace transfer/write remained in progress"
+  ],
+  "recovery": "Complete first and second traces were retrieved directly afterward; both exact emulator paths removed with exit zero. No additional capture was started.",
+  "provenance_limit": "Runner did not reach receipt or instrumentation-output save. Current APK hashes below are observed after capture; installed-at-capture linkage depends on recorded execution observation, not an independently retained install receipt.",
+  "interpretation": "Main CPU exceeds matcher CPU in this debug sampled window. Sampling overhead, between-query assertions and rendering are included. This does not identify the hosted waiting cause or prove optimized hosted latency.",
+  "current_apk_sha256": {
+    "app\\build\\outputs\\apk\\debug\\app-debug.apk": "03565dc092063f846c5d221f0c253aa2b6967a7382999ec2ab935502e32730e4",
+    "app\\build\\outputs\\apk\\androidTest\\debug\\app-debug-androidTest.apk": "ddcc271ff190fed56975d279b155407ad657bd5e2361099857b866f4cb06def5"
+  }
+}

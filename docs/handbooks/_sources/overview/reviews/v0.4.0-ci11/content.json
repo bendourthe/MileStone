@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "review": "Independent current-source semantic review of two added paragraph portions; existing claims inherited only where hashes match",
+  "future_inputs": 82,
+  "future_code_inputs": 66,
+  "unchanged_existing_inputs": 74,
+  "changed_existing_inputs": [
+    ".github/workflows/ci.yml",
+    "app/src/main/assets/extract.js",
+    "docs/handbooks/handbooks.json",
+    "docs/handbooks/overview.md",
+    "scripts/search_benchmark.py",
+    "scripts/validate.py"
+  ],
+  "added_inputs": [
+    "scripts/search_diagnostics.py",
+    "scripts/tests/test_search_diagnostics.py"
+  ],
+  "removed_inputs": [],
+  "rendered_and_visual": "PASS: 2611 Chromium checks, zero findings or limitations; representative reading-1000 and balanced slide6 inspected for legible text, visible controls, clipping and overlap",
+  "scope": "Independent semantic delta review on exact adopted bytes; unchanged claims inherited through matching inputs",
+  "observed_utc": "2026-11-17T16:12:49.066697+00:00",
+  "prior_content_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci9/content.json",
+  "prior_content_evidence_sha256": "19ce2fe9f565b30dc66fcebb50f98711c238e669bb9cd4ed6a9fed2df1aa7df6",
+  "retained_visuals": {
+    "reading-1000.png": "7d04e3d591746854f32edb8c51d1b0d98c3b45396b705bad09d1a5d75f3df103",
+    "slide-6.png": "ea71eb20aeb7f5b9db3c0183fd67e16dc19366039a8de8779eb1e4528f049bd5"
+  }
+}

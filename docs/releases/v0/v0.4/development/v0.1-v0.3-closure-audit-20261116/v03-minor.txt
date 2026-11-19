@@ -1,0 +1,2 @@
+INCOMPLETE: record.minor
+{"exit": 1, "head": "2a4153449bc11bb992fa6e947cecf38d5b042b60", "members": {}, "met": 0, "minor": {"record.minor": "unmet"}, "verdict": "INCOMPLETE: record.minor"}

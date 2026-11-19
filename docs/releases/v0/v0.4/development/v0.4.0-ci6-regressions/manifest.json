@@ -1,0 +1,18 @@
+{
+  "scope": "Synthetic-only regression evidence; earlier device checkpoints are behavior evidence, not final-source full qualification.",
+  "credit_target": "Deterministic RED before two-expression fix; all30 focused Benefits/Search JVM cases green after fix.",
+  "pending_disposal": "Green actualscreen case; removing only production generation check produces failure. File baseline adoption remains pending.",
+  "updating_status": "Actual SearchScreen +Room-backed VM with paused matcher; result-to-empty and empty-to-result pending states,320dp/200percentfont.",
+  "sha256": {
+    "credit-target-counterexample.xml": "ab425f43486ffb6cdf5d9a36b98e775c8d3f7e4b3c71fb41421c4020d54cbcec",
+    "credit-target-green.json": "631f81f46f8a71ee8000f463de54e2cf5cafb5d8fccd9cfea444e1eba16241e8",
+    "pending-disposal-counterfactual.xml": "208b8c8596ea10e364f46fddaa8be796b548456c738c6f423de640e46f271301",
+    "pending-disposal-green.xml": "695718c8c77b8a960881cdafc3f735892c61bacd1d68cc57fdf008e55d350995",
+    "TEST-com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest.xml": "5d29e871f01a108a6af59b6503f9c877ac085f5d436260e383c8347d447758e8",
+    "TEST-com.bendourthe.milestone.ui.search.SearchMemoryTest.xml": "d7ebdb339b80c10835c30695a1b17ee3f6cdb1b3cb20bf9616657e4215b2df40",
+    "TEST-com.bendourthe.milestone.ui.search.SearchProjectionTest.xml": "5d8c9ed691267a9aab6c4d3142327841cb48e784d2602938a3eed9407e08dce5",
+    "TEST-com.bendourthe.milestone.ui.search.SearchRepositoryTest.xml": "0d1e43c35b2f1201f08cd7f434281f79fb9685f4757d364d5931b0f1d0e5a20e",
+    "TEST-com.bendourthe.milestone.ui.search.SearchRevealIndexTest.xml": "8749e7c2a940cdd21fa24a7a017a9bd08d10fd6cbd6a4b802ba087f7101f72ba",
+    "updating-status-integration.xml": "d5fe7c2669e55af72bff2aabe0e99f0808d66244c17dd60b0059c7d5ef82eb89"
+  }
+}

@@ -22,6 +22,7 @@ import subprocess
 import sys
 import time
 import tomllib
+import uuid
 from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
 import zipfile
@@ -36,7 +37,7 @@ PRIVATE = ("app/src/test/resources/fixtures-private/", "docs/private/")
 INPUT_SCOPE = ("app/src", "app/schemas", "app/build.gradle.kts", "app/proguard-rules.pro",
                "build.gradle.kts", "settings.gradle.kts", "gradle", "gradle.properties",
                "gradlew", "gradlew.bat", ".gitignore", ".gitleaks.toml", ".github/workflows",
-               "scripts", "docs/handbooks")
+               "scripts", "searchBenchmark", "docs/handbooks")
 
 
 @dataclass(frozen=True)
@@ -81,7 +82,9 @@ def groups(profile: str, host: str) -> list[Group]:
             Group("security", (Step(("@security",), 600),)),
         ]
     if profile == "platform":
-        return [Group("android-emulator-runtime", (Step(("@emulator",)), gradle(host, "connectedDebugAndroidTest")), True)]
+        return [Group("android-emulator-runtime", (Step(("@emulator",)), gradle(host, ":app:connectedDebugAndroidTest",
+                      "-Pandroid.testInstrumentationRunnerArguments.notClass=com.bendourthe.milestone.ui.search.SearchLatencyTest")), True),
+                Group("optimized-search-performance", (Step(("@optimized-search",), 2700),), True)]
     if profile == "release":
         return [Group("source-package", (Step(("@private",)), Step(("@source-package",), 300)), True)]
     return []
@@ -129,6 +132,7 @@ class Run:
         if args.profile == "platform":
             self.env["ANDROID_SERIAL"] = EMULATOR
         self.started = time.time()
+        self.invocation_id = str(uuid.uuid4())
         self.logs = 0
         self.tools = {"python": platform.python_version()}
 
@@ -138,13 +142,38 @@ class Run:
         try:
             output, _ = process.communicate(data, timeout=timeout)
             return process.returncode, output
-        except subprocess.TimeoutExpired:
-            if os.name == "nt":
-                killer = spawn(["taskkill", "/PID", str(process.pid), "/T", "/F"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                killer.communicate(timeout=15)
-            else:
-                os.killpg(process.pid, signal.SIGKILL)
-            process.communicate()
+        except BaseException as error:
+            cleanup_complete = True
+            try:
+                if os.name == "nt":
+                    if process.poll() is None:
+                        killer = spawn(["taskkill", "/PID", str(process.pid), "/T", "/F"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        try:
+                            killer.communicate(timeout=15)
+                        except subprocess.TimeoutExpired:
+                            killer.kill()
+                            killer.communicate(timeout=5)
+                            cleanup_complete = False
+                        cleanup_complete = cleanup_complete and killer.returncode == 0
+                    else:
+                        cleanup_complete = False
+                else:
+                    try:
+                        os.killpg(process.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+            except (OSError, subprocess.TimeoutExpired):
+                cleanup_complete = False
+            try:
+                process.communicate(timeout=5)
+            except (OSError, subprocess.TimeoutExpired):
+                cleanup_complete = False
+            if not isinstance(error, subprocess.TimeoutExpired):
+                if not cleanup_complete:
+                    error.add_note("Owned process cleanup could not be confirmed.")
+                raise
+            if not cleanup_complete:
+                return 124, b"Command timed out; owned process cleanup could not be confirmed."
             return 124, b"Command timed out; the owned process tree was stopped."
 
     def command(self, argv: tuple[str, ...] | list[str], timeout=60, data=None, allowed=(0,)) -> bytes:
@@ -233,6 +262,11 @@ def emulator_boundary(run: Run):
     result = run.command(("adb", "-s", EMULATOR, "shell", "getprop", "ro.kernel.qemu"), 15)
     if result.strip() != b"1":
         raise RuntimeError("The assigned serial is not a verified Android emulator; no device tests were started")
+
+
+def optimized_search(run: Run):
+    from search_benchmark import execute
+    execute(run, gradle, emulator_boundary)
 
 
 def apply_public_digest_allowlist(run: Run, payload: bytes) -> tuple[bytes, int]:
@@ -327,7 +361,7 @@ def source_package(run: Run):
     (directory / "artifacts.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
 
-ACTIONS = {"@private": private_boundary, "@schema": schema_boundary, "@emulator": emulator_boundary, "@security": security, "@source-package": source_package}
+ACTIONS = {"@private": private_boundary, "@schema": schema_boundary, "@emulator": emulator_boundary, "@optimized-search": optimized_search, "@security": security, "@source-package": source_package}
 
 
 def clear_exports(run: Run, *, security_outputs=False):
@@ -350,14 +384,18 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
     clear_exports(run)
     counts = dict(tests=0, failures=0, errors=0, skipped=0)
     evidence_origin = "selected task outputs, including Gradle-validated up-to-date outputs" if succeeded else "partial reports written during this invocation; no old XML counted"
-    source = "app/build/outputs/androidTest-results/connected" if run.args.profile == "platform" else "app/build/test-results/testDebugUnitTest"
+    sources = ("app/build/outputs/androidTest-results/connected/debug",
+               "searchBenchmark/build/outputs/androidTest-results/connected/benchmark") if run.args.profile == "platform" else ("app/build/test-results/testDebugUnitTest",)
+    task_cases = {source: 0 for source in sources}
     if run.args.profile in ("full", "platform"):
-        for index, path in enumerate(sorted((run.root / source).rglob("*.xml"))):
+        paths = [(source, path) for source in sources for path in sorted((run.root / source).rglob("*.xml"))]
+        for index, (source, path) in enumerate(paths):
             if not succeeded and path.stat().st_mtime < run.started:
                 continue
             document = ET.fromstring(path.read_text(encoding="utf-8"))
             suites = [document] if document.tag == "testsuite" else document.findall("testsuite")
             for suite in suites:
+                task_cases[source] += int(suite.get("tests", "0"))
                 for key in counts:
                     counts[key] += int(suite.get(key, "0"))
             destination = run.reports / "junit" / f"{run.args.profile}-{index:03}.xml"
@@ -374,6 +412,12 @@ def collect_reports(run: Run, succeeded: bool) -> dict:
                 (run.reports / path.name).write_text(redact(path.read_text(), run.root, run.env), encoding="utf-8")
     if run.args.profile in ("full", "platform") and succeeded and counts["tests"] == 0:
         raise RuntimeError("The successful test task produced no JUnit evidence")
+    if succeeded and (counts["failures"] or counts["errors"]):
+        raise RuntimeError("The test task returned success but JUnit reports failures or errors")
+    if run.args.profile == "platform" and succeeded and any(total == 0 for total in task_cases.values()):
+        raise RuntimeError("A selected Android task produced no JUnit cases")
+    if run.args.profile == "platform" and succeeded and counts["skipped"]:
+        raise RuntimeError("Required Android runtime cases were skipped")
     index = [{"tool": "gitleaks", "path": "sarif/" + p.name} for p in sorted((run.reports / "sarif").glob("*.sarif"))]
     (run.reports / "sarif" / "index.json").write_text(json.dumps(index, indent=2) + "\n", encoding="utf-8")
     counts["evidence_origin"] = evidence_origin if run.args.profile in ("full", "platform") else "No Android test runner selected"
@@ -434,6 +478,7 @@ def main(argv=None, *, root=ROOT) -> int:
     run = Run(root, reports, args)
     environment = dict(profile=args.profile, host=args.platform, os=platform.system(), os_release=platform.release(), shell=Path(os.environ.get("SHELL", "Windows process" if os.name == "nt" else "POSIX process")).name, python=platform.python_version(), tools=run.tools, started_at=datetime.now(timezone.utc).isoformat())
     receipts = []
+    results = []
     current = None
     try:
         if args.profile != "report":
@@ -499,11 +544,11 @@ def main(argv=None, *, root=ROOT) -> int:
             security_result = json.loads(scan.read_text()) if any(item["name"] == "security" and item["status"] == "PASS" for item in results) and scan.is_file() else None
             package_metadata = reports / "release/artifacts.json"
             package_head = json.loads(package_metadata.read_text())["commit"] if args.profile == "release" and passed else None
-            receipt = dict(profile=args.profile, platform=args.platform, status="PASS" if passed else "FAIL", source_sha256=current, package_head=package_head, groups=results, counts=counts, evidence_origin=evidence_origin, coverage=coverage, security=security_result, limitations=limitations(args.profile, args.platform))
+            receipt = dict(profile=args.profile, platform=args.platform, invocation_id=run.invocation_id, status="PASS" if passed else "FAIL", source_sha256=current, package_head=package_head, groups=results, counts=counts, evidence_origin=evidence_origin, coverage=coverage, security=security_result, limitations=limitations(args.profile, args.platform))
             (reports / "results" / f"{args.profile}-{args.platform}.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
             receipts = [receipt]
     except Exception as error:
-        receipts = [dict(profile=args.profile, platform=args.platform, source_sha256=current, status="FAIL", groups=[dict(name="profile", status="FAIL", seconds=0.0, error=redact(f"{type(error).__name__}: {error}", root, run.env))])]
+        receipts = [dict(profile=args.profile, platform=args.platform, invocation_id=run.invocation_id, source_sha256=current, status="FAIL", groups=[dict(name="profile", status="FAIL", seconds=0.0, error=redact(f"{type(error).__name__}: {error}", root, run.env))] + results)]
         if args.profile != "report":
             (reports / "results" / f"{args.profile}-{args.platform}.json").write_text(json.dumps(receipts[0], indent=2) + "\n", encoding="utf-8")
     summary = write_summary(run, receipts, environment)

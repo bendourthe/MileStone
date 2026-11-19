@@ -121,6 +121,19 @@ class BenefitsViewModelTest {
     }
 
     @Test
+    fun completedCreditDoesNotTreatItsEarnedAmountAsAnUnknownTarget() {
+        val earnedOnly = credit("Example Hotel Credit", null, done = true).copy(earnedCents = 5_000, targetCents = null)
+        val ui = BenefitsViewModel.item(earnedOnly, locale)
+        assertEquals(1f, ui.progress!!, 0f)
+        assertEquals("\$50 earned", ui.amounts)
+        assertTrue(ui.inlineProgressAmounts)
+        assertNull(earnedOnly.targetCents)
+        assertEquals(5_000L, earnedOnly.earnedCents)
+        val explicitTitle = earnedOnly.copy(title = "\$200 Example Hotel Credit")
+        assertEquals("\$200/\$200", BenefitsViewModel.item(explicitTitle, locale).amounts)
+    }
+
+    @Test
     fun unfinishedCreditsUseEarnedOverTargetAndKeepTheirActualProgress() {
         val credit = credit("Example credit", 14_450).copy(earnedCents = 5_550, targetCents = 20_000)
         val ui = BenefitsViewModel.item(credit, locale)

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-17T16:12:49.066697+00:00",
+  "scope": "Current source snapshot; two actual native builder invocations and read-only freshness check",
+  "first_output_sha256": "93bbdfad44589e2564fe7ffbdaf04fa845bdd5e130c0f320b1043ec8a61cac08",
+  "second_output_sha256": "93bbdfad44589e2564fe7ffbdaf04fa845bdd5e130c0f320b1043ec8a61cac08",
+  "identical": true,
+  "check": "python scripts/build_handbooks.py --check passed",
+  "preserved": "Approved design, model, source sections, anchors and eight slides retained"
+}

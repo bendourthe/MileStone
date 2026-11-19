@@ -1,0 +1,84 @@
+{
+  "status": "resolved-source-review",
+  "base": "2bbbb28fe665e00187a05f35ee53dc37b2c8627d",
+  "initial_paths": 17,
+  "initial_bundles": 15,
+  "grouping_set_equal": true,
+  "personas": [
+    "correctness",
+    "maintainability",
+    "testing",
+    "project-standards",
+    "security",
+    "performance",
+    "api-contract",
+    "reliability",
+    "adversarial",
+    "agent-native"
+  ],
+  "findings": [
+    {
+      "severity": "P1",
+      "persona": "api-contract",
+      "title": "Quoted APK path prevents UiAutomation binary read",
+      "confidence": 100,
+      "verifier": "runtime empty digest and independent AOSP API trace",
+      "resolution": "Strict path validation, direct unquoted argument, nonempty stream assertion; actual installed hashes pass"
+    },
+    {
+      "severity": "P2",
+      "persona": "reliability",
+      "title": "First cleanup error skips later cleanup and masks task error",
+      "confidence": 100,
+      "verifier": "independent failure injection plus red-to-green regression",
+      "resolution": "Attempt each operation after emulator verification, accumulate errors and retain original task failure"
+    },
+    {
+      "severity": "P2",
+      "persona": "testing",
+      "title": "Execution orchestration lacks regression coverage",
+      "confidence": 100,
+      "verifier": "source inspection and red-to-green failure-injection tests",
+      "resolution": "Tests cover binary/UUID binding, stale outputs, missing/malformed metrics, changed APKs, task-error priority, cleanup continuation and report-write failure"
+    }
+  ],
+  "surviving_findings": [],
+  "suppressed_findings": [],
+  "supplemental_fixes": [
+    "Direct unittest JSON import ordering",
+    "API29-compatible InputStream read loop in controller; no API29 device claim",
+    "Metrics retention failure rejects success and does not mask original task failure"
+  ],
+  "considered_rejected": [
+    "No weakened corpus/order/warmups/clock/viewport/motion/preservation predicates",
+    "No false pass from Empty state delivery, stale UUID or substituted APK",
+    "No source/schema/permission mismatch after delta review",
+    "No new module abstraction beyond the bounded independent controller requirement",
+    "No extra agent tool needed; native platform profile exposes the capability",
+    "Historical receipts and pending handbook/full/hosted duties are not represented as current application qualification"
+  ],
+  "source_paths": {
+    "scripts/search_benchmark.py": "51b6bbb8fe1709ce1a806542b6ab7585abdcb5ddc21cb0b498473c23613ba0de",
+    "scripts/tests/test_search_benchmark.py": "aaf1e8f1c1a0f7998135fece6bd158858b53f490b0955e26de8371b695bf40bd",
+    "searchBenchmark/src/main/java/com/bendourthe/milestone/searchbenchmark/SearchBenchmarkTest.java": "f89a74cd14664b923da5b857308b5eafdb5bcb864cf05c7af23a4b37d98d0b99",
+    "app/src/searchScenario/kotlin/com/bendourthe/milestone/ui/search/SearchLatencyScenario.kt": "38060f6800e904723efe3dbae258b3a9fb89e0a0d1778527203565d765bb4517",
+    "app/src/benchmark/kotlin/com/bendourthe/milestone/ui/search/SearchBenchmarkActivity.kt": "36aa843582ca1318fef7351da75b7dcb9ca76fb15a361cf47bf98479d22e11e9"
+  },
+  "script_tests": {
+    "status": "PASS",
+    "cases": 43,
+    "direct_benchmark_cases": 11
+  },
+  "focused_runtime": {
+    "status": "PASS",
+    "p95_ms": 115.2237,
+    "negative_delay_ms": 250,
+    "negative_p95_ms": 312.0426,
+    "negative_result": "expected final timing assertion failure with all30 samples and preservation complete"
+  },
+  "limitations": [
+    "Source review and focused runtime do not supersede complete current-source full/platform profiles or hosted required checks",
+    "CPU stress prototype p95336.053 remains a failure, not Linux parity",
+    "No publication or release authority is supplied by this review"
+  ]
+}

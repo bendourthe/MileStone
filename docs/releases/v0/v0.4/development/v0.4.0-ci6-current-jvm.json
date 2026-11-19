@@ -1,0 +1,17 @@
+{
+  "tests": 425,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 10,
+  "coverage_line_counters": [
+    {
+      "type": "LINE",
+      "missed": "1412",
+      "covered": "5039"
+    }
+  ],
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "skipped_suites": [
+    "com.bendourthe.milestone.sync.ExtractorFixtureTest"
+  ]
+}

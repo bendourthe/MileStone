@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MileStone"
 include(":app")
+include(":searchBenchmark")

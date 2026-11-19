@@ -1,0 +1,34 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-19T07:50:19.028516+00:00",
+  "review": "Current-source semantic delta review; unchanged claims inherited only for identical input hashes.",
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt"
+  ],
+  "unchanged_inputs": 79,
+  "prior_verification_git_revision": "80cd38003832a6aa0d475482e221fa956c6ef2d4",
+  "prior_verification_path": "docs/handbooks/_sources/overview/verification.json",
+  "prior_verification_sha256": "d4296f222c3c69819c41e1ec68e46ae4b09d44aa95563ab7b04dbaffd8accdf1",
+  "reviewed_claims": [
+    "Each remembered AuroraRenderer owns its mutable F16 raster; no shared mutable image.",
+    "The original source-over gradient formula renders at bounded resolution, followed by one opaque image draw. The unchanged phase equations retain the 60000 ms loop and system animation-off behavior.",
+    "The current native comparison covers 64 combinations with unchanged maximum channel limits ARGB8888 3 and F16 1; actual maxima are 3 and 1.",
+    "The actual Program/Card return-to-search test ran with AuroraBackground and passed.",
+    "The updated paragraph explains raster ownership, bounded dimensions, reuse and motion without claiming Search qualification.",
+    "The reading page, presentation capture and edited paragraph were visually inspected for legibility and clipping.",
+    "The phase sequence repeats 0.15 within each viewport and at every viewport boundary, covering cache hits and fixed-phase resize invalidation. All six original phases remain covered."
+  ],
+  "visuals": {
+    "reading-1000.png": "7d04e3d591746854f32edb8c51d1b0d98c3b45396b705bad09d1a5d75f3df103",
+    "slide-6.png": "50f69a17e73852df73afab4ed20168ef58ab884adf70427253dcfc95b6335c21",
+    "aurora-explanation.png": "1fd32424dcf04ac6d6f444ea3e1a8f4e7eb6b9252a7fb3231f3ece8fa1c1b548"
+  },
+  "native_color_metrics": {
+    "evidence": "docs/releases/v0/v0.4/development/handbook-ci18-raster/aurora-metrics.json",
+    "sha256": "13d380bb4b8c31af58ad1944a4d45838d1280ab0157f4453b7fb22ba00171371"
+  },
+  "qualification_scope": "Handbook only; no latency, hosted CI or release qualification claim.",
+  "image_hash_method": "Raw PNG bytes, without text newline normalization."
+}

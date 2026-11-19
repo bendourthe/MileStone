@@ -1,0 +1,26 @@
+{
+  "plan": "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+  "kind": "Phase 4 T015/T019 local stabilization scope correction",
+  "base_head": "2a939166a522235218bc0d386a4bc2172630d681",
+  "authority": "Existing reversible local implementation and stabilization scope; owner explicitly approved preserving both authentication files and applying only a red/green-proved delayed-fill timer correction. No additional push or remote CI authority.",
+  "additional_write_paths": [
+    "app/src/main/assets/extract.js",
+    "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt",
+    "scripts/search_benchmark.py",
+    "scripts/search_diagnostics.py",
+    "scripts/tests/test_search_diagnostics.py"
+  ],
+  "additional_read_paths": [
+    "scripts/tests/test_search_benchmark.py"
+  ],
+  "auth_exception": "Reset the existing page timer after a successful password submission and add the delayed-fill regression. Keep retry counts, refusal classification and caller budgets unchanged. This narrowly extends the original no-auth-write planning statement; it permits no credential or issuer-data change.",
+  "diagnostic_scope": "Bind benchmark artifacts to the parent validation invocation and collect bounded failure-only scheduler/frame evidence on the assigned emulator. Preserve original failures and exports. Cleanup uncertainty remains failure, and diagnostic timing never supplies qualification.",
+  "preserved": [
+    "All original Search acceptance and unchanged 30-sample, three-warmup, 200 ms performance contract",
+    "All original and expanded goal delivery obligations",
+    "Frozen historical approvals and signed run records",
+    "Private-data restrictions and phone test prohibition",
+    "Separate publication, release and destructive-action authority"
+  ],
+  "publication": "Fresh exact-path review and matching authority are required before any further push or CI run. This sidecar is not approval and does not complete T019 or T020."
+}

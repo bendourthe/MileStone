@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py; python -B scripts/build_handbooks.py --check",
+  "result": "Built current HTML; second unchanged check confirms identical expected bytes.",
+  "output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4",
+  "revision": "80cd38003832a6aa0d475482e221fa956c6ef2d4",
+  "working_tree": "uncommitted candidate",
+  "full_profile": "Earlier repaired candidate full profile PASS; visual-test expansion and current metadata have not yet received the final full-profile check.",
+  "scope": "Reproducible handbook bytes only; application qualification remains separate."
+}

@@ -1,0 +1,328 @@
+{
+  "status": "RECONCILED",
+  "definition": "Conservative cumulative observed correction-and-rerun episodes, including test-observation and coverage corrections. Multiple implementation steps within one candidate episode are grouped; shell retries and diagnostic controls do not become product correction episodes.",
+  "historical_carried_forward": 9,
+  "additional_ci6_episodes": 13,
+  "global_fix_rerun_cycles_used": 22,
+  "ledger": [
+    {
+      "global_episode": 10,
+      "label": "Shared production viewport owner and Benefits readiness",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T07:08:08.411Z",
+          "id": "call_10e1c1eefae3443bad223a0da05349c2",
+          "files": [
+            "SearchScreen.kt",
+            "SearchLatencyTest.kt",
+            "BenefitsRedesignDeviceTest.kt"
+          ],
+          "markers": [
+            "write_text(",
+            "write_bytes("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 11,
+      "label": "Request versions, fresh viewport map and regression",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T07:40:23.037Z",
+          "id": "call_81a631a4e195428f84535730166578a0",
+          "files": [
+            "SearchScreen.kt",
+            "SearchViewModel.kt",
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        },
+        {
+          "ts": "2026-11-16T07:42:48.332Z",
+          "id": "call_be474db166c745c1a737f0c23ca8c0b4",
+          "files": [
+            "SearchRepositoryTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 12,
+      "label": "Stable maps and public-input publication ordering",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T07:49:41.082Z",
+          "id": "call_dec8ca2d667642e9947a6eb5a7e7f5b8",
+          "files": [
+            "SearchScreen.kt",
+            "SearchViewModel.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 13,
+      "label": "Ordinary Android frame harness, import and current draw guard",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T07:58:39.413Z",
+          "id": "call_dab5292c39b14a5da5251f7a38f9960f",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        },
+        {
+          "ts": "2026-11-16T07:59:18.193Z",
+          "id": "call_a46d216098204bfcafe944c1102009a4",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        },
+        {
+          "ts": "2026-11-16T08:00:38.352Z",
+          "id": "call_66bf33762bae4d2aaf50b9acb26a48cc",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 14,
+      "label": "Native accessibility clickable ancestor observation",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T08:03:57.364Z",
+          "id": "call_e159a5497741409da7311305378da257",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": [
+            "real-frame-accessibility.log"
+          ]
+        }
+      ]
+    },
+    {
+      "global_episode": 15,
+      "label": "Direct merged-semantics observation",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T08:20:04.804Z",
+          "id": "call_66825dfb04fe4029a23721a02d7e48de",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 16,
+      "label": "Cached activity and main queue barrier",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T08:39:49.428Z",
+          "id": "call_e221b2ed6204470ca4657d472717693e",
+          "files": [
+            "SearchLatencyTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 17,
+      "label": "Separate unchanged animated-background drawing layer",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T08:46:40.650Z",
+          "id": "call_e9e18151d26d4a729f93d53e732f6655",
+          "files": [
+            "AuroraBackground.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 18,
+      "label": "Pending-query disposal regression coverage",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T09:12:51.294Z",
+          "id": "call_60cdfb22b23a4ac5967d04db75de8a50",
+          "files": [
+            "SearchNavigationTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": [
+            "pending-disposal-regression.log"
+          ]
+        }
+      ]
+    },
+    {
+      "global_episode": 19,
+      "label": "Retained-result Updating status",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T09:53:16.235Z",
+          "id": "call_6f94c72dd5424df09cfc6cb54bc9e200",
+          "files": [
+            "SearchScreen.kt",
+            "SearchLatencyTest.kt",
+            "SearchUpdatingStatusTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 20,
+      "label": "All-state published query generation",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T10:08:44.760Z",
+          "id": "call_ab96b1c1bf794e668ae8279603ff16aa",
+          "files": [
+            "SearchScreen.kt",
+            "SearchViewModel.kt",
+            "SearchLatencyTest.kt",
+            "SearchRepositoryTest.kt",
+            "SearchUpdatingStatusTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": []
+        }
+      ]
+    },
+    {
+      "global_episode": 21,
+      "label": "Actual screen and Room-backed Updating integration test",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T10:23:59.099Z",
+          "id": "call_612544ca5561479ea8a11029196f5f54",
+          "files": [
+            "SearchViewModel.kt",
+            "SearchUpdatingStatusTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": [
+            "updating-status-integration.log"
+          ]
+        }
+      ]
+    },
+    {
+      "global_episode": 22,
+      "label": "Unknown completed-credit target RED and minimal correction",
+      "source_commands": [
+        {
+          "ts": "2026-11-16T10:59:25.026Z",
+          "id": "call_01b8ca8c5cbc4e1e99fd1e2d59ee8839",
+          "files": [
+            "BenefitsViewModelTest.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": [
+            "credit-target-counterexample.log"
+          ]
+        },
+        {
+          "ts": "2026-11-16T11:05:09.270Z",
+          "id": "call_ca235a1dbe8f49b0942bca8c165c9623",
+          "files": [
+            "BenefitsViewModel.kt"
+          ],
+          "markers": [
+            "write_text("
+          ],
+          "logs": [
+            "credit-target-green.log"
+          ]
+        }
+      ]
+    }
+  ],
+  "excluded_index_rows": [
+    0,
+    9,
+    11,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20,
+    21,
+    22,
+    23,
+    26,
+    29,
+    31,
+    32
+  ],
+  "exclusion_reasons": [
+    "report/scope/index/guard metadata writes",
+    "CPU observations and profiler marker",
+    "deliberate negative control and restoration",
+    "unused import/comment cleanup",
+    "documentation and evidence updates accompanying already counted episodes"
+  ],
+  "limits": [
+    "No signed native record or native budget counter was edited.",
+    "Local reversible work proceeds under the explicit autonomous-work instruction; this ledger grants no additional push or CI retry.",
+    "Remote caps and green-only merge remain unchanged.",
+    "The later ignored evidence draft preservation issue remains untouched and is not counted as an application correction episode."
+  ]
+}
