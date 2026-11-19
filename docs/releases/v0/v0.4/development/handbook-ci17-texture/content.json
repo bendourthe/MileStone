@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-19T05:05:56.161377+00:00",
+  "review": "Current-source semantic delta review; previous content claims inherited only for identical input hashes.",
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt",
+    "app/src/searchScenario/kotlin/com/bendourthe/milestone/ui/search/SearchLatencyScenario.kt",
+    "scripts/search_benchmark.py",
+    "scripts/tests/test_search_benchmark.py"
+  ],
+  "unchanged_inputs": 76,
+  "prior_verification_git_revision": "7d481cfe9a503cb3fc57629bc69ebc7607cd540c",
+  "prior_verification_path": "docs/handbooks/_sources/overview/verification.json",
+  "prior_verification_sha256": "00999ce1f5b5c8cd5f59905ce657b0cec66e0af9fb7e09c59cb8c0041cca9207",
+  "reviewed_claims": [
+    "Diagnostic phase anchors export existing monotonic measurements and retain the existing timing gate.",
+    "Immutable 256-pixel F16 textures preserve original source-over geometry, phase equations and animation-off behavior; no query or navigation behavior changes.",
+    "The revised overview describes the texture implementation and distinguishes native color comparison from Search performance qualification.",
+    "Native color comparisons cover six phases, four viewports including 1080x2340, and two formats with original limits unchanged; all48cases pass with maximum channel delta1.",
+    "Current reading and presentation screenshots were inspected for legibility, visible controls, clipping and overlap; no issue observed."
+  ],
+  "visuals": {
+    "reading-1000.png": "7d04e3d591746854f32edb8c51d1b0d98c3b45396b705bad09d1a5d75f3df103",
+    "slide-6.png": "ea71eb20aeb7f5b9db3c0183fd67e16dc19366039a8de8779eb1e4528f049bd5"
+  },
+  "qualification_scope": "Handbook content only; Search timing and release remain open."
+}

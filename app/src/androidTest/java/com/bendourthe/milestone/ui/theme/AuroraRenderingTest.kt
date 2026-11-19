@@ -27,7 +27,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class AuroraRenderingTest {
-    @Test fun combinedDrawPreservesOriginalGradientsAcrossMotionAndViewportChanges() {
+    @Test fun texturedDrawPreservesOriginalGradientsAcrossMotionAndViewportChanges() {
         assertTrue("Synthetic rendering fixture is emulator-only", Build.HARDWARE.contains("ranchu") || Build.HARDWARE.contains("goldfish"))
         val measurements = JSONArray()
         var rasterMismatch = 0
@@ -35,7 +35,7 @@ class AuroraRenderingTest {
         val context = ApplicationProvider.getApplicationContext<android.content.Context>()
         val directory = File(context.getExternalFilesDir(null), "aurora-rendering").apply { mkdirs() }
         for (config in listOf(ImageBitmapConfig.Argb8888, ImageBitmapConfig.F16)) {
-        for ((width, height) in listOf(96 to 208, 208 to 96, 360 to 780)) {
+        for ((width, height) in listOf(96 to 208, 208 to 96, 360 to 780, 1080 to 2340)) {
             for (phase in listOf(0f, 0.15f, 0.25f, 0.5f, 0.75f, 1f)) {
                 fun pixels(name: String, draw: DrawScope.() -> Unit): IntArray {
                     val image = ImageBitmap(width, height, config)
