@@ -1,0 +1,226 @@
+{
+  "status": "REQUIRED_VERIFICATION_DESIGN; NOT_EXECUTED",
+  "basis": "Owner generalization clarification on 2026-11-16; existing v0.5 and v0.6 tasks",
+  "applies_to_issuers": [
+    "amex",
+    "chase-personal",
+    "chase-business"
+  ],
+  "synthetic_only": true,
+  "private_inputs_or_owner_identifiers": false,
+  "tests_implemented": false,
+  "source_GO": false,
+  "interpretation": "Synthetic variants are required regression evidence, not proof of every live account or unseen issuer DOM. Source contract, live completeness and issuer-confirmed action evidence remain required. No task is completed by this matrix.",
+  "cases": [
+    {
+      "id": "inventory-size",
+      "owners": [
+        "v0.5.0:T004",
+        "v0.5.0:T007"
+      ],
+      "variations": {
+        "card_counts": [
+          0,
+          1,
+          4,
+          9,
+          20,
+          21
+        ]
+      },
+      "expected": "Discover source inventory without an owner count or four-card assumption; empty requires explicit source proof; limit crossings remain incomplete rather than silently omitted.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "unfamiliar-products",
+      "owners": [
+        "v0.5.0:T007",
+        "v0.5.0:T010"
+      ],
+      "variations": {
+        "product_names": "generated after adapter design; no catalog match required"
+      },
+      "expected": "Read benefits and rewards for unfamiliar source products; fallback artwork does not remove cards or destinations.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "inventory-order-and-change",
+      "owners": [
+        "v0.5.0:T004",
+        "v0.5.0:T007"
+      ],
+      "variations": {
+        "variants": [
+          "reordered",
+          "new card",
+          "removed card",
+          "partial inventory"
+        ]
+      },
+      "expected": "Identity follows verified source bindings; only complete correctly scoped coverage permits removal.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "same-ending-cards",
+      "owners": [
+        "v0.5.0:T004",
+        "v0.5.0:T011"
+      ],
+      "variations": {
+        "distinct_cards": "two or more with an equal display ending"
+      },
+      "expected": "Keep cards, sections, destinations and preferences separate; display ending alone is not unique identity.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "personal-business-connections",
+      "owners": [
+        "v0.5.0:T004",
+        "v0.5.0:T005",
+        "v0.5.0:T010"
+      ],
+      "variations": {
+        "variants": [
+          "personal only",
+          "business only",
+          "separate sign-ins",
+          "linked access",
+          "overlapping connections"
+        ]
+      },
+      "expected": "Discover the union of accessible cards, deduplicate only proven same-card identities and preserve other connections after partial reads.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "lazy-and-paged-coverage",
+      "owners": [
+        "v0.5.0:T007",
+        "v0.5.0:T008",
+        "v0.6.0:T004"
+      ],
+      "variations": {
+        "variants": [
+          "delayed inventory",
+          "multiple pages",
+          "new lower section",
+          "deadline before completion"
+        ]
+      },
+      "expected": "Traverse observed loading paths; report complete only with source proof and retain earlier data on incomplete reads.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "benefit-volume-and-sections",
+      "owners": [
+        "v0.5.0:T008",
+        "v0.5.0:T021"
+      ],
+      "variations": {
+        "listed_counts": [
+          0,
+          1,
+          149,
+          150,
+          151
+        ],
+        "sections": [
+          "welcome bonus",
+          "credits",
+          "spend trackers",
+          "completed",
+          "listed benefits",
+          "enrollment",
+          "source-provided rewards"
+        ]
+      },
+      "expected": "Vary content independently from owner captures; crossing a transport bound must not become an all-benefits completion claim.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "dynamic-merchant-inventory",
+      "owners": [
+        "v0.6.0:T004",
+        "v0.6.0:T005"
+      ],
+      "variations": {
+        "variants": [
+          "unfamiliar merchant",
+          "new offer",
+          "removed offer",
+          "changed order",
+          "reappearance",
+          "empty complete list",
+          "partial list"
+        ]
+      },
+      "expected": "Discover current issuer offers without a merchant allowlist; preserve confirmed history and distinguish absence, expiry and unknown freshness.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "same-offer-on-different-cards",
+      "owners": [
+        "v0.6.0:T002",
+        "v0.6.0:T007"
+      ],
+      "variations": {
+        "eligible_cards": [
+          2,
+          5
+        ],
+        "shared_merchant": true
+      },
+      "expected": "Default-on processing makes and separately confirms one addition per independently eligible card; shared display text or campaign alone never suppresses another card.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "overlapping-connection-offer",
+      "owners": [
+        "v0.6.0:T004",
+        "v0.6.0:T007"
+      ],
+      "variations": {
+        "connections": 2,
+        "same_exact_card_offer": true
+      },
+      "expected": "Reconcile the same proven card and offer across connections; do not create duplicate actions for that same target.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "unknown-and-restricted-actions",
+      "owners": [
+        "v0.6.0:T007",
+        "v0.6.0:T008"
+      ],
+      "variations": {
+        "variants": [
+          "already added",
+          "uncertain result",
+          "explicit issuer restriction",
+          "eligibility removed",
+          "wrong card generation"
+        ]
+      },
+      "expected": "Use issuer-confirmed exact-card results, reconcile uncertainty before resending and leave genuine restrictions pending without forcing actions.",
+      "execution": "NOT_RUN"
+    },
+    {
+      "id": "production-default-and-capture-separation",
+      "owners": [
+        "v0.6.0:T002",
+        "v0.6.0:T007"
+      ],
+      "variations": {
+        "variants": [
+          "production new user",
+          "production existing user",
+          "global pause",
+          "per-card off",
+          "capture build",
+          "test build"
+        ]
+      },
+      "expected": "Automatic eligible adding defaults on in production; pause/off stop future actions; capture and test modes never mutate issuer offers.",
+      "execution": "NOT_RUN"
+    }
+  ]
+}

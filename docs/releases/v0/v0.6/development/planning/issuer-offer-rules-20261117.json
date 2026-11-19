@@ -1,0 +1,49 @@
+{
+  "observed_utc": "2026-11-17T10:09:34.302272+00:00",
+  "status": "PUBLIC_RULES_ONLY_NOT_SOURCE_GO",
+  "source_go": false,
+  "task_mapping": [
+    "T001",
+    "T002",
+    "T007",
+    "T008"
+  ],
+  "owner_policy_unchanged": "Default-on adding on every independently eligible Amex and Chase card. Matching merchants or text do not suppress another eligible card.",
+  "chase": {
+    "source": "https://www.chase.com/personal/merchant-offers/faqs",
+    "access": "Full official page read successfully",
+    "paraphrased_rules": [
+      "Added offers cannot be removed; no published limit on number added.",
+      "Offers are selected per card; redemption uses that same card.",
+      "Primary cardmembers and authorizing officers can add credit-card offers; authorized users and employees cannot.",
+      "Wallet distinguishes Added, Redeemed and Expired; redeemed/expired history lasts 90 days."
+    ],
+    "implementation_consequences": [
+      "Pause stops future actions without promising removal.",
+      "Card visibility alone does not establish authority to activate offers.",
+      "Issuer history disappearance does not prove an action never succeeded; retain the local action ledger.",
+      "A per-card offer is not proof of cross-card campaign exclusivity."
+    ]
+  },
+  "amex": {
+    "sources": [
+      "https://www.americanexpress.com/en-us/benefits/offers/",
+      "https://www.americanexpress.com/en-us/benefits/offers/partner-terms/"
+    ],
+    "access": "Direct official-page opens failed. Official search-index excerpts with different crawl dates are not a verified current full terms document.",
+    "consequence": "Reverify current applicable offer/cardmember restrictions before enabling an action adapter. Do not infer either universal multi-card eligibility or a universal single-card policy from unavailable pages or matching text."
+  },
+  "not_established": [
+    "Live DOM or action selectors",
+    "Exact card/offer identifiers",
+    "Source completeness",
+    "Automation permission from the issuer",
+    "Live enrollment success",
+    "Implemented production integration"
+  ],
+  "actions_performed": {
+    "issuer_mutations": 0,
+    "phone_access": 0,
+    "main_app_debugger": 0
+  }
+}

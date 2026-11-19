@@ -1,0 +1,32 @@
+{
+  "observed_utc": "2026-11-17T19:24:21.995897+00:00",
+  "status": "RELEVANT_PUBLIC_CLAUSES_VERIFIED_NOT_ACCOUNT_SOURCE_GO",
+  "source_go": false,
+  "source": "https://www.americanexpress.com/en-us/benefits/offers/partner-terms/",
+  "access": "Ordinary unauthenticated HTTP200 fetch; relevant visible enrollment, eligibility and prohibited-conduct paragraphs inspected; no challenge bypass.",
+  "supersedes": "The earlier indexed-only evidence and phrase-presence probe do not establish semantic verification. This record is based on reading the relevant public clauses in context.",
+  "paraphrased_rules": [
+    "Amex prohibits automated tools that it has not authorized from interacting with offers, including enrollment.",
+    "An offer may be added to one eligible card, selected by the cardmember.",
+    "Independently eligible Basic and Additional Card Members may each enroll and qualify separately; their transactions are not combined.",
+    "Credentials may not be provided to third parties for enrollment without express Amex authorization."
+  ],
+  "owner_policy_preserved": "Default-on adding on every independently eligible Amex and Chase card; no merchant-text cross-card deduplication, preferred-card policy, or silent manual-only substitution.",
+  "delivery_requirements": [
+    "Establish an issuer-authorized automation/integration path before declaring Amex enrollment deliverable.",
+    "Resolve cardmember and campaign-level eligibility from verified applicable source; multiple visible controls or identical text do not independently establish unrestricted multi-card eligibility.",
+    "Keep unresolved eligibility, campaign selection and authorization visibly pending; do not claim successful addition from an attempted action."
+  ],
+  "not_established": [
+    "Issuer authorization for MileStone automation",
+    "Live identity/offer/campaign selectors or complete-list criteria",
+    "Account eligibility for a particular offer",
+    "Implemented production integration or successful enrollment"
+  ],
+  "retained_read_evidence": "release-v0.4.0/reports/release-v040/ci12-reproduction/amex-public-terms-reviewed/fetch.json and visible-text.txt",
+  "actions_performed": {
+    "issuer_mutations": 0,
+    "phone_access": 0,
+    "main_app_debugger": 0
+  }
+}
