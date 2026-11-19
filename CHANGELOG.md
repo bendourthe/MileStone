@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-## [0.4.0] - 2026-11-15
+## [0.4.0] - 2026-11-19
 
 ### Added
 
@@ -24,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - Search list resets wait for the new query's results instead of scrolling earlier results while matching is pending.
-- The moving background draws in its own layer, separate from screen content.
+- The animated background uses one bounded, reusable image in its own layer, preserving its verified appearance while reducing drawing work.
+- Successful password submissions receive the existing full sign-in page timeout window.
 - Completed credits keep their actual earned amount when no target is known, while retaining the full progress bar.
 - The opening coupon ribbon appears complete before the airplane arrives, then forms the final overlap as the plane settles.
 
