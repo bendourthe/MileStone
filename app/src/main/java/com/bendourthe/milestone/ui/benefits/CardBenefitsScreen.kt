@@ -70,7 +70,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
     onRevealInvalid: (SearchValidation) -> Unit = {}, snackbarHostState: androidx.compose.material3.SnackbarHostState? = null) {
     val flow = remember(key) { viewModel.card(key) }
     val page by flow.collectAsStateWithLifecycle(initialValue = LOADING)
-    var showWelcome by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
+    var showWelcome by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val view = LocalView.current
     LaunchedEffect(reveal) {
@@ -97,8 +97,8 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
         LaunchedEffect(key, current.settingsError) {
             if (current.settingsError != null) listState.animateScrollToItem(0)
         }
-        var observedSort by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf<com.bendourthe.milestone.domain.BenefitsSort?>(null) }
-        var observedCompletedLast by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf<Boolean?>(null) }
+        var observedSort by rememberSaveable(key.programId, key.cardId) { mutableStateOf<com.bendourthe.milestone.domain.BenefitsSort?>(null) }
+        var observedCompletedLast by rememberSaveable(key.programId, key.cardId) { mutableStateOf<Boolean?>(null) }
         LaunchedEffect(key, current.preferences.sort, current.preferences.completedLast) {
             if (observedSort != null && (observedSort != current.preferences.sort || observedCompletedLast != current.preferences.completedLast)) listState.scrollToItem(0)
             observedSort = current.preferences.sort

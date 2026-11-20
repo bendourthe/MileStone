@@ -1,0 +1,611 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 5,
+    "identityHash": "ead04f920e35324579ef25f4057d2d21",
+    "entities": [
+      {
+        "tableName": "loyalty_accounts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`programId` TEXT NOT NULL, `balance` INTEGER, `balanceOrigin` TEXT, `lastUpdatedEpochMs` INTEGER, `lastAttemptEpochMs` INTEGER, `consecutiveFailures` INTEGER NOT NULL DEFAULT 0, `sortOrder` INTEGER NOT NULL, `status` TEXT NOT NULL, `lastErrorCode` TEXT, `addedEpochMs` INTEGER NOT NULL, PRIMARY KEY(`programId`))",
+        "fields": [
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "balance",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "balanceOrigin",
+            "columnName": "balanceOrigin",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastUpdatedEpochMs",
+            "columnName": "lastUpdatedEpochMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastAttemptEpochMs",
+            "columnName": "lastAttemptEpochMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "consecutiveFailures",
+            "columnName": "consecutiveFailures",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastErrorCode",
+            "columnName": "lastErrorCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "addedEpochMs",
+            "columnName": "addedEpochMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "programId"
+          ]
+        }
+      },
+      {
+        "tableName": "balance_snapshots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `programId` TEXT NOT NULL, `balance` INTEGER NOT NULL, `origin` TEXT NOT NULL, `epochMs` INTEGER NOT NULL, FOREIGN KEY(`programId`) REFERENCES `loyalty_accounts`(`programId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "balance",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "epochMs",
+            "columnName": "epochMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_balance_snapshots_programId",
+            "unique": false,
+            "columnNames": [
+              "programId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_balance_snapshots_programId` ON `${TABLE_NAME}` (`programId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyalty_accounts",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId"
+            ],
+            "referencedColumns": [
+              "programId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "cards",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`programId` TEXT NOT NULL, `cardId` TEXT NOT NULL, `lastDigits` TEXT, `name` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `cardListReadEpochMs` INTEGER, `benefitsReadEpochMs` INTEGER, `benefitsReadGeneration` INTEGER NOT NULL DEFAULT 0, `segment` TEXT, `segmentOverride` TEXT, PRIMARY KEY(`programId`, `cardId`), FOREIGN KEY(`programId`) REFERENCES `loyalty_accounts`(`programId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardId",
+            "columnName": "cardId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastDigits",
+            "columnName": "lastDigits",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardListReadEpochMs",
+            "columnName": "cardListReadEpochMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "benefitsReadEpochMs",
+            "columnName": "benefitsReadEpochMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "benefitsReadGeneration",
+            "columnName": "benefitsReadGeneration",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "segment",
+            "columnName": "segment",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "segmentOverride",
+            "columnName": "segmentOverride",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "programId",
+            "cardId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_cards_programId",
+            "unique": false,
+            "columnNames": [
+              "programId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_cards_programId` ON `${TABLE_NAME}` (`programId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyalty_accounts",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId"
+            ],
+            "referencedColumns": [
+              "programId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "benefits",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`stableKey` TEXT NOT NULL, `programId` TEXT NOT NULL, `cardId` TEXT NOT NULL, `section` TEXT NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, `earnedCents` INTEGER, `remainingCents` INTEGER, `targetCents` INTEGER, `periodLabel` TEXT, `periodEndEpochDay` INTEGER, `periodLength` TEXT, `completed` INTEGER NOT NULL, `description` TEXT, `enrollment` TEXT, PRIMARY KEY(`stableKey`), FOREIGN KEY(`programId`, `cardId`) REFERENCES `cards`(`programId`, `cardId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "stableKey",
+            "columnName": "stableKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardId",
+            "columnName": "cardId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "section",
+            "columnName": "section",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "earnedCents",
+            "columnName": "earnedCents",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "remainingCents",
+            "columnName": "remainingCents",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "targetCents",
+            "columnName": "targetCents",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "periodLabel",
+            "columnName": "periodLabel",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "periodEndEpochDay",
+            "columnName": "periodEndEpochDay",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "periodLength",
+            "columnName": "periodLength",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "completed",
+            "columnName": "completed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "enrollment",
+            "columnName": "enrollment",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "stableKey"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_benefits_programId_cardId",
+            "unique": false,
+            "columnNames": [
+              "programId",
+              "cardId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_benefits_programId_cardId` ON `${TABLE_NAME}` (`programId`, `cardId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cards",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId",
+              "cardId"
+            ],
+            "referencedColumns": [
+              "programId",
+              "cardId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "benefit_reminders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`benefitKey` TEXT NOT NULL, `periodEndEpochDay` INTEGER NOT NULL, `programId` TEXT NOT NULL, `cardId` TEXT NOT NULL, `sentEpochMs` INTEGER NOT NULL, PRIMARY KEY(`benefitKey`, `periodEndEpochDay`), FOREIGN KEY(`programId`, `cardId`) REFERENCES `cards`(`programId`, `cardId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "benefitKey",
+            "columnName": "benefitKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "periodEndEpochDay",
+            "columnName": "periodEndEpochDay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardId",
+            "columnName": "cardId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sentEpochMs",
+            "columnName": "sentEpochMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "benefitKey",
+            "periodEndEpochDay"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_benefit_reminders_programId_cardId",
+            "unique": false,
+            "columnNames": [
+              "programId",
+              "cardId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_benefit_reminders_programId_cardId` ON `${TABLE_NAME}` (`programId`, `cardId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "cards",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId",
+              "cardId"
+            ],
+            "referencedColumns": [
+              "programId",
+              "cardId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "issuer_connections",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`connectionId` TEXT NOT NULL, `programId` TEXT NOT NULL, `segment` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `addedEpochMs` INTEGER NOT NULL, `inventoryReadEpochMs` INTEGER, `inventoryComplete` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`connectionId`), FOREIGN KEY(`programId`) REFERENCES `loyalty_accounts`(`programId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "connectionId",
+            "columnName": "connectionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "segment",
+            "columnName": "segment",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedEpochMs",
+            "columnName": "addedEpochMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inventoryReadEpochMs",
+            "columnName": "inventoryReadEpochMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "inventoryComplete",
+            "columnName": "inventoryComplete",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "connectionId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_issuer_connections_programId",
+            "unique": false,
+            "columnNames": [
+              "programId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_issuer_connections_programId` ON `${TABLE_NAME}` (`programId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "loyalty_accounts",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId"
+            ],
+            "referencedColumns": [
+              "programId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "card_coverage",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`connectionId` TEXT NOT NULL, `programId` TEXT NOT NULL, `cardId` TEXT NOT NULL, `bindingHash` TEXT NOT NULL, `lastSeenEpochMs` INTEGER NOT NULL, PRIMARY KEY(`connectionId`, `programId`, `cardId`), FOREIGN KEY(`connectionId`) REFERENCES `issuer_connections`(`connectionId`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`programId`, `cardId`) REFERENCES `cards`(`programId`, `cardId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "connectionId",
+            "columnName": "connectionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "programId",
+            "columnName": "programId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cardId",
+            "columnName": "cardId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bindingHash",
+            "columnName": "bindingHash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeenEpochMs",
+            "columnName": "lastSeenEpochMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "connectionId",
+            "programId",
+            "cardId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_card_coverage_connectionId_bindingHash",
+            "unique": true,
+            "columnNames": [
+              "connectionId",
+              "bindingHash"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_card_coverage_connectionId_bindingHash` ON `${TABLE_NAME}` (`connectionId`, `bindingHash`)"
+          },
+          {
+            "name": "index_card_coverage_programId_bindingHash",
+            "unique": false,
+            "columnNames": [
+              "programId",
+              "bindingHash"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_card_coverage_programId_bindingHash` ON `${TABLE_NAME}` (`programId`, `bindingHash`)"
+          },
+          {
+            "name": "index_card_coverage_programId_cardId",
+            "unique": false,
+            "columnNames": [
+              "programId",
+              "cardId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_card_coverage_programId_cardId` ON `${TABLE_NAME}` (`programId`, `cardId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "issuer_connections",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "connectionId"
+            ],
+            "referencedColumns": [
+              "connectionId"
+            ]
+          },
+          {
+            "table": "cards",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "programId",
+              "cardId"
+            ],
+            "referencedColumns": [
+              "programId",
+              "cardId"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ead04f920e35324579ef25f4057d2d21')"
+    ]
+  }
+}

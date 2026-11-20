@@ -139,7 +139,7 @@ class AndroidReminderNotifier(private val context: Context, private val locale: 
             Intent(context, MainActivity::class.java)
                 .setAction(ACTION_OPEN_CARD)
                 .putExtra(EXTRA_PROGRAM_ID, card.programId)
-                .putExtra(EXTRA_LAST_DIGITS, card.lastDigits)
+                .putExtra(EXTRA_LAST_DIGITS, card.cardId)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )

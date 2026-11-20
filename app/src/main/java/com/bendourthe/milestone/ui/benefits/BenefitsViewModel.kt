@@ -67,7 +67,7 @@ data class CardTileUi(
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${key.displayDigits ?: "unknown"}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
 /** The committed inputs behind this rendered page, used only for in-memory exact-result validation. */
@@ -204,7 +204,7 @@ class BenefitsViewModel(
         const val STALE_AFTER_MS = 8L * 24 * 60 * 60 * 1000
         private val completedCreditAmount = Regex("""^\s*(\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d{2})?)(?=\s|$)""")
 
-        fun digitsLabel(lastDigits: String) = "…$lastDigits"
+        fun digitsLabel(lastDigits: String?) = lastDigits?.let { "…$it" }.orEmpty()
 
         fun money(cents: Long, locale: Locale): String {
             val format = NumberFormat.getCurrencyInstance(Locale.US)

@@ -513,7 +513,7 @@ class SearchNavigationTest {
         rule.onNodeWithTag("searchResults").performScrollToNode(exact)
         rule.onNode(exact).performClick()
         waitText("Search result")
-        rule.runOnIdle { assertEquals(other.lastDigits, nav.currentBackStackEntry!!.toRoute<CardBenefits>().lastDigits) }
+        rule.runOnIdle { assertEquals(other.cardId, nav.currentBackStackEntry!!.toRoute<CardBenefits>().cardId) }
         returnToSearch("Museum")
         rule.onNodeWithTag("globalSearchQuery").performTextClearance()
         rule.onNodeWithTag("globalSearchQuery").performTextInput("2009")

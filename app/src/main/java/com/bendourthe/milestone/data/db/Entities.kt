@@ -40,10 +40,14 @@ data class BalanceSnapshotEntity(
     val epochMs: Long,
 )
 
-/** A card on an issuer account, keyed by its last digits. Never holds a full card number or account key. */
+/**
+ * A card on an issuer account, keyed by its local card id (legacy cards keep their last digits as the id).
+ * [lastDigits] is display-only. [segment] is derived from connections; [segmentOverride] is the owner's choice.
+ * Never holds a full card number or account key.
+ */
 @Entity(
     tableName = "cards",
-    primaryKeys = ["programId", "lastDigits"],
+    primaryKeys = ["programId", "cardId"],
     foreignKeys = [
         ForeignKey(
             entity = LoyaltyAccountEntity::class,
@@ -56,12 +60,73 @@ data class BalanceSnapshotEntity(
 )
 data class CardEntity(
     val programId: String,
-    val lastDigits: String,
+    val cardId: String,
+    val lastDigits: String?,
     val name: String,
     val sortOrder: Int,
     val cardListReadEpochMs: Long?,
     val benefitsReadEpochMs: Long?,
-    @androidx.room.ColumnInfo(defaultValue = "0") val benefitsReadGeneration: Long = 0,
+    @ColumnInfo(defaultValue = "0") val benefitsReadGeneration: Long = 0,
+    val segment: String? = null,
+    val segmentOverride: String? = null,
+)
+
+/** One issuer sign-in. Deleting the program removes its connections. */
+@Entity(
+    tableName = "issuer_connections",
+    foreignKeys = [
+        ForeignKey(
+            entity = LoyaltyAccountEntity::class,
+            parentColumns = ["programId"],
+            childColumns = ["programId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [Index("programId")],
+)
+data class ConnectionEntity(
+    @PrimaryKey val connectionId: String,
+    val programId: String,
+    val segment: String,
+    val sortOrder: Int,
+    val addedEpochMs: Long,
+    val inventoryReadEpochMs: Long?,
+    @ColumnInfo(defaultValue = "0") val inventoryComplete: Boolean,
+)
+
+/**
+ * Which connection reaches which card, through which keyed binding hash. A card with no coverage row is either a
+ * legacy last-digits card or is removed when its last coverage goes.
+ */
+@Entity(
+    tableName = "card_coverage",
+    primaryKeys = ["connectionId", "programId", "cardId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = ConnectionEntity::class,
+            parentColumns = ["connectionId"],
+            childColumns = ["connectionId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+        ForeignKey(
+            entity = CardEntity::class,
+            parentColumns = ["programId", "cardId"],
+            childColumns = ["programId", "cardId"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+    indices = [
+        Index(value = ["connectionId", "bindingHash"], unique = true),
+        Index("programId", "bindingHash"),
+        Index("programId", "cardId"),
+    ],
+)
+data class CardCoverageEntity(
+    val connectionId: String,
+    val programId: String,
+    val cardId: String,
+    val bindingHash: String,
+    val lastSeenEpochMs: Long,
 )
 
 @Entity(
@@ -69,17 +134,17 @@ data class CardEntity(
     foreignKeys = [
         ForeignKey(
             entity = CardEntity::class,
-            parentColumns = ["programId", "lastDigits"],
-            childColumns = ["programId", "lastDigits"],
+            parentColumns = ["programId", "cardId"],
+            childColumns = ["programId", "cardId"],
             onDelete = ForeignKey.CASCADE,
         ),
     ],
-    indices = [Index("programId", "lastDigits")],
+    indices = [Index("programId", "cardId")],
 )
 data class BenefitEntity(
     @PrimaryKey val stableKey: String,
     val programId: String,
-    val lastDigits: String,
+    val cardId: String,
     val section: String,
     val position: Int,
     val title: String,
@@ -101,17 +166,17 @@ data class BenefitEntity(
     foreignKeys = [
         ForeignKey(
             entity = CardEntity::class,
-            parentColumns = ["programId", "lastDigits"],
-            childColumns = ["programId", "lastDigits"],
+            parentColumns = ["programId", "cardId"],
+            childColumns = ["programId", "cardId"],
             onDelete = ForeignKey.CASCADE,
         ),
     ],
-    indices = [Index("programId", "lastDigits")],
+    indices = [Index("programId", "cardId")],
 )
 data class ReminderRecordEntity(
     val benefitKey: String,
     val periodEndEpochDay: Long,
     val programId: String,
-    val lastDigits: String,
+    val cardId: String,
     val sentEpochMs: Long,
 )

@@ -178,7 +178,7 @@ private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, 
             ) {
                 if (programId == null) items(s.programs, key = { it.programId }) { institution ->
                     BenefitsInstitutionTile(institution) { onOpenProgram(institution.programId) }
-                } else items(tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                } else items(tiles, key = { "${it.key.programId}/${it.key.cardId}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
             }
         }
     }

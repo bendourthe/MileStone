@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.bendourthe.milestone.data.RoomAccountRepository
 import com.bendourthe.milestone.data.db.RoomCardRepository
+import com.bendourthe.milestone.domain.ConnectionRepository
 import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
 import com.bendourthe.milestone.data.db.MileStoneDatabase
 import com.bendourthe.milestone.data.session.SessionStore
@@ -26,6 +27,7 @@ import com.bendourthe.milestone.sync.SyncManager
 import com.bendourthe.milestone.sync.WebViewHost
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBenefitsSource
+import com.bendourthe.milestone.sync.webview.ConnectionSessions
 import com.bendourthe.milestone.sync.webview.SessionProfiles
 import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
 import com.bendourthe.milestone.data.credentials.FileCredentialVault
@@ -63,7 +65,9 @@ class AppContainer(context: Context) {
     val database: MileStoneDatabase by lazy { MileStoneDatabase.create(appContext) }
     val catalog: CatalogRepository by lazy { StaticCatalogRepository() }
     val accounts: AccountRepository by lazy { RoomAccountRepository(database) }
-    val cards: CardRepository by lazy { RoomCardRepository(database) }
+    private val cardStore by lazy { RoomCardRepository(database) }
+    val cards: CardRepository get() = cardStore
+    val connections: ConnectionRepository get() = cardStore
     val settings: SettingsRepository by lazy { DataStoreSettingsRepository(appContext.settingsStore) }
     val benefitsDisplaySettings: BenefitsDisplaySettings by lazy { DataStoreBenefitsDisplaySettings(appContext.settingsStore) }
     val observeDashboard: ObserveDashboard by lazy { ObserveDashboard(accounts, catalog) }
@@ -79,6 +83,7 @@ class AppContainer(context: Context) {
     }
 
     val sessionProfiles: SessionProfiles by lazy { SessionProfiles(profiles, sessions, accounts) }
+    val connectionSessions: ConnectionSessions by lazy { ConnectionSessions(profiles, sessions, vault, connections) }
 
     val vault: FileCredentialVault by lazy { FileCredentialVault(File(appContext.noBackupFilesDir, FileCredentialVault.DIRECTORY), KeystoreSecretBox()) }
     private val vaultLoad = scope.async(start = CoroutineStart.LAZY) { vault.load() }
@@ -174,7 +179,8 @@ class AppContainer(context: Context) {
         syncManager.stop(programId)
         sessionProfiles.signOut(programId)
         vault.delete(programId)
-        syncManager.clearCards(programId)
+        // With other sign-ins of this program, only the cards the legacy sign-in alone reached are removed.
+        if (!connectionSessions.afterLegacySignOut(programId)) syncManager.clearCards(programId)
     }
 
     init {

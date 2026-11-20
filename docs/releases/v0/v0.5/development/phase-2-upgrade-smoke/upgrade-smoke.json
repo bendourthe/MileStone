@@ -1,0 +1,312 @@
+{
+ "device": "emulator-5554",
+ "qemu": true,
+ "user_version_before_seed": 4,
+ "user_version_after_upgrade": 5,
+ "cards": [
+  [
+   "amex",
+   "1234",
+   "1234",
+   "Synthetic Platinum",
+   0,
+   2,
+   null
+  ],
+  [
+   "amex",
+   "54321",
+   "54321",
+   "Synthetic Gold",
+   1,
+   0,
+   null
+  ]
+ ],
+ "benefits": [
+  [
+   "synthetic-k1",
+   "1234",
+   "CREDIT_EARNED",
+   500
+  ],
+  [
+   "synthetic-k2",
+   "54321",
+   "LISTED",
+   null
+  ]
+ ],
+ "reminders": [
+  [
+   "synthetic-k1",
+   "1234"
+  ]
+ ],
+ "connections": 0,
+ "coverage": 0,
+ "foreign_key_violations": [],
+ "integrity": "ok",
+ "androidruntime_errors": 0,
+ "checks": {
+  "v4_app_kept_seeded_database": true,
+  "upgraded_to_5": true,
+  "cards_preserved_same_keys": true,
+  "benefits_preserved": true,
+  "reminders_preserved": true,
+  "new_tables_empty": true,
+  "no_fk_violations": true,
+  "integrity_ok": true,
+  "no_crash": true
+ },
+ "passed": true,
+ "adb_log": [
+  {
+   "argv": [
+    "shell",
+    "getprop",
+    "ro.kernel.qemu"
+   ],
+   "exit": 0,
+   "stdout": "1"
+  },
+  {
+   "argv": [
+    "uninstall",
+    "com.bendourthe.milestone"
+   ],
+   "exit": 0,
+   "stdout": "Success"
+  },
+  {
+   "argv": [
+    "install",
+    "C:\\Users\\BEDOURTHE\\AppData\\Local\\Temp\\claude\\40a7503a76ccfc7d\\ab853056-031d-46a8-95a0-df758aa2eb35\\scratchpad\\upgrade\\v040-debug.apk"
+   ],
+   "exit": 0,
+   "stdout": "Performing Streamed Install\r\nSuccess"
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "start",
+    "-W",
+    "-n",
+    "com.bendourthe.milestone/.ui.MainActivity"
+   ],
+   "exit": 0,
+   "stdout": "Starting: Intent { cmp=com.bendourthe.milestone/.ui.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.bendourthe.milestone/.ui.MainActivity\r\nTotalTime: 3824\r\nWaitTime: 3827\r\nComplete"
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "force-stop",
+    "com.bendourthe.milestone"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "push",
+    "C:\\Users\\BEDOURTHE\\AppData\\Local\\Temp\\claude\\40a7503a76ccfc7d\\ab853056-031d-46a8-95a0-df758aa2eb35\\scratchpad\\upgrade\\v4.db",
+    "/data/local/tmp/milestone-seed.db"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "shell",
+    "run-as com.bendourthe.milestone sh -c 'mkdir -p databases && cp /data/local/tmp/milestone-seed.db databases/milestone.db && rm -f databases/milestone.db-wal databases/milestone.db-shm'"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "start",
+    "-W",
+    "-n",
+    "com.bendourthe.milestone/.ui.MainActivity"
+   ],
+   "exit": 0,
+   "stdout": "Starting: Intent { cmp=com.bendourthe.milestone/.ui.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.bendourthe.milestone/.ui.MainActivity\r\nTotalTime: 2460\r\nWaitTime: 2463\r\nComplete"
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "force-stop",
+    "com.bendourthe.milestone"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-wal"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-shm"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "shell",
+    "rm",
+    "-f",
+    "/data/local/tmp/milestone-seed.db"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "install",
+    "-r",
+    "C:\\Users\\BEDOURTHE\\AppData\\Local\\Temp\\claude\\40a7503a76ccfc7d\\ab853056-031d-46a8-95a0-df758aa2eb35\\scratchpad\\upgrade\\v050-debug.apk"
+   ],
+   "exit": 0,
+   "stdout": "Performing Streamed Install\r\nSuccess"
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "start",
+    "-W",
+    "-n",
+    "com.bendourthe.milestone/.ui.MainActivity"
+   ],
+   "exit": 0,
+   "stdout": "Starting: Intent { cmp=com.bendourthe.milestone/.ui.MainActivity }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.bendourthe.milestone/.ui.MainActivity\r\nTotalTime: 1756\r\nWaitTime: 1760\r\nComplete"
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-wal"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-shm"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "shell",
+    "am",
+    "force-stop",
+    "com.bendourthe.milestone"
+   ],
+   "exit": 0,
+   "stdout": ""
+  },
+  {
+   "argv": [
+    "shell",
+    "dumpsys",
+    "activity",
+    "processes",
+    "com.bendourthe.milestone"
+   ],
+   "exit": 0,
+   "stdout": "ACTIVITY MANAGER RUNNING PROCESSES (dumpsys activity processes)\r\n  OOM levels:\r\n    -900: SYSTEM_ADJ (   73,728K)\r\n    -800: PERSISTENT_PROC_ADJ (   73,728K)\r\n    -700: PERSISTENT_SERVICE_ADJ (   73,728K)\r\n      0: FOREGROUND_APP_ADJ (   73,728K)\r\n     100: VISIBLE_APP_ADJ (   92,160K)\r\n     200: PE"
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-wal"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "exec-out",
+    "run-as",
+    "com.bendourthe.milestone",
+    "cat",
+    "databases/milestone.db-shm"
+   ],
+   "exit": 0,
+   "stdout": null
+  },
+  {
+   "argv": [
+    "logcat",
+    "-d",
+    "-s",
+    "AndroidRuntime:E"
+   ],
+   "exit": 0,
+   "stdout": ""
+  }
+ ]
+}

@@ -11,6 +11,9 @@ import com.bendourthe.milestone.domain.Benefit
 import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.CardSegment
+import com.bendourthe.milestone.domain.ConnectionInventory
+import com.bendourthe.milestone.domain.InventoryOutcome
 import com.bendourthe.milestone.domain.CardList
 import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.ReminderRecord
@@ -175,6 +178,14 @@ class FakeCards : CardRepository {
             stored + (cardKey to kept + benefits.filter { it.section in sections })
         }
         cards.update { list -> list.map { if (it.key == cardKey) it.copy(benefitsReadEpochMs = readEpochMs, benefitsReadGeneration = it.benefitsReadGeneration + 1) else it } }
+    }
+
+    /** This fake does not model issuer connections; RoomCardRepositoryTest covers that behavior. */
+    override suspend fun applyConnectionInventory(inventory: ConnectionInventory, readEpochMs: Long): InventoryOutcome =
+        InventoryOutcome.UNKNOWN_CONNECTION
+
+    override suspend fun setCardSegmentOverride(cardKey: CardKey, segment: CardSegment?) {
+        cards.update { list -> list.map { if (it.key == cardKey) it.copy(segment = segment) else it } }
     }
 
     override suspend fun deleteProgramCards(programId: String) {

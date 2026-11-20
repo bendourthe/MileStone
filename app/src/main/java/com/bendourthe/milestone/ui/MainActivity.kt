@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         val container = (application as MileStoneApplication).container
-        if (savedInstanceState == null) lifecycleScope.launch { container.sessionProfiles.deleteLeftoverProfiles() }
+        if (savedInstanceState == null) lifecycleScope.launch { container.sessionProfiles.deleteLeftoverProfiles(container.connectionSessions::additionalProfiles) }
 
         lifecycle.addObserver(
             ForegroundSyncObserver(

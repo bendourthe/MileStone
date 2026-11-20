@@ -22,8 +22,8 @@ import com.bendourthe.milestone.domain.CardKey
 @Composable
 internal fun CardBenefitsMenus(key: CardKey, preferences: BenefitsDisplayPreferences, enabled: Boolean,
                                onSort: (BenefitsSort) -> Unit, onCompletedLast: (Boolean) -> Unit) {
-    var sorting by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
-    var filtering by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
+    var sorting by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
+    var filtering by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
     Box {
         IconButton(onClick = { sorting = true }, enabled = enabled, modifier = Modifier.testTag("benefitsSort")) {
             Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "Sort benefits: ${preferences.sort.label}")

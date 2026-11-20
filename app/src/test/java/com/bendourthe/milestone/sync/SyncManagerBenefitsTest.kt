@@ -218,7 +218,7 @@ class SyncManagerBenefitsTest {
         manager.applyBenefits("amex", read(complete = true, "71008", "71008"))
         manager.applyBenefits("amex", BenefitsRead(null, emptyMap(), stop = BenefitsStop.BUDGET))
 
-        assertEquals(listOf("71008", "42005"), cards.observeCards("amex").first().map { it.lastDigits }.sortedDescending())
+        assertEquals(listOf("71008", "42005"), cards.observeCards("amex").first().map { it.cardId }.sortedDescending())
     }
 
     @Test
