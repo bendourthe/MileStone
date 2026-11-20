@@ -2,14 +2,14 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-17
+**Last updated**: 2026-11-19
 
 All 29 remaining v0.3 gaps are carried here with their original IDs, conditions and sources. Existing Gxx IDs are deliberately retained. The native typed-ledger parser does not recognize this legacy prefix, so counts and carry-forward are verified from the table rows rather than inferred from its zero-item result. Global search G37 is authorized for local implementation; its delivery remains open.
 
 | Status | Count |
 |---|---|
-| Open | 30 |
-| Fixed | 0 |
+| Open | 29 |
+| Fixed | 5 |
 
 ## Open
 
@@ -62,7 +62,7 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
 | Deferred (DF) | 0 | 0 |
-| Bugs / regressions (BG) | 1 | 1 |
+| Bugs / regressions (BG) | 0 | 2 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 1 |
 | Quality-gate gaps (QG) | 0 | 2 |
@@ -71,7 +71,33 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 
 #### Bugs / Regressions
 
-##### BG-1 - Search Real-Frame Timing
+None.
+
+#### Quality-Gate Gaps
+
+No open item in this category. Approved configuration and actual protection resolutions are recorded below; first hosted execution remains T020.
+
+#### Missing Tests and Coverage Gaps
+
+No open item in this category. The MT-1 verification resolution is recorded below.
+
+### Resolved Items
+
+| ID | Gap | Resolution |
+|---|---|---|
+| BG-1 | Search real-frame timing exceeded the unchanged 200 ms p95 limit. | Qualified correction d614f7d passes hosted runs 44594949112 and 44624268912 at p95 178.185901 ms and 182.775059 ms; all samples, workload, viewport and preservation gates pass. See the resolution detail below. |
+| QG-1 | Integration workflow omitted Android runtime execution. | Owner approved and local workflow now invokes full/platform/report with a bounded API 36 emulator. Independent review found no actionable defect. First actual hosted execution remains T020; no CI runtime success is claimed. |
+| QG-2 | PR requirement and administrator enforcement were missing. | Owner approved; both develop/main were updated and read back, preserving the app-bound CI result and all other settings. See development/v0.4.0-protection-applied.json. |
+| MT-1 | Current handbook viewport, source-value and control proof was missing behind incompatible helper schemas. | Resolved through project-native adapter checks and specific counterchecks; installed auxiliary helper schema compatibility remains unchanged. Current output b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc has 2,606 passing checks, 384 measurements, independent visual review and full native qualification. |
+| BG-2 | Standing-notice sign-in returned UNFINISHED in the complete native profile. | Owner-approved delayed-fill regression fails on the original script and passes after resetting the existing page window on successful password submission. All 22 bridge cases and the complete 78-case platform profile pass, including the original case; retry counts, refusal rules and caller budgets are unchanged. This is a locally verified correction, not hosted or release completion. See development/v0.4.0-ci11-auth-red-green.json. |
+
+#### BG-1 Resolution Detail
+
+Resolved on 2026-11-19. The bounded single-image Aurora correction in d614f7dea8fcc307fcc7934036b3a621ed8c77e4 passes [required CI run 44594949112](https://github.com/bendourthe/MileStone/actions/runs/44594949112) with p95 178.185901 ms and is integrated through PR 17 at 778add71831daea53116f5b723ca22b1dd26bb7a. The unchanged application inputs pass again in [docs PR 18 run 44624268912](https://github.com/bendourthe/MileStone/actions/runs/44624268912) at p95 182.775059 ms, then integrate as 0321955dc1e094bc75dfa8953dcd2f21a8236df5. Both runs pass all seven full groups, 429 tests with zero failures/errors and 14 optional skips, plus all 78 platform cases without failures/errors/skips. Both independently validated benchmark receipts retain all 30 measured queries, three warmups, the 25-program/100-card/2000-benefit workload, required 1080x2340 viewport, preservation and invocation binding. Their source fingerprint matches the exact qualified Git checkout; retained APK hashes are executor before/after binding, with binaries omitted from report artifacts. No threshold, workload, sampling, real-draw endpoint or preservation criterion changed. This resolves the timing bug; release, archive, cleanup and later-version delivery remain separate open obligations.
+
+The dashboard counts 29 unchanged legacy open entries and five resolved current-minor items. Earlier failures and proposed next steps below are historical observations, retained in full.
+
+##### Historical timing checkpoints
 
 - **CI11 update, 2026-11-17**: Published 2a93916 remains red at hosted p95 237.467321 ms in run 44037140859. Animation A/B/A and a separate CPU-placement diagnostic support no speculative production fix. The new local failure-only collector passes helper/WSL controls and a real collector API smoke with 139 target frames and zero trace errors/loss; positive CLI integration and hosted evidence remain open. After the BG-2 correction, the complete local platform profile passes all 78 cases with p95 90.1253 ms at the unchanged limit. This local result does not replace hosted qualification. No additional push or CI rerun is authorized. See [CI11 preparation](development/v0.4.0-ci11-diagnostics-preparation.json) and [current local proof](development/v0.4.0-ci11-auth-red-green.json).
 
@@ -87,23 +113,6 @@ The 29 legacy rows above are copied without changing their IDs, conditions or so
 - **Optimized local candidate**: The shared-scenario, independent-controller candidate passes focused artifact-bound execution at p95 115.2237 ms and rejects an actual 250 ms delay at 312.0426 ms. All 43 script regressions pass. A separate CPU stress prototype still fails at 336.053 ms; it is not Linux parity. Complete local full/platform qualification subsequently passes at matching source fingerprint, with all 77 runtime cases and Search p95 91.3696 ms. Fresh publication authority and current-head hosted qualification remain open. No threshold, corpus, warmup, sample or visible-draw waiver is applied; BG-1 stays Open.
 - **Suggested next step**: Android rendering/test maintainer must establish the cause and qualify a reviewed correction with the original 30 samples, three warmups and 200 ms real-frame gate, full emulator suite and current-head hosted CI. Keep PR 17, release, primary fast-forward and minor close on hold until the required gate passes.
 - **Evidence**: `development/history/2026-11-16-v0.4.0-ci-stabilization-7.md`; local reports `reports/release-v040/ci7-clean-focused-search-latency/` and `ci7-clean-worker-publication/`. This is current-plan work, not an approved deferral.
-
-#### Quality-Gate Gaps
-
-No open item in this category. Approved configuration and actual protection resolutions are recorded below; first hosted execution remains T020.
-
-#### Missing Tests and Coverage Gaps
-
-No open item in this category. The MT-1 verification resolution is recorded below.
-
-### Resolved Items
-
-| ID | Gap | Resolution |
-|---|---|---|
-| QG-1 | Integration workflow omitted Android runtime execution. | Owner approved and local workflow now invokes full/platform/report with a bounded API 36 emulator. Independent review found no actionable defect. First actual hosted execution remains T020; no CI runtime success is claimed. |
-| QG-2 | PR requirement and administrator enforcement were missing. | Owner approved; both develop/main were updated and read back, preserving the app-bound CI result and all other settings. See development/v0.4.0-protection-applied.json. |
-| MT-1 | Current handbook viewport, source-value and control proof was missing behind incompatible helper schemas. | Resolved through project-native adapter checks and specific counterchecks; installed auxiliary helper schema compatibility remains unchanged. Current output b67416da02893ef30cf804db5e7ee2d18df5f8675d5fed51e1d4e210245d23dc has 2,606 passing checks, 384 measurements, independent visual review and full native qualification. |
-| BG-2 | Standing-notice sign-in returned UNFINISHED in the complete native profile. | Owner-approved delayed-fill regression fails on the original script and passes after resetting the existing page window on successful password submission. All 22 bridge cases and the complete 78-case platform profile pass, including the original case; retry counts, refusal rules and caller budgets are unchanged. This is a locally verified correction, not hosted or release completion. See development/v0.4.0-ci11-auth-red-green.json. |
 
 #### BG-2 Resolution Detail
 
