@@ -53,13 +53,22 @@ class ChaseBenefitsReaderTest {
                 """[{"text":"Spend ${'$'}1,500 of ${'$'}4,000 toward the bonus","value":37.5,"max":100},
                     {"text":"${'$'}75,000 spend benefit","value":20000,"max":75000},
                     {"text":"Spend ${'$'}6,000 by Dec 31, 2026 to get a bonus","value":40,"max":100},
-                    {"text":"Synthetic tracker","value":null,"max":null}]""",
+                    {"text":"Synthetic tracker","value":null,"max":null},
+                    {"text":"Earn ${'$'}300 after you spend ${'$'}3,000","value":0,"max":3000}]""",
             ),
         )!!
         assertTrue(drafts.all { it.section == BenefitSection.SPEND_PROGRESS })
-        assertEquals(listOf(150_000L, 2_000_000L, null, null), drafts.map { it.earnedCents })
-        assertEquals(listOf(400_000L, 7_500_000L, 600_000L, null), drafts.map { it.targetCents })
-        assertEquals(listOf(250_000L, 5_500_000L, null, null), drafts.map { it.remainingCents })
+        // A reward and a target are not progress: the last tracker takes its earned amount from the bar (0), not $300.
+        assertEquals(listOf(150_000L, 2_000_000L, null, null, 0L), drafts.map { it.earnedCents })
+        assertEquals(listOf(400_000L, 7_500_000L, 600_000L, null, 300_000L), drafts.map { it.targetCents })
+        assertEquals(listOf(250_000L, 5_500_000L, null, null, 300_000L), drafts.map { it.remainingCents })
+    }
+
+    @Test
+    fun halfYearPeriodsAreNotReadAsMonthly() {
+        assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("Up to ${'$'}150 every six months"))
+        assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("${'$'}50 every 6 months"))
+        assertEquals(PeriodLength.MONTHLY, ChaseBenefitsReader.periodOf("${'$'}10 monthly"))
     }
 
     @Test
@@ -100,6 +109,7 @@ class ChaseBenefitsReaderTest {
 
         val unreadable = """{"type":"chaseUnreadable","nonce":"n","why":"navigation","step":"more"}"""
         assertEquals(BridgeMessage.ChaseUnreadable("navigation", "more"), BridgeProtocol.parse(unreadable, "n", pageUrl = page, benefits = spec))
+        assertEquals(BridgeMessage.ChaseUnreadable("overflow", "page"), BridgeProtocol.parse(unreadable.replace("navigation", "overflow").replace("\"more\"", "\"page\""), "n", pageUrl = page, benefits = spec))
         assertNull(BridgeProtocol.parse(unreadable.replace("navigation", "secret"), "n", pageUrl = page, benefits = spec))
         assertNull(BridgeProtocol.parse(unreadable.replace("\"more\"", "\"/web/x\""), "n", pageUrl = page, benefits = spec))
     }

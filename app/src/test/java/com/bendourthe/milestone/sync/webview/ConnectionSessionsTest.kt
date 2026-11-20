@@ -126,6 +126,22 @@ class ConnectionSessionsTest {
     }
 
     @Test
+    fun removingTheProgramSignsOutEveryAdditionalSignIn() = runTest {
+        val legacy = subject().legacy("chase", CardSegment.PERSONAL, 1)!!
+        val second = (subject().add("chase", CardSegment.BUSINESS, 2) as ConnectionSessions.AddResult.Added).connection
+        val third = (subject().add("chase", CardSegment.PERSONAL, 3) as ConnectionSessions.AddResult.Added).connection
+        listOf(legacy, second, third).forEach { sessions.markConnected(it.connectionId, 4); vault.saved += it.connectionId }
+
+        subject().signOutAllAdditional("chase")
+
+        // The legacy sign-in is left to the program's own sign-out, which runs next.
+        assertEquals(listOf("chase"), cards.connections("chase").map { it.connectionId })
+        assertEquals(setOf("chase"), sessions.records.keys)
+        assertEquals(setOf("chase"), vault.saved)
+        assertEquals(setOf("clear:program_chase_2", "clear:program_chase_3"), calls.filter { it.startsWith("clear:") }.toSet())
+    }
+
+    @Test
     fun startupCleanupKeepsAdditionalSignInProfilesAndDeletesUntrackedOnes() = runTest {
         subject().legacy("chase", CardSegment.PERSONAL, 1)
         subject().add("chase", CardSegment.BUSINESS, 2)

@@ -151,6 +151,39 @@ class ChaseBenefitsFixtureTest {
     }
 
     @Test
+    fun anAccountWithMoreCardsThanAnyCaptureIsReadEvenWhenEachSwitchReloadsThePage() = runBlocking {
+        variants += "reload"
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val inventory = read.inventories.single()
+        assertTrue(inventory.complete)
+        assertEquals(10, inventory.cards.size)
+        assertEquals(inventory.cards.map { it.bindingHash }.toSet(), read.bindingBenefits.keys)
+        assertEquals(listOf("Synthetic perk 10"), read.bindingBenefits.getValue(inventory.cards.last().bindingHash).map { it.title })
+    }
+
+    @Test
+    fun aCardSelectorThatListsItsCardsInBatchesIsReadInFull() = runBlocking {
+        variants += "batch"
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        assertEquals(listOf("Synthetic Reserve", "Synthetic Freedom"), read.inventories.single().cards.map { it.name })
+        assertEquals(2, read.bindingBenefits.size)
+    }
+
+    @Test
+    fun aCardWithMoreRowsThanTheCapIsLeftUnreadInsteadOfTruncated() = runBlocking {
+        variants += "overflow"
+        val read = read(listOf(personal))
+
+        val inventory = read.inventories.single()
+        assertEquals(2, inventory.cards.size)
+        assertEquals(setOf(inventory.cards[0].bindingHash), read.bindingBenefits.keys)
+    }
+
+    @Test
     fun aMissingMoreControlStopsWithoutAnInventory() = runBlocking {
         variants += "nomore"
 

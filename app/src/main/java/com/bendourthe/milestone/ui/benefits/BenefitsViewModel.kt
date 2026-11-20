@@ -105,6 +105,9 @@ data class CardPageUi(
     val alerts: List<BenefitAlertUi> = emptyList(),
     val listFreshnessNote: String? = null,
     val source: CardPageSource? = null,
+    /** True on a program with Personal and Business tiles (ADR-0009), where [segment] can be changed by the user. */
+    val segmented: Boolean = false,
+    val segment: CardSegment? = null,
 )
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
@@ -228,8 +231,22 @@ class BenefitsViewModel(
     /** One card's page, or null once the card is no longer stored (removed from the account or signed out). */
     fun card(key: CardKey): Flow<CardPageUi?> =
         combine(cards.observeCards(key.programId), cards.observeBenefits(key), preferences(key), settingsErrors) { list, benefits, prefs, errors ->
-            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs)) }
+            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs),
+                segmented = catalog.program(key.programId)?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE, segment = it.segment) }
         }
+
+    /** The user's Personal or Business choice for one card; it wins over the sign-ins' declarations and survives refreshes. */
+    fun setSegment(key: CardKey, segment: CardSegment) {
+        viewModelScope.launch {
+            try {
+                cards.setCardSegmentOverride(key, segment)
+                settingsErrors.update { it - key }
+            } catch (error: Exception) {
+                if (error is CancellationException) throw error
+                settingsErrors.update { it + (key to "Could not save this change. Please try again.") }
+            }
+        }
+    }
 
     private fun cardsWithBenefits(programId: String): Flow<List<Triple<Card, List<Benefit>, BenefitsDisplayPreferences>>> =
         cards.observeCards(programId).flatMapLatest { list ->

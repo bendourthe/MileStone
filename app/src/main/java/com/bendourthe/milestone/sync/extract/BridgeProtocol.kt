@@ -271,7 +271,7 @@ object BridgeProtocol {
         "chaseBenefits" to setOf("type", "nonce", "control", "groups", "trackers", "ready"),
         "chaseUnreadable" to setOf("type", "nonce", "why", "step"),
     )
-    private val CHASE_WHY = setOf("navigation", "timeout", "switch", "noSuchCard", "structure")
+    private val CHASE_WHY = setOf("navigation", "timeout", "switch", "noSuchCard", "structure", "overflow")
     private val CHASE_STEPS = setOf("card", "more", "benefits", "page")
 
     private fun parseChase(type: String, json: JsonObject): BridgeMessage? = when (type) {

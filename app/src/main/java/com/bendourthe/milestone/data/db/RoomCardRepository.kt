@@ -83,6 +83,10 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
         val previous = connection.inventoryReadEpochMs
         if (previous != null && readEpochMs <= previous) return InventoryOutcome.STALE
         val own = dao.coverageOf(connection.connectionId).associateBy { it.bindingHash }
+        // Replacing every card at once would delete them with their benefits, preferences and reminder history.
+        if (inventory.complete && own.isNotEmpty() && inventory.cards.isNotEmpty() && inventory.cards.none { it.bindingHash in own }) {
+            return InventoryOutcome.UNMATCHED
+        }
         var nextSort = dao.maxSortOrder(programId) + 1
         val listed = LinkedHashSet<String>()
         for (source in inventory.cards) {

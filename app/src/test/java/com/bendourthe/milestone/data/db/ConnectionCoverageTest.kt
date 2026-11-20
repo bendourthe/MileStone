@@ -112,16 +112,28 @@ class ConnectionCoverageTest {
 
     @Test
     fun completeRefreshDropsOnlyThisConnectionsCoverageAndDeletesOnlyUnreachableCards() = runTest {
-        apply(personal, 10, true, source(1), source(2))
+        apply(personal, 10, true, source(1), source(2), source(5))
         apply(business, 20, true, source(1), source(3))
 
-        // Personal no longer lists card 1 (still reached by Business) and card 2 (reached by nobody else).
-        apply(personal, 30, true, source(4))
+        // Personal keeps card 5 and no longer lists card 1 (still reached by Business) and card 2 (reached by nobody else).
+        apply(personal, 30, true, source(5), source(4))
 
         val remaining = chase()
-        assertEquals(setOf(hash(1), hash(3), hash(4)), remaining.flatMap { db.cardDao().coverageOfCard("chase", it.cardId) }.map { it.bindingHash }.toSet())
-        assertEquals(3, remaining.size)
+        assertEquals(setOf(hash(1), hash(3), hash(4), hash(5)), remaining.flatMap { db.cardDao().coverageOfCard("chase", it.cardId) }.map { it.bindingHash }.toSet())
+        assertEquals(4, remaining.size)
         assertEquals(CardSegment.BUSINESS, cardFor(1).segment)
+    }
+
+    @Test
+    fun aCompleteListSharingNoCardWithTheConnectionsCoverageChangesNothing() = runTest {
+        apply(personal, 10, true, source(1), source(2))
+        val before = chase()
+
+        assertEquals(InventoryOutcome.UNMATCHED, apply(personal, 20, true, source(7), source(8)))
+        assertEquals(before, chase())
+        // One shared card is enough to trust the list: the others are a real change.
+        assertEquals(InventoryOutcome.APPLIED, apply(personal, 30, true, source(1), source(8)))
+        assertEquals(setOf(cardFor(1).cardId, cardFor(8).cardId), chase().map { it.cardId }.toSet())
     }
 
     @Test

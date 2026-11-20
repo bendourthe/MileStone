@@ -68,6 +68,12 @@ enum class InventoryOutcome {
 
     /** The inventory repeated a binding hash; nothing changed. */
     REJECTED_DUPLICATE,
+
+    /**
+     * A complete inventory shared no card with what the connection already covers, which looks like the issuer's
+     * card controls changing identity rather than every card changing at once; nothing changed.
+     */
+    UNMATCHED,
 }
 
 /** The issuer sign-ins the owner has added. */

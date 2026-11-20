@@ -956,6 +956,7 @@
     var startedAt = Date.now();
     var cardsSent = !config.listCards;
     var lastCards = null;
+    var cardsSince = 0;
     var signature = null;
     var stableSince = Date.now();
 
@@ -1112,6 +1113,9 @@
     }
 
     function postRead(controlId, reason) {
+      // More than the caps allow would be a silent partial list: report it so the card keeps its stored benefits.
+      if (deepQuery(s.group).length > CHASE_MAX_GROUPS || deepQuery(s.row).length > CHASE_MAX_ROWS ||
+          deepQuery(s.tracker).length > CHASE_MAX_TRACKERS) return unreadable('overflow', 'page');
       finish({
         type: 'chaseBenefits',
         control: controlId,
@@ -1151,7 +1155,10 @@
         if (!sheetOptions().length) return openSheet();
         var read = readCards();
         var key = JSON.stringify(read);
-        if (key !== lastCards) { lastCards = key; return; }
+        if (key !== lastCards) { lastCards = key; cardsSince = Date.now(); return; }
+        // A sheet that renders its options in batches must stay unchanged for the stability window before its list
+        // counts as complete, since a complete list can remove cards.
+        if (Date.now() - cardsSince < CHASE_STABLE_MS) return;
         cardsSent = true;
         var current = read.cards.filter(function (card) { return card.selected; })[0];
         chaseNote = { step: 'read', at: Date.now(), selected: current ? current.control : null };

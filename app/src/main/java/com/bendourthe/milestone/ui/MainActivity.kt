@@ -69,6 +69,7 @@ class MainActivity : ComponentActivity() {
                     container.accounts,
                     container.syncManager.state,
                     signOut = { container.signOut(it) },
+                    signOutAll = { container.signOutAll(it) },
                     requestRefreshAll = {
                         container.scope.launch {
                             container.vault.statuses.value.filterValues { it.blocked }.keys.forEach { container.vault.unblock(it) }

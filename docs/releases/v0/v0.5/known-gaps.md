@@ -3,7 +3,7 @@
 **Project**: MileStone
 **Status**: in-progress
 **Last updated**: 2026-11-20
-**Open items**: 28
+**Open items**: 36
 
 ## v0.5.0
 
@@ -12,7 +12,7 @@
 | Category | Open | Resolved |
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
-| Deferred (DF) | 28 | 0 |
+| Deferred (DF) | 36 | 0 |
 | Bugs / regressions (BG) | 0 | 0 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 0 |
@@ -383,6 +383,63 @@
 
 - **Migrated from**: v0.4.0#DF-28 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
+
+#### DF-29 - Chase live navigation and timing unproven
+
+- **Source phase**: v0.5.0 Phase 3 (T007-T009)
+- **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Definition of Done (live Chase reads within the 120000 ms budget)
+- **Reason**: The Chase reader passes the synthetic fixture on the emulator and counts all 8 private captured pages (252 rows), but the live path (dashboard card entry, More, Benefits, card selector sheet) and its timing have not run against the real site. The traversal-timing review was superseded without a live run.
+- **Suggested next step**: Owner live acceptance on the phone: three Chase refreshes, each read logged within 120000 ms with count-only lines; on a stop, compare the logged page kind and reason with the captured structure before changing selectors.
+
+#### DF-30 - Extra sign-in success depends on the Rewards balance
+
+- **Source phase**: v0.5.0 Phase 4 (T010)
+- **Plan reference**: docs/releases/v0/v0.5/development/history/2026-11-20-v0.5.0-phase-4-personal-business.md, Plan delta
+- **Reason**: An extra Chase sign-in is recorded as signed in when the site shows the Chase Rewards balance. A business-only login might not show it, and the sign-in would then stay "not signed in".
+- **Suggested next step**: Owner adds a second (business) sign-in during live acceptance; if it stays "not signed in", record success on reaching the signed-in dashboard instead.
+
+#### DF-31 - Card-selector option ids are masked in captures
+
+- **Source phase**: v0.5.0 Phase 3 (T008)
+- **Plan reference**: docs/releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json
+- **Reason**: The sanitizer masks the selector sheet's radio ids with '#', so the private-capture test checks id presence only. The reader binds cards through an HMAC of the option id, which assumes the live id is stable across visits.
+- **Suggested next step**: During live acceptance, refresh twice and confirm the same cards keep their benefits (no duplicate cards); if cards duplicate, bind on the card name and ending instead.
+- **Mitigation in v0.5.0**: a complete list that shares no card with a sign-in's coverage now changes nothing (`InventoryOutcome.UNMATCHED`), so changing ids cannot delete every card. The cost is that an account whose cards are all genuinely replaced at once keeps the old cards until a later list shares one.
+
+#### DF-32 - Welcome offers are not classified from Chase text
+
+- **Source phase**: v0.5.0 Phase 5 (T019 Goal-vs-codebase review)
+- **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Goal ("welcome information") and T008
+- **Reason**: Chase rows map to listed benefits and the progress bar to a spend tracker; nothing marks a row or tracker as the welcome offer. The plan allows manual welcome setup where the source does not expose it, and that path is unchanged.
+- **Suggested next step**: During live acceptance, note whether Chase labels the welcome offer; if it does, classify that wording as the welcome tracker.
+
+#### DF-33 - No way to link two cards the app keeps apart
+
+- **Source phase**: v0.5.0 Phase 5 (T019)
+- **Plan reference**: ADR-0009 identity rules; T004
+- **Reason**: When a binding is ambiguous, the app keeps cards separate rather than merging them, and there is no user action to link them.
+- **Suggested next step**: Add a "Same card as" action only if the owner sees a duplicate during live acceptance.
+
+#### DF-34 - Any phone or number field on the path ends the read as signed out
+
+- **Source phase**: v0.5.0 Phase 5 (T018 adversarial pass)
+- **Plan reference**: Phase 3 security review (identity-check stop)
+- **Reason**: The script stops on any visible tel or number input, or a radio outside the selector, to avoid answering an identity check. A quick-pay amount field or a survey on the dashboard would make every Chase read stop as signed out. No data is lost.
+- **Suggested next step**: If live reads stop as signed out while the site is signed in, narrow the check to code fields and radios inside dialogs or forms.
+
+#### DF-35 - The first sign-in returns as Personal after it is signed out
+
+- **Source phase**: v0.5.0 Phase 5 (T018)
+- **Plan reference**: T005, T010
+- **Reason**: Signing out the first Chase sign-in while extra sign-ins remain deletes its connection row; it is recreated as Personal on the next sync, so a Business declaration must be set again.
+- **Suggested next step**: Keep the row and its declaration and clear only its coverage.
+
+#### DF-36 - Chase timing beyond the fixtures
+
+- **Source phase**: v0.5.0 Phase 5 (T018)
+- **Plan reference**: Owner Generalization Requirement (21+ cards, lazy inventories)
+- **Reason**: A selector with more than 20 cards is posted as incomplete (no removals) and not tested; a ten-card account that reloads per card read in 25.4 s on the emulator, but larger accounts may reach the 120000 ms budget, leaving later cards unread until the next refresh.
+- **Suggested next step**: Add a 21-card fixture case; read the live per-card time from count-only logs during acceptance.
 
 ### Resolved
 

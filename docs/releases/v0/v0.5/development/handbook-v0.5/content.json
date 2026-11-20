@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-20T09:21:46.712566+00:00",
+  "review": "Content review of the v0.5.0 Chase changes against the code. overview.md: intro, domain (local card id, Connections.kt), data.catalog (CHASE_BENEFITS), data.db version 5 tables and migration, sync.webview (ChaseBenefitsSource, ConnectionSessions), sync.extract (ChaseBenefitsReader, BindingHasher), Runtime Flow step 6 (Chase read, page limit, UNMATCHED, overflow) and step 4 (removal signs out extra sign-ins), Benefits Display (tiles, Show under menu, up to 4 sign-ins), Privacy (HMAC binding under a no-backup key), Tests. benefits-reader.md is renamed Benefits Reader with Chase Path and Chase Sign-ins and Coverage sections. Claims were checked against ChaseBenefitsSource.kt (MIN_CONNECTION_MS 20000, MIN_CARD_MS 8000, BASE_PAGES 8, PAGES_PER_CARD 2), ConnectionSessions.kt (MAX_CONNECTIONS 4), extract.js (caps 30/150/20, CHASE_STABLE_MS 2000), RoomCardRepository.applyInventory, and SyncManager (no benefits read on KEEP_ALIVE).",
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/benefits-reader.md",
+    "docs/handbooks/README.md",
+    "docs/handbooks/handbooks.json",
+    "docs/handbooks/_sources/overview/model.json"
+  ],
+  "added_inputs": [
+    "app/src/main/java/com/bendourthe/milestone/domain/Connections.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/db/Migrations.kt",
+    "app/src/main/java/com/bendourthe/milestone/sync/extract/ChaseBenefitsReader.kt",
+    "app/src/main/java/com/bendourthe/milestone/sync/extract/BindingHasher.kt",
+    "app/src/main/java/com/bendourthe/milestone/sync/webview/ChaseBenefitsSource.kt",
+    "app/src/main/java/com/bendourthe/milestone/sync/webview/ConnectionSessions.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt",
+    "docs/decisions/0009-chase-benefits.md"
+  ],
+  "qualification_scope": "Handbook only; application, hosted CI and release qualification are separate."
+}

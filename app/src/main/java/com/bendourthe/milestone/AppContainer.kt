@@ -198,6 +198,13 @@ class AppContainer(context: Context) {
         if (!connectionSessions.afterLegacySignOut(programId)) syncManager.clearCards(programId)
     }
 
+    /** Removing a program signs out every one of its sign-ins, the additional ones included. */
+    suspend fun signOutAll(programId: String) {
+        syncManager.stop(programId)
+        connectionSessions.signOutAllAdditional(programId)
+        signOut(programId)
+    }
+
     init {
         vaultLoad.start()
         // Benefit reminders: their channel and the daily check (refreshOnOpen catches up a day the phone missed).

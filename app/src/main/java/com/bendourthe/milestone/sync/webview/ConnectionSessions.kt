@@ -79,6 +79,11 @@ class ConnectionSessions(
         return true
     }
 
+    /** Before [programId] is removed: signs out every additional sign-in, so no profile, session or saved sign-in outlives it. */
+    suspend fun signOutAllAdditional(programId: String) {
+        connections.connections(programId).filterNot(::isLegacy).forEach { signOutAdditional(it) }
+    }
+
     /** Profile names that startup cleanup must keep for [programId]'s additional sign-ins. */
     suspend fun additionalProfiles(programId: String): Set<String> =
         connections.connections(programId).filterNot(::isLegacy).map { profileName(it.connectionId) }.toSet()

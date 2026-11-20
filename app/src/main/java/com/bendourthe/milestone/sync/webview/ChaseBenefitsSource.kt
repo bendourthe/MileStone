@@ -77,10 +77,9 @@ class ChaseBenefitsSource(
             }
             result.inventory?.let(inventories::add)
             read.putAll(result.benefits)
-            if (result.stop == BenefitsStop.BUDGET) {
-                stop = BenefitsStop.BUDGET
-                break
-            }
+            // A stopped sign-in (page limit, renderer loss, or its own time) leaves later sign-ins to the shared
+            // deadline, which the loop checks before starting each one.
+            if (result.stop == BenefitsStop.BUDGET) stop = BenefitsStop.BUDGET
             if (result.stop == BenefitsStop.SIGNED_OUT) stop = stop ?: BenefitsStop.SIGNED_OUT
         }
         return BenefitsRead(null, emptyMap(), stop = stop, inventories = inventories, bindingBenefits = read)
@@ -122,10 +121,11 @@ class ChaseBenefitsSource(
                 if (!isMainFrame || done.isCompleted) return@addWebMessageListener
                 if (message.data == READY) {
                     pages++
-                    // A page that keeps reloading (for example a full load restarting the path) stops this connection.
-                    if (pages > MAX_PAGES) {
+                    // A page that keeps reloading stops this connection. The limit grows with the listed cards, since a
+                    // site may reload the page for each card; after the list, stopping leaves the rest unread (BUDGET).
+                    if (pages > BASE_PAGES + PAGES_PER_CARD * (cards?.size ?: 0)) {
                         unreadable = "navigation"
-                        return@addWebMessageListener finish(null)
+                        return@addWebMessageListener finish(if (cards == null) null else BenefitsStop.BUDGET)
                     }
                     reply = proxy
                     sendConfig()
@@ -253,8 +253,11 @@ class ChaseBenefitsSource(
         /** A connection or a card is started only with at least this much budget left. */
         private const val MIN_CONNECTION_MS = 20_000L
         private const val MIN_CARD_MS = 8_000L
-        /** Page loads (ready messages) one connection may use: dashboard, card, Benefits, plus slack. */
-        private const val MAX_PAGES = 8
+        /** Page loads (ready messages) one connection may use before its card list: dashboard, card, Benefits, plus slack. */
+        private const val BASE_PAGES = 8
+
+        /** Extra page loads allowed per listed card; the shared deadline still bounds the whole read. */
+        private const val PAGES_PER_CARD = 2
 
         private val random = java.security.SecureRandom()
 

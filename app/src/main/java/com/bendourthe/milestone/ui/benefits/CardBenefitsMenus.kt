@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckBox
 import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
 import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,12 +19,30 @@ import androidx.compose.ui.semantics.stateDescription
 import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.BenefitsSort
 import com.bendourthe.milestone.domain.CardKey
+import com.bendourthe.milestone.domain.CardSegment
+
+private val CardSegment.label get() = if (this == CardSegment.PERSONAL) "Personal" else "Business"
 
 @Composable
 internal fun CardBenefitsMenus(key: CardKey, preferences: BenefitsDisplayPreferences, enabled: Boolean,
-                               onSort: (BenefitsSort) -> Unit, onCompletedLast: (Boolean) -> Unit) {
+                               onSort: (BenefitsSort) -> Unit, onCompletedLast: (Boolean) -> Unit,
+                               segment: CardSegment? = null, onSegment: ((CardSegment) -> Unit)? = null) {
     var sorting by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
     var filtering by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
+    var moving by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
+    if (onSegment != null) Box {
+        IconButton(onClick = { moving = true }, enabled = enabled, modifier = Modifier.testTag("cardSegment")) {
+            Icon(Icons.Filled.SwapHoriz, contentDescription = "Show under: ${segment?.label ?: "not set"}")
+        }
+        DropdownMenu(expanded = moving, onDismissRequest = { moving = false }, modifier = Modifier.testTag("cardSegmentMenu")) {
+            CardSegment.entries.forEach { choice ->
+                DropdownMenuItem(text = { Text("Show under ${choice.label}") },
+                    leadingIcon = { if (choice == segment) Icon(Icons.Filled.Check, contentDescription = null) },
+                    modifier = Modifier.semantics { selected = choice == segment },
+                    onClick = { if (choice != segment) onSegment(choice); moving = false })
+            }
+        }
+    }
     Box {
         IconButton(onClick = { sorting = true }, enabled = enabled, modifier = Modifier.testTag("benefitsSort")) {
             Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "Sort benefits: ${preferences.sort.label}")

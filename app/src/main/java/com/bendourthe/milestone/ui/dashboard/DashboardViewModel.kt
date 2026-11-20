@@ -78,6 +78,8 @@ class DashboardViewModel(
     private val clock: () -> Long = System::currentTimeMillis,
     private val locale: Locale = Locale.getDefault(),
     private val signOut: suspend (programId: String) -> Unit = {},
+    /** Removal signs out every sign-in of the program, the additional ones included. */
+    private val signOutAll: suspend (programId: String) -> Unit = signOut,
     private val requestRefreshAll: () -> Unit = {},
     openRefreshes: Flow<Set<String>> = emptyFlow(),
     private val requestRefresh: (programId: String) -> Unit = {},
@@ -137,7 +139,7 @@ class DashboardViewModel(
 
     fun remove(programId: String) {
         viewModelScope.launch {
-            signOut(programId)
+            signOutAll(programId)
             accounts.removeAccount(programId)
         }
     }

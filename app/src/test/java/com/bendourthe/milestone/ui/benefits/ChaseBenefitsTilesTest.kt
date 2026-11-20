@@ -98,6 +98,28 @@ class ChaseBenefitsTilesTest {
     }
 
     @Test
+    fun aChaseCardCanBeMovedToTheOtherTileFromItsPage() {
+        seed()
+        val key = com.bendourthe.milestone.domain.CardKey("chase", "c_0000000000000001")
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, key, onBack = {}, onGone = {}) } }
+
+        described("Show under: Personal").performClick()
+        rule.onNodeWithText("Show under Business").performClick()
+        rule.waitUntil(5_000) { cards.cards.value.first { it.key == key }.segment == CardSegment.BUSINESS }
+        described("Show under: Business").assertExists()
+    }
+
+    @Test
+    fun anAmexCardPageHasNoPersonalOrBusinessMenu() {
+        runBlocking { accounts.addAccount("amex", AccountStatus.CONNECTED, 1) }
+        cards.cards.value = listOf(Card("amex", "1005", "Synthetic Platinum", 0, now, now))
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, com.bendourthe.milestone.domain.CardKey("amex", "1005"), onBack = {}, onGone = {}) } }
+
+        rule.onNodeWithTag("benefitsSort").assertExists()
+        rule.onNodeWithTag("cardSegment").assertDoesNotExist()
+    }
+
+    @Test
     fun theSignInsSectionListsTheFirstSignInAndExplainsARefusedSecondOne() {
         seed()
         val repository = RoomCardRepository(db)

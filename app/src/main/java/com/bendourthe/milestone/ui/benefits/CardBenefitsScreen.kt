@@ -84,7 +84,8 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
         BenefitsHeader("Card benefits", showMark = false, actions = {
             onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
             CardBenefitsMenus(key, page?.preferences ?: com.bendourthe.milestone.domain.BenefitsDisplayPreferences(), page != null && page !== LOADING,
-                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) })
+                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) },
+                segment = page?.segment, onSegment = if (page?.segmented == true) { segment -> viewModel.setSegment(key, segment) } else null)
         }) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to Benefits") }
         }

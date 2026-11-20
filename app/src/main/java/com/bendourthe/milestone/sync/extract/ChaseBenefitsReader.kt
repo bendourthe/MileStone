@@ -33,6 +33,9 @@ object ChaseBenefitsReader {
     private val PAN = Regex("(?:\\d[_.:\\-]*){12}\\d")
     private val MONEY = Regex("\\$\\s?(\\d{1,3}(?:,\\d{3})*|\\d+)(?:\\.(\\d{2}))?")
 
+    /** An amount stated as progress toward another: "$1,500 of $4,000" or "$1,500 / $4,000". */
+    private val PROGRESS = Regex("\\$\\s?[\\d,]+(?:\\.\\d{2})?\\s*(?:of|/)\\s*\\$", RegexOption.IGNORE_CASE)
+
     fun isControl(value: String?): Boolean = value != null && CONTROL.matches(value) && !PAN.containsMatchIn(value)
 
     /** The sheet's cards; null when malformed. More than one selected card is malformed. */
@@ -105,9 +108,10 @@ object ChaseBenefitsReader {
         val max = obj.number("max") ?: return null
         val money = amounts(text)
         val target = money.maxOrNull()
-        // Earned only when the page states it: two amounts (spent and target), or a bar whose maximum is the target.
+        // Earned only when the page states it: "$X of $Y" or "$X / $Y", or a bar whose maximum is the target. Two
+        // amounts alone are not progress: "Earn $300 after you spend $3,000" names a reward and a target.
         val earned = when {
-            money.size >= 2 && money.first() <= money.last() -> money.first()
+            money.size >= 2 && money.first() <= money.last() && PROGRESS.containsMatchIn(text) -> money.first()
             target != null && max.value != null && value.value != null && Math.round(max.value * 100) == target -> Math.round(value.value * 100)
             else -> null
         }
@@ -132,9 +136,10 @@ object ChaseBenefitsReader {
     internal fun periodOf(text: String): PeriodLength? {
         val lower = text.lowercase()
         return when {
+            // Half-year forms first: "every 6 months" also contains "month".
+            "semi" in lower || "half" in lower || "6 months" in lower || "six months" in lower -> PeriodLength.HALF_YEAR
             "month" in lower -> PeriodLength.MONTHLY
             "quarter" in lower -> PeriodLength.QUARTERLY
-            "semi" in lower || "half" in lower || "6 months" in lower -> PeriodLength.HALF_YEAR
             "annual" in lower || "year" in lower -> PeriodLength.YEARLY
             else -> null
         }

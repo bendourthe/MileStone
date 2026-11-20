@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py (twice) and --check",
+  "result": "Two builds produce identical bytes; the check reports 'Handbook is current'.",
+  "output_sha256": "7238497b198347d483737bff0d986e6b6a44d0411b61de034d822b83451ea80c",
+  "prior_output_sha256": "5f1e5e52b50ef4c29086b8c7a8de0795c19f248d26f3c275b67ffc11309393d3",
+  "revision": "9aa5985d7098794862ef77a1f27749c0905d85fc",
+  "working_tree": "Phase 5 working tree, committed as the v0.5.0 Phase 5 commit",
+  "scope": "Reproducible handbook bytes only."
+}

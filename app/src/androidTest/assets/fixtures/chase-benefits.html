@@ -9,7 +9,7 @@
 <div id="app"></div>
 <script>
 // Synthetic, Chase-shaped single-page app (ADR-0009 structure). No real names, amounts, or identifiers.
-// The test serves this page with __VARIANT__ replaced by "two", "three", or "nomore".
+// The test serves this page with __VARIANT__ replaced by "two", "three", "nomore", "pay", "verify", "reload", "overflow", or "batch".
 (function () {
   var variant = '__VARIANT__';
   var cards = [
@@ -27,8 +27,22 @@
     cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
       { title: 'Business perks', rows: [ { title: 'Synthetic shipping credit', tag: 'activated', value: '$25 quarterly' } ] } ] });
   }
-  var selected = 0;
+  if (variant === 'overflow') {
+    // One more row than the script may post for a card.
+    cards[1].groups[0].rows = [];
+    for (var n = 1; n <= 151; n++) cards[1].groups[0].rows.push({ title: 'Synthetic row ' + n, tag: null, value: null });
+  }
+  if (variant === 'reload') {
+    // More cards than any captured account, and every card switch is a full page load.
+    for (var extra = 3; extra <= 10; extra++) {
+      cards.push({ id: 'ctl-extra-' + extra, name: 'Synthetic Card ' + extra, digits: String(1000 + extra), groups: [
+        { title: 'Card perks', rows: [ { title: 'Synthetic perk ' + extra, tag: null, value: null } ] } ] });
+    }
+  }
+  var selected = Number(new URLSearchParams(location.search).get('sel') || 0);
   var sheetOpen = false;
+  // "batch": the first time the sheet opens it lists one card, and the rest 1.2 s later.
+  var batching = variant === 'batch';
   var menuOpen = false;
   var busy = false;
   var app = document.getElementById('app');
@@ -67,12 +81,17 @@
     });
     var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ el('div', {}, [
       el('mds-progress-bar', { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
-    var sheet = sheetOpen ? el('div', { 'data-testid': 'card-selector-sheet', role: 'dialog' }, [ el('div', {}, [ el('ul', {}, cards.map(function (option, index) {
+    var listed = batching ? cards.slice(0, 1) : cards;
+    var sheet = sheetOpen ? el('div', { 'data-testid': 'card-selector-sheet', role: 'dialog' }, [ el('div', {}, [ el('ul', {}, listed.map(function (option, index) {
       var radio = el('input', { type: 'radio', id: option.id });
       radio.checked = index === selected;
       return el('li', { 'data-selected': String(index === selected) }, [ el('label', { onclick: function (event) {
         event.preventDefault();
         sheetOpen = false;
+        if (index !== selected && variant === 'reload') {
+          location.replace(location.pathname + '?sel=' + index + '#/benefits');
+          return;
+        }
         if (index !== selected) {
           selected = index;
           busy = true;
@@ -83,7 +102,9 @@
     })) ]) ]) : null;
     return el('div', { 'data-testid': 'benefits-hub-page', 'aria-busy': busy ? 'true' : 'false' }, [
       el('a', { 'data-testid': 'card-selector-button', role: 'button', href: '#/benefits', text: label(card), onclick: function (event) {
-        event.preventDefault(); sheetOpen = !sheetOpen; render(); } }),
+        event.preventDefault(); sheetOpen = !sheetOpen;
+        if (sheetOpen && batching) setTimeout(function () { batching = false; render(); }, 1200);
+        render(); } }),
       sheet,
       busy ? null : tracker
     ].concat(busy ? [] : groups));
