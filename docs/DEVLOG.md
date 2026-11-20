@@ -4,7 +4,7 @@ This is an **index**, not a log. One line per release, newest first, linking to 
 
 | Date | Version | Summary | Plan | History | Gaps |
 |---|---|---|---|---|---|
-| 2026-11-19 | v0.4.0 | Global Search and verified fixes published after green PR20; APK download verified; native closure pending | [plan](releases/v0/v0.4/plans/v0.4.0-global-search.md) | [history](releases/v0/v0.4/development/history/) | [gaps](releases/v0/v0.4/known-gaps.md) |
+| 2026-11-19 | v0.4.0 | Global Search and verified fixes published after green PR20; APK download verified; native closure pending | [plan](archives/v0/v0.4/plans/v0.4.0-global-search.md) | [history](archives/v0/v0.4/development/history/) | [gaps](archives/v0/v0.4/known-gaps.md) |
 | 2026-11-13 | v0.3.1 | Institution/card navigation, artwork, categories, sorting, acknowledgement and local welcome setup; owner verified and PR 11 integrated | [plan](archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md) | [history](archives/v0/v0.3/development/history/) | [gaps](archives/v0/v0.3/known-gaps.md) |
 | 2026-11-13 | v0.3.0 | Amex page readiness, late activity navigation, view-all lists, and section-scoped storage, verified on three live refreshes | [plan](archives/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md) | [history](archives/v0/v0.3/development/history/) | [gaps](archives/v0/v0.3/known-gaps.md) |
 | 2026-11-12 | v0.2.0 | Benefits tab for American Express cards with per-card benefit pages and credit reminders | [plan](archives/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md) | [history](archives/v0/v0.2/development/history/) | [gaps](archives/v0/v0.2/known-gaps.md) |
