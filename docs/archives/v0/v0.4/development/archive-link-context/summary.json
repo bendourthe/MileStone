@@ -1,0 +1,31 @@
+{
+  "purpose": "Local --link-checker adapter used by the native v0.4 minor archive (minor_close.py archive --apply), with its review and real-checkout qualification.",
+  "root_cause": "The official link-baseline.py diff infers directory renames from file renames. For docs/releases/v0/v0.4 -> docs/archives/v0/v0.4 it also inferred docs/releases -> docs/archives, projected the pre-existing missing target docs/releases/v0/implement-phase/references/completion-contract.md into docs/archives, and reported the unchanged target as newly broken. The first apply refused and rolled back.",
+  "adapter": {
+    "file": "checker.py",
+    "sha256": "aced3ea3dda59b137eae4aeb012cc81ab46fca3950133cc3eec7a4f6321ab715",
+    "method": "Delegates to the unchanged official checker. Verifies a complete single-directory move against git observations (HEAD tree before, index after, same HEAD) and gives every before-baseline source and target an exact rename-map entry, so inferred prefixes never apply to baseline rows. After-baseline rows are not filtered.",
+    "unit_tests": "test_checker.py: 10 passed"
+  },
+  "qualification": {
+    "file": "qualification.json",
+    "script": "qualify.py",
+    "checkout": "fresh detached worktree at abad182f835220615c7cc812b64a937dad16c2f2",
+    "replay": "baseline, staged git mv of the v0.4 tree, unstaged six-file repair, R-only rename map, baseline, diff (native order)",
+    "result": "12 of 12 checks passed",
+    "adapter_diff": "adapter-diff.json: newly_broken 0, the pre-existing missing target kept in original coordinates",
+    "official_countercontrol": "official-diff.json: newly_broken 1 on the same inputs (reproduces the refusal)",
+    "countercontrols": ["deliberate new broken link fails (exit 1, newly_broken 1)", "missing context exits 2", "tampered baseline exits 2", "stale index exits 2"]
+  },
+  "independent_review": {
+    "hides_real_break": "none found in the adapter",
+    "inherited_official_limit": "diff identity is (source, target) without link text, so a second broken link to an already broken target in the same file is not reported; present with or without the adapter",
+    "fail_closed_limits": ["targets of stationary files are projected too", "targets outside the repository root are rejected", "RuntimeError from the official rename-map parser is not caught (traceback, empty report, caller refuses)"],
+    "note": "context sidecar is a consistency check, not authentication; the caller uses a private temporary directory"
+  },
+  "apply": {
+    "intent": "archive-apply-intent-2.json",
+    "result": "archive-apply-result-2.json",
+    "outcome": "ARCHIVED v0.4 docs/releases/v0/v0.4 -> docs/archives/v0/v0.4 commit=d6e9840 links=112 mentions=17 files=6 residual_references=49 newly_broken=0"
+  }
+}

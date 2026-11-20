@@ -66,7 +66,7 @@
       "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardViewModel.kt": "7998c976b356a56e1e34a156f217ffdeb5ed07a6001b9cc0086d98927642ed1c",
       "scripts/validate.py": "ba81d71de44aa310db7fd82fa2b17e0b88e771298ef0cbe0b30af6926c7e1c78",
       "scripts/requirements-validation.txt": "e6a6afd3de9e80e490ac12026734290ca2f33ff22bc10fc4082bccd0d3c4c344",
-      "scripts/tests/test_validate.py": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
+      "scripts/tests/test_validate.py": "b7815464c9a24bd1127281e6e37f7f314eb23726de934f162cedc6f7d610c9ce",
       ".github/workflows/ci.yml": "a1dd126fe552a21fc440dd1d5db11db6139f001f66bc363318a64362017d485a",
       "docs/decisions/0001-login-bridge-sessions-fixtures-logging.md": "ad170042a66ce75df2e5a3ef1841349ace8edc7d3a04dd355dcf4c1e64158b02",
       ".gitleaks.toml": "96c17b1be8bb7259bcb010e0bee865eb95038438281ebdd7265166db3e1818af",
@@ -85,29 +85,29 @@
       "scripts/search_diagnostics.py": "3123202ef78e56ae808bef2b2c0cfcce20053d48193c7aa754721092ea0b5806",
       "scripts/tests/test_search_diagnostics.py": "e055d0d03e2cf8b707e9edfdd15fdd8d9d4eb654149b1414255657bfc1fb064c"
     },
-    "output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4"
+    "output_sha256": "5f1e5e52b50ef4c29086b8c7a8de0795c19f248d26f3c275b67ffc11309393d3"
   },
   "checks": {
-    "build": {
-      "status": "pass",
-      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/build.json",
-      "evidence_sha256": "c6b1e03208272d2f49c583496384d14fdcd0152bb850fb0e9ebf59b749dc78af"
-    },
     "content": {
       "status": "pass",
-      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/content.json",
-      "evidence_sha256": "aaeb2d9b029b53cef7e1cca2715c423c4338e86e019ae30bd2756aa57285a841"
+      "evidence": "docs/archives/v0/v0.4/development/handbook-close-v0.4/content.json",
+      "evidence_sha256": "f480e005e8e24f2004074bbe97674609c4e3304a97b535ca1684952e5fc4b339"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "docs/archives/v0/v0.4/development/handbook-close-v0.4/build.json",
+      "evidence_sha256": "9d32e0a7419ccd538fe35e41558f4bd12b5d91c8cbd7ebf10c83f1d16fd0cbbe"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/render.json",
-      "evidence_sha256": "2528d4135e45f6779f3fcaaa4b65df11214d88269becc05bd1a8886bc163d34c",
+      "evidence": "docs/archives/v0/v0.4/development/handbook-close-v0.4/render.json",
+      "evidence_sha256": "b75397cc6f8413f798cfd14a258e855b3de777f08630ee917ef668c3bbb9a6d2",
       "browser": "Chromium 156.0.8078.4",
-      "output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4"
+      "output_sha256": "5f1e5e52b50ef4c29086b8c7a8de0795c19f248d26f3c275b67ffc11309393d3"
     }
   },
   "limitations": [],
-  "qualification_scope": "Current uncommitted single-raster candidate handbook only. Application performance and delivery remain unqualified.",
+  "qualification_scope": "v0.4 closing candidate handbook only. Application performance and delivery remain unqualified.",
   "prior_evidence": [
     {
       "build": {
@@ -347,6 +347,29 @@
           "evidence_sha256": "8a52e736e85781623c9a74077640b66363b43df9c94fc23d5e6dad55524ad809",
           "browser": "Chromium 156.0.8078.4",
           "output_sha256": "2fe11f3328407c96cce0aea88e275350a0854914a743a80c6d57f26f45895fa2"
+        }
+      }
+    },
+    {
+      "git_revision": "d6e9840cc954c4a06e78ac39719b306bca0ca9cf",
+      "verification_sha256": "92e58e747032bb2ff4c678b23e5e233905012f7b6bb61ffad0a558791262c0b9",
+      "checks": {
+        "build": {
+          "status": "pass",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/build.json",
+          "evidence_sha256": "c6b1e03208272d2f49c583496384d14fdcd0152bb850fb0e9ebf59b749dc78af"
+        },
+        "content": {
+          "status": "pass",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/content.json",
+          "evidence_sha256": "aaeb2d9b029b53cef7e1cca2715c423c4338e86e019ae30bd2756aa57285a841"
+        },
+        "rendered": {
+          "status": "pass",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/render.json",
+          "evidence_sha256": "2528d4135e45f6779f3fcaaa4b65df11214d88269becc05bd1a8886bc163d34c",
+          "browser": "Chromium 156.0.8078.4",
+          "output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4"
         }
       }
     }

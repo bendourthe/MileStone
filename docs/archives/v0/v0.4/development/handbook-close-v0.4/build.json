@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py; python -B scripts/build_handbooks.py --check",
+  "result": "Rebuilt HTML; second check reports 'Handbook is current'. Diff versus the prior output is the handbook-inputs-sha256 meta value and the test_validate.py entry in the embedded input_hashes.",
+  "output_sha256": "5f1e5e52b50ef4c29086b8c7a8de0795c19f248d26f3c275b67ffc11309393d3",
+  "prior_output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4",
+  "revision": "d6e9840cc954c4a06e78ac39719b306bca0ca9cf",
+  "working_tree": "archive commit plus rebuilt overview.html, uncommitted",
+  "scope": "Reproducible handbook bytes only; application qualification remains separate."
+}
