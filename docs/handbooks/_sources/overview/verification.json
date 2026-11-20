@@ -90,17 +90,17 @@
   "checks": {
     "build": {
       "status": "pass",
-      "evidence": "docs/releases/v0/v0.4/development/handbook-ci18-raster/build.json",
+      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/build.json",
       "evidence_sha256": "c6b1e03208272d2f49c583496384d14fdcd0152bb850fb0e9ebf59b749dc78af"
     },
     "content": {
       "status": "pass",
-      "evidence": "docs/releases/v0/v0.4/development/handbook-ci18-raster/content.json",
+      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/content.json",
       "evidence_sha256": "aaeb2d9b029b53cef7e1cca2715c423c4338e86e019ae30bd2756aa57285a841"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/releases/v0/v0.4/development/handbook-ci18-raster/render.json",
+      "evidence": "docs/archives/v0/v0.4/development/handbook-ci18-raster/render.json",
       "evidence_sha256": "2528d4135e45f6779f3fcaaa4b65df11214d88269becc05bd1a8886bc163d34c",
       "browser": "Chromium 156.0.8078.4",
       "output_sha256": "5e1003628562740d7969c7c7c5daec8d580e8169b8d0d57afafbc1e238c9e4a4"
@@ -333,17 +333,17 @@
       "checks": {
         "build": {
           "status": "pass",
-          "evidence": "docs/releases/v0/v0.4/development/handbook-ci17-texture/build.json",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci17-texture/build.json",
           "evidence_sha256": "88048e0ab291dcf7c7ffaf5357f0c48d3a6bad8280020107876384545571a94c"
         },
         "content": {
           "status": "pass",
-          "evidence": "docs/releases/v0/v0.4/development/handbook-ci17-texture/content.json",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci17-texture/content.json",
           "evidence_sha256": "13e8b10f4ea2e7b9f7b509a0dd334c09d83dc8b502b7bbf25ea1bafa06c6fa39"
         },
         "rendered": {
           "status": "pass",
-          "evidence": "docs/releases/v0/v0.4/development/handbook-ci17-texture/render.json",
+          "evidence": "docs/archives/v0/v0.4/development/handbook-ci17-texture/render.json",
           "evidence_sha256": "8a52e736e85781623c9a74077640b66363b43df9c94fc23d5e6dad55524ad809",
           "browser": "Chromium 156.0.8078.4",
           "output_sha256": "2fe11f3328407c96cce0aea88e275350a0854914a743a80c6d57f26f45895fa2"
