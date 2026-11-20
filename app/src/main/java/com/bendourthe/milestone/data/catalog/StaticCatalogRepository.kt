@@ -1,6 +1,7 @@
 package com.bendourthe.milestone.data.catalog
 
 import com.bendourthe.milestone.domain.BalanceUnit
+import com.bendourthe.milestone.domain.BenefitsAdapter
 import com.bendourthe.milestone.domain.BenefitsSpec
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.CatalogSearch
@@ -153,6 +154,33 @@ class StaticCatalogRepository : CatalogRepository {
             ),
         )
 
+        /**
+         * Chase (ADR-0009). The Benefits page is a route of the signed-in dashboard whose address carries account
+         * parameters, so the read follows the owner's path instead: a card on the dashboard, then More, then Benefits.
+         * [moreLabel] and [benefitsLabel] are anchored, case-insensitive patterns for those two fixed interface labels.
+         * Page parts come from the 2026-11-15 captures: Chase's own test ids and stable class names, never hashed ones.
+         */
+        val CHASE_BENEFITS = BenefitsSpec(
+            entryUrl = "https://secure.chase.com/web/auth/dashboard",
+            host = "secure.chase.com",
+            paths = setOf("/web/auth/dashboard"),
+            selectors = mapOf(
+                "page" to "[data-testid=benefits-hub-page]",
+                "selectorButton" to "a[data-testid=card-selector-button]",
+                "sheet" to "[data-testid=card-selector-sheet]",
+                "sheetOption" to "li[data-selected]",
+                "group" to "ul[data-testid^=nonFeaturedBenefits-]",
+                "row" to "li.nonFeaturedListItem-listItem",
+                "rowTitle" to ".nfli-text > p:not(.nfli-text-tag)",
+                "rowTag" to ".nfli-text-tag",
+                "rowValue" to ".nfli-value",
+                "tracker" to "mds-progress-bar",
+                "moreLabel" to "^more$",
+                "benefitsLabel" to "^(card )?benefits$",
+            ),
+            adapter = BenefitsAdapter.CHASE,
+        )
+
         private val PROGRAMS = listOf(
             program(
                 "amex", "American Express", CREDIT_CARD, "AX", 0xFF006FCF, "pts",
@@ -172,6 +200,7 @@ class StaticCatalogRepository : CatalogRepository {
                 capability = xpath(CHASE_XPATH, "^https://secure\\.chase\\.com/web/auth/dashboard", "logon"),
                 popular = true,
                 textKeywords = setOf("chase"),
+                benefits = CHASE_BENEFITS,
             ),
             program(
                 "capitalone", "Capital One", CREDIT_CARD, "C1", 0xFF004977, "cash",

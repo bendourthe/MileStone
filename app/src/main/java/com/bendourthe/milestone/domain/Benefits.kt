@@ -224,6 +224,9 @@ interface CardRepository {
      */
     suspend fun applyConnectionInventory(inventory: ConnectionInventory, readEpochMs: Long): InventoryOutcome
 
+    /** The card a connection of [programId] reaches through [bindingHash]; null when none or ambiguous. */
+    suspend fun cardKeyForBinding(programId: String, bindingHash: String): CardKey?
+
     /** Sets or (with null) clears the owner's tile override for one card. */
     suspend fun setCardSegmentOverride(cardKey: CardKey, segment: CardSegment?)
 

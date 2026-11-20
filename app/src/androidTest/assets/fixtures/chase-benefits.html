@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Synthetic Chase-shaped benefits</title>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// Synthetic, Chase-shaped single-page app (ADR-0009 structure). No real names, amounts, or identifiers.
+// The test serves this page with __VARIANT__ replaced by "two", "three", or "nomore".
+(function () {
+  var variant = '__VARIANT__';
+  var cards = [
+    { id: 'ctl-alpha', name: 'Synthetic Reserve', digits: '1111', groups: [
+      { title: 'Maximize credits', rows: [
+        { title: 'Synthetic travel credit', tag: 'activated', value: '$300 annual' },
+        { title: 'Synthetic dining credit', tag: null, value: '$10 monthly' } ] },
+      { title: 'Membership perks', rows: [
+        { title: 'Synthetic lounge access', tag: 'redeemed', value: null } ] } ],
+      tracker: { value: 1500, max: 4000, text: 'Spend $1,500 of $4,000 toward the welcome bonus' } },
+    { id: 'ctl-beta', name: 'Synthetic Freedom', digits: '2222', groups: [
+      { title: 'Boost points', rows: [ { title: 'Synthetic bonus category', tag: null, value: '5x points' } ] } ] }
+  ];
+  if (variant === 'three') {
+    cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
+      { title: 'Business perks', rows: [ { title: 'Synthetic shipping credit', tag: 'activated', value: '$25 quarterly' } ] } ] });
+  }
+  var selected = 0;
+  var sheetOpen = false;
+  var menuOpen = false;
+  var busy = false;
+  var app = document.getElementById('app');
+
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (key) {
+      if (key === 'text') node.textContent = attrs[key];
+      else if (key === 'onclick') node.addEventListener('click', attrs[key]);
+      else node.setAttribute(key, attrs[key]);
+    });
+    (children || []).forEach(function (child) { if (child) node.appendChild(child); });
+    return node;
+  }
+
+  function go(route) {
+    history.pushState({}, '', location.pathname + '#' + route);
+    render();
+  }
+
+  function route() { return (location.hash || '#/dashboard').slice(1); }
+
+  function label(card) { return card.name + ' (...' + card.digits + ')'; }
+
+  function benefitsPage() {
+    var card = cards[selected];
+    var groups = card.groups.map(function (group, index) {
+      var rows = group.rows.map(function (row) {
+        return el('div', { role: 'listitem' }, [ el('li', { 'class': 'nonFeaturedListItem-listItem', role: 'link' }, [
+          el('div', { 'class': 'nonFeaturedListItem-container' }, [
+            el('div', { 'class': 'nfli-text' }, [ el('p', { text: row.title }), row.tag ? el('p', { 'class': 'nfli-text-tag', text: row.tag }) : null ]),
+            row.value ? el('div', { 'class': 'nfli-value', 'data-testid': 'value' }, [ el('p', { text: row.value }) ]) : null ]) ]) ]);
+      });
+      return el('div', {}, [ el('h2', { 'class': 'non-featured-benefit-title', text: group.title }),
+        el('div', { 'class': 'nonFeaturedBenefit' }, [ el('ul', { 'data-testid': 'nonFeaturedBenefits-G' + index, role: 'list' }, rows) ]) ]);
+    });
+    var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ el('div', {}, [
+      el('mds-progress-bar', { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
+    var sheet = sheetOpen ? el('div', { 'data-testid': 'card-selector-sheet', role: 'dialog' }, [ el('div', {}, [ el('ul', {}, cards.map(function (option, index) {
+      var radio = el('input', { type: 'radio', id: option.id });
+      radio.checked = index === selected;
+      return el('li', { 'data-selected': String(index === selected) }, [ el('label', { onclick: function (event) {
+        event.preventDefault();
+        sheetOpen = false;
+        if (index !== selected) {
+          selected = index;
+          busy = true;
+          setTimeout(function () { busy = false; render(); }, 300);
+        }
+        render();
+      } }, [ radio, el('span', { text: label(option) }) ]) ]);
+    })) ]) ]) : null;
+    return el('div', { 'data-testid': 'benefits-hub-page', 'aria-busy': busy ? 'true' : 'false' }, [
+      el('a', { 'data-testid': 'card-selector-button', role: 'button', href: '#/benefits', text: label(card), onclick: function (event) {
+        event.preventDefault(); sheetOpen = !sheetOpen; render(); } }),
+      sheet,
+      busy ? null : tracker
+    ].concat(busy ? [] : groups));
+  }
+
+  function render() {
+    var path = route();
+    app.innerHTML = '';
+    if (path === '/dashboard' && variant === 'verify') {
+      // An identity check offering where to send a code: the read must never choose one.
+      app.appendChild(el('fieldset', {}, ['Text ...1234', 'Call ...1234'].map(function (text, index) {
+        var radio = el('input', { type: 'radio', id: 'deliver-' + index });
+        radio.addEventListener('click', function () { document.title = 'forbidden-click'; });
+        return el('label', {}, [ radio, el('span', { text: text }) ]);
+      })));
+      app.appendChild(el('button', { text: 'Synthetic Reserve (...1111)', onclick: function () { document.title = 'forbidden-click'; } }));
+      return;
+    }
+    if (path === '/dashboard') {
+      if (variant === 'pay') {
+        app.appendChild(el('button', { text: 'Pay from TOTAL CHECKING (...9999)', onclick: function () { document.title = 'forbidden-click'; go('/pay'); } }));
+      }
+      cards.forEach(function (card) {
+        app.appendChild(el('button', { text: label(card), onclick: function () { go('/account'); } }));
+      });
+    } else if (path === '/account') {
+      if (variant !== 'nomore') app.appendChild(el('button', { text: 'More', onclick: function () { menuOpen = true; render(); } }));
+      if (menuOpen) app.appendChild(el('div', { role: 'menu' }, [ el('button', { role: 'menuitem', text: 'Benefits', onclick: function () { menuOpen = false; go('/benefits'); } }) ]));
+    } else if (path === '/benefits') {
+      app.appendChild(benefitsPage());
+    }
+  }
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && sheetOpen) { sheetOpen = false; render(); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>

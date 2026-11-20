@@ -917,6 +917,304 @@
     };
   }
 
+  // ---- Chase benefits read mode (ADR-0009) -----------------------------------------------------------------------
+  // Follows the owner's path to the Benefits page (a card on the dashboard, then More, then Benefits), lists the cards
+  // in the card-selector sheet, switches cards through that sheet, and reads one card's benefit rows and progress
+  // trackers. Presses only those existing controls. Never reads input values, cookies, storage, or link addresses, and
+  // strips identifier-like text. A selector control's id goes only to the app's bridge, which hashes it and never
+  // stores or logs it.
+  var CHASE_SCAN_MS = 400;
+  var CHASE_STABLE_MS = 2000;
+  var CHASE_STEP_CAP_MS = 15000;
+  var CHASE_SWITCH_CAP_MS = 15000;
+  var CHASE_MAX_CARDS = 20;
+  var CHASE_MAX_GROUPS = 30;
+  var CHASE_MAX_ROWS = 150;
+  var CHASE_MAX_TRACKERS = 20;
+  var CHASE_CLICKABLE = 'a, button, [role=button], [role=link], [role=menuitem], [role=tab], mds-button, mds-link, ' +
+    'mds-list-item, mds-tile, mds-navigation-bar-item';
+  // A card ending as Chase shows it: "(...1234)", "...1234", or "ending in 1234".
+  var CHASE_ENDING = /(?:\.{3}|…|ending in\s*)\s*(\d{4,5})\b/i;
+  // A card entry never names an action or a deposit account.
+  var CHASE_ACTION = /\b(pay|payment|transfer|send|move|deposit|activate|enroll|redeem|lock|replace|text|call|email|code|checking|savings)\b/i;
+  var CHASE_SHEET_CLICK_MS = 1500;
+  var CHASE_CONTROL_ID = /^[A-Za-z0-9_:.\-]{1,256}$/;
+  var CHASE_PAN = /(?:\d[_.:\-]*){12}\d/;
+  // Survives the dashboard's single-page route changes on this document: the navigation step and switch in progress.
+  var chaseNote = null;
+
+  function chaseLabel(el) {
+    var text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    if (text && text.length <= 60) return text;
+    var named = el.getAttribute && (el.getAttribute('accessible-text') || el.getAttribute('label') || el.getAttribute('text'));
+    return named ? named.replace(/\s+/g, ' ').trim() : text;
+  }
+
+  function startChaseBenefits(config) {
+    var s = config.selectors || {};
+    var done = false;
+    var startedAt = Date.now();
+    var cardsSent = !config.listCards;
+    var lastCards = null;
+    var signature = null;
+    var stableSince = Date.now();
+
+    function finish(message) {
+      if (done) return;
+      done = true;
+      clearInterval(timer);
+      if (message) post(message);
+    }
+
+    function unreadable(why, step) {
+      finish({ type: 'chaseUnreadable', why: why, step: step || null, nonce: config.nonce });
+    }
+
+    function one(selector) { return deepQuery(selector).filter(isVisible)[0] || null; }
+
+    // The first visible control whose own label matches [pattern] (an anchored, case-insensitive pattern).
+    function control(pattern) {
+      var re = new RegExp(pattern, 'i');
+      var all = deepQuery(CHASE_CLICKABLE);
+      for (var i = 0; i < all.length; i++) {
+        if (!isVisible(all[i])) continue;
+        var text = chaseLabel(all[i]);
+        if (text && re.test(text)) return all[i];
+      }
+      return null;
+    }
+
+    // The first visible card entry on the dashboard: a control whose label shows a card ending and names no action,
+    // outside any form or dialog (so never a payment, transfer, or verification-code choice). Innermost match wins.
+    function cardEntry() {
+      var all = deepQuery(CHASE_CLICKABLE).filter(function (el) {
+        var text = (el.textContent || '').replace(/\s+/g, ' ');
+        return text.length <= 200 && CHASE_ENDING.test(text) && !CHASE_ACTION.test(text) && isVisible(el) &&
+          !el.closest('form, [role=dialog], [role=alertdialog]');
+      });
+      for (var i = 0; i < all.length; i++) {
+        var inner = all.some(function (other) { return other !== all[i] && all[i].contains(other); });
+        if (!inner) return all[i];
+      }
+      return null;
+    }
+
+    // Anything that asks the owner for input other than the card-selector sheet: an entry field, or choices such as
+    // where to send a verification code. The read never answers these; it stops as signed out.
+    function needsOwner() {
+      var codeFields = deepQuery('[autocomplete="one-time-code"], input[type=tel], input[type=number], mds-text-input[type=tel]');
+      if (codeFields.some(isVisible)) return true;
+      var sheet = one(s.sheet);
+      return deepQuery('input[type=radio]').some(function (radio) {
+        return isVisible(radio) && !(sheet && sheet.contains(radio));
+      });
+    }
+
+    // A fingerprint of where the page is: its address and the labels of its visible controls.
+    function where() {
+      var labels = deepQuery(CHASE_CLICKABLE).filter(isVisible).slice(0, 80).map(chaseLabel).join('|');
+      return location.href.length + ':' + location.hash + ':' + labels.length + ':' + labels.slice(0, 400);
+    }
+
+    function sheetOptions() {
+      var sheet = one(s.sheet);
+      return sheet ? Array.prototype.slice.call(sheet.querySelectorAll(s.sheetOption)) : [];
+    }
+
+    function readCards() {
+      var options = sheetOptions();
+      var cards = [];
+      var complete = options.length > 0 && options.length <= CHASE_MAX_CARDS;
+      options.slice(0, CHASE_MAX_CARDS).forEach(function (li) {
+        var radio = li.querySelector('input[type=radio]');
+        var id = radio && radio.id;
+        var text = (li.textContent || '').replace(/\s+/g, ' ').trim();
+        var ending = CHASE_ENDING.exec(text) || /(\d{4,5})\D*$/.exec(text);
+        if (!radio || !id || !CHASE_CONTROL_ID.test(id) || CHASE_PAN.test(id)) { complete = false; return; }
+        var bare = ending ? text.replace(ending[0], '') : text;
+        var name = stripIdentifiers(bare.replace(/\(\s*\)/g, '').replace(/\s+/g, ' ').trim()).slice(0, 80);
+        if (!name) { complete = false; return; }
+        cards.push({ control: id, name: name, lastDigits: ending ? ending[1] : null, selected: !!radio.checked });
+      });
+      var selected = cards.filter(function (card) { return card.selected; }).length;
+      return { cards: cards, complete: complete && selected === 1 };
+    }
+
+    // The selector button is pressed at most once per CHASE_SHEET_CLICK_MS, so an animating sheet is never toggled back.
+    var lastSheetClick = 0;
+    function pressSelector() {
+      var button = one(s.selectorButton);
+      if (!button || Date.now() - lastSheetClick < CHASE_SHEET_CLICK_MS) return;
+      lastSheetClick = Date.now();
+      button.click();
+    }
+
+    function openSheet() {
+      if (!sheetOptions().length) pressSelector();
+    }
+
+    function closeSheet() {
+      if (!sheetOptions().length) return;
+      var sheet = one(s.sheet);
+      var escape = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
+      (sheet || document).dispatchEvent(escape);
+      if (sheetOptions().length) pressSelector();
+    }
+
+    function rowsSignature() {
+      return deepQuery(s.group).length + ':' + deepQuery(s.row).length + ':' + deepQuery(s.tracker).length;
+    }
+
+    function busy() {
+      var page = one(s.page);
+      return !page || !!page.querySelector('[aria-busy=true]');
+    }
+
+    function readGroups() {
+      var groups = [];
+      var rows = 0;
+      deepQuery(s.group).slice(0, CHASE_MAX_GROUPS).forEach(function (list) {
+        var holder = list.parentElement && list.parentElement.parentElement;
+        var heading = holder ? holder.querySelector('h2') : null;
+        var items = [];
+        Array.prototype.slice.call(list.querySelectorAll(s.row)).forEach(function (row) {
+          if (rows >= CHASE_MAX_ROWS) return;
+          var title = clean(row.querySelector(s.rowTitle), 120);
+          if (!title) return;
+          rows++;
+          items.push({ title: title, tag: clean(row.querySelector(s.rowTag), 40), value: clean(row.querySelector(s.rowValue), 60) });
+        });
+        groups.push({ title: clean(heading, 80), rows: items });
+      });
+      return groups;
+    }
+
+    function number(el, names) {
+      for (var i = 0; i < names.length; i++) {
+        var raw = el.getAttribute(names[i]);
+        var value = raw === null ? NaN : parseFloat(raw);
+        if (isFinite(value) && value >= 0 && value < 1e9) return value;
+      }
+      return null;
+    }
+
+    function readTrackers() {
+      return deepQuery(s.tracker).slice(0, CHASE_MAX_TRACKERS).map(function (bar) {
+        // Only the tracker's own link or its immediate parent, so unrelated page text (card names, endings) stays out.
+        var holder = bar.closest('a') || bar.parentElement || bar;
+        var text = clean(holder, 300);
+        return {
+          text: text ? text.replace(CHASE_ENDING, '').replace(/\s+/g, ' ').trim() || null : null,
+          value: number(bar, ['value', 'aria-valuenow', 'progress']),
+          max: number(bar, ['max', 'aria-valuemax']),
+        };
+      });
+    }
+
+    function postRead(controlId, reason) {
+      finish({
+        type: 'chaseBenefits',
+        control: controlId,
+        groups: readGroups(),
+        trackers: readTrackers(),
+        ready: { groups: deepQuery(s.group).length, rows: Math.min(deepQuery(s.row).length, CHASE_MAX_ROWS),
+                 trackers: Math.min(deepQuery(s.tracker).length, CHASE_MAX_TRACKERS), reason: reason },
+        nonce: config.nonce,
+      });
+    }
+
+    // One step per call. Each step's press is followed by a visible change (a new address or a different set of
+    // visible controls) before the next step looks for its control, so it never acts on the page it just left.
+    function navigate() {
+      if (!chaseNote || chaseNote.step === 'read') chaseNote = { step: 'card', at: Date.now(), from: null };
+      var overStep = Date.now() - chaseNote.at > CHASE_STEP_CAP_MS;
+      if (chaseNote.from !== null && where() === chaseNote.from) return overStep ? unreadable('navigation', chaseNote.step) : undefined;
+      var next = { card: 'more', more: 'benefits', benefits: 'page' }[chaseNote.step];
+      if (!next) return overStep ? unreadable('navigation', 'page') : undefined;
+      var target = chaseNote.step === 'card' ? cardEntry() : control(chaseNote.step === 'more' ? s.moreLabel : s.benefitsLabel);
+      if (!target) return overStep ? unreadable('navigation', chaseNote.step) : undefined;
+      var before = where();
+      chaseNote = { step: next, at: Date.now(), from: before };
+      target.click();
+    }
+
+    function tick() {
+      if (done) return;
+      if (hasVisiblePasswordField() || needsOwner()) return finish({ type: 'login', nonce: config.nonce });
+      if (!one(s.page)) return navigate();
+      if (chaseNote && chaseNote.step !== 'read' && chaseNote.step !== 'switch') chaseNote = { step: 'read', at: Date.now() };
+      var shape = rowsSignature();
+      if (shape !== signature) { signature = shape; stableSince = Date.now(); }
+      var steady = Date.now() - stableSince >= CHASE_STABLE_MS && !busy();
+
+      if (!cardsSent) {
+        if (!sheetOptions().length) return openSheet();
+        var read = readCards();
+        var key = JSON.stringify(read);
+        if (key !== lastCards) { lastCards = key; return; }
+        cardsSent = true;
+        var current = read.cards.filter(function (card) { return card.selected; })[0];
+        chaseNote = { step: 'read', at: Date.now(), selected: current ? current.control : null };
+        closeSheet();
+        post({ type: 'chaseCards', cards: read.cards, complete: read.complete, nonce: config.nonce });
+        return;
+      }
+
+      var target = config.targetControl || null;
+      if (target && (!chaseNote || chaseNote.selected !== target)) {
+        if (chaseNote && chaseNote.step === 'switch' && chaseNote.target === target) {
+          var overSwitch = Date.now() - chaseNote.at > CHASE_SWITCH_CAP_MS;
+          var changed = shape !== chaseNote.before;
+          if (sheetOptions().length && !overSwitch) return;
+          if (changed && steady) { chaseNote = { step: 'read', at: Date.now(), selected: target }; return; }
+          if (!overSwitch) return;
+          // Equal-looking cards may keep the same structure: confirm the switch in the sheet itself.
+          if (!sheetOptions().length) return openSheet();
+          var confirm = sheetOptions().filter(function (li) { var r = li.querySelector('input[type=radio]'); return r && r.id === target && r.checked; });
+          closeSheet();
+          if (!confirm.length) return unreadable('switch', null);
+          chaseNote = { step: 'read', at: Date.now(), selected: target };
+          return;
+        }
+        if (!sheetOptions().length) return openSheet();
+        var option = sheetOptions().filter(function (li) { var r = li.querySelector('input[type=radio]'); return r && r.id === target; })[0];
+        if (!option) { closeSheet(); return unreadable('noSuchCard', null); }
+        var radio = option.querySelector('input[type=radio]');
+        if (radio.checked) { closeSheet(); chaseNote = { step: 'read', at: Date.now(), selected: target }; return; }
+        chaseNote = { step: 'switch', at: Date.now(), target: target, before: shape };
+        (option.querySelector('label') || radio).click();
+        return;
+      }
+
+      var selectedControl = chaseNote && chaseNote.selected;
+      if (!selectedControl) {
+        // A page reached without a card list or a target: learn the selected card from the sheet before reading.
+        if (!sheetOptions().length) return openSheet();
+        var picked = readCards().cards.filter(function (card) { return card.selected; })[0];
+        closeSheet();
+        if (!picked) return unreadable('structure', null);
+        chaseNote = { step: 'read', at: Date.now(), selected: picked.control };
+        return;
+      }
+      if (sheetOptions().length) return closeSheet();
+      if (steady && deepQuery(s.group).length > 0) return postRead(selectedControl, 'stable');
+      if (Date.now() - startedAt > config.timeoutMs) {
+        return deepQuery(s.group).length > 0 && !busy() ? postRead(selectedControl, 'cap') : unreadable('timeout', null);
+      }
+    }
+
+    var timer = setInterval(function () {
+      tick();
+      if (!done && Date.now() - startedAt > config.timeoutMs + 2 * CHASE_SCAN_MS) unreadable('timeout', null);
+    }, CHASE_SCAN_MS);
+    tick();
+    return {
+      nonce: config.nonce,
+      stop: function () { finish(null); },
+      command: function () {},
+    };
+  }
+
   bridge.onmessage = function (event) {
     var config;
     try {
@@ -931,6 +1229,11 @@
     if (config && config.mode === 'benefits' && typeof config.nonce === 'string' && config.selectors) {
       if (run) run.stop();
       run = startBenefits(config);
+      return;
+    }
+    if (config && config.mode === 'chaseBenefits' && typeof config.nonce === 'string' && config.selectors) {
+      if (run) run.stop();
+      run = startChaseBenefits(config);
       return;
     }
     if (!config || typeof config.expression !== 'string' || typeof config.nonce !== 'string') return;

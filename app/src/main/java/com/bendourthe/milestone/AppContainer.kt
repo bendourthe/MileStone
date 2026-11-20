@@ -28,6 +28,10 @@ import com.bendourthe.milestone.sync.WebViewHost
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBalanceSource
 import com.bendourthe.milestone.sync.webview.HeadlessWebViewBenefitsSource
 import com.bendourthe.milestone.sync.webview.ConnectionSessions
+import com.bendourthe.milestone.sync.webview.ChaseBenefitsSource
+import com.bendourthe.milestone.sync.AdapterBenefitsSource
+import com.bendourthe.milestone.sync.extract.BindingHasher
+import com.bendourthe.milestone.domain.CardSegment
 import com.bendourthe.milestone.sync.webview.SessionProfiles
 import com.bendourthe.milestone.sync.webview.WebViewProfileBackend
 import com.bendourthe.milestone.data.credentials.FileCredentialVault
@@ -84,6 +88,7 @@ class AppContainer(context: Context) {
 
     val sessionProfiles: SessionProfiles by lazy { SessionProfiles(profiles, sessions, accounts) }
     val connectionSessions: ConnectionSessions by lazy { ConnectionSessions(profiles, sessions, vault, connections) }
+    private val bindingHasher: BindingHasher by lazy { BindingHasher.fromFile(File(appContext.noBackupFilesDir, BindingHasher.FILE_NAME)) }
 
     val vault: FileCredentialVault by lazy { FileCredentialVault(File(appContext.noBackupFilesDir, FileCredentialVault.DIRECTORY), KeystoreSecretBox()) }
     private val vaultLoad = scope.async(start = CoroutineStart.LAZY) { vault.load() }
@@ -155,7 +160,17 @@ class AppContainer(context: Context) {
             canSignInAutomatically = ::canSignInAutomatically,
             onResult = ::onSyncResult,
             scheduledBefore = { now -> settings.refreshInterval.first().lastAt(now) },
-            benefitsSource = HeadlessWebViewBenefitsSource(profiles),
+            benefitsSource = AdapterBenefitsSource(
+                HeadlessWebViewBenefitsSource(profiles),
+                ChaseBenefitsSource(
+                    profiles, sessions,
+                    connections = { program ->
+                        connectionSessions.legacy(program.programId, CardSegment.PERSONAL, System.currentTimeMillis())
+                        connections.connections(program.programId)
+                    },
+                    hasher = { bindingHasher },
+                ),
+            ),
             cards = cards,
             onCardBenefitsStored = benefitsDisplaySettings::recordReadOutcome,
         )

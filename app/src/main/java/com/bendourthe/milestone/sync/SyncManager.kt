@@ -4,6 +4,7 @@ import com.bendourthe.milestone.DiagnosticLog
 import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.AccountStatus
+import com.bendourthe.milestone.domain.BenefitDraft
 import com.bendourthe.milestone.domain.BenefitPeriods
 import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.CardKey
@@ -274,16 +275,15 @@ class SyncManager(
                 val now = clock()
                 val readDate = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
                 read.cards?.let { repository.applyCardList(programId, it, now) }
+                // Connection-based programs (ADR-0009): each connection's card list, coverage-scoped.
+                val outcomes = read.inventories.map { repository.applyConnectionInventory(it, now) }
                 val knownCards = repository.observeCards(programId).first().map { it.key }.toSet()
                 var applied = 0
-                read.benefits.forEach { (digits, drafts) ->
-                    if (!CardKey.isValidLastDigits(digits)) return@forEach
-                    val key = CardKey(programId, digits)
+                suspend fun store(key: CardKey, drafts: List<BenefitDraft>, sections: Set<BenefitSection>) {
+                    if (sections.isEmpty() || key !in knownCards) return
                     val dated = drafts.map { draft ->
                         BenefitPeriods.parse(draft.periodLabel, readDate)?.let { draft.copy(periodEnd = it.end, periodLength = it.length) } ?: draft
                     }
-                    val sections = read.sectionsOf(digits)
-                    if (sections.isEmpty() || key !in knownCards) return@forEach
                     repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now, sections)
                     applied++
                     try {
@@ -296,6 +296,15 @@ class SyncManager(
                     } catch (_: Exception) {
                         DiagnosticLog.w(TAG, "Benefits for $programId saved; section freshness unavailable")
                     }
+                }
+                read.benefits.forEach { (digits, drafts) ->
+                    if (CardKey.isValidLastDigits(digits)) store(CardKey(programId, digits), drafts, read.sectionsOf(digits))
+                }
+                read.bindingBenefits.forEach { (binding, drafts) ->
+                    repository.cardKeyForBinding(programId, binding)?.let { store(it, drafts, BenefitsRead.ALL_SECTIONS) }
+                }
+                if (read.inventories.isNotEmpty()) {
+                    DiagnosticLog.i(TAG, "Benefits for $programId: connections=${read.inventories.size} outcomes=${outcomes.joinToString(",")}")
                 }
                 DiagnosticLog.i(
                     TAG,

@@ -184,6 +184,8 @@ class FakeCards : CardRepository {
     override suspend fun applyConnectionInventory(inventory: ConnectionInventory, readEpochMs: Long): InventoryOutcome =
         InventoryOutcome.UNKNOWN_CONNECTION
 
+    override suspend fun cardKeyForBinding(programId: String, bindingHash: String): CardKey? = null
+
     override suspend fun setCardSegmentOverride(cardKey: CardKey, segment: CardSegment?) {
         cards.update { list -> list.map { if (it.key == cardKey) it.copy(segment = segment) else it } }
     }

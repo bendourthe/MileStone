@@ -143,6 +143,9 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
         dao.setSegment(programId, cardId, derived)
     }
 
+    override suspend fun cardKeyForBinding(programId: String, bindingHash: String): CardKey? =
+        boundElsewhere(programId, bindingHash)?.let { CardKey(programId, it) }
+
     override suspend fun setCardSegmentOverride(cardKey: CardKey, segment: CardSegment?) =
         dao.setSegmentOverride(cardKey.programId, cardKey.cardId, segment?.name)
 
