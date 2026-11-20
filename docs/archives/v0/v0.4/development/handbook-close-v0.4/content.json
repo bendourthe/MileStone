@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-20T04:08:36.108911+00:00",
+  "review": "Input-delta review after the native v0.4 archive. The single changed input is a test file; no handbook Markdown source names it or the two moved synthetic evidence paths, so every reviewed claim is unchanged. Visible content is byte-identical apart from the two embedded hashes.",
+  "changed_inputs": [
+    "scripts/tests/test_validate.py"
+  ],
+  "changed_input_detail": {
+    "scripts/tests/test_validate.py": {
+      "before_sha256": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
+      "after_sha256": "b7815464c9a24bd1127281e6e37f7f314eb23726de934f162cedc6f7d610c9ce",
+      "change": "two synthetic evidence literals docs/releases/v0/v0.4/development/* -> docs/archives/v0/v0.4/development/*",
+      "test_result": "python -m pytest scripts/tests/test_validate.py: 29 passed, 6 subtests passed"
+    }
+  },
+  "unchanged_input_count": 81,
+  "prior_receipt_sha256": "92e58e747032bb2ff4c678b23e5e233905012f7b6bb61ffad0a558791262c0b9",
+  "qualification_scope": "Handbook only; no latency, hosted CI or release qualification claim."
+}

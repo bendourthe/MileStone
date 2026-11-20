@@ -1,0 +1,27 @@
+{
+  "attempt": 2,
+  "created_utc": "2026-11-20T04:05:00Z",
+  "previous_attempt": {
+    "intent": "reports/close-v040-preparation/archive-apply-intent.json",
+    "result": "reports/close-v040-preparation/archive-apply-result.json",
+    "outcome": "refused link-check-failed (1 newly broken), rolled back; receipts preserved unchanged"
+  },
+  "repo": "C:/Users/BEDOURTHE/Documents/Benjamin/MileStone-v0.4.0-global-search",
+  "branch": "chore/close-v0.4",
+  "head_before": "abad182f835220615c7cc812b64a937dad16c2f2",
+  "status_before": "clean",
+  "authority": "archive-minor class in the bound v0.4 run record (session 01a1f012-9252-7311-bbdc-dd1c371405fd)",
+  "command": "python -I C:/Users/BEDOURTHE/.nexus-hub/scripts/minor_close.py archive --minor v0.4 --plan <owner>/docs/releases/v0/v0.4/plans/v0.4.0-global-search.md --session 01a1f012-9252-7311-bbdc-dd1c371405fd --repo <owner> --link-checker <owner>/reports/close-v040-link-context/checker.py --apply",
+  "absolute_paths_reason": "console-window-guard false positive on scripts/validate.py:125 blocks runs with the owner checkout as working folder; --plan resolves to the same repository-relative path",
+  "link_checker": {
+    "adapter": "reports/close-v040-link-context/checker.py",
+    "qualification": "reports/close-v040-link-context/qualification-20261120T035429Z/qualification.json (12/12 checks passed)",
+    "unit_tests": "10 passed",
+    "independent_review": "no hiding path in the adapter; fail-closed limits only; inherited official limit: link text not part of diff identity"
+  },
+  "preconditions": {
+    "attribution_check": "VERIFIED",
+    "edit_guard": "six repair files unchanged under the bound session",
+    "dry_run": "exit 0, WOULD ARCHIVE v0.4 docs/releases/v0/v0.4 -> docs/archives/v0/v0.4 links=112 mentions=17 files=6 residual_references=49"
+  }
+}
