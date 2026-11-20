@@ -1,0 +1,51 @@
+{
+  "recorded_utc": "2026-11-18T03:44:27.078709+00:00",
+  "status": "PARTIAL_IDENTITY_EVIDENCE_NO_GO",
+  "approval_question": "call_2597a6cb9e3840b1a21418abb2677ed8",
+  "reader_sha256": "dce5f81ac7f45925b2233bc5761fa348f40141b4b6482d208dc7d02a081dc236",
+  "wrapper_sha256": "81977f652efb14abf1e6f9fec762b7069858001a79c85cb2f3d5524b82b8e3b3",
+  "approved_max_snapshots": 3,
+  "actual_snapshots": 1,
+  "actual_metadata_http_requests": 2,
+  "execution_cap_seconds": 180,
+  "owner_ready_snapshots": [
+    "first_personal_benefits_selector_closed"
+  ],
+  "shape": {
+    "path_segments": 3,
+    "fragment_kind": "route",
+    "fragment_segments": 3,
+    "query_pairs": 0,
+    "fragment_query_pairs": 7,
+    "recognized_identity_query_pairs": 0,
+    "recognized_identity_fragment_query_pairs": 0,
+    "benefits_route_qualified": true
+  },
+  "anonymous_candidates": [
+    {
+      "scope": "fragment_path",
+      "slot": 0,
+      "group": "G1"
+    },
+    {
+      "scope": "fragment_path",
+      "slot": 1,
+      "group": "G2"
+    },
+    {
+      "scope": "fragment_path",
+      "slot": 2,
+      "group": "G3"
+    }
+  ],
+  "session_exit": 0,
+  "owned_capture_forward_removed": true,
+  "raw_values_saved": false,
+  "issuer_actions": 0,
+  "DOM_access": 0,
+  "main_app_debugger_access": 0,
+  "stable_card_identity_proven": false,
+  "source_completeness_proven": false,
+  "reason": "The bounded execution cap ended before another owner page-ready confirmation; no extra snapshot or extension occurred.",
+  "next_required_evidence": "Fresh separately bounded and approved A/B/A comparison; candidate changes alone do not prove stable card identity."
+}

@@ -1,0 +1,40 @@
+{
+  "status": "INCOMPLETE",
+  "approval_question_id": "call_0cb3130ae4f74d1583a7d5f5e78a3148",
+  "snapshots": [
+    {
+      "profile": "linked_business",
+      "status": "candidate_only",
+      "counts": {
+        "roots": 25,
+        "nodes": 1295,
+        "radios": 3,
+        "checked": 1,
+        "accepted": 3,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": false
+        },
+        {
+          "group": "G2",
+          "checked": true
+        },
+        {
+          "group": "G3",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "profile": "personal_only",
+      "status": "unavailable",
+      "reason_code": "version_metadata",
+      "page_evaluation_attempted": false
+    }
+  ],
+  "owned_capture_forward_removed": true,
+  "conclusion": "Second read failed at local debugger version metadata before the selector read. A stale forwarding target or pooled local HTTP connection is a hypothesis, not a proven cause. No cross-profile identity conclusion."
+}

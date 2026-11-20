@@ -1,0 +1,63 @@
+{
+  "status": "Offline-qualified structural diagnostic; no live authorization or source GO",
+  "purpose": "Determine live Chase selector control shape before revising exact-card identity extraction. Existing reader cannot establish binding.",
+  "entry_point": "reports/chase-structure-v2-20261116/capture_structure_session.mjs",
+  "script_sha256": {
+    "capture_structure_probe.mjs": "226dc09325b7256d813624d3ba23cdd87d37ffc3eb6a64c126519fa4382ea594",
+    "capture_structure_session.mjs": "38207df2139c92249c6356baa2f2a25352c380ef09ac4d38e18fa708733f3e58",
+    "test_capture_structure_dom.mjs": "a5afd58cc564a68d3281152c778d14e7db515135476f3283963afe94c5fd5471",
+    "test_capture_structure_session.mjs": "6b0d4c9b6a4c3b11cdf763c15056867189e7c65b41fcd60c65888260d2948347"
+  },
+  "proposed_live_scope": {
+    "package": "com.bendourthe.milestone.capture",
+    "serial": "66301FDDJ003SU",
+    "host": "secure.chase.com",
+    "snapshots": 1,
+    "seconds_after_owner_page_ready_confirmation": 60,
+    "additional_cleanup_seconds": 8,
+    "stdin_actions": [
+      "probe",
+      "stop"
+    ],
+    "main_app_debugger": false,
+    "issuer_actions": false
+  },
+  "observations_allowed": [
+    "fixed tag/control counts",
+    "fixed attribute presence counts",
+    "value property presence without value access",
+    "selected true/false/other counts",
+    "fixed input type and role counts"
+  ],
+  "privacy": {
+    "page_text": false,
+    "identifier_values": false,
+    "input_values": false,
+    "credentials_cookies_balances": false,
+    "metadata_titles_urls": "Transport memory only; not persisted or printed",
+    "saved_output": "Fixed statuses, bounded counts and cleanup outcome only"
+  },
+  "proof": {
+    "actual_dom_expression": "PASS, zero forbidden reads; main-frame/origin/visibility/20,000-node/100-root controls",
+    "session_cases": 27,
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0,
+    "failed_eighth_regression": "RED: consumed10commands rather than8; GREEN after moving termination after error handling",
+    "independent_review_lenses": [
+      "correctness",
+      "maintainability",
+      "testing",
+      "project-standards",
+      "security",
+      "reliability",
+      "adversarial"
+    ]
+  },
+  "residual_limits": [
+    "Closed shadow roots are inaccessible",
+    "Structural attributes do not establish card identity, segment, completeness or offer eligibility",
+    "Forced process termination or allocation timeout without a returned port requires scoped manual forward verification; unknown cleanup is never reported as success"
+  ],
+  "source_GO": false,
+  "owner_consent": "Pending new genuine approval and Capture page-ready confirmation; previous approvals expired"
+}

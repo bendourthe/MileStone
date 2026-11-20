@@ -1,0 +1,187 @@
+{
+  "status": "Offline structure only; not a card identity or source-completeness GO",
+  "captures": [
+    {
+      "capture": 1,
+      "control_counts": {
+        "mds-select": 1,
+        "mds-select-option": 4,
+        "input": 1
+      },
+      "known_attribute_presence_counts": {
+        "mds-select.name": 1,
+        "mds-select.value": 1,
+        "mds-select-option.value": 4,
+        "mds-select-option.selected": 4,
+        "input.type": 1,
+        "input.name": 1,
+        "input.value": 1,
+        "input.slot": 1
+      },
+      "input_type_counts": {
+        "hidden": 1
+      },
+      "role_counts": {},
+      "selected_attribute_shapes": {
+        "true": 1,
+        "false": 3
+      }
+    },
+    {
+      "capture": 2,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 3,
+      "control_counts": {
+        "input": 3
+      },
+      "known_attribute_presence_counts": {
+        "input.id": 3,
+        "input.type": 3
+      },
+      "input_type_counts": {
+        "radio": 3
+      },
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 4,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 5,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 6,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 7,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 8,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 9,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 10,
+      "control_counts": {
+        "mds-select": 1,
+        "mds-select-option": 2,
+        "input": 1
+      },
+      "known_attribute_presence_counts": {
+        "mds-select.name": 1,
+        "mds-select.id": 1,
+        "mds-select.value": 1,
+        "mds-select-option.value": 2,
+        "mds-select-option.selected": 2,
+        "mds-select-option.id": 2,
+        "input.type": 1,
+        "input.name": 1,
+        "input.value": 1,
+        "input.slot": 1
+      },
+      "input_type_counts": {
+        "hidden": 1
+      },
+      "role_counts": {},
+      "selected_attribute_shapes": {
+        "true": 1,
+        "false": 1
+      }
+    },
+    {
+      "capture": 11,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 12,
+      "control_counts": {
+        "input": 2
+      },
+      "known_attribute_presence_counts": {
+        "input.id": 2,
+        "input.type": 2
+      },
+      "input_type_counts": {
+        "radio": 2
+      },
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 13,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 14,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 15,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    },
+    {
+      "capture": 16,
+      "control_counts": {},
+      "known_attribute_presence_counts": {},
+      "input_type_counts": {},
+      "role_counts": {},
+      "selected_attribute_shapes": {}
+    }
+  ],
+  "privacy": "Fixed tag/attribute names, fixed type/role enums and bounded counts only; no text, values, paths, account keys, endings or URLs emitted. No phone access.",
+  "next_question": "Does the open live selector expose the observed option value as a reflected attribute while editable search controls are present? A structural-only probe can test this without reading any input or identifier value."
+}

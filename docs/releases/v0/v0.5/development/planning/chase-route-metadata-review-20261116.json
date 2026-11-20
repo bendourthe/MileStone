@@ -1,0 +1,59 @@
+{
+  "status": "PASS_FOR_DECLARED_OFFLINE_SCOPE",
+  "observed_at": "2026-11-17T06:28:41.654318+00:00",
+  "files_sha256": {
+    "capture_route_metadata_probe.mjs": "173ea66b116cf83399999decceb25f9ec08dadb619e53006f41af30f7bf8e293",
+    "capture_route_metadata_session.mjs": "81977f652efb14abf1e6f9fec762b7069858001a79c85cb2f3d5524b82b8e3b3",
+    "test_route_session.mjs": "6c9eec0abbb4a6765d6faf7af77105a7d5a71be8cb39f02fd7ed161da7206187"
+  },
+  "closed_lenses": [
+    "correctness",
+    "security",
+    "testing",
+    "maintainability",
+    "project standards",
+    "reliability",
+    "adversarial"
+  ],
+  "actual_offline_results": [
+    {
+      "status": "PASS",
+      "checks": [
+        "A-B-A_slot_equality",
+        "fixed_safe_output",
+        "scope",
+        "encoding",
+        "duplicate_keys",
+        "segment_pair_body_caps",
+        "unknown_auth_values_ignored",
+        "PAN_like_values_excluded",
+        "no_candidate_on_login",
+        "exact_two_HTTP_endpoints",
+        "wrong_package",
+        "ambiguous_targets"
+      ],
+      "actual_network_calls": 0,
+      "actual_ADB_calls": 0,
+      "WebSocket_calls": 0,
+      "CDP_commands": 0,
+      "DOM_access": 0
+    },
+    {
+      "status": "PASS",
+      "cases": 16,
+      "actual_ADB_calls": 0,
+      "actual_network_calls": 0,
+      "maximum_snapshots": 3,
+      "failed_third_stops": true,
+      "cleanup_deadline_verified": true
+    }
+  ],
+  "red_then_green": [
+    "301-second window accepted by copied initial wrapper; final wrapper rejects before ADB",
+    "mixed login path and benefits fragment previously qualified; final reader excludes known auth markers in both path and fragment"
+  ],
+  "initial_test_invocation_error": "Session tests initially omitted --experimental-vm-modules and failed with TypeError: vm.SourceTextModule is not a constructor. Correct documented invocation passes all 16 cases. No live access occurred.",
+  "live_calls": 0,
+  "source_GO": false,
+  "remaining": "Fresh explicit URL-metadata consent, owner A-B-A interaction and independent interpretation of observed candidates."
+}

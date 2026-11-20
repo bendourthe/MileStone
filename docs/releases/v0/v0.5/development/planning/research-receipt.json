@@ -1,0 +1,54 @@
+{
+  "status": "fresh",
+  "verified_as_of": "2026-11-14",
+  "research_observed_utc": "2026-11-15T07:14:24Z",
+  "snapshot_path": "model-routing/references/last-known-model-map.json",
+  "snapshot_sha256": "655113ae32970515beaa97079c8e300dfbed7eaac85d539a53f2dc24368fcd4e",
+  "candidate_sha256": "fe4a51d28d155eee4c13dd47f5944d9fb8e7fb76bfc87dcf38b32818c095cb75",
+  "cells": 16,
+  "placements_equal": true,
+  "moves": 0,
+  "unavailable_cells": [],
+  "helper_results": {
+    "validate": {
+      "exit_code": 0,
+      "output_path": "validate.txt"
+    },
+    "diff": {
+      "exit_code": 0,
+      "output_path": "diff.txt"
+    },
+    "render": {
+      "exit_code": 0,
+      "output_path": "current-model-map.md"
+    }
+  },
+  "sources": {
+    "Anthropic": [
+      "https://platform.claude.com/docs/en/models/overview",
+      "https://platform.claude.com/docs/en/models/fable-5-1/overview",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations"
+    ],
+    "OpenAI": [
+      "https://developers.openai.com/api/docs/models",
+      "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+    ],
+    "Google": [
+      "https://aistudio.google.com/docs/models"
+    ],
+    "Cursor": [
+      "https://cursor.com/docs/models-and-pricing",
+      "https://cursor.com/docs/models/grok-4-7",
+      "https://cursor.com/docs/models/grok-4-6",
+      "https://cursor.com/docs/models/cursor-composer-2-5"
+    ]
+  },
+  "limits": [
+    "Public official-source lookup completed 2026-11-15 07:14 UTC, still 2026-11-14 in America/Los_Angeles. All 16 snapshot placements are retained without reassignment. This map verifies documented IDs, not account entitlement or live host selection.",
+    "Anthropic documents the four retained IDs. Fable 5.1 overview is marked Legacy while lifecycle documentation lists it Active with no retirement before September 2027; retain this discrepancy and do not claim it is the newest Fable. New Fable 5.2 is observed but not placed.",
+    "OpenAI catalog lists gpt-6-astra, gpt-6.1-sol and gpt-6-luna. Its dedicated official gpt-5.6-sol model page documents that exact ID despite its absence from the main current-model summary. No non-OpenAI source is used to establish OpenAI model support.",
+    "Google official models page documents gemini-4-argon and the retained 3.8/3.6/3.5 Flash variants. New Gemini 4 Carbon and Hydrogen are observed but not placed. The old ai.google.dev model index redirects to aistudio.google.com/docs/models.",
+    "Cursor official dedicated pages expose exact Model ID strings grok-4.7, grok-4.6 and composer-2.5. Composer remains at both standard and fast as in the snapshot; no invented fast ID is introduced.",
+    "No mapped model changed, no active model/harness changed, no credentials or dependencies introduced. No new effort sweep is claimed; harness economy for these plans is unmeasured for this model; verify before assuming."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "Schema/equality probe only; no exact-card identity contract established",
+  "linked_captures": 9,
+  "personal_captures": 7,
+  "candidate_fields": [
+    {
+      "field": "attribute:accessible-text-cardinality-separator",
+      "linked_occurrences": 95,
+      "personal_occurrences": 68,
+      "linked_distinct": 1,
+      "personal_distinct": 1,
+      "shared_distinct": 1
+    }
+  ],
+  "interpretation": "Equal opaque values can be candidates, but shared constants and selectors are not identity proof. No card merges or segment inference performed. Source bindings and issuer semantics remain to verify.",
+  "privacy": "Attribute and query-field names plus bounded counts only; no values, hashes, URLs, page text, amounts, endings or account identifiers persisted"
+}

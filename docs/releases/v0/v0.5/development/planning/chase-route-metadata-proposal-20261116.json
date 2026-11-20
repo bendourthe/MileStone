@@ -1,0 +1,29 @@
+{
+  "scope": "Capture-only URL metadata feasibility; no production identity acceptance",
+  "status": "REVIEWED_NOT_LIVE_AUTHORIZED",
+  "limits": {
+    "max_owner_triggered_snapshots": 3,
+    "absolute_seconds": 300,
+    "cleanup_seconds": 8,
+    "requests_per_snapshot": [
+      "/json/version",
+      "/json/list"
+    ],
+    "response_body_bytes": 131072,
+    "max_targets": 64,
+    "max_URL_bytes": 16384,
+    "max_path_fragment_segments": 32,
+    "max_query_fragment_pairs": 32,
+    "max_candidates_per_snapshot": 32,
+    "max_equality_groups": 96
+  },
+  "privacy": "Target URL and title enter transport memory. Titles are ignored. Fixed allowlisted candidate values are compared only in memory; saved output is fixed flags, counts and field-scoped anonymous equality groups. No raw values, hashes of identifiers, titles, URLs, credentials, input values, cookies, balances or benefit text are saved. No DOM, WebSocket, page evaluation, issuer action or main-app debugger access.",
+  "bounds": "Exact Capture package and PID, one HTTPS secure.chase.com target with a literal benefits route and no known auth markers in path or fragment. Stop after three attempts including failures; absolute timer includes stdout flush. Only the owned forwarding port is removed; uncertain allocation is explicitly reported.",
+  "meaning": "A-B-A equality may identify route candidates. It does not establish signed-in status, durable card identity, cross-profile consistency, complete extraction or eligible enrollment. Source GO remains false.",
+  "files_sha256": {
+    "capture_route_metadata_probe.mjs": "173ea66b116cf83399999decceb25f9ec08dadb619e53006f41af30f7bf8e293",
+    "capture_route_metadata_session.mjs": "81977f652efb14abf1e6f9fec762b7069858001a79c85cb2f3d5524b82b8e3b3",
+    "test_route_session.mjs": "6c9eec0abbb4a6765d6faf7af77105a7d5a71be8cb39f02fd7ed161da7206187"
+  },
+  "consent": "Fresh bounded consent plus current first page-ready confirmation is required. Previous structural grant is used and does not authorize URL candidate processing."
+}

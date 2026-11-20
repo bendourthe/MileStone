@@ -1,0 +1,53 @@
+{
+  "recorded_utc": "2026-11-18T06:45:16.814728+00:00",
+  "status": "REVIEWED_NOT_APPROVED_NOT_RUN",
+  "previous_packet": "chase-radio-transport-review-20261118.json",
+  "logical_delta": "Two snapshots/four metadata HTTP requests in ten minutes instead of three/six in five minutes; identifier reader, privacy, route/deadline guards and cleanup unchanged",
+  "line_endings": "Otherwise unchanged files have verified normalized-text equality; actual new byte hashes bound",
+  "files": {
+    "radio-observation.mjs": "132d04cd38bce42cd9920b8439f76c848e6ef9a3b1fce7f1c1f98f8aa1f27f1c",
+    "capture_radio_probe.mjs": "4ff8976f0958410406f1be56512c5418b2ff5769181870fdf3f00a508974ff58",
+    "capture_radio_session.mjs": "9ac2cdca6c02ad839cb87bbdad29a22da55eb143b3dea9dc32db495933687272",
+    "test-radio-observation.mjs": "28751c8465ae71611e9cd778d77d03edc8cd4c07974619f2b9b0744f99452325",
+    "test_capture_radio_page.mjs": "82fce6adf30d906716442ba811c192879429f975540f0f967b42151e1975581d",
+    "test_capture_radio_session.mjs": "11b5076e8ded64e1e27a15f12db5f9d68144c86a05ab11e2c445c89b60cbbdcc"
+  },
+  "review": {
+    "logical_changed_files": 3,
+    "bundles": 1,
+    "lenses": [
+      "correctness",
+      "maintainability",
+      "testing",
+      "project_standards",
+      "security",
+      "reliability",
+      "adversarial"
+    ],
+    "remaining_findings": 0
+  },
+  "verification": {
+    "mock_cases": 39,
+    "result": "PASS",
+    "core_suite": "PASS",
+    "exact_page_expression_suite": "PASS",
+    "mutants_rejected": [
+      "Restored third attempt",
+      "Extra metadata request",
+      "Old five-minute wrapper limit",
+      "Old five-minute reader limit"
+    ],
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0
+  },
+  "bounds": {
+    "snapshots": 2,
+    "metadata_HTTP_requests": 4,
+    "readonly_page_evaluations": 2,
+    "session_seconds": 600,
+    "device_clock_preflight": 1,
+    "owned_cleanup_seconds": 8
+  },
+  "required": "Fresh ten-minute consent plus current personal-card selector readiness",
+  "source_GO": false
+}

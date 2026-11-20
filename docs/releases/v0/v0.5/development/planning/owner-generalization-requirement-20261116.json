@@ -1,0 +1,30 @@
+{
+  "owner_clarification_date_local": "2026-11-16",
+  "observed_utc": "2026-11-17T07:22:26.325354+00:00",
+  "requirement": "Dynamic per-user card/reward/benefit discovery and default-on independent eligible-offer adding for Amex and Chase; no owner-account overfitting",
+  "acceptance_documents": [
+    "docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md",
+    "docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md"
+  ],
+  "runtime_audit_scope": "Read-only targeted Amex discovery and identity code; no broad proof of all-user support claimed",
+  "observed_existing_limits": {
+    "cards_per_discovery_payload": 20,
+    "listed_benefits_per_card_payload": 150
+  },
+  "observed_existing_card_key": "Program identifier plus card ending; do not claim collision-safe generalization from this alone",
+  "required_tests": [
+    "different card counts and products",
+    "reordered/new/removed cards",
+    "same-ending distinct cards",
+    "personal/business separate and linked connections",
+    "new/expired/changed offers",
+    "same merchant on different eligible cards",
+    "pagination/lazy loading and limit crossings",
+    "explicit incomplete status and retained data",
+    "issuer-confirmed exact-card addition"
+  ],
+  "private_capture_contents_read": false,
+  "production_code_changed": false,
+  "task_marks_changed": false,
+  "source_GO": false
+}

@@ -1,0 +1,37 @@
+{
+  "recorded_utc": "2026-11-20T06:40:00Z",
+  "status": "SUPERSEDED_NOT_RUN",
+  "superseded_by": "chase-capture-structure-20261120.json",
+  "superseded_reason": "Owner direction to use the existing captures; the captures also show the card radios are unnamed, so this probe's shared-name lock would have refused on the real page.",
+  "source_go": false,
+  "purpose": "Close the remaining v0.5 source-admission evidence in one bounded live session: complete selector inventory and container grouping, per-card section structure and readiness, and per-card select/stable timing against the shared 120000 ms read budget, under personal-only and linked business sign-ins.",
+  "files_sha256": {
+    "traversal-observation.mjs": "8f87b7750b03b38e0f8ef4c424f3514dd86a56033e17201837a0e3ec74bd2180",
+    "capture_traversal_probe.mjs": "7bf2a34cc6a898b6281ac993621422c99b88c082f3fb31cb0f90332840072e75",
+    "capture_traversal_session.mjs": "a4608f2775c0755985eb1d896d2f19f9cace48599bdc2c010f497474c5b20c6a",
+    "test_traversal_logic.mjs": "fb823a0971ed1f061ccc5f95f25f4ebf21f990902580f0dae00815a89fc31601",
+    "test_traversal_page.mjs": "4d49d3d90a5e9c870993f8220d7580724420f0ada2b1610461b39c209ca08211"
+  },
+  "location": "reports/chase-traversal-timing-20261120/ in the v0.5 worktree (ignored local state)",
+  "contract": {
+    "scope": "Capture app only (com.bendourthe.milestone.capture); one Chase Benefits target on secure.chase.com; route and deadline checked before and after every page evaluation",
+    "actions": "Selects each card in the single locked card-selector radio group (one shared name, 1-12 members, exactly one checked, zero rejected radios) and restores the original card; no other click, navigation, input or enrollment",
+    "reads": "Element names, radio id/name/type/checked (kept in RAM only), aria-busy; never text, values, URLs or other attribute values",
+    "output": "Anonymous card groups (G1..), container indices, structural counts, milliseconds, fixed outcome and reason codes",
+    "bounds": "15-minute session; 2 traversals (one per sign-in profile); 600 evaluations per traversal with restore reserve; 10 s per card; fresh owned debugger forward per traversal, removed before each result"
+  },
+  "verification": {
+    "syntax": "node --check on all three runtime files: exit 0",
+    "suites": ["test_traversal_page.mjs PASS (exact transport-composed expression on synthetic DOM, forbidden_reads 0, network 0, adb 0)", "test_traversal_logic.mjs PASS (virtual clock; lock, restore, budget, inventory change, deadline, no raw id leakage)"],
+    "mutations_failing_as_expected": ["raw id leak", "page deadline gate", "selector lock", "page lock check", "restore step", "rejected-radio guard", "sleep error handling"]
+  },
+  "independent_review": {
+    "lens": "security/privacy",
+    "rounds": 3,
+    "initial": "1 blocker (any visible radio clickable), 3 should-fix (no restore on abort, evaluation cap, selected check), 2 nits",
+    "final": "APPROVED: all findings closed, no critical or high findings, no private output path",
+    "accepted_nit": "A same-named non-card radio group in another form with nothing checked would be locked as cards; visible in per_container output"
+  },
+  "live_use_authorized": false,
+  "next": "Owner's fresh bounded consent for one session; owner handles sign-in and navigation to the Benefits card selector."
+}

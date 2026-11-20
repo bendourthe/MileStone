@@ -1,0 +1,40 @@
+{
+  "status": "Completed: approved Capture-only metadata check passed; card identity remains unverified",
+  "prior_authority": "The earlier eight-snapshot, ten-minute window is closed. No renewal is inferred.",
+  "scope_package": "com.bendourthe.milestone.capture",
+  "maximum_HTTP_requests": 2,
+  "endpoints": [
+    "/json/version",
+    "/json/list, only after exact Capture package proof"
+  ],
+  "request_window_seconds": 60,
+  "owned_connection_cleanup_allowance_seconds": 8,
+  "transient_data": "Target metadata may contain page titles and URLs in RAM. No raw metadata is printed or persisted. Only connection status, package match and target count are emitted.",
+  "prohibited": [
+    "WebSocket connection",
+    "Runtime evaluation",
+    "DOM or credential-field reads",
+    "cookies or storage inspection",
+    "issuer actions",
+    "main-app debugger access"
+  ],
+  "response_body_limit_bytes": 131072,
+  "reviewed_script_sha256": "14ec693f2d58271f7c0c61bfd7d054c63f6dfc487983489909b749987a9c9ad0",
+  "synthetic_controls": {
+    "python_optimization": 1,
+    "HTTP_cases": 6,
+    "consent_gates": 4,
+    "phone_contacted": false,
+    "slow_body_and_headers_interrupted": true
+  },
+  "security_review": "No remaining blockers after explicit fail-closed gates and absolute socket shutdown. Code review grants no phone authority.",
+  "consent_question": "May I run the reviewed Capture-only transport diagnostic on the connected phone: at most two metadata requests within 60 seconds, plus up to eight seconds to remove its own connection? Page titles/URLs may enter memory, but only status, package match and target count are saved. It performs no page evaluation, credential-field access, issuer action or main-app debugger access. The earlier ten-minute approval has expired.",
+  "approval_received": true,
+  "live_executed": true,
+  "consent_question_id": "call_246b55e04a084b98a7e549afa4313f05",
+  "owner_answer": "Approve metadata-only diagnostic",
+  "attempted": true,
+  "HTTP_requests_performed": 2,
+  "debugger_connection_created": true,
+  "owned_forward_removed": true
+}

@@ -1,0 +1,57 @@
+{
+  "prepared_at_utc": "2026-11-17T09:37:30.485127+00:00",
+  "status": "PREPARED_NOT_APPROVED_NOT_RUN",
+  "purpose": "Determine whether recognized route filtering omitted route components because of their format, without retaining identifiers or comparing card identity.",
+  "source_go": false,
+  "limits": {
+    "attempts": 1,
+    "metadata_requests": 2,
+    "access_seconds_from_new_page_ready_confirmation": 60,
+    "cleanup_seconds": 8,
+    "package": "com.bendourthe.milestone.capture",
+    "issuer_origin": "https://secure.chase.com",
+    "response_bytes": 131072,
+    "targets": 64,
+    "url_characters": 16384,
+    "combined_segments": 32,
+    "combined_query_pairs": 32
+  },
+  "saved_data": [
+    "Fixed route counts",
+    "Length buckets",
+    "Predefined format booleans",
+    "Transport and owned-forward cleanup outcome"
+  ],
+  "not_saved": [
+    "URLs",
+    "Titles",
+    "Route identifiers",
+    "Query keys or values",
+    "Equality labels",
+    "Hashes of private values"
+  ],
+  "excluded_access": [
+    "DOM",
+    "WebSocket or CDP commands",
+    "Credential fields",
+    "Cookies",
+    "Balances",
+    "Benefit text",
+    "Main app debugger",
+    "Issuer actions"
+  ],
+  "consent": "Fresh explicit approval and current owner confirmation of a closed-selector personal card Benefits page are required. Earlier grants are consumed or expired. Use exact genuine confirmation time to derive deadline; no clock extension.",
+  "hashes": {
+    "capture_route_shape_probe.mjs": "09513a7a20f44e2c97cdf7886ea71aeda4d7a8ebb4f6ca5ac7e444dee87bcc49",
+    "capture_route_shape_session.mjs": "04f3507ba4e0605d05b26bdeee6c1eb2037eea2c12cd5222927ee41f22b41dc4",
+    "test_shape_session.mjs": "2cd3c6716410ce122d8e4f4b30b890e8feaf3a61b1270f1ce42e6d9a7ba8fe79"
+  },
+  "offline_controls": {
+    "cases": 18,
+    "passed": 18,
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0
+  },
+  "independent_review": "PENDING",
+  "interpretation": "Format evidence alone cannot establish card identity, completeness, eligibility, successful extraction or offer adding."
+}

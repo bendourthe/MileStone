@@ -1,0 +1,24 @@
+{
+  "status": "Completed within approved bounds; no candidate identity found",
+  "purpose": "Observe the second personal card with selector closed after the prior window expired.",
+  "reader_sha256": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+  "wrapper_sha256": "e566ba493bbc3c5867ce1f06c060cac177a878cd628190ce8886e641913c59bf",
+  "maximum_requested_snapshots": 1,
+  "maximum_seconds": 60,
+  "cleanup_allowance_seconds": 8,
+  "controller_input": [
+    "probe",
+    "stop"
+  ],
+  "reader_change": false,
+  "wrapper_change": false,
+  "privacy": "Same reviewed reader: candidate identifier values stay in RAM; only anonymous groups and fixed counts are retained. No credential values, cookies, balances or benefit text are inspected. No issuer actions or main-app debugger access.",
+  "readiness": "Owner reported other personal card Benefits ready; reader guards still apply.",
+  "permission_received": true,
+  "live_executed": true,
+  "consent_question_id": "call_76191c7f11794d398265be4f7368f62d",
+  "requested_snapshots": 1,
+  "elapsed_seconds": 0.507,
+  "owned_forward_removed": true,
+  "source_GO": false
+}

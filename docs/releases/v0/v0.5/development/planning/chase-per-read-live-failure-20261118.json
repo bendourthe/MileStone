@@ -1,0 +1,15 @@
+{
+  "status": "UNAVAILABLE_CLOSED",
+  "approval_question_id": "call_81d6b0ab19ed444691be4016632c9e75",
+  "attempted_snapshots": 1,
+  "profile": "personal_only",
+  "fresh_forward": true,
+  "capture_process_changed": false,
+  "reason_code": "version_metadata",
+  "page_evaluations": 0,
+  "owned_capture_forward_removed": true,
+  "exit_code": 0,
+  "remaining_snapshot_unused": true,
+  "grant_closed": true,
+  "conclusion": "Fresh per-read transport also failed before selector access. No sign-in switch occurred. Surviving connection across sign-in changes is not a sufficient explanation; fetch/HTTP/body/JSON boundary remains unknown."
+}

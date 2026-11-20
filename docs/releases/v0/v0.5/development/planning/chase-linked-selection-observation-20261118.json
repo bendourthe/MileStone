@@ -1,0 +1,88 @@
+{
+  "status": "LINKED_PROFILE_SELECTION_BINDING_OBSERVED_CROSS_PROFILE_INCOMPLETE",
+  "approval_question": "call_b2bf7b8603e740e48d30ead944cbff48",
+  "sequence": [
+    "linked_business_profile_personal_card",
+    "linked_business_profile_business_card"
+  ],
+  "snapshots": [
+    {
+      "status": "candidate_only",
+      "snapshot": 1,
+      "counts": {
+        "roots": 25,
+        "nodes": 1295,
+        "radios": 3,
+        "checked": 1,
+        "accepted": 3,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": false
+        },
+        {
+          "group": "G2",
+          "checked": true
+        },
+        {
+          "group": "G3",
+          "checked": false
+        }
+      ],
+      "card_identity_proven": false
+    },
+    {
+      "status": "candidate_only",
+      "snapshot": 2,
+      "counts": {
+        "roots": 11,
+        "nodes": 1087,
+        "radios": 3,
+        "checked": 1,
+        "accepted": 3,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": true
+        },
+        {
+          "group": "G2",
+          "checked": false
+        },
+        {
+          "group": "G3",
+          "checked": false
+        }
+      ],
+      "card_identity_proven": false
+    }
+  ],
+  "selected_groups": [
+    [
+      "G2"
+    ],
+    [
+      "G1"
+    ]
+  ],
+  "actual_snapshots": 2,
+  "actual_local_metadata_HTTP_requests": 4,
+  "actual_readonly_page_evaluations": 2,
+  "fixed_device_clock_preflight": 1,
+  "session_exit": 0,
+  "owned_capture_forward_removed": true,
+  "closure": "Approved five-minute cutoff; final personal-only readiness arrived after confirmed closure. No third read occurred.",
+  "raw_identifier_values_saved": false,
+  "input_values_read": false,
+  "DOM_text_read": false,
+  "metadata_note": "Target titles/URLs may enter transport RAM; neither is retained.",
+  "issuer_actions": 0,
+  "main_app_debugger_access": false,
+  "card_identity_proven": false,
+  "cross_profile_correspondence_proven": false,
+  "source_GO": false
+}

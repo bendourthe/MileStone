@@ -1,0 +1,178 @@
+{
+  "status": "Candidate equality only; exact-card identity and selector semantics remain unverified",
+  "linked_captures": 9,
+  "personal_captures": 7,
+  "all_sanitized_bindings_verified": true,
+  "unique_candidate_groups": 4,
+  "shared_candidate_groups": 0,
+  "captures": [
+    {
+      "scenario": "linked",
+      "capture": 1,
+      "opaque_candidate_groups": [
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "candidate_field_counts": {
+        "selector-value": 4
+      },
+      "selector_counts": {
+        "option_elements": 4
+      },
+      "selected_attribute_shapes": {
+        "true": 1,
+        "false": 3
+      },
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 2,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 3,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 4,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 5,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 6,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 7,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 8,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "linked",
+      "capture": 9,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 1,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {
+        "option_elements": 2,
+        "value_missing_or_not_an_opaque_candidate": 2
+      },
+      "selected_attribute_shapes": {
+        "true": 1,
+        "false": 1
+      },
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 2,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 3,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 4,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 5,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 6,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    },
+    {
+      "scenario": "personal",
+      "capture": 7,
+      "opaque_candidate_groups": [],
+      "candidate_field_counts": {},
+      "selector_counts": {},
+      "selected_attribute_shapes": {},
+      "capture_url_comments": 0
+    }
+  ],
+  "privacy": "Raw pages processed only in memory. No page text, URLs, values, hashes, account keys, card digits or credentials emitted or newly persisted. Group labels are report-local equality classes, not production card IDs.",
+  "limits": [
+    "Capture app saves outerHTML without WebView URL metadata; current navigation URL is not reconstructed",
+    "Reflected selected attributes do not prove live component property or active-card state",
+    "No card merge, segmentation, source GO or offer activation performed"
+  ]
+}

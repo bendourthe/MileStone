@@ -1,0 +1,112 @@
+{
+  "status": "WITHIN_SESSION_SELECTION_BINDING_OBSERVED",
+  "approval_question": "call_62fc6374302345f2bd9244e068064f7a",
+  "sequence": [
+    "first_personal_card",
+    "other_personal_card",
+    "first_personal_card"
+  ],
+  "snapshots": [
+    {
+      "status": "candidate_only",
+      "snapshot": 1,
+      "counts": {
+        "roots": 25,
+        "nodes": 1245,
+        "radios": 2,
+        "checked": 1,
+        "accepted": 2,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": true
+        },
+        {
+          "group": "G2",
+          "checked": false
+        }
+      ],
+      "card_identity_proven": false
+    },
+    {
+      "status": "candidate_only",
+      "snapshot": 2,
+      "counts": {
+        "roots": 69,
+        "nodes": 1861,
+        "radios": 2,
+        "checked": 1,
+        "accepted": 2,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": false
+        },
+        {
+          "group": "G2",
+          "checked": true
+        }
+      ],
+      "card_identity_proven": false
+    },
+    {
+      "status": "candidate_only",
+      "snapshot": 3,
+      "counts": {
+        "roots": 25,
+        "nodes": 1245,
+        "radios": 2,
+        "checked": 1,
+        "accepted": 2,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": true
+        },
+        {
+          "group": "G2",
+          "checked": false
+        }
+      ],
+      "card_identity_proven": false
+    }
+  ],
+  "selected_groups": [
+    [
+      "G1"
+    ],
+    [
+      "G2"
+    ],
+    [
+      "G1"
+    ]
+  ],
+  "actual_snapshots": 3,
+  "actual_local_metadata_HTTP_requests": 6,
+  "actual_readonly_page_evaluations": 3,
+  "fixed_device_clock_preflight": 1,
+  "owned_capture_forward_removed": true,
+  "session_exit": 0,
+  "raw_identifier_values_saved": false,
+  "input_values_read": false,
+  "issuer_actions": 0,
+  "main_app_debugger_access": false,
+  "card_identity_proven": false,
+  "source_GO": false,
+  "limits": [
+    "Owner-directed A/B/A selection is verified only within one personal-profile session.",
+    "Identifier semantics, stability after reload/sign-in, cross-profile correspondence, segment classification and source completeness remain unverified."
+  ],
+  "recorded_utc": "2026-11-18T05:49:31.516672+00:00",
+  "DOM_text_read": false,
+  "metadata_note": "Debugger target titles/URLs may enter transport RAM; neither is retained.",
+  "complete_inventory_proven": false,
+  "cross_profile_correspondence_proven": false
+}

@@ -1,0 +1,54 @@
+{
+  "status": "Owner approved; bounded session active; first structural snapshot succeeded without candidate identifiers",
+  "purpose": "Compare non-credential card-selector and allowlisted URL identifiers anonymously across personal and linked business card views before defining exact-card extraction bindings.",
+  "scope_package": "com.bendourthe.milestone.capture",
+  "main_frame_host": "secure.chase.com",
+  "maximum_requested_snapshots": 8,
+  "maximum_window_seconds": 600,
+  "owned_forward_cleanup_timeout_seconds": 8,
+  "reader_sha256": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+  "wrapper_sha256": "e566ba493bbc3c5867ce1f06c060cac177a878cd628190ce8886e641913c59bf",
+  "output": "Fixed counts, status and anonymous equality groups only. Candidate identifier values stay in process memory and are not printed or persisted.",
+  "transient_metadata": "Debugger target metadata can contain page titles and URLs in memory; these are not emitted or saved.",
+  "no_actions": [
+    "No issuer navigation or clicks by the reader",
+    "No offer enrollment or other issuer writes",
+    "No credential-field values, cookies or storage inspection",
+    "No balance or benefit-text inspection",
+    "No main-app debugger access"
+  ],
+  "guards": [
+    "Exact Capture PID and package proof",
+    "Exact main-frame host and visible post-login page structure",
+    "Visible editable entry fields block candidate reading",
+    "At most 8 requested snapshots and a single absolute 600-second window",
+    "Normal stop and EOF close the owned forward immediately",
+    "SIGINT, SIGTERM and deadline route through bounded cleanup"
+  ],
+  "runtime_response_limit_bytes": 131072,
+  "metadata_HTTP_body_byte_bound": "No byte-bound claim; unchanged reader uses a five-second abort signal on each metadata fetch.",
+  "local_controls": {
+    "status": "PASS",
+    "cases": 15,
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0,
+    "active_reader_signal_and_deadline_cleanup": true,
+    "eight_snapshot_cap": true,
+    "raw_identifier_output_rejection": true
+  },
+  "actual_terminal_control": {
+    "status": "PASS",
+    "request_reply_stop_observed": true,
+    "exit_code": 0,
+    "pause_unref_required": true
+  },
+  "security_review": "No remaining blocker in exact current bytes; review is not live-access authority.",
+  "residual_limit": "Forced operating-system termination cannot run JavaScript cleanup; the operator must verify and remove its owned forwarding if that occurs.",
+  "prior_authority": "The earlier identity window expired. The completed metadata-only diagnostic does not authorize DOM identity observations.",
+  "owner_permission_received": true,
+  "live_executed": true,
+  "source_GO": false,
+  "consent_question_id": "call_448fa232e15b40faaa9a12ed8567ffdb",
+  "owner_answer": "Approve bounded identity session",
+  "readiness": "Personal card Benefits is ready"
+}

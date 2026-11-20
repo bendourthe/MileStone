@@ -1,0 +1,25 @@
+{
+  "status": "SYNTHETIC_FORMAT_LIMITATION_CONFIRMED",
+  "cases": [
+    {
+      "case": "plain",
+      "recognized_slot2_candidates": 1
+    },
+    {
+      "case": "padded-base64",
+      "recognized_slot2_candidates": 0
+    },
+    {
+      "case": "encoded-slash",
+      "recognized_slot2_candidates": 0
+    },
+    {
+      "case": "dotted-opaque",
+      "recognized_slot2_candidates": 0
+    }
+  ],
+  "actual_network_calls": 0,
+  "actual_ADB_calls": 0,
+  "actual_live_metadata_reads": 0,
+  "interpretation": "The old filter is not exhaustive for opaque formats. This does not prove that the actual Chase component uses any rejected encoding, or that any component is a durable card identity. Previous negative findings apply only to recognized candidates. No decryption or source-ID value read occurred."
+}

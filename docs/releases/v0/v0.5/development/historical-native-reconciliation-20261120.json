@@ -1,0 +1,66 @@
+{
+  "recorded_utc": "2026-11-20T05:10:00Z",
+  "scope": "Read-only native reconciliation of the released v0.1.0, v0.2.0, v0.3.0 and v0.3.1 plans and the v0.1, v0.2 and v0.3 minors, against develop 48c7bccfd3f013e6d8084b033012b38b00fd47b2. Builds on the 2026-11-16 audit in docs/archives/v0/v0.4/development/v0.1-v0.3-closure-audit-20261116/.",
+  "authority_limits": [
+    "No frozen plan text and no signed run record was edited, re-signed, retired or re-pointed.",
+    "No branch, worktree or release was changed by this reconciliation."
+  ],
+  "releases_published": ["v0.1.0", "v0.2.0", "v0.3.0", "v0.3.1", "v0.4.0"],
+  "archives_on_develop": ["docs/archives/v0/v0.1", "docs/archives/v0/v0.2", "docs/archives/v0/v0.3", "docs/archives/v0/v0.4"],
+  "plans": [
+    {
+      "plan": "docs/archives/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md",
+      "verdict": "PLAN COMPLETE",
+      "disposition": "closed natively"
+    },
+    {
+      "plan": "docs/archives/v0/v0.1/plans/v0.1.0-milestone-android-app.md",
+      "verdict": "INCOMPLETE: approval.remote archive.minor",
+      "cause": "No plan-scoped record exists for this plan; it ran under the schema-2 minor v0.1 record, so plan-level approval.remote cannot be verified and archive.minor has no archive-minor class to read.",
+      "disposition": "not closable at plan scope without new authority; minor scope governs (see minors.v0.1)"
+    },
+    {
+      "plan": "docs/archives/v0/v0.2/plans/v0.2.0-benefits-tab-amex.md",
+      "verdict": "INCOMPLETE: approval.remote archive.minor",
+      "cause": "Same as v0.1: the run used the minor v0.2 record, not a plan-scoped record.",
+      "disposition": "minor scope governs (see minors.v0.2)"
+    },
+    {
+      "plan": "docs/archives/v0/v0.3/plans/v0.3.1-benefits-redesign.md",
+      "verdict": "INCOMPLETE: approval.remote cleanup.branches archive.minor",
+      "cause": "Its signed plan record (session 01a1d37f-6668-7320-839d-e434bdbd4721, created 2026-11-14) still names the pre-archive path docs/releases/v0/v0.3/plans/v0.3.1-benefits-redesign.md. The v0.3 tree was archived by a different run, which re-points only its own record, so the checker finds no record for the archived path. cleanup.branches is unmet because feat/v0.3.1-benefits-redesign remains (KEEP owned-by-run).",
+      "disposition": "no official command re-points another run's record; reaching PLAN COMPLETE would need a new owner-authorized record operation. Deleting the branch alone would not complete it."
+    }
+  ],
+  "minors": {
+    "v0.1": {
+      "verdict": "BLOCKED: record-tampered",
+      "cause": "Integrity failure is plan drift, not record modification: the minor record froze member v0.1.0 at plan_sha256 2378c76a35673b82cffd490f525fa371a29fd001ff2378a2f1a594a2a0047ded, which matches only commit 02445fb (2026-11-06). The plan text was edited afterward (0495f8a, 0019213 release, d3113d5 close, d8175df archive), so every later version fails the frozen-hash check.",
+      "disposition": "Restoring the frozen text would edit a frozen plan and is excluded. Remains blocked; record it as historical."
+    },
+    "v0.2": {
+      "verdict": "INCOMPLETE: v0.2.0:task.T005",
+      "cause": "T005 ends in '(gitignored)', so no tracked file can prove it. cleanup.branches, which was unmet on 2026-11-16, is now met.",
+      "disposition": "Owner-accepted disposition retained: T005 stays open by design; no repair of the frozen task."
+    },
+    "v0.3": {
+      "verdict": "INCOMPLETE: record.minor",
+      "cause": "v0.3.0 and v0.3.1 ran as plan-scoped runs; no schema-2 minor v0.3 record was ever created.",
+      "disposition": "Plan scope governs; v0.3.0 is PLAN COMPLETE, v0.3.1 as above."
+    },
+    "v0.4": {
+      "verdict": "PLAN COMPLETE (plan-scoped run)",
+      "disposition": "closed natively on 2026-11-20"
+    }
+  },
+  "changes_since_20261116": [
+    "v0.2 minor: cleanup.branches now met; only T005 remains.",
+    "v0.1 minor: record now located and verified to fail only on post-freeze plan drift.",
+    "v0.3.1: cause identified as a record still bound to the pre-archive plan path."
+  ],
+  "status": "RECONCILED_NOT_CLOSABLE_WITHOUT_RECORD_OR_PLAN_EDITS",
+  "owner_options": [
+    "Accept these historical dispositions as final (no action).",
+    "Separately authorize deletion of feat/v0.3.1-benefits-redesign (both tips must first be proven merged); this cleans the branch but does not complete v0.3.1."
+  ]
+}
