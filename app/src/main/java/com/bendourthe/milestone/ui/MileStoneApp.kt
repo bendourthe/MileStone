@@ -125,6 +125,8 @@ fun MileStoneApp(
     /** Built from the application's container when not given (tests pass their own). */
     benefitsViewModel: BenefitsViewModel? = null,
     createSearchViewModel: (() -> com.bendourthe.milestone.ui.search.SearchViewModel)? = null,
+    /** Issuer sign-ins for Personal and Business pages (ADR-0009); null hides them (tests). */
+    connections: com.bendourthe.milestone.ui.benefits.ConnectionsViewModel? = null,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -179,9 +181,10 @@ fun MileStoneApp(
                         val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
                         val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
                         intent.action = null
-                        if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
+                        // The extra carries the card's id: its last digits for Amex, a local card id for Chase (ADR-0009).
+                        if (programId != null && digits != null && CardKey.isValidCardId(digits)) {
                             navController.navigate(Benefits) { launchSingleTop = true }
-                            navController.navigate(ProgramBenefits(programId))
+                            if (CardKey.isValidLastDigits(digits)) navController.navigate(ProgramBenefits(programId))
                             navController.navigate(CardBenefits(programId, digits))
                         }
                     }
@@ -201,8 +204,10 @@ fun MileStoneApp(
                         },
                         benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
                         onOpenBenefits = { programId ->
+                            // A program with Personal and Business tiles opens its Personal tile (ADR-0009).
+                            val segmented = catalog.program(programId)?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
                             navController.navigate(Benefits) { launchSingleTop = true }
-                            navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
+                            navController.navigate(ProgramBenefits(if (segmented) "$programId#personal" else programId)) { launchSingleTop = true }
                         },
                         onSignIn = { programId -> signIn?.connect(programId) },
                         onSearch = openSearch,
@@ -231,7 +236,8 @@ fun MileStoneApp(
                 DestinationInsets(bottom) {
                     val route = entry.toRoute<ProgramBenefits>()
                     BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.cardId)) { launchSingleTop = true } },
-                        snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch)
+                        snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch,
+                        connections = connections, onAddSignIn = { programId, connectionId -> signIn?.openConnection(programId, connectionId) })
                 }
             }
             composable<CardBenefits> { entry ->

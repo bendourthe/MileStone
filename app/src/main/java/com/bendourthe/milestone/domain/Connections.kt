@@ -76,6 +76,8 @@ interface ConnectionRepository {
 
     suspend fun connections(programId: String): List<Connection>
 
+    suspend fun connection(connectionId: String): Connection?
+
     /** Adds [connection]; returns false when its id is taken or its program is not tracked. */
     suspend fun addConnection(connection: Connection): Boolean
 

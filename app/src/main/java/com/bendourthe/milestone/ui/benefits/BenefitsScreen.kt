@@ -44,6 +44,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -98,8 +99,13 @@ fun BenefitsScreen(
     onOpenProgram: (String) -> Unit = {},
     onBackToPrograms: () -> Unit = {},
     onSearch: (() -> Unit)? = null,
+    /** Issuer sign-ins (ADR-0009), shown on a Personal or Business tile's page; null hides the section. */
+    connections: ConnectionsViewModel? = null,
+    /** Opens the site for a newly added sign-in of a program, in its own profile. */
+    onAddSignIn: (programId: String, connectionId: String) -> Unit = { _, _ -> },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(connections) { connections?.messages?.collect { snackbarHostState.showSnackbar(it) } }
     val remindersOn by viewModel.remindersEnabled.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var allowed by remember { mutableStateOf(notificationsAllowed(context)) }
@@ -130,7 +136,7 @@ fun BenefitsScreen(
                     }
                 })
             }
-            BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()), programId, onOpenProgram)
+            BenefitsBody(state, onOpenCard, PaddingValues(bottom = outer.calculateBottomPadding()), programId, onOpenProgram, connections, onAddSignIn)
         }
     }
 }
@@ -154,7 +160,8 @@ private fun PermissionBanner(onAllow: () -> Unit) {
 
 @Composable
 private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, padding: PaddingValues,
-                         programId: String?, onOpenProgram: (String) -> Unit) {
+                         programId: String?, onOpenProgram: (String) -> Unit,
+                         connections: ConnectionsViewModel?, onAddSignIn: (String, String) -> Unit) {
     when (val s = state) {
         BenefitsUiState.Loading -> Box(Modifier.fillMaxSize().padding(padding))
         is BenefitsUiState.NoProgram -> Message(
@@ -163,9 +170,23 @@ private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, 
             Modifier.padding(padding),
         )
         is BenefitsUiState.Cards -> {
-            val tiles = s.tiles.filter { it.key.programId == programId }
+            val tiles = s.tiles.filter { it.groupId == programId }
             val program = s.programs.firstOrNull { it.programId == programId }
-            if (programId != null && tiles.isEmpty()) {
+            // A Personal or Business page lists its issuer sign-ins above the cards, even before any card is read.
+            if (program?.segment != null && connections != null) {
+                LazyColumn(
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp + padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.fillMaxSize().testTag("benefitsList"),
+                ) {
+                    item(key = "connections") { ConnectionsSection(connections, program, onAddSignIn) }
+                    if (tiles.isEmpty()) item(key = "empty") {
+                        Text("Cards appear here after the next ${program.name} refresh.", style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(vertical = 16.dp))
+                    }
+                    items(tiles, key = { "${it.key.programId}/${it.key.cardId}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                }
+            } else if (programId != null && tiles.isEmpty()) {
                 Message(
                     if (program == null) "No card benefits yet" else "Benefits appear after the next ${program.name} refresh",
                     if (program == null) "Return to Benefits to choose an institution." else "MileStone reads your cards and their benefits after it updates the ${program.name} balance.",
@@ -220,6 +241,7 @@ private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
                 }
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
             }
+            tile.classificationNote?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
             if (tile.alertCount > 0) BenefitsAlertCount(tile.alertCount)
             Text(tile.nextCredit, style = MaterialTheme.typography.bodyMedium)
             tile.completedLabel?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }

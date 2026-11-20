@@ -40,6 +40,8 @@ data class SearchEntry(
     val displayOrder: Int = 0,
     val enrollment: String? = null,
     val programDisplay: SearchProgramDisplay? = null,
+    /** The card's stored ending (ADR-0009); a legacy last-digits key supplies it when this is null. */
+    val cardDigits: String? = null,
 ) {
     val kind: SearchKind get() = when (target) {
         is SearchTarget.ProgramTarget -> SearchKind.PROGRAM
@@ -57,8 +59,8 @@ data class SearchEntry(
     private fun searchable(text: String): String {
         val digits = when (val t = target) {
             is SearchTarget.ProgramTarget -> null
-            is SearchTarget.CardTarget -> t.card.displayDigits
-            is SearchTarget.BenefitTarget -> t.card.displayDigits
+            is SearchTarget.CardTarget -> cardDigits ?: t.card.displayDigits
+            is SearchTarget.BenefitTarget -> cardDigits ?: t.card.displayDigits
         }
         return GlobalSearch.normalize(if (digits == null) text else text.replace(digits, " "))
     }
@@ -72,8 +74,8 @@ data class SearchEntry(
     internal val contextSources = GlobalSearch.contextSources(title, description, aliases)
     internal val cardIdentity get() = when (val t = target) {
         is SearchTarget.ProgramTarget -> ""
-        is SearchTarget.CardTarget -> t.card.displayDigits.orEmpty()
-        is SearchTarget.BenefitTarget -> t.card.displayDigits.orEmpty()
+        is SearchTarget.CardTarget -> (cardDigits ?: t.card.displayDigits).orEmpty()
+        is SearchTarget.BenefitTarget -> (cardDigits ?: t.card.displayDigits).orEmpty()
     }
 }
 

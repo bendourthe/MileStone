@@ -20,8 +20,10 @@ import com.bendourthe.milestone.sync.ForegroundSyncObserver
 import com.bendourthe.milestone.sync.RefreshReason
 import com.bendourthe.milestone.sync.background.Notifications
 import com.bendourthe.milestone.sync.webview.ActivityWebViewHost
+import com.bendourthe.milestone.sync.webview.AutoSignInSupport
 import com.bendourthe.milestone.sync.webview.LoginBridge
 import com.bendourthe.milestone.ui.auth.SignInViewModel
+import com.bendourthe.milestone.ui.benefits.ConnectionsViewModel
 import com.bendourthe.milestone.ui.catalog.CatalogViewModel
 import com.bendourthe.milestone.ui.dashboard.DashboardViewModel
 import com.bendourthe.milestone.ui.settings.SettingsViewModel
@@ -97,8 +99,13 @@ class MainActivity : ComponentActivity() {
                     allowAutoSignIn = { container.vault.unblock(it) },
                     connectHidden = { container.syncManager.connect(it) },
                     showSite = BuildConfig.BUILD_TYPE == "capture",
+                    connectionSignedIn = { connectionId ->
+                        container.sessions.markConnected(connectionId, System.currentTimeMillis())
+                        container.connections.connection(connectionId)?.let { container.syncManager.refresh(it.programId, RefreshReason.MANUAL) }
+                    },
                 )
             }
+            initializer { ConnectionsViewModel(container.connections, container.connectionSessions, container.sessions) }
         }
 
         val coldStart = savedInstanceState == null
@@ -109,6 +116,7 @@ class MainActivity : ComponentActivity() {
                     delay(OPENING_MS)
                     opening = false
                 }
+                val signInViewModel = viewModel<SignInViewModel>(factory = factory)
                 AuroraBackground(Modifier.fillMaxSize()) {
                     MileStoneApp(
                         dashboardViewModel = viewModel<DashboardViewModel>(factory = factory),
@@ -116,10 +124,17 @@ class MainActivity : ComponentActivity() {
                         settingsViewModel = viewModel<SettingsViewModel>(factory = factory),
                         catalog = container.catalog,
                         versionName = BuildConfig.VERSION_NAME,
-                        signIn = viewModel<SignInViewModel>(factory = factory),
+                        signIn = signInViewModel,
                         createBridge = { context, program ->
-                            LoginBridge(WebView(context), program, container.profiles, autoSignIn = container.autoSignIn(program))
+                            // An additional sign-in uses its own profile and never the program's saved password.
+                            val connection = signInViewModel.activeConnection.value
+                            LoginBridge(
+                                WebView(context), program, container.profiles,
+                                autoSignIn = if (connection == null) container.autoSignIn(program) else AutoSignInSupport.NONE,
+                                sessionKey = connection ?: program.programId,
+                            )
                         },
+                        connections = viewModel<ConnectionsViewModel>(factory = factory),
                     )
                 }
                 AnimatedVisibility(opening, enter = EnterTransition.None, exit = fadeOut(tween(450))) { OpeningScreen() }

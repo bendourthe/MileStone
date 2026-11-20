@@ -16,6 +16,7 @@ import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.CardSegment
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.Enrollment
 import com.bendourthe.milestone.domain.ReminderSettings
@@ -48,9 +49,16 @@ sealed interface BenefitsUiState {
     data class Cards(val tiles: List<CardTileUi>, val programs: List<BenefitsProgramUi>) : BenefitsUiState
 }
 
+/**
+ * One institution tile. [programId] is the tile's group id: the program id, or for a program with Personal and
+ * Business tiles (ADR-0009) the program id and segment, such as `chase#business`. [issuerProgramId] and [segment] name
+ * the program and segment behind the tile.
+ */
 data class BenefitsProgramUi(
     val programId: String, val name: String, val monogram: String, val logoKey: String?,
     val brandColorArgb: Long, val cardCount: Int, val alertCount: Int,
+    val issuerProgramId: String = programId,
+    val segment: CardSegment? = null,
 )
 
 data class CardTileUi(
@@ -64,11 +72,25 @@ data class CardTileUi(
     val programName: String = key.programId,
     val benefitCount: Int = 0,
     val alertCount: Int = 0,
+    /** The card's own ending as stored; null when the issuer showed none. */
+    val lastDigits: String? = key.displayDigits,
+    /** The institution tile this card is listed under (see [BenefitsProgramUi.programId]). */
+    val groupId: String = key.programId,
+    /** Shown when the card's Personal or Business tile is not known yet. */
+    val classificationNote: String? = null,
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${key.displayDigits ?: "unknown"}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${lastDigits ?: "unknown"}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
+
+/** The tile group of [card] in [program]: its segment's group when the program has Personal and Business tiles. */
+fun groupIdOf(program: com.bendourthe.milestone.domain.Program?, card: Card): String =
+    if (program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE) {
+        "${card.programId}#${(card.segment ?: CardSegment.PERSONAL).name.lowercase()}"
+    } else {
+        card.programId
+    }
 
 /** The committed inputs behind this rendered page, used only for in-memory exact-result validation. */
 data class CardPageSource(val card: Card, val benefits: List<Benefit>, val preferences: BenefitsDisplayPreferences)
@@ -171,17 +193,33 @@ class BenefitsViewModel(
             if (added.isEmpty()) return@flatMapLatest flowOf<BenefitsUiState>(BenefitsUiState.NoProgram(programs.map { it.displayName }))
             combine(added.map { id -> cardsWithBenefits(id) }) { perProgram ->
                 val tiles = perProgram.flatMap { it }.map { (card, benefits, prefs) ->
+                    val program = catalog.program(card.programId)
+                    val segmented = program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
                     tile(card, benefits, clock(), zone, locale).copy(
-                        programName = catalog.program(card.programId)?.displayName ?: card.programId,
+                        programName = program?.displayName ?: card.programId,
                         benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
                         alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
+                        groupId = groupIdOf(program, card),
+                        classificationNote = if (segmented && card.segment == null) "Needs Personal or Business" else null,
                     )
                 }
-                BenefitsUiState.Cards(tiles, added.map { id ->
+                BenefitsUiState.Cards(tiles, added.flatMap { id ->
                     val program = programs.first { it.programId == id }
-                    val cards = tiles.filter { it.key.programId == id }
-                    BenefitsProgramUi(id, program.displayName, program.monogram, program.logoKey, program.brandColorArgb,
-                        cards.size, cards.sumOf { it.alertCount })
+                    fun entry(groupId: String, name: String, segment: CardSegment?): BenefitsProgramUi {
+                        val cards = tiles.filter { it.groupId == groupId }
+                        return BenefitsProgramUi(groupId, name, program.monogram, program.logoKey, program.brandColorArgb,
+                            cards.size, cards.sumOf { it.alertCount }, issuerProgramId = id, segment = segment)
+                    }
+                    if (program.benefits?.adapter != com.bendourthe.milestone.domain.BenefitsAdapter.CHASE) {
+                        listOf(entry(id, program.displayName, null))
+                    } else {
+                        // Personal always shows; Business once a card belongs to it (ADR-0009).
+                        val business = "$id#business"
+                        listOfNotNull(
+                            entry("$id#personal", "${program.displayName} Personal", CardSegment.PERSONAL),
+                            entry(business, "${program.displayName} Business", CardSegment.BUSINESS).takeIf { tiles.any { it.groupId == business } },
+                        )
+                    }
                 })
             }
         }
@@ -241,6 +279,7 @@ class BenefitsViewModel(
             return CardTileUi(
                 key = card.key,
                 name = card.name,
+                lastDigits = card.lastDigits,
                 digitsLabel = digitsLabel(card.lastDigits),
                 nextCredit = nextCredit(benefits, Instant.ofEpochMilli(nowMs).atZone(zone).toLocalDate(), locale),
                 completedLabel = if (completed == 0) null else "$completed completed",

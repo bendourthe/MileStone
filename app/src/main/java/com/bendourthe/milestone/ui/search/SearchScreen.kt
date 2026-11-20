@@ -187,7 +187,7 @@ private fun ColumnScope.SearchResultList(results: SearchResults, listState: Lazy
                         val cardHit = cardGroup.cardHit
                         val cardKey = "card:${card.programId}:${card.cardId}"
                         item(cardKey, contentType = "cardHeader") {
-                            SearchCardHeader(cardHit?.entry?.title ?: first.cardName.orEmpty(), card,
+                            SearchCardHeader(cardHit?.entry?.title ?: first.cardName.orEmpty(), card, first.cardDigits ?: card.displayDigits,
                                 cardGroup.benefits.size, cardKey !in collapsed, first.freshnessNote,
                                 onToggle = { onToggleGroup(cardKey) }, enabled = !selecting,
                                 onClick = { onSelect(SearchTarget.CardTarget(card, first.target.revision)) })
@@ -236,7 +236,7 @@ private fun SearchGroupHeader(title: String, count: Int, expanded: Boolean, modi
 }
 
 @Composable
-private fun SearchCardHeader(name: String, card: CardKey, count: Int, expanded: Boolean, freshness: String?,
+private fun SearchCardHeader(name: String, card: CardKey, digits: String?, count: Int, expanded: Boolean, freshness: String?,
     onToggle: () -> Unit, enabled: Boolean, onClick: () -> Unit) {
     Surface(onClick = onClick, enabled = enabled, modifier = Modifier.fillMaxWidth().testTag("searchCardHeader")
         .semantics { freshness?.let { stateDescription = it } },
@@ -247,7 +247,7 @@ private fun SearchCardHeader(name: String, card: CardKey, count: Int, expanded: 
             Column(Modifier.weight(1f).padding(vertical = 8.dp)) {
                 Text(name, style = MaterialTheme.typography.titleSmall, maxLines = 2, overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.semantics { heading() })
-                Text("Card ending ${card.displayDigits ?: "unknown"}", style = MaterialTheme.typography.bodySmall)
+                Text("Card ending ${digits ?: "unknown"}", style = MaterialTheme.typography.bodySmall)
             }
             IconButton(onClick = onToggle, modifier = Modifier.testTag("searchCardToggle")
                 .semantics { stateDescription = if (expanded) "Expanded" else "Collapsed" }) {
@@ -265,7 +265,7 @@ private fun CompactBenefitResult(hit: SearchHit, enabled: Boolean, onClick: () -
     Surface(onClick = onClick, enabled = enabled, modifier = Modifier.padding(start = 24.dp).fillMaxWidth()
         .heightIn(min = 48.dp).testTag("searchCompactBenefit")
         .semantics {
-            contentDescription = "${entry.cardName.orEmpty()}, Card ending ${card.displayDigits ?: "unknown"}"
+            contentDescription = "${entry.cardName.orEmpty()}, Card ending ${entry.cardDigits ?: card.displayDigits ?: "unknown"}"
             stateDescription = listOfNotNull(entry.period, "Completed".takeIf { entry.completed }, entry.enrollment).joinToString(", ")
         },
         shape = MaterialTheme.shapes.small, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),

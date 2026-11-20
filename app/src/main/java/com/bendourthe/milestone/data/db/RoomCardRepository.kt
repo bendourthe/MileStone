@@ -191,6 +191,8 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
 
     override suspend fun connections(programId: String): List<Connection> = dao.connections(programId).map { it.toDomain() }
 
+    override suspend fun connection(connectionId: String): Connection? = dao.connection(connectionId)?.toDomain()
+
     override suspend fun addConnection(connection: Connection): Boolean = db.withTransaction {
         if (dao.accountCount(connection.programId) == 0 || dao.connection(connection.connectionId) != null) return@withTransaction false
         dao.insertConnection(
