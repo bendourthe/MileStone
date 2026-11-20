@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    ".github/workflows/ci.yml"
+  ],
+  "before_output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2",
+  "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea",
+  "changed_line_numbers": [
+    7,
+    457
+  ],
+  "all_other_lines_identical": true,
+  "scope": "Only emulator version diagnostic adds -no-window, matching existing actual headless launch. No app/source/tests/policy changes or hosted runtime success inferred."
+}

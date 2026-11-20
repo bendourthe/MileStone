@@ -1,0 +1,795 @@
+{
+  "samples": [
+    {
+      "utc": "2026-11-14T17:37:42.493175+00:00",
+      "cpu_percent": 50.59,
+      "available_memory_mb": 4643
+    },
+    {
+      "utc": "2026-11-14T17:37:47.494855+00:00",
+      "cpu_percent": 50.33,
+      "available_memory_mb": 4498
+    },
+    {
+      "utc": "2026-11-14T17:37:52.496346+00:00",
+      "cpu_percent": 50.85,
+      "available_memory_mb": 4337
+    },
+    {
+      "utc": "2026-11-14T17:37:57.498464+00:00",
+      "cpu_percent": 43.23,
+      "available_memory_mb": 4254
+    },
+    {
+      "utc": "2026-11-14T17:38:02.500007+00:00",
+      "cpu_percent": 41.16,
+      "available_memory_mb": 4191
+    },
+    {
+      "utc": "2026-11-14T17:38:07.501693+00:00",
+      "cpu_percent": 39.6,
+      "available_memory_mb": 4181
+    },
+    {
+      "utc": "2026-11-14T17:38:12.502931+00:00",
+      "cpu_percent": 36.5,
+      "available_memory_mb": 4035
+    },
+    {
+      "utc": "2026-11-14T17:38:17.504189+00:00",
+      "cpu_percent": 21.92,
+      "available_memory_mb": 4082
+    },
+    {
+      "utc": "2026-11-14T17:38:22.505881+00:00",
+      "cpu_percent": 18.5,
+      "available_memory_mb": 4072
+    },
+    {
+      "utc": "2026-11-14T17:38:27.507275+00:00",
+      "cpu_percent": 21.21,
+      "available_memory_mb": 4064
+    },
+    {
+      "utc": "2026-11-14T17:38:32.508341+00:00",
+      "cpu_percent": 25.86,
+      "available_memory_mb": 3988
+    },
+    {
+      "utc": "2026-11-14T17:38:37.511088+00:00",
+      "cpu_percent": 42.64,
+      "available_memory_mb": 3947
+    },
+    {
+      "utc": "2026-11-14T17:38:42.512418+00:00",
+      "cpu_percent": 21.35,
+      "available_memory_mb": 3931
+    },
+    {
+      "utc": "2026-11-14T17:38:47.514041+00:00",
+      "cpu_percent": 19.16,
+      "available_memory_mb": 3992
+    },
+    {
+      "utc": "2026-11-14T17:38:52.516130+00:00",
+      "cpu_percent": 25.71,
+      "available_memory_mb": 3983
+    },
+    {
+      "utc": "2026-11-14T17:38:57.517623+00:00",
+      "cpu_percent": 46.65,
+      "available_memory_mb": 3982
+    },
+    {
+      "utc": "2026-11-14T17:39:02.520532+00:00",
+      "cpu_percent": 34.86,
+      "available_memory_mb": 4025
+    },
+    {
+      "utc": "2026-11-14T17:39:07.524641+00:00",
+      "cpu_percent": 46.57,
+      "available_memory_mb": 4004
+    },
+    {
+      "utc": "2026-11-14T17:39:12.525993+00:00",
+      "cpu_percent": 30.1,
+      "available_memory_mb": 4014
+    },
+    {
+      "utc": "2026-11-14T17:39:17.527713+00:00",
+      "cpu_percent": 46.86,
+      "available_memory_mb": 4096
+    },
+    {
+      "utc": "2026-11-14T17:39:22.529183+00:00",
+      "cpu_percent": 20.02,
+      "available_memory_mb": 4080
+    },
+    {
+      "utc": "2026-11-14T17:39:27.530684+00:00",
+      "cpu_percent": 24.59,
+      "available_memory_mb": 4089
+    },
+    {
+      "utc": "2026-11-14T17:39:32.532004+00:00",
+      "cpu_percent": 21.28,
+      "available_memory_mb": 4070
+    },
+    {
+      "utc": "2026-11-14T17:39:37.534438+00:00",
+      "cpu_percent": 24.23,
+      "available_memory_mb": 4079
+    },
+    {
+      "utc": "2026-11-14T17:39:42.538364+00:00",
+      "cpu_percent": 40.88,
+      "available_memory_mb": 4057
+    },
+    {
+      "utc": "2026-11-14T17:39:47.539611+00:00",
+      "cpu_percent": 22.17,
+      "available_memory_mb": 3968
+    },
+    {
+      "utc": "2026-11-14T17:39:52.541219+00:00",
+      "cpu_percent": 26.54,
+      "available_memory_mb": 3975
+    },
+    {
+      "utc": "2026-11-14T17:39:57.543902+00:00",
+      "cpu_percent": 23.27,
+      "available_memory_mb": 3977
+    },
+    {
+      "utc": "2026-11-14T17:40:02.545594+00:00",
+      "cpu_percent": 61.24,
+      "available_memory_mb": 3912
+    },
+    {
+      "utc": "2026-11-14T17:40:07.547852+00:00",
+      "cpu_percent": 46.34,
+      "available_memory_mb": 3961
+    },
+    {
+      "utc": "2026-11-14T17:40:12.549924+00:00",
+      "cpu_percent": 54.88,
+      "available_memory_mb": 3935
+    },
+    {
+      "utc": "2026-11-14T17:40:17.562145+00:00",
+      "cpu_percent": 60.21,
+      "available_memory_mb": 4009
+    },
+    {
+      "utc": "2026-11-14T17:40:22.573202+00:00",
+      "cpu_percent": 62.43,
+      "available_memory_mb": 4010
+    },
+    {
+      "utc": "2026-11-14T17:40:27.577506+00:00",
+      "cpu_percent": 56.28,
+      "available_memory_mb": 4011
+    },
+    {
+      "utc": "2026-11-14T17:40:32.601105+00:00",
+      "cpu_percent": 61.33,
+      "available_memory_mb": 4012
+    },
+    {
+      "utc": "2026-11-14T17:40:37.604894+00:00",
+      "cpu_percent": 60.02,
+      "available_memory_mb": 4027
+    },
+    {
+      "utc": "2026-11-14T17:40:42.613255+00:00",
+      "cpu_percent": 74.36,
+      "available_memory_mb": 3962
+    },
+    {
+      "utc": "2026-11-14T17:40:47.616990+00:00",
+      "cpu_percent": 63.67,
+      "available_memory_mb": 4001
+    },
+    {
+      "utc": "2026-11-14T17:40:52.619574+00:00",
+      "cpu_percent": 63.84,
+      "available_memory_mb": 3924
+    },
+    {
+      "utc": "2026-11-14T17:40:57.623184+00:00",
+      "cpu_percent": 58.27,
+      "available_memory_mb": 3978
+    },
+    {
+      "utc": "2026-11-14T17:41:02.625431+00:00",
+      "cpu_percent": 54.31,
+      "available_memory_mb": 3957
+    },
+    {
+      "utc": "2026-11-14T17:41:07.628125+00:00",
+      "cpu_percent": 64.7,
+      "available_memory_mb": 3963
+    },
+    {
+      "utc": "2026-11-14T17:41:12.631195+00:00",
+      "cpu_percent": 55.94,
+      "available_memory_mb": 3973
+    },
+    {
+      "utc": "2026-11-14T17:41:17.635799+00:00",
+      "cpu_percent": 60.52,
+      "available_memory_mb": 3958
+    },
+    {
+      "utc": "2026-11-14T17:41:22.637621+00:00",
+      "cpu_percent": 49.29,
+      "available_memory_mb": 3921
+    },
+    {
+      "utc": "2026-11-14T17:41:27.640102+00:00",
+      "cpu_percent": 26.47,
+      "available_memory_mb": 3912
+    },
+    {
+      "utc": "2026-11-14T17:41:32.641449+00:00",
+      "cpu_percent": 18.92,
+      "available_memory_mb": 3916
+    },
+    {
+      "utc": "2026-11-14T17:41:37.643265+00:00",
+      "cpu_percent": 35.95,
+      "available_memory_mb": 3890
+    },
+    {
+      "utc": "2026-11-14T17:41:42.646240+00:00",
+      "cpu_percent": 45.42,
+      "available_memory_mb": 3748
+    },
+    {
+      "utc": "2026-11-14T17:41:47.648367+00:00",
+      "cpu_percent": 71.16,
+      "available_memory_mb": 3570
+    },
+    {
+      "utc": "2026-11-14T17:41:52.653275+00:00",
+      "cpu_percent": 64.83,
+      "available_memory_mb": 3586
+    },
+    {
+      "utc": "2026-11-14T17:41:57.658115+00:00",
+      "cpu_percent": 51.25,
+      "available_memory_mb": 3321
+    },
+    {
+      "utc": "2026-11-14T17:42:02.672208+00:00",
+      "cpu_percent": 36.78,
+      "available_memory_mb": 3723
+    },
+    {
+      "utc": "2026-11-14T17:42:07.674782+00:00",
+      "cpu_percent": 38.1,
+      "available_memory_mb": 3741
+    },
+    {
+      "utc": "2026-11-14T17:42:12.676449+00:00",
+      "cpu_percent": 52.89,
+      "available_memory_mb": 3747
+    },
+    {
+      "utc": "2026-11-14T17:42:17.679002+00:00",
+      "cpu_percent": 31.62,
+      "available_memory_mb": 3869
+    },
+    {
+      "utc": "2026-11-14T17:42:22.680992+00:00",
+      "cpu_percent": 44.97,
+      "available_memory_mb": 3791
+    },
+    {
+      "utc": "2026-11-14T17:42:27.682919+00:00",
+      "cpu_percent": 45.21,
+      "available_memory_mb": 3773
+    },
+    {
+      "utc": "2026-11-14T17:42:32.684865+00:00",
+      "cpu_percent": 23.7,
+      "available_memory_mb": 3760
+    },
+    {
+      "utc": "2026-11-14T17:42:37.686944+00:00",
+      "cpu_percent": 44.83,
+      "available_memory_mb": 3761
+    },
+    {
+      "utc": "2026-11-14T17:42:42.688519+00:00",
+      "cpu_percent": 19.98,
+      "available_memory_mb": 3763
+    },
+    {
+      "utc": "2026-11-14T17:42:47.690516+00:00",
+      "cpu_percent": 18.46,
+      "available_memory_mb": 3845
+    },
+    {
+      "utc": "2026-11-14T17:42:52.692883+00:00",
+      "cpu_percent": 28.66,
+      "available_memory_mb": 3827
+    },
+    {
+      "utc": "2026-11-14T17:42:57.694949+00:00",
+      "cpu_percent": 34.7,
+      "available_memory_mb": 3721
+    },
+    {
+      "utc": "2026-11-14T17:43:02.697252+00:00",
+      "cpu_percent": 40.31,
+      "available_memory_mb": 3808
+    },
+    {
+      "utc": "2026-11-14T17:43:07.699169+00:00",
+      "cpu_percent": 46.73,
+      "available_memory_mb": 3781
+    },
+    {
+      "utc": "2026-11-14T17:43:12.702907+00:00",
+      "cpu_percent": 30.4,
+      "available_memory_mb": 3785
+    },
+    {
+      "utc": "2026-11-14T17:43:17.705541+00:00",
+      "cpu_percent": 21.06,
+      "available_memory_mb": 3870
+    },
+    {
+      "utc": "2026-11-14T17:43:22.707528+00:00",
+      "cpu_percent": 21.07,
+      "available_memory_mb": 3839
+    },
+    {
+      "utc": "2026-11-14T17:43:27.711012+00:00",
+      "cpu_percent": 40.19,
+      "available_memory_mb": 3809
+    },
+    {
+      "utc": "2026-11-14T17:43:32.712892+00:00",
+      "cpu_percent": 24.55,
+      "available_memory_mb": 3769
+    },
+    {
+      "utc": "2026-11-14T17:43:37.715137+00:00",
+      "cpu_percent": 16.83,
+      "available_memory_mb": 3782
+    },
+    {
+      "utc": "2026-11-14T17:43:42.717308+00:00",
+      "cpu_percent": 47.8,
+      "available_memory_mb": 3686
+    },
+    {
+      "utc": "2026-11-14T17:43:47.719753+00:00",
+      "cpu_percent": 49.1,
+      "available_memory_mb": 3853
+    },
+    {
+      "utc": "2026-11-14T17:43:52.721541+00:00",
+      "cpu_percent": 24.97,
+      "available_memory_mb": 3864
+    },
+    {
+      "utc": "2026-11-14T17:43:57.725432+00:00",
+      "cpu_percent": 21.38,
+      "available_memory_mb": 3850
+    },
+    {
+      "utc": "2026-11-14T17:44:02.727167+00:00",
+      "cpu_percent": 21.31,
+      "available_memory_mb": 3780
+    },
+    {
+      "utc": "2026-11-14T17:44:07.729380+00:00",
+      "cpu_percent": 43.89,
+      "available_memory_mb": 3795
+    },
+    {
+      "utc": "2026-11-14T17:44:12.731124+00:00",
+      "cpu_percent": 28.91,
+      "available_memory_mb": 3682
+    },
+    {
+      "utc": "2026-11-14T17:44:17.733137+00:00",
+      "cpu_percent": 36.01,
+      "available_memory_mb": 3862
+    },
+    {
+      "utc": "2026-11-14T17:44:22.736577+00:00",
+      "cpu_percent": 28.12,
+      "available_memory_mb": 3835
+    },
+    {
+      "utc": "2026-11-14T17:44:27.739985+00:00",
+      "cpu_percent": 29.87,
+      "available_memory_mb": 3845
+    },
+    {
+      "utc": "2026-11-14T17:44:32.741731+00:00",
+      "cpu_percent": 27.3,
+      "available_memory_mb": 3823
+    },
+    {
+      "utc": "2026-11-14T17:44:37.743330+00:00",
+      "cpu_percent": 47.14,
+      "available_memory_mb": 3826
+    },
+    {
+      "utc": "2026-11-14T17:44:42.745582+00:00",
+      "cpu_percent": 21.28,
+      "available_memory_mb": 3839
+    },
+    {
+      "utc": "2026-11-14T17:44:47.747781+00:00",
+      "cpu_percent": 39.75,
+      "available_memory_mb": 3880
+    },
+    {
+      "utc": "2026-11-14T17:44:52.750806+00:00",
+      "cpu_percent": 47.24,
+      "available_memory_mb": 3854
+    },
+    {
+      "utc": "2026-11-14T17:44:57.753660+00:00",
+      "cpu_percent": 21.58,
+      "available_memory_mb": 3834
+    },
+    {
+      "utc": "2026-11-14T17:45:02.755647+00:00",
+      "cpu_percent": 46.02,
+      "available_memory_mb": 3834
+    },
+    {
+      "utc": "2026-11-14T17:45:07.757741+00:00",
+      "cpu_percent": 42.08,
+      "available_memory_mb": 3818
+    },
+    {
+      "utc": "2026-11-14T17:45:12.760680+00:00",
+      "cpu_percent": 24.09,
+      "available_memory_mb": 3804
+    },
+    {
+      "utc": "2026-11-14T17:45:17.763171+00:00",
+      "cpu_percent": 19.0,
+      "available_memory_mb": 3899
+    },
+    {
+      "utc": "2026-11-14T17:45:22.765327+00:00",
+      "cpu_percent": 22.31,
+      "available_memory_mb": 3855
+    },
+    {
+      "utc": "2026-11-14T17:45:27.767140+00:00",
+      "cpu_percent": 21.09,
+      "available_memory_mb": 3857
+    },
+    {
+      "utc": "2026-11-14T17:45:32.768944+00:00",
+      "cpu_percent": 39.29,
+      "available_memory_mb": 3855
+    },
+    {
+      "utc": "2026-11-14T17:45:37.771542+00:00",
+      "cpu_percent": 20.98,
+      "available_memory_mb": 3830
+    },
+    {
+      "utc": "2026-11-14T17:45:42.773521+00:00",
+      "cpu_percent": 30.36,
+      "available_memory_mb": 3802
+    },
+    {
+      "utc": "2026-11-14T17:45:47.776466+00:00",
+      "cpu_percent": 27.66,
+      "available_memory_mb": 3877
+    },
+    {
+      "utc": "2026-11-14T17:45:52.778123+00:00",
+      "cpu_percent": 30.71,
+      "available_memory_mb": 3829
+    },
+    {
+      "utc": "2026-11-14T17:45:57.781811+00:00",
+      "cpu_percent": 39.61,
+      "available_memory_mb": 3714
+    },
+    {
+      "utc": "2026-11-14T17:46:02.784865+00:00",
+      "cpu_percent": 44.98,
+      "available_memory_mb": 3792
+    },
+    {
+      "utc": "2026-11-14T17:46:07.786314+00:00",
+      "cpu_percent": 22.73,
+      "available_memory_mb": 3752
+    },
+    {
+      "utc": "2026-11-14T17:46:12.788909+00:00",
+      "cpu_percent": 16.31,
+      "available_memory_mb": 3755
+    },
+    {
+      "utc": "2026-11-14T17:46:17.791080+00:00",
+      "cpu_percent": 23.74,
+      "available_memory_mb": 3769
+    },
+    {
+      "utc": "2026-11-14T17:46:22.794054+00:00",
+      "cpu_percent": 17.75,
+      "available_memory_mb": 3748
+    },
+    {
+      "utc": "2026-11-14T17:46:27.797282+00:00",
+      "cpu_percent": 25.0,
+      "available_memory_mb": 3758
+    },
+    {
+      "utc": "2026-11-14T17:46:32.801919+00:00",
+      "cpu_percent": 21.94,
+      "available_memory_mb": 3731
+    },
+    {
+      "utc": "2026-11-14T17:46:37.804114+00:00",
+      "cpu_percent": 20.29,
+      "available_memory_mb": 3734
+    },
+    {
+      "utc": "2026-11-14T17:46:42.806926+00:00",
+      "cpu_percent": 19.5,
+      "available_memory_mb": 3709
+    },
+    {
+      "utc": "2026-11-14T17:46:47.809145+00:00",
+      "cpu_percent": 30.46,
+      "available_memory_mb": 3720
+    },
+    {
+      "utc": "2026-11-14T17:46:52.811490+00:00",
+      "cpu_percent": 25.18,
+      "available_memory_mb": 3721
+    },
+    {
+      "utc": "2026-11-14T17:46:57.814081+00:00",
+      "cpu_percent": 22.44,
+      "available_memory_mb": 3723
+    },
+    {
+      "utc": "2026-11-14T17:47:02.817005+00:00",
+      "cpu_percent": 27.82,
+      "available_memory_mb": 3724
+    },
+    {
+      "utc": "2026-11-14T17:47:07.819905+00:00",
+      "cpu_percent": 25.12,
+      "available_memory_mb": 3703
+    },
+    {
+      "utc": "2026-11-14T17:47:12.827108+00:00",
+      "cpu_percent": 42.9,
+      "available_memory_mb": 3643
+    },
+    {
+      "utc": "2026-11-14T17:47:17.829631+00:00",
+      "cpu_percent": 30.25,
+      "available_memory_mb": 3743
+    },
+    {
+      "utc": "2026-11-14T17:47:22.831861+00:00",
+      "cpu_percent": 22.02,
+      "available_memory_mb": 3702
+    },
+    {
+      "utc": "2026-11-14T17:47:27.833859+00:00",
+      "cpu_percent": 20.98,
+      "available_memory_mb": 3798
+    },
+    {
+      "utc": "2026-11-14T17:47:32.835658+00:00",
+      "cpu_percent": 25.11,
+      "available_memory_mb": 3753
+    },
+    {
+      "utc": "2026-11-14T17:47:37.838168+00:00",
+      "cpu_percent": 18.61,
+      "available_memory_mb": 3757
+    },
+    {
+      "utc": "2026-11-14T17:47:42.840123+00:00",
+      "cpu_percent": 32.2,
+      "available_memory_mb": 3767
+    },
+    {
+      "utc": "2026-11-14T17:47:47.847842+00:00",
+      "cpu_percent": 50.49,
+      "available_memory_mb": 3806
+    },
+    {
+      "utc": "2026-11-14T17:47:52.849936+00:00",
+      "cpu_percent": 62.4,
+      "available_memory_mb": 3672
+    },
+    {
+      "utc": "2026-11-14T17:47:57.852464+00:00",
+      "cpu_percent": 55.39,
+      "available_memory_mb": 3718
+    },
+    {
+      "utc": "2026-11-14T17:48:02.855028+00:00",
+      "cpu_percent": 38.14,
+      "available_memory_mb": 3741
+    },
+    {
+      "utc": "2026-11-14T17:48:07.857076+00:00",
+      "cpu_percent": 53.05,
+      "available_memory_mb": 3747
+    },
+    {
+      "utc": "2026-11-14T17:48:12.861140+00:00",
+      "cpu_percent": 58.24,
+      "available_memory_mb": 3649
+    },
+    {
+      "utc": "2026-11-14T17:48:17.864161+00:00",
+      "cpu_percent": 68.34,
+      "available_memory_mb": 3724
+    },
+    {
+      "utc": "2026-11-14T17:48:22.866762+00:00",
+      "cpu_percent": 65.7,
+      "available_memory_mb": 3735
+    },
+    {
+      "utc": "2026-11-14T17:48:27.877026+00:00",
+      "cpu_percent": 67.72,
+      "available_memory_mb": 3671
+    },
+    {
+      "utc": "2026-11-14T17:48:32.882150+00:00",
+      "cpu_percent": 58.69,
+      "available_memory_mb": 3651
+    },
+    {
+      "utc": "2026-11-14T17:48:37.884744+00:00",
+      "cpu_percent": 54.69,
+      "available_memory_mb": 3738
+    },
+    {
+      "utc": "2026-11-14T17:48:42.886496+00:00",
+      "cpu_percent": 52.59,
+      "available_memory_mb": 3721
+    },
+    {
+      "utc": "2026-11-14T17:48:47.891224+00:00",
+      "cpu_percent": 62.94,
+      "available_memory_mb": 3798
+    },
+    {
+      "utc": "2026-11-14T17:48:52.900138+00:00",
+      "cpu_percent": 52.86,
+      "available_memory_mb": 3810
+    },
+    {
+      "utc": "2026-11-14T17:48:57.902892+00:00",
+      "cpu_percent": 58.52,
+      "available_memory_mb": 3611
+    },
+    {
+      "utc": "2026-11-14T17:49:02.912028+00:00",
+      "cpu_percent": 61.28,
+      "available_memory_mb": 3666
+    },
+    {
+      "utc": "2026-11-14T17:49:07.913773+00:00",
+      "cpu_percent": 60.3,
+      "available_memory_mb": 3765
+    },
+    {
+      "utc": "2026-11-14T17:49:12.918581+00:00",
+      "cpu_percent": 59.44,
+      "available_memory_mb": 3751
+    },
+    {
+      "utc": "2026-11-14T17:49:17.922233+00:00",
+      "cpu_percent": 67.05,
+      "available_memory_mb": 3880
+    },
+    {
+      "utc": "2026-11-14T17:49:22.927469+00:00",
+      "cpu_percent": 55.36,
+      "available_memory_mb": 3748
+    },
+    {
+      "utc": "2026-11-14T17:49:27.930050+00:00",
+      "cpu_percent": 55.73,
+      "available_memory_mb": 3813
+    },
+    {
+      "utc": "2026-11-14T17:49:32.933972+00:00",
+      "cpu_percent": 62.31,
+      "available_memory_mb": 3812
+    },
+    {
+      "utc": "2026-11-14T17:49:37.937470+00:00",
+      "cpu_percent": 55.75,
+      "available_memory_mb": 3806
+    },
+    {
+      "utc": "2026-11-14T17:49:42.939769+00:00",
+      "cpu_percent": 55.25,
+      "available_memory_mb": 3811
+    },
+    {
+      "utc": "2026-11-14T17:49:47.941660+00:00",
+      "cpu_percent": 68.01,
+      "available_memory_mb": 3865
+    },
+    {
+      "utc": "2026-11-14T17:49:52.947537+00:00",
+      "cpu_percent": 62.44,
+      "available_memory_mb": 3792
+    },
+    {
+      "utc": "2026-11-14T17:49:57.950152+00:00",
+      "cpu_percent": 63.78,
+      "available_memory_mb": 3765
+    },
+    {
+      "utc": "2026-11-14T17:50:02.952394+00:00",
+      "cpu_percent": 60.9,
+      "available_memory_mb": 3751
+    },
+    {
+      "utc": "2026-11-14T17:50:07.955240+00:00",
+      "cpu_percent": 54.75,
+      "available_memory_mb": 3666
+    },
+    {
+      "utc": "2026-11-14T17:50:12.958626+00:00",
+      "cpu_percent": 61.67,
+      "available_memory_mb": 3760
+    },
+    {
+      "utc": "2026-11-14T17:50:17.961477+00:00",
+      "cpu_percent": 57.72,
+      "available_memory_mb": 3855
+    },
+    {
+      "utc": "2026-11-14T17:50:22.963862+00:00",
+      "cpu_percent": 59.92,
+      "available_memory_mb": 3820
+    },
+    {
+      "utc": "2026-11-14T17:50:27.969707+00:00",
+      "cpu_percent": 59.81,
+      "available_memory_mb": 3774
+    },
+    {
+      "utc": "2026-11-14T17:50:32.973990+00:00",
+      "cpu_percent": 57.52,
+      "available_memory_mb": 3782
+    },
+    {
+      "utc": "2026-11-14T17:50:37.976905+00:00",
+      "cpu_percent": 59.01,
+      "available_memory_mb": 3779
+    },
+    {
+      "utc": "2026-11-14T17:50:42.979043+00:00",
+      "cpu_percent": 60.04,
+      "available_memory_mb": 3913
+    },
+    {
+      "utc": "2026-11-14T17:50:47.982865+00:00",
+      "cpu_percent": 45.25,
+      "available_memory_mb": 4810
+    }
+  ],
+  "includes_owned_emulator_and_Gradle_load": true
+}

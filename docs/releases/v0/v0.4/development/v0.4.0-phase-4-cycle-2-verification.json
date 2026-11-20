@@ -1,0 +1,227 @@
+{
+  "recorded_utc": "2026-11-14T08:19:40.186433+00:00",
+  "candidate_base": "46f11541592de23aba421f223cc49679c6a53df6",
+  "uncommitted": true,
+  "source_sha256": {
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "3f20e097ef9ca9366eba0dde0c049ff9f60c5af0d6d6c2023e6c5bae7b883548",
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt": "6dfd82c63249ec2943114158324eeb20dfd3eaab87f436bd21839d012054dff5",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "31600eb8d68683e1f1f50c610edaf1cd98dcd3fed96b836e56976bc965302323",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "b38797bfd219531cbf70dd5e9121c599834e027d7d3578de691f8e2a0f21e825",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "02f74573d5c6392e55cf1e6057d42089b434c2167b6cc736dade73c47655dadb",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt": "02e9ba7c6f1200d3c3f924a307cdfc33e14b29fde98a08a5c464b818a21d80c1",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt": "2264a217ce4103d119c909eb3198ec8f1b35ed0423b137f43a4dd1626ccce4f6",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt": "713d4c7b433f27bcb9b225fb1b8aa4b9c93fff8a002e720bbf8688c9cce913e6",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": "e4829022eb7e0907b47087a47031c899ca16fd93dde35c02ff80258659d63149",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchProcessFixtureTest.kt": "a2cafd191baee75f02e1f54e8db259e68ad6dcad28ad7d3990f85b2a6180aa2b"
+  },
+  "jvm": {
+    "cases": 26,
+    "failures": 0,
+    "errors": 0,
+    "command": "gradlew -q --no-daemon --max-workers=2 testDebugUnitTest --tests com.bendourthe.milestone.domain.GlobalSearchTest --tests com.bendourthe.milestone.ui.search.* compileDebugAndroidTestKotlin",
+    "exit_code": 0,
+    "log": "TEMP/milestone-search-phase4-cycle2-compile-rerun.log"
+  },
+  "device": {
+    "cases": 26,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "serial": "emulator-5554",
+    "classes": [
+      "SearchNavigationTest",
+      "SearchScreenTest",
+      "SearchLatencyTest",
+      "SearchProcessFixtureTest"
+    ],
+    "exit_code": 0,
+    "log": "TEMP/milestone-search-phase4-cycle2-device.log"
+  },
+  "latency": {
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "samples": 30,
+    "warmups": 3,
+    "p95_ms": 86.4175,
+    "limit_ms": 200,
+    "minimum_ms": 14.7709,
+    "maximum_ms": 101.0351,
+    "device": "emu64xa",
+    "hardware": "ranchu",
+    "api": 36,
+    "method": "Monotonic wall-clock from ViewModel query update to completion of the production SearchContent draw with the expected query/result set; initial read, IME and initial focus excluded",
+    "observations": [
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 101.0351
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 15.1501
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 16.8705
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 20.6068
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 17.3681
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 18.33
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 83.4032
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 15.2285
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 17.1199
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 17.1543
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 19.6073
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 16.7642
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 86.4175
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 17.651
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 18.0219
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 17.7482
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 19.2718
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 15.8484
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 68.2962
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 18.5342
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 15.8462
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 14.9695
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 15.075
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 16.677
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 83.4737
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 16.899
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 16.9682
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 14.7709
+      },
+      {
+        "family": "parent_only",
+        "count": 1,
+        "elapsed_ms": 16.7589
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 18.2647
+      }
+    ]
+  },
+  "actual_process_restart": {
+    "serial": "emulator-5554",
+    "boundary": "Installed production MainActivity, adb input and UiAutomator; background process death then actual replacement PID",
+    "kill_method": "background package-owned SIGKILL through run-as",
+    "process_changed": true,
+    "query_visible_before_death": true,
+    "query_absent_after_death": true,
+    "restored_search_route": true,
+    "blank_search_prompt_after_restart": true,
+    "diagnostic_query_absent": true,
+    "unsupported_program_retained": true,
+    "cards_unchanged_empty": true,
+    "fixture_removed_after_verification": true,
+    "phone_accessed": false
+  },
+  "fix_rerun_cycles_used": 2,
+  "full_local_gate": "pending",
+  "owner_phone_search_acceptance": "pending",
+  "publication": "not started"
+}

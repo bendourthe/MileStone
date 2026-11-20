@@ -1,0 +1,22 @@
+{
+  "failed_run": "https://github.com/bendourthe/MileStone/actions/runs/43731132775",
+  "failed_head": "3221e7945d0d599de1eaf6b4f761953f5e0e15dc",
+  "failure": "Invalid workflow: runner.temp unavailable at jobs.android.env",
+  "local_reproduction": {
+    "actionlint_version": "v1.7.12",
+    "download_checksum_verified": true,
+    "before_exit": 1,
+    "after_exit": 0
+  },
+  "correction": "Move runner-dependent AVD path to emulator step and persist it through GITHUB_ENV; use an ignored polling variable.",
+  "app_and_tests_unchanged": true,
+  "accepted_apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2",
+  "runtime_reuse": "Retain74-case accepted emulator and process proof for exact byte-identical APK. Wrapper fingerprint differs due workflow; do not relabel old platform receipt as a new run. Hosted platform gate remains mandatory before merge.",
+  "handbook_output_sha256": "468da5f4720b06f68f2be45f037e509e8e81071076063e4689a34dc8fd004548",
+  "handbook_render_checks": 2607,
+  "png_comparison_count": 225,
+  "png_mismatches": 0,
+  "correction_push_number": 1,
+  "authorized_maximum": 3,
+  "hosted_correction_result": "Pending; never inferred from local proof."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "output_sha256": "85f703f3a8d809672f4c2802dd7b3a223599bf577c669262a2f01aa3e345c1d3",
+  "scope": "Current3-source/8-slide/65-input handbook only; no application gate or release claim.",
+  "source_grounding": [
+    "Program destination four-second outline after exact target validation.",
+    "Independent program/card/canonical subsection Show/Hide state stays in navigation-entry VM memory.",
+    "Offline card thumbnails and title-only single-line benefit tiles; period/completion/enrollment remain destination detail and nonvisual accessibility context.",
+    "Canonical order, context-only static headers, exact full-tile targets, stored-only matching/privacy unchanged.",
+    "Hosted full then SDK/KVM/emulator/platform/report is configured; hosted candidate execution remains unobserved."
+  ],
+  "actual_checks": {
+    "browser_checks": 2606,
+    "findings": 0,
+    "measurements": 384,
+    "prints": [
+      {
+        "path": "print-js.pdf",
+        "pages": 15,
+        "empty_pages": [],
+        "all_source_checks": true
+      },
+      {
+        "path": "print-no-js.pdf",
+        "pages": 15,
+        "empty_pages": [],
+        "all_source_checks": true
+      }
+    ]
+  },
+  "author_visual_observation": "Inspected actual390px overviewSearch paragraph and1366pxToolchain capture; independent coordinator review of current paragraphs/prints/bindings remains required.",
+  "limits": []
+}

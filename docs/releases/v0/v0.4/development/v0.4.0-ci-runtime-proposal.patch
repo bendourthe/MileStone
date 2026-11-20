@@ -1,0 +1,57 @@
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -16,6 +16,8 @@
+     if: ${{ github.base_ref == 'develop' || github.base_ref == 'main' }}
+     runs-on: ubuntu-24.04
+     timeout-minutes: 75
++    env:
++      ANDROID_AVD_HOME: ${{ runner.temp }}/milestone-ci-avd
+     steps:
+       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+         with:
+@@ -39,9 +41,44 @@
+           docker pull zricethezav/gitleaks@sha256:2bcceac45179b3a91bff11a824d0fb952585b429e54fc928728b1d4d5c3e5176
+ 
+       # ADR-0001: capture builds stay local. The native full profile names this scope explicitly.
+-      # Android runtime proof stays in the local emulator-only platform profile; it is not claimed here.
++      # Runtime uses the same emulator-bound native platform profile before merge.
+       - name: Validate the integration candidate
+         run: .validation-venv/bin/python scripts/validate.py --profile full --platform ci-linux --quiet
++
++      - name: Prepare the isolated Android emulator
++        timeout-minutes: 15
++        run: |
++          mkdir -p reports/metadata "$ANDROID_AVD_HOME"
++          sdkmanager --install emulator "system-images;android-36;google_apis;x86_64" > reports/emulator-sdk.log 2>&1
++          printf 'no\n' | avdmanager create avd -n milestone-ci -k "system-images;android-36;google_apis;x86_64" --device pixel_5 > reports/emulator-avd.log 2>&1
++          test -c /dev/kvm
++          sudo setfacl -m "u:$(id -un):rw" /dev/kvm
++          "$ANDROID_HOME/emulator/emulator" -accel-check > reports/metadata/emulator-acceleration.txt 2>&1
++          "$ANDROID_HOME/emulator/emulator" -version > reports/metadata/emulator-version.txt 2>&1
++          "$ANDROID_HOME/emulator/emulator" -avd milestone-ci -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader > reports/emulator.log 2>&1 &
++          emulator_pid=$!
++          timeout 180 adb -s emulator-5554 wait-for-device
++          for attempt in $(seq 1 90); do
++            kill -0 "$emulator_pid"
++            booted=$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')
++            if [ "$booted" = "1" ]; then break; fi
++            sleep 2
++          done
++          test "$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')" = "1"
++          adb -s emulator-5554 shell input keyevent 82
++
++      - name: Validate Android runtime before merge
++        env:
++          ANDROID_SERIAL: emulator-5554
++        run: .validation-venv/bin/python scripts/validate.py --profile platform --platform ci-linux --quiet
++
++      - name: Stop the assigned emulator
++        if: ${{ always() }}
++        timeout-minutes: 2
++        run: |
++          if [ "$(adb -s emulator-5554 shell getprop ro.kernel.qemu 2>/dev/null | tr -d '\r')" = "1" ]; then
++            adb -s emulator-5554 emu kill
++          fi
+ 
+       - name: Aggregate validation evidence
+         if: ${{ always() }}

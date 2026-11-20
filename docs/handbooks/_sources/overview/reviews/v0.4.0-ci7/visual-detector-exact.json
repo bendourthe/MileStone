@@ -1,0 +1,31 @@
+{
+  "allowlist": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-worktrees\\release-v0.4.0\\docs\\handbooks\\_sources\\overview\\reviews\\v0.4.0-ci7\\visual-allowlist.json",
+  "file": "C:\\Users\\BEDOURTHE\\Documents\\Benjamin\\MileStone-worktrees\\release-v0.4.0\\docs\\handbooks\\html\\overview.html",
+  "findings": [],
+  "font_floor_px": 12.0,
+  "fragment": null,
+  "gate_findings": 0,
+  "minimum_text_box_px": {
+    "height": 12.0,
+    "width": 16.0
+  },
+  "page_pass": true,
+  "status": "pass",
+  "suppressed_findings": 3,
+  "theme": null,
+  "tolerance_px": 1.0,
+  "viewports": [
+    {
+      "height": 900,
+      "width": 420
+    },
+    {
+      "height": 900,
+      "width": 900
+    },
+    {
+      "height": 900,
+      "width": 1440
+    }
+  ]
+}

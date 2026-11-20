@@ -1,0 +1,96 @@
+{
+  "observed_utc": "2026-11-17T21:13:09.247405+00:00",
+  "status": "LOCAL_CORRECTION_PROVED_HOSTED_RUNTIME_UNRESOLVED",
+  "published_head": "29950f7ce1ded389a7ff616224601d9ff577d900",
+  "hosted_run": 44148219727,
+  "hosted_result": "FAILURE",
+  "hosted_failures": [
+    "BenefitRemindersDeviceTest notification list empty after posting",
+    "BenefitsRedesignDeviceTest Compose measure/layout reentry",
+    "Instrumentation process crashed"
+  ],
+  "hosted_search_timing": "NOT_RUN",
+  "unchanged_local": {
+    "focused_tests": 7,
+    "failures": 0,
+    "notification_repeats": 10,
+    "repeat_failures": 0
+  },
+  "correction": {
+    "path": "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitRemindersDeviceTest.kt",
+    "behavior": "Use a 5,000 ms coroutine timeout while polling every 25 ms for an active reminder before the unchanged duplicate and privacy assertions",
+    "genuine_owner_baseline_approval": "Preserve current contents and apply the bounded wait",
+    "official_pre_edit_comparison": "Matches published head; accept cannot initialize missing record; explicit approval and post-write record retained",
+    "changed_test_passed": true,
+    "controlled_real_post_delay_ms": 250,
+    "controlled_immediate_read": "FAIL expected1 actual0",
+    "controlled_bounded_wait": "PASS",
+    "temporary_controls_removed": true,
+    "evidence_root": "reports/release-v040/ci12-reproduction"
+  },
+  "compose": {
+    "retained_change": "One import to existing Compose 1.12.1 v2 queued-dispatch test rule",
+    "local_six_case_result": "PASS with all assertions, interactions and budgets retained",
+    "legacy_same_predecessor_sequence": "14/14 PASS locally",
+    "hosted_root_cause_proved": false,
+    "evidence": "reports/release-v040/ci12-reproduction/compose-v2-receipt.json",
+    "source_evidence": "Exact official Maven1.12.1 source jars confirm legacy unconfined versus v2 standard dispatcher; source hashes retained in compose-source-complete/source-receipt.json"
+  },
+  "T019": "LOCAL_GATE_PASSED_PENDING_FINAL_SECURITY_REFRESH",
+  "T020": "OPEN",
+  "authority": "Only local correction/verification; one push of 29950f7 consumed; no further push or CI retry",
+  "expanded_goal": "All original release/archive/native obligations, v0.4 Search, v0.5 dynamic Chase benefits, v0.6 default-on offers for every independently eligible Amex/Chase card remain unfinished",
+  "handbooks": "Changed tests, plan and tracker are not retained handbook inputs; unchanged handbook evidence is reused subject to current checker",
+  "qualification": {
+    "full": "PASS",
+    "source_sha256": "d9005bdfffe5172b08636805f50b18213f29dae6d40794a51759ffe762b97ea8",
+    "counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 5065,
+      "total": 6477,
+      "percent": 78.2
+    },
+    "security_findings": 0,
+    "security_positive_control_detected": true,
+    "platform": "PASS: 78 cases, zero failures/errors/skips; fresh-boot source fingerprint matches full profile",
+    "host_load_note": "15 percent admission applies only to optional trace-smoke protocol, not canonical platform qualification. CPU load recorded as context, not a controlled host comparison.",
+    "platform_first_attempt": "First attempt FAIL: runtime command exit124 after2701.469 seconds; no complete JUnit export; optimized Search BLOCKED. Original reports preserved in reports/release-v040/ci12-qualified.",
+    "platform_reports": "reports/release-v040/ci12-fresh-boot",
+    "search": {
+      "programs": 25,
+      "cards": 100,
+      "displayed_benefits": 2000,
+      "samples": 30,
+      "warmups": 3,
+      "p95_ms": 80.4733,
+      "maximum_ms": 85.0392,
+      "limit_ms": 200,
+      "preservation_passed": true
+    }
+  },
+  "amex_offer_research": "Relevant public terms clauses verified by ordinary HTTP 200 and contextual reading; issuer authorization and campaign/cardmember eligibility remain delivery constraints. No issuer actions.",
+  "review": "Six read-only lenses, zero findings, exact two-file module; v0.4.0-ci12-review.json",
+  "historical_native_closure": {
+    "v0.1": "Fresh native BLOCKED: record-tampered",
+    "v0.2": "Fresh current-session native INCOMPLETE: record.minor; foreign historical T005/cleanup snapshot not requalified"
+  },
+  "platform_recovery": {
+    "status": "BOOT_COMPLETE_PLATFORM_PASS",
+    "evidence": "reports/release-v040/ci12-reproduction/recovered-avd-receipt.json",
+    "reason": "Long-lived guest and severe runtime slowdown across legacy and queued-rule runs; no isolated root cause proved",
+    "guest_disk_wiped": false,
+    "flags_changed": false,
+    "limits_changed": false,
+    "old_host_tree_stopped": true,
+    "old_emulator_process_stopped": true,
+    "fresh_reports": "reports/release-v040/ci12-fresh-boot",
+    "boot_id": "5576ce45-fc8b-46e0-b694-b8b21b5ed768",
+    "original_avd_home_recovered": true
+  },
+  "postcommit": "Fresh committed source packaging and security verification remain pending"
+}

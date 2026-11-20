@@ -1,0 +1,15 @@
+{
+  "status": "pass",
+  "changed_inputs": [
+    "scripts/validate.py",
+    "scripts/tests/test_validate.py"
+  ],
+  "before_output_sha256": "b553220ab4a3604fed07e9700b64c7f9cd943ac557e59e085e32a6b7520ecd32",
+  "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2",
+  "changed_line_numbers": [
+    7,
+    457
+  ],
+  "all_other_lines_identical": true,
+  "scope": "Existing exact policy and fixed HEAD LF-normalized public Kotlin hash verified before complete metadata digest removal from scanner stream; raw/scanned hashes, byte counts and exception count recorded. No hosted CI or app runtime claim."
+}

@@ -1,0 +1,26 @@
+{
+  "recorded_utc": "2026-11-14T09:18:21.130804+00:00",
+  "cause": "Phase 1 commit 259b22d accidentally misdecoded the pre-existing trademark regex while adding observeForSearch",
+  "actual_correction_round": 4,
+  "original_skill_cap": 3,
+  "authority": "Current user-supplied AGENTS autonomous-operation instruction to proceed with reversible work already covered by the request takes precedence over the lower-priority skill iteration cap. The exception was disclosed in chat; no new remote, destructive or native-record authority is inferred.",
+  "scope": "One existing line in domain/Benefits.kt; restore origin/develop semantics using ASCII Unicode escapes; preserve observeForSearch and every other line",
+  "failed_tests": [
+    "BenefitsTest.cardNamesLoseTrademarkSignsAndExtraSpaces",
+    "BenefitsTest.stableKeyIgnoresCaseSpacingAndTrademarksButNotThePeriod"
+  ],
+  "first_full_gate": {
+    "tests": 412,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 10,
+    "private_amex_benefit_fixture_cases": 4,
+    "private_amex_benefit_fixture_failures": 0,
+    "private_amex_benefit_fixture_skips": 0,
+    "skip_reason": "Ten optional program-balance capture files are absent; the supplied Amex benefit captures were executed",
+    "benefit_fixture_cases_total": 8
+  },
+  "independent_source_review": "ASCII escape set exactly equals prior released U+2122/U+00AE/U+2120/U+00A9; normalization function and observeForSearch preserved",
+  "rerun": "pending full JVM/coverage/render/security and unfiltered emulator gates",
+  "phone_install": "not attempted while the full gate is failed"
+}

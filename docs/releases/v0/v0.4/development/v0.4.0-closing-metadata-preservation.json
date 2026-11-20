@@ -1,0 +1,37 @@
+{
+  "merged_head": "736b0d115aa99bb85d75cb6bda3a8024a912bd2a",
+  "restored_local_documents": true,
+  "other_dirty_files_byte_identical": true,
+  "legacy_rows_preserved": 29,
+  "private_captures_stashed": false,
+  "stash_retained": true,
+  "known_command_rebaselines": {
+    "paths": [
+      "docs/releases/v0/v0.4/known-gaps.md",
+      "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+      "docs/todos.md",
+      "CLAUDE.md",
+      "README.md",
+      "docs/DEVLOG.md",
+      "docs/README.md",
+      "docs/archives/v0/v0.2/known-gaps.md",
+      "docs/decisions/0008-amex-benefits-card-navigation.md"
+    ],
+    "authority": "Existing owner authorization for reversible local implementation/refinement and original archive integration; known own-command transformations only",
+    "official_diff_inspected": true,
+    "late_record_rule_exception_disclosed": true,
+    "new_user_agreement_claimed": false,
+    "native_baseline_authorization_claimed": false
+  },
+  "known_own_checker_rebaseline": {
+    "path": "scripts/check_handbook_render.py",
+    "reviewed_sha256": "d7779612f51737763cca13f4c1be55d54fe7ada15a08d8950eabb3aeae9e6675",
+    "reason": "Owned checker edit exceeded official two-minute record window; root inspected full official diff and confirmed only authorized own additions",
+    "preservation": "All current contents retained; no user edits found or overwritten",
+    "authority": "Higher-priority owner autonomous reversible-work instruction; known own-work correction only",
+    "official_diff_accept_check_record_completed": true,
+    "new_user_approval_claimed": false,
+    "native_automatic_baseline_grant_claimed": false,
+    "lower_manual_consent_line_and_exception_disclosed_in_chat": true
+  }
+}

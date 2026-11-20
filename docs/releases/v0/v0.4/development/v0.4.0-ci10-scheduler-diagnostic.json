@@ -1,0 +1,69 @@
+{
+  "recorded_utc": "2026-11-17T09:56:25.794818+00:00",
+  "status": "DIAGNOSIS_OPEN",
+  "qualification": false,
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "untraced_baseline": {
+    "receipt": "reports\\release-v040\\ci10-four-core-baseline-f15033237c5a430d82c44fe184311eca\\receipt.json",
+    "status": "DIAGNOSTIC_COMPLETE",
+    "metrics_valid_except_latency": true,
+    "p95_ms": 471.4129,
+    "samples": 30,
+    "preservation_passed": true,
+    "target_sha256": "0f55b879a92ab9d04994b76947dde8b093f3ee1f7fc09102138c2364b2271c13",
+    "controller_sha256": "3a0c44cb556e60ccc71053e4245fac4f48e460dbaa21b736b8a58af77eeaf3ee",
+    "cpu_admission_samples": [
+      11.327481580714638,
+      12.45649428040847,
+      11.728343763847327
+    ]
+  },
+  "trace_run": {
+    "receipt": "reports\\release-v040\\ci10-four-core-trace-8c070348a56b4024a9d76c426af82717\\receipt.json",
+    "original_status": "DIAGNOSTIC_FAILED",
+    "original_receipt_preserved": true,
+    "p95_ms": 555.7615,
+    "metrics_valid_except_latency": true,
+    "capture": "COMPLETE",
+    "trace_sha256": "6bae14fd4cc6754f9f4ad9cb32d8bedabcafe6c0e769320244b5182dff0d06ee",
+    "owned_device_trace_removed": true,
+    "coverage": "INCOMPLETE",
+    "partial_analysis": "reports\\release-v040\\ci10-four-core-trace-8c070348a56b4024a9d76c426af82717\\partial-trace-analysis.json",
+    "target_frames": 97,
+    "trace_error_or_loss_entries": 0,
+    "trace_end_after_marker_ms": 16693.2419,
+    "controller_completion_after_marker_ms": 26585.0
+  },
+  "setup_corrections": [
+    "Allow bounded fresh CPU-reading windows without changing the 15 percent admission threshold.",
+    "Directly call the same benchmark.execute entry point; validator wrapper absolute import previously failed before workload.",
+    "Normalize bracket-wrapped emulator COMM names when identifying worker TIDs.",
+    "Extend captured window from eight to fifteen seconds based on observed measured interval sum; fifteen still failed whole-workload coverage."
+  ],
+  "restoration": {
+    "baseline_affinity_restored": true,
+    "trace_affinity_restored": true
+  },
+  "offline_contention": {
+    "analysis": "reports/release-v040/ci10-four-core-trace-8c070348a56b4024a9d76c426af82717/contention-windows-corrected.json",
+    "longest_worker_runnable_wait_ms": 147.7284,
+    "longest_main_runnable_wait_ms": 122.7047,
+    "windows_analyzed": 6,
+    "observation": "The longest waits overlap target rendering and compositor/system thread scheduling; several main-thread waits also overlap guest idle slices. The evidence does not establish a simple all-core CPU saturation cause.",
+    "metadata_limit": "Process-name metadata is unavailable. Earlier idle_or_kernel display placeholders are explicitly corrected; only thread ID zero is classified idle.",
+    "causal_limit": "Guest scheduling and host descheduling remain indistinguishable; no query or hosted-root-cause attribution is established."
+  },
+  "conclusions": [
+    "An unchanged four-core Windows workload reproduces latency failure.",
+    "Partial captured-window target threads show runnable waiting as well as execution.",
+    "No hosted Linux root cause, per-query attribution, performance success or complete-trace claim is established."
+  ],
+  "unchanged": [
+    "Production app and test sources",
+    "Thirty measured samples and three warmups",
+    "200 ms gate",
+    "Published commit and PR17 red status",
+    "No additional push or CI rerun authority"
+  ],
+  "next": "Assess complete bounded trace or stronger causal evidence before a production change."
+}

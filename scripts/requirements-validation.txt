@@ -1,0 +1,2 @@
+# Offline-handbook renderer version qualified by the v0.4.0 candidate checks.
+playwright==1.64.0

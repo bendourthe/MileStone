@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-17T05:24:01.576486+00:00",
+  "scope": "Current source snapshot; reproducible local handbook build",
+  "first_output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b",
+  "second_output_sha256": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b",
+  "identical": true,
+  "check": "python scripts/build_handbooks.py --check passed",
+  "design_model_inputs": "Unchanged approved design, model, source units and eight slides retained"
+}

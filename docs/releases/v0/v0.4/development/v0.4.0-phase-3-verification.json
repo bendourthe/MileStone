@@ -1,0 +1,95 @@
+{
+  "scope": "v0.4.0 Phase 3; final acceptance, owner phone testing and delivery remain open",
+  "parent_commit": "6b93752f9efc68efbfc1d58bc2717ff22289df60",
+  "device": "emulator-5554",
+  "jvm": {
+    "tests": 60,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "instrumentation": {
+    "tests": 20,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "device_cases": [
+    "resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack",
+    "cardAndProgramRemovalDuringSelectionAreSafe",
+    "descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact",
+    "removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement",
+    "removedOriginatingCardFallsBackToItsInstitution",
+    "lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally",
+    "reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected",
+    "rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch",
+    "sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity",
+    "programAndCardTargetsReturnToTheSameSearch",
+    "combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges",
+    "rewardsHeaderAtDoubledFontRetainsAllActions",
+    "descriptionAndCompletedContextAreVisibleAndCountsDoNotIncludeHeadings",
+    "groupedContextClearAndFreshEntryUseRealNavigation",
+    "delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData",
+    "everyBenefitsHeaderAndSystemBackReturnToTheOrigin",
+    "rewardsHeaderPreservesExistingActionsAtNarrowWidth",
+    "keyboardBackDismissesImeBeforeLeavingSearch",
+    "doubledFontKeepsSearchBackClearAndRowsUsable",
+    "actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus"
+  ],
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 39
+  },
+  "commands": [
+    {
+      "tasks": "testDebugUnitTest (ui.search.*, GlobalSearchTest, MileStoneAppTest, BenefitsScreenTest, BenefitsViewModelTest), lintDebug, assembleDebug, assembleCapture, compileDebugAndroidTestKotlin",
+      "exit_code": 0
+    },
+    {
+      "tasks": "connectedDebugAndroidTest with SearchNavigationTest and SearchScreenTest; ANDROID_SERIAL=emulator-5554",
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt": "7342303a86835ff34c0d24abfab18123751b739ded501dcb9449eec24f8d7938",
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt": "2c26a3ebe5d602c371afc0b145676d4a1cf95186f788b04514f0a00e621b1154",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": "459b854efe9a73a67fde011b196ab5500015720a355a2b24b503baf6ea9d3436",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "f72af1a104f6d52e4a0c691e966aa7e8b0f02e565f7b73842063e338159251b2",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt": "fa495bed1da70610025d3f93dd0496581aa0ef565f09cf37af47fc81531814bb",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": "4b7bcbe82d1719307760d0d44ff5904849b3bad2cdb75de978798c6abf5863cf",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "701d16120ab53d2a2d4201834cbbfe4c260b1cde3e0e3a72395c57fcd9f7a3bb",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "179db572174d075c0b8f73b98a6c095da75227f081da47cbe957d8348bf26ed1",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRevealIndexTest.kt": "cd732f329b9926c05c8e77927c99b304e1a44cc9dce668e287ef93dbb8225f10"
+  },
+  "unit_report_sha256": {
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.GlobalSearchTest.xml": "e800e8906e778a6a032096e58cdb12f212f1b13c96fb7e49bc0d2c93422a329e",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsScreenTest.xml": "c073c6f9d149a13848cc2df462eabc94ba40e07657ac38d9571edba74b257256",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest.xml": "1865eb4982eb32329f99c34d038c00823a8fab65e2decff75a856a47b87c6cb9",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.MileStoneAppTest.xml": "487d51b5420e74103601145cd6c457eb95f34f09c919cca139eea45f4bccb823",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchMemoryTest.xml": "5f05e125fc06996a92709efde4fba370c55cc36ef0b582384813bd66902b257d",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchProjectionTest.xml": "78cc40803bc575ec1dedd555be1c4cfff73d01a9daf55f381cc4b2e1a540d4e3",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchRepositoryTest.xml": "fce4357dadf307b86629403c8c6c640c5c4dcfe637bee6db2fe3f6b86c83b9af",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchRevealIndexTest.xml": "303b65598e1d8aa2806a42d0e6f5686430269d7af91fba15a6991880d6c30567"
+  },
+  "device_report_sha256": "48230d75730eb5ed58f032dbea83208b4ded7aa87b9721e0b26df86a9250ca7a",
+  "synthetic_screenshots_sha256": {
+    "docs/releases/v0/v0.4/development/images/v0.4.0-phase-3-canonical-reveal.png": "e95ae0b7df2dfdc48c72298f8f9389776eae63e622e36cc525a7a72fd0840a2f",
+    "docs/releases/v0/v0.4/development/images/v0.4.0-phase-3-period-reveal.png": "ee064e54c7c3572e6550da40472153c0f682a58b6ed92377be17fd5fa340b6cb"
+  },
+  "debug_apk_sha256": "8989fe7e93b6cf2caf959e2bcc063f0745e42c6005c6ac7633f05a5c692283fa",
+  "capture_apk_sha256": "ac076a6190ebc7e9f9995e46089c91c54480ba9907684e870824e5465aa5df15",
+  "observed": [
+    "Exact program and card destinations with query return",
+    "Canonical combined source alias and retained enrollment",
+    "Description-only Other, completed and local welcome-bonus reveal",
+    "Identical titles on separate cards and periods",
+    "Card/program/benefit removal during selection",
+    "Occurrence-key reuse between navigation and reveal rejected",
+    "Delayed/failed local validation and query-change cancellation",
+    "Repeated taps cannot stack visits",
+    "Results scroll and originating Rewards/card scroll preserved",
+    "Stored issuer rows and saved display preferences unchanged"
+  ],
+  "publication": "No search push, PR or remote CI; no phone install in this phase"
+}

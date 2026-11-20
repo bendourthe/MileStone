@@ -1,0 +1,64 @@
+{
+  "status": "PASS for four-file source delta; delivery remains open",
+  "base": "d3df074c6b9efc8fedb04443021c07a2a5431d9c",
+  "scope": [
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt"
+  ],
+  "raw_source_sha256": {
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "bfee45651a95a9ebec194ba675a28c9f468db3fdf0a5edcf21f26362453fcbc0",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "a91479fa84ff6bb7aacbc39369b541b15f8bb69b6f2e23ece830e80bd15439bb",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt": "78ed2a3de29a8afe207456ce82ba135c70c82a57f028e514a6283ecb58e511a9",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt": "0da0c5d531360c952863b86332939c463f0c013e41a3c565dfe7beb05df9d60c"
+  },
+  "grouping": {
+    "files": 4,
+    "parent_directory_bundles": 4,
+    "set_equality": true
+  },
+  "personas": [
+    "correctness",
+    "maintainability",
+    "testing",
+    "project-standards",
+    "security",
+    "performance",
+    "api-contract",
+    "adversarial"
+  ],
+  "findings": [],
+  "scoring": "All selected persona findings were empty; no suppression or per-finding validation needed. Source hashes matched across all reviewers.",
+  "considered_but_rejected": [
+    {
+      "candidate": "Canonical presort changes stable ties or group labels",
+      "reason": "Stable comparator and minimum original matching index retain the prior ordering and first-input group name; explicit regression passes."
+    },
+    {
+      "candidate": "Duplicate program metadata changes",
+      "reason": "Lookup built in original input order retains last-entry precedence."
+    },
+    {
+      "candidate": "Fused token or context scan changes matching",
+      "reason": "All tokens remain covered with one own-item token, except existing explicit program scope; exact earliest-context oracle passes."
+    },
+    {
+      "candidate": "Prepared index becomes a stale global cache",
+      "reason": "Copied membership and maps belong to each source snapshot; source-change repository and snapshot regressions pass."
+    },
+    {
+      "candidate": "Static review establishes hosted performance",
+      "reason": "It does not. Fresh local profiles and separately authorized hosted qualification remain required."
+    }
+  ],
+  "verification_classes": [
+    "model-based independent source review",
+    "deterministic 40-case project tests",
+    "evidence-based current-source and unchanged-boundary mapping"
+  ],
+  "limits": [
+    "No current-head hosted green",
+    "No new phone acceptance inferred"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "failed_run": "https://github.com/bendourthe/MileStone/actions/runs/43734914249",
+  "failed_head": "e8d2411c016cf662aa9a7768d02a720f064b91a6",
+  "hosted_jvm": {"tests": 422, "failures": 0, "errors": 0, "skipped": 14},
+  "hosted_handbook": {"checks": 2607, "findings": 0},
+  "hosted_security_findings": 1,
+  "root_cause": "Gitleaks 8.24.0 stdin fragmentation truncates an existing allowlisted public source SHA-256 to 58 characters before applying its full-match exception.",
+  "superseded_attempt": "Optional closing quote matched narrow controls but failed the reconstructed full Linux input; not published and its review receipt not adopted.",
+  "policy_changed": false,
+  "correction": "Verify the fixed public HEAD source hash against the existing exact policy and apply only complete full-digest metadata exceptions in memory before scanner fragmentation.",
+  "reconstructed_linux_input": {
+    "raw_bytes": 30652675,
+    "raw_sha256": "f9799e2768f182ed3edb5012b35de8aac8ba5849bba14f70dbc518defffc0256",
+    "processed_bytes": 30647299,
+    "processed_sha256": "af7c86a2751c34037af955c6449dbc25bbc0e79f11dbf5f7951de69d2b05da18",
+    "exact_existing_exemptions": 84,
+    "findings": 0,
+    "hosted_input_digest_available": false
+  },
+  "validator_tests": {"tests": 29, "failures": 0, "errors": 0},
+  "handbook": {
+    "output_sha256": "79fad65b690eef0de804b8fa3e59dfe956fca148aac876ef38abbfc8398b91e2",
+    "windows_checks": 2607,
+    "linux_checks": 2607,
+    "findings": 0,
+    "identical_standard_pngs": 225,
+    "actual_print_pages": [16, 16],
+    "print_text_and_rasters_unchanged": true,
+    "independently_adopted": true
+  },
+  "detector_controls": {"complete_exact_metadata_allowed": true, "negative_cases_detected": 5, "partial_58_detected": true},
+  "raw_input_persisted": false,
+  "app_tests_and_issuer_code_unchanged": true,
+  "runtime_reuse": "Unchanged accepted APK and its retained 74-case runtime proof; current hosted emulator execution remains required.",
+  "correction_push_number": 3,
+  "authorized_maximum": 3,
+  "hosted_correction_result": "Run 43740729706 passed the full repository profile but failed the GUI emulator version diagnostic before emulator launch; CI result remains red.",
+  "hosted_final_security": {
+    "findings": 0,
+    "raw_input_sha256": "43a5b3d1b2012b4403c8024e78e537d871355c70b28c92817d1e9453aba1f56c",
+    "processed_input_sha256": "60078442ceca300263a3c8f2edab2039a81d24d5714a3e768e6ebfb5691097e5",
+    "matches_final_local_linux_reconstruction": true,
+    "exact_public_metadata_exemptions": 90
+  }
+}

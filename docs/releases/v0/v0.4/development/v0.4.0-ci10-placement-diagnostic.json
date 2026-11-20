@@ -1,0 +1,45 @@
+{
+  "recorded_utc": "2026-11-17T10:54:37.951349+00:00",
+  "status": "DIAGNOSIS_OPEN_NO_PRODUCTION_FIX_SUPPORTED",
+  "qualification": false,
+  "source_sha256": "4608fa82f2cf8bbeeb5adea0df8c8aebdd0e7115846cae50cb42582e786ae856",
+  "same_apk_pair_as_animation_control": true,
+  "receipt": "reports\\release-v040\\ci10-four-core-baseline-ba03f639d06c43b78d5b840971a28c55\\receipt.json",
+  "placement": {
+    "mask": 85,
+    "logical_processors": 4,
+    "physical_cores": 4,
+    "topology_evidence": "reports\\release-v040\\ci10-host-topology.json",
+    "reserves_cores": false
+  },
+  "p95_ms": 784.1256,
+  "samples": 30,
+  "preservation_passed": true,
+  "admission_samples": [
+    8.15995747428776,
+    11.823512484816789,
+    10.268924065358654
+  ],
+  "admission_wait_seconds": 137.7299299,
+  "original_affinity_restored": true,
+  "animation_control": {
+    "receipt": "reports\\release-v040\\ci10-animation-control-fbc59302996142acaae5517dfe68863d\\receipt.json",
+    "p95_ms": {
+      "A1": 538.2783,
+      "B": 552.6509,
+      "A2": 562.3096
+    },
+    "exact_setting_restoration": true
+  },
+  "conclusions": [
+    "Animations-off produced no clear overall p95 improvement in the A/B/A control.",
+    "Selecting four logical processors on four physical cores did not improve this single later local run.",
+    "Neither result supports a speculative animation or affinity production fix."
+  ],
+  "limits": [
+    "Host drift and intervening work are uncontrolled; the placement comparison is not a causal speed estimate.",
+    "Local Windows observations do not establish hosted Linux scheduling or topology.",
+    "The unchanged hosted gate remains red; all release and expanded feature obligations remain open."
+  ],
+  "next": "Obtain evidence from the actual failing hosted environment before selecting a production correction."
+}

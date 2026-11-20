@@ -1,0 +1,34 @@
+Branch hygiene (merged and idle, integration branch develop)
+  KEEP worktree:C:/Users/BEDOURTHE/Documents/Benjamin/MileStone-close-v0.1-reconcile local-ahead
+  KEEP worktree:C:/Users/BEDOURTHE/Documents/Benjamin/MileStone-v0.3.0-amex-benefits-extraction-fix detached
+  KEEP worktree:C:/Users/BEDOURTHE/Documents/Benjamin/MileStone-v0.3.0-release-confirmation detached
+  KEEP worktree:C:/Users/BEDOURTHE/Documents/Benjamin/MileStone-v0.4.0-global-search no-merged-pr
+  KEEP branch:backup/v0.1-full-develop no-merged-pr
+  KEEP branch:backup/v0.1-full-feature no-merged-pr
+  KEEP branch:chore/close-v0.1 local-ahead
+  KEEP branch:chore/close-v0.3 recently-active
+  KEEP branch:chore/release-v0.3.0 recently-active
+  KEEP branch:chore/release-v0.3.1 recently-active
+  KEEP branch:develop protected
+  KEEP branch:feat/v0.3.0-amex-benefits-extraction-fix recently-active
+  KEEP branch:feat/v0.3.1-benefits-redesign owned-by-run
+  KEEP branch:feat/v0.4.0-global-search no-merged-pr
+  KEEP branch:main protected
+  KEEP remote:origin/chore/close-v0.3 recently-active
+  KEEP remote:origin/chore/release-v0.3.0 recently-active
+  KEEP remote:origin/chore/release-v0.3.1 recently-active
+  KEEP remote:origin/develop protected
+  KEEP remote:origin/feat/v0.2.0-benefits-tab-amex owned-by-run
+  KEEP remote:origin/feat/v0.3.0-amex-benefits-extraction-fix recently-active
+  KEEP remote:origin/feat/v0.3.1-benefits-redesign owned-by-run
+  KEEP remote:origin/main protected
+  0 item(s) would be removed by cleanup_merged.py --apply; the rest are kept
+  Reporting only -- nothing was deleted.
+Repository settings
+  NOTE: delete_branch_on_merge is DISABLED, so merged branches accumulate.
+        Enable it with your own gh, which this script deliberately does not do:
+          gh repo edit bendourthe/MileStone --delete-branch-on-merge
+        Nexus-Hub cannot set this at install time: the installer holds no
+        credentials, and acquiring any would breach the zero-outbound policy.
+        It also does NOT remove a branch whose PR was closed unmerged.
+  Description drift: SKIPPED (no README declaration to compare against)

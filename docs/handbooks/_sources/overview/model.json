@@ -1,6 +1,6 @@
 {
   "title": "MileStone Engineering Handbook",
-  "subtitle": "The Android app, its refresh flow, and the Amex benefits reader",
+  "subtitle": "The Android app, stored-item search, and the Amex benefits reader",
   "sources": [
     {
       "path": "docs/handbooks/overview.md",
@@ -10,6 +10,11 @@
     {
       "path": "docs/handbooks/benefits-reader.md",
       "id": "benefits",
+      "technical": true
+    },
+    {
+      "path": "docs/handbooks/global-search.md",
+      "id": "search",
       "technical": true
     }
   ],
@@ -34,11 +39,16 @@
       "points": [
         "Reads each program's own website in a WebView.",
         "Stores sign-ins and rewards data on the phone.",
-        "Uses one app module with domain, data, sync, and UI packages."
+        "Uses one app module with domain, data, sync, and UI packages.",
+        "Top-right Search separates stored Rewards and Benefits results."
       ],
       "units": [
         "overview-repository-overview",
-        "overview-module-layout"
+        "overview-module-layout",
+        "overview-global-search",
+        "search-global-search",
+        "search-stored-corpus",
+        "search-contextual-matching"
       ]
     },
     {
@@ -114,7 +124,8 @@
       "units": [
         "benefits-storing-a-read",
         "overview-benefits-display",
-        "benefits-display-and-freshness"
+        "benefits-display-and-freshness",
+        "search-selection-validation"
       ]
     },
     {
@@ -125,11 +136,13 @@
       "points": [
         "Exact host and path checks, a nonce, and message-field checks guard the bridge.",
         "Account keys, full card numbers, cookies, and sign-in data stay out of diagnostics.",
-        "Private captures stay local; notifications use private lock-screen text."
+        "Private captures stay local; notifications use private lock-screen text.",
+        "Search query, result tab, and scroll positions stay in the navigation entry, in memory."
       ],
       "units": [
         "overview-privacy-rules",
-        "benefits-diagnostics"
+        "benefits-diagnostics",
+        "search-navigation-and-privacy"
       ]
     },
     {
@@ -145,7 +158,8 @@
       "units": [
         "overview-tests",
         "benefits-verification",
-        "benefits-limits"
+        "benefits-limits",
+        "search-verification"
       ]
     }
   ]

@@ -1,0 +1,71 @@
+{
+  "review": "Independent T017 terminal delta",
+  "reviewer": "ci7_focus_correctness",
+  "inspected_candidate": "2fde807e2be7e96e2d2255ee1eb3ab9a7c20775c",
+  "blocking_code_findings": [],
+  "source_sha256": "8d52c7ab3d96bace01848f1e3dbfd9a32436ef9f60126b61f1763babe6117dc9",
+  "goal_mapping": [
+    {
+      "requirement": "Top-right Search and structured local results",
+      "artifacts": [
+        "SearchAction",
+        "SearchScreen",
+        "GlobalSearch",
+        "existing header integrations"
+      ],
+      "evidence": "Production Search source unchanged from 969264d; prior owner phone acceptance supports unchanged interactions."
+    },
+    {
+      "requirement": "Added programs, canonical benefits and contextual/program matching",
+      "artifacts": [
+        "SearchViewModel",
+        "GlobalSearch",
+        "GlobalSearchTest",
+        "SearchRepositoryTest"
+      ],
+      "evidence": "Bounded token matching, explicit program expansion, canonical Benefits presentation and repository live updates/removals/failures are covered."
+    },
+    {
+      "requirement": "Exact navigation and query/tab/scroll/Back state",
+      "artifacts": [
+        "SearchTarget",
+        "SearchNavigationTest",
+        "SearchScreenTest"
+      ],
+      "evidence": "Revision validation, occurrence keys, removals, exact reveal, return state and rotation remain covered; production model and keyboard test unchanged."
+    },
+    {
+      "requirement": "On-device, no issuer or sign-in changes",
+      "artifacts": [
+        "local repository reads",
+        "source revalidation",
+        "repository/navigation regressions"
+      ],
+      "evidence": "No issuer, authentication, persistence or schema boundary changed."
+    },
+    {
+      "requirement": "Preserved presentation with reduced drawing",
+      "artifacts": [
+        "AuroraBackground",
+        "AuroraRenderingTest"
+      ],
+      "evidence": "Original base/glow geometry, colors, order and motion; independent reference across three viewports, six phases, two formats with explicit rounding tolerances."
+    },
+    {
+      "requirement": "Actual frame timing and reliable validation",
+      "artifacts": [
+        "SearchLatencyTest",
+        "scripts/validate.py",
+        "scripts/tests/test_junit_task_status.py"
+      ],
+      "evidence": "Foreground condition strengthens endpoint; original timer/corpus/30/3/200 retained. Selected Debug JUnit exports fail closed on reported failures or errors."
+    }
+  ],
+  "remaining_gaps": [
+    "Current-head hosted qualification, separately authorized push and exact native scope remain required.",
+    "Merge, release, archive, cleanup and expanded original/Chase/offer duties remain incomplete.",
+    "No new phone installation or exact-APK acceptance occurred; prior phone acceptance applies only to unchanged flows."
+  ],
+  "verdict": "PASS for local implementation Goal fit; delivery and expanded goal incomplete",
+  "review_limit": "Read-only source/contracts/evidence review; no new runtime, phone, remote or private-capture access."
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-16T11:05:45.988Z" hostname="SP-BDOURTHE5680" time="0.42">
+  <properties/>
+  <testcase name="nextCreditIsTheOpenCreditEndingFirst" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.309"/>
+  <testcase name="pageGroupsDisplayCategoriesWithoutLosingStoredDetails" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.088"/>
+  <testcase name="unfinishedCreditsUseEarnedOverTargetAndKeepTheirActualProgress" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.001"/>
+  <testcase name="nextCreditFallsBackToThePeriodLabelOrSaysNone" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.004"/>
+  <testcase name="completedCreditsKeepFullProgressAndTheirKnownTargetWithoutChangingIssuerRows" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.009"/>
+  <testcase name="staleNoteForAFailedReadOrOldBenefitsOnly" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.0"/>
+  <testcase name="itemsShowProgressAmountsPeriodAndNotes" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.001"/>
+  <testcase name="completedCreditDoesNotTreatItsEarnedAmountAsAnUnknownTarget" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.0"/>
+  <testcase name="aCreditWhosePeriodEndedIsNotTheNextCredit" classname="com.bendourthe.milestone.ui.benefits.BenefitsViewModelTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

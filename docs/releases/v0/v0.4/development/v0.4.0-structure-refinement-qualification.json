@@ -1,0 +1,146 @@
+{
+  "status": "FULL_PLATFORM_RESTART_CHECKPOINT_PASS_FROZEN_SCAN_AND_PHONE_PENDING",
+  "owner_request": "Temporary Rewards program outline; collapsible program/card/section Benefits hierarchy, card thumbnails and single-line title-only matching tiles.",
+  "implementation": [
+    "Validated exact-program scroll followed by four-second outline",
+    "Search ViewModel memory-only collapse choices; query change resets choices",
+    "Cached canonical section partitions; existing exact targets and per-card display order",
+    "Offline existing card artwork; outlined hierarchy and one-line ellipsized benefit titles",
+    "Period/completed/enrollment exposed nonvisually for accessible same-title distinction"
+  ],
+  "focused_jvm": {
+    "tests": 16,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "build": "compileDebugAndroidTestKotlin and assembleDebug exit 0",
+  "device_invocations": [
+    {
+      "scope": "Initial four targeted cases",
+      "tests": 4,
+      "failures": 1,
+      "artifact": "reports/search-structure-first",
+      "finding": "Old hierarchy fixture assumed reward tile was visible below new header while keyboard/viewport constrained it"
+    },
+    {
+      "scope": "SearchScreenTest and SearchNavigationTest",
+      "tests": 26,
+      "failures": 1,
+      "artifact": "reports/search-structure-wide-first",
+      "finding": "Same hierarchy fixture visibility assumption; all new collapse/accessibility/outline checks passed"
+    },
+    {
+      "scope": "Corrected exact hierarchy case with actual scroll-to-result",
+      "tests": 1,
+      "failures": 0,
+      "artifact": "app/build/outputs/androidTest-results/connected/debug",
+      "limit": "Not represented as a single green 26-case invocation"
+    },
+    {
+      "scope": "First complete unfiltered current structure candidate",
+      "tests": 69,
+      "failures": 1,
+      "errors": 0,
+      "skips": 0,
+      "artifact": "docs/releases/v0/v0.4/development/v0.4.0-structured-search-first-69-results.xml",
+      "finding": "New disclosure fixture assumed thumbnail already existed in lazy viewport after asynchronous IME hide; other68 cases passed including latency",
+      "latency": {
+        "p95_ms": 117.03192,
+        "maximum_ms": 129.845059,
+        "limit_ms": 200,
+        "samples": 30,
+        "warmups": 3,
+        "programs": 25,
+        "cards": 100,
+        "benefits": 2000
+      },
+      "not_complete_profile_pass": true
+    },
+    {
+      "scope": "Corrected disclosure fixture using actual scroll-to-thumbnail plus Show-label assertions",
+      "tests": 1,
+      "failures": 0,
+      "artifact": "reports/structured-search-collapse-corrected",
+      "not_complete_profile_pass": true
+    }
+  ],
+  "visual_observations": [
+    "Exact selected Rewards tile had outline, then expiry assertion passed",
+    "Synthetic Benefits capture shows card thumbnail, outlined card and section headers, independent Show/Hide and title-only benefit tiles"
+  ],
+  "review": "Independent bounded source review found accessible period/completion context omission; corrected and source rechecked with no remaining actionable finding",
+  "remaining": [
+    "Fresh current handbook binding",
+    "Full local profile and unfiltered emulator/timing qualification",
+    "New phone update and owner acceptance",
+    "Separately authorized publication and remaining lifecycle duties"
+  ],
+  "phone_untouched_since_owner_feedback": true,
+  "full_checkpoint": {
+    "source_sha256": "9bf8419fd36936e8ae42b3ed2feb41b8ca33df715f2a6596186f5e562ba86c0f",
+    "tests": 417,
+    "passes": 407,
+    "skipped_optional_balance_captures": 10,
+    "failures": 0,
+    "coverage_percent": 78.24,
+    "benefits_fixture_tests": 8,
+    "private_benefits_cases": 4,
+    "private_benefits_skips": 0,
+    "limit": "Only the instrumentation fixture changed afterward; final full freshness/scanner qualification remains required."
+  },
+  "environment_events": [
+    "CPU25percent launch comparison control did not settle; plan requires actual p95<=200 rather than idleCPU. Current loaded-host method is explicit, not relabeled controlled.",
+    "Emulator fixture startup and ActivityManager probes timed out before current app execution; guest reboot/reconnect did not restore ADB.",
+    "Cold-started only owned emulator without data wipe; software graphics used5.2GB working set and a diagnostic run was controller-cancelled for memory pressure, never counted PASS.",
+    "SDK-confirmed WHPX and hostGPU launch restored hardware renderer and >3GB host headroom; first complete69-case run finished without memory cancellation. Other host programs and owner phone were unchanged."
+  ],
+  "final_platform": {
+    "artifact": "v0.4.0-structured-search-platform.json",
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "source_sha256": "d32f993f1601a367a5bf73684b2ba7c3c883970d1bc6760b54dbc4d1741edda1",
+    "seconds": 620.078
+  },
+  "final_latency": {
+    "artifact": "v0.4.0-structured-search-latency.json",
+    "samples": 30,
+    "warmups": 3,
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "p95_ms": 139.728285,
+    "maximum_ms": 155.95692,
+    "limit_ms": 200,
+    "api": 36,
+    "hardware": "ranchu",
+    "gpu": "host",
+    "fresh_remote_artifact_mtime": 1794710458,
+    "launch_utc": "2026-11-15T02:32:12Z"
+  },
+  "final_process_restart": {
+    "artifact": "v0.4.0-structured-search-process-restart.json",
+    "status": "PASS",
+    "apk_sha256": "2677fedd3d22a38a4c90c4578c590809a6cbb7c5c2ffa71161ea75edbdea0a6a",
+    "phone_accessed": false
+  },
+  "environment_limit": "Previous detached-session invocation was interrupted by emulator suspension/exiting, not counted as a pass. Attached SDK session completed the full unchanged 69-case invocation. The emulator was then gracefully stopped after actual process-restart verification; no data wipe or unrelated program termination.",
+  "current_full_checkpoint": {
+    "artifact": "reports/structured-search-final-full/results/full-windows.json",
+    "source_sha256": "d32f993f1601a367a5bf73684b2ba7c3c883970d1bc6760b54dbc4d1741edda1",
+    "tests": 417,
+    "passes": 407,
+    "failures": 0,
+    "errors": 0,
+    "skips": 10,
+    "coverage_percent": 78.24,
+    "security_checkpoint": "PASS, subsequently stale because independent review evidence changed; final frozen full/report required"
+  },
+  "frozen_final_receipts": {
+    "full": "reports/structured-search-frozen-full/results/full-windows.json",
+    "aggregate": "reports/structured-search-frozen-aggregate/summary.json",
+    "status": "Use actual ignored terminal receipts; no pending command is represented as PASS"
+  }
+}

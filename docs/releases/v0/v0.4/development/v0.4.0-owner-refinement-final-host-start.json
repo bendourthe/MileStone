@@ -1,0 +1,63 @@
+{
+  "recorded_utc": "2026-11-14T18:03:33.497422+00:00",
+  "method": "GetSystemTimes/GlobalMemoryStatusEx; unchanged three-consecutive CPU<=25% and availableRAM>=2048MB launch condition",
+  "samples": [
+    {
+      "utc": "2026-11-14T18:03:13.486906+00:00",
+      "cpu_percent": 42.38,
+      "available_memory_mb": 4577
+    },
+    {
+      "utc": "2026-11-14T18:03:15.487799+00:00",
+      "cpu_percent": 47.81,
+      "available_memory_mb": 4552
+    },
+    {
+      "utc": "2026-11-14T18:03:17.489237+00:00",
+      "cpu_percent": 42.41,
+      "available_memory_mb": 4582
+    },
+    {
+      "utc": "2026-11-14T18:03:19.490958+00:00",
+      "cpu_percent": 41.22,
+      "available_memory_mb": 4593
+    },
+    {
+      "utc": "2026-11-14T18:03:21.492887+00:00",
+      "cpu_percent": 36.39,
+      "available_memory_mb": 4631
+    },
+    {
+      "utc": "2026-11-14T18:03:23.493863+00:00",
+      "cpu_percent": 21.9,
+      "available_memory_mb": 4607
+    },
+    {
+      "utc": "2026-11-14T18:03:25.494462+00:00",
+      "cpu_percent": 26.77,
+      "available_memory_mb": 4555
+    },
+    {
+      "utc": "2026-11-14T18:03:27.495594+00:00",
+      "cpu_percent": 29.05,
+      "available_memory_mb": 4629
+    },
+    {
+      "utc": "2026-11-14T18:03:29.496746+00:00",
+      "cpu_percent": 17.86,
+      "available_memory_mb": 4655
+    },
+    {
+      "utc": "2026-11-14T18:03:31.497039+00:00",
+      "cpu_percent": 21.8,
+      "available_memory_mb": 4618
+    },
+    {
+      "utc": "2026-11-14T18:03:33.497422+00:00",
+      "cpu_percent": 15.55,
+      "available_memory_mb": 4612
+    }
+  ],
+  "settled": true,
+  "no_services_or_processes_changed": true
+}

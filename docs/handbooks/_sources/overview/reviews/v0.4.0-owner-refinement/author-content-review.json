@@ -1,0 +1,33 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/global-search.md",
+    "docs/handbooks/_sources/overview/model.json",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+  ],
+  "claims": [
+    {
+      "topic": "Right-side icon and internal counted result tabs",
+      "source": "ui/dashboard/DashboardScreen.kt actions; ui/search/SearchScreen.kt TabRow; domain/GlobalSearch.kt SearchResults.groups/initialTab"
+    },
+    {
+      "topic": "Canonical grouped compact matches and display context",
+      "source": "ui/search/SearchViewModel.kt SearchSnapshotFactory.entries displayOrder/enrollment; domain/GlobalSearch.kt ordering; ui/search/SearchScreen.kt card grouping and CompactBenefitResult"
+    },
+    {
+      "topic": "Static context header and exact full-tile target",
+      "source": "ui/search/SearchScreen.kt cardHit callback and nullable-onClick SearchCardHeader; ui/MileStoneApp.kt exact SearchTarget routes; existing reveal preserved"
+    },
+    {
+      "topic": "VM-only selected tab/per-tab scroll and actual-query reset",
+      "source": "ui/search/SearchViewModel.kt selectedTab/positions/setQuery; ui/search/SearchScreen.kt list-state lifetime"
+    }
+  ],
+  "preserved": "Matching own-token rule, canonical aliases, revision/query-edit validation, stored-only corpus, privacy, eight slide IDs/themes, source headings and65-input map",
+  "visual_author_observation": "All8slides/5reading renders and new source reading capture reviewed; both14page JS/noJS PDF contact sheets reviewed; no new clipping or lost content. Existing320px200percent wordmark wrap remains previously accepted cosmetic note.",
+  "qualification_limits": "Independent coordinator content/render review and new app/emulator/phone acceptance are pending. Prior structural/native-marker compatibility limits retained; no new framework or schema migration."
+}

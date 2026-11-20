@@ -1,0 +1,15 @@
+{
+  "serial": "emulator-5554",
+  "boundary": "Installed production MainActivity, adb input and UiAutomator; background process death then actual replacement PID",
+  "kill_method": "background package-owned SIGKILL through run-as",
+  "process_changed": true,
+  "query_visible_before_death": true,
+  "query_absent_after_death": true,
+  "restored_search_route": true,
+  "blank_search_prompt_after_restart": true,
+  "diagnostic_query_absent": true,
+  "unsupported_program_retained": true,
+  "cards_unchanged_empty": true,
+  "fixture_removed_after_verification": true,
+  "phone_accessed": false
+}

@@ -1,0 +1,31 @@
+{
+  "status": "APPROVED for local T017 closure",
+  "source_sha256": "1043bfc3c488d1d18af730cf57b9f03624c369d4fd200557450e16693fbeb60a",
+  "method": "Independent source/evidence assessment; source fingerprint and all30observation percentile recomputed; no new device execution by reviewer.",
+  "runtime": {
+    "tests": 74,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "p95_ms": 84.36927,
+    "maximum_ms": 131.028818,
+    "samples": 30,
+    "warmups": 3,
+    "limit_ms": 200
+  },
+  "findings": [],
+  "critical_high_findings": 0,
+  "reuse": "Earlier owner acceptance and process-restart proof remain valid for unchanged presentation and persistence behavior; current runtime covers changed rendering and reset paths.",
+  "goal_vs_plan": {
+    "learning": "Visible latency includes rendering and layout beyond matching; current complete qualification meets the requirement.",
+    "false_assumptions": "Earlier local passes did not predict hosted results; browser-driver roundtrip could misclassify Replay restart.",
+    "undelivered": "No reviewed local functional obligation remains; hosted integration and release remain open.",
+    "owner_task_coverage": "Recorded Search refinements are covered. Opening animation has separate accepted evidence and publication scope."
+  },
+  "scope_limits": [
+    "No host-load causal claim",
+    "All earlier failed measurements retained",
+    "Fresh scoped publication authority must cover Opening outside frozen Search file list",
+    "Current hosted CI, integration, release, committed-range security and native bookkeeping remain open"
+  ]
+}

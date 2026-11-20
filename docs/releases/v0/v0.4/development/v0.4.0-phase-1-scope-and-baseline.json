@@ -1,0 +1,47 @@
+{
+  "observed_utc": "2026-11-14T04:05:46.020917+00:00",
+  "base_commit": "1dc728f311b4e60aa9ea2e528f747c2a105d8d0d",
+  "local_authority": "Owner explicit reversible-local implementation instruction dated2026-11-13",
+  "dependency": "Integrated v0.3.1 presentation verified through green PR11 and unchanged owner-accepted source",
+  "queue_plans": [
+    {
+      "version": "v0.3.0",
+      "status": "unknown (no parseable Status line)",
+      "open_tasks": 0
+    },
+    {
+      "version": "v0.3.1",
+      "status": "in-progress",
+      "open_tasks": 2
+    },
+    {
+      "version": "v0.4.0",
+      "status": "Planned; owner confirmed both recommendations and the four-phase breakdown on 2026-11-13. Implementation has not started and is not authorized by this planning confirmation.",
+      "open_tasks": 20
+    }
+  ],
+  "ownership": {
+    "search_phase1": [
+      "domain/GlobalSearch.kt",
+      "ui/search/",
+      "ui/benefits/BenefitsPresentation.kt alias metadata only",
+      "focused search tests",
+      "v0.4 release evidence and coordinator tracker"
+    ],
+    "v031_release": [
+      "version metadata",
+      "release documentation and handbook fingerprints",
+      "remote release/archive/cleanup"
+    ]
+  },
+  "baseline": {
+    "tests": 386,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 10,
+    "private_benefit_tests_not_skipped": true
+  },
+  "worktree_isolated": true,
+  "search_remote_authority": false,
+  "limits": "No Phase2/3 code, publication or feature-completion claim yet"
+}

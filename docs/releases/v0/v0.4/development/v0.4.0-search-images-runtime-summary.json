@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "source_sha256": "1eb0b72d6e7acc7bfa49086a8e5601ae0280dfa41c810d289b6061174f6deefd",
+  "counts": {
+    "tests": 72,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "latency": {
+    "p95_ms": 70.8721,
+    "maximum_ms": 152.5963,
+    "limit_ms": 200,
+    "samples": 30,
+    "warmups": 3,
+    "program_only_count": 85,
+    "remote_epoch": 1794719103
+  },
+  "renderer": "Google (Google Inc.), Android Emulator OpenGL ES Translator (Google SwiftShader), OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)",
+  "host_load_not_idle_comparison": true,
+  "apk_sha256": "99df5ed58298a3da1b642e04391012f2c7c174c50c9164274fd75f8d1992dc1e"
+}

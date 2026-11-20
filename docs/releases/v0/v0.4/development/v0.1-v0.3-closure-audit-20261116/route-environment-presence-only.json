@@ -1,0 +1,13 @@
+{
+  "GIT_CONFIG_PARAMETERS": false,
+  "GIT_CONFIG_COUNT": false,
+  "GIT_EXEC_PATH": false,
+  "GIT_SSH": false,
+  "GIT_SSH_COMMAND": false,
+  "GIT_SSL_NO_VERIFY": false,
+  "GIT_SSL_CAINFO": false,
+  "GIT_SSL_CAPATH": false,
+  "SSL_CERT_FILE": false,
+  "SSL_CERT_DIR": false,
+  "CURL_CA_BUNDLE": false
+}

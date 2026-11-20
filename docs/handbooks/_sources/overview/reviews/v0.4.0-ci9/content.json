@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-17T05:24:01.576486+00:00",
+  "scope": "Independent semantic delta review plus exact unchanged-input inheritance",
+  "input_count": 80,
+  "code_input_count": 64,
+  "changed_inputs": [
+    "docs/handbooks/global-search.md",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt"
+  ],
+  "unchanged_inputs": 77,
+  "review": "Copied list, canonical ordered entries, program lookup, worker reuse, original first matching group name and duplicate metadata precedence match current code. Both reading and presentation contain the updated paragraph. Stable source map and all existing design/slide assignments are retained.",
+  "prior_content_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci8/content.json",
+  "prior_content_evidence_sha256": "96bd78dd445eda7e2d15ea2f4c9e605ac23af934ffb6e0d9145f9565a80eef94",
+  "visual_observation": "Coordinator inspected retained reading-1000 and1000x900balancedslide6: legible headings/body, controls visible, no observed clipping. Actual2611 Chromium checks pass with zero findings.",
+  "limits": [
+    "Application and hosted performance qualification remain separate",
+    "Unchanged claims reused through the exact previous semantic receipt"
+  ]
+}

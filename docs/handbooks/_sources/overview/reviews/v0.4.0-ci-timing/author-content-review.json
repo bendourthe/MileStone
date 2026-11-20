@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "reviewer": "Handbook content review; independent coordinator review pending",
+  "snapshot_metadata": {
+    "entry_sha256": "0596f547289a5dfa92d6524392d49e5ed99fb615ee6382f0a235a3530ea72aee",
+    "output_sha256": "6d05881198868b6da3bc256b197830d6ec365e36ae8f82b039613c01a511b5d9"
+  },
+  "reviewed_changes": [
+    "SearchEntry caches folded description/alias sources once per immutable snapshot; matching still uses the same folded text, context ordering and clipping",
+    "SearchResultList receives query-independent result inputs and supplies distinct program/program-header/card-header/section-header/benefit content types",
+    "The retained Stored Corpus paragraph now explains those actual cache/composition choices without claiming a latency pass",
+    "Existing source/corpus boundaries, exact navigation, enrollment, memory-only state and privacy explanations remain accurate",
+    "CI adds always-run retention of the synthetic timing report before assigned-emulator shutdown; no issuer data or native gate thresholds change",
+    "The new query reset API retains the documented reset behavior; delayed narrow-to-broad runtime regression was verified by the coordinator",
+    "Unchanged input claims reuse their hash-bound previously reviewed source; all65input bindings match the current candidate"
+  ],
+  "comparison_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/comparison.json",
+  "visual_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/visual-review.json",
+  "change_scope_evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/change-scope.json",
+  "findings": [],
+  "product_gate_limit": "The coordinator reports73/74runtime cases passing; Search p95344.6799ms stillfails200ms. Handbook checks do not qualify the product release."
+}

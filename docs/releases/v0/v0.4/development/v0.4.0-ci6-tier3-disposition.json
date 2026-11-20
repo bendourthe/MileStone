@@ -1,0 +1,30 @@
+{
+  "verdict": "PASS_FOR_DECLARED_LOCAL_ARTIFACT_SCOPE",
+  "source_sha256": "a7549f5b826b6156e55fa9e5dd7f1c6b5861670d0a174a60f7cac8851bbbafdc",
+  "trigger": "Native Compose user-visible behavior and generated HTML documentation changed.",
+  "feature_inventory": "v0.4.0-ci6-independent-goal-review.json:26all-phasefeatures and four sufficiency answers",
+  "full": "v0.4.0-ci6-current-full.json",
+  "runtime": "v0.4.0-ci6-current-runtime-cases.xml:76/76",
+  "adversarial": "v0.4.0-ci6-adversarial-review.json",
+  "convergence": "v0.4.0-ci6-code-convergence.json",
+  "rendered_owners": "v0.4.0-ci6-rendered-evidence/rendered-owner-assessments-final.json",
+  "observed_ui": [
+    "Current pending status retains earlier visible rows then resets current generation tofirstresult.",
+    "Search groups, artwork and independent chevrons remain visible.",
+    "Current credit handbook paragraph and actualPDFpages8/9 inspected; unknown earned amount is not a target."
+  ],
+  "cumulative_fix_rerun_episodes": 22,
+  "ledger": "v0.4.0-ci6-correction-ledger.json",
+  "budget_disposition": "The explicit autonomous reversible-work instruction governs continued necessary local correction beyond the default skill allowance; no native signed/budget record, remote cap or authorization was changed.",
+  "remaining": [
+    "Genuine navigation-test baseline consent before commit.",
+    "New scoped correction publication grant, then green hosted integration.",
+    "Release/archive/eligible cleanup/native bookkeeping and original/future expanded-goal obligations."
+  ],
+  "not_claimed": [
+    "Manual screen-reader/hardware-keyboard coverage",
+    "Linux CI parity from Windows or four-thread diagnostic",
+    "Plan/native/global-goal completion",
+    "Remote approval or release authority expansion"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "recorded_utc": "2026-11-16T12:20:41.856028+00:00",
+  "scope": "Original released v0.1-v0.3 obligations, read-only native reconciliation against current tools and remote release metadata.",
+  "checker_sha256": "cdb0c05afeaae3b79f010b2c82b28a6079a8906e52701e4901084907dfc5aca5",
+  "primary_head": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "primary_clean": true,
+  "releases": [
+    {
+      "tag_name": "v0.3.1",
+      "draft": false,
+      "published_at": "2026-11-14T04:07:29Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.1"
+    },
+    {
+      "tag_name": "v0.3.0",
+      "draft": false,
+      "published_at": "2026-11-13T23:20:21Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.3.0"
+    },
+    {
+      "tag_name": "v0.2.0",
+      "draft": false,
+      "published_at": "2026-11-12T23:04:21Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.2.0"
+    },
+    {
+      "tag_name": "v0.1.0",
+      "draft": false,
+      "published_at": "2026-11-12T04:32:34Z",
+      "html_url": "https://github.com/bendourthe/MileStone/releases/tag/v0.1.0"
+    }
+  ],
+  "canonical_archives": {
+    "v0.1": {
+      "tracked_archive_files": 15,
+      "active_minor_tree_absent": true
+    },
+    "v0.2": {
+      "tracked_archive_files": 11,
+      "active_minor_tree_absent": true
+    },
+    "v0.3": {
+      "tracked_archive_files": 148,
+      "active_minor_tree_absent": true
+    }
+  },
+  "v01_current_primary_verdict": "INCOMPLETE: approval.remote archive.minor",
+  "v02_current_primary_verdict": "INCOMPLETE: approval.remote cleanup.branches archive.minor",
+  "v03_minor_verdict": "INCOMPLETE: record.minor",
+  "new_findings": [
+    "All four original releases are published non-draft and all three minor archives are tracked in clean primary develop.",
+    "The v0.2 schema2 parent is authoritative: approval.remote, archive.minor and minor.close-pr are met, but T005 remains unmet because the frozen task ends in (gitignored). The installed qualifier is specific to Nexus-Hub v4.15 and cannot repair this MileStone predicate.",
+    "No v0.1 minor record was found in its prepared closing worktree, and no v0.3 minor record was found in primary. Compatibility publication necessity is not established by an unassociated diagnostic; do not publish it merely to satisfy that output.",
+    "The actual current Search record authorizes cleanup-merged without changing limits. Its fresh dry run selected exactly two local and two remote v0.3 refs. The native executor removed them, verified absence, and the authenticated Search check now reports cleanup.merged met."
+  ],
+  "remaining": [
+    "v0.1 usable authenticated closure context is not established; current unassociated archive/approval predicates cannot certify native closure",
+    "v0.2 frozen T005 parser/proof mismatch and another-owner branch/cleanup predicates",
+    "v0.3 absent native minor record despite actual published release and archive",
+    "Search unchanged navigation-test baseline consent, new correction publication grant for additional paths/bounds, authentic task-history reconciliation and release/archive lifecycle"
+  ],
+  "authority_limits": [
+    "No manual signed-record or installed-checker edits; native helper wrote its own sealed cleanup receipt.",
+    "No permission class, scope or retry/spend bound was added or reset.",
+    "No worktree, private capture or source content was removed.",
+    "No source correction commit/push, new release, archive move or primary fast-forward occurred.",
+    "The original v0.3.0 PLAN COMPLETE was retained without rerunning it."
+  ],
+  "status": "AUTHORITATIVE CONTEXTS RECONCILED; ELIGIBLE v0.3 BRANCH CLEANUP VERIFIED",
+  "diagnostic_scope_warning": "The v0.1/v0.2 primary archived per-plan checks have no associated per-plan record. Their met task flags are weaker evidence and do not supersede signed parent predicates.",
+  "v02_authoritative_parent_verdict": "INCOMPLETE: v0.2.0:task.T005 v0.2.0:cleanup.branches cleanup.merged",
+  "cleanup": {
+    "authority": "Existing Search run approved-plan cleanup-merged; no counters consumed or bounds changed",
+    "attribution_verified": true,
+    "removed": [
+      {
+        "kind": "branch",
+        "name": "chore/close-v0.3"
+      },
+      {
+        "kind": "branch",
+        "name": "chore/release-v0.3.1"
+      },
+      {
+        "kind": "remote",
+        "name": "chore/close-v0.3"
+      },
+      {
+        "kind": "remote",
+        "name": "chore/release-v0.3.1"
+      }
+    ],
+    "verified_local_and_remote_absence": true,
+    "worktrees_removed": 0,
+    "v02_source_branch": "KEEP owned-by-run; actual caller cannot exempt another owner",
+    "sealed_receipt_native_predicate": "cleanup.merged met"
+  },
+  "search_authenticated_post_cleanup_verdict": "INCOMPLETE: task.T001 task.T004 task.T008 task.T020 release.tag release.changelog release.github release.main cleanup.branches cleanup.worktree archive.minor",
+  "search_authenticated_approval_remote": "met"
+}

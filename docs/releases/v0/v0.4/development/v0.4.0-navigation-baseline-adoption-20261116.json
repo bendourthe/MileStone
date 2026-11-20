@@ -1,0 +1,17 @@
+{
+  "recorded_utc": "2026-11-16T15:08:12.406465+00:00",
+  "authority": "Genuine owner answer: Preserve and adopt current contents",
+  "path": "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+  "approved_diff": [
+    "ViewModelStore import",
+    "pendingQueryDisposalCannotSaveAnEarlierViewport regression"
+  ],
+  "sha256_before": "e24b91a2fc08b48f936d05b5026a75c5b787414b1db75c044b7c043364087d64",
+  "sha256_after": "e24b91a2fc08b48f936d05b5026a75c5b787414b1db75c044b7c043364087d64",
+  "qualified_scope_v5_hash_matches": true,
+  "official_accept": "success",
+  "official_check": "unchanged",
+  "content_modified": false,
+  "publication_granted": false,
+  "scope": "Preservation baseline only; existing push limits and other approvals unchanged."
+}

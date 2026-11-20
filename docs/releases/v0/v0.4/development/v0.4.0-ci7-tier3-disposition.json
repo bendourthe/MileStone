@@ -1,0 +1,29 @@
+{
+  "source_sha256": "8d52c7ab3d96bace01848f1e3dbfd9a32436ef9f60126b61f1763babe6117dc9",
+  "local_artifact_gate": "PASS",
+  "delivery_gate": "FAIL (blocking)",
+  "prior_feature_inventory": "v0.4.0-ci6-independent-goal-review.json",
+  "reuse": "Existing product feature inventory and phone acceptance retained for unchanged matching/navigation/Benefits sources; current full 77-case emulator suite exercises the affected flows. New native renderer and JUnit regressions have fresh runtime/unit evidence.",
+  "delta_artifacts": [
+    "AuroraBackground single-pass native draw",
+    "AuroraRenderingTest original-reference comparison",
+    "SearchLatencyTest foreground endpoint",
+    "validate.py selected Debug JUnit failure enforcement",
+    "test_junit_task_status.py",
+    "refreshed handbook source/output/reviews"
+  ],
+  "checks": {
+    "full": "PASS; 425 cases, 0 failures/errors, 10 optional balance-capture skips; benefits fixtures 8/8 without skips",
+    "platform": "PASS; 77 cases, 0 failures/errors/skips",
+    "real_frame_latency": "PASS; p95 163.3076 ms, original 30/3/200",
+    "handbook": "PASS; reproducible bytes, 2610 Chromium checks, full-scope receipt, visual detector exact skip-link exception",
+    "code_review": "PASS; four-file seven-persona review plus focus delta five-persona review",
+    "independent_goal_fit": "PASS; no blocking code findings",
+    "hosted": "FAIL at prior 969264d; correction not published",
+    "native_scope": "UNVERIFIED; fresh exact-path adoption and one-push approval required"
+  },
+  "cumulative_correction_count": 23,
+  "counter_policy": "Retains prior count and owner autonomy exception already recorded in this evidence file; does not reset remote retries or native authority.",
+  "residual_owner": "BG-1, Android rendering/test maintainer; held until current-head hosted gate passes",
+  "qualification": "Local correction only; expanded goal remains incomplete."
+}

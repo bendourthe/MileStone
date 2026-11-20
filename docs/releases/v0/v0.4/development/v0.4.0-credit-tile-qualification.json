@@ -1,0 +1,95 @@
+{
+  "recorded_utc": "2026-11-15T06:00:19.698444+00:00",
+  "scope": "Owner-requested completed and unfinished credit row presentation",
+  "apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2",
+  "main_input_records": [
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+      "sha256": "bf5e108a083c0a4214c9b5513bc0b9532020bd65b88e718621aab4f8c1b5e137"
+    },
+    {
+      "path": "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+      "sha256": "3efa4625e325a0910075ee0e94500b1ee2cde35baec2f4541858d994557d7965"
+    }
+  ],
+  "requirements": [
+    "Full bar and known earned/target amount for completed credits",
+    "Current fraction and inline earned/target for unfinished credits",
+    "Enrolled in title row before completion check for all enrolled items"
+  ],
+  "stored_issuer_data_changed": false,
+  "local_code_gate": {
+    "status": "PASS",
+    "command": "testDebugUnitTest lintDebug assembleDebug assembleCapture compileDebugAndroidTestKotlin createDebugUnitTestCoverageReport connectedDebugAndroidTest; emulator-only BenefitRowTest filter",
+    "unit_counts": {
+      "tests": 422,
+      "passes": 412,
+      "skipped": 10,
+      "failures": 0,
+      "errors": 0
+    },
+    "coverage": {
+      "covered": 5016,
+      "total": 6402,
+      "percent": 78.35
+    },
+    "raw": "reports/credit-tile-corrected"
+  },
+  "current_row_runtime": {
+    "status": "PASS",
+    "tests": 2,
+    "scales": [
+      1,
+      1.8
+    ],
+    "raw": "reports/credit-tile-drawn-capture/runtime.txt",
+    "capture_boundary": "Actual Compose draw capture after semantic geometry/range assertions",
+    "visually_reviewed_images": 4
+  },
+  "prior_affected_runtime": {
+    "status": "PASS",
+    "tests": 37,
+    "raw": "reports/credit-tile-device/results-xml",
+    "scope": "Before strict malformed-title inference correction; retained unaffected Search/Benefits layout proof, not relabeled as a whole current-platform pass"
+  },
+  "review": {
+    "initial_finding": "Legacy amount parser accepted partial malformed numbers",
+    "correction": "Strict complete leading currency token boundary; reject200.5/1,00/200.500 malformed titles; accept200.50",
+    "final_source_disposition": "Concern resolved; no other actionable source gap"
+  },
+  "handbook": {
+    "status": "pass",
+    "sha256": "9db9d81711f72307ee0f068dbbf12480fa93fd55b39a696f0ce5713b0892ba96",
+    "inputs": 65,
+    "browser_checks": 2607,
+    "findings": 0,
+    "measurements": 384,
+    "unchanged_standard_pngs": 225,
+    "print_pages_each": 16
+  },
+  "phone": {
+    "installed_at": "2026-11-15T05:58:18.001929+00:00",
+    "status": "Success",
+    "method": "adb install -r",
+    "apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2",
+    "installed_apk_sha256": "edcbe615a34c3f8d280755b6dcd49523df0f1a1b28dc4656be094169e1d209b2",
+    "data_clear": false,
+    "uninstall": false,
+    "phone_instrumentation": false,
+    "owner_credit_tile_acceptance": "approved",
+    "owner_confirmation": "Yes, I approve the format",
+    "recorded_utc": "2026-11-15T06:38:34.682423+00:00"
+  },
+  "failed_or_incomplete_proof": [
+    "Expected compile RED before new display field existed",
+    "First focused gate: invalid test-only assertDoesNotExist import; removed",
+    "Gradle uninstalled emulator fixture files after first37 run, so screenshots were recollected through installed instrumentation",
+    "One initial normal completed UiAutomation capture was blank before first frame; original retained, final actual-draw capture rerun passed and inspected"
+  ],
+  "correction_history": "Earlier global corrections retained; this delta adds one test import correction, one real source inference correction and one test capture correction. No budget reset, threshold waiver or remote authority inferred.",
+  "final_full_profile": "reports/credit-tile-final-full/results/full-windows.json; read terminal status directly",
+  "pending": [
+    "Final complete emulator/timing qualification before publication",
+    "Separately authorized publication, hosted CI, release and remaining original native obligations"
+  ]
+}

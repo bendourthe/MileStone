@@ -1,0 +1,9 @@
+{
+  "status": "historical-not-current-source-qualified",
+  "reason": "BenefitsViewModel leading currency token validation reopened after build; this observed browser run binds only its pre-correction HTML bytes.",
+  "output_sha256": "ea85e5dcc01baf10acba25d16dd551a923b2e4a5c21031ff0bce4588c7bffad7",
+  "browser_status": "pass",
+  "checks": 2607,
+  "findings": 0,
+  "live_adoption": false
+}

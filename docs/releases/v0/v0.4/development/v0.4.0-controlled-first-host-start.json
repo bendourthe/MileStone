@@ -1,0 +1,33 @@
+{
+  "recorded_utc": "2026-11-14T17:37:37.381362+00:00",
+  "method": "GetSystemTimes/GlobalMemoryStatusEx; unchanged three-consecutive CPU<=25% and availableRAM>=2048MB condition, longer observation only",
+  "samples": [
+    {
+      "utc": "2026-11-14T17:37:29.374470+00:00",
+      "cpu_percent": 25.59,
+      "available_memory_mb": 5049
+    },
+    {
+      "utc": "2026-11-14T17:37:31.375708+00:00",
+      "cpu_percent": 25.28,
+      "available_memory_mb": 5034
+    },
+    {
+      "utc": "2026-11-14T17:37:33.378240+00:00",
+      "cpu_percent": 22.33,
+      "available_memory_mb": 5051
+    },
+    {
+      "utc": "2026-11-14T17:37:35.379279+00:00",
+      "cpu_percent": 24.62,
+      "available_memory_mb": 5036
+    },
+    {
+      "utc": "2026-11-14T17:37:37.381362+00:00",
+      "cpu_percent": 24.76,
+      "available_memory_mb": 4975
+    }
+  ],
+  "settled": true,
+  "no_services_or_processes_changed": true
+}

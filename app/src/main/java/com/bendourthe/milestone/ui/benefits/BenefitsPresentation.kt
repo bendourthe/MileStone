@@ -7,7 +7,7 @@ import java.time.LocalDate
 import com.bendourthe.milestone.domain.BenefitsCategory
 import java.util.Locale
 
-data class PresentedBenefit(val benefit: Benefit, val enrollmentSource: Benefit?)
+data class PresentedBenefit(val benefit: Benefit, val enrollmentSource: Benefit?, val sourceTitles: List<String> = listOf(benefit.title))
 
 /** Pure display transformation. Callers keep the original rows for sync, reminders, and count verification. */
 object BenefitsPresentation {
@@ -61,7 +61,8 @@ object BenefitsPresentation {
                         enrollment = current.enrollment ?: listed.enrollment,
                         description = listOfNotNull(current.description, listed.description).distinct()
                             .joinToString("\n\n").ifEmpty { null },
-                    ), previous.enrollmentSource ?: listed.takeIf { it.enrollment != null })
+                    ), previous.enrollmentSource ?: listed.takeIf { it.enrollment != null },
+                        (previous.sourceTitles + listed.title).distinct())
                 }
             }
         }

@@ -1,0 +1,101 @@
+{
+  "status": "LOCAL_COVERAGE_RECONCILED_FINAL_SCAN_PHONE_AND_DELIVERY_OPEN",
+  "revision": "736b0d115aa99bb85d75cb6bda3a8024a912bd2a plus current preserved Phase 4 diff",
+  "integration_base": "09036c2037b42fa232679a4b2f0afd55b9cd3171",
+  "tested_source_sha256": "d32f993f1601a367a5bf73684b2ba7c3c883970d1bc6760b54dbc4d1741edda1",
+  "blast_radius": "run: native UI/navigation/privacy, generated handbook, validation/configuration and original-goal evidence compatibility",
+  "inventory_count": 14,
+  "rows": [
+    {
+      "feature": "Added-only canonical corpus and live storage",
+      "real_boundary_and_observation": "Room projection/removal and private Benefits fixture cases",
+      "evidence": "platform XML and full JUnit"
+    },
+    {
+      "feature": "Contextual own-item-token matching and Unicode",
+      "real_boundary_and_observation": "Matcher cases plus retained independent compiled-class probes",
+      "evidence": "full JUnit and adversarial review"
+    },
+    {
+      "feature": "Right header, tabs and loading/error/local retry",
+      "real_boundary_and_observation": "Native Search screen/navigation cases",
+      "evidence": "69-case XML"
+    },
+    {
+      "feature": "Canonical program/card/section disclosure and thumbnails",
+      "real_boundary_and_observation": "Independent Show/Hide, query reset and canonical row assertions",
+      "evidence": "69-case XML and inspected synthetic hierarchy PNG"
+    },
+    {
+      "feature": "Title-only visual rows and nonvisual identity",
+      "real_boundary_and_observation": "Description-only matching with February/Completed semantics",
+      "evidence": "69-case XML"
+    },
+    {
+      "feature": "Exact program/card/benefit navigation and four-second outline",
+      "real_boundary_and_observation": "Actual NavController selection and outline expiry",
+      "evidence": "69-case XML and inspected outline PNG"
+    },
+    {
+      "feature": "Removal, reused identities and obsolete query races",
+      "real_boundary_and_observation": "Native removal/ABA scenarios and domain revisions",
+      "evidence": "69-case XML and full JUnit"
+    },
+    {
+      "feature": "Back, scroll, tab and configuration memory",
+      "real_boundary_and_observation": "Native navigation and recreation scenarios",
+      "evidence": "69-case XML"
+    },
+    {
+      "feature": "Saved-state and actual process privacy",
+      "real_boundary_and_observation": "Post-save inspection and replacement MainActivity PID",
+      "evidence": "69-case XML and structured process-restart JSON"
+    },
+    {
+      "feature": "Query-to-visible latency",
+      "real_boundary_and_observation": "30 samples, p95 139.728285 <=200, declared 25/100/2000 corpus",
+      "evidence": "structured latency and host JSON"
+    },
+    {
+      "feature": "Generated handbook and technical companions",
+      "real_boundary_and_observation": "Builder freshness; Chromium interactions, geometry and independent content/print review",
+      "evidence": "structured handbook review and current full render"
+    },
+    {
+      "feature": "Validator, source packaging and malformed/positive controls",
+      "real_boundary_and_observation": "26 helper cases, actual full/platform wrappers and real temporary-Git packaging regression",
+      "evidence": "full helper outputs; actual clean release package deferred to release"
+    },
+    {
+      "feature": "CI configuration and branch protections",
+      "real_boundary_and_observation": "Seven Bash blocks parsed; protections actually applied/read back",
+      "evidence": "approved CI review and protection receipt; hosted execution remains T020"
+    },
+    {
+      "feature": "Original v0.1 archive-only evidence compatibility",
+      "real_boundary_and_observation": "Actual tagged test-source paths and fresh native checker recognizing evidence/tests",
+      "evidence": "original-reconciliation current-candidate report"
+    }
+  ],
+  "delegates": [
+    "Current independently qualified 65-input handbook with browser/accessibility/design/geometry and print review",
+    "Native Compose surface uses actual semantics/layout captures; HTML detector is not applicable to the APK",
+    "Current structured goal review and independent 69-case/p95 follow-up; no new actionable finding"
+  ],
+  "sufficiency_audit": {
+    "learned": "Issuer/context identities need revision validation; results need explicit viewport observation; IME changes affect lazy test visibility",
+    "false_assumptions": "Equal query text does not prevent ABA; equal product names need context; fixture existence is not displayed viewport proof",
+    "goal_expectations_open": "Latest phone acceptance, authorized green hosted integration and actual release/archive/native cleanup",
+    "owner_requests_without_task": "None: second owner presentation delta and archive-only original-goal coordinator correction are explicitly declared in plan"
+  },
+  "fix_rerun_cycles_used": 7,
+  "cycle_exception": "Current user autonomous reversible-work instruction applied over lower-priority three-cycle cap; prior counts preserved",
+  "not_covered_as_completed": [
+    "Latest owner phone acceptance T018",
+    "Fresh frozen public scan/aggregate terminal result",
+    "Actual hosted CI execution T020",
+    "Actual clean committed v0.4 release source package, release/tag/backmerge/archive and authorized cleanup",
+    "Historical original native-run/cleanup reconciliation"
+  ],
+  "gate_disposition": "Local source/runtime/handbook findings corrected; final public scan, phone and separately authorized delivery remain blocking for goal completion"
+}

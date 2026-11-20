@@ -1,0 +1,202 @@
+{
+  "status": "pass",
+  "browser": "Chromium 156.0.8078.4",
+  "output_sha256": "b79e03541cb9b46c59b4c5b403736031347d834c3e7f5fe961c927d9ecf4fd23",
+  "actual_pdf_review": [
+    {
+      "path": "print-js.pdf",
+      "pages": 16,
+      "prior_pages": 16,
+      "all_pages_nonempty": true,
+      "sha256": "644f242adca016d3919eee6bf67b0752c87c0c68034305ab21f54a98fb2be2c4",
+      "changed_pages": [
+        8,
+        9
+      ],
+      "page_comparison": [
+        {
+          "page": 1,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 2,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 3,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 4,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 5,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 6,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 7,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 8,
+          "text_identical": false,
+          "raster_identical": false
+        },
+        {
+          "page": 9,
+          "text_identical": false,
+          "raster_identical": false
+        },
+        {
+          "page": 10,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 11,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 12,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 13,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 14,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 15,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 16,
+          "text_identical": true,
+          "raster_identical": true
+        }
+      ]
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 16,
+      "prior_pages": 16,
+      "all_pages_nonempty": true,
+      "sha256": "644f242adca016d3919eee6bf67b0752c87c0c68034305ab21f54a98fb2be2c4",
+      "changed_pages": [
+        8,
+        9
+      ],
+      "page_comparison": [
+        {
+          "page": 1,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 2,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 3,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 4,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 5,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 6,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 7,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 8,
+          "text_identical": false,
+          "raster_identical": false
+        },
+        {
+          "page": 9,
+          "text_identical": false,
+          "raster_identical": false
+        },
+        {
+          "page": 10,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 11,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 12,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 13,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 14,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 15,
+          "text_identical": true,
+          "raster_identical": true
+        },
+        {
+          "page": 16,
+          "text_identical": true,
+          "raster_identical": true
+        }
+      ]
+    }
+  ],
+  "js_no_js_text_and_rasters_identical": true,
+  "changed_source_markers_present": [
+    "single explicit leading dollar amount",
+    "An earned amount alone never establishes a target",
+    "actual earned label remains beside the full bar",
+    "Updating results"
+  ],
+  "runtime_errors": [],
+  "external_requests": []
+}

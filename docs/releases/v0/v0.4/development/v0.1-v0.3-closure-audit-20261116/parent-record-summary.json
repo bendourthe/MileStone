@@ -1,0 +1,22 @@
+[
+  {
+    "minor": "v0.1",
+    "repo_context": "MileStone-close-v0.1-reconcile",
+    "exit": 1,
+    "verdict": "INCOMPLETE: record.minor",
+    "parent_record_exists": false
+  },
+  {
+    "minor": "v0.2",
+    "repo_context": "MileStone",
+    "exit": 1,
+    "verdict": "INCOMPLETE: v0.2.0:task.T005 v0.2.0:cleanup.branches cleanup.merged",
+    "parent_record_exists": true,
+    "schema": 2,
+    "approval_classes": [
+      "cleanup-merged",
+      "archive-minor",
+      "minor-close-pr"
+    ]
+  }
+]

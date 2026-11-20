@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "output_sha256": "7446e70474ce3d2827d955194f8190621c4a827f7c18e011d1caa62bcc4adf91",
+  "identical_build_bytes": true,
+  "read_only_freshness_check": "pass",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "candidate": {
+    "revision": "46f11541592de23aba421f223cc49679c6a53df6",
+    "working_tree": "uncommitted"
+  }
+}

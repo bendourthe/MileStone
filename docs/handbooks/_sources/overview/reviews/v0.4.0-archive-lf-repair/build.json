@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "output_sha256": "817fe4931ca9b19ab4bf65335a61b4c70ed48b4b0ef5fb9b028f364c49930ebb",
+  "commands": [
+    "python scripts/build_handbooks.py",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "scope": "Packaging helper/test fingerprint update; no application, Markdown, style or builder change",
+  "freshness": "pass"
+}

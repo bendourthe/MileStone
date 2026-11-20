@@ -1,0 +1,514 @@
+[
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5353816105769231
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5353816105769231
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5453600761217948
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.25,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5232496995192307
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.5,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5296849959935898
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.75,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5049579326923077
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 1,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5453600761217948
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5353816105769231
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5570663060897436
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5570663060897436
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5504932892628205
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.25,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5426432291666666
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.5,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.549003405448718
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.75,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5063726963141025
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 1,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5504932892628205
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5570663060897436
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5340945512820513
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5340945512820513
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5449554843304844
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.25,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5228285256410257
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.5,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5295913461538462
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.75,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5042797364672365
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 1,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5449563746438747
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5340945512820513
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5341553893637226
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5341553893637226
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5449386672997784
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.25,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.52312490107629
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.5,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5297481402342513
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.75,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5043252413738525
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 1,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5449386672997784
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "ARGB8888",
+    "maximum_channel_delta": 3,
+    "mean_channel_delta": 0.5341553893637226
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015625
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015625
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015487279647435898
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.25,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015462239583333334
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.5,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.01543719951923077
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.75,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.014660957532051282
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 1,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015487279647435898
+  },
+  {
+    "width": 96,
+    "height": 208,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015625
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.016764322916666668
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.016764322916666668
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015837840544871796
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.25,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.01549979967948718
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.5,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.01598808092948718
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.75,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.013258713942307692
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 1,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.015837840544871796
+  },
+  {
+    "width": 208,
+    "height": 96,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.016764322916666668
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011128027065527065
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011128027065527065
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011802884615384616
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.25,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.010803062678062678
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.5,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011313212250712251
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.75,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011295405982905984
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 1,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011802884615384616
+  },
+  {
+    "width": 360,
+    "height": 780,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011128027065527065
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011160671889838556
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011160671889838556
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011816041468819247
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.25,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.01082690329218107
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.5,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011415499366888255
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.75,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011336459322570434
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 1,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011816041468819247
+  },
+  {
+    "width": 1080,
+    "height": 2340,
+    "phase": 0.15,
+    "format": "F16",
+    "maximum_channel_delta": 1,
+    "mean_channel_delta": 0.011160671889838556
+  }
+]

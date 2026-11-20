@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py --check",
+  "result": "Handbook is current",
+  "full_profile": "PASS",
+  "output_sha256": "2fe11f3328407c96cce0aea88e275350a0854914a743a80c6d57f26f45895fa2",
+  "revision": "7d481cfe9a503cb3fc57629bc69ebc7607cd540c",
+  "working_tree": "uncommitted candidate",
+  "scope": "Reproducible handbook bytes only; application qualification remains separate."
+}

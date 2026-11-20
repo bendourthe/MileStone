@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "reviewer": "Independent coordinator",
+  "output_sha256": "115f21436151c5ea6e1581f63f0db27a43e87d0c451dfd29884d0783a0c829ea",
+  "changed_html_lines": [
+    7,
+    457
+  ],
+  "all_other_lines_identical": true,
+  "canonical_pngs": 225,
+  "identical_pngs": 225,
+  "actual_print_review": [
+    {
+      "name": "print-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_and_raster_identical": true
+    },
+    {
+      "name": "print-no-js.pdf",
+      "pages": 16,
+      "nonempty": true,
+      "text_and_raster_identical": true
+    }
+  ],
+  "reviewed_sources": [
+    ".github/workflows/ci.yml"
+  ],
+  "review": "The version diagnostic now uses -no-window, matching the existing CI launch. Controlled isolated Linux reproduction distinguishes GUI failure127 from headless success0 with libpulse missing. The flag preserves acceleration, boot, runtime, cleanup and reporting gates. Handbook visible content is unchanged. No hosted emulator boot, runtime success or fourth-push authority is claimed.",
+  "findings": []
+}

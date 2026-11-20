@@ -97,6 +97,7 @@ fun BenefitsScreen(
     programId: String? = null,
     onOpenProgram: (String) -> Unit = {},
     onBackToPrograms: () -> Unit = {},
+    onSearch: (() -> Unit)? = null,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val remindersOn by viewModel.remindersEnabled.collectAsStateWithLifecycle()
@@ -108,7 +109,7 @@ fun BenefitsScreen(
     }
     val request = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { allowed = it }
     val selectedProgram = (state as? BenefitsUiState.Cards)?.programs?.firstOrNull { it.programId == programId }
-    Scaffold(topBar = { BenefitsHeader(if (programId == null) "Benefits" else selectedProgram?.name ?: "Card benefits", showMark = programId == null) {
+    Scaffold(topBar = { BenefitsHeader(if (programId == null) "Benefits" else selectedProgram?.name ?: "Card benefits", showMark = programId == null, actions = { onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) } }) {
         if (programId != null) IconButton(onClick = onBackToPrograms) {
             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to institutions")
         }

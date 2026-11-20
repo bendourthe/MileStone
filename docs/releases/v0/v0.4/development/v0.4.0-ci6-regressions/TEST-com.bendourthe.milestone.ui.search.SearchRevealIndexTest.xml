@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.ui.search.SearchRevealIndexTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-16T11:05:55.058Z" hostname="SP-BDOURTHE5680" time="0.002">
+  <properties/>
+  <testcase name="optionalPanelsAndSharedFreshnessAlertsHaveExactSlots" classname="com.bendourthe.milestone.ui.search.SearchRevealIndexTest" time="0.002"/>
+  <testcase name="missingIdentityOrWrongCategoryNeverFallsBackToAnotherRow" classname="com.bendourthe.milestone.ui.search.SearchRevealIndexTest" time="0.0"/>
+  <testcase name="onlyTheTargetCollapsedCategoryContributesItsRows" classname="com.bendourthe.milestone.ui.search.SearchRevealIndexTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

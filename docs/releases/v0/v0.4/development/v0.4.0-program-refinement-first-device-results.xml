@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="29" failures="2" errors="0" skipped="0" time="0.000" timestamp="2026-11-15T03:37:45" hostname="localhost">
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchScreenTest" tests="14" failures="0" errors="0" skipped="0" time="42.245" timestamp="2026-11-15T03:37:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="amexIncludesAllFourCardsAndEveryStoredBenefitWithTrailingIndependentChevrons" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.994" />
+    <testcase name="rewardsProgramTileShowsStoredPointsAndImageWithoutGenericDetails" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.108" />
+    <testcase name="rewardsHeaderAtDoubledFontRetainsAllActions" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="1.803" />
+    <testcase name="benefitOnlyQueryCardHeaderOpensTheExactCard" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.790" />
+    <testcase name="programCardAndSectionGroupsCollapseIndependentlyAndKeepCanonicalRows" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.659" />
+    <testcase name="descriptionMatchesStaySearchableAsSingleLineTilesWithoutDetails" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.978" />
+    <testcase name="groupedContextClearAndFreshEntryUseRealNavigation" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.239" />
+    <testcase name="delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.171" />
+    <testcase name="everyBenefitsHeaderAndSystemBackReturnToTheOrigin" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="4.314" />
+    <testcase name="rewardsHeaderPreservesExistingActionsAtNarrowWidth" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="1.423" />
+    <testcase name="keyboardBackDismissesImeBeforeLeavingSearch" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.527" />
+    <testcase name="doubledFontKeepsSearchBackClearAndRowsUsable" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.660" />
+    <testcase name="actualActivityRecreationRetainsOnlyTheInMemoryModelAndDoesNotRepeatFocus" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="2.184" />
+    <testcase name="topTabsGroupProgramsCardsAndCompactBenefitsWithoutRepeatedFreshness" classname="com.bendourthe.milestone.ui.search.SearchScreenTest" time="3.395" />
+  </testsuite>
+  <testsuite name="com.bendourthe.milestone.ui.search.SearchNavigationTest" tests="15" failures="2" errors="0" skipped="0" time="54.960" timestamp="2026-11-15T03:37:45" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="resultsPositionAndQuerySurviveExactVisitAndRepeatedTapsDoNotStack" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="4.626" />
+    <testcase name="savedCollapsedCategoryCanBeHiddenAfterSearchRevealsIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="4.043" />
+    <testcase name="cardAndProgramRemovalDuringSelectionAreSafe" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="3.057">
+      <failure>java.lang.AssertionError: No node found that matches ((OnClick is defined) &amp;&amp; (Text + InputText + EditableText contains 'Delta SkyMiles' (ignoreCase: false))) &amp;&amp; (Text + InputText + EditableText contains 'Program' (ignoreCase: false)) in scrollable container
+Semantics of the node:
+Node #4088 at (l=0.0, t=640.0, r=720.0, b=1232.0)px, Tag: 'searchResults'
+CollectionInfo = 'CollectionInfo(rowCount=0, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@dca9423'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 6 siblings
+Selector used: (TestTag = 'searchResults')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+	at com.bendourthe.milestone.ui.search.SearchNavigationTest.select(SearchNavigationTest.kt:157)
+	at com.bendourthe.milestone.ui.search.SearchNavigationTest.cardAndProgramRemovalDuringSelectionAreSafe(SearchNavigationTest.kt:277)
+</failure>
+    </testcase>
+    <testcase name="actualNavigationRotationKeepsQueryInMemoryWithoutSavingIt" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.396" />
+    <testcase name="identicalCardProductsAndBenefitsShowDistinctCardEndingContext" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="4.465" />
+    <testcase name="returningToTheSameQueryDoesNotReviveAnObsoleteSelection" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="3.475" />
+    <testcase name="descriptionOnlyOtherCompletedAndLocalWelcomeTargetsAreExact" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="7.680" />
+    <testcase name="removalsDuringSelectionKeepValidSearchAndNeverOpenAReplacement" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.806" />
+    <testcase name="removedOriginatingCardFallsBackToItsInstitution" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.730" />
+    <testcase name="lateValidationCannotNavigateAfterAQueryChangeAndFailureCanRetryLocally" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="4.282" />
+    <testcase name="reusedOccurrenceKeyBetweenNavigationAndRevealIsRejected" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.729" />
+    <testcase name="rewardsAndCardOriginScrollPositionsSurviveOpeningAndClosingSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="3.496" />
+    <testcase name="sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.899" />
+    <testcase name="programAndCardTargetsReturnToTheSameSearch" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="2.670">
+      <failure>java.lang.AssertionError: No node found that matches ((OnClick is defined) &amp;&amp; (Text + InputText + EditableText contains 'Delta SkyMiles' (ignoreCase: false))) &amp;&amp; (Text + InputText + EditableText contains 'Program' (ignoreCase: false)) in scrollable container
+Semantics of the node:
+Node #8848 at (l=0.0, t=496.0, r=720.0, b=1232.0)px, Tag: 'searchResults'
+CollectionInfo = 'CollectionInfo(rowCount=1, columnCount=1)'
+IsTraversalGroup = 'true'
+Shape = 'androidx.compose.foundation.VerticalScrollableClipShape@dca9423'
+VerticalScrollAxisRange = 'ScrollAxisRange(value=0.0, maxValue=0.0, reverseScrolling=false)'
+Actions = [GetScrollViewportLength, IndexForKey, ScrollBy, ScrollByOffset, ScrollToIndex]
+Has 1 child, 5 siblings
+Selector used: (TestTag = 'searchResults')
+
+	at androidx.compose.ui.test.ActionsKt.performScrollToNode(Actions.kt:258)
+	at com.bendourthe.milestone.ui.search.SearchNavigationTest.select(SearchNavigationTest.kt:157)
+	at com.bendourthe.milestone.ui.search.SearchNavigationTest.programAndCardTargetsReturnToTheSameSearch(SearchNavigationTest.kt:179)
+</failure>
+    </testcase>
+    <testcase name="combinedAliasRevealsOneCanonicalEnrolledRowWithoutAnyStoredChanges" classname="com.bendourthe.milestone.ui.search.SearchNavigationTest" time="3.606" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,26 @@
+{
+  "recorded_utc": "2026-11-15T06:59:31.995659+00:00",
+  "status": "PASS",
+  "source_sha256": "38c52aac24b77c94374f617a3bfa1d6e012a2de5eb838dc0f9445bc53a21c6c9",
+  "counts": {
+    "tests": 74,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "latency": {
+    "p95_ms": 101.4965,
+    "maximum_ms": 115.045702,
+    "limit_ms": 200,
+    "samples": 30,
+    "warmups": 3,
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "program_only_count": 85,
+    "remote_epoch": 1794725470
+  },
+  "renderer": "Google (Google Inc.), Android Emulator OpenGL ES Translator (Google SwiftShader), OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)",
+  "host_load_not_idle_comparison": true,
+  "failed_launch": "Temporary runner clone decoded a UTF-8 BOM with the Windows default encoding; failed before tests. Fresh UTF-8-sig clone compiled and completed, without app/test changes."
+}

@@ -22,9 +22,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -90,6 +93,15 @@ private fun AnimatedMark(height: Dp) {
     val t = progress.value
     val painter = painterResource(R.drawable.milestone_mark_stone)
     val box = Modifier.requiredSize(width = height * (painter.intrinsicSize.width / painter.intrinsicSize.height), height = height)
+    val ribbonUnderWing = remember {
+        Path().apply {
+            moveTo(148f, 86f)
+            cubicTo(143f, 99f, 128f, 104f, 111f, 111f)
+            lineTo(144f, 110f)
+            cubicTo(156f, 102f, 162f, 94f, 164f, 85f)
+            close()
+        }
+    }
 
     val stone = easeOut(step(t, 0f, 0.25f))
     val ribbon = step(t, 0.21f, 0.54f)
@@ -105,7 +117,15 @@ private fun AnimatedMark(height: Dp) {
         // The ribbon is drawn in from the left, the way it runs across the stone.
         Image(
             painterResource(R.drawable.milestone_mark_ribbon), null,
-            box.drawWithContent { clipRect(right = size.width * ribbon) { this@drawWithContent.drawContent() } },
+            box.drawWithContent {
+                clipRect(right = size.width * ribbon) {
+                    // Fill the wing's cutout on the artwork's 180 x 188 canvas until the plane is almost settled.
+                    scale(size.width / 180f, size.height / 188f, pivot = Offset.Zero) {
+                        drawPath(ribbonUnderWing, Color(0xFFFEBE02), alpha = 1f - step(plane, 0.98f, 1f))
+                    }
+                    this@drawWithContent.drawContent()
+                }
+            },
         )
         // The house and the tree grow from where they stand.
         Image(painterResource(R.drawable.milestone_mark_house), null, box.graphicsLayer {

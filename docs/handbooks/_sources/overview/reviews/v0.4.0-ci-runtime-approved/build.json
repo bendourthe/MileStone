@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "output_sha256": "2814686b219c54f271a7439df31e892401712feaf1ea14dfc3849100335c975e",
+  "commands": [
+    "python scripts/build_handbooks.py (twice)",
+    "python scripts/build_handbooks.py --check"
+  ],
+  "identical_build_bytes": true,
+  "note": "Freshness observed for these exact input bytes; later app-source changes invalidate binding and need refresh."
+}

@@ -1,0 +1,212 @@
+{
+  "status": "LOCAL_FUNCTIONAL_AND_HANDBOOK_VERIFIED_TIMING_OPEN",
+  "base_commit": "7d481cfe9a503cb3fc57629bc69ebc7607cd540c",
+  "candidate_state": "Uncommitted selected renderer, test and handbook changes; other existing worktree edits excluded from intended commit.",
+  "source_sha256_lf": {
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": "28e7f48bc6cf3731facb3fefb2006a02c48ef98f1b62b19fa4d84cfb3d7b79ba",
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt": "1968ae8fa1b6d673b093e6174df1c82d0ba45f0156bede722627c3013c6fd524"
+  },
+  "hosted_baseline": {
+    "run": 44455857866,
+    "head": "7d481cfe9a503cb3fc57629bc69ebc7607cd540c",
+    "full": {
+      "status": "PASS",
+      "counts": {
+        "tests": 429,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 14
+      },
+      "security": "PASS"
+    },
+    "functional_runtime": {
+      "tests": 77,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "optimized_runtime": {
+      "tests": 1,
+      "failures": 1,
+      "p95_ms": 262.133878,
+      "limit_ms": 200,
+      "slow_samples": [
+        1,
+        2,
+        3,
+        4,
+        8
+      ]
+    },
+    "replay": {
+      "p95_ms": 221.242921,
+      "fully_covered_queries": 28,
+      "main_thread_ownership": "Trace pid plus receipt target identity",
+      "other_thread_ownership": "ps -T snapshot immediately before trace, not continuous process metadata",
+      "covered_slow_queries": [
+        10,
+        14,
+        20
+      ],
+      "render_thread_running_ms": [
+        171.491,
+        157.606,
+        194.196
+      ],
+      "observation": "Covered slow queries show long guest RenderThread Running intervals and main-thread wakes from that snapshot-bound thread. These intervals support a rendering-path hypothesis, not exclusive causal proof or direct host CPU consumption.",
+      "next_hypothesis": "Compare immutable glow textures with original gradients, then qualify unchanged workload only after idle admission.",
+      "measurement_limitation": "Guest scheduled-running duration may include virtual CPU host preemption or stolen time; the trace alone cannot separate those from rendering work."
+    }
+  },
+  "local_full": {
+    "command": "python -B scripts/validate.py --profile full --platform windows --reports-dir reports/release-v040/ci17-hosted-44455857866/texture-full --quiet",
+    "status": "PASS",
+    "source_sha256": "24282ec089b61e7c177a9d513cf8d2ecbf3ea46c7155b92e5aecd1928329e9cc",
+    "scope": "Original dirty worktree snapshot; evidence-only receipt additions follow. No claim of exact clean publication-snapshot qualification.",
+    "counts": {
+      "tests": 429,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "coverage": {
+      "covered": 5080,
+      "total": 6492,
+      "percent": 78.25
+    },
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS"
+      },
+      {
+        "name": "syntax",
+        "status": "PASS"
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS"
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS"
+      },
+      {
+        "name": "android",
+        "status": "PASS"
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS"
+      },
+      {
+        "name": "security",
+        "status": "PASS"
+      }
+    ],
+    "security": "PASS"
+  },
+  "native_render": {
+    "status": "pass",
+    "cases": 48,
+    "phases": 6,
+    "viewports": 4,
+    "formats": [
+      "ARGB8888",
+      "F16"
+    ],
+    "maximum_channel_delta": 1,
+    "unchanged_limits": {
+      "ARGB8888": 3,
+      "F16": 1
+    },
+    "metrics": "handbook-ci17-texture/aurora-metrics.json",
+    "transcript": "handbook-ci17-texture/aurora-render-test.txt"
+  },
+  "navigation_smoke": {
+    "status": "pass",
+    "test": "SearchNavigationTest#programAndCardTargetsReturnToTheSameSearch",
+    "transcript": "handbook-ci17-texture/search-navigation-smoke.txt"
+  },
+  "review": {
+    "lenses": [
+      "correctness",
+      "maintainability",
+      "testing",
+      "project_standards",
+      "performance"
+    ],
+    "findings": [],
+    "scope": [
+      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt",
+      "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt"
+    ]
+  },
+  "handbook": {
+    "build": "pass",
+    "content": "pass",
+    "browser": "Chromium 156.0.8078.4",
+    "browser_checks": 2611,
+    "native_receipt_check": "pass",
+    "receipt": "docs/handbooks/_sources/overview/verification.json",
+    "old_ci11_review_artifacts": "preserved unchanged"
+  },
+  "idle_admission": {
+    "status": "FAIL",
+    "samples": 5,
+    "threshold_percent": 15,
+    "selected_peak_percent": 29.139796066551316,
+    "aggregate_peak_percent": 42.275527028162394,
+    "benchmark_started": false
+  },
+  "authority": {
+    "actual_destination_check_exit": 3,
+    "reason": "request differs from the frozen approval scope",
+    "destination": "origin/chore/release-v0.4.0",
+    "additional_publication_authority_required": true
+  },
+  "performance_qualified": false,
+  "release_qualified": false,
+  "owner_phone_used": false,
+  "shared_nexus_install_changed": false,
+  "checkout_compatibility": {
+    "original_clean_checkout": "handbook-freshness failed because output was converted to CRLF",
+    "diagnosis": "Normalizing only CRLF to LF reproduces builder bytes, which exactly equal the committed Git blob.",
+    "correction": "docs/handbooks/html/*.html text eol=lf in .gitattributes",
+    "clean_checkout_proof": "pending; retained separately after the local candidate commit",
+    "checker_modified": false
+  },
+  "local_functional_full": {
+    "status": "FAIL",
+    "counts": {
+      "tests": 77,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "seconds": 2581.044798851013,
+    "tested_head": "b11f22020977fb10c8ea5d37ae80b21753dc9e63",
+    "failed_cases": [
+      "BenefitsBridgeFixtureTest#aRewardsPageFollowsAnActivityLinkThatArrivesAfterTheReadinessCap",
+      "BridgeFixtureTest#aTextedCodeSplitIntoOneBoxPerDigitIsTypedDigitByDigit"
+    ],
+    "failure_kind": "TimeoutCancellationException after 30000 ms for each case",
+    "source_and_timeouts_changed": false
+  },
+  "local_functional_focused": {
+    "status": "PASS",
+    "tests": 2,
+    "tested_head": "b11f22020977fb10c8ea5d37ae80b21753dc9e63",
+    "seconds": 86.91313648223877,
+    "initial_invocation": "Not executed: instrumentation package absent after Gradle cleanup; same built APK pair restored.",
+    "limitation": "The unchanged narrow pass does not turn the original full result into PASS or establish the cause of the timeouts."
+  },
+  "idle_after_functional": {
+    "status": "FAIL",
+    "samples": 5,
+    "threshold_percent": 15,
+    "selected_peak_percent": 44.28309349648808,
+    "aggregate_peak_percent": 64.3705045253858,
+    "benchmark_started": false
+  }
+}

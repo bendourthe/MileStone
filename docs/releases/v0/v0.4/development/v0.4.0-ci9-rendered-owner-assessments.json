@@ -1,0 +1,25 @@
+{
+  "status": "PASS_WITH_STATED_LIMITS",
+  "output_sha256_lf": "04e3d2f8966c42f3271a08ab3e75610d1831878709f62dc9ea89a0cdf306a07b",
+  "owners": [
+    "browser-testing-with-devtools",
+    "accessibility-engineering",
+    "hallmark-design audit"
+  ],
+  "fresh_checks": {
+    "browser": "Chromium 156.0.8078.4; 2,611 passing checks; zero findings/runtime errors/offline external requests",
+    "viewports": 16,
+    "visual_detector": "PASS across all 16 widths; only exact inherited unfocused skip-link exception allowed",
+    "visual_images_inspected": [
+      "reading-1000.png",
+      "1000x900-balanced-slide-6.png"
+    ],
+    "reading_and_presentation": "Updated paragraph in both views, no new controls or headings; legible hierarchy and controls, no observed clipping"
+  },
+  "inherited_by_unchanged_design": "CI6 detailed contrast/Lighthouse review and CI8 unchanged CSS/template/runtime/model/design hashes; not rerun or represented as new measurement",
+  "limits": [
+    "No new manual screen-reader or physical keyboard test",
+    "No fresh Lighthouse or independent contrast calculation",
+    "Native Android UI is qualified separately by emulator profile"
+  ]
+}

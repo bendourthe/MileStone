@@ -1,0 +1,135 @@
+{
+  "recorded_utc": "2026-11-14T10:29:06.751699+00:00",
+  "actual_correction_rounds": 5,
+  "original_skill_limit": 3,
+  "authority": "User-supplied autonomous-operation instruction for covered reversible work was applied to the exact normalization restoration and canonical archive repair; exceptions were disclosed, original cycles remain counted, no native/remote authority inferred",
+  "current_full_profile": {
+    "profile": "full",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "0c557ca90d16c89bf6546ebfa2f665f4404b19486fe269d10a18533ff2ddea1e",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.094
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 0.234
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.172
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 3.078
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 16.391
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 6.797
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 4.343
+      }
+    ],
+    "counts": {
+      "tests": 412,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 10
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 4936,
+      "total": 6217,
+      "percent": 79.4
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "a51728df06e92ae551f1d202f3de6b900885edbab22c17d7cdfc07926a46ec7e",
+      "scanned_bytes": 1393496,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof."
+    ]
+  },
+  "retained_platform_profile": {
+    "profile": "platform",
+    "platform": "windows",
+    "status": "PASS",
+    "source_sha256": "09565504a20cad09bdc594ec16f17c04b1f15ca1b982c41be296b2a037301c1b",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 738.734
+      }
+    ],
+    "counts": {
+      "tests": 67,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": null,
+    "security": null,
+    "limitations": []
+  },
+  "whole_wrapper_fingerprints_match": false,
+  "runtime_reuse": {
+    "scope": "Only the actual 67-case Android runtime result for the identical APK; not a new platform-wrapper invocation",
+    "apk_sha256": "aa5a3a891860a6bbede09d098411c7fcc7ed4f42d188fe8a92dfc2599478a6da",
+    "test_apk_sha256": "efc72ccdcc5e063f7e03f0cf8d8511d56a97567beca7337441956286e239c8db",
+    "old_helper_sha256": "ce6ad9ca726daf53015ec5c6ee75e45304c3061d1da2f516361a79c64fa1f362",
+    "new_helper_sha256": "9f7459ad3129c8dded53d962462a2f3797895db3f70f9d2aec312cd6da6e78e7",
+    "ast_identical_outside": "source_package",
+    "preimage_provenance": "Reconstructed with current timestamp from the exact known patch; digest equals both prior producer receipt and prior 65-input snapshot. Never represented as an original captured file.",
+    "original_receipt_preserved": true,
+    "scope_approved_by_independent_review": true
+  },
+  "current_apk_process_restart": {
+    "serial": "emulator-5554",
+    "boundary": "Installed production MainActivity, adb input and UiAutomator; background process death then actual replacement PID",
+    "kill_method": "background package-owned SIGKILL through run-as",
+    "process_changed": true,
+    "query_visible_before_death": true,
+    "query_absent_after_death": true,
+    "restored_search_route": true,
+    "blank_search_prompt_after_restart": true,
+    "diagnostic_query_absent": true,
+    "unsupported_program_retained": true,
+    "cards_unchanged_empty": true,
+    "fixture_removed_after_verification": true,
+    "phone_accessed": false
+  },
+  "helper_tests": {
+    "tests": 26,
+    "failures": 0,
+    "errors": 0,
+    "includes": "Real TEMP Git repository with core.autocrlf=true; source_package preserves committed LF and leaves repository configuration unchanged"
+  },
+  "canonical_archive_policy": "Both archive calls use per-command core.autocrlf=false and core.eol=lf; no global repository setting changes",
+  "owner_search_acceptance": "pending",
+  "phase_commit": "pending phase boundary",
+  "publication": "not started",
+  "goal_complete": false
+}

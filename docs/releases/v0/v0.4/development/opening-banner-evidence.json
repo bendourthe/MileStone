@@ -1,0 +1,55 @@
+{
+  "status": "Local implementation, emulator visual verification and owner phone acceptance complete; publication open",
+  "source_base": "569b99fb9abcd2d9ac12ede07ebcf77630f042d2",
+  "change": "Fill the ribbon wing cutout during its reveal, then fade the fill as the plane settles; existing artwork unchanged",
+  "checks": {
+    "MainActivitySmokeTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    "lintDebug": 0,
+    "assembleDebug": 0
+  },
+  "runtime": {
+    "serial": "emulator-5554",
+    "qemu_verified": true,
+    "apk_sha256": "6db14fc5f9e7b6389886718c265a415bdab47b9bb15d961e30ede69614af9174",
+    "capture_method": "Emulator console recording of the unmodified production opening flow",
+    "recording_sha256": "d89178aa047d15cb3caa3e18a0de7ef546060f5ab6a1a8b113af1b8c64b2bd1e",
+    "reviewed_frames": [
+      {
+        "file": "frame-192.png",
+        "sha256": "d3c289fb70c81e36f7642544c4494c76cb749c157906085930bf98c5bcaf12c5",
+        "observation": "Complete curved ribbon visible before airplane"
+      },
+      {
+        "file": "frame-193.png",
+        "sha256": "9f1467225b04c280442aa8fdc26569582d81307003e926122ae6b24189824b52",
+        "observation": "Plane arrives above the ribbon"
+      },
+      {
+        "file": "frame-195.png",
+        "sha256": "6fadc6434899592d9ceac0729a984f807337b5ff0d0e9e4e916d277eaaff40f1",
+        "observation": "Final mark retains the original overlap"
+      },
+      {
+        "file": "frame-210.png",
+        "sha256": "64e6e43ba2653aac90e7072d25488e769f3eab14344fe658725c7bb9b6a74779",
+        "observation": "Opening exits to Rewards"
+      }
+    ]
+  },
+  "limitations": [
+    "Earlier captures showed System UI ANR or ended before rendering; those attempts are not success evidence",
+    "No remote publication performed"
+  ],
+  "phone_delivery": {
+    "installed": true,
+    "method": "adb install -r",
+    "apk_sha256": "6db14fc5f9e7b6389886718c265a415bdab47b9bb15d961e30ede69614af9174",
+    "data_clear_or_uninstall": false,
+    "owner_accepted_animation": true,
+    "owner_confirmed_search_and_four_amex_cards_retained": true
+  }
+}

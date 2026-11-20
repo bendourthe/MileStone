@@ -1,0 +1,14 @@
+{
+  "profile": "platform",
+  "platform": "ci-linux",
+  "source_sha256": "93b2a816ba31c04e512b4f8a0a33fb04b54d34a4bb05849ae546da05858be597",
+  "status": "FAIL",
+  "groups": [
+    {
+      "name": "profile",
+      "status": "FAIL",
+      "seconds": 0.0,
+      "error": "RuntimeError: The test task returned success but JUnit reports failures or errors"
+    }
+  ]
+}

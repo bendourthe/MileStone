@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "source": "docs\\handbooks\\html\\overview.html",
+  "source_sha256": "593a3ea808e8f12f5e1267f7b323fef7ad8178f923b9243927b29907d6310850",
+  "checks": [
+    "clipped-text",
+    "label-overlap",
+    "label-on-trace",
+    "legend-colour-collision",
+    "oversized-type",
+    "stroke-drift",
+    "legend-entry-not-drawn",
+    "tick-outside-range",
+    "viewbox-dead-space",
+    "callout-stripe-default",
+    "uniform-card-grid"
+  ],
+  "findings": [],
+  "errors": [],
+  "verification_scope": "rendered figure geometry in screen space",
+  "browser": "Chromium 156.0.8078.4",
+  "svg_count": 5
+}

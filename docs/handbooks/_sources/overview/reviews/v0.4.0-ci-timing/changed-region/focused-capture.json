@@ -1,0 +1,38 @@
+{
+  "status": "captured; direct visual review pending",
+  "viewport": [
+    390,
+    844
+  ],
+  "image": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-timing/changed-region/deep-search-390-focused.png",
+  "image_sha256": "3830b43d18d392214929c2bfdedca4a4ac64eb7f71062049383f59e84aa0cc9e",
+  "geometry": {
+    "top": 0.359375,
+    "bottom": 294.484375,
+    "height": 294.125,
+    "parents": [
+      {
+        "tag": "SECTION",
+        "scrollTop": 0,
+        "height": 1367,
+        "extent": 1367
+      },
+      {
+        "tag": "DIV",
+        "scrollTop": 0,
+        "height": 9911,
+        "extent": 9911
+      },
+      {
+        "tag": "DIV",
+        "scrollTop": 7655,
+        "height": 644,
+        "extent": 10174
+      }
+    ]
+  },
+  "js_and_no_js_pdf_text_and_rasters_identical": true,
+  "changed_pdf_pages": [
+    14
+  ]
+}

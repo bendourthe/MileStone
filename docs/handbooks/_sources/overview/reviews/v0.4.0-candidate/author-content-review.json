@@ -1,0 +1,33 @@
+{
+  "status": "author-reviewed-independent-review-pending",
+  "scope": "Changed search explanations only; retained prior topic content preserved",
+  "claims": [
+    {
+      "topic": "Stored corpus and aliases",
+      "source": "ui/search/SearchViewModel.kt: SearchSnapshotFactory.entries, readInput; ui/benefits/BenefitsPresentation.kt: presented"
+    },
+    {
+      "topic": "Own-token contextual matching, Unicode folding, card digits excluded",
+      "source": "domain/GlobalSearch.kt: SearchEntry.searchable, GlobalSearch.match, fold, context"
+    },
+    {
+      "topic": "Fresh exact source/revision and query-edit validation",
+      "source": "ui/search/SearchViewModel.kt: validateAgainst, validateReveal, setQuery; ui/MileStoneApp.kt: Search destination"
+    },
+    {
+      "topic": "Temporary expansion, explicit Hide, exact row reveal",
+      "source": "ui/search/SearchReveal.kt: hideForVisit, benefitRevealIndex; ui/benefits/CardBenefitsScreen.kt: reveal effect and category toggle"
+    },
+    {
+      "topic": "Top icon, Back/scroll, memory-only state and generic errors",
+      "source": "ui/MileStoneApp.kt: Root and result routes; ui/search/SearchScreen.kt; SearchViewModel query/position; SearchReveal.message"
+    }
+  ],
+  "release_status": "Local v0.4.0 candidate; installed metadata v0.3.1/code4; no release claim",
+  "detector_limits": [
+    "Structural scorer expects nested presentation storyboard metadata; canonical retained model uses sibling slides and slide_ceiling. Equivalent actual model/DOM equality checked.",
+    "Native measurement helper requires data-dv-section, absent from retained builder. Equivalent stable source-ID measurements pass without DOM mutation."
+  ],
+  "review_findings": [],
+  "visual_author_observation": "All8slides and5reading screenshots inspected;13pages in each JS/noJS PDF inspected. No new clipping, missing source sections or unavailable controls. Existing200% wordmark line break remains nonblocking."
+}

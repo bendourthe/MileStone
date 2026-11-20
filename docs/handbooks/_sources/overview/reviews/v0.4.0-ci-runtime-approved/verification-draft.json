@@ -1,0 +1,23 @@
+{
+  "snapshot": null,
+  "checks": {
+    "content": {
+      "status": "pending-independent-CI-review-and-app-source-binding",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-runtime-approved/author-review.json",
+      "evidence_sha256": "c7ab3c45e4cc7b9a77b9821469cf34c6ebe3d795fb3fd5ab1c432b3ac7d83228"
+    },
+    "build": {
+      "status": "pass",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-runtime-approved/build.json",
+      "evidence_sha256": "676878d0aca310deacc8f90c72baa642f847334978b757e2770ee196a4632b7a"
+    },
+    "rendered": {
+      "status": "pass",
+      "browser": "Chromium 156.0.8078.4",
+      "output_sha256": "2814686b219c54f271a7439df31e892401712feaf1ea14dfc3849100335c975e",
+      "evidence": "docs/handbooks/_sources/overview/reviews/v0.4.0-ci-runtime-approved/run-1/render.json",
+      "evidence_sha256": "6061a5b67fad0d6e71984c223c3281020857e9694f4193b9208469dc2792dd78"
+    }
+  },
+  "hold": "Do not adopt live final while mapped app sources change. Prior b674 live qualification remains untouched until coordinator independent review/new freeze; then preserve as verification-before-ci-runtime-approved.json."
+}

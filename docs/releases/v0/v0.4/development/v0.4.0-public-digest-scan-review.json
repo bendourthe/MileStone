@@ -1,0 +1,28 @@
+{
+  "status": "RESOLVED_PUBLIC_DIGEST_FALSE_POSITIVES",
+  "reviewed_utc": "2026-11-14T19:53:15.089734+00:00",
+  "rule": "generic-api-key",
+  "redacted_findings": 5,
+  "verified_public_source_filenames": [
+    "password-route.html",
+    "TinkSessionStoreKeystoreTest.kt",
+    "CredentialVault.kt",
+    "AuthWebViewModal.kt",
+    "FileCredentialVaultTest.kt"
+  ],
+  "classification": "Every matched value is the verified SHA-256 digest of the named public source file, not credential material. No private capture was read for this classification.",
+  "cause": "The new evidence manifest used credential-related filenames as assignment keys for high-entropy source digests.",
+  "correction": "Standard manifest records separate sha256 and path fields; all 274 original path/digest pairs are preserved exactly.",
+  "scanner_configuration_changed": false,
+  "failed_full_retained_at": "reports/frozen-before-digest-format-fix",
+  "redacted_diagnostic_at": "reports/hash-manifest-diagnostic/sarif/redacted-findings.json",
+  "affected_scan": {
+    "status": "PASS",
+    "base_ref": "origin/develop",
+    "positive_control_detected": true,
+    "input_sha256": "48d7e070dc5ef8ead3e0a5287bfe4c0661ae3c8995bbf623ba8b65858e998291",
+    "scanned_bytes": 5269845,
+    "findings": 0
+  },
+  "final_gate": "The actual frozen-local-full full/report results remain ignored to avoid self-referential scanner inputs."
+}

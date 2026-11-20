@@ -1,0 +1,72 @@
+{
+  "scope": "v0.4.0 Phase 2 only; exact navigation and final delivery remain open",
+  "parent_commit": "ae9df5ae18993f69f6a8f9ef4f3dca13a5e4663a",
+  "device": "emulator-5554",
+  "display": {
+    "pixels": "720x1280",
+    "density": 320,
+    "width_dp": 360,
+    "tested_font_scales": [
+      1,
+      2
+    ]
+  },
+  "gate": {
+    "tasks": "testDebugUnitTest (ui.search.*, GlobalSearchTest, MileStoneAppTest, BenefitsScreenTest), lintDebug, assembleDebug, connectedDebugAndroidTest (SearchScreenTest)",
+    "exit_code": 0,
+    "jvm": {
+      "tests": 51,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "instrumentation": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "lint": {
+      "Error": 0,
+      "Fatal": 0,
+      "Warning": 39
+    }
+  },
+  "source_sha256": {
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt": "8307802ce6eb0fefb1f3dfd8b7f60527007acd5208f313ad9b93d4ee0d564e7a",
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": "1ffbf90584375bfc924602283e5ad3ca74d656990b5bbc934c5b253d6248e657",
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt": "cda96b32479ce569c8f5a4a7441137495e214aeecfb6ab608ded78e5733f9165",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsScreen.kt": "737737bc82e0a5ef115944ef0a70aafbcd820e674184e1aac4ed9484b6838b32",
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": "1f1485023ca11d5f191d7972066919360e9b07f5ea56e053a7b64093b9ed9cbf",
+    "app/src/main/java/com/bendourthe/milestone/ui/dashboard/DashboardScreen.kt": "fa120ef9688b43fd7d656fb68e72ea17e314ba97a995d3d65f619e7e754ba4f7",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": "7fd05e2e43635d43a23c51a363b25c8b0e3c8f978c01e4189ee4493526b48e9c",
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": "ef3fefca9a5a9743d3bca4e72adddf93e918b2f1f85cddfae8be3229b61ba63a",
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt": "694e76c2685b913188d1076e5f2539f5ae2d853cc7fd814bf124e90d34f3ff79",
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt": "5fb7381c29983a6c6c4ea3941221b04f3e966a9bb11a6196ca45bb5eff57ba5a"
+  },
+  "report_sha256": {
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.domain.GlobalSearchTest.xml": "2282f6382dd288ec9c54432b889c49d82e2826a892bee2cd8cc83c80cf03b4b2",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.benefits.BenefitsScreenTest.xml": "50fe12e5bf0c33fda48548321374e6ee52761a8372520817b341876b163dcfde",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.MileStoneAppTest.xml": "cf3e34568a85e34eaed0ddaf2224b5a7c43a983480b4d58ad6f2a3ef291ff89d",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchMemoryTest.xml": "b7b4cafa1fc3c37bee6dd253df6c01be0f96d2b27ec217b65643268718121677",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchProjectionTest.xml": "1a7b9c4a4deef172024663b31c66ae0191f5c0acfe0eca95100c4360953b1671",
+    "app/build/test-results/testDebugUnitTest/TEST-com.bendourthe.milestone.ui.search.SearchRepositoryTest.xml": "529c62894a220928bc683ec3b393a17af3d52ae7500b89295134968b0b1a9dbf",
+    "app/build/outputs/androidTest-results/connected/debug/TEST-lumifold_fold(AVD) - 16.xml": "40bc258c13bea6bfe5cffa52e9aa02bb5f1eaacc30e9ce057528ba1764a5f1b5"
+  },
+  "apk_sha256": "1fdec15f1feab7a205e1ceb65623d89f405ca00275c84ad62bfef46ef8e2f5dd",
+  "synthetic_screenshots_sha256": {
+    "docs/releases/v0/v0.4/development/images/v0.4.0-phase-2-rewards-font200.png": "dc495dc12de2c6d3b02cf179d34d316352c83a4c33ad95e680cbc9039a3f0f0e",
+    "docs/releases/v0/v0.4/development/images/v0.4.0-phase-2-search-font200.png": "31dbc948eb483381f08d7bda45a98449c39009fbd7f31db444a6d9e9a5ed3552"
+  },
+  "observed": [
+    "Grouped contextual result and accurate actionable count",
+    "Start, empty, loading, generic read error and local retry",
+    "Clear and fresh entry start blank",
+    "Visible Back restores institution, cards and card origins",
+    "System Back dismisses IME before exiting",
+    "Actual Activity recreation retains memory-only ViewModel query without repeated initial focus",
+    "All header actions and centered mark remain separate at 360 dp and 200 percent font",
+    "Search results and input label remain readable with the production AuroraBackground"
+  ],
+  "publication": "No search push, PR or remote CI; no phone install in this phase"
+}

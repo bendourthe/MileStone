@@ -124,7 +124,7 @@ data class CardList(val cards: List<CardDraft>, val complete: Boolean) {
     }
 }
 
-private val TRADEMARKS = Regex("[™®℠©]")
+private val TRADEMARKS = Regex("[\u2122\u00AE\u2120\u00A9]")
 private val SPACES = Regex("\\s+")
 
 /** Trims, removes trademark signs, and collapses runs of whitespace. */
@@ -246,6 +246,8 @@ data class BenefitsDisplayPreferences(
 /** On-device display preferences; acknowledgement never edits issuer benefits or reminder records. */
 interface BenefitsDisplaySettings {
     fun observe(card: CardKey): Flow<BenefitsDisplayPreferences>
+    /** Derived search data must distinguish unreadable preferences from absent local bonuses. */
+    fun observeForSearch(card: CardKey): Flow<BenefitsDisplayPreferences> = observe(card)
     suspend fun setSort(card: CardKey, sort: BenefitsSort)
     suspend fun setCompletedLast(card: CardKey, completedLast: Boolean)
     suspend fun setCollapsed(card: CardKey, category: BenefitsCategory, collapsed: Boolean)

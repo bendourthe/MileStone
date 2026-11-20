@@ -1,0 +1,69 @@
+{
+  "recorded_utc": "2026-11-14T16:53:15.404045+00:00",
+  "closing_pr": {
+    "number": 15,
+    "url": "https://github.com/bendourthe/MileStone/pull/15",
+    "state": "MERGED",
+    "head": "e82d3833822dc8808116428162be3bacef2f546e",
+    "merge": "09036c2037b42fa232679a4b2f0afd55b9cd3171",
+    "merged_at": "2026-11-14T16:46:20Z",
+    "required_check": "CI result",
+    "conclusion": "SUCCESS",
+    "run_id": 43616602803
+  },
+  "archive": {
+    "helper_commit": "fe2401e911d3239629d43668351cce3678df61a8",
+    "source": "docs/releases/v0/v0.3",
+    "destination": "docs/archives/v0/v0.3",
+    "newly_broken_links": 0,
+    "source_absent_on_develop": true,
+    "destination_present_on_develop": true,
+    "index": "docs/archives/README.md",
+    "older_archives_retained": [
+      "v0.1",
+      "v0.2"
+    ]
+  },
+  "publication_scope": {
+    "commits": 3,
+    "files": 158,
+    "application_script_workflow_changes": false,
+    "secret_scan_findings": 0,
+    "secret_positive_control_detected": true,
+    "scanned_bytes": 425854
+  },
+  "preservation": {
+    "authority": "Genuine owner answers to the exact baseline questions",
+    "handbook_paths": [
+      "docs/handbooks/_sources/overview/reviews/build.json",
+      "docs/handbooks/_sources/overview/reviews/content.json",
+      "docs/handbooks/_sources/overview/reviews/render.json",
+      "docs/handbooks/_sources/overview/verification.json",
+      "docs/handbooks/html/overview.html"
+    ],
+    "adr": "docs/decisions/0008-amex-benefits-card-navigation.md",
+    "released_content_and_amendments_retained": true,
+    "generated_html_lf_only_repair": "Exact builder bytes equal prior output after CRLF-to-LF normalization; no source or rendered-content change"
+  },
+  "native_v030": {
+    "command": "python ~/.nexus-hub/scripts/check_plan_completion.py check docs/archives/v0/v0.3/plans/v0.3.0-amex-benefits-extraction-fix.md",
+    "verdict": "INCOMPLETE: cleanup.branches",
+    "all_26_tasks_met": true,
+    "archive_minor_met": true,
+    "cleanup_merged_met": true,
+    "cleanup_worktree_met": true
+  },
+  "cleanup": {
+    "mode": "apply with sealed final-pass receipt",
+    "removed": 0,
+    "kept": 23,
+    "minimum_idle_hours": 24,
+    "required_branch_disposition": "KEEP recently-active",
+    "forced_removals": false
+  },
+  "remaining": [
+    "Required recent branch removal after native eligibility",
+    "Previously recorded historical native-run bookkeeping limitations",
+    "All Search refinement verification, owner delivery and separately authorized publication/release obligations"
+  ]
+}

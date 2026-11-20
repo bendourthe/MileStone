@@ -1,0 +1,39 @@
+{
+  "output_sha256": "6300d34c0c9d9f1787bb144d5303cdd33a3a270ffed4d4c038ab4e121d6f3c1f",
+  "pdfs": [
+    {
+      "path": "print-js.pdf",
+      "pages": 14,
+      "checks": {
+        "prepares tab partitions, counts, and card groups on its worker dispatcher": true,
+        "reuses those cached projections": true
+      },
+      "sha256": "07c0c44f3a89b2e442630669b02f989aca42b09c4b23bb53583870166fc1101a"
+    },
+    {
+      "path": "print-no-js.pdf",
+      "pages": 14,
+      "checks": {
+        "prepares tab partitions, counts, and card groups on its worker dispatcher": true,
+        "reuses those cached projections": true
+      },
+      "sha256": "b9e5d75f0481e62cd4f9722a373b5f8d4a597d53be966fe40918cf093a40315e"
+    }
+  ],
+  "byte_identical_previous_renders": [
+    "reading-1440.png",
+    "reading-320-200percent.png",
+    "reading-320.png",
+    "reading-420.png",
+    "reading-900.png",
+    "slide-1.png",
+    "slide-2.png",
+    "slide-3.png",
+    "slide-4.png",
+    "slide-5.png",
+    "slide-6.png",
+    "slide-7.png",
+    "slide-8.png"
+  ],
+  "independent_review": "pending coordinator review; no latency guarantee or runtime acceptance claim"
+}

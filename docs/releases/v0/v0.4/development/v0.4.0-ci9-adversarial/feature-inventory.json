@@ -1,0 +1,1080 @@
+{
+  "status": "MAPPED_26_NO_PRODUCT_CLOSURE",
+  "prior_inventory_path": "docs/releases/v0/v0.4/development/v0.4.0-ci6-independent-goal-review.json",
+  "prior_inventory_raw_sha256": "bc405ebbcfbfc4fba788ab5302b639b9581299ec6ec86878122a2809682d2a27",
+  "prior_adversarial_raw_sha256": "88e5b0ce38e5ff7c72d9a9de50d8e8970db1551a18b140dfd681b451de56bd33",
+  "prior_tested_routes": {
+    "A1": "Bounded/malformed/Unicode query normalization and no evaluation sink.",
+    "A2": "Added/removed/disconnected corpus, card clear, local welcome, excluded identity/financial fields, canonical aliases.",
+    "A3": "Program-only expansion, mixed contextual own-token rule, duplicate titles and display order.",
+    "A4": "Removal/revision/reveal races, reused keys, query ABA, repeated taps and removed origin.",
+    "A5": "Real Screen/Room retained matches and empty transitions, equal-empty generation, pending disposal, separate tabs and Back/collapse.",
+    "A6": "Slow reads, transaction/preference IO failures and local retry.",
+    "A7": "Actual rotation/saved-state privacy and unchanged rows/preferences; no auth/network dispatch by inspected local wiring.",
+    "A8": "Real-frame timing and canonical prebuilt partitions; unchanged endpoint historical300mscontrol only supports sensitivity."
+  },
+  "inventory_count": 26,
+  "input_hashes": {
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt": {
+      "raw_sha256": "a91479fa84ff6bb7aacbc39369b541b15f8bb69b6f2e23ece830e80bd15439bb",
+      "lf_sha256": "de5d1ec85545488f285261d5bc7a568c4f179ca8bea335525263b5e6a3cf3463",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "cb20a8d5b6661361139b4d8a967aa21ff276e25bc64834f5a16df7d186338783",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "cb20a8d5b6661361139b4d8a967aa21ff276e25bc64834f5a16df7d186338783",
+          "exact_lf_equal": false
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt": {
+      "raw_sha256": "bfee45651a95a9ebec194ba675a28c9f468db3fdf0a5edcf21f26362453fcbc0",
+      "lf_sha256": "89fe62f447f92a4f867b505336e3dc09ca8a7eb5307ab61875f4f6b813c5cb3b",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "381ddc66986fd15e800fe130ed4a5b81325c786abda287756e100111c64bfa99",
+          "exact_lf_equal": false
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt": {
+      "raw_sha256": "1f63edda44f1d0c89348ee95ab8e8856bdcb10b96b5fa8b1428bbe6d3057ad01",
+      "lf_sha256": "8b84dc8e8d391912a2ee295f8bb2e5027b15ee433ccdcc97980af909650b5e77",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "8b84dc8e8d391912a2ee295f8bb2e5027b15ee433ccdcc97980af909650b5e77",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "8b84dc8e8d391912a2ee295f8bb2e5027b15ee433ccdcc97980af909650b5e77",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt": {
+      "raw_sha256": "78ed2a3de29a8afe207456ce82ba135c70c82a57f028e514a6283ecb58e511a9",
+      "lf_sha256": "ad73302defdf70dcd88940d119c39539164c2963663ff04462da71d0ce2f91da",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "a4ba571bd538053406fd3a99024d71c9002f893d3806f18c5655a2b5435cf235",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "a4ba571bd538053406fd3a99024d71c9002f893d3806f18c5655a2b5435cf235",
+          "exact_lf_equal": false
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt": {
+      "raw_sha256": "e2b6cc43fa9471ad26a21f7c426f1d691e0db5264b733b646b0f64a3da0c5123",
+      "lf_sha256": "36c3f3c8f4a426e7b4cc636acea956dd47b6fbfd54a104808f23f5498cf6f778",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "36c3f3c8f4a426e7b4cc636acea956dd47b6fbfd54a104808f23f5498cf6f778",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "36c3f3c8f4a426e7b4cc636acea956dd47b6fbfd54a104808f23f5498cf6f778",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt": {
+      "raw_sha256": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
+      "lf_sha256": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "5a23ab6a6444a6ea70999c0715c8ddfdc1063fb10b37b6035eaa36d18f37e799",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt": {
+      "raw_sha256": "0da0c5d531360c952863b86332939c463f0c013e41a3c565dfe7beb05df9d60c",
+      "lf_sha256": "2e6ba6d9d9d7c9bd25ae3a11752db50aaf49120a4350cdb741f26739d1bbc722",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "f8c1a9ccea68bef76b48f48d2878d71f5cf3b71cfde5332ae123e0555ffa7f11",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "f8c1a9ccea68bef76b48f48d2878d71f5cf3b71cfde5332ae123e0555ffa7f11",
+          "exact_lf_equal": false
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt": {
+      "raw_sha256": "e24b91a2fc08b48f936d05b5026a75c5b787414b1db75c044b7c043364087d64",
+      "lf_sha256": "e62c70998e349d2c1b2dcfad5b519770a05324b216ab29765d4679a76720812e",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "e62c70998e349d2c1b2dcfad5b519770a05324b216ab29765d4679a76720812e",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "e62c70998e349d2c1b2dcfad5b519770a05324b216ab29765d4679a76720812e",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt": {
+      "raw_sha256": "bca1b7b2e7cbe911e90986ce789643b3dd5e112aa4b5d73943e513695507632a",
+      "lf_sha256": "6dfd82c63249ec2943114158324eeb20dfd3eaab87f436bd21839d012054dff5",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "6dfd82c63249ec2943114158324eeb20dfd3eaab87f436bd21839d012054dff5",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "6dfd82c63249ec2943114158324eeb20dfd3eaab87f436bd21839d012054dff5",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt": {
+      "raw_sha256": "867a27e23f37c0b1f07e767fb538e0cdf703c5d2f1348943591c303565e81343",
+      "lf_sha256": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "e0681206c9d052faf1c3338bff0e98cbd14ca9d146fc805a6d16c523bd28a1fb",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt": {
+      "raw_sha256": "6426b0c5ad3c28068858ab5db5b08f89e42ecf9fd8c6fe94daad3fdb58207353",
+      "lf_sha256": "906b4b773bc2ebbadf457cc0032fa8b46550483723df507f64d3c69b975e467b",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "906b4b773bc2ebbadf457cc0032fa8b46550483723df507f64d3c69b975e467b",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "906b4b773bc2ebbadf457cc0032fa8b46550483723df507f64d3c69b975e467b",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt": {
+      "raw_sha256": "e384bef2778712097edc43746c1e9a7deb03dd3592b363579be2cf4892a6d2da",
+      "lf_sha256": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "3ca3ab22b5d99dec2852d5af3627b8d9619f8b56b5f40967b92314734027307f",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt": {
+      "raw_sha256": "b68722776fdb21c8b5ae5ed5b2f20d7e768c6b96179c3d216e951c8c3e222e84",
+      "lf_sha256": "84ba61de47b4f0c3c412f344caede7d6b23e5826aa3f79719a8cd141b414df20",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "84ba61de47b4f0c3c412f344caede7d6b23e5826aa3f79719a8cd141b414df20",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "84ba61de47b4f0c3c412f344caede7d6b23e5826aa3f79719a8cd141b414df20",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt": {
+      "raw_sha256": "b7ed78b015a11e8ff5cbd017b36b28d51d60489e1c637834018c93e405d70cf5",
+      "lf_sha256": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "51928ba14c7e0589e86940f099e8342f6d0f31f9d5e006ff5663807290c11380",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt": {
+      "raw_sha256": "3efa4625e325a0910075ee0e94500b1ee2cde35baec2f4541858d994557d7965",
+      "lf_sha256": "71f8e29dcc3afe5b11c9029e5092b8fca5dd7124ec46440b1af9b09b4419096d",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "71f8e29dcc3afe5b11c9029e5092b8fca5dd7124ec46440b1af9b09b4419096d",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "71f8e29dcc3afe5b11c9029e5092b8fca5dd7124ec46440b1af9b09b4419096d",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRevealIndexTest.kt": {
+      "raw_sha256": "ef2c0d71b2a53798e44e0e4a8dc38499d97bb1e6de36fee513073f4a3da516cd",
+      "lf_sha256": "cd732f329b9926c05c8e77927c99b304e1a44cc9dce668e287ef93dbb8225f10",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "cd732f329b9926c05c8e77927c99b304e1a44cc9dce668e287ef93dbb8225f10",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "cd732f329b9926c05c8e77927c99b304e1a44cc9dce668e287ef93dbb8225f10",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchProcessFixtureTest.kt": {
+      "raw_sha256": "d1661b17b842d6cc225db97dd43ec5d813f7a9ac77088ef062627237bef30543",
+      "lf_sha256": "a2cafd191baee75f02e1f54e8db259e68ad6dcad28ad7d3990f85b2a6180aa2b",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "a2cafd191baee75f02e1f54e8db259e68ad6dcad28ad7d3990f85b2a6180aa2b",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "a2cafd191baee75f02e1f54e8db259e68ad6dcad28ad7d3990f85b2a6180aa2b",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/benefits/BenefitRowTest.kt": {
+      "raw_sha256": "21f59e591858c061f5f7390af5eecae9ceb8461ec4ded173a65d740f96986f36",
+      "lf_sha256": "6122c65f820dd1a9700f98f24ca43b3c108d8ae4470022f61eccfd8a0442db80",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "6122c65f820dd1a9700f98f24ca43b3c108d8ae4470022f61eccfd8a0442db80",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "6122c65f820dd1a9700f98f24ca43b3c108d8ae4470022f61eccfd8a0442db80",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt": {
+      "raw_sha256": "957dbdec02b8b5632f03cf3fc8b876f959168a4476453a5a8924561c566d9fed",
+      "lf_sha256": "818d42986df4ee818bd0da967f965d0f14df7d6bb10a6054471c4d851b7540e5",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "818d42986df4ee818bd0da967f965d0f14df7d6bb10a6054471c4d851b7540e5",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "818d42986df4ee818bd0da967f965d0f14df7d6bb10a6054471c4d851b7540e5",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt": {
+      "raw_sha256": "54f1ca3378d5351ebae88b4f55da3f3b6ea4fb604ee80031c200c317eab36a22",
+      "lf_sha256": "e0a04ffcc23c450bfe1fba76889ee969f0158bbd4db3dff97e131eb68a4b04b1",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "d401b1fbd4cb7644cecf4c33160d527da58fa510083950b4fd484da2e6001a6b",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "e0a04ffcc23c450bfe1fba76889ee969f0158bbd4db3dff97e131eb68a4b04b1",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt": {
+      "raw_sha256": "bcf74b60baf40d008e5050e65a0904de1fa05016bd7286af583c6121532799d7",
+      "lf_sha256": "3aca77af40892f4f3efad853806bd2003aa69d6040bbd4986de11c5b636ae203",
+      "baselines": {
+        "969264d": {
+          "exists": false,
+          "git_lf_sha256": null,
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "3aca77af40892f4f3efad853806bd2003aa69d6040bbd4986de11c5b636ae203",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/main/java/com/bendourthe/milestone/ui/OpeningScreen.kt": {
+      "raw_sha256": "9a181d5c8afc4f85e5128de6e3d06e537abc0bb0b588452e0e37d1c8be1ccbf0",
+      "lf_sha256": "edf8dfaaa5f49c562f0161786f66333c0210b7f48cf20dc326735f6f4ed51517",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "edf8dfaaa5f49c562f0161786f66333c0210b7f48cf20dc326735f6f4ed51517",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "edf8dfaaa5f49c562f0161786f66333c0210b7f48cf20dc326735f6f4ed51517",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt": {
+      "raw_sha256": "c51ed7f236e38bc3c356c4cf9eeeab332e59b87e308c9710accb0c60f79799be",
+      "lf_sha256": "c51ed7f236e38bc3c356c4cf9eeeab332e59b87e308c9710accb0c60f79799be",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "112b87380b5ca63ae17197a89a181ba65b0b6109f9a99f0b4f48f5150929f5a1",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "c51ed7f236e38bc3c356c4cf9eeeab332e59b87e308c9710accb0c60f79799be",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/searchScenario/kotlin/com/bendourthe/milestone/ui/search/SearchLatencyScenario.kt": {
+      "raw_sha256": "38060f6800e904723efe3dbae258b3a9fb89e0a0d1778527203565d765bb4517",
+      "lf_sha256": "38060f6800e904723efe3dbae258b3a9fb89e0a0d1778527203565d765bb4517",
+      "baselines": {
+        "969264d": {
+          "exists": false,
+          "git_lf_sha256": null,
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "38060f6800e904723efe3dbae258b3a9fb89e0a0d1778527203565d765bb4517",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "app/src/benchmark/kotlin/com/bendourthe/milestone/ui/search/SearchBenchmarkActivity.kt": {
+      "raw_sha256": "36aa843582ca1318fef7351da75b7dcb9ca76fb15a361cf47bf98479d22e11e9",
+      "lf_sha256": "36aa843582ca1318fef7351da75b7dcb9ca76fb15a361cf47bf98479d22e11e9",
+      "baselines": {
+        "969264d": {
+          "exists": false,
+          "git_lf_sha256": null,
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "36aa843582ca1318fef7351da75b7dcb9ca76fb15a361cf47bf98479d22e11e9",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "scripts/validate.py": {
+      "raw_sha256": "7ce149ec9881e6eec2935fd493ba37eb9d0746a7d153e08a015acbf380c304ff",
+      "lf_sha256": "7ce149ec9881e6eec2935fd493ba37eb9d0746a7d153e08a015acbf380c304ff",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "3b6616df36fec861a500a0849e7f349ade30efd535c9f3f8b017f178996042ad",
+          "exact_lf_equal": false
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "7ce149ec9881e6eec2935fd493ba37eb9d0746a7d153e08a015acbf380c304ff",
+          "exact_lf_equal": true
+        }
+      }
+    },
+    "scripts/tests/test_validate.py": {
+      "raw_sha256": "0a2c5c520ae2ed1931ea7ffcfaef1c938a3ed010b3583d6efa9ed7fbd9f218d7",
+      "lf_sha256": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
+      "baselines": {
+        "969264d": {
+          "exists": true,
+          "git_lf_sha256": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
+          "exact_lf_equal": true
+        },
+        "d3df074": {
+          "exists": true,
+          "git_lf_sha256": "adb2c243bf680bd518d40ce1d316034dad135bec6a8446fdd9ea121c31f565b3",
+          "exact_lf_equal": true
+        }
+      }
+    }
+  },
+  "inventory": [
+    {
+      "feature_number": 1,
+      "feature": "Added-only reactive local corpus",
+      "prior_feature_row": [
+        "Added-only reactive local corpus",
+        "1:T001-T003",
+        "Room -> SearchSnapshotFactory -> GlobalSearch",
+        "Added/disconnected/removed program and card",
+        "Only added programs and their stored descendants searchable",
+        "SearchRepositoryTest / GlobalSearchTest; current full and platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A2"
+      ],
+      "input_paths": [
+        "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 2,
+      "feature": "Contextual and bounded normalization",
+      "prior_feature_row": [
+        "Contextual and bounded normalization",
+        "1:T001-T003",
+        "domain/GlobalSearch.kt compiled matcher",
+        "Delt, Delta lounge, Amex, punctuation/Unicode, 256-character boundary",
+        "Own-item token except explicit program-identity descendant expansion; private identity fields excluded",
+        "GlobalSearchTest and retained adversarial regressions; current full PASS"
+      ],
+      "prior_attack_routes": [
+        "A1",
+        "A3"
+      ],
+      "input_paths": [
+        "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+        "app/src/test/java/com/bendourthe/milestone/domain/GlobalSearchTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CURRENT_DOMAIN_DIFFERENTIAL_EXECUTED_PASS",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 3,
+      "feature": "Canonical projection and aliases",
+      "prior_feature_row": [
+        "Canonical projection and aliases",
+        "1:T002; owner deltas",
+        "BenefitsPresentation/BenefitsViewModel -> search snapshot",
+        "Merged tracker/list aliases, local welcome, completed and collapsed rows",
+        "One canonical result; enrollment/aliases retained; raw issuer rows unchanged",
+        "SearchRepositoryTest / SearchNavigationTest; current full and platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A2",
+        "A3"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchProjectionTest.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 4,
+      "feature": "Top-right search entry",
+      "prior_feature_row": [
+        "Top-right search entry",
+        "2:T004; owner delta",
+        "MileStoneApp.kt / SearchAction real headers",
+        "Rewards, Benefits and opened card at narrow width/200 percent font",
+        "Labeled Search action beside other controls; no bottom Search tab",
+        "SearchScreenTest header cases; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "presentation"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 5,
+      "feature": "Rewards program tiles",
+      "prior_feature_row": [
+        "Rewards program tiles",
+        "2:T005; third owner delta",
+        "SearchScreen.kt Rewards tab",
+        "Amex",
+        "Program logo, name and stored points",
+        "SearchScreenTest; retained genuine acceptance only for unchanged presentation; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "presentation"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 6,
+      "feature": "Benefits hierarchy and images",
+      "prior_feature_row": [
+        "Benefits hierarchy and images",
+        "2:T005; second-fourth owner deltas",
+        "SearchScreen.kt Benefits tab",
+        "Program-only and benefit-only queries",
+        "Larger themed program/logo; compact card artwork/name/ending; canonical sections and title-only rows",
+        "SearchScreenTest / SearchNavigationTest; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A3",
+        "presentation"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsPresentation.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 7,
+      "feature": "Independent disclosures",
+      "prior_feature_row": [
+        "Independent disclosures",
+        "2:T005; owner deltas",
+        "Program/card/section chevrons",
+        "Toggle each hierarchy level separately",
+        "Independent collapse; card right chevron separate from card navigation; no bright card outline",
+        "SearchScreenTest; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A5"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 8,
+      "feature": "Keyboard, clear and explanatory states",
+      "prior_feature_row": [
+        "Keyboard, clear and explanatory states",
+        "2:T005-T007",
+        "Actual Compose input and Android Back",
+        "Blank/symbol-only query, Clear, IME Back",
+        "Start prompt; Clear retains focus; keyboard dismissal before screen exit",
+        "SearchScreenTest; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A1",
+        "A5"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 9,
+      "feature": "Loading, errors and local retry",
+      "prior_feature_row": [
+        "Loading, errors and local retry",
+        "1:T002; 2:T005",
+        "Repository failure/paused-read flow",
+        "Delayed local read; failed transaction; Retry",
+        "Explicit loading/error, not fabricated empty; retry reads local data only",
+        "SearchScreenTest delayedReadAndReadErrorAreDistinctAndRetryReadsOnlyLocalData; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A6"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchScreenTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRepositoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 10,
+      "feature": "Visible updating status across states",
+      "prior_feature_row": [
+        "Visible updating status across states",
+        "DoD8 correction",
+        "Actual SearchScreen + Room/ViewModel paused worker",
+        "Matches->empty and empty->matches at 320dp/200 percent font",
+        "Earlier states visibly Updating results until current published generation, including equal Empty states",
+        "SearchUpdatingStatusTest / successive-empty JVM regression; current full and platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A5"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchUpdatingStatusTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 11,
+      "feature": "Exact program reveal",
+      "prior_feature_row": [
+        "Exact program reveal",
+        "3:T008",
+        "NavController -> Rewards destination",
+        "Select program result",
+        "Exact program tile temporarily outlined",
+        "SearchNavigationTest programAndCardTargetsReturnToTheSameSearch; platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A4"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 12,
+      "feature": "Exact card/benefit reveal",
+      "prior_feature_row": [
+        "Exact card/benefit reveal",
+        "3:T008-T010",
+        "SearchReveal / CardBenefitsScreen",
+        "Hidden category; equal title across cards/periods",
+        "Exact canonical row revealed and identified; saved collapse/sort unchanged",
+        "SearchNavigationTest; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A4"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 13,
+      "feature": "Revision/removal/ABA safety",
+      "prior_feature_row": [
+        "Revision/removal/ABA safety",
+        "3:T008-T010",
+        "Fresh transaction validateAgainst/validateReveal",
+        "Removed target, replaced duplicate, reused occurrence key",
+        "Changed/unavailable notice; never opens a similar replacement",
+        "SearchNavigationTest removal/reused-key cases; platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A4"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchReveal.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchRevealIndexTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 14,
+      "feature": "Cancellation and repeated taps",
+      "prior_feature_row": [
+        "Cancellation and repeated taps",
+        "3:T008-T010",
+        "Asynchronous selection/navigation entry",
+        "Query changes during validation; repeated taps",
+        "Late selection cannot navigate; no duplicate destination stack",
+        "SearchNavigationTest; platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A4"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/MileStoneApp.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 15,
+      "feature": "Memory-only Back/tab/viewport",
+      "prior_feature_row": [
+        "Memory-only Back/tab/viewport",
+        "2:T006; 3:T010",
+        "Navigation-entry ViewModel and two LazyListStates",
+        "Scroll both tabs, visit result, Back, recreation",
+        "Query/tab/disclosure/per-tab position restored; fresh entry blank",
+        "SearchNavigationTest / SearchScreenTest; platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A5",
+        "A7"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 16,
+      "feature": "Pending disposal viewport ownership",
+      "prior_feature_row": [
+        "Pending disposal viewport ownership",
+        "CI6 correction",
+        "Real SearchScreen dispose/remount with paused matching",
+        "Old position29/12, new query, dispose",
+        "Earlier results cannot overwrite cleared current-query position",
+        "pending-disposal green and guard-only removal RED; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "A5"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 17,
+      "feature": "Saved-state/process privacy",
+      "prior_feature_row": [
+        "Saved-state/process privacy",
+        "2:T006; 4:T016",
+        "Actual Activity saved-state/process replacement",
+        "Synthetic unique query; replacement PID",
+        "Query absent from storage/logs; process restart blank",
+        "Retained search-images process receipt and current navigation tests; reuse only unchanged persistence, no new phone execution"
+      ],
+      "prior_attack_routes": [
+        "A7"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchNavigationTest.kt",
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchProcessFixtureTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchScreen.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/search/SearchMemoryTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 18,
+      "feature": "Credit header/progress layout",
+      "prior_feature_row": [
+        "Credit header/progress layout",
+        "Owner Credit Tracker Delta",
+        "BenefitsViewModel/CardBenefitsScreen canonical tile",
+        "Completed/unfinished enrolled credit",
+        "Enrolled beside name before check; amount beside bar; completed full bar",
+        "BenefitRowTest, current full JVM, retained genuine owner format acceptance; platform PASS"
+      ],
+      "prior_attack_routes": [
+        "credit_delta"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/benefits/BenefitRowTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/CardBenefitsScreen.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 19,
+      "feature": "Unknown credit target safeguard",
+      "prior_feature_row": [
+        "Unknown credit target safeguard",
+        "Owner Credit Tracker Delta; IC01",
+        "BenefitsViewModel.item",
+        "Earned5000 unknown target; explicit leading $200 title",
+        "Actual $50 earned preserved without invented denominator; valid target ratio; progress1",
+        "BenefitsViewModelTest.completedCreditDoesNotTreatItsEarnedAmountAsAnUnknownTarget; deterministic RED/GREEN and current full PASS"
+      ],
+      "prior_attack_routes": [
+        "credit_delta"
+      ],
+      "input_paths": [
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModel.kt",
+        "app/src/test/java/com/bendourthe/milestone/ui/benefits/BenefitsViewModelTest.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 20,
+      "feature": "Aurora drawing isolation",
+      "prior_feature_row": [
+        "Aurora drawing isolation",
+        "CI6 integration path",
+        "AuroraBackground native sibling graphics layer",
+        "Normal animation and reduced motion",
+        "Same gradient/math/colors/layout/input with isolated drawing",
+        "Independent source review; reduced-motion-restoration.json test exit0/restored; current platform PASS"
+      ],
+      "prior_attack_routes": [
+        "rendering"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/theme/AuroraRenderingTest.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 21,
+      "feature": "Opening animation correction",
+      "prior_feature_row": [
+        "Opening animation correction",
+        "Approved additional correction",
+        "App launch animation",
+        "Stone, coupon ribbon, then airplane",
+        "Ribbon initially complete; final overlap forms with plane",
+        "Retained exact-code emulator visual and genuine owner acceptance; reuse only unchanged opening implementation"
+      ],
+      "prior_attack_routes": [
+        "opening"
+      ],
+      "input_paths": [
+        "app/src/main/java/com/bendourthe/milestone/ui/OpeningScreen.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": true,
+      "current_disposition": "OWNER_AND_LISTED_HARNESS_INPUTS_UNCHANGED_FROM_D3DF074",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 22,
+      "feature": "Query-to-visible latency",
+      "prior_feature_row": [
+        "Query-to-visible latency",
+        "4:T016/T019",
+        "SearchLatencyTest ordinary Android frame draw and exact displayed/clickable title semantics",
+        "25 programs/100 cards/2000 displayed benefits;3 warmups/30 queries;delay0",
+        "p95 <=200ms, unchanged draw endpoint and assertions",
+        "Current identical-source platform PASS; all30 observations independently recomputed p95144.4722<=200; draw/semantics endpoint retained"
+      ],
+      "prior_attack_routes": [
+        "A8"
+      ],
+      "input_paths": [
+        "app/src/androidTest/java/com/bendourthe/milestone/ui/search/SearchLatencyTest.kt",
+        "app/src/benchmark/kotlin/com/bendourthe/milestone/ui/search/SearchBenchmarkActivity.kt",
+        "app/src/main/java/com/bendourthe/milestone/domain/GlobalSearch.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/search/SearchViewModel.kt",
+        "app/src/searchScenario/kotlin/com/bendourthe/milestone/ui/search/SearchLatencyScenario.kt"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "CHANGED_ROUTE_REQUIRES_CURRENT_COORDINATOR_EVIDENCE",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 23,
+      "feature": "Generated handbook/companions",
+      "prior_feature_row": [
+        "Generated handbook/companions",
+        "4:T013/T016",
+        "Native builder -> Chromium/actual A4 PDF",
+        "Reading/deep views, full matrix, JS/no-JS print",
+        "68-input/52-code binding; reproducible output;2609 checks/384 measurements;16 nonempty print pages",
+        "Adopted verification + release-credit-target reviews + current full browser PASS"
+      ],
+      "prior_attack_routes": [
+        "handbook"
+      ],
+      "input_paths": [],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "OUTSIDE_EXECUTED_DOMAIN_SCOPE_RETAIN_ORIGINAL_OPEN_LIMITS",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 24,
+      "feature": "Validation/security/source packaging",
+      "prior_feature_row": [
+        "Validation/security/source packaging",
+        "4:T015/T019",
+        "scripts/validate.py and native helper tests",
+        "Malformed reports, positive secret controls, CRLF Git archive",
+        "Fail-closed reports and exact metadata exceptions; correct package bytes",
+        "Current full PASS; actual clean release package remains delivery duty"
+      ],
+      "prior_attack_routes": [
+        "validation"
+      ],
+      "input_paths": [
+        "scripts/tests/test_validate.py",
+        "scripts/validate.py"
+      ],
+      "all_listed_inputs_exact_lf_equal_d3df074": true,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "OUTSIDE_EXECUTED_DOMAIN_SCOPE_RETAIN_ORIGINAL_OPEN_LIMITS",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 25,
+      "feature": "CI/protection/integration",
+      "prior_feature_row": [
+        "CI/protection/integration",
+        "4:T015/T020",
+        "GitHub PR merge-result gate/branch protections",
+        "Required CI result; pre-merge emulator; admin enforcement",
+        "Green merged integration required",
+        "Published protection/CI receipts; corrected PR17 remains red/unmerged, not delivered"
+      ],
+      "prior_attack_routes": [
+        "remote_gate"
+      ],
+      "input_paths": [],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "OUTSIDE_EXECUTED_DOMAIN_SCOPE_RETAIN_ORIGINAL_OPEN_LIMITS",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    },
+    {
+      "feature_number": 26,
+      "feature": "Original lifecycle compatibility",
+      "prior_feature_row": [
+        "Original lifecycle compatibility",
+        "Original Goal Coordinator Delta",
+        "Six-line archived v0.1 compatibility evidence/native checker",
+        "Historical tagged paths and original completion predicates",
+        "Preserve historical facts and remaining obligations without artificial task targets",
+        "Original obligation checks/native parser blocker; separate unfinished lifecycle work"
+      ],
+      "prior_attack_routes": [
+        "original_lifecycle"
+      ],
+      "input_paths": [],
+      "all_listed_inputs_exact_lf_equal_d3df074": false,
+      "all_listed_inputs_exact_lf_equal_ci6_publication_969264d": false,
+      "current_disposition": "OUTSIDE_EXECUTED_DOMAIN_SCOPE_RETAIN_ORIGINAL_OPEN_LIMITS",
+      "reuse_rule": "Retain the cited prior attack evidence as historical evidence only for exact unchanged listed input bytes. Shared changed matcher/ViewModel requires current integration evidence; equality of owner files alone does not prove full runtime equivalence. CI6 source fingerprint included an uncommitted diff; 969264d is the publication anchor containing the report, not an asserted reconstruction of its entire execution tree."
+    }
+  ],
+  "limits": [
+    "No new Android/Compose/repository/worker execution by this verifier.",
+    "No fresh latency, browser/PDF, phone, issuer, persistence/process, publication, release or lifecycle execution.",
+    "Exact LF comparison ignores platform CRLF conversion only; raw current hashes are also retained.",
+    "No feature is removed because its deciding layer is unobserved. Open remote/lifecycle and accessibility/phone limits remain open."
+  ]
+}

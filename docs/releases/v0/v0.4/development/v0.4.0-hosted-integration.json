@@ -1,0 +1,522 @@
+{
+  "verified_at": "2026-11-16T05:35:15.916897+00:00",
+  "repository": "bendourthe/MileStone",
+  "pull_request": 16,
+  "head": "52501eb0dc0e58bfaa9b06b37afa6ac16bda3b0e",
+  "merge": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "target": "develop",
+  "merged_at": "2026-11-16T05:29:21Z",
+  "run": 43806448461,
+  "attempt": 2,
+  "required_checks": {
+    "Repository validation": "success",
+    "CI result": "success"
+  },
+  "full": {
+    "profile": "full",
+    "platform": "ci-linux",
+    "status": "PASS",
+    "source_sha256": "42d550e79fcdfdfac41e1cffb61d63f768c5944073eec88127ac917ad4d4b721",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "private-input-boundary",
+        "status": "PASS",
+        "seconds": 0.162
+      },
+      {
+        "name": "syntax",
+        "status": "PASS",
+        "seconds": 1.543
+      },
+      {
+        "name": "handbook-freshness",
+        "status": "PASS",
+        "seconds": 0.041
+      },
+      {
+        "name": "profile-tests",
+        "status": "PASS",
+        "seconds": 0.266
+      },
+      {
+        "name": "android",
+        "status": "PASS",
+        "seconds": 293.377
+      },
+      {
+        "name": "handbook-render",
+        "status": "PASS",
+        "seconds": 46.581
+      },
+      {
+        "name": "security",
+        "status": "PASS",
+        "seconds": 4.447
+      }
+    ],
+    "counts": {
+      "tests": 422,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 14
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": {
+      "covered": 5026,
+      "total": 6423,
+      "percent": 78.25
+    },
+    "security": {
+      "status": "PASS",
+      "base_ref": "origin/develop",
+      "positive_control_detected": true,
+      "input_sha256": "1e86c800e138144cdda7b6eb9d877738ca674465272bbc3bf258e35aca85af2b",
+      "input_bytes": 39416067,
+      "scanned_input_sha256": "c50dbb600b41914b43d676f5ab07dda3e698dbb2fce90c0fa2b96e2a98f5081c",
+      "scanned_bytes": 39409283,
+      "public_metadata_exemptions": 106,
+      "findings": 0
+    },
+    "limitations": [
+      "Device runtime belongs to the separate platform profile; compilation is not runtime proof.",
+      "Capture is local-only under ADR-0001; ci-linux never selects assembleCapture."
+    ]
+  },
+  "platform": {
+    "profile": "platform",
+    "platform": "ci-linux",
+    "status": "PASS",
+    "source_sha256": "42d550e79fcdfdfac41e1cffb61d63f768c5944073eec88127ac917ad4d4b721",
+    "package_head": null,
+    "groups": [
+      {
+        "name": "android-emulator-runtime",
+        "status": "PASS",
+        "seconds": 910.992
+      }
+    ],
+    "counts": {
+      "tests": 74,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "evidence_origin": "selected task outputs, including Gradle-validated up-to-date outputs",
+    "coverage": null,
+    "security": null,
+    "limitations": [
+      "Capture is local-only under ADR-0001; ci-linux never selects assembleCapture."
+    ]
+  },
+  "latency": {
+    "programs": 25,
+    "cards": 100,
+    "displayed_benefits": 2000,
+    "samples": 30,
+    "warmups": 3,
+    "p95_ms": 189.86024,
+    "limit_ms": 200,
+    "minimum_ms": 12.435903,
+    "maximum_ms": 255.742368,
+    "device": "emu64xa",
+    "hardware": "ranchu",
+    "api": 36,
+    "method": "Monotonic wall-clock from ViewModel query update to production SearchContent draw with the expected active-tab result inside the lazy viewport; visible title asserted after each sample; initial read, IME and initial focus excluded",
+    "phase_diagnostics_including_warmups": [
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 168.457808,
+        "draw_after_results_ms": 85.057796,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 145.046093,
+        "draw_after_results_ms": 227.86812799999998,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 11.248665,
+        "draw_after_results_ms": 39.601608999999996,
+        "gc_delta": 0
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 59.387672,
+        "draw_after_results_ms": 196.354696,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 6.455943,
+        "draw_after_results_ms": 47.531241,
+        "gc_delta": 0
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "results_ready_ms": 82.767035,
+        "draw_after_results_ms": 32.33556299999999,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 5.947428,
+        "draw_after_results_ms": 11.045577,
+        "gc_delta": 0
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "results_ready_ms": 4.968711,
+        "draw_after_results_ms": 41.565581,
+        "gc_delta": 0
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "results_ready_ms": 9.608589,
+        "draw_after_results_ms": 9.640801999999999,
+        "gc_delta": 0
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 27.189859,
+        "draw_after_results_ms": 3.7083410000000008,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 130.00265,
+        "draw_after_results_ms": 42.862780000000015,
+        "gc_delta": 0
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "results_ready_ms": 12.077212,
+        "draw_after_results_ms": 60.475307,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 21.252736,
+        "draw_after_results_ms": 21.470636,
+        "gc_delta": 1
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "results_ready_ms": 2.530426,
+        "draw_after_results_ms": 116.580559,
+        "gc_delta": 0
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "results_ready_ms": 114.710989,
+        "draw_after_results_ms": 9.539988000000008,
+        "gc_delta": 0
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 11.414499,
+        "draw_after_results_ms": 4.750043999999999,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 6.251076,
+        "draw_after_results_ms": 80.27512,
+        "gc_delta": 0
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "results_ready_ms": 24.333483,
+        "draw_after_results_ms": 165.526757,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 29.097081,
+        "draw_after_results_ms": 8.119502,
+        "gc_delta": 0
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "results_ready_ms": 5.301471,
+        "draw_after_results_ms": 44.130058,
+        "gc_delta": 0
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "results_ready_ms": 4.7811,
+        "draw_after_results_ms": 7.654802999999999,
+        "gc_delta": 0
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 13.778058,
+        "draw_after_results_ms": 4.479912000000001,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 4.101133,
+        "draw_after_results_ms": 49.159121000000006,
+        "gc_delta": 0
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "results_ready_ms": 7.168658,
+        "draw_after_results_ms": 66.57430400000001,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 31.938271,
+        "draw_after_results_ms": 5.980241999999997,
+        "gc_delta": 0
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "results_ready_ms": 3.298815,
+        "draw_after_results_ms": 76.57018599999999,
+        "gc_delta": 0
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "results_ready_ms": 3.363971,
+        "draw_after_results_ms": 12.316279,
+        "gc_delta": 0
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "results_ready_ms": 58.477401,
+        "draw_after_results_ms": 10.447610999999995,
+        "gc_delta": 0
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "results_ready_ms": 29.566379,
+        "draw_after_results_ms": 155.80877199999998,
+        "gc_delta": 1
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "results_ready_ms": 8.253342,
+        "draw_after_results_ms": 96.981662,
+        "gc_delta": 0
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "results_ready_ms": 8.138029,
+        "draw_after_results_ms": 8.728098,
+        "gc_delta": 0
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "results_ready_ms": 6.830214,
+        "draw_after_results_ms": 51.859558,
+        "gc_delta": 0
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "results_ready_ms": 2.663113,
+        "draw_after_results_ms": 14.112136,
+        "gc_delta": 0
+      }
+    ],
+    "observations": [
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 255.742368
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 53.987184
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 115.102598
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 16.993005
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "elapsed_ms": 46.534292
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 19.249391
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 30.8982
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 172.86543
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 72.552519
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 42.723372
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "elapsed_ms": 119.110985
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 124.250977
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 16.164543
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 86.526196
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 189.86024
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 37.216583
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "elapsed_ms": 49.431529
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 12.435903
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 18.25797
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 53.260254
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 73.742962
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 37.918513
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "elapsed_ms": 79.869001
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 15.68025
+      },
+      {
+        "family": "all_entities",
+        "count": 2125,
+        "elapsed_ms": 68.925012
+      },
+      {
+        "family": "title",
+        "count": 1,
+        "elapsed_ms": 185.375151
+      },
+      {
+        "family": "description_only",
+        "count": 1000,
+        "elapsed_ms": 105.235004
+      },
+      {
+        "family": "contextual",
+        "count": 40,
+        "elapsed_ms": 16.866127
+      },
+      {
+        "family": "program_only",
+        "count": 85,
+        "elapsed_ms": 58.689772
+      },
+      {
+        "family": "empty",
+        "count": 0,
+        "elapsed_ms": 16.775249
+      }
+    ]
+  },
+  "p95_independent_recalculation_ms": 189.86024,
+  "attempt_1": {
+    "status": "failure before compilation",
+    "error": "Kotlin Compose plugin 2.4.10 could not be resolved",
+    "dependency_versions_changed": false,
+    "subsequent_endpoint_checks": "Maven Central and Gradle Plugin Portal returned HTTP 200",
+    "local_refreshed_gradle_resolution_exit": 0,
+    "rerun": "One failed-job rerun on the unchanged approved commit; no sixth push"
+  },
+  "release_published": false
+}

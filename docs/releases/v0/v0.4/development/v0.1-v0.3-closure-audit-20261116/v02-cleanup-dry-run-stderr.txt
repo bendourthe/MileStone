@@ -1,0 +1,2 @@
+notice: scope-record-not-own
+summary: 4 would remove (dry-run, nothing removed), 25 kept

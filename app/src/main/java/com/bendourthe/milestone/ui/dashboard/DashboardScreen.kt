@@ -1,5 +1,6 @@
 package com.bendourthe.milestone.ui.dashboard
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -69,21 +70,45 @@ fun DashboardScreen(
     benefitsPrograms: Set<String> = emptySet(),
     onOpenBenefits: (programId: String) -> Unit = {},
     onSignIn: (programId: String) -> Unit = {},
+    onSearch: (() -> Unit)? = null,
+    reveal: com.bendourthe.milestone.ui.search.SearchReveal? = null,
+    validateReveal: suspend (com.bendourthe.milestone.ui.search.SearchReveal) -> com.bendourthe.milestone.ui.search.SearchValidation = { com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE },
+    onRevealInvalid: (com.bendourthe.milestone.ui.search.SearchValidation) -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     var confirmPullRefresh by remember { mutableStateOf(false) }
+    LaunchedEffect(reveal, state.isLoading, state.tiles) {
+        val request = reveal
+        val target = request?.target as? com.bendourthe.milestone.domain.SearchTarget.ProgramTarget
+        if (request != null && target != null && !request.consumed && !request.invalidated && !state.isLoading && state.tiles.none { it.programId == target.programId })
+            onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE)
+    }
+    LaunchedEffect(reveal) {
+        if (reveal != null) {
+            kotlinx.coroutines.delay(10_000)
+            if (!reveal.consumed && !reveal.invalidated) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.READ_ERROR)
+        }
+    }
     LaunchedEffect(viewModel) {
         viewModel.messages.collect { snackbarHostState.showSnackbar(it, withDismissAction = true, duration = SnackbarDuration.Long) }
     }
 
+    val compactBrand = onSearch != null && (androidx.compose.ui.platform.LocalDensity.current.fontScale > 1.3f ||
+        androidx.compose.ui.platform.LocalConfiguration.current.screenWidthDp < 400)
     Scaffold(
         topBar = {
           Box {
             TopAppBar(
-                title = { Text("MileStone") },
+                title = {
+                    if (onSearch != null) Row(verticalAlignment = Alignment.CenterVertically) {
+                        MileStoneMark(44.dp, contentDescription = if (compactBrand) "MileStone" else null)
+                        if (!compactBrand) Text("MileStone", modifier = Modifier.padding(start = 8.dp))
+                    } else Text("MileStone")
+                },
                 // A band a little darker than the bottom bar sets the header apart from the aurora below.
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = HeaderTeal),
                 actions = {
+                    onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
                     if (state.canRefresh) {
                         Box(contentAlignment = Alignment.Center) {
                             IconButton(
@@ -103,10 +128,10 @@ fun DashboardScreen(
             // Centered on the whole bar, not on the space between the title and the actions, which sits left of the
             // screen's center because the title is wider than the actions. The status bar inset keeps it in the 64 dp
             // row; 44 dp raised 3 dp leaves about 7 dp above the mark and 13 dp below it.
-            Box(
+            if (onSearch == null) Box(
                 Modifier.matchParentSize().windowInsetsPadding(TopAppBarDefaults.windowInsets),
                 contentAlignment = Alignment.Center,
-            ) { MileStoneMark(44.dp, Modifier.offset(y = (-3).dp)) }
+            ) { MileStoneMark(44.dp, Modifier.offset(y = (-3).dp), contentDescription = if (compactBrand) "MileStone" else null) }
           }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -121,7 +146,7 @@ fun DashboardScreen(
                 onRefresh = { if (!state.isRefreshing) confirmPullRefresh = true },
                 modifier = Modifier.fillMaxSize().padding(top = padding.calculateTopPadding()),
             ) {
-                TileList(state, viewModel, tileMenuItems, onSignIn, benefitsPrograms, onOpenBenefits, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp))
+                TileList(state, viewModel, tileMenuItems, onSignIn, benefitsPrograms, onOpenBenefits, PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = padding.calculateBottomPadding() + 16.dp), reveal, validateReveal, onRevealInvalid)
             }
         }
     }
@@ -184,9 +209,44 @@ private fun TileList(
     benefitsPrograms: Set<String>,
     onOpenBenefits: (String) -> Unit,
     contentPadding: PaddingValues,
+    reveal: com.bendourthe.milestone.ui.search.SearchReveal?,
+    validateReveal: suspend (com.bendourthe.milestone.ui.search.SearchReveal) -> com.bendourthe.milestone.ui.search.SearchValidation,
+    onRevealInvalid: (com.bendourthe.milestone.ui.search.SearchValidation) -> Unit,
 ) {
     val listState = rememberLazyListState()
-    LaunchedEffect(state.sortMode) { listState.scrollToItem(0) }
+    var highlightedProgram by remember(reveal) { mutableStateOf<String?>(null) }
+    LaunchedEffect(highlightedProgram) {
+        if (highlightedProgram != null) { kotlinx.coroutines.delay(4_000); highlightedProgram = null }
+    }
+    var observedSort by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<SortMode?>(null) }
+    LaunchedEffect(state.sortMode) {
+        if (observedSort != null && observedSort != state.sortMode) listState.scrollToItem(0)
+        observedSort = state.sortMode
+    }
+    LaunchedEffect(reveal, state.tiles, state.sortMode) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main.immediate) {
+            val request = reveal ?: return@withContext
+            if (request.consumed || request.invalidated) return@withContext
+            val target = request.target as? com.bendourthe.milestone.domain.SearchTarget.ProgramTarget ?: return@withContext
+            val result = kotlinx.coroutines.withTimeoutOrNull(10_000) {
+                val validation = validateReveal(request)
+                if (validation != com.bendourthe.milestone.ui.search.SearchValidation.CURRENT) { onRevealInvalid(validation); return@withTimeoutOrNull true }
+                var slot = 0
+                var targetSlot: Int? = null
+                state.tiles.forEachIndexed { index, tile ->
+                    val section = state.sectionOf(tile)
+                    if (section != null && state.tiles.getOrNull(index - 1)?.let(state::sectionOf) != section) slot++
+                    if (tile.programId == target.programId) targetSlot = slot
+                    slot++
+                }
+                val index = targetSlot
+                if (index == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.UNAVAILABLE)
+                else { listState.scrollToItem(index); highlightedProgram = target.programId; request.complete() }
+                true
+            }
+            if (result == null) onRevealInvalid(com.bendourthe.milestone.ui.search.SearchValidation.READ_ERROR)
+        }
+    }
     val haptics = LocalHapticFeedback.current
     val reorderState = rememberReorderableLazyListState(listState) { from, to -> viewModel.onMove(from.index, to.index) }
     LazyColumn(state = listState, contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.fillMaxSize().testTag("dashboardList")) {
@@ -220,6 +280,10 @@ private fun TileList(
                         onOpen = if (tile.programId in benefitsPrograms) ({ onOpenBenefits(tile.programId) }) else null,
                         extraMenuItems = { close -> tileMenuItems(tile, close) },
                         modifier = Modifier
+                            .then(if (highlightedProgram == tile.programId && reveal?.invalidated == false)
+                                Modifier.border(2.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.medium)
+                                    .testTag("searchProgramHighlight").semantics { stateDescription = "Search result" }
+                                else Modifier)
                             .longPressDraggableHandle(
                                 enabled = state.canReorder,
                                 onDragStarted = { haptics.performHapticFeedback(HapticFeedbackType.LongPress) },

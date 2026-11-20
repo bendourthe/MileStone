@@ -1,0 +1,9 @@
+{
+  "tests": 30,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "source_scope": "code-review/scope-v5.json",
+  "execution_log": "credit-target-green.log",
+  "scope": "BenefitsViewModelTest and ui.search.* JVM tests"
+}

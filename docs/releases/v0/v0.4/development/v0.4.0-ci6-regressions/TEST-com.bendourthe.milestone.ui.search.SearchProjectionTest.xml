@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.bendourthe.milestone.ui.search.SearchProjectionTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-16T11:05:53.758Z" hostname="SP-BDOURTHE5680" time="0.1">
+  <properties/>
+  <testcase name="equivalentReemissionRetainsRevisionButEarlierDuplicateRemovalInvalidatesIt" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.036"/>
+  <testcase name="programArtworkAndStoredBalanceAreDisplayOnlyAndObserveSourceRevisions" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.006"/>
+  <testcase name="canonicalMergeKeepsAliasesDescriptionsEnrollmentAndRawRows" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.003"/>
+  <testcase name="everySavedSortAndCompletedLastMatchDestinationSectionAndRowOrder" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.015"/>
+  <testcase name="snapshotCopiesMutablePreferenceSectionMaps" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.001"/>
+  <testcase name="localWelcomeAndCollapsedCompletedItemsRemainSearchable" classname="com.bendourthe.milestone.ui.search.SearchProjectionTest" time="0.038"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

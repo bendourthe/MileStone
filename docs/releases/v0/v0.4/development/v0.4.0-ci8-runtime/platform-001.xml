@@ -1,0 +1,8 @@
+<testsuites tests="1" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-11-17T03:44:37" hostname="localhost">
+  <testsuite name="com.bendourthe.milestone.searchbenchmark.SearchBenchmarkTest" tests="1" failures="0" errors="0" skipped="0" time="8.430" timestamp="2026-11-17T03:44:37" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="sameWorkloadDrawsWithinTwoHundredMillisecondsAtP95" classname="com.bendourthe.milestone.searchbenchmark.SearchBenchmarkTest" time="8.430" />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,26 @@
+{
+  "status": "pass",
+  "output_sha256": "cbee724fdf316e8de63e7c048553e75a6585fcc317106b134e60cddaa27c8a69",
+  "review_method": "Direct inspection of targeted current reading/deep-source images and all three changed actual print pages; byte comparison of every canonical screenshot against prior reviewed output",
+  "reviewed_images": [
+    "run-1/runtime-memory-version-390.png",
+    "run-1/runtime-benchmark-protocol-390.png",
+    "run-1/runtime-aurora-module-row-1366.png",
+    "run-1/runtime-memory-deep-1366.png",
+    "run-1/runtime-verification-deep-1366.png",
+    "print-review-page3.png",
+    "print-review-page5.png",
+    "print-review-page16.png"
+  ],
+  "observations": [
+    "The request-version paragraph is legible at 390 px and preserves the distinction between cleared remembered positions and the retained viewport of older visible results",
+    "The real-frame benchmark paragraph is complete and legible at 390 px; it describes protocol and threshold without a local, stress or hosted performance pass claim",
+    "The desktop module-layout row describes the isolated Aurora layer with readable table wrapping",
+    "Deep dive shows the new memory and verification explanations within the existing native scroll region while navigation controls remain visible; full source reachability is checked by the native browser suite",
+    "Actual print pages 3, 5 and 16 show the changed CI contract ending, Aurora row, memory version guard and benchmark protocol without overlap or lost text",
+    "Both actual print cohorts contain 16 nonempty pages with identical JavaScript/no-JavaScript text and rasters"
+  ],
+  "comparison_evidence": "comparison.json",
+  "print_evidence": "print-review.json",
+  "findings": []
+}
