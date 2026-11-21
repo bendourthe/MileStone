@@ -21,12 +21,16 @@ internal fun BenefitsInstitutionTile(program: BenefitsProgramUi, onClick: () -> 
             role = Role.Button
             onClick(label = "Open ${program.name} cards") { onClick(); true }
         }) {
+        // Full-size like the Rewards tiles; the alert count is a small badge at the top right of the name line.
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
             ProgramBadge(program.monogram, program.logoKey, program.brandColorArgb, size = 56.dp)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(program.name, style = MaterialTheme.typography.titleLarge)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(program.name, style = MaterialTheme.typography.titleLarge, maxLines = 1,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                    if (program.alertCount > 0) BenefitsAlertCount(program.alertCount, compact = true)
+                }
                 Text(count, style = MaterialTheme.typography.bodyMedium)
-                if (program.alertCount > 0) BenefitsAlertCount(program.alertCount)
             }
             Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
         }

@@ -60,8 +60,10 @@ class BenefitsPresentationTest {
             .map { cardArtworkResource("amex", it) }
         assertTrue(images.all { it != null })
         assertEquals(4, images.distinct().size)
-        assertNull(cardArtworkResource("amex", "Delta Platinum"))
-        assertNull(cardArtworkResource("amex", "Hilton Aspire"))
+        // Other known products take their image from the public product list; unknown names keep the fallback.
+        assertNotNull(cardArtworkResource("amex", "Delta SkyMiles Platinum"))
+        assertNotNull(cardArtworkResource("amex", "Hilton Honors Aspire"))
+        assertNotNull(cardArtworkResource("chase", "Sapphire Reserve"))
         assertNull(cardArtworkResource("amex", "Unknown Card"))
         assertNull(cardArtworkResource("other", "Platinum Card"))
     }

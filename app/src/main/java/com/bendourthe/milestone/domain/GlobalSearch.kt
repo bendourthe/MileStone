@@ -40,6 +40,8 @@ data class SearchEntry(
     val displayOrder: Int = 0,
     val enrollment: String? = null,
     val programDisplay: SearchProgramDisplay? = null,
+    /** The card's stored ending (ADR-0009); a legacy last-digits key supplies it when this is null. */
+    val cardDigits: String? = null,
 ) {
     val kind: SearchKind get() = when (target) {
         is SearchTarget.ProgramTarget -> SearchKind.PROGRAM
@@ -48,8 +50,8 @@ data class SearchEntry(
     }
     val id: String = when (val t = target) {
         is SearchTarget.ProgramTarget -> "program:${t.programId}"
-        is SearchTarget.CardTarget -> "card:${t.card.programId}:${t.card.lastDigits}"
-        is SearchTarget.BenefitTarget -> "benefit:${t.card.programId}:${t.card.lastDigits}:${t.benefitKey}"
+        is SearchTarget.CardTarget -> "card:${t.card.programId}:${t.card.cardId}"
+        is SearchTarget.BenefitTarget -> "benefit:${t.card.programId}:${t.card.cardId}:${t.benefitKey}"
     }
     // Snapshot fields do not change between keystrokes; avoid allocations in sort comparisons and lazy keys.
     internal val sortTitle = title.lowercase(Locale.ROOT)
@@ -57,8 +59,8 @@ data class SearchEntry(
     private fun searchable(text: String): String {
         val digits = when (val t = target) {
             is SearchTarget.ProgramTarget -> null
-            is SearchTarget.CardTarget -> t.card.lastDigits
-            is SearchTarget.BenefitTarget -> t.card.lastDigits
+            is SearchTarget.CardTarget -> cardDigits ?: t.card.displayDigits
+            is SearchTarget.BenefitTarget -> cardDigits ?: t.card.displayDigits
         }
         return GlobalSearch.normalize(if (digits == null) text else text.replace(digits, " "))
     }
@@ -72,8 +74,8 @@ data class SearchEntry(
     internal val contextSources = GlobalSearch.contextSources(title, description, aliases)
     internal val cardIdentity get() = when (val t = target) {
         is SearchTarget.ProgramTarget -> ""
-        is SearchTarget.CardTarget -> t.card.lastDigits
-        is SearchTarget.BenefitTarget -> t.card.lastDigits
+        is SearchTarget.CardTarget -> (cardDigits ?: t.card.displayDigits).orEmpty()
+        is SearchTarget.BenefitTarget -> (cardDigits ?: t.card.displayDigits).orEmpty()
     }
 }
 

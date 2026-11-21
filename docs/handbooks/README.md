@@ -5,7 +5,7 @@ Living technical documentation for MileStone.
 | Topic | File | Status |
 |---|---|---|
 | Repository overview | [overview.md](overview.md) | Maintained source |
-| Amex benefits reader | [benefits-reader.md](benefits-reader.md) | Maintained technical companion |
+| Amex and Chase benefits reader | [benefits-reader.md](benefits-reader.md) | Maintained technical companion |
 | Global search | [global-search.md](global-search.md) | On-device Search companion |
 | Offline handbook | [Reading and Presentation Mode](html/overview.html) | Generated from all three sources |
 

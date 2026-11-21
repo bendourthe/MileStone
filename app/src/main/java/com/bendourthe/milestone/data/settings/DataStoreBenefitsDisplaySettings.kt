@@ -24,7 +24,7 @@ import java.io.IOException
 import java.time.LocalDate
 
 class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>) : BenefitsDisplaySettings {
-    private fun prefix(card: CardKey) = "benefitsDisplay:${card.programId}:${card.lastDigits}:"
+    private fun prefix(card: CardKey) = "benefitsDisplay:${card.programId}:${card.cardId}:"
     private fun sortKey(card: CardKey) = stringPreferencesKey(prefix(card) + "sort")
     private fun completed(card: CardKey) = booleanPreferencesKey(prefix(card) + "completedLast")
     private fun collapsedKey(card: CardKey) = stringSetPreferencesKey(prefix(card) + "collapsed")

@@ -1,0 +1,101 @@
+{
+  "status": "Integration impact assessed; release publication and plan admission still pending",
+  "at": "2026-11-16T06:02:58.410274+00:00",
+  "actual_v040_integration": "2a4153449bc11bb992fa6e947cecf38d5b042b60",
+  "v040_release_candidate": "d7c9148d0a6de5f012e7c1a2a76573601c42ec4d",
+  "v040_release_pr": 17,
+  "v040_release_published": false,
+  "inventory": {
+    "helper": "Nexus-Hub/scripts/enumerate_plan_queue.py --root . --json",
+    "exit": 0,
+    "receipt": "reports/queue-inventory-v040-integrated-supported.json",
+    "limitation": "The planning worktree is still pinned to 09036c2. Its v0.4 plan task/status text is historical; observed green PR16 integration and release PR17 determine actual membership, not those stale task counts."
+  },
+  "plans": [
+    {
+      "version": "v0.5.0",
+      "verdict": "Content impact",
+      "tasks": [
+        "T002",
+        "T004",
+        "T011"
+      ],
+      "evidence": "Current Search uses exact source/revision/card identity and canonical Benefits ordering. The proposed opaque CardId and coverage migration must preserve these contracts and retest exact-card reminder/Search routes, stale target rejection, program-only descendants, chevrons and Back state. The predecessor interface now exists in 2a41534; refresh admission against the eventual release base.",
+      "source_GO": false,
+      "remaining_evidence": [
+        "Exact per-card page and connection binding",
+        "Personal/business segment classification and overlapping coverage",
+        "Complete versus partial/empty list criteria",
+        "Navigation count, authenticated load latency and conservative 120000 ms budget"
+      ],
+      "identity_reader_result": "Neither bounded closed-selector observation exposed candidates. This is a limitation of that reader, not proof that Chase has no identity. The plan already permits user-confirmed linking for uncertain duplicates. No last-digits-only merge is authorized."
+    },
+    {
+      "version": "v0.6.0",
+      "verdict": "Content and ordering impact",
+      "tasks": [
+        "T004",
+        "T005",
+        "T007",
+        "T008"
+      ],
+      "evidence": "Offer snapshots, exact destinations and issuer actions depend on the v0.5 connection registry and card identity. v0.5 remains unimplemented. Default-on eligibility and adding the same offer to every independently eligible card remain the confirmed policy; explicit issuer restrictions still apply.",
+      "issuer_actions_enabled": false
+    }
+  ],
+  "write_write_overlap": [
+    ".github/workflows/ci.yml",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "README.md",
+    "app/build.gradle.kts",
+    "app/schemas/",
+    "app/src/androidTest/",
+    "app/src/main/assets/",
+    "app/src/main/java/com/bendourthe/milestone/AppContainer.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/",
+    "app/src/main/java/com/bendourthe/milestone/domain/",
+    "app/src/main/java/com/bendourthe/milestone/sync/",
+    "app/src/main/java/com/bendourthe/milestone/ui/",
+    "app/src/main/res/values/strings.xml",
+    "app/src/test/",
+    "docs/DEVLOG.md",
+    "docs/handbooks/",
+    "docs/todos.md",
+    "scripts/tests/",
+    "scripts/validate.py"
+  ],
+  "v05_write_v06_read_overlap": [
+    ".github/workflows/ci.yml",
+    "CLAUDE.md",
+    "app/build.gradle.kts",
+    "app/src/androidTest/",
+    "app/src/main/assets/",
+    "app/src/main/java/com/bendourthe/milestone/AppContainer.kt",
+    "app/src/main/java/com/bendourthe/milestone/data/",
+    "app/src/main/java/com/bendourthe/milestone/domain/",
+    "app/src/main/java/com/bendourthe/milestone/sync/",
+    "app/src/main/java/com/bendourthe/milestone/ui/",
+    "app/src/test/",
+    "docs/decisions/0009-chase-benefits.md",
+    "docs/handbooks/",
+    "scripts/tests/",
+    "scripts/validate.py"
+  ],
+  "parallel_compatible_groups": [],
+  "recommended_order": [
+    "Finish v0.4 release/archive and native closure duties",
+    "Admit and execute v0.5 after source-contract GO and actual-base revalidation",
+    "Admit and execute v0.6 after its v0.5 semantic dependency and source/action proof"
+  ],
+  "ordering_changed": false,
+  "plan_contents_edited": false,
+  "native_records_edited": false,
+  "captures_read_for_this_assessment": false,
+  "phone_debugger_accessed": false,
+  "issuer_actions_performed": false,
+  "plan_sha256": {
+    "docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md": "7d9a0ecb3551db3860cf95bab8aef43576851bd7d1321425db59e42991b2db8c",
+    "docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md": "350fee900aeaf8443c4c58800ec2e9913f7d07e54d128499432060759308604f"
+  }
+}

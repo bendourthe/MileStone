@@ -1,0 +1,33 @@
+{
+  "status": "INPUT_TYPE_AND_SELECTION_ATTRIBUTE_PRESENCE_ONLY",
+  "observed_utc": "2026-11-17T08:32:52.109571+00:00",
+  "private_capture_files": 16,
+  "counts": {
+    "tag_mds-list-item": 161,
+    "tag_mds-select": 2,
+    "tag_mds-select-option": 6,
+    "input_hidden": 2,
+    "role_button": 519,
+    "input_radio": 5,
+    "role_listbox": 1,
+    "role_option": 2
+  },
+  "selection_attribute_presence": {
+    "radio_id_present": 5,
+    "radio_checked_present": 2
+  },
+  "files_with_structure": {
+    "tag_mds-select": 2,
+    "input_hidden": 2,
+    "tag_mds-list-item": 2,
+    "role_button": 16,
+    "tag_mds-select-option": 2,
+    "input_radio": 2,
+    "role_option": 1,
+    "role_listbox": 1
+  },
+  "source_GO": false,
+  "value_fields_read": false,
+  "privacy": "Only fixed public input types/roles/tag names and attribute-presence counts are retained. No input values, labels, identifiers, filenames, credentials, balances or benefit text are printed or saved.",
+  "interpretation": "Counts do not establish card identity, value semantics, uniqueness, selected state or live parity. The prior live Other bucket is not reclassified without live structural evidence."
+}

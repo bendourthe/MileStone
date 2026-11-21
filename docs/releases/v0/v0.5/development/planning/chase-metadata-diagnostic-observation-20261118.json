@@ -1,0 +1,35 @@
+{
+  "status": "SUCCESS_CLOSED",
+  "approval_question_id": "call_3ffa6b93eba0475fa0299e72ac36d1e2",
+  "profile": "personal_only",
+  "snapshots": 1,
+  "local_metadata_requests": 2,
+  "readonly_page_evaluations": 1,
+  "fixed_device_clock_checks": 1,
+  "counts": {
+    "roots": 25,
+    "nodes": 1245,
+    "radios": 2,
+    "checked": 1,
+    "accepted": 2,
+    "rejected": 0
+  },
+  "candidates": [
+    {
+      "group": "G1",
+      "checked": true
+    },
+    {
+      "group": "G2",
+      "checked": false
+    }
+  ],
+  "fresh_forward": true,
+  "owned_capture_forward_removed": true,
+  "exit_code": 0,
+  "stopped_after_one_attempt": true,
+  "grant_closed": true,
+  "failure_reproduced": false,
+  "conclusion": "One diagnostic read succeeded. The preceding metadata failure remains unexplained. Its anonymous map was cleared on required immediate closure; no cross-session group equality or cross-profile card identity is inferred.",
+  "source_GO": false
+}

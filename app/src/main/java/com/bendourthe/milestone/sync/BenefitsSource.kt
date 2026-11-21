@@ -2,7 +2,9 @@ package com.bendourthe.milestone.sync
 
 import com.bendourthe.milestone.domain.BenefitDraft
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.BenefitsAdapter
 import com.bendourthe.milestone.domain.CardList
+import com.bendourthe.milestone.domain.ConnectionInventory
 import com.bendourthe.milestone.domain.Program
 
 /** Why a benefits read ended before it had read every card. */
@@ -29,6 +31,10 @@ data class BenefitsRead(
     val failed: Set<String> = emptySet(),
     val stop: BenefitsStop? = null,
     val sections: Map<String, Set<BenefitSection>> = emptyMap(),
+    /** Connection-based programs (ADR-0009): each signed-in connection's card selector read. */
+    val inventories: List<ConnectionInventory> = emptyList(),
+    /** Connection-based programs: each read card's drafts keyed by binding hash; the whole card page was read. */
+    val bindingBenefits: Map<String, List<BenefitDraft>> = emptyMap(),
 ) {
     fun sectionsOf(lastDigits: String): Set<BenefitSection> = sections[lastDigits] ?: ALL_SECTIONS
 
@@ -45,4 +51,13 @@ data class BenefitsRead(
 /** Reads a program's cards and their benefits in the program's own session, without ever signing in. */
 fun interface BenefitsSource {
     suspend fun read(program: Program, host: WebViewHost, budgetMs: Long): BenefitsRead
+}
+
+/** Routes each program's benefits read to the reader for its page adapter (Amex ADR-0008, Chase ADR-0009). */
+class AdapterBenefitsSource(private val amex: BenefitsSource, private val chase: BenefitsSource) : BenefitsSource {
+    override suspend fun read(program: Program, host: WebViewHost, budgetMs: Long): BenefitsRead =
+        when (program.benefits?.adapter) {
+            BenefitsAdapter.CHASE -> chase.read(program, host, budgetMs)
+            else -> amex.read(program, host, budgetMs)
+        }
 }

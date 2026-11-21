@@ -1,7 +1,20 @@
 package com.bendourthe.milestone.ui.benefits
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material3.Icon
@@ -12,7 +25,12 @@ import androidx.compose.ui.res.painterResource
 import com.bendourthe.milestone.R
 import java.util.Locale
 
-internal fun cardArtworkResource(programId: String, name: String): Int? {
+/** The bundled artwork for a card: the first reviewed Amex images, then the public product list's image. */
+internal fun cardArtworkResource(programId: String, name: String): Int? =
+    reviewedAmexArtwork(programId, name)
+        ?: com.bendourthe.milestone.domain.CardProducts.match(programId, name)?.art?.let(::productArtwork)
+
+private fun reviewedAmexArtwork(programId: String, name: String): Int? {
     if (programId != "amex") return null
     val product = name.lowercase(Locale.ROOT)
     return when {
@@ -26,11 +44,42 @@ internal fun cardArtworkResource(programId: String, name: String): Int? {
     }
 }
 
-/** Decorative product artwork; the neighboring card name supplies its accessible identity. */
+/**
+ * Decorative product artwork; the neighboring card name supplies its accessible identity. A card without bundled
+ * artwork gets a drawn card face in the issuer's [brandColorArgb] with its [lastDigits]; with no color, an outline icon.
+ */
 @Composable
-internal fun CardArtwork(programId: String, name: String, modifier: Modifier = Modifier) {
+internal fun CardArtwork(programId: String, name: String, modifier: Modifier = Modifier, brandColorArgb: Long? = null, lastDigits: String? = null) {
     val resource = cardArtworkResource(programId, name)
     val shape = modifier.aspectRatio(480f / 304f).testTag("cardArtwork")
-    if (resource == null) Icon(Icons.Outlined.CreditCard, contentDescription = null, modifier = shape)
-    else Image(painterResource(resource), contentDescription = null, modifier = shape)
+    when {
+        // Product images have square corners filled in; the clip gives every card the same rounded shape.
+        resource != null -> Image(painterResource(resource), contentDescription = null, modifier = shape.clip(RoundedCornerShape(5.dp)))
+        brandColorArgb != null -> CardFace(Color(brandColorArgb), lastDigits, shape)
+        else -> Icon(Icons.Outlined.CreditCard, contentDescription = null, modifier = shape)
+    }
+}
+
+/** A plain card shape: the issuer's color in a soft diagonal shade, a chip, and the ending. */
+@Composable
+private fun CardFace(color: Color, lastDigits: String?, modifier: Modifier) {
+    Box(
+        modifier
+            .clip(RoundedCornerShape(6.dp))
+            .background(Brush.linearGradient(listOf(color, lerp(color, Color.Black, 0.45f)))),
+    ) {
+        Box(
+            Modifier.padding(start = 8.dp, top = 10.dp).size(width = 12.dp, height = 9.dp)
+                .clip(RoundedCornerShape(2.dp)).background(Color(0xFFE6C77A)),
+        )
+        if (lastDigits != null) {
+            Text(
+                "•• $lastDigits",
+                color = Color.White.copy(alpha = 0.92f),
+                fontSize = 9.sp,
+                maxLines = 1,
+                modifier = Modifier.align(Alignment.BottomStart).padding(start = 8.dp, bottom = 6.dp),
+            )
+        }
+    }
 }

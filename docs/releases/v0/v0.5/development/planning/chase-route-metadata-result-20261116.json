@@ -1,0 +1,106 @@
+{
+  "status": "BOUNDED_SESSION_COMPLETED; EXACT_CARD_IDENTITY_NOT_ESTABLISHED",
+  "observed_at": "2026-11-17T07:15:41.221704+00:00",
+  "owner_approval_runtime_timestamp": "2026-11-17T07:09:23.776Z",
+  "final_snapshot_and_closure_observed_utc": "2026-11-17T07:13:00Z",
+  "all_three_snapshots_and_cleanup_within_owner_300_second_window": true,
+  "configured_wrapper_deadline_utc": "2026-11-17T07:14:36Z",
+  "deadline_note": "The supplied wrapper deadline was thirteen seconds later than the owner reply plus 300 seconds. All accesses and owned cleanup actually completed about 217 seconds after the owner reply, before either deadline. No access occurred in the excess configured interval. Future sessions must derive the deadline from the exact confirmation timestamp.",
+  "execution_session": 44564,
+  "execution_exit": 0,
+  "sanitized_stdout_events": [
+    {
+      "status": "ok",
+      "snapshot": 1,
+      "shape": {
+        "path_segments": 3,
+        "fragment_kind": "route",
+        "fragment_segments": 2,
+        "query_pairs": 0,
+        "fragment_query_pairs": 0,
+        "benefits_route_qualified": false
+      },
+      "candidates": []
+    },
+    {
+      "status": "ok",
+      "snapshot": 2,
+      "shape": {
+        "path_segments": 3,
+        "fragment_kind": "route",
+        "fragment_segments": 3,
+        "query_pairs": 0,
+        "fragment_query_pairs": 7,
+        "benefits_route_qualified": true
+      },
+      "candidates": [
+        {
+          "scope": "fragment_path",
+          "slot": 0,
+          "key": null,
+          "group": "G1"
+        },
+        {
+          "scope": "fragment_path",
+          "slot": 1,
+          "key": null,
+          "group": "G2"
+        }
+      ]
+    },
+    {
+      "status": "ok",
+      "snapshot": 3,
+      "shape": {
+        "path_segments": 3,
+        "fragment_kind": "route",
+        "fragment_segments": 3,
+        "query_pairs": 0,
+        "fragment_query_pairs": 1,
+        "benefits_route_qualified": true
+      },
+      "candidates": [
+        {
+          "scope": "fragment_path",
+          "slot": 0,
+          "key": null,
+          "group": "G1"
+        },
+        {
+          "scope": "fragment_path",
+          "slot": 1,
+          "key": null,
+          "group": "G2"
+        }
+      ]
+    },
+    {
+      "status": "closed",
+      "owned_capture_forward_removed": true
+    }
+  ],
+  "observation_provenance": "Fixed fields copied from the actual sanitized tool stdout. No raw transport metadata is retained or claimed as a separate transcript.",
+  "owner_sequence": [
+    "initial personal card prepared by owner",
+    "owner selected other personal card",
+    "owner returned to first personal card"
+  ],
+  "interpretation": [
+    "Initial snapshot did not qualify as a benefits route and yielded no candidates.",
+    "Second and third snapshots qualified, but both fragment-path groups were identical across different owner-selected personal cards. They do not distinguish exact cards.",
+    "Different fragment query-pair counts are structural observations only; unknown values were neither inspected nor compared.",
+    "This is not a valid A-B-A identity proof because the initial A snapshot was unqualified."
+  ],
+  "source_GO": false,
+  "next_required_evidence": "A separately reviewed narrow identity mechanism that distinguishes exact cards and proves selected-card binding, cross-sign-in correspondence and action readiness. Do not broaden URL-value reads or invoke production extraction from these candidates.",
+  "privacy": {
+    "DOM_access": false,
+    "main_app_debugger_access": false,
+    "issuer_actions": false,
+    "credential_values_read": false,
+    "raw_URL_title_or_identifier_values_saved": false,
+    "private_capture_contents_read": false
+  },
+  "reader_sha256": "173ea66b116cf83399999decceb25f9ec08dadb619e53006f41af30f7bf8e293",
+  "wrapper_sha256": "81977f652efb14abf1e6f9fec762b7069858001a79c85cb2f3d5524b82b8e3b3"
+}

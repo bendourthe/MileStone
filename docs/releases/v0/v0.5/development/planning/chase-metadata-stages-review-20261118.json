@@ -1,0 +1,56 @@
+{
+  "status": "REVIEWED_READY_FOR_FRESH_CONSENT_NOT_RUN",
+  "base": "reports/chase-radio-per-read-20261118",
+  "changed_files": [
+    "capture_radio_probe.mjs",
+    "test_capture_metadata_stages.mjs",
+    "test_capture_radio_session.mjs"
+  ],
+  "changed_file_count": 3,
+  "bundle_count": 1,
+  "set_equality": true,
+  "scope": "Fixed metadata diagnostic classification only; no additional requests, retries, page fields or access. Wrapper and core unchanged.",
+  "hashes": {
+    "capture_radio_probe.mjs": "237cb3a691edf97fc0508c564c4cc352694ae9cb66ba86deb9367aec3c8d1584",
+    "capture_radio_session.mjs": "2f666a56b9ac91daf5eafed7f3f6a21fdb4d5944d2f52a85a2238eb515902946",
+    "radio-observation.mjs": "132d04cd38bce42cd9920b8439f76c848e6ef9a3b1fce7f1c1f98f8aa1f27f1c",
+    "test_capture_metadata_stages.mjs": "b6127f2d882b92fd9719ff2821ae7ef7c3ffa5915f99858b8c35f9789d8caf29",
+    "test_capture_radio_session.mjs": "576501c00204503d0adacd55d18957ae8f306f5a3be795f6b1e37c3406516bc9"
+  },
+  "reviews": {
+    "correctness": [],
+    "security": [],
+    "testing": [],
+    "maintainability": [],
+    "project_standards": []
+  },
+  "verification": {
+    "metadata_stage_cases": 30,
+    "mocked_session_cases": 46,
+    "existing_regression_mutations_rejected": 6,
+    "exact_synthetic_page_expression": "PASS",
+    "independent_test_mutants_rejected": [
+      "wrong_refused_code",
+      "raw_unknown_cause_leak",
+      "wrong_JSON_stage"
+    ],
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0
+  },
+  "considered_but_rejected": [
+    {
+      "candidate": "Raw exception or response leakage",
+      "reason": "Only fixed prefix and Map-selected suffix or constant fallback emitted."
+    },
+    {
+      "candidate": "Prototype-code fallback bypass",
+      "reason": "Map has no inherited key lookup; __proto__ and constructor tests pass."
+    },
+    {
+      "candidate": "Widened request or cleanup behavior",
+      "reason": "Unchanged request options, count/byte/time bounds and wrapper."
+    }
+  ],
+  "next_proposed_scope": "One owner-requested Capture-only diagnostic snapshot within60seconds, at most2localmetadataHTTP/1readonlyevaluation/1fixedclock; immediate stop after result plus8seconds owned cleanup. Fresh approval/current readiness required.",
+  "source_GO": false
+}

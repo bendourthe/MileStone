@@ -1,0 +1,42 @@
+{
+  "status": "Live transport unavailable; no usable card-identity proof obtained",
+  "consent_question_id": "call_7ceeb83737a049fe9d3b2db8b00b47a7",
+  "scope_package": "com.bendourthe.milestone.capture",
+  "scope_host": "secure.chase.com",
+  "maximum_snapshots": 8,
+  "maximum_seconds": 600,
+  "requests_charged_conservatively": 2,
+  "successful_typed_snapshots": 0,
+  "metadata_only_diagnostic": {
+    "runtime_evaluation_attempted": false,
+    "metadata_unavailable": true
+  },
+  "owned_capture_forwards_remaining": 0,
+  "issuer_actions_performed": false,
+  "main_app_debugger_accessed": false,
+  "raw_page_or_identifier_data_emitted_or_newly_persisted": false,
+  "source_GO": false,
+  "operational_limits": [
+    "Initial interactive launcher attempts did not expose child streams; no success evidence retained",
+    "One-shot launcher used explicit child pipes and the original consent deadline",
+    "No debugging configuration, credential store or issuer data was changed"
+  ],
+  "reviewed_node_script_sha256": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+  "one_shot_wrapper_sha256": "9d5d950127aad5ca676ccc78b1955b566dcf419dee810c2bc05c2cc592adf8bb",
+  "next_requirement": "Verify Capture-only introspection availability and source bindings before any dependent extraction; do not infer identity from the saved-page candidate groups",
+  "synthetic_emulator_transport": {
+    "environment": "Fresh CI-equivalent emulator with newly installed Capture; no programs, accounts, sign-ins or credential entry",
+    "version_endpoint": {
+      "ok": true,
+      "capture_package_match": true
+    },
+    "target_list_endpoint": {
+      "ok": true,
+      "target_count": 1
+    },
+    "runtime_evaluation_attempted": false,
+    "owned_forward_removed": true,
+    "phone_reconnected": false,
+    "conclusion": "Capture transport works in this synthetic environment; original phone failure remains unexplained. This supplies no live exact-card or cross-profile identity proof."
+  }
+}

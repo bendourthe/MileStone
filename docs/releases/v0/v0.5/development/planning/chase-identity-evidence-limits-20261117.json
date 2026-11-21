@@ -1,0 +1,27 @@
+{
+  "status": "SOURCE_EVIDENCE_LIMITS; NO_IDENTITY_GO",
+  "observed_utc": "2026-11-17T08:41:08.498044+00:00",
+  "sanitizer_source_sha256": "1bf2c29c0880b81178f77cdba0f3b45d7248ff5fd91f9b0a2cc50ac0b3abffea",
+  "proven_sanitization_rules": [
+    "value/nonce/integrity/content attribute contents are replaced with empty strings",
+    "URL parameter values and URL fragments are removed",
+    "identifier-like digit groups/tokens are replaced with #"
+  ],
+  "capture_structure_observations": [
+    "16 private Chase captures inspected through fixed schema counts only",
+    "5 native radio elements with id attributes and 2 checked attributes; no value attributes in these radio elements",
+    "2 mds-select hosts and 6 mds-select-option elements in captured pages",
+    "prior live structure snapshot had 2 Other inputs; this is not a live radio classification"
+  ],
+  "inferences_rejected": [
+    "A blank or redacted capture field does not prove its live value is absent.",
+    "A shared # placeholder does not prove two cards share an identifier.",
+    "DOM IDs or radio positions do not establish durable issuer identity.",
+    "Captured control/card counts must not define production discovery limits."
+  ],
+  "next_narrow_evidence": "A separately reviewed and newly authorized live read-only identity probe may inspect only proven account-selector control metadata, compare identifiers in memory and save anonymous groups/counts. Controlled card changes, re-render/sign-in stability and cross-profile correspondence remain required. Credential fields, financial text and issuer actions stay excluded.",
+  "source_GO": false,
+  "production_code_changed": false,
+  "live_access_performed": false,
+  "producer_limit": "This pass verifies the local sanitization helper only; it does not establish the exact currently installed phone Capture producer build or its in-app filtering."
+}

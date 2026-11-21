@@ -61,7 +61,7 @@ class RoomCardRepositoryTest {
 
     private fun benefitKey(card: CardKey, title: String) = benefits(card, title).single().stableKey
 
-    private suspend fun lastDigits() = cards.observeCards("amex").first().map { it.lastDigits }
+    private suspend fun lastDigits() = cards.observeCards("amex").first().map { it.cardId }
 
     @Test
     fun cardListStoresCardsInPickerOrder() = runTest {

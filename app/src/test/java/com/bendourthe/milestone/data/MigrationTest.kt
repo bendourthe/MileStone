@@ -106,6 +106,63 @@ class MigrationTest {
         db.close()
     }
 
+    @Test
+    fun version5KeepsEveryCardBenefitAndReminderUnderTheSameKeyAndAddsEmptyConnectionTables() {
+        helper.createDatabase(4).apply {
+            execSQL("INSERT INTO loyalty_accounts (programId, consecutiveFailures, sortOrder, status, addedEpochMs) VALUES ('amex', 0, 0, 'CONNECTED', 1), ('chase', 0, 1, 'CONNECTED', 2)")
+            execSQL(
+                "INSERT INTO cards (programId, lastDigits, name, sortOrder, cardListReadEpochMs, benefitsReadEpochMs, benefitsReadGeneration) VALUES " +
+                    "('amex', '1234', 'Synthetic Platinum', 0, 10, 11, 3), ('amex', '54321', 'Synthetic Gold', 1, 10, NULL, 0)",
+            )
+            execSQL(
+                "INSERT INTO benefits (stableKey, programId, lastDigits, section, position, title, earnedCents, remainingCents, targetCents, " +
+                    "periodLabel, periodEndEpochDay, periodLength, completed, description, enrollment) VALUES " +
+                    "('k1', 'amex', '1234', 'CREDIT_EARNED', 0, 'Synthetic credit', 500, 1000, 1500, 'Monthly', 20100, 'MONTHLY', 0, NULL, NULL), " +
+                    "('k2', 'amex', '1234', 'LISTED', 1, 'Synthetic listed', NULL, NULL, NULL, NULL, NULL, NULL, 0, 'Synthetic description', 'ENROLLED'), " +
+                    "('k3', 'amex', '54321', 'COMPLETED', 0, 'Synthetic used', 2000, 0, 2000, NULL, NULL, NULL, 1, NULL, NULL)",
+            )
+            execSQL("INSERT INTO benefit_reminders (benefitKey, periodEndEpochDay, programId, lastDigits, sentEpochMs) VALUES ('k1', 20100, 'amex', '1234', 12)")
+            close()
+        }
+
+        val db = helper.runMigrationsAndValidate(5, listOf(com.bendourthe.milestone.data.db.MIGRATION_4_5))
+
+        assertEquals(
+            listOf(
+                listOf("amex", "1234", "1234", "Synthetic Platinum", "0", "10", "11", "3", null, null),
+                listOf("amex", "54321", "54321", "Synthetic Gold", "1", "10", null, "0", null, null),
+            ),
+            db.rows(
+                "SELECT programId, cardId, lastDigits, name, sortOrder, cardListReadEpochMs, benefitsReadEpochMs, benefitsReadGeneration, " +
+                    "segment, segmentOverride FROM cards ORDER BY sortOrder",
+                10,
+            ),
+        )
+        assertEquals(
+            listOf(
+                listOf("k1", "1234", "CREDIT_EARNED", "500", "1000", "1500", "Monthly", "20100", "MONTHLY", "0", null, null),
+                listOf("k2", "1234", "LISTED", null, null, null, null, null, null, "0", "Synthetic description", "ENROLLED"),
+                listOf("k3", "54321", "COMPLETED", "2000", "0", "2000", null, null, null, "1", null, null),
+            ),
+            db.rows(
+                "SELECT stableKey, cardId, section, earnedCents, remainingCents, targetCents, periodLabel, periodEndEpochDay, periodLength, " +
+                    "completed, description, enrollment FROM benefits ORDER BY stableKey",
+                12,
+            ),
+        )
+        assertEquals(listOf(listOf("k1", "20100", "amex", "1234", "12")), db.rows("SELECT * FROM benefit_reminders", 5))
+        listOf("issuer_connections", "card_coverage").forEach { table ->
+            assertEquals(listOf(listOf("0")), db.rows("SELECT COUNT(*) FROM $table", 1))
+        }
+        // Cascades still work on the rebuilt tables: removing a card removes its benefits and reminders only.
+        db.execSQL("PRAGMA foreign_keys = ON")
+        db.execSQL("DELETE FROM cards WHERE cardId = '1234'")
+        assertEquals(listOf(listOf("k3")), db.rows("SELECT stableKey FROM benefits", 1))
+        assertEquals(listOf(listOf("0")), db.rows("SELECT COUNT(*) FROM benefit_reminders", 1))
+        assertEquals(listOf(listOf("2")), db.rows("SELECT COUNT(*) FROM loyalty_accounts", 1))
+        db.close()
+    }
+
     private fun SQLiteConnection.rows(sql: String, columns: Int): List<List<String?>> = prepare(sql).use { statement ->
         buildList {
             while (statement.step()) add((0 until columns).map { if (statement.isNull(it)) null else statement.getText(it) })

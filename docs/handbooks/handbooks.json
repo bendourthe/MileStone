@@ -86,7 +86,15 @@
         "scripts/search_benchmark.py",
         "scripts/tests/test_search_benchmark.py",
         "scripts/search_diagnostics.py",
-        "scripts/tests/test_search_diagnostics.py"
+        "scripts/tests/test_search_diagnostics.py",
+        "app/src/main/java/com/bendourthe/milestone/domain/Connections.kt",
+        "app/src/main/java/com/bendourthe/milestone/data/db/Migrations.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/extract/ChaseBenefitsReader.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/extract/BindingHasher.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/webview/ChaseBenefitsSource.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/webview/ConnectionSessions.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt",
+        "docs/decisions/0009-chase-benefits.md"
       ],
       "code_inputs": [
         "app/build.gradle.kts",
@@ -154,7 +162,14 @@
         "scripts/search_benchmark.py",
         "scripts/tests/test_search_benchmark.py",
         "scripts/search_diagnostics.py",
-        "scripts/tests/test_search_diagnostics.py"
+        "scripts/tests/test_search_diagnostics.py",
+        "app/src/main/java/com/bendourthe/milestone/domain/Connections.kt",
+        "app/src/main/java/com/bendourthe/milestone/data/db/Migrations.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/extract/ChaseBenefitsReader.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/extract/BindingHasher.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/webview/ChaseBenefitsSource.kt",
+        "app/src/main/java/com/bendourthe/milestone/sync/webview/ConnectionSessions.kt",
+        "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt"
       ],
       "builder": {
         "identity": "milestone-handbook-stdlib-v1",

@@ -82,6 +82,24 @@ sealed interface BridgeMessage {
 
     /** Benefits mode: the page could not be read; [why] is one of a fixed set of reasons, [ready] as for [Benefits]. */
     data class BenefitsUnreadable(val why: String, val ready: PageDiagnostics? = null) : BridgeMessage
+
+    /** Chase benefits mode (ADR-0009): the card-selector sheet's cards; [complete] only when every entry was valid. */
+    data class ChaseCards(val cards: List<ChaseCardOption>, val complete: Boolean) : BridgeMessage
+
+    /**
+     * Chase benefits mode: how the home page groups cards, as card ending to true when the card sits under a business
+     * rather than under Personal. The group headings themselves (a business's name) never leave the page.
+     */
+    data class ChaseKinds(val business: Map<String, Boolean>) : BridgeMessage
+
+    /** Chase benefits mode: one card's drafts; [control] is the selected card's page control id (memory only). */
+    data class ChaseBenefits(val control: String, val drafts: List<BenefitDraft>, val rows: Int, val trackers: Int) : BridgeMessage {
+        override fun toString() = "ChaseBenefits(control=<redacted>, drafts=${drafts.size}, rows=$rows, trackers=$trackers)"
+    }
+
+    /** Chase benefits mode: the page could not be read; [why] and [step] are from fixed sets. */
+    /** [counts] are the page's navigation counts at a failed step (see `navigationCounts` in extract.js), digits only. */
+    data class ChaseUnreadable(val why: String, val step: String?, val counts: String? = null) : BridgeMessage
 }
 
 object BridgeProtocol {
@@ -140,6 +158,20 @@ object BridgeProtocol {
         put("selectors", buildJsonObject { spec.selectors.forEach { (key, value) -> put(key, value) } })
     }.toString()
 
+    /**
+     * Chase benefits mode (ADR-0009). [listCards] asks for the card-selector sheet's cards; [targetControl] asks the
+     * script to select that card first. The control id travels only between this app and the page.
+     */
+    fun chaseBenefitsConfig(spec: BenefitsSpec, nonce: String, timeoutMs: Long, listCards: Boolean, targetControl: String? = null): String =
+        buildJsonObject {
+            put("mode", "chaseBenefits")
+            put("nonce", nonce)
+            put("timeoutMs", timeoutMs)
+            put("listCards", listCards)
+            if (targetControl != null) put("targetControl", targetControl)
+            put("selectors", buildJsonObject { spec.selectors.forEach { (key, value) -> put(key, value) } })
+        }.toString()
+
     /** Sent only to a page on the program's own hosts, in reply to its sign-in report. */
     fun fillCommand(nonce: String, username: String, password: String, lastName: String = ""): String = buildJsonObject {
         put("command", "fill")
@@ -184,6 +216,11 @@ object BridgeProtocol {
         if (type in BENEFITS_TYPES) {
             if (benefits == null || !benefits.accepts(pageUrl) || !TOP_FIELDS.getValue(type).containsAll(json.keys)) return null
             return parseBenefits(type, json, benefits.kindOf(pageUrl))
+        }
+        if (type in CHASE_FIELDS) {
+            val optional = CHASE_OPTIONAL_FIELDS[type].orEmpty()
+            if (benefits == null || !benefits.accepts(pageUrl) || json.keys - optional != CHASE_FIELDS.getValue(type)) return null
+            return parseChase(type, json)
         }
         return when (type) {
             "login" -> BridgeMessage.Event(BridgeEvent.LoginRequired)
@@ -234,6 +271,62 @@ object BridgeProtocol {
         else -> {
             val ready = PageDiagnostics.parse(json["ready"])
             if (ready != null && ready.kind != pageKind) null else json.string("why")?.takeIf { it in UNREADABLE_REASONS }?.let { BridgeMessage.BenefitsUnreadable(it, ready) }
+        }
+    }
+
+    private val CHASE_FIELDS = mapOf(
+        "chaseCards" to setOf("type", "nonce", "cards", "complete"),
+        "chaseKinds" to setOf("type", "nonce", "kinds"),
+        "chaseBenefits" to setOf("type", "nonce", "control", "groups", "trackers", "ready"),
+        "chaseUnreadable" to setOf("type", "nonce", "why", "step"),
+    )
+
+    /** Fields a Chase message may add to its exact set. */
+    private val CHASE_OPTIONAL_FIELDS = mapOf("chaseUnreadable" to setOf("counts"))
+
+    /** Navigation counts only: up to eight comma-separated numbers below 1000, never page text. */
+    private val CHASE_COUNTS = Regex("""^\d{1,3}(,\d{1,3}){0,7}$""")
+    private val CHASE_WHY = setOf("navigation", "noControl", "timeout", "switch", "noSuchCard", "structure", "overflow")
+    private val CHASE_STEPS = setOf("card", "more", "benefits", "page")
+
+    private fun parseChase(type: String, json: JsonObject): BridgeMessage? = when (type) {
+        "chaseKinds" -> {
+            // At most one entry per card the read may list, each exactly {digits, business}; anything else is dropped.
+            val entries = (json["kinds"] as? kotlinx.serialization.json.JsonArray)?.takeIf { it.size <= ChaseBenefitsReader.MAX_CARDS }
+            val parsed = entries?.map { entry ->
+                val item = entry as? JsonObject
+                val digits = item?.string("digits")?.takeIf { com.bendourthe.milestone.domain.CardKey.isValidLastDigits(it) }
+                val business = (item?.get("business") as? JsonPrimitive)?.booleanOrNull
+                if (item?.keys != setOf("digits", "business") || digits == null || business == null) null else digits to business
+            }
+            if (parsed == null || parsed.any { it == null }) null else BridgeMessage.ChaseKinds(parsed.filterNotNull().toMap())
+        }
+        "chaseCards" -> {
+            val complete = (json["complete"] as? JsonPrimitive)?.booleanOrNull
+            val cards = ChaseBenefitsReader.cards(json["cards"])
+            if (complete == null || cards == null) null else BridgeMessage.ChaseCards(cards, complete && cards.isNotEmpty() && cards.count { it.selected } == 1)
+        }
+        "chaseBenefits" -> {
+            val control = json.string("control")?.takeIf(ChaseBenefitsReader::isControl)
+            val drafts = ChaseBenefitsReader.benefits(json["groups"], json["trackers"])
+            val ready = json["ready"] as? JsonObject
+            val rows = (ready?.get("rows") as? JsonPrimitive)?.intOrNull?.takeIf { it in 0..ChaseBenefitsReader.MAX_ROWS }
+            val trackers = (ready?.get("trackers") as? JsonPrimitive)?.intOrNull?.takeIf { it in 0..ChaseBenefitsReader.MAX_TRACKERS }
+            if (control == null || drafts == null || rows == null || trackers == null) null else BridgeMessage.ChaseBenefits(control, drafts, rows, trackers)
+        }
+        else -> {
+            val why = json.string("why")?.takeIf { it in CHASE_WHY }
+            val stepField = json["step"]
+            val step = (stepField as? JsonPrimitive)?.takeIf { it.isString }?.content
+            val countsField = json["counts"]
+            val counts = json.string("counts")?.takeIf(CHASE_COUNTS::matches)
+            when {
+                why == null -> null
+                countsField != null && counts == null -> null
+                stepField is kotlinx.serialization.json.JsonNull -> BridgeMessage.ChaseUnreadable(why, null, counts)
+                step != null && step in CHASE_STEPS -> BridgeMessage.ChaseUnreadable(why, step, counts)
+                else -> null
+            }
         }
     }
 

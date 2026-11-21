@@ -1,0 +1,16 @@
+{
+  "status": "DRAFT_DOCUMENT_CHECK_PASS",
+  "ADR": "docs/decisions/0009-chase-benefits.md",
+  "sha256": "3bcf124532181cabcf41f92bc76e6afb6e17cae6865236a798513066b9d56759",
+  "resolved_relative_links": 9,
+  "ASCII": true,
+  "required_constraints_present": true,
+  "lifecycle": "Proposed",
+  "source_admission": "NO-GO",
+  "task_T002_complete": false,
+  "runtime_surface": "Documentation only; no app behavior change or runtime claim",
+  "phone_access": false,
+  "remote_writes": 0,
+  "signed_records_changed": false,
+  "preserved_unrelated_CONTEXT_edit": true
+}

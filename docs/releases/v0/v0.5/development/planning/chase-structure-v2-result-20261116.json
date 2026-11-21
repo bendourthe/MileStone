@@ -1,0 +1,46 @@
+{
+  "status": "Approved single structural snapshot completed; identity remains NO-GO",
+  "counts": {
+    "roots": 25,
+    "nodes": 1244,
+    "benefitRows": 29,
+    "commerceTiles": 3,
+    "selectors": 0,
+    "options": 0,
+    "optionValueAttribute": 0,
+    "optionValueProperty": 0,
+    "selectedAbsent": 0,
+    "selectedTrue": 0,
+    "selectedFalse": 0,
+    "selectedOther": 0,
+    "visibleInputs": 2,
+    "inputText": 0,
+    "inputSearch": 0,
+    "inputPassword": 0,
+    "inputHidden": 0,
+    "inputOther": 2,
+    "roleCombobox": 0,
+    "roleSearchbox": 0,
+    "roleOther": 2
+  },
+  "elapsed_seconds": 0.5392096042633057,
+  "cleanup": {
+    "status": "closed",
+    "owned_capture_forward_removed": true
+  },
+  "scope": {
+    "snapshots": 1,
+    "package": "com.bendourthe.milestone.capture",
+    "host": "secure.chase.com",
+    "main_app_debugger": false,
+    "issuer_actions": false,
+    "identifier_input_or_text_values_read": false
+  },
+  "interpretation": [
+    "Visible controls no longer block this structure-only reader.",
+    "The open Benefits selector exposes none of the older mds-select/option tags in accessible document/open shadow roots.",
+    "No candidate identifier, selected-card binding or personal/business classification has been established."
+  ],
+  "next_step": "Inspect existing saved capture element structure to identify the actual selector component; do not repeat the old value reader or claim source GO. Any further live evaluation requires fresh consent.",
+  "source_GO": false
+}

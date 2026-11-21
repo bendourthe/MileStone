@@ -1,0 +1,163 @@
+{
+  "status": "FIXED_SCHEMA_PRESENCE_ONLY",
+  "observed_utc": "2026-11-17T08:25:32.510589+00:00",
+  "private_capture_files": 16,
+  "structural_counts": {
+    "tags": 23885,
+    "URL_attributes": 3530
+  },
+  "fixed_candidate_field_counts": {
+    "accountid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "acctid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "accountkey": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "acctkey": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "cardid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "cardkey": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "profileid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "selectedaccountid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "selectedcardid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "cardaccountid": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "selectedaccount": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "selectedcard": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "accountreference": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "accountnumber": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "maskedaccountnumber": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "accountindex": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "cardindex": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "account": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "acct": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "card": {
+      "attribute_name": 0,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    },
+    "id": {
+      "attribute_name": 3455,
+      "input_field_name": 0,
+      "URL_query_key": 0,
+      "structured_attribute_key": 0
+    }
+  },
+  "files_with_field_presence": {
+    "accountid": 0,
+    "acctid": 0,
+    "accountkey": 0,
+    "acctkey": 0,
+    "cardid": 0,
+    "cardkey": 0,
+    "profileid": 0,
+    "selectedaccountid": 0,
+    "selectedcardid": 0,
+    "cardaccountid": 0,
+    "selectedaccount": 0,
+    "selectedcard": 0,
+    "accountreference": 0,
+    "accountnumber": 0,
+    "maskedaccountnumber": 0,
+    "accountindex": 0,
+    "cardindex": 0,
+    "account": 0,
+    "acct": 0,
+    "card": 0,
+    "id": 16
+  },
+  "source_GO": false,
+  "privacy": "No attribute values, field values, URLs, filenames, card details, credentials, cookies, balances or benefit text are printed or saved. HTML data nodes are ignored. Only predefined schema-label presence and counts are retained.",
+  "limitations": "Presence does not prove identity, uniqueness, selected-card binding or cross-sign-in equality. The scanner covers literal/HTML-entity-decoded names and fixed schema forms only; capture sanitization removes link query strings. No live account or issuer action is accessed."
+}

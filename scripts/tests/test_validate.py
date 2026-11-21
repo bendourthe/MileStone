@@ -192,7 +192,7 @@ class ProfilesTest(unittest.TestCase):
         source = self.root / "app/src/main/Source.kt"
         source.parent.mkdir(parents=True)
         source.write_text("Synthetic source one")
-        evidence = self.root / "docs/releases/v0/v0.4/development/verification.json"
+        evidence = self.root / "docs/archives/v0/v0.4/development/verification.json"
         evidence.parent.mkdir(parents=True)
         evidence.write_text("Initial receipt")
         listing = b"app/src/main/Source.kt\0docs/releases/v0/v0.4/development/verification.json\0"
@@ -337,7 +337,7 @@ class ProfilesTest(unittest.TestCase):
 
     def test_report_rechecks_security_payload_without_rerunning_scan_or_invalidating_android(self):
         run = self.run_context()
-        evidence = self.root / "docs/releases/v0/v0.4/development/evidence.md"
+        evidence = self.root / "docs/archives/v0/v0.4/development/evidence.md"
         evidence.parent.mkdir(parents=True)
         evidence.write_text("Synthetic release evidence before scan")
 

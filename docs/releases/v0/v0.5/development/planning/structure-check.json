@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "task_count": 22,
+  "unique_sequential_ids": true,
+  "mandatory_sections": true,
+  "ascii_text": true,
+  "plan_sha256": "2cc99c341e2aa736272ce07802eb223b80d1e70fecfe87c2155af772923b280b",
+  "source_runtime": "Not applicable: planning documents only; no Chase extraction or offer adding implemented."
+}

@@ -1,0 +1,79 @@
+{
+  "status": "COMPARISON_COMPLETED_CLOSED",
+  "approval_question_id": "call_eaa679a5dc274400a818d756b6223cfd",
+  "second_ready_question_id": "call_aa1c6d75880b4667a5c6158ebd67d474",
+  "sequence": "Owner-confirmed same personal card under personal-only then linked business sign-in",
+  "shared_RAM_equality_map": true,
+  "snapshots": [
+    {
+      "profile": "personal_only",
+      "counts": {
+        "roots": 25,
+        "nodes": 1245,
+        "radios": 2,
+        "checked": 1,
+        "accepted": 2,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G1",
+          "checked": true
+        },
+        {
+          "group": "G2",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "profile": "linked_business",
+      "counts": {
+        "roots": 25,
+        "nodes": 1295,
+        "radios": 3,
+        "checked": 1,
+        "accepted": 3,
+        "rejected": 0
+      },
+      "candidates": [
+        {
+          "group": "G3",
+          "checked": false
+        },
+        {
+          "group": "G1",
+          "checked": true
+        },
+        {
+          "group": "G2",
+          "checked": false
+        }
+      ]
+    }
+  ],
+  "selected_control_equality_observed": true,
+  "overlapping_control_groups": [
+    "G1",
+    "G2"
+  ],
+  "additional_linked_control_groups": [
+    "G3"
+  ],
+  "capture_process_changed_between_reads": true,
+  "fresh_owned_forward_each_read": true,
+  "owned_forward_removed_after_each_read": true,
+  "owned_capture_forward_removed_at_closure": true,
+  "owned_connection_attempts": 2,
+  "metadata_HTTP_requests": 4,
+  "readonly_page_evaluations": 2,
+  "fixed_device_clock_checks": 1,
+  "exit_code": 0,
+  "grant_consumed_and_closed": true,
+  "raw_IDs_persisted": false,
+  "issuer_actions": false,
+  "conclusion": "Selected radio ID matched across the two observed sign-in contexts for the same owner-confirmed card. Both personal-profile IDs were present in the linked-profile selector. Fresh transport handled an actual Capture process change. This does not prove issuer-key semantics, arbitrary-account inventory completeness, classification, benefit completeness, or read-budget feasibility.",
+  "metadata_failure_root_cause_proven": false,
+  "durable_card_identity_proven": false,
+  "source_GO": false
+}

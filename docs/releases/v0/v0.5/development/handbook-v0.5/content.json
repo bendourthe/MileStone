@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-21T08:12:48.418852+00:00",
+  "review": "Release v0.5.0 version-only refresh: app/build.gradle.kts moved to versionName 0.5.0 and versionCode 6. The visible handbook text is unchanged from the content reviewed for the owner-acceptance candidate; only the embedded input and record hashes changed.",
+  "changed_inputs": [
+    "app/build.gradle.kts"
+  ],
+  "qualification_scope": "Handbook only; application, hosted CI and release qualification are separate."
+}

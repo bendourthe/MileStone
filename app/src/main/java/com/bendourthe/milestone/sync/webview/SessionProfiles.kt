@@ -45,10 +45,14 @@ class SessionProfiles(
         }
     }
 
-    /** Deletes the profiles of programs no longer tracked; runs at app start, before any WebView holds them. */
-    suspend fun deleteLeftoverProfiles() {
+    /**
+     * Deletes the profiles of programs no longer tracked; runs at app start, before any WebView holds them. Profiles of
+     * a tracked program's additional sign-ins ([keep]) are retained.
+     */
+    suspend fun deleteLeftoverProfiles(keep: suspend (programId: String) -> Set<String> = { emptySet() }) {
         if (!backend.supportsProfiles) return
-        val tracked = accounts.observeAccounts().first().map { profileName(it.programId) }.toSet()
+        val programs = accounts.observeAccounts().first().map { it.programId }
+        val tracked = programs.map(::profileName).toSet() + programs.flatMap { keep(it) }
         backend.profileNames().filter { it.startsWith(PREFIX) && it !in tracked }.forEach(::tryDelete)
     }
 

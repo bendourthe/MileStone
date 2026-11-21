@@ -214,6 +214,23 @@ class MileStoneAppTest {
     }
 
     @Test
+    fun eachCategoryCollapsesAndExpandsOnItsOwn() {
+        runBlocking { listOf("delta", "amex").forEach { accounts.addAccount(it, AccountStatus.UNSUPPORTED, 0) } }
+        runBlocking { settings.setSortMode(SortMode.BY_CATEGORY) }
+        launch()
+        rule.waitUntil(2_000) { rule.onAllNodes(hasText("Airlines")).fetchSemanticsNodes().isNotEmpty() }
+        rule.onAllNodes(hasText("1 program"), useUnmergedTree = true).assertCountEquals(2)
+
+        rule.onNodeWithTag("section_Airlines").performClick()
+        rule.onAllNodes(hasText("Delta SkyMiles")).assertCountEquals(0)
+        rule.onNodeWithText("American Express Membership Rewards").assertIsDisplayed()
+        rule.onNodeWithTag("section_Airlines").assertExists()
+
+        rule.onNodeWithTag("section_Airlines").performClick()
+        rule.onNodeWithText("Delta SkyMiles").assertIsDisplayed()
+    }
+
+    @Test
     fun moveUpAccessibilityActionReorders() {
         runBlocking { listOf("amex", "chase").forEach { accounts.addAccount(it, AccountStatus.UNSUPPORTED, 0) } }
         runBlocking { settings.setSortMode(SortMode.CUSTOM) }

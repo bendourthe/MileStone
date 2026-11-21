@@ -1,0 +1,12 @@
+{
+  "package": "com.bendourthe.milestone.capture",
+  "label": "MileStone Capture",
+  "apk_sha256": "f05318c11a0fab75ad159438cee3bee57ee2d6e19f401c760e5613b3246c3d18",
+  "separate_from_main": true,
+  "phone_connected": true,
+  "installed": true,
+  "main_apk_unchanged": true,
+  "source_pages_collected": false,
+  "discovery_status": "owner-assisted capture pending",
+  "live_mutation": false
+}

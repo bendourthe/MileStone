@@ -1,0 +1,199 @@
+{
+  "status": "preliminary source-structure evidence, not a completeness GO",
+  "owner_report": "Business-profile overview, card selector, all available personal/business card benefits and offers-to-add pages captured.",
+  "personal_only_collection": {
+    "owner_reported_personal_cards": 2,
+    "additional_sanitized_captures": 7,
+    "original_nine_capture_binding_verified": true,
+    "evidence": "docs/releases/v0/v0.5/development/planning/chase-personal-capture-structure-20261115.json",
+    "coverage_status": "Both sign-in scenarios now have captures; exact card mapping and behavioral completeness remain unverified"
+  },
+  "rows": [
+    {
+      "capture": 1,
+      "structural_family": "account-navigation-with-offers",
+      "benefit_list_rows": 0,
+      "offer_tiles": 3,
+      "commerce_tiles": 0,
+      "progress_components": 0,
+      "select_options": 4,
+      "frames": 1
+    },
+    {
+      "capture": 2,
+      "structural_family": "benefits",
+      "benefit_list_rows": 23,
+      "offer_tiles": 0,
+      "commerce_tiles": 3,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 3,
+      "structural_family": "benefits",
+      "benefit_list_rows": 23,
+      "offer_tiles": 0,
+      "commerce_tiles": 3,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 4,
+      "structural_family": "benefits",
+      "benefit_list_rows": 23,
+      "offer_tiles": 0,
+      "commerce_tiles": 3,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 5,
+      "structural_family": "benefits",
+      "benefit_list_rows": 29,
+      "offer_tiles": 0,
+      "commerce_tiles": 3,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 6,
+      "structural_family": "benefits",
+      "benefit_list_rows": 48,
+      "offer_tiles": 0,
+      "commerce_tiles": 3,
+      "progress_components": 1,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 7,
+      "structural_family": "offers",
+      "benefit_list_rows": 0,
+      "offer_tiles": 121,
+      "commerce_tiles": 0,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 8,
+      "structural_family": "offers",
+      "benefit_list_rows": 0,
+      "offer_tiles": 168,
+      "commerce_tiles": 0,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    },
+    {
+      "capture": 9,
+      "structural_family": "offers",
+      "benefit_list_rows": 0,
+      "offer_tiles": 157,
+      "commerce_tiles": 0,
+      "progress_components": 0,
+      "select_options": 0,
+      "frames": 1
+    }
+  ],
+  "family_counts": {
+    "account-navigation-with-offers": 1,
+    "benefits": 5,
+    "offers": 3
+  },
+  "contract_candidates": [
+    "Scope benefit list rows under the current exact-card container, not global page text.",
+    "Observe MDS selector/button state through the live DOM; outerHTML alone does not establish shadow-root contents or action readiness.",
+    "Treat observed progress components separately from listed benefits.",
+    "Keep offers in a separate per-card lifecycle and activation model; no automatic activation during capture.",
+    "Bind each page and action to current main-frame origin, connection, exact card and generation."
+  ],
+  "remaining_evidence": [
+    "Per-file exact-card/segment mapping using privacy-safe identity comparison",
+    "Cross-sign-in card correspondence and overlapping linked-account behavior; personal-only and linked captures are now collected",
+    "Lazy loading/pagination and empty/partial section criteria",
+    "Navigation/loading timings against 120000 ms budget",
+    "Fresh issuer eligibility/terms and Added-state confirmation for offers"
+  ],
+  "privacy": "Counts and fixed classifications only; no page text, amounts, endings, account keys or attribute values emitted.",
+  "route_metadata_observation_20261116": {
+    "record": "chase-route-metadata-result-20261116.json",
+    "source_GO": false,
+    "result": "Three approved snapshots and owned cleanup completed within five minutes. Initial A route was unqualified; B and returning A had identical field-scoped fragment-path groups, so these candidates cannot bind exact cards.",
+    "remaining": "Exact-card identity, cross-sign-in correspondence, completeness/loading and read-budget proof remain pending. No Chase benefits or automatic-offer APK is delivered."
+  },
+  "radio_selection_binding_20261118": {
+    "status": "WITHIN_SESSION_SELECTION_BINDING_OBSERVED",
+    "record": "chase-radio-selection-observation-20261118.json",
+    "sequence": "Owner-directed personal-card A/B/A with selector open",
+    "accepted_candidates_per_snapshot": 2,
+    "selected_anonymous_groups": [
+      "G1",
+      "G2",
+      "G1"
+    ],
+    "cleanup_verified": true,
+    "remaining": [
+      "Durable identifier semantics and sign-in stability",
+      "Personal/business linked-profile correspondence and classification",
+      "Complete inventory and section-read criteria",
+      "Read-budget proof"
+    ],
+    "source_GO": false
+  },
+  "linked_and_final_radio_observations_20261118": {
+    "linked_profile_record": "chase-linked-selection-observation-20261118.json",
+    "linked_profile_snapshots": 2,
+    "linked_observed_controls": 3,
+    "linked_selected_groups": [
+      "G2",
+      "G1"
+    ],
+    "final_personal_record": "chase-personal-final-snapshot-20261118.json",
+    "final_personal_snapshots": 1,
+    "personal_observed_controls": 2,
+    "equality_maps_independent": true,
+    "cleanup_verified_both_sessions": true,
+    "cross_profile_correspondence_proven": false,
+    "source_GO": false
+  },
+  "cross_profile_radio_comparison_20261118": {
+    "status": "CROSS_PROFILE_SELECTED_CONTROL_EQUALITY_OBSERVED",
+    "record": "chase-cross-profile-radio-comparison-20261118.json",
+    "same_RAM_map": true,
+    "profile_control_counts": [
+      2,
+      3
+    ],
+    "selected_group_same": true,
+    "personal_control_groups_retained_in_linked_profile": true,
+    "additional_linked_controls": 1,
+    "capture_process_changed_between_reads": true,
+    "owned_cleanup_verified": true,
+    "remaining": [
+      "Generalized durable card-key semantics beyond the observed controls and owner-confirmed card",
+      "Complete inventory/navigation and explicit personal/business classification",
+      "Lazy/paginated/empty/partial section criteria and tracker semantics",
+      "Conservative complete-read feasibility within120000ms"
+    ],
+    "source_GO": false
+  },
+  "proposed_identity_decision": {
+    "document": "docs/decisions/0009-chase-benefits.md",
+    "status": "Proposed",
+    "source_admission": "NO-GO",
+    "T002_complete": false,
+    "scope": "Opaque local cards, independent connections, verified overlap and coverage-scoped updates; no raw issuer-key persistence, guessed classification or production change.",
+    "unresolved": [
+      "durable source binding",
+      "complete inventory and classification",
+      "section/readiness semantics",
+      "120000ms conservative feasibility",
+      "migration/generalization runtime evidence"
+    ]
+  }
+}

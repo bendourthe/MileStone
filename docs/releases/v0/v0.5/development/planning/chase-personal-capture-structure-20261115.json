@@ -1,0 +1,74 @@
+{
+  "status": "Additional source structure collected; completeness GO remains open",
+  "profile_scenario": "Owner-reported personal Chase sign-in with two personal cards",
+  "original_private_captures_retained": 9,
+  "original_phone_prefix_verified": true,
+  "new_captures": 7,
+  "captures": [
+    {
+      "capture": 1,
+      "elements": 1041,
+      "commerce_tiles": 0,
+      "progress_bars": 0,
+      "benefit_rows": 0,
+      "offer_tiles": 3,
+      "attribute_names": 202
+    },
+    {
+      "capture": 2,
+      "elements": 1082,
+      "commerce_tiles": 3,
+      "progress_bars": 0,
+      "benefit_rows": 29,
+      "offer_tiles": 0,
+      "attribute_names": 110
+    },
+    {
+      "capture": 3,
+      "elements": 1123,
+      "commerce_tiles": 3,
+      "progress_bars": 0,
+      "benefit_rows": 29,
+      "offer_tiles": 0,
+      "attribute_names": 118
+    },
+    {
+      "capture": 4,
+      "elements": 1566,
+      "commerce_tiles": 3,
+      "progress_bars": 1,
+      "benefit_rows": 48,
+      "offer_tiles": 0,
+      "attribute_names": 112
+    },
+    {
+      "capture": 5,
+      "elements": 910,
+      "commerce_tiles": 0,
+      "progress_bars": 0,
+      "benefit_rows": 0,
+      "offer_tiles": 12,
+      "attribute_names": 85
+    },
+    {
+      "capture": 6,
+      "elements": 944,
+      "commerce_tiles": 0,
+      "progress_bars": 0,
+      "benefit_rows": 0,
+      "offer_tiles": 12,
+      "attribute_names": 92
+    },
+    {
+      "capture": 7,
+      "elements": 910,
+      "commerce_tiles": 0,
+      "progress_bars": 0,
+      "benefit_rows": 0,
+      "offer_tiles": 10,
+      "attribute_names": 86
+    }
+  ],
+  "raw_capture_persisted_before_sanitization": false,
+  "privacy": "Counts and fixed classifications only; no text, amounts, endings, keys or attribute values emitted"
+}

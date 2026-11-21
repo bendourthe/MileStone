@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py (twice) and --check",
+  "result": "Two builds produce identical bytes; the check reports 'Handbook is current'.",
+  "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b",
+  "prior_output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9",
+  "revision": "171bf6bc (develop after PR22, before the v0.5.0 release readiness commit)",
+  "working_tree": "Release readiness working tree on chore/publish-v0.5.0",
+  "scope": "Reproducible handbook bytes only."
+}

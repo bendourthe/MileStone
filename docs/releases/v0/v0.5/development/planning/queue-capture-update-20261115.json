@@ -1,0 +1,24 @@
+{
+  "status": "Planning dependency evidence refreshed; implementation prerequisites remain open",
+  "changed_plans": [
+    {
+      "path": "docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md",
+      "before_sha256": "6bdfc592ab0cf33a5c41c06f7d89bccbd5ab2e1871c4d783e8a67bb8d2cc30d5",
+      "after_sha256": "7d9a0ecb3551db3860cf95bab8aef43576851bd7d1321425db59e42991b2db8c",
+      "change": "Queue evidence only; requirements, tasks, ownership and authority unchanged"
+    },
+    {
+      "path": "docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md",
+      "before_sha256": "cef984fc4373099c27cbed5dafbbb13f0c6fcb3390c69f512267579036b92ca3",
+      "after_sha256": "350fee900aeaf8443c4c58800ec2e9913f7d07e54d128499432060759308604f",
+      "change": "Queue evidence only; requirements, tasks, ownership and authority unchanged"
+    }
+  ],
+  "source_capture_status": {
+    "linked_pages": 9,
+    "personal_pages": 7,
+    "exact_card_binding_verified": false,
+    "private_files_tracked": 0
+  },
+  "review_scope": "The earlier multi-lens requirements reviews remain historical. This update changes only the stale predecessor evidence sentence; it does not claim a new full plan review or implementation admission."
+}

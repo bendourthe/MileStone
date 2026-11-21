@@ -1,0 +1,278 @@
+{
+  "schema": 1,
+  "observed_at": "2026-11-20T02:20:18.859910+00:00",
+  "release": {
+    "at": "2026-11-20T02:06:08.451694+00:00",
+    "version": "v0.4.0",
+    "url": "https://github.com/bendourthe/MileStone/releases/tag/v0.4.0",
+    "published_at": "2026-11-20T02:05:36Z",
+    "tag_commit": "865a22dc2135d9de52380666fede3f1df8970f13",
+    "published_asset_sha256": "5ef979d836c4196489805b5f45b551a2094b3881af7ab5f83f6397a222ffc884",
+    "checksum_matches": true,
+    "downloaded_assets_match_verified_local_bytes": true,
+    "assets": [
+      {
+        "name": "MileStone-v0.4.0.apk",
+        "size": 5762414,
+        "url": "https://github.com/bendourthe/MileStone/releases/download/v0.4.0/MileStone-v0.4.0.apk"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "size": 88,
+        "url": "https://github.com/bendourthe/MileStone/releases/download/v0.4.0/SHA256SUMS.txt"
+      }
+    ],
+    "phone_installation": false,
+    "archive_native_cleanup_complete": false,
+    "verdict": "PUBLICATION_VERIFIED"
+  },
+  "legacy_carry": {
+    "at": "2026-11-20T02:16:17.818602+00:00",
+    "native_command_exit": 0,
+    "migrated": 28,
+    "unique_destination_ids": [
+      "DF-1",
+      "DF-2",
+      "DF-3",
+      "DF-4",
+      "DF-5",
+      "DF-6",
+      "DF-7",
+      "DF-8",
+      "DF-9",
+      "DF-10",
+      "DF-11",
+      "DF-12",
+      "DF-13",
+      "DF-14",
+      "DF-15",
+      "DF-16",
+      "DF-17",
+      "DF-18",
+      "DF-19",
+      "DF-20",
+      "DF-21",
+      "DF-22",
+      "DF-23",
+      "DF-24",
+      "DF-25",
+      "DF-26",
+      "DF-27",
+      "DF-28"
+    ],
+    "all_28_original_rows_preserved_verbatim_in_target": true,
+    "all_29_original_rows_preserved_in_source_history": true,
+    "target": "docs/releases/v0/v0.5/known-gaps.md",
+    "g37_resolved_from_verified_release": true,
+    "manual_migration_markers_written": false,
+    "signed_records_hand_edited": false
+  },
+  "aliases": [
+    {
+      "legacy_id": "G01",
+      "typed_alias": "DF-1",
+      "legacy_row_sha256": "f9b1fbf9e224d97df5f1d75dddaa7f5cd1a73695f197a1caafc25bd5eb058311"
+    },
+    {
+      "legacy_id": "G02",
+      "typed_alias": "DF-2",
+      "legacy_row_sha256": "df1c8ecd48caa00825ca387da1704682c74816eced6b5578afe6e6cd8bd25a31"
+    },
+    {
+      "legacy_id": "G03",
+      "typed_alias": "DF-3",
+      "legacy_row_sha256": "260fdf3d0630af171780f41695b4d33584d19976c18e84e7cb5efb41f5e8efb6"
+    },
+    {
+      "legacy_id": "G04",
+      "typed_alias": "DF-4",
+      "legacy_row_sha256": "574612b432a5737ced1412e93009f8b76d01806868a22a84426b094b5256f9ca"
+    },
+    {
+      "legacy_id": "G05",
+      "typed_alias": "DF-5",
+      "legacy_row_sha256": "cb13cb78275eccd96c3de990b8be6902947b5701d916e8f2f06de672a9d31a54"
+    },
+    {
+      "legacy_id": "G06",
+      "typed_alias": "DF-6",
+      "legacy_row_sha256": "118dbe50b304caff138ce8d596782fb1af387a78344eb6d26778fbe0b9c5ee58"
+    },
+    {
+      "legacy_id": "G17",
+      "typed_alias": "DF-7",
+      "legacy_row_sha256": "9f3aa7b48bb72ce80f3870cefb189f395afa20fe42086f908cf290c0c788d56d"
+    },
+    {
+      "legacy_id": "G16",
+      "typed_alias": "DF-8",
+      "legacy_row_sha256": "e47754a59a6a8cb08928b6e191415630db02757d1ed7163e39787ef68962c0ae"
+    },
+    {
+      "legacy_id": "G08",
+      "typed_alias": "DF-9",
+      "legacy_row_sha256": "23fccde102a4a493871becb32b8df2ab1ff128e29952e8cbc484687ad575d6f3"
+    },
+    {
+      "legacy_id": "G11",
+      "typed_alias": "DF-10",
+      "legacy_row_sha256": "113feb7deee31f078feeda3d2c55ae48ba16d607567f8c13e8b256f99bb0c92b"
+    },
+    {
+      "legacy_id": "G12",
+      "typed_alias": "DF-11",
+      "legacy_row_sha256": "ae091b0919d4aa5116d3fb973086da738853ef1951a2860fece56957ebb086b6"
+    },
+    {
+      "legacy_id": "G14",
+      "typed_alias": "DF-12",
+      "legacy_row_sha256": "615401389fb21daf5438a642124d092352403dfdf6ded3e87b7be9f85d978347"
+    },
+    {
+      "legacy_id": "G18",
+      "typed_alias": "DF-13",
+      "legacy_row_sha256": "a2e2df2db0585487020e0ba704a1c5df6ef95b3987fbc184a0febdfd0a1a0d33"
+    },
+    {
+      "legacy_id": "G19",
+      "typed_alias": "DF-14",
+      "legacy_row_sha256": "256b93a6079d7b705266e55372e9b5a0ddcc365059ddff594b48d66c34cc3063"
+    },
+    {
+      "legacy_id": "G20",
+      "typed_alias": "DF-15",
+      "legacy_row_sha256": "d3f58cf60b737122823989b5c0395fe6f45e7a8c9b90e709b92880032040ee89"
+    },
+    {
+      "legacy_id": "G21",
+      "typed_alias": "DF-16",
+      "legacy_row_sha256": "cd0d6713f4b1ddecf50cf95a3cb624d3fae2bc3834be56bd4a49264b5b3a71b9"
+    },
+    {
+      "legacy_id": "G22",
+      "typed_alias": "DF-17",
+      "legacy_row_sha256": "5ce6785e632e360365b82a6a8bcc150186022e9069ec1de167fe3885a15d0813"
+    },
+    {
+      "legacy_id": "G23",
+      "typed_alias": "DF-18",
+      "legacy_row_sha256": "70c50b0d31dbbf77c093409210ca6bfd968cf80fa46c8de2a423bd6d46a09012"
+    },
+    {
+      "legacy_id": "G15",
+      "typed_alias": "DF-19",
+      "legacy_row_sha256": "e8d63af1415934f171ff8bea7b5058db32e0f232c92e96efaed6496845b6ddfb"
+    },
+    {
+      "legacy_id": "G25",
+      "typed_alias": "DF-20",
+      "legacy_row_sha256": "969f555afedf1be63416fb3bb8c17c6227cb34d343dde1a670bfeaebcc75d31c"
+    },
+    {
+      "legacy_id": "G26",
+      "typed_alias": "DF-21",
+      "legacy_row_sha256": "92a9ce882b35e961a1f98fa7f535e0656464d4cbef00c2e47f02766b0fa38483"
+    },
+    {
+      "legacy_id": "G31",
+      "typed_alias": "DF-22",
+      "legacy_row_sha256": "dbea3336667a9df7af1bedcbc8b0351313046b68fbec4cbf1207b622e5641bb1"
+    },
+    {
+      "legacy_id": "G33",
+      "typed_alias": "DF-23",
+      "legacy_row_sha256": "3b7340f3bfaedaa3cbada4a86b0e53992ddd9510ee41a32a91b84b283cb758e1"
+    },
+    {
+      "legacy_id": "G34",
+      "typed_alias": "DF-24",
+      "legacy_row_sha256": "88140f245d979aeccf42152511c01cb1a110f8a418450a85de15d79d5a9a33a0"
+    },
+    {
+      "legacy_id": "G35",
+      "typed_alias": "DF-25",
+      "legacy_row_sha256": "2abd685f0e738f2947d6d8f622c8ef4dedc2b2cf14fbfce0ba90fee44c4ea609"
+    },
+    {
+      "legacy_id": "G38",
+      "typed_alias": "DF-26",
+      "legacy_row_sha256": "d20984da7c11c989a3e0507fa33cad7672ac79b820341ab8c4af3ae70d8568e6"
+    },
+    {
+      "legacy_id": "G41",
+      "typed_alias": "DF-27",
+      "legacy_row_sha256": "1178f72de0d30b30c14399c941c8665aae63909094cb55474689552a9c835263"
+    },
+    {
+      "legacy_id": "G46",
+      "typed_alias": "DF-28",
+      "legacy_row_sha256": "74425abf089538e3b478265a46c7a853fdd027e22d6c893141586e6348d3f5ce"
+    }
+  ],
+  "lossless_format_changes": [
+    {
+      "path": "docs/releases/v0/v0.4/development/v0.1-v0.3-closure-audit-20261116/search-cleanup-authorization.txt",
+      "kind": "lossless UTF-16 to UTF-8",
+      "decoded_text_unchanged": true,
+      "original_sha256": "24763aaea28616cb2ef00e60f63dfd0cc00f042c0a21b9dfe5ec58e44b1a1cf5",
+      "new_sha256": "28ee9ca034f7d210188541a2b8d118322b74abadeef939ff62bc740b617a0cf2"
+    },
+    {
+      "path": "docs/releases/v0/v0.4/development/v0.4.0-ci6-native-plan-diagnostic.txt",
+      "kind": "lossless UTF-16 to UTF-8",
+      "decoded_text_unchanged": true,
+      "original_sha256": "ad8fe0b86d145861217f14145cbffe18a65301d566d97afa36dd2cc94296efa5",
+      "new_sha256": "ab42c54e233198dd953b1f5b029637cefbb03088454022a753276c78f162b6ca"
+    },
+    {
+      "path": "docs/releases/v0/v0.4/development/v0.4.0-ci6-rendered-evidence/handbook-lighthouse.json",
+      "kind": "JSON whitespace only",
+      "parsed_value_unchanged": true,
+      "original_bytes": 2100392,
+      "new_bytes": 2006258,
+      "original_sha256": "2b0312c33b006309f5c956b1327371304b242e6aee7cd2bf910ff2232549b3a2",
+      "new_sha256": "ffce9059a189d9674a37f75fcdc112b8b675abec6ac0991df7dae2600aa8e9f7"
+    },
+    {
+      "path": "docs/handbooks/_sources/overview/verification.json",
+      "kind": "six operational evidence path relocations only",
+      "evidence_hashes_and_results_unchanged": true,
+      "paths": [
+        "docs/releases/v0/v0.4/development/handbook-ci18-raster/build.json",
+        "docs/releases/v0/v0.4/development/handbook-ci18-raster/content.json",
+        "docs/releases/v0/v0.4/development/handbook-ci18-raster/render.json",
+        "docs/releases/v0/v0.4/development/handbook-ci17-texture/build.json",
+        "docs/releases/v0/v0.4/development/handbook-ci17-texture/content.json",
+        "docs/releases/v0/v0.4/development/handbook-ci17-texture/render.json"
+      ],
+      "temporarily_unresolved_until_archive": true
+    },
+    {
+      "path": "docs/releases/v0/v0.4/plans/v0.4.0-global-search.md",
+      "kind": "restore exact signed owner text; retain both later notes in closure history",
+      "signed_record_modified": false
+    }
+  ],
+  "baseline_registration": {
+    "authority": "genuine owner agreement",
+    "paths": [
+      ".gitattributes",
+      "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitRemindersDeviceTest.kt",
+      "app/src/androidTest/java/com/bendourthe/milestone/sync/BenefitsRedesignDeviceTest.kt",
+      "app/src/androidTest/java/com/bendourthe/milestone/sync/BridgeFixtureTest.kt",
+      "app/src/main/assets/extract.js",
+      "app/src/main/java/com/bendourthe/milestone/ui/theme/AuroraBackground.kt",
+      "settings.gradle.kts"
+    ],
+    "contents_preserved_before_qualified_merge": true
+  },
+  "native_record_hand_edited": false,
+  "shared_checker_repair_installed": false,
+  "cleanup_preview": {
+    "removed": 0,
+    "kept": 36,
+    "run_owned_branch_keep_reason": "local-ahead"
+  },
+  "archive_applied": false,
+  "closing_pr_published": false
+}

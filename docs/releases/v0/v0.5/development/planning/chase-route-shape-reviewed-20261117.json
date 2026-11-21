@@ -1,0 +1,29 @@
+{
+  "status": "REVIEWED_NOT_APPROVED_NOT_RUN",
+  "created_utc": "2026-11-17T09:39:56.065245+00:00",
+  "supersedes": "chase-route-shape-proposal-20261117.json hashes and 18-case count only; access limits unchanged",
+  "hashes": {
+    "capture_route_shape_probe.mjs": "3d45f0c178ae7b8866b1a553cad9656f2ca6fb9f44ae4bf28dd6720459110f91",
+    "capture_route_shape_session.mjs": "04f3507ba4e0605d05b26bdeee6c1eb2037eea2c12cd5222927ee41f22b41dc4",
+    "test_shape_session.mjs": "2839db84ecc026d56e28680f7ac829c5e0d379b48a6b33dfcf1940ae1f954506",
+    "session-controls.json": "b8ae50c96d93beaaa751c01ae802b5ae162fb9de7f7c2b66e85d766951836e86"
+  },
+  "review": {
+    "reviewer": "chase_structure_testing",
+    "findings_initial": 2,
+    "findings_closed": 2,
+    "remaining_findings": 0,
+    "changes": "Synthetic format boundaries and exact-module out-of-scope target rejection controls; no access behavior changes"
+  },
+  "verification": {
+    "offline_session_cases": 22,
+    "status": "PASS",
+    "reader_selftest": "PASS",
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0,
+    "live_success": false
+  },
+  "approval_required": "Fresh one-attempt Capture-only metadata-format snapshot within 60 seconds of exact genuine owner page-ready timestamp, plus eight seconds for owned connection cleanup. Do not reuse earlier grants.",
+  "scope": "At most two local metadata HTTP requests; fixed route-format flags and counts only. No saved URL/title/identifier/query values/equality labels; no DOM/WebSocket/CDP, issuer action or main-app debugger.",
+  "interpretation": "Does not prove identifier semantics, complete benefits or offer automation. Source GO remains false."
+}

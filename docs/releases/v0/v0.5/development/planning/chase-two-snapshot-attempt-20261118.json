@@ -1,0 +1,42 @@
+{
+  "status": "CROSS_PROFILE_COMPARISON_INCOMPLETE_SECOND_ATTEMPT_UNAVAILABLE",
+  "approval_question": "call_d8351d836bd6458f88a00db7961b67a2",
+  "first_context": "Personal-only profile, personal-card Benefits selector",
+  "first": {
+    "status": "candidate_only",
+    "snapshot": 1,
+    "counts": {
+      "roots": 25,
+      "nodes": 1244,
+      "radios": 2,
+      "checked": 1,
+      "accepted": 2,
+      "rejected": 0
+    },
+    "candidates": [
+      {
+        "group": "G1",
+        "checked": true
+      },
+      {
+        "group": "G2",
+        "checked": false
+      }
+    ],
+    "card_identity_proven": false
+  },
+  "second_context": "Owner-confirmed same personal card under business profile, Benefits selector open",
+  "second": {
+    "status": "unavailable",
+    "reason": "Scope, page state or typed response did not qualify; no page data emitted"
+  },
+  "requested_attempts": 2,
+  "successful_snapshots": 1,
+  "metadata_HTTP_requests_upper_bound": 4,
+  "readonly_page_evaluations_upper_bound": 2,
+  "session_exit": 0,
+  "owned_capture_forward_removed": true,
+  "rejection_cause": "Not determined by the prior generic message; not evidence of incorrect owner steps or mismatching card IDs",
+  "raw_identifiers_saved": false,
+  "source_GO": false
+}

@@ -1,0 +1,64 @@
+{
+  "status": "OFFLINE_REVIEWED_NOT_LIVE",
+  "files": {
+    "radio-observation.mjs": "e4601b6c4e8cd3ff7234196fbe0dfbdc147ce93998d06b4075b0d8dfe35c33db",
+    "test-radio-observation.mjs": "8e9b12d4fb028399890ccdcf88a78baaebad94e855b6118eb8dda5ca24acdd5e"
+  },
+  "review": {
+    "changed_files": 2,
+    "bundles": 1,
+    "bundle_coverage_exact": true,
+    "lenses": [
+      "correctness",
+      "maintainability",
+      "testing",
+      "project_standards",
+      "security",
+      "adversarial",
+      "performance"
+    ],
+    "remaining_findings": 0,
+    "live_transport_reviewed": false
+  },
+  "closed_findings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "issue": "Unvalidated retained output schema",
+      "state": "independently_verified_closed"
+    },
+    {
+      "id": "R2",
+      "priority": "P2",
+      "issue": "Prefixed PAN-shaped ID bypass",
+      "state": "independently_verified_closed"
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "issue": "Executable candidate array properties",
+      "state": "independently_verified_closed_with_JSON_text_only_boundary"
+    },
+    {
+      "id": "R4",
+      "priority": "P2",
+      "issue": "Shadow-root cap lacked regression coverage",
+      "state": "independently_verified_closed; disabling both caps now fails"
+    }
+  ],
+  "verification": {
+    "syntax_exit": 0,
+    "suite_exit": 0,
+    "forbidden_property_reads": 0,
+    "network_calls": 0,
+    "ADB_calls": 0,
+    "live_evaluations": 0
+  },
+  "limitations": [
+    "No transport or live entry point is implemented in this building block.",
+    "No live probe is authorized by this review.",
+    "Radio IDs are candidates only; selector membership, issuer identity, stability, cross-profile equality and complete extraction remain unproved."
+  ],
+  "source_GO": false,
+  "production_code_changed": false
+}

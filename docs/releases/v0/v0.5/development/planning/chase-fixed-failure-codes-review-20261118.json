@@ -1,0 +1,20 @@
+{
+  "status": "REVIEWED_NOT_APPROVED_NOT_RUN",
+  "delta": "Per-attempt fixed reason_code on unavailable responses; no raw exception, URL or page value emitted",
+  "reader_sha256": "551a22087bfe7ea3edaa8237dd23832b9a669dbcdc2d68a7cc5ee693fa47dd02",
+  "wrapper_sha256": "9ac2cdca6c02ad839cb87bbdad29a22da55eb143b3dea9dc32db495933687272",
+  "module_sha256": "132d04cd38bce42cd9920b8439f76c848e6ef9a3b1fce7f1c1f98f8aa1f27f1c",
+  "test_sha256": "6e26aa80c9e154b737cc66a91836902eaff59598fe77e5debd0522b18ddf00ad",
+  "verification": {
+    "mock_cases": 42,
+    "result": "PASS",
+    "exact_page_expression_suite": "PASS",
+    "focused_security_review": "No findings",
+    "raw_canary_suppression": "PASS",
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0
+  },
+  "planned_scope": "One fresh owner-requested diagnostic read on the unchanged business-profile personal-card selector, within60seconds plus8seconds owned cleanup; at most2metadataHTTP/1readonlypageevaluation and1fixedclockpreflight",
+  "required": "Fresh one-read approval; earlier two-attempt connection is closed",
+  "source_GO": false
+}

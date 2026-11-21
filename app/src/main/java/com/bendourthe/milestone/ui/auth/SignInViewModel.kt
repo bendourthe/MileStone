@@ -35,7 +35,22 @@ class SignInViewModel(
     private val connectHidden: suspend (programId: String) -> SyncResult = { SyncResult.NeedsReconnect },
     /** The capture build shows the site while it signs in, so the user can capture the balance page. */
     private val showSite: Boolean = false,
+    /** Records that an additional sign-in (ADR-0009) finished; its balance is never written. */
+    private val connectionSignedIn: suspend (connectionId: String) -> Unit = {},
 ) : ViewModel() {
+    private val _activeConnection = MutableStateFlow<String?>(null)
+
+    /** The additional sign-in the open site belongs to, or null for the program's own sign-in. */
+    val activeConnection: StateFlow<String?> = _activeConnection.asStateFlow()
+
+    /** Opens the site for an additional sign-in of [programId], in its own profile. */
+    fun openConnection(programId: String, connectionId: String) {
+        if (_active.value != null) return
+        val program = catalog.program(programId)?.takeIf { it.canSync } ?: return
+        _activeConnection.value = connectionId
+        _active.value = program
+    }
+
     private val _editingAutoSignIn = MutableStateFlow<Program?>(null)
 
     /** The program whose sign-in the user is entering before its first automatic sign-in. */
@@ -126,6 +141,7 @@ class SignInViewModel(
     /** Closing before a balance arrives writes nothing. */
     fun close() {
         _active.value = null
+        _activeConnection.value = null
     }
 
     fun onBridgeEvent(program: Program, event: BridgeEvent) {
@@ -133,7 +149,16 @@ class SignInViewModel(
         when (event) {
             BridgeEvent.LoginRequired, is BridgeEvent.AutoSignInStopped -> Unit
             is BridgeEvent.Extracted -> {
+                val connection = _activeConnection.value
                 close()
+                if (connection != null) {
+                    // An additional sign-in reached its account: record it; Rewards stay with the program's own sign-in.
+                    viewModelScope.launch {
+                        connectionSignedIn(connection)
+                        messageChannel.send(SignInMessage("${program.displayName} sign-in added", false))
+                    }
+                    return
+                }
                 viewModelScope.launch {
                     val message = when (val written = applyInteractive(program.programId, SyncResult.Success(event.balance))) {
                         is SyncResult.Success -> SignInMessage(null, true)
