@@ -58,7 +58,7 @@ Serialize conflicting persistence updates and reject obsolete generations. A new
 
 One 120000 ms run budget covers connection selection, inventory traversal, every required card/profile transition, loading, section discovery and bounded recovery. Start no independent per-card deadline that can extend the total read. Required feasibility evidence records navigation counts and representative authenticated load durations across personal-only, independent and linked access, then derives a conservative complete-read estimate and supported scale. No durations or supported card limit are established by the current radio observations.
 
-On 2026-11-20 the owner directed that the existing personal, business, Benefits and card-selector captures are sufficient. A text-free structure report over all 16 captures ([capture structure](../releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json)) supports admission with the assumptions below. Assumptions are verified by the implementation's own tests and live reads, not by further capture sessions.
+On 2026-11-20 the owner directed that the existing personal, business, Benefits and card-selector captures are sufficient. A text-free structure report over all 16 captures ([capture structure](../archives/v0/v0.5/development/planning/chase-capture-structure-20261120.json)) supports admission with the assumptions below. Assumptions are verified by the implementation's own tests and live reads, not by further capture sessions.
 
 | Evidence | Result | How the remaining assumption is verified |
 |---|---|---|
@@ -80,14 +80,14 @@ The costs are a broader migration and additional binding, classification, covera
 
 ## Evidence and Follow-up
 
-- [Capture record](../releases/v0/v0.5/development/v0.5.0-chase-capture-record.md)
-- [Source-structure contract](../releases/v0/v0.5/development/planning/chase-source-contract-20261115.json)
-- [Within-session selection comparison](../releases/v0/v0.5/development/planning/chase-radio-selection-observation-20261118.json)
-- [Cross-profile comparison](../releases/v0/v0.5/development/planning/chase-cross-profile-radio-comparison-20261118.json)
-- [Account generalization matrix](../releases/v0/v0.5/development/planning/account-generalization-matrix-20261116.json)
-- [Owning plan and unchecked T002](../releases/v0/v0.5/plans/v0.5.0-chase-benefits.md)
+- [Capture record](../archives/v0/v0.5/development/v0.5.0-chase-capture-record.md)
+- [Source-structure contract](../archives/v0/v0.5/development/planning/chase-source-contract-20261115.json)
+- [Within-session selection comparison](../archives/v0/v0.5/development/planning/chase-radio-selection-observation-20261118.json)
+- [Cross-profile comparison](../archives/v0/v0.5/development/planning/chase-cross-profile-radio-comparison-20261118.json)
+- [Account generalization matrix](../archives/v0/v0.5/development/planning/account-generalization-matrix-20261116.json)
+- [Owning plan and unchecked T002](../archives/v0/v0.5/plans/v0.5.0-chase-benefits.md)
 
-- [Capture structure and feasibility estimate](../releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json)
+- [Capture structure and feasibility estimate](../archives/v0/v0.5/development/planning/chase-capture-structure-20261120.json)
 
 Accepted 2026-11-20 as the source contract for v0.5 Phases 2-4, under the assumptions in Feasibility and Admission. It is not implemented architecture, a completed phase or publication authority. The decision index update belongs to the coordinator's final documentation integration; the accepted ADR-0008 remains unchanged. Resolve the admission evidence and review this proposal before dependent production changes. The v0.6 default-on offer work must add offers to every independently eligible card for both Amex and Chase; it must not infer eligibility or activation from this discovery evidence.
 
