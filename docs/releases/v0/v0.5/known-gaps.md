@@ -3,7 +3,7 @@
 **Project**: MileStone
 **Status**: in-progress
 **Last updated**: 2026-11-20
-**Open items**: 28
+**Open items**: 36
 
 ## v0.5.0
 
@@ -12,7 +12,7 @@
 | Category | Open | Resolved |
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
-| Deferred (DF) | 28 | 0 |
+| Deferred (DF) | 38 | 1 |
 | Bugs / regressions (BG) | 0 | 0 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 0 |
@@ -370,6 +370,7 @@
 
 - **Migrated from**: v0.4.0#DF-27 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
+- **Mitigation in v0.5.0**: a benefits read cancelled because MileStone left the screen now starts again the next time MileStone returns, even when no balance is due (`SyncManager.resumeBenefits`; `SyncManagerBenefitsTest.aBenefitsReadCancelledByLeavingTheScreenStartsAgainOnReturn`, which fails without the fix). Observed on the phone on 2026-11-20: "Benefits read for amex started again after MileStone returned to the screen". The balance refresh itself still stops when MileStone leaves the screen, so this item stays open.
 
 #### DF-28 - Legacy G46
 
@@ -384,7 +385,79 @@
 - **Migrated from**: v0.4.0#DF-28 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
+#### DF-30 - Extra sign-in success depends on the Rewards balance
+
+- **Source phase**: v0.5.0 Phase 4 (T010)
+- **Plan reference**: docs/releases/v0/v0.5/development/history/2026-11-20-v0.5.0-phase-4-personal-business.md, Plan delta
+- **Reason**: An extra Chase sign-in is recorded as signed in when the site shows the Chase Rewards balance. A business-only login might not show it, and the sign-in would then stay "not signed in".
+- **Suggested next step**: Owner adds a second (business) sign-in during live acceptance; if it stays "not signed in", record success on reaching the signed-in dashboard instead.
+
+#### DF-31 - Card-selector option ids are masked in captures
+
+- **Source phase**: v0.5.0 Phase 3 (T008)
+- **Plan reference**: docs/releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json
+- **Reason**: The sanitizer masks the selector sheet's radio ids with '#', so the private-capture test checks id presence only. The reader binds cards through an HMAC of the option id, which assumes the live id is stable across visits.
+- **Suggested next step**: During live acceptance, refresh twice and confirm the same cards keep their benefits (no duplicate cards); if cards duplicate, bind on the card name and ending instead.
+- **Mitigation in v0.5.0**: a complete list that shares no card with a sign-in's coverage now changes nothing (`InventoryOutcome.UNMATCHED`), so changing ids cannot delete every card. The cost is that an account whose cards are all genuinely replaced at once keeps the old cards until a later list shares one.
+
+#### DF-32 - Welcome offers are not classified from Chase text
+
+- **Source phase**: v0.5.0 Phase 5 (T019 Goal-vs-codebase review)
+- **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Goal ("welcome information") and T008
+- **Reason**: Chase rows map to listed benefits and the progress bar to a spend tracker; nothing marks a row or tracker as the welcome offer. The plan allows manual welcome setup where the source does not expose it, and that path is unchanged.
+- **Suggested next step**: During live acceptance, note whether Chase labels the welcome offer; if it does, classify that wording as the welcome tracker.
+
+#### DF-33 - No way to link two cards the app keeps apart
+
+- **Source phase**: v0.5.0 Phase 5 (T019)
+- **Plan reference**: ADR-0009 identity rules; T004
+- **Reason**: When a binding is ambiguous, the app keeps cards separate rather than merging them, and there is no user action to link them.
+- **Suggested next step**: Add a "Same card as" action only if the owner sees a duplicate during live acceptance.
+
+#### DF-34 - Any phone or number field on the path ends the read as signed out
+
+- **Source phase**: v0.5.0 Phase 5 (T018 adversarial pass)
+- **Plan reference**: Phase 3 security review (identity-check stop)
+- **Reason**: The script stops on any visible tel or number input, or a radio outside the selector, to avoid answering an identity check. A quick-pay amount field or a survey on the dashboard would make every Chase read stop as signed out. No data is lost.
+- **Suggested next step**: If live reads stop as signed out while the site is signed in, narrow the check to code fields and radios inside dialogs or forms.
+
+#### DF-35 - The first sign-in returns as Personal after it is signed out
+
+- **Source phase**: v0.5.0 Phase 5 (T018)
+- **Plan reference**: T005, T010
+- **Reason**: Signing out the first Chase sign-in while extra sign-ins remain deletes its connection row; it is recreated as Personal on the next sync, so a Business declaration must be set again.
+- **Suggested next step**: Keep the row and its declaration and clear only its coverage.
+
+#### DF-36 - Chase timing beyond the fixtures
+
+- **Source phase**: v0.5.0 Phase 5 (T018)
+- **Plan reference**: Owner Generalization Requirement (21+ cards, lazy inventories)
+- **Reason**: A selector with more than 20 cards is posted as incomplete (no removals) and not tested; a ten-card account that reloads per card read in 25.4 s on the emulator, but larger accounts may reach the 120000 ms budget, leaving later cards unread until the next refresh.
+- **Suggested next step**: Add a 21-card fixture case; read the live per-card time from count-only logs during acceptance.
+
+#### DF-37 - Chase path restart not yet measured live
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-20)
+- **Plan reference**: Definition of Done item 4 (three live reads within 120000 ms)
+- **Reason**: Before the fixes, live reads stopped at the menu sheet (`navigation at benefits`, then `noControl at benefits`) and twice at the Benefits page (`navigation at page`, 17161 ms and 27291 ms); one read listed and read all 3 cards in 18069 ms. The page step now waits 25 s and the path restarts once from the dashboard, both proven only on the Chase-shaped emulator fixture.
+- **Suggested next step**: Read the count-only `chase benefits` lines after the next three phone refreshes; if `benefits path started over` is followed by another stop, compare its `counts (...)` line with the captured structure before changing selectors.
+
+#### DF-38 - Bundled card artwork and product list need upkeep
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
+- **Plan reference**: ADR-0009 amendment 2026-11-21
+- **Reason**: `CardProducts` (70 products) and its JPEG artwork were researched on 2026-11-20: current products from the issuers' pages, five older Chase cards from card review sites, and some names written from the researcher's knowledge. No real image of the classic Chase Sapphire was found, so it shows the Sapphire Preferred image. The images are the issuers' trademarked artwork, bundled for this personal app. New or renamed products show the drawn card face until the list is refreshed.
+- **Suggested next step**: Refresh the list when the owner adds a card that shows the drawn face; decide before any public distribution whether the issuers' artwork may ship.
+
+#### DF-39 - Chase home-page grouping seen in one capture
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
+- **Plan reference**: ADR-0009 amendment 2026-11-21 (`homeGroup` selector)
+- **Reason**: The grouping (`[data-testid=account-accordion-subdivision]`, a "PERSONAL" heading, a business name for the other group) appears in the 3-card capture only; the 2-card personal-only capture has no groups. A page without groups simply sends no flags, and the product rules still apply.
+- **Suggested next step**: After a live read, confirm the business card stays under Business when its name and the product list do not already say so.
+
 ### Resolved
 
 | ID | Title | Resolved in | Notes |
 |---|---|---|---|
+| DF-29 | Chase live navigation and timing unproven | v0.5.0 Phase 5 (owner live acceptance, 2026-11-20 to 2026-11-21) | On the owner's phone a read listed 3 cards and read all of them in 18069 ms (`pages=8 cards=3 complete=true read=3 failed=0 stop=none`, 23, 29 and 48 rows); the owner accepted the Chase cards, sections and artwork. Remaining path reliability is DF-37. |

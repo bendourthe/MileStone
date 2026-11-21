@@ -1,0 +1,23 @@
+{
+  "status": "PREPARED_NOT_APPROVED_NOT_RUN",
+  "reviewed_packet": "chase-radio-transport-review-20261118.json",
+  "code_changes": 0,
+  "prior_live_grant": "Consumed; all three snapshots completed and owned connection removed",
+  "proposed_sequence": [
+    "Linked business profile: first previously observed personal card Benefits, selector open",
+    "Linked business profile: owner-selected business card Benefits, selector open",
+    "Personal-only profile after private owner sign-in: first previously observed personal card Benefits, selector open"
+  ],
+  "purpose": "Observe selection binding on a business card and whether a personal-card control ID corresponds across different visible card sets and a fresh sign-in",
+  "bounds": {
+    "snapshots_max": 3,
+    "localhost_metadata_HTTP_max": 6,
+    "readonly_page_evaluations_max": 3,
+    "session_seconds_max": 300,
+    "owned_cleanup_seconds_max": 8,
+    "fixed_clock_metadata_preflight": 1
+  },
+  "privacy": "Same reviewed ID/checked-only reader; values in RAM, anonymous output only; no input value/text/credential/balance/cookie read, issuer action or main-app debugger access",
+  "required": "Fresh exact-scope approval and current linked-business first-personal-card selector readiness before launch",
+  "source_GO": false
+}

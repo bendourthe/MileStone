@@ -1,0 +1,94 @@
+{
+  "status": "REVIEWED_READY_FOR_FRESH_CONSENT_NOT_RUN",
+  "intent": "Reacquire Capture PID and fresh owned local forward per requested read; close it before publishing result; disable HTTP connection reuse; retain one RAM equality map across two reads.",
+  "base": "reports/chase-radio-two-snapshot-20261118 fixed-failure-code packet",
+  "scope": {
+    "changed_files": [
+      "capture_radio_probe.mjs",
+      "capture_radio_session.mjs",
+      "test_capture_radio_loopback.mjs",
+      "test_capture_radio_mutations.mjs",
+      "test_capture_radio_page.mjs",
+      "test_capture_radio_session.mjs"
+    ],
+    "file_count": 6,
+    "bundle_count": 1,
+    "set_equality": true,
+    "core_changed": false
+  },
+  "sha256": {
+    "capture_radio_probe.mjs": "e4ab1b08247b721cfb6fe3c74c7a137e9bc2381ad3011fa7cde6a608455fc99d",
+    "capture_radio_session.mjs": "2f666a56b9ac91daf5eafed7f3f6a21fdb4d5944d2f52a85a2238eb515902946",
+    "radio-observation.mjs": "132d04cd38bce42cd9920b8439f76c848e6ef9a3b1fce7f1c1f98f8aa1f27f1c",
+    "test-radio-observation.mjs": "28751c8465ae71611e9cd778d77d03edc8cd4c07974619f2b9b0744f99452325",
+    "test_capture_radio_loopback.mjs": "b43edb1333260fb2a39a6e3ed6df18bd78975766d598d5e3c0d694f93192b59c",
+    "test_capture_radio_mutations.mjs": "ea65f5a80000ef609b07264724e249108f0b2c6dc39514826d64f43f0efc8849",
+    "test_capture_radio_page.mjs": "8e42b9ca209893a739249ee820238d95fcb98889971582f67bea0ed2a3208519",
+    "test_capture_radio_session.mjs": "9219eca59e1ecaa7b79fbf350045966df2a71c345624f4bbcfbcbc355dee063a"
+  },
+  "reviews": {
+    "correctness": [],
+    "security": [],
+    "reliability": [],
+    "maintainability": [],
+    "project_standards": [],
+    "adversarial": [],
+    "testing": [
+      {
+        "severity": "P2",
+        "confidence": 100,
+        "finding": "Every mock allocation reused the same port; hardcoded read/cleanup ports escaped.",
+        "status": "VERIFIED_CLOSED",
+        "fix": "Changed-PID case also changes allocated port; exact HTTP/WebSocket/removal assertions and independent hardcoded-port mutation failures."
+      }
+    ]
+  },
+  "verification": {
+    "mocked_session_cases": 46,
+    "exact_synthetic_page_expression": "PASS",
+    "core_synthetic_suite": "PASS",
+    "deliberate_mutations_rejected": 6,
+    "localhost_only_HTTP_requests": 2,
+    "separate_HTTP_connections": true,
+    "actual_ADB_calls": 0,
+    "external_network_calls": 0,
+    "live_page_evaluations": 0
+  },
+  "considered_but_rejected": [
+    {
+      "candidate": "Stale main-app or Capture process access",
+      "reason": "Fixed Capture package PID resolved each attempt, package metadata checked before evaluation."
+    },
+    {
+      "candidate": "Map reset on transport reconnection",
+      "reason": "Reader module and summarizer instantiated once; selected anonymous group survives changed PID and port."
+    },
+    {
+      "candidate": "Cleanup failure permits another read or publishes success",
+      "reason": "Unknown/failed owned removal prevents success and terminates loop; false cleanup retained."
+    },
+    {
+      "candidate": "Per-read reconnect exceeds read budget",
+      "reason": "Two attempts, maximum four metadata HTTP requests and two read-only evaluations; one fixed clock sample and absolute cutoff."
+    }
+  ],
+  "proposed_live_scope": {
+    "requested_snapshots": 2,
+    "session_seconds": 600,
+    "metadata_HTTP_requests_max": 4,
+    "readonly_page_evaluations_max": 2,
+    "fixed_device_clock_checks": 1,
+    "PID_and_owned_forward_reacquired_each_read": true,
+    "owned_forward_closed_each_read": true,
+    "final_cleanup_seconds_max": 8,
+    "saved_fields": "fixed statuses, failure codes, counts, selected flags, anonymous equality groups and process-change boolean",
+    "RAM_only": "radio IDs, Capture PID, local port, debugger target URLs/titles",
+    "excluded": "input values, DOM text, balances, credentials, codes, cookies, issuer actions, main-app debugger"
+  },
+  "limitations": [
+    "Fresh approval/current page readiness required; prior two-attempt grant consumed.",
+    "Stale forwarding/HTTP pooling hypothesis not proven live.",
+    "Stable clock offset assumed.",
+    "No source identity/completeness GO or product delivery claim."
+  ]
+}

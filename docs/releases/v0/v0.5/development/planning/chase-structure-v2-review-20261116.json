@@ -1,0 +1,79 @@
+{
+  "status": "Final focused review complete, no unresolved code findings; live proof pending",
+  "scope": [
+    "capture_structure_probe.mjs",
+    "capture_structure_session.mjs",
+    "test_capture_structure_dom.mjs",
+    "test_capture_structure_session.mjs"
+  ],
+  "source_hashes": {
+    "capture_structure_probe.mjs": "226dc09325b7256d813624d3ba23cdd87d37ffc3eb6a64c126519fa4382ea594",
+    "capture_structure_session.mjs": "38207df2139c92249c6356baa2f2a25352c380ef09ac4d38e18fa708733f3e58",
+    "test_capture_structure_dom.mjs": "a5afd58cc564a68d3281152c778d14e7db515135476f3283963afe94c5fd5471",
+    "test_capture_structure_session.mjs": "6b0d4c9b6a4c3b11cdf763c15056867189e7c65b41fcd60c65888260d2948347"
+  },
+  "grouping": {
+    "changed_files": 4,
+    "bundles": 1,
+    "set_equality": true,
+    "base": "new-file empty base; historical readers unchanged"
+  },
+  "mode": "report-only",
+  "depth": "full for four-file diagnostic only",
+  "scoring": "Fingerprint/dedup, corroboration promotion, noninteractive advisory demotion, then confidence gate; uncertain findings independently validated before closure",
+  "closed_findings": [
+    {
+      "item": "Failed eighth attempt delayed termination",
+      "confidence": 100,
+      "corroborated_by": [
+        "correctness",
+        "reliability"
+      ],
+      "proof": "Actual-loop deterministic reproduction and failing8th regression; fixed termination after catch"
+    },
+    {
+      "item": "Missing rejected-target and private malformed-response regressions",
+      "confidence": 100,
+      "proof": "New tests exercise protocol/port/multiple targets/socket scope and schema/sentinel rejection"
+    },
+    {
+      "item": "Ambiguous allocation cleanup overclaim",
+      "confidence": 95,
+      "proof": "Known stdout retained before status check; unknown allocation explicitly requires manual verification",
+      "residual": "No safe deletion when port ownership is unknown"
+    },
+    {
+      "item": "Graceful WebSocket close could keep process alive",
+      "confidence": 90,
+      "proof": "Independent localhost Node24 child remained live after9s; wrapper now explicitly exits after own cleanup/flush and retains deadline until flush"
+    },
+    {
+      "item": "Flush-exit and cleanup-order assertions lacked coverage",
+      "confidence": 100,
+      "proof": "held_flush regression; obsolete synthetic exit removed; independently confirmed27casesPASS"
+    }
+  ],
+  "considered_but_rejected": [
+    {
+      "candidate": "Editable controls mandate blocking",
+      "reason": "No input values or page text are read; only fixed structural buckets"
+    },
+    {
+      "candidate": "Raw CDP exceptions leak data",
+      "reason": "Exact numeric schema and fixed failure messages reject hostile sentinels"
+    },
+    {
+      "candidate": "Property presence reads identifier values",
+      "reason": "in and hasAttribute only; actual expression ran with throwing value/selected/text getters and zero forbidden reads"
+    },
+    {
+      "candidate": "Extract a shared transport framework",
+      "reason": "Would add machinery to a bounded diagnostic; historical source preserved"
+    }
+  ],
+  "proof_limits": [
+    "Offline simulations and actual expression execution only; no live-device qualification",
+    "No comprehensive scanner or whole-Chase product completeness claim"
+  ],
+  "remote_actions": false
+}

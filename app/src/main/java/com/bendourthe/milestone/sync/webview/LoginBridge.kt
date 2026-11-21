@@ -46,11 +46,13 @@ class LoginBridge(
     private val autoSignIn: AutoSignInSupport = AutoSignInSupport.NONE,
     private val clock: () -> Long = System::currentTimeMillis,
     startAtLogin: Boolean = false,
+    /** Whose session this is: the program itself, or one of its additional sign-ins (ADR-0009). */
+    sessionKey: String = program.programId,
 ) {
     private val session = BridgeSession(program, headless, scriptTimeoutMs, autoSignIn = autoSignIn.plan, startAtLogin = startAtLogin)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private var signInSubmittedAtMs: Long? = null
-    private val profileName = SessionProfiles.profileName(program.programId)
+    private val profileName = SessionProfiles.profileName(sessionKey)
     private val script = webView.context.assets.open(SCRIPT_ASSET).bufferedReader().use { it.readText() }
     private val _events = Channel<BridgeEvent>(Channel.BUFFERED)
     private val _externalLinks = Channel<String>(Channel.CONFLATED)

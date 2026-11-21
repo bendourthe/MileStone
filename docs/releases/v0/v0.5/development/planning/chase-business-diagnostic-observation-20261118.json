@@ -1,0 +1,46 @@
+{
+  "status": "UNCHANGED_BUSINESS_PAGE_DIAGNOSTIC_PASSED",
+  "approval_question": "call_cd8ef8f581784a46b44482e94076ba28",
+  "owner_context": "Business connection, same personal-card Benefits selector held open",
+  "observation": {
+    "status": "candidate_only",
+    "snapshot": 1,
+    "counts": {
+      "roots": 25,
+      "nodes": 1294,
+      "radios": 3,
+      "checked": 1,
+      "accepted": 3,
+      "rejected": 0
+    },
+    "candidates": [
+      {
+        "group": "G1",
+        "checked": false
+      },
+      {
+        "group": "G2",
+        "checked": true
+      },
+      {
+        "group": "G3",
+        "checked": false
+      }
+    ],
+    "card_identity_proven": false
+  },
+  "actual_snapshots": 1,
+  "metadata_HTTP_requests": 2,
+  "readonly_page_evaluations": 1,
+  "device_clock_preflight": 1,
+  "wrapper_seconds": 60,
+  "owned_capture_forward_removed": true,
+  "session_exit": 0,
+  "earlier_failure_reproduced": false,
+  "earlier_failure_cause": "Unknown; generic prior result did not retain its stage",
+  "evidence_of_owner_setup_error": false,
+  "independent_equality_map": true,
+  "cross_profile_identity_proven": false,
+  "raw_identifiers_saved": false,
+  "source_GO": false
+}

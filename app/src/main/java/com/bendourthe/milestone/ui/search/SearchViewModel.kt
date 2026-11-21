@@ -59,7 +59,7 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
                 val page = BenefitsViewModel.page(card, rows, clock(), zone, locale, prefs)
                 val freshness = listOfNotNull(page.staleNote, page.listFreshnessNote).distinct().joinToString(". ").ifEmpty { null }
                 add(SearchEntry(SearchTarget.CardTarget(card.key, revision), program.displayName, page.name,
-                    freshnessNote = freshness))
+                    freshnessNote = freshness, cardDigits = card.lastDigits))
                 val aliases = BenefitsPresentation.presented(rows).groupBy { it.benefit.stableKey }
                 var displayOrder = 0
                 page.sections.forEach { section -> section.items.forEach { item ->
@@ -67,7 +67,7 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
                         program.displayName, item.title, card.name, item.description,
                         aliases[item.key].orEmpty().flatMap { it.sourceTitles }.distinct(),
                         freshness,
-                        item.completed, item.period, displayOrder++, item.enrollment))
+                        item.completed, item.period, displayOrder++, item.enrollment, cardDigits = card.lastDigits))
                 } }
             }
         }

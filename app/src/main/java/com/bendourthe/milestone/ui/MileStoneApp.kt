@@ -94,7 +94,7 @@ data class ProgramBenefits(val programId: String)
 
 /** One card's benefits page; the card is named by its program and last digits only. */
 @Serializable
-data class CardBenefits(val programId: String, val lastDigits: String)
+data class CardBenefits(val programId: String, val cardId: String)
 
 private data class TopLevel(
     val route: Any,
@@ -125,6 +125,8 @@ fun MileStoneApp(
     /** Built from the application's container when not given (tests pass their own). */
     benefitsViewModel: BenefitsViewModel? = null,
     createSearchViewModel: (() -> com.bendourthe.milestone.ui.search.SearchViewModel)? = null,
+    /** Issuer sign-ins for Personal and Business pages (ADR-0009); null hides them (tests). */
+    connections: com.bendourthe.milestone.ui.benefits.ConnectionsViewModel? = null,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -179,9 +181,10 @@ fun MileStoneApp(
                         val programId = intent.getStringExtra(AndroidReminderNotifier.EXTRA_PROGRAM_ID)
                         val digits = intent.getStringExtra(AndroidReminderNotifier.EXTRA_LAST_DIGITS)
                         intent.action = null
-                        if (programId != null && digits != null && CardKey.isValidLastDigits(digits)) {
+                        // The extra carries the card's id: its last digits for Amex, a local card id for Chase (ADR-0009).
+                        if (programId != null && digits != null && CardKey.isValidCardId(digits)) {
                             navController.navigate(Benefits) { launchSingleTop = true }
-                            navController.navigate(ProgramBenefits(programId))
+                            if (CardKey.isValidLastDigits(digits)) navController.navigate(ProgramBenefits(programId))
                             navController.navigate(CardBenefits(programId, digits))
                         }
                     }
@@ -220,7 +223,7 @@ fun MileStoneApp(
                 DestinationInsets(bottom) {
                     BenefitsScreen(
                         benefits,
-                        onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
+                        onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.cardId)) { launchSingleTop = true } },
                         snackbarHostState = snackbarHostState,
                         onOpenProgram = { programId -> navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true } },
                         onSearch = openSearch,
@@ -230,14 +233,15 @@ fun MileStoneApp(
             composable<ProgramBenefits> { entry ->
                 DestinationInsets(bottom) {
                     val route = entry.toRoute<ProgramBenefits>()
-                    BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.lastDigits)) { launchSingleTop = true } },
-                        snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch)
+                    BenefitsScreen(benefits, onOpenCard = { key -> navController.navigate(CardBenefits(key.programId, key.cardId)) { launchSingleTop = true } },
+                        snackbarHostState = snackbarHostState, programId = route.programId, onBackToPrograms = { navController.popBackStack() }, onSearch = openSearch,
+                        connections = connections, onAddSignIn = { programId, connectionId -> signIn?.openConnection(programId, connectionId) })
                 }
             }
             composable<CardBenefits> { entry ->
                 DestinationInsets(bottom) {
                     val route = entry.toRoute<CardBenefits>()
-                    val key = remember(route) { runCatching { CardKey(route.programId, route.lastDigits) }.getOrNull() }
+                    val key = remember(route) { runCatching { CardKey(route.programId, route.cardId) }.getOrNull() }
                     val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)
                     val request = resultSearch?.reveal?.takeIf { request -> when (val target = request.target) {
                         is SearchTarget.ProgramTarget -> false
@@ -284,8 +288,8 @@ fun MileStoneApp(
                                         if (result != SearchValidation.CURRENT) search.report(result) else {
                                             val route: Any = when (target) {
                                                 is SearchTarget.ProgramTarget -> Dashboard
-                                                is SearchTarget.CardTarget -> CardBenefits(target.card.programId, target.card.lastDigits)
-                                                is SearchTarget.BenefitTarget -> CardBenefits(target.card.programId, target.card.lastDigits)
+                                                is SearchTarget.CardTarget -> CardBenefits(target.card.programId, target.card.cardId)
+                                                is SearchTarget.BenefitTarget -> CardBenefits(target.card.programId, target.card.cardId)
                                             }
                                             navController.navigate(route) { launchSingleTop = true }
                                         }

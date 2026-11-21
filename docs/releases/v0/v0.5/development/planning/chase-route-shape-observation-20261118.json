@@ -1,0 +1,55 @@
+{
+  "observed_utc": "2026-11-18T02:10:52.685387+00:00",
+  "status": "FORMAT_OBSERVATION_ONLY_NO_IDENTITY_GO",
+  "snapshots": 1,
+  "metadata_requests": 2,
+  "scope": "MileStone Capture only",
+  "saved_data": "Fixed format flags and counts only",
+  "shape": {
+    "path_segments": 3,
+    "fragment_kind": "route",
+    "fragment_segments": 3,
+    "query_pairs": 0,
+    "fragment_query_pairs": 7
+  },
+  "route_segment_formats": [
+    {
+      "slot": 0,
+      "length_bucket": "6_to_32",
+      "old_filter_accepts": true,
+      "numeric_pan_like": false,
+      "padded": false,
+      "plus_present": false,
+      "decoded_slash_present": false,
+      "dot_present": false,
+      "base64_alphabet_only": true
+    },
+    {
+      "slot": 1,
+      "length_bucket": "6_to_32",
+      "old_filter_accepts": true,
+      "numeric_pan_like": false,
+      "padded": false,
+      "plus_present": false,
+      "decoded_slash_present": false,
+      "dot_present": false,
+      "base64_alphabet_only": true
+    },
+    {
+      "slot": 2,
+      "length_bucket": "under_6",
+      "old_filter_accepts": false,
+      "numeric_pan_like": false,
+      "padded": false,
+      "plus_present": false,
+      "decoded_slash_present": false,
+      "dot_present": false,
+      "base64_alphabet_only": true
+    }
+  ],
+  "owned_forward_removed": true,
+  "live_issuer_actions": 0,
+  "DOM_access": 0,
+  "source_go": false,
+  "interpretation": "Seven fragment query parameters are present. The old filter excludes the short third route component. No parameter values, parameter names, URL or identifier groups were retained; this does not prove which component identifies a card."
+}

@@ -1,0 +1,50 @@
+{
+  "created_utc": "2026-11-18T03:26:02.464004+00:00",
+  "status": "REVIEWED_NOT_APPROVED_NOT_RUN",
+  "changed_file_count": 1,
+  "bundle_count": 1,
+  "bundle_union_verified": true,
+  "baseline_reader_sha256": "173ea66b116cf83399999decceb25f9ec08dadb619e53006f41af30f7bf8e293",
+  "hashes": {
+    "capture_route_metadata_probe.mjs": "dce5f81ac7f45925b2233bc5761fa348f40141b4b6482d208dc7d02a081dc236",
+    "capture_route_metadata_session.mjs": "81977f652efb14abf1e6f9fec762b7069858001a79c85cb2f3d5524b82b8e3b3",
+    "test_route_session.mjs": "6c9eec0abbb4a6765d6faf7af77105a7d5a71be8cb39f02fd7ed161da7206187"
+  },
+  "session_controls_sha256": "43ba0217f739709c83000c9a813cf340e19f7b0a3b0230611ad34ebb63e8bf22",
+  "lenses": [
+    "correctness",
+    "maintainability",
+    "testing",
+    "project-standards",
+    "security",
+    "adversarial"
+  ],
+  "initial_findings": [
+    {
+      "title": "Formatted PAN-like values admitted by broader ASCII filter",
+      "severity": "P2",
+      "confidence": 100,
+      "reported_by": [
+        "security",
+        "adversarial"
+      ],
+      "status": "closed",
+      "proof": "Synthetic regression failed before rejection-only separator filtering; reader and16 mocked session cases pass afterward; independent security/adversarial/correctness follow-ups closed the finding."
+    }
+  ],
+  "remaining_findings": 0,
+  "offline_session_cases": 16,
+  "reader_self_test": "PASS",
+  "actual_ADB_calls": 0,
+  "actual_network_calls": 0,
+  "source_go": false,
+  "limits": {
+    "sessions": 1,
+    "owner_requested_snapshots": 3,
+    "local_HTTP_metadata_requests": 6,
+    "seconds": 300,
+    "cleanup_seconds": 8
+  },
+  "scope": "Capture-only transport URLs/titles and recognized identity parameter values enter memory; compare identity values only in RAM; save anonymous groups, fixed field labels and counts. Unknown/auth field values are not decoded. Numeric/formatted PAN-like values excluded. No saved URLs/titles/private values/private hashes, DOM, WS/CDP, issuer mutation or main-app debugger.",
+  "consent": "Fresh genuine approval plus first personal Benefits page readiness with selector closed required. Previous grants are consumed or expired. Conservative deadline may be armed before the approval question."
+}

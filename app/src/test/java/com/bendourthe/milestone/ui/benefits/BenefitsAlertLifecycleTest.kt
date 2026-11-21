@@ -36,8 +36,8 @@ class BenefitsAlertLifecycleTest {
         BenefitDraft(BenefitSection.LISTED, "Shopping Credit", null, null, null, null, false, enrollment = Enrollment.ENROLLMENT_REQUIRED),
     )
     private fun read(sections: Set<BenefitSection> = BenefitsRead.ALL_SECTIONS, card: CardKey = key) = BenefitsRead(
-        CardList.from(listOf(CardDraft("Platinum Card", key.lastDigits), CardDraft("Second Card", other.lastDigits)), true),
-        mapOf(card.lastDigits to drafts.filter { it.section in sections }), sections = mapOf(card.lastDigits to sections),
+        CardList.from(listOf(CardDraft("Platinum Card", key.cardId), CardDraft("Second Card", other.cardId)), true),
+        mapOf(card.cardId to drafts.filter { it.section in sections }), sections = mapOf(card.cardId to sections),
     )
 
     @Test fun acknowledgementSurvivesFailuresRestartAndUnrelatedReadsThenRelevantSuccessReturnsIt() = runTest(UnconfinedTestDispatcher()) {
@@ -61,11 +61,11 @@ class BenefitsAlertLifecycleTest {
             cards.recordReminder(ReminderRecord(key, "sample-reminder", LocalDate.of(2026, 12, 31), now))
             settings.acknowledge(key, enrollment.id, enrollment.generation)
             assertTrue(active().isEmpty())
-            manager().applyBenefits("amex", read(BenefitsRead.TRACKER_SECTIONS).copy(benefits = mapOf(key.lastDigits to listOf(drafts.first().copy(periodLabel = "December")))))
+            manager().applyBenefits("amex", read(BenefitsRead.TRACKER_SECTIONS).copy(benefits = mapOf(key.cardId to listOf(drafts.first().copy(periodLabel = "December")))))
             assertTrue(active().none { it.id.startsWith("enrollment:") })
-            manager().applyBenefits("amex", BenefitsRead(null, mapOf(key.lastDigits to emptyList()), sections = mapOf(key.lastDigits to BenefitsRead.TRACKER_SECTIONS)))
+            manager().applyBenefits("amex", BenefitsRead(null, mapOf(key.cardId to emptyList()), sections = mapOf(key.cardId to BenefitsRead.TRACKER_SECTIONS)))
             assertTrue(active().none { it.id.startsWith("enrollment:") })
-            manager().applyBenefits("amex", BenefitsRead(null, emptyMap(), failed = setOf(key.lastDigits), stop = BenefitsStop.BUDGET))
+            manager().applyBenefits("amex", BenefitsRead(null, emptyMap(), failed = setOf(key.cardId), stop = BenefitsStop.BUDGET))
             assertTrue(active().none { it.id.startsWith("enrollment:") })
             manager().applyBenefits("amex", read(card = other))
             assertTrue(active().none { it.id.startsWith("enrollment:") })

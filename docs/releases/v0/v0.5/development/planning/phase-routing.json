@@ -1,0 +1,86 @@
+{
+  "mode": "planning",
+  "runtime_switch": false,
+  "phases": [
+    {
+      "phase": 1,
+      "signals": {
+        "task_scope": "high",
+        "structural_complexity": "high",
+        "context_volume": "high",
+        "risk": "high",
+        "reasoning": "high"
+      },
+      "score": {
+        "tier": "frontier",
+        "effort": "max",
+        "verification_effort": "max"
+      },
+      "rationale": "Cross-cutting private-account identity/source/action work, or final whole-plan verification, requires architectural reasoning and high-risk data preservation."
+    },
+    {
+      "phase": 2,
+      "signals": {
+        "task_scope": "high",
+        "structural_complexity": "high",
+        "context_volume": "high",
+        "risk": "high",
+        "reasoning": "high"
+      },
+      "score": {
+        "tier": "frontier",
+        "effort": "max",
+        "verification_effort": "max"
+      },
+      "rationale": "Cross-cutting private-account identity/source/action work, or final whole-plan verification, requires architectural reasoning and high-risk data preservation."
+    },
+    {
+      "phase": 3,
+      "signals": {
+        "task_scope": "high",
+        "structural_complexity": "high",
+        "context_volume": "high",
+        "risk": "high",
+        "reasoning": "high"
+      },
+      "score": {
+        "tier": "frontier",
+        "effort": "max",
+        "verification_effort": "max"
+      },
+      "rationale": "Cross-cutting private-account identity/source/action work, or final whole-plan verification, requires architectural reasoning and high-risk data preservation."
+    },
+    {
+      "phase": 4,
+      "signals": {
+        "task_scope": "high",
+        "structural_complexity": "high",
+        "context_volume": "high",
+        "risk": "high",
+        "reasoning": "high"
+      },
+      "score": {
+        "tier": "frontier",
+        "effort": "max",
+        "verification_effort": "max"
+      },
+      "rationale": "Cross-cutting private-account identity/source/action work, or final whole-plan verification, requires architectural reasoning and high-risk data preservation."
+    },
+    {
+      "phase": 5,
+      "signals": {
+        "task_scope": "high",
+        "structural_complexity": "high",
+        "context_volume": "high",
+        "risk": "high",
+        "reasoning": "high"
+      },
+      "score": {
+        "tier": "frontier",
+        "effort": "max",
+        "verification_effort": "max"
+      },
+      "rationale": "Cross-cutting private-account identity/source/action work, or final whole-plan verification, requires architectural reasoning and high-risk data preservation."
+    }
+  ]
+}

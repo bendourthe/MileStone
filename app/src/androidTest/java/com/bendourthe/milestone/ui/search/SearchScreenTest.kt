@@ -233,7 +233,7 @@ class SearchScreenTest {
         val names = listOf("Delta Gold", "Platinum", "Business Platinum", "Hilton Surpass")
         val keys = listOf(key, CardKey("amex", "2009"), CardKey("amex", "3010"), CardKey("amex", "4011"))
         runBlocking {
-            cards.applyCardList("amex", CardList.from(names.zip(keys).map { (name, card) -> CardDraft(name, card.lastDigits) }, true), 20)
+            cards.applyCardList("amex", CardList.from(names.zip(keys).map { (name, card) -> CardDraft(name, card.cardId) }, true), 20)
             keys.drop(1).forEachIndexed { index, card -> cards.applyCardBenefits(card, assignBenefitKeys(card, listOf(
                 BenefitDraft(BenefitSection.CREDIT_EARNED, "Fixture Credit $index", 0, 5000, 5000, "January", false),
                 BenefitDraft(BenefitSection.LISTED, "Stored perk $index", null, null, null, null, false)
@@ -253,7 +253,7 @@ class SearchScreenTest {
             val header = hasTestTag("searchCardHeader") and hasText(name)
             rule.onNodeWithTag("searchResults").performScrollToNode(header)
             rule.onNode(header).assertIsDisplayed().assertHasClickAction()
-            rule.onNodeWithTag("searchCardThumbnail:amex:${keys[index].lastDigits}", useUnmergedTree = true).assertIsDisplayed()
+            rule.onNodeWithTag("searchCardThumbnail:amex:${keys[index].cardId}", useUnmergedTree = true).assertIsDisplayed()
             rule.onNodeWithContentDescription("Collapse matches for $name", substring = true).assertIsDisplayed()
         }
         val header = hasTestTag("searchCardHeader") and hasText("Delta Gold")

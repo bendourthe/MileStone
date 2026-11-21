@@ -1,0 +1,61 @@
+{
+  "status": "Owner approved bounded live probe; transport preparation starting",
+  "package": "com.bendourthe.milestone.capture",
+  "main_frame_host": "secure.chase.com",
+  "maximum_requested_snapshots": 8,
+  "maximum_seconds": 600,
+  "allowed_operations": [
+    "Forward one localhost port to the separate Capture process WebView debugger",
+    "Confirm Android-Package and exactly one eligible Chase page",
+    "Evaluate one fixed metadata-only read expression per requested snapshot",
+    "Emit bounded counts, selected booleans and report-local equality groups only",
+    "Close client connections and remove the owned forward afterward"
+  ],
+  "excluded_operations": [
+    "No issuer button clicks, enrollment, purchases, payments, logout or sign-in automation",
+    "No credential/text-input values, page text, balances, cookies, credential store or private browser storage APIs",
+    "No raw page, URL or identifier persistence",
+    "No main MileStone application debugger access",
+    "No automatic card linking, merging, segmentation or completeness GO"
+  ],
+  "source_checksums": {
+    "capture_identity_probe.mjs": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+    "prepare_capture_probe.py": "c19dbaae8269d2b6e4872de53a00740d394462aaf72ebafd74062c8e280a4386"
+  },
+  "focused_security_review": {
+    "schema": 1,
+    "scope": "Only the local probe; not the whole application or issuer integration",
+    "components": {
+      "adb_wrapper": {
+        "state": "COVERED",
+        "action": "Checked exact serial/package PID, structured arguments, reviewed-source checksum and owned-forward cleanup"
+      },
+      "cdp_transport": {
+        "state": "COVERED",
+        "action": "Checked localhost and port pin, package/origin guards, fixed method and response limits"
+      },
+      "page_probe_and_output": {
+        "state": "COVERED",
+        "action": "Checked visibility and entry-field blocking before selected values, source markers, bounded traversal, typed output and no raw value emission"
+      }
+    },
+    "components_total": 3,
+    "components_covered": 3,
+    "omitted": 0,
+    "uncovered": 0,
+    "deterministic_scanner_completeness_claimed": false,
+    "offline_tests": "Syntax, localhost transport guard negative controls, typed output rejection and opaque-group reuse pass; no device or network access"
+  },
+  "limits": [
+    "Candidate selector values can be filter codes; they are not assumed to be card identities",
+    "Live component and cross-profile semantics remain unverified",
+    "Saved captures have no current WebView URL metadata; source adequacy remains NO-GO",
+    "A genuine new approval is required before the live signed-in page boundary is accessed"
+  ],
+  "consent": {
+    "source": "Genuine asynchronous user question reply, not a native publication receipt",
+    "question_id": "call_7ceeb83737a049fe9d3b2db8b00b47a7",
+    "answer": "Approve the bounded read-only probe",
+    "readiness": "Capture is open on personal card Benefits"
+  }
+}

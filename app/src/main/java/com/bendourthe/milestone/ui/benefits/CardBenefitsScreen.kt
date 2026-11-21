@@ -70,7 +70,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
     onRevealInvalid: (SearchValidation) -> Unit = {}, snackbarHostState: androidx.compose.material3.SnackbarHostState? = null) {
     val flow = remember(key) { viewModel.card(key) }
     val page by flow.collectAsStateWithLifecycle(initialValue = LOADING)
-    var showWelcome by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf(false) }
+    var showWelcome by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
     val listState = rememberLazyListState()
     val view = LocalView.current
     LaunchedEffect(reveal) {
@@ -84,7 +84,8 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
         BenefitsHeader("Card benefits", showMark = false, actions = {
             onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
             CardBenefitsMenus(key, page?.preferences ?: com.bendourthe.milestone.domain.BenefitsDisplayPreferences(), page != null && page !== LOADING,
-                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) })
+                onSort = { viewModel.setSort(key, it) }, onCompletedLast = { viewModel.setCompletedLast(key, it) },
+                segment = page?.segment, onSegment = if (page?.segmented == true) { segment -> viewModel.setSegment(key, segment) } else null)
         }) {
             IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to Benefits") }
         }
@@ -97,8 +98,8 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
         LaunchedEffect(key, current.settingsError) {
             if (current.settingsError != null) listState.animateScrollToItem(0)
         }
-        var observedSort by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf<com.bendourthe.milestone.domain.BenefitsSort?>(null) }
-        var observedCompletedLast by rememberSaveable(key.programId, key.lastDigits) { mutableStateOf<Boolean?>(null) }
+        var observedSort by rememberSaveable(key.programId, key.cardId) { mutableStateOf<com.bendourthe.milestone.domain.BenefitsSort?>(null) }
+        var observedCompletedLast by rememberSaveable(key.programId, key.cardId) { mutableStateOf<Boolean?>(null) }
         LaunchedEffect(key, current.preferences.sort, current.preferences.completedLast) {
             if (observedSort != null && (observedSort != current.preferences.sort || observedCompletedLast != current.preferences.completedLast)) listState.scrollToItem(0)
             observedSort = current.preferences.sort
@@ -141,18 +142,19 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
             current.settingsError?.let { error ->
                 item("settingsError") { Text(error, color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }) }
             }
-            if (current.alerts.isNotEmpty()) {
-                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
-            }
-            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
-                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
-            }
             item("card") {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CardArtwork(key.programId, current.name, Modifier.width(176.dp))
                     Text(current.name, style = MaterialTheme.typography.headlineSmall)
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
+            }
+            // Alerts and the freshness note sit under the card they belong to, before its benefits.
+            if (current.alerts.isNotEmpty()) {
+                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
+            }
+            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
+                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
             }
             if (current.sections.all { it.items.isEmpty() }) {
                 item("empty") { Text("No benefits yet", style = MaterialTheme.typography.bodyMedium) }

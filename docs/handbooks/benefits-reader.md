@@ -1,6 +1,6 @@
-# Amex Benefits Reader
+# Benefits Reader
 
-The benefits read starts after a saved American Express balance, in the same program profile. It reads cards and benefit sections from the site's existing controls. It never signs in, composes an account-key URL, or fetches account data from another service.
+The Amex sections below describe the American Express read; the Chase sections describe the Chase read ([ADR-0009](../decisions/0009-chase-benefits.md)). The Amex benefits read starts after a saved American Express balance, in the same program profile. It reads cards and benefit sections from the site's existing controls. It never signs in, composes an account-key URL, or fetches account data from another service.
 
 ## Page Kinds
 
@@ -50,6 +50,24 @@ Issuer sections remain the replacement boundary; display categories do not chang
 
 The presentation transform retains the original enrollment source when it merges a listed row into a tracker. Alert identity and acknowledgement use that source row and successful section generation, so a changed tracker period cannot revive acknowledged enrollment from an unchanged list. Separate local keys retain sort, collapse, welcome setup, and acknowledgement changes under concurrent writes. The version 3 to 4 migration adds the counter without deleting existing data.
 
+## Chase Path
+
+The Chase read starts after a saved Chase balance and visits each Chase sign-in in its own WebView profile, within the shared 120-second deadline. A sign-in starts only with 20 seconds left, and a card only with 8 seconds left. The page script is re-entrant on every page of the path:
+
+- Dashboard: note how the home page groups the cards (under "Personal" or under a business name) and post only each ending with a true/false business flag, then press the first card entry, skipping forms, dialogs, and payment or transfer controls.
+- Card page: press More, then "Card benefits" in the menu sheet that opens in place. Labels are matched against the element's own text and its label attributes, and a component is pressed through the button inside its shadow root. A step waits for a visible change, including more visible controls for the next step, for up to 15 seconds (25 seconds for the Benefits page itself). A missing control (`noControl`) or no change (`navigation`) before the card list restarts the path once from the dashboard; a second failure ends the sign-in as unreadable with no card list, with count-only diagnostics.
+- Benefits: open the card selector, post the listed cards (name, ending, and which one is selected) once the list has stayed unchanged for 2 seconds, then read the selected card's benefit groups, rows (title, tag, value), and welcome tracker.
+
+For the next card, the app sends the target option and the script presses it in the selector, at most once every 1.5 seconds, and waits for the page to change before reading. A handoff note survives single-page route changes. The script stops on any code, phone, or number field or a radio outside the selector (an identity check) and never chooses a delivery option. A page that keeps reloading stops the sign-in: the limit is 8 page loads plus 2 per listed card, so a site that reloads per card still finishes. After the card list, that stop is a budget stop, and unread cards keep their stored benefits; later sign-ins still start while the shared deadline allows. A card page with more than 30 groups, 150 rows, or 20 trackers is reported unreadable (overflow) and keeps its stored benefits instead of being stored partially.
+
+`ChaseBenefitsReader` turns rows into listed benefits and the tracker into a spend tracker, taking amounts, periods, and status only from stated text. A tracker's earned amount comes from "$X of $Y" wording or from a progress bar whose maximum is the stated target; "Earn $300 after you spend $3,000" is a reward and a target, not progress. Half-year wording such as "every six months" is read before monthly wording. Oversized or malformed payloads are rejected.
+
+## Chase Sign-ins and Coverage
+
+The first Chase sign-in uses the program's own profile and owns the Rewards balance. Up to three more sign-ins (`chase_2` and up) each get an isolated profile and never write a balance; a phone that cannot isolate profiles refuses them. Each sign-in is Personal or Business, chosen when it is added from the Chase sign-ins sheet. A card's section follows, first match wins, the owner's Show under choice, a business product name, the `CardProducts` list, the home-page group recorded by the read (applied only to an ending that appears once in both lists), and finally the sign-ins that reach it.
+
+Cards are bound by an HMAC-SHA256 of their selector option under a per-install key in `noBackupFilesDir`; the stored card gets an opaque `c_` id. Each sign-in's card list updates only its own coverage rows. Only a complete list removes coverage, and a card is deleted only when no sign-in reaches it. Partial, empty, stale, duplicate, or unknown lists change nothing, and so does a complete list that shares no card with the sign-in's existing coverage: that looks like the selector's ids changing, and applying it would delete every card with its benefits, preferences, and reminder history. Removing Chase signs out every additional sign-in before its records are deleted. A card's segment is Personal when a Personal sign-in reaches it, otherwise Business; the user's choice from the card page's Show under menu wins and survives refreshes. A card already read through an earlier sign-in is not read again in the same refresh.
+
 ## Diagnostics
 
 Benefits diagnostics hold fixed page kinds, bounded counts, readiness reasons, wait times, card indexes, and the run total. They do not hold benefit text, amounts, card digits, account keys, page queries, or sign-in values. Card outcomes distinguish read, unread-list, and mismatch results; a read outcome alone does not prove that every benefit was loaded.
@@ -58,10 +76,10 @@ Card freshness alone does not prove that its list was refreshed: trackers can be
 
 ## Verification
 
-Synthetic WebView fixtures exercise late lower sections, in-place address changes, card switching, view-all navigation, and failed-list preservation. JVM tests cover the protocol, budget, card-read transitions, and real Room section replacement. Private-capture tests run locally, and their contents are never committed or printed.
+Synthetic WebView fixtures exercise late lower sections, in-place address changes, card switching, view-all navigation, and failed-list preservation. The Chase fixture covers the card, More, Benefits path, a second sign-in, a missing More control, a payment control, an identity check, a sign-in without a session, a ten-card account that reloads the page per card, a selector that lists its cards in two batches, and a card with 151 rows. JVM tests cover the protocol, budget, card-read transitions, and real Room section replacement. Private-capture tests run locally, and their contents are never committed or printed.
 
 Instrumented tests run on the emulator only. Running them on the owner's phone uninstalls the app and clears sign-ins. Live phone verification uses `adb install -r`, keeps the app in the foreground, and records only per-card section counts, enrollment counts, diagnostics, and read times. The database copy used for counts is deleted immediately afterward.
 
 ## Limits
 
-The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation and automatic retry policy remain separate work. The Benefits display supports card-specific sorting, grouping and collapse, conservative duplicate presentation, local welcome-bonus setup, and yellow acknowledgeable alerts; these do not extend the extraction deadline. The architecture decision is [ADR-0008](../decisions/0008-amex-benefits-card-navigation.md).
+The site can change or load too slowly for the budget. The read preserves sections explicitly left unread, while a capped page can contain only the content loaded before its cap. Card freshness alone is not proof of completeness. Background continuation and automatic retry policy remain separate work. The Benefits display supports card-specific sorting, grouping and collapse, conservative duplicate presentation, local welcome-bonus setup, and yellow acknowledgeable alerts; these do not extend the extraction deadline. The Chase path, its timing, and the stability of selector options are proven on fixtures and private captures, not yet on the live site. The architecture decisions are [ADR-0008](../decisions/0008-amex-benefits-card-navigation.md) and [ADR-0009](../decisions/0009-chase-benefits.md).

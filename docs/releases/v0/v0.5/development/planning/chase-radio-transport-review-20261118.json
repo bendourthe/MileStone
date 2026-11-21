@@ -1,0 +1,90 @@
+{
+  "recorded_utc": "2026-11-18T04:36:54.780283+00:00",
+  "status": "REVIEWED_NOT_APPROVED_NOT_RUN",
+  "scope": "Capture-only native radio candidate comparison on owner-selected personal Chase Benefits pages with selector open",
+  "files": {
+    "radio-observation.mjs": "4e984488fc80210eabb5c3f63b0acbf9152d77b14c1b720cf582441c602f8737",
+    "test-radio-observation.mjs": "8e9b12d4fb028399890ccdcf88a78baaebad94e855b6118eb8dda5ca24acdd5e",
+    "capture_radio_probe.mjs": "1b65812d701b5a6835bbac358cb8208ed726101569c556a183f509268309d022",
+    "capture_radio_session.mjs": "bed89d40a8dd02983a51328dc6b99f7ccfc5b1e57183c14813eb8a20b0613025",
+    "test_capture_radio_session.mjs": "24df06952a66ef79f75ae8f64eb1f3155bf8a0b5e3e227641900ab007489ce83",
+    "test_capture_radio_page.mjs": "46f2772c5dd850c5fcaef2491ef662a82f3ede28890e381e0a0aa00101e4271a"
+  },
+  "review": {
+    "N": 6,
+    "K": 1,
+    "bundle_coverage_exact": true,
+    "lenses": [
+      "correctness",
+      "maintainability",
+      "testing",
+      "project_standards",
+      "security",
+      "adversarial",
+      "performance",
+      "reliability"
+    ],
+    "remaining_findings": 0
+  },
+  "closed_transport_findings": [
+    "Protocol and client execution time must be bounded by the remaining approved duration",
+    "Mock metadata endpoints must enforce loopback scope",
+    "Tests must enforce the six-request metadata budget",
+    "Failed forward removal must never report success",
+    "Decoded route separators must not bypass authentication exclusions",
+    "A queued page expression must check receiver-clock expiry before identifier reads"
+  ],
+  "verification": {
+    "core_suite": "PASS",
+    "exact_composed_page_expression": "PASS on synthetic DOM",
+    "mock_session_cases": 38,
+    "mock_session_result": "PASS",
+    "mutation_controls": [
+      "wrong metadata host rejected",
+      "extra metadata request rejected",
+      "false cleanup success rejected",
+      "excessive near-expiry timeout rejected",
+      "disabled shadow-root cap rejected"
+    ],
+    "actual_ADB_calls": 0,
+    "actual_network_calls": 0,
+    "live_page_evaluations": 0
+  },
+  "bounds": {
+    "requested_snapshots": 3,
+    "metadata_HTTP_requests_max": 6,
+    "readonly_Runtime_evaluate_max": 3,
+    "session_seconds_max": 300,
+    "owned_cleanup_seconds_max": 8,
+    "clock_preflight": "One fixed adb shell date +%s command; neither clock saved"
+  },
+  "privacy": {
+    "identifier_candidates": "Visible native HTML radio IDs and boolean checked state only; IDs compared only in RAM",
+    "retained": "Fixed statuses/counts and anonymous equality groups only",
+    "excluded": [
+      "Input values",
+      "Labels or text",
+      "Balances",
+      "Credentials/codes/cookies",
+      "Issuer actions",
+      "Main app debugger"
+    ],
+    "PAN_shaped_sequences_rejected": true
+  },
+  "clock_bound": {
+    "formula": "pageCutoff = hostCutoff + flooredDeviceSampleMs - hostSampleResponseMs",
+    "independent_synthetic_combinations": 144,
+    "assumption": "Host/device wall-clock offsets remain stable during the bounded session; no guarantee against clock jumps or tampering"
+  },
+  "reference": {
+    "protocol_timeout": "https://raw.githubusercontent.com/ChromeDevTools/devtools-protocol/master/json/js_protocol.json"
+  },
+  "limitations": [
+    "No live consent or readiness captured for this packet",
+    "No real phone transport or cleanup proof",
+    "Radio selector membership and durable issuer identity remain unverified",
+    "No source completeness or production implementation GO"
+  ],
+  "source_GO": false,
+  "production_code_changed": false
+}

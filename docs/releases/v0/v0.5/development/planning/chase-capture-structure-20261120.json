@@ -1,0 +1,47 @@
+{
+  "recorded_utc": "2026-11-20T07:05:00Z",
+  "status": "STRUCTURE_ESTABLISHED_FROM_EXISTING_CAPTURES",
+  "method": "reports/implement-v050/capture_structure.py over the 16 private sanitized Chase captures (gitignored fixtures-private). Output is numbered files, folder index, element counts, radio counts and distinct-value group counts only; no text, attribute values, file names or URLs.",
+  "owner_direction": "2026-11-20: the owner stated the existing personal, business, Benefits and card-selector captures are sufficient; no further live capture session was run.",
+  "folders": {
+    "1": "linked business sign-in (9 captures)",
+    "2": "personal-only sign-in (7 captures)"
+  },
+  "findings": {
+    "account_selector": "Overview page has one mds-select: 4 options in the linked sign-in, 2 in the personal-only sign-in.",
+    "card_selector": "Benefits page card selector is native radio inputs in exactly one fieldset: 3 radios linked, 2 personal-only, exactly one checked, all radios unnamed (no name attribute), zero card-number-shaped ids.",
+    "benefits_structure": "Benefits captures have 6-8 section elements, 29-55 li rows and 3 mds-commerce-tile; detailed cards add 11-31 h3 headings; one card per sign-in shows one mds-progress-bar (tracker).",
+    "loaded_state": "Zero aria-busy elements in all 16 captures (captured in a completed state).",
+    "offers_structure": "Offers pages are structurally separate (navigation bar, no card-selector radios); owned by v0.6."
+  },
+  "rows": [
+    {"file": 1, "folder": 1, "family": "overview", "sections": 1, "h3": 2, "li": 12, "select_options": 4, "tiles": 7, "radios": 0},
+    {"file": 2, "folder": 1, "family": "benefits", "sections": 6, "h3": 0, "li": 29, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 3, "folder": 1, "family": "benefits-with-open-selector", "sections": 6, "h3": 0, "li": 32, "commerce": 3, "radios": 3, "checked": 1, "radio_name_groups": 1, "unnamed": 3, "fieldsets": 1},
+    {"file": 4, "folder": 1, "family": "benefits", "sections": 6, "h3": 0, "li": 29, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 5, "folder": 1, "family": "benefits", "sections": 7, "h3": 11, "li": 35, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 6, "folder": 1, "family": "benefits", "sections": 8, "h3": 31, "li": 55, "progress": 1, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 7, "folder": 1, "family": "offers", "sections": 1, "li": 6},
+    {"file": 8, "folder": 1, "family": "offers", "sections": 1, "li": 6},
+    {"file": 9, "folder": 1, "family": "offers", "sections": 1, "li": 6},
+    {"file": 10, "folder": 2, "family": "overview", "sections": 1, "h3": 1, "li": 8, "select_options": 2, "tiles": 8, "radios": 0},
+    {"file": 11, "folder": 2, "family": "benefits", "sections": 7, "h3": 11, "li": 32, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 12, "folder": 2, "family": "benefits-with-open-selector", "sections": 7, "h3": 11, "li": 34, "commerce": 3, "radios": 2, "checked": 1, "radio_name_groups": 1, "unnamed": 2, "fieldsets": 1},
+    {"file": 13, "folder": 2, "family": "benefits", "sections": 8, "h3": 31, "li": 52, "progress": 1, "commerce": 3, "radios": 0, "fieldsets": 1},
+    {"file": 14, "folder": 2, "family": "offers", "sections": 2, "h3": 1, "li": 3},
+    {"file": 15, "folder": 2, "family": "offers", "sections": 2, "h3": 1, "li": 5},
+    {"file": 16, "folder": 2, "family": "offers", "sections": 3, "h3": 1, "li": 3}
+  ],
+  "feasibility_estimate": {
+    "basis": "Measured Amex reads under the same WebView and 120000 ms budget (docs/archives/v0/v0.3/development/v0.3.0-last-phase-evidence.md): 4 cards, 12-13 pages, 71609-82789 ms, i.e. 5.5-6.9 s per page.",
+    "chase_navigation": "1 Benefits page load plus 1 in-page selector switch per card (captures 3 and 12).",
+    "conservative_rule": "Count each selector switch as 2 page loads at 6.9 s.",
+    "linked_3_cards_ms": 48300,
+    "personal_and_linked_separately_ms": 82800,
+    "supported_scale_single_read": "about 8 cards per read (1 + 2n page-equivalents <= 120000 ms at 6.9 s)",
+    "status": "estimate, not a live measurement",
+    "live_confirmation": "Phase 3 and the Definition of Done require three complete live reads within 120000 ms; a read that does not finish keeps existing data and reports partial coverage."
+  },
+  "probe_finding": "The unrun traversal probe (chase-traversal-timing-review-20261120.json) locks on a shared radio name; these captures show the card radios are unnamed, so it would have refused. Production selection must lock on the single selector fieldset instead.",
+  "privacy": "Counts and fixed classifications only."
+}

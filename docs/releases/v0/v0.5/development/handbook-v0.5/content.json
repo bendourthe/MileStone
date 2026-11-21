@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-21T07:31:08.579706+00:00",
+  "review": "Content review of the owner-acceptance changes against the code. overview.md Runtime Flow step 6: path restart once (ChaseBenefitsSource RETRYABLE_PATH, retried) and benefits read restarted on return (SyncManager.resumeBenefits, cancelHeadless). Benefits Display: corner alert badge (BenefitsInstitutionTile, BenefitsAlertCount compact), Personal/Business sections for every program (isSegmented = benefits reader; hasSignIns = Chase), compact card tile without the credit line, CardProducts artwork with drawn card face fallback (CardArtwork), alerts below the card with Acknowledge on the right and swipe to acknowledge (BenefitsAlertPanel, CardBenefitsScreen), section precedence (RoomCardRepository toDomain and deriveSegment homeGroup), Chase sign-ins sheet (ConnectionsAction). benefits-reader.md Chase Path: home-page groups (homeGroups, chaseKinds, homeGroup selector), label attributes (chaseLabels), shadow-button press (press), 15 s step and 25 s page caps (CHASE_STEP_CAP_MS, CHASE_PAGE_CAP_MS), noControl and one restart. model.json Benefits Display point.",
+  "changed_inputs": [
+    "docs/handbooks/overview.md",
+    "docs/handbooks/benefits-reader.md",
+    "docs/handbooks/_sources/overview/model.json",
+    "docs/decisions/0009-chase-benefits.md"
+  ],
+  "qualification_scope": "Handbook only; application, hosted CI and release qualification are separate."
+}

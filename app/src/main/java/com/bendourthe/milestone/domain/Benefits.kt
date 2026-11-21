@@ -4,39 +4,69 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 /**
- * Identifies one card on the phone: its program and the last 4 or 5 digits the issuer shows.
+ * Identifies one card on the phone: its program and a local [cardId] (ADR-0009).
+ *
+ * Cards read by last digits (Amex) keep their 4 or 5 digits as the [cardId], so every stored benefit,
+ * reminder, and display preference key is unchanged. Cards discovered through issuer connections get an
+ * opaque local id (`c_` and 16 hex digits), so two cards with the same ending stay distinct.
  *
  * A card is never identified by a full card number, an issuer account key, or a membership
  * number (such as a Priority Pass number); none of those is stored, logged, or kept here.
  */
-data class CardKey(val programId: String, val lastDigits: String) {
+data class CardKey(val programId: String, val cardId: String) {
     init {
-        require(isValidLastDigits(lastDigits)) { "$programId: last digits must be 4 or 5 digits" }
+        require(isValidCardId(cardId)) { "$programId: card id must be 4 or 5 digits or a local card id" }
     }
+
+    /** The ending to show for a legacy last-digits key; null for a local card id, which is never displayed. */
+    val displayDigits: String? get() = cardId.takeIf(::isValidLastDigits)
 
     companion object {
         private val LAST_DIGITS = Regex("^[0-9]{4,5}$")
+        private val LOCAL_ID = Regex("^c_[0-9a-f]{16}$")
+        private val random = java.security.SecureRandom()
 
         fun isValidLastDigits(value: String): Boolean = LAST_DIGITS.matches(value)
+
+        fun isValidCardId(value: String): Boolean = LAST_DIGITS.matches(value) || LOCAL_ID.matches(value)
+
+        /** A new opaque local card id; it encodes nothing about the issuer or the card. */
+        fun newLocalId(): String = "c_" + ByteArray(8).also(random::nextBytes).joinToString("") { "%02x".format(it) }
+    }
+}
+
+/** The Benefits tile a card belongs to. */
+enum class CardSegment {
+    PERSONAL, BUSINESS;
+
+    companion object {
+        /** Words an issuer's own product name uses for a business card ("Ink Business Preferred", "Business Platinum"). */
+        private val BUSINESS_PRODUCT = Regex("""^\s*ink\b|\bbusiness\b""", RegexOption.IGNORE_CASE)
+
+        /** Business when the card's product name says so, regardless of the sign-in that lists it; otherwise null. */
+        fun fromProductName(name: String): CardSegment? = if (BUSINESS_PRODUCT.containsMatchIn(name)) BUSINESS else null
     }
 }
 
 /**
  * One card on an issuer account. [name] is a mutable attribute: a renamed or upgraded card keeps its
- * [key], so its benefits and reminder records stay with it.
+ * [key], so its benefits and reminder records stay with it. [lastDigits] is for display; [cardId] is the key.
+ * [segment] is the effective tile: the owner's override when set, otherwise the one derived from connections.
  *
  * Holds no full card number, account key, or membership number, by design.
  */
 data class Card(
     val programId: String,
-    val lastDigits: String,
+    val lastDigits: String?,
     val name: String,
     val sortOrder: Int,
     val cardListReadEpochMs: Long?,
     val benefitsReadEpochMs: Long?,
     val benefitsReadGeneration: Long = 0,
+    val cardId: String = requireNotNull(lastDigits) { "$programId: a card needs last digits or a card id" },
+    val segment: CardSegment? = null,
 ) {
-    val key: CardKey get() = CardKey(programId, lastDigits)
+    val key: CardKey get() = CardKey(programId, cardId)
 }
 
 /**
@@ -151,7 +181,7 @@ fun assignBenefitKeys(cardKey: CardKey, drafts: List<BenefitDraft>): List<Benefi
         val position = seen.merge(identity to period, 1, Int::plus)!! - 1
         Benefit(
             cardKey = cardKey,
-            stableKey = listOf(cardKey.programId, cardKey.lastDigits, identity, period, position.toString()).joinToString("\u001F"),
+            stableKey = listOf(cardKey.programId, cardKey.cardId, identity, period, position.toString()).joinToString("\u001F"),
             section = draft.section,
             position = position,
             title = normalizeCardName(draft.title),
@@ -194,6 +224,21 @@ interface CardRepository {
      * empty [sections].
      */
     suspend fun applyCardBenefits(cardKey: CardKey, benefits: List<Benefit>, readEpochMs: Long, sections: Set<BenefitSection> = BenefitSection.entries.toSet())
+
+    /**
+     * Applies one connection's card selector read (ADR-0009). A card is matched by [SourceCard.bindingHash] only:
+     * first within this connection, then through another connection of the same program; otherwise a new local
+     * card is created, even when its name and ending equal an existing card. A complete inventory removes only
+     * this connection's coverage of unlisted cards, and deletes a card only when no connection reaches it any
+     * more. Partial, stale, unknown, or duplicate-binding inventories change nothing else.
+     */
+    suspend fun applyConnectionInventory(inventory: ConnectionInventory, readEpochMs: Long): InventoryOutcome
+
+    /** The card a connection of [programId] reaches through [bindingHash]; null when none or ambiguous. */
+    suspend fun cardKeyForBinding(programId: String, bindingHash: String): CardKey?
+
+    /** Sets or (with null) clears the owner's tile override for one card. */
+    suspend fun setCardSegmentOverride(cardKey: CardKey, segment: CardSegment?)
 
     /** Deletes the program's cards, benefits, and reminder records (Sign out keeps the account row). */
     suspend fun deleteProgramCards(programId: String)

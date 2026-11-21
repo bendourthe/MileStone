@@ -1,0 +1,45 @@
+{
+  "status": "Structural observation succeeded; identity source remains unproved",
+  "effective_requested_snapshots": 1,
+  "effective_window_seconds": 60,
+  "observed": {
+    "consent_question_id": "call_76191c7f11794d398265be4f7368f62d",
+    "owner_answer": "Approve one snapshot now",
+    "owner_context": "Other personal card Benefits ready; selector closed",
+    "reader_sha256": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+    "wrapper_sha256": "e566ba493bbc3c5867ce1f06c060cac177a878cd628190ce8886e641913c59bf",
+    "elapsed_seconds": 0.507,
+    "requested_snapshots": 1,
+    "exit_code": 0,
+    "records": [
+      {
+        "status": "ready",
+        "scope": "com.bendourthe.milestone.capture",
+        "max_snapshots": 8,
+        "timeout_seconds": 600
+      },
+      {
+        "status": "ok",
+        "host": "secure.chase.com",
+        "counts": {
+          "roots": 69,
+          "benefitRows": 48,
+          "commerceTiles": 3,
+          "selectorOptions": 0,
+          "visibleEntryFields": 0
+        },
+        "candidate_groups": []
+      },
+      {
+        "status": "closed",
+        "owned_capture_forward_removed": true
+      }
+    ]
+  },
+  "reader_ready_banner": "The unchanged reader advertises its built-in eight/600 ceiling; wrapper deadline and one-probe/stop input enforce this separately approved one/60 run.",
+  "comparison": "First closed-selector personal-card observation had29benefitRows; second had48. Both had0candidategroups. Open-selector observation was blocked by2editablefields. No exact-card identity, count completeness or cross-profile correspondence is inferred.",
+  "issuer_actions_performed": false,
+  "raw_identifier_values_persisted": false,
+  "main_app_debugger_accessed": false,
+  "source_GO": false
+}

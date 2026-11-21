@@ -45,11 +45,14 @@ data class BenefitsSpec(
     val host: String,
     val paths: Set<String>,
     val selectors: Map<String, String>,
+    /** Which page script mode and reader handle this program's benefits (ADR-0008 Amex, ADR-0009 Chase). */
+    val adapter: BenefitsAdapter = BenefitsAdapter.AMEX,
 ) {
     init {
         require(entryUrl.startsWith("https://$host/")) { "benefits entryUrl must be https on $host" }
         require(paths.isNotEmpty() && paths.all { it.startsWith("/") }) { "benefits paths must be absolute" }
-        require(selectors.keys == SELECTOR_KEYS) { "benefits selectors must be exactly $SELECTOR_KEYS" }
+        val keys = if (adapter == BenefitsAdapter.AMEX) SELECTOR_KEYS else CHASE_SELECTOR_KEYS
+        require(selectors.keys == keys) { "benefits selectors must be exactly $keys" }
     }
 
     /** True only for an https address on [host] whose path is one of [paths] or below it. */
@@ -77,8 +80,17 @@ data class BenefitsSpec(
             "trackerDescription", "listLink", "listMore", "listDescription", "activityLink", "activityPath", "viewAllLink",
             "rewardsPath", "viewAllPath",
         )
+
+        /** Chase benefits page structure (ADR-0009, from the 2026-11-15 captures and the owner's navigation path). */
+        val CHASE_SELECTOR_KEYS = setOf(
+            "page", "selectorButton", "sheet", "sheetOption", "group", "row", "rowTitle", "rowTag", "rowValue", "tracker",
+            "moreLabel", "benefitsLabel", "homeGroup",
+        )
     }
 }
+
+/** The benefits page script mode and reader for a program. */
+enum class BenefitsAdapter { AMEX, CHASE }
 
 sealed interface SyncCapability {
     data class Automatic(val spec: ExtractionSpec) : SyncCapability

@@ -234,7 +234,7 @@ class BenefitsRedesignDeviceTest {
     @Test
     fun yellowAlertsAcknowledgeAndReturnOnlyAfterRelevantSuccessfulSectionRefresh() {
         val key = CardKey("amex", drafts.first().lastDigits)
-        val first = hasContentDescription("card ending ${key.lastDigits}", substring = true)
+        val first = hasContentDescription("card ending ${key.cardId}", substring = true)
         fun waitForCount(count: Int) {
             compose.waitUntil(5_000) { runBlocking { viewModel.card(key).first()!!.alerts.size == count } }
             compose.waitForIdle()
@@ -312,7 +312,7 @@ class BenefitsRedesignDeviceTest {
         val key = CardKey("amex", drafts.first().lastDigits)
         showScreens()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNode(hasContentDescription("card ending ${key.lastDigits}", substring = true)).performClick()
+        compose.onNode(hasContentDescription("card ending ${key.cardId}", substring = true)).performClick()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
         com.bendourthe.milestone.domain.BenefitsSort.entries.forEach { choice ->
             compose.onNodeWithTag("benefitsSort").performClick()
@@ -366,7 +366,7 @@ class BenefitsRedesignDeviceTest {
         val key = CardKey("amex", drafts.first().lastDigits)
         showScreens()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
-        compose.onNode(hasContentDescription("card ending ${key.lastDigits}", substring = true)).performClick()
+        compose.onNode(hasContentDescription("card ending ${key.cardId}", substring = true)).performClick()
         compose.waitUntil(5_000) { compose.onAllNodesWithTag("cardBenefitsList").fetchSemanticsNodes().isNotEmpty() }
         compose.onNodeWithTag("cardBenefitsList").performScrollToNode(hasTestTag("welcomeSetup"))
         compose.onNodeWithTag("welcomeSetup").performClick()
@@ -412,7 +412,7 @@ class BenefitsRedesignDeviceTest {
         compose.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
         compose.onNodeWithText("Benefits appear after the next Demo Institution refresh").assertIsDisplayed()
         compose.onNodeWithContentDescription("Back to institutions").performClick()
-        runBlocking { cards.applyCardList(key.programId, CardList.from(listOf(CardDraft("Demo Card", key.lastDigits)), true), readTime) }
+        runBlocking { cards.applyCardList(key.programId, CardList.from(listOf(CardDraft("Demo Card", key.cardId)), true), readTime) }
         compose.waitUntil(5_000) { runBlocking { (viewModel.uiState.first { it is com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards } as com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards).programs.first { it.programId == key.programId }.cardCount == 1 } }
         compose.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
         compose.onNode(hasContentDescription("Demo Card, card ending", substring = true)).assertIsDisplayed()

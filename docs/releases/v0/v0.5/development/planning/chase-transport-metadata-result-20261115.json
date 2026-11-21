@@ -1,0 +1,57 @@
+{
+  "status": "PASS: Capture transport confirmed; card identity remains unverified",
+  "attempts": [
+    {
+      "status": "Blocked before connection: Capture process unavailable",
+      "consent_question_id": "call_246b55e04a084b98a7e549afa4313f05",
+      "owner_answer": "Approve metadata-only diagnostic",
+      "reviewed_script_sha256": "14ec693f2d58271f7c0c61bfd7d054c63f6dfc487983489909b749987a9c9ad0",
+      "phone_available": true,
+      "capture_process_available": false,
+      "HTTP_requests": 0,
+      "debugger_connection_created": false,
+      "runtime_evaluation_attempted": false,
+      "issuer_actions_performed": false,
+      "raw_target_metadata_received": false,
+      "source_GO": false,
+      "next_requirement": "Owner opens Capture Chase webpage and signals readiness; only the approved two-request metadata diagnostic may then run with its bounded execution window."
+    },
+    {
+      "consent_question_id": "call_246b55e04a084b98a7e549afa4313f05",
+      "readiness_question_id": "call_c85b1b3cb76347acbdeacb8b11d965c7",
+      "owner_readiness": "Capture Chase webpage is open",
+      "reviewed_script_sha256": "14ec693f2d58271f7c0c61bfd7d054c63f6dfc487983489909b749987a9c9ad0",
+      "elapsed_seconds": 0.536,
+      "result": {
+        "endpoints": {
+          "/json/list": {
+            "status": "ok",
+            "target_count": 1
+          },
+          "/json/version": {
+            "capture_package_match": true,
+            "status": "ok"
+          }
+        },
+        "http_requests": 2,
+        "issuer_actions_performed": false,
+        "maximum_http_requests": 2,
+        "owned_forward_removed": true,
+        "runtime_evaluation_attempted": false,
+        "scope_package": "com.bendourthe.milestone.capture"
+      }
+    }
+  ],
+  "phone_available": true,
+  "capture_process_available": true,
+  "HTTP_requests": 2,
+  "capture_package_match": true,
+  "page_target_count": 1,
+  "owned_forward_removed": true,
+  "runtime_evaluation_attempted": false,
+  "issuer_actions_performed": false,
+  "raw_target_metadata_received_in_RAM": true,
+  "raw_target_metadata_persisted": false,
+  "source_GO": false,
+  "next_requirement": "A separately bounded, approved read-only card-identity observation is needed; transport metadata alone cannot bind cards across personal and linked business profiles."
+}

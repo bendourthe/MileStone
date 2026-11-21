@@ -16,8 +16,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         CardEntity::class,
         BenefitEntity::class,
         ReminderRecordEntity::class,
+        ConnectionEntity::class,
+        CardCoverageEntity::class,
     ],
-    version = 4,
+    version = 5,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2, spec = MileStoneDatabase.RemoveManualEntry::class),
@@ -48,6 +50,6 @@ abstract class MileStoneDatabase : RoomDatabase() {
         const val NAME = "milestone.db"
 
         fun create(context: Context): MileStoneDatabase =
-            Room.databaseBuilder(context, MileStoneDatabase::class.java, NAME).build()
+            Room.databaseBuilder(context, MileStoneDatabase::class.java, NAME).addMigrations(MIGRATION_4_5).build()
     }
 }

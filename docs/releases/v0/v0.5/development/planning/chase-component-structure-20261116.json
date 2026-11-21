@@ -1,0 +1,213 @@
+{
+  "status": "Offline component names/counts only; not identity proof",
+  "captures": [
+    {
+      "capture": 1,
+      "component_counts": {
+        "mds-alert": 4,
+        "mds-bottom-sheet": 4,
+        "mds-button": 5,
+        "mds-description-list": 2,
+        "mds-dialog": 5,
+        "mds-icon": 2,
+        "mds-image": 9,
+        "mds-link": 4,
+        "mds-list": 18,
+        "mds-list-item": 94,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4,
+        "mds-select": 1,
+        "mds-select-option": 4,
+        "mds-tile": 7
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 2,
+      "component_counts": {
+        "mds-button": 2,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 3,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 3,
+      "component_counts": {
+        "mds-button": 2,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 3,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 4,
+      "component_counts": {
+        "mds-button": 2,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 3,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 5,
+      "component_counts": {
+        "mds-button": 3,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 16,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 6,
+      "component_counts": {
+        "mds-button": 3,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 59,
+        "mds-progress-bar": 1,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 7,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 8,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 9,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 1
+    },
+    {
+      "capture": 10,
+      "component_counts": {
+        "mds-alert": 3,
+        "mds-bottom-sheet": 4,
+        "mds-button": 4,
+        "mds-description-list": 2,
+        "mds-dialog": 5,
+        "mds-icon": 3,
+        "mds-image": 9,
+        "mds-link": 5,
+        "mds-list": 15,
+        "mds-list-item": 67,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 3,
+        "mds-select": 1,
+        "mds-select-option": 2,
+        "mds-tile": 8
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 11,
+      "component_counts": {
+        "mds-button": 3,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 16,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 12,
+      "component_counts": {
+        "mds-button": 3,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 16,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 13,
+      "component_counts": {
+        "mds-button": 3,
+        "mds-commerce-tile": 3,
+        "mds-dialog": 1,
+        "mds-link": 59,
+        "mds-progress-bar": 1,
+        "mds-slide-in-panel": 1
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 14,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 15,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 2
+    },
+    {
+      "capture": 16,
+      "component_counts": {
+        "mds-dialog": 1,
+        "mds-navigation-bar": 1,
+        "mds-navigation-bar-item": 4
+      },
+      "iframe_count": 2
+    }
+  ],
+  "aggregate_component_counts": {
+    "mds-alert": 7,
+    "mds-bottom-sheet": 8,
+    "mds-button": 30,
+    "mds-commerce-tile": 24,
+    "mds-description-list": 4,
+    "mds-dialog": 24,
+    "mds-icon": 5,
+    "mds-image": 18,
+    "mds-link": 184,
+    "mds-list": 33,
+    "mds-list-item": 161,
+    "mds-navigation-bar": 8,
+    "mds-navigation-bar-item": 31,
+    "mds-progress-bar": 2,
+    "mds-select": 2,
+    "mds-select-option": 6,
+    "mds-slide-in-panel": 8,
+    "mds-tile": 15
+  },
+  "privacy": "Only alphabetical mds-prefixed static tag names and bounded counts; no attribute values, text, paths, card endings, amounts, URLs or identifiers emitted. No live phone access.",
+  "next_step": "Use observed selector-related components to propose a separate bounded diagnostic; do not reuse a failed value reader or assume identity semantics."
+}

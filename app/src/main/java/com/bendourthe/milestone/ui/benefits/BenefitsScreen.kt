@@ -44,6 +44,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -64,8 +65,9 @@ import com.bendourthe.milestone.ui.theme.HeaderTeal
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.runtime.saveable.rememberSaveable
+import com.bendourthe.milestone.ui.components.CollapsibleSectionHeader
+import com.bendourthe.milestone.domain.CardSegment
 
 /**
  * The header band the dashboard uses, with this screen's title. The centered mark shows only on the tab itself:
@@ -98,8 +100,13 @@ fun BenefitsScreen(
     onOpenProgram: (String) -> Unit = {},
     onBackToPrograms: () -> Unit = {},
     onSearch: (() -> Unit)? = null,
+    /** Issuer sign-ins (ADR-0009), opened from the top bar of a segmented program's page; null hides the button. */
+    connections: ConnectionsViewModel? = null,
+    /** Opens the site for a newly added sign-in of a program, in its own profile. */
+    onAddSignIn: (programId: String, connectionId: String) -> Unit = { _, _ -> },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(connections) { connections?.messages?.collect { snackbarHostState.showSnackbar(it) } }
     val remindersOn by viewModel.remindersEnabled.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var allowed by remember { mutableStateOf(notificationsAllowed(context)) }
@@ -109,7 +116,10 @@ fun BenefitsScreen(
     }
     val request = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { allowed = it }
     val selectedProgram = (state as? BenefitsUiState.Cards)?.programs?.firstOrNull { it.programId == programId }
-    Scaffold(topBar = { BenefitsHeader(if (programId == null) "Benefits" else selectedProgram?.name ?: "Card benefits", showMark = programId == null, actions = { onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) } }) {
+    Scaffold(topBar = { BenefitsHeader(if (programId == null) "Benefits" else selectedProgram?.name ?: "Card benefits", showMark = programId == null, actions = {
+        if (connections != null && selectedProgram?.signIns == true) ConnectionsAction(connections, selectedProgram, onAddSignIn)
+        onSearch?.let { com.bendourthe.milestone.ui.search.SearchAction(it) }
+    }) {
         if (programId != null) IconButton(onClick = onBackToPrograms) {
             Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back to institutions")
         }
@@ -165,7 +175,30 @@ private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, 
         is BenefitsUiState.Cards -> {
             val tiles = s.tiles.filter { it.key.programId == programId }
             val program = s.programs.firstOrNull { it.programId == programId }
-            if (programId != null && tiles.isEmpty()) {
+            // A segmented page: Personal cards, then Business cards, each section collapsible; Chase's sign-ins open
+            // from the top bar (ADR-0009). With no card yet, every program shows the same message below.
+            if (program?.segmented == true && tiles.isNotEmpty()) {
+                var collapsed by rememberSaveable(programId) { mutableStateOf(emptyList<String>()) }
+                val firstSegment = CardSegment.entries.first { segment -> tiles.any { it.segment == segment } }
+                LazyColumn(
+                    contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp + padding.calculateTopPadding(), bottom = padding.calculateBottomPadding() + 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier.fillMaxSize().testTag("benefitsList"),
+                ) {
+                    CardSegment.entries.forEach { segment ->
+                        val members = tiles.filter { it.segment == segment }
+                        if (members.isEmpty()) return@forEach
+                        val hidden = segment.name in collapsed
+                        item(key = "segment:${segment.name}") {
+                            val title = if (segment == CardSegment.PERSONAL) "Personal" else "Business"
+                            CollapsibleSectionHeader(title, members.size, "card", hidden, onToggle = {
+                                collapsed = if (hidden) collapsed - segment.name else collapsed + segment.name
+                            }, modifier = Modifier.padding(top = if (segment == firstSegment) 0.dp else 12.dp).testTag("segment_$title"))
+                        }
+                        if (!hidden) items(members, key = { "${it.key.programId}/${it.key.cardId}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                    }
+                }
+            } else if (programId != null && tiles.isEmpty()) {
                 Message(
                     if (program == null) "No card benefits yet" else "Benefits appear after the next ${program.name} refresh",
                     if (program == null) "Return to Benefits to choose an institution." else "MileStone reads your cards and their benefits after it updates the ${program.name} balance.",
@@ -178,7 +211,7 @@ private fun BenefitsBody(state: BenefitsUiState, onOpenCard: (CardKey) -> Unit, 
             ) {
                 if (programId == null) items(s.programs, key = { it.programId }) { institution ->
                     BenefitsInstitutionTile(institution) { onOpenProgram(institution.programId) }
-                } else items(tiles, key = { "${it.key.programId}/${it.key.lastDigits}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
+                } else items(tiles, key = { "${it.key.programId}/${it.key.cardId}" }) { tile -> CardTile(tile) { onOpenCard(tile.key) } }
             }
         }
     }
@@ -209,22 +242,23 @@ private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
             onClick(label = "Open ${tile.name} benefits") { onClick(); true }
         },
     ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                CardArtwork(tile.key.programId, tile.name, Modifier.width(88.dp))
-                Spacer(Modifier.width(12.dp))
-                Column(Modifier.weight(1f)) {
-                    Text(tile.name, style = MaterialTheme.typography.titleMedium)
-                    Text(tile.digitsLabel, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    Text("${tile.benefitCount} benefits", style = MaterialTheme.typography.bodySmall)
+        // Artwork on the left; to its right the name (with alerts), ending and count, then freshness.
+        Row(Modifier.padding(horizontal = 12.dp, vertical = 10.dp), verticalAlignment = Alignment.CenterVertically) {
+            CardArtwork(tile.key.programId, tile.name, Modifier.width(72.dp), tile.brandColorArgb, tile.lastDigits)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(tile.name, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                    if (tile.alertCount > 0) BenefitsAlertCount(tile.alertCount, compact = true)
                 }
-                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+                Text("${tile.digitsLabel} · ${tile.benefitCount} benefits", style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
+                val footer = tile.staleNote ?: listOfNotNull(tile.completedLabel, tile.updatedLabel).joinToString(" · ")
+                Text(footer, style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    color = if (tile.staleNote != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+                tile.classificationNote?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.error) }
             }
-            if (tile.alertCount > 0) BenefitsAlertCount(tile.alertCount)
-            Text(tile.nextCredit, style = MaterialTheme.typography.bodyMedium)
-            tile.completedLabel?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            Text(tile.staleNote ?: tile.lastReadLabel, style = MaterialTheme.typography.bodySmall,
-                color = if (tile.staleNote != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

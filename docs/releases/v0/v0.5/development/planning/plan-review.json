@@ -1,0 +1,128 @@
+{
+  "status": "reviewed draft; admission pending",
+  "lenses": [
+    "coherence",
+    "feasibility",
+    "product",
+    "scope",
+    "design",
+    "security",
+    "adversarial"
+  ],
+  "skipped_lenses": [],
+  "deduplication": "No exact duplicate fingerprints; no cross-lens promotion required.",
+  "confidence_gate": 75,
+  "suppressed": [],
+  "findings": [
+    {
+      "id": "R01",
+      "persona": "coherence",
+      "severity": "P2",
+      "confidence": 100,
+      "title": "Offer disappearance lifecycle",
+      "correction": "NoLongerListed preserves activation history; absence requires complete coverage.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R02",
+      "persona": "coherence",
+      "severity": "P3",
+      "confidence": 100,
+      "title": "Chase completion-contract link",
+      "correction": "Use the named implement-phase reference.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R03",
+      "persona": "coherence",
+      "severity": "P3",
+      "confidence": 100,
+      "title": "Offers completion-contract link",
+      "correction": "Use the named implement-phase reference.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R04",
+      "persona": "feasibility",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Early bounded-read feasibility",
+      "correction": "Measure navigation/loading and supported scale before migration; unresolved budget blocks migration.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R05",
+      "persona": "feasibility",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Fair bounded-batch continuation",
+      "correction": "Rotate discovery/actions durably; blocked campaigns do not starve unrelated work.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R06",
+      "persona": "product",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Owner financial-field accuracy",
+      "correction": "Compare representative personal/business fields; retain match/mismatch only.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R07",
+      "persona": "scope",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Chase final refactor boundary",
+      "correction": "Limit fixes to introduced, necessary or release-blocking artifacts.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R08",
+      "persona": "scope",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Offers final refactor boundary",
+      "correction": "Carry unrelated cleanup as owned gaps.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R09",
+      "persona": "design",
+      "severity": "P1",
+      "confidence": 75,
+      "title": "Exclusive campaign candidate set",
+      "correction": "Reconcile complete relevant eligibility and additions; persist selected card/reservation before dispatch.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R10",
+      "persona": "security",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Add all effect set",
+      "correction": "Require exact complete authorized target manifest and per-target reconciliation.",
+      "disposition": "incorporated in draft"
+    },
+    {
+      "id": "R11",
+      "persona": "security",
+      "severity": "P2",
+      "confidence": 75,
+      "title": "Untrusted DOM command boundary",
+      "correction": "Closed typed commands, safe serialization, fixed code and origin/context binding; executor rejects capture/test mutation.",
+      "disposition": "incorporated in draft"
+    }
+  ],
+  "independent_rechecks": {
+    "design": "Resolved against v0.6 T007/T008; no remaining finding.",
+    "security": "Both findings resolved against v0.6 T002/T007; implementation enforcement remains to verify."
+  },
+  "open": [
+    "Actual Chase source evidence",
+    "Exclusive-offer card-selection owner preference",
+    "Final plan admission",
+    "Integrated semantic prerequisites and implementation",
+    "Separate remote/release authority"
+  ]
+}

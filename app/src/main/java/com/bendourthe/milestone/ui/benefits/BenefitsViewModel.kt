@@ -16,6 +16,7 @@ import com.bendourthe.milestone.domain.BenefitsDisplayPreferences
 import com.bendourthe.milestone.domain.Card
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
+import com.bendourthe.milestone.domain.CardSegment
 import com.bendourthe.milestone.domain.CatalogRepository
 import com.bendourthe.milestone.domain.Enrollment
 import com.bendourthe.milestone.domain.ReminderSettings
@@ -48,9 +49,15 @@ sealed interface BenefitsUiState {
     data class Cards(val tiles: List<CardTileUi>, val programs: List<BenefitsProgramUi>) : BenefitsUiState
 }
 
+/**
+ * One institution tile. [segmented] is true for a program whose page lists Personal cards, then Business cards, under
+ * collapsible headers; [signIns] for one whose page also offers its issuer sign-ins from the top bar (ADR-0009).
+ */
 data class BenefitsProgramUi(
     val programId: String, val name: String, val monogram: String, val logoKey: String?,
     val brandColorArgb: Long, val cardCount: Int, val alertCount: Int,
+    val segmented: Boolean = false,
+    val signIns: Boolean = false,
 )
 
 data class CardTileUi(
@@ -64,11 +71,28 @@ data class CardTileUi(
     val programName: String = key.programId,
     val benefitCount: Int = 0,
     val alertCount: Int = 0,
+    /** The card's own ending as stored; null when the issuer showed none. */
+    val lastDigits: String? = key.displayDigits,
+    /** The section this card is listed under on a segmented program's page; null on other programs. */
+    val segment: CardSegment? = null,
+    /** Shown when the card's Personal or Business section is not known yet. */
+    val classificationNote: String? = null,
+    /** The issuer's color, for the drawn card face of a card without bundled artwork. */
+    val brandColorArgb: Long? = null,
+    /** The compact freshness line, such as "Updated 5 min ago". */
+    val updatedLabel: String = lastReadLabel,
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${key.lastDigits}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${lastDigits ?: "unknown"}", "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
+
+/** True for a program whose cards are listed in Personal and Business sections: every program with a benefits reader. */
+fun isSegmented(program: com.bendourthe.milestone.domain.Program?): Boolean = program?.benefits != null
+
+/** True for a program with several issuer sign-ins (ADR-0009), whose sections follow those sign-ins. */
+fun hasSignIns(program: com.bendourthe.milestone.domain.Program?): Boolean =
+    program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
 
 /** The committed inputs behind this rendered page, used only for in-memory exact-result validation. */
 data class CardPageSource(val card: Card, val benefits: List<Benefit>, val preferences: BenefitsDisplayPreferences)
@@ -83,6 +107,9 @@ data class CardPageUi(
     val alerts: List<BenefitAlertUi> = emptyList(),
     val listFreshnessNote: String? = null,
     val source: CardPageSource? = null,
+    /** True on a program with Personal and Business tiles (ADR-0009), where [segment] can be changed by the user. */
+    val segmented: Boolean = false,
+    val segment: CardSegment? = null,
 )
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
@@ -171,17 +198,24 @@ class BenefitsViewModel(
             if (added.isEmpty()) return@flatMapLatest flowOf<BenefitsUiState>(BenefitsUiState.NoProgram(programs.map { it.displayName }))
             combine(added.map { id -> cardsWithBenefits(id) }) { perProgram ->
                 val tiles = perProgram.flatMap { it }.map { (card, benefits, prefs) ->
+                    val program = catalog.program(card.programId)
+                    val segmented = isSegmented(program)
                     tile(card, benefits, clock(), zone, locale).copy(
-                        programName = catalog.program(card.programId)?.displayName ?: card.programId,
+                        programName = program?.displayName ?: card.programId,
+                        brandColorArgb = program?.brandColorArgb,
                         benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
                         alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
+                        // An unclassified card is listed under Personal; on a program with sign-ins, with a note, until a
+                        // sign-in or the user decides. Elsewhere only the product name or the user can make it Business.
+                        segment = if (segmented) card.segment ?: CardSegment.PERSONAL else null,
+                        classificationNote = if (hasSignIns(program) && card.segment == null) "Needs Personal or Business" else null,
                     )
                 }
                 BenefitsUiState.Cards(tiles, added.map { id ->
                     val program = programs.first { it.programId == id }
                     val cards = tiles.filter { it.key.programId == id }
                     BenefitsProgramUi(id, program.displayName, program.monogram, program.logoKey, program.brandColorArgb,
-                        cards.size, cards.sumOf { it.alertCount })
+                        cards.size, cards.sumOf { it.alertCount }, segmented = isSegmented(program), signIns = hasSignIns(program))
                 })
             }
         }
@@ -190,8 +224,22 @@ class BenefitsViewModel(
     /** One card's page, or null once the card is no longer stored (removed from the account or signed out). */
     fun card(key: CardKey): Flow<CardPageUi?> =
         combine(cards.observeCards(key.programId), cards.observeBenefits(key), preferences(key), settingsErrors) { list, benefits, prefs, errors ->
-            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs)) }
+            list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs),
+                segmented = isSegmented(catalog.program(key.programId)), segment = it.segment) }
         }
+
+    /** The user's Personal or Business choice for one card; it wins over the sign-ins' declarations and survives refreshes. */
+    fun setSegment(key: CardKey, segment: CardSegment) {
+        viewModelScope.launch {
+            try {
+                cards.setCardSegmentOverride(key, segment)
+                settingsErrors.update { it - key }
+            } catch (error: Exception) {
+                if (error is CancellationException) throw error
+                settingsErrors.update { it + (key to "Could not save this change. Please try again.") }
+            }
+        }
+    }
 
     private fun cardsWithBenefits(programId: String): Flow<List<Triple<Card, List<Benefit>, BenefitsDisplayPreferences>>> =
         cards.observeCards(programId).flatMapLatest { list ->
@@ -204,7 +252,7 @@ class BenefitsViewModel(
         const val STALE_AFTER_MS = 8L * 24 * 60 * 60 * 1000
         private val completedCreditAmount = Regex("""^\s*(\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d{2})?)(?=\s|$)""")
 
-        fun digitsLabel(lastDigits: String) = "…$lastDigits"
+        fun digitsLabel(lastDigits: String?) = lastDigits?.let { "…$it" }.orEmpty()
 
         fun money(cents: Long, locale: Locale): String {
             val format = NumberFormat.getCurrencyInstance(Locale.US)
@@ -241,11 +289,13 @@ class BenefitsViewModel(
             return CardTileUi(
                 key = card.key,
                 name = card.name,
+                lastDigits = card.lastDigits,
                 digitsLabel = digitsLabel(card.lastDigits),
                 nextCredit = nextCredit(benefits, Instant.ofEpochMilli(nowMs).atZone(zone).toLocalDate(), locale),
                 completedLabel = if (completed == 0) null else "$completed completed",
                 lastReadLabel = DashboardViewModel.lastUpdatedLabel(card.benefitsReadEpochMs, nowMs),
                 staleNote = staleNote(card, nowMs, zone, locale),
+                updatedLabel = DashboardViewModel.age(card.benefitsReadEpochMs, nowMs)?.let { "Updated $it" } ?: "Not read yet",
             )
         }
 

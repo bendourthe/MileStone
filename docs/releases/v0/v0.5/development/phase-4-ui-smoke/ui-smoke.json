@@ -1,0 +1,19 @@
+{
+ "device": "emulator-5554",
+ "db_version": 5,
+ "tapped_benefits_tab": true,
+ "institutions": {
+  "personal": true,
+  "business": true
+ },
+ "business_page": {
+  "ink_with_ending": true,
+  "reserve_absent": true,
+  "connections_section": true,
+  "first_sign_in_listed": true,
+  "second_sign_in_listed": true,
+  "add_button": true
+ },
+ "fatal_exceptions": 0,
+ "passed": true
+}

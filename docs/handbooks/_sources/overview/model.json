@@ -1,6 +1,6 @@
 {
   "title": "MileStone Engineering Handbook",
-  "subtitle": "The Android app, stored-item search, and the Amex benefits reader",
+  "subtitle": "The Android app, stored-item search, and the Amex and Chase benefits readers",
   "sources": [
     {
       "path": "docs/handbooks/overview.md",
@@ -35,7 +35,7 @@
       "id": "app",
       "title": "MileStone",
       "theme": "dark",
-      "lede": "One Android app for rewards balances and Amex card benefits.",
+      "lede": "One Android app for rewards balances and Amex and Chase card benefits.",
       "points": [
         "Reads each program's own website in a WebView.",
         "Stores sign-ins and rewards data on the phone.",
@@ -74,12 +74,14 @@
       "points": [
         "Scroll and settle checks wait for the page's own content.",
         "An available activity link wins over a partial Rewards post at the readiness cap.",
-        "A late lower section can wait within the supplied 20-second page maximum."
+        "A late lower section can wait within the supplied 20-second page maximum.",
+        "Chase follows card, More, Benefits, then presses each card in the card selector."
       ],
       "units": [
-        "benefits-amex-benefits-reader",
+        "benefits-benefits-reader",
         "benefits-page-kinds",
-        "benefits-readiness"
+        "benefits-readiness",
+        "benefits-chase-path"
       ]
     },
     {
@@ -119,10 +121,12 @@
         "Institution tiles open their own card lists with a clear Back hierarchy.",
         "Four outlined categories have saved sorting, a Completed last filter, and Show/Hide controls.",
         "Matching offline artwork and conservative duplicate display retain issuer rows and enrollment details.",
-        "Yellow alerts can be acknowledged; only a successful relevant refresh can reintroduce source alerts."
+        "Yellow alerts can be acknowledged; only a successful relevant refresh can reintroduce source alerts.",
+        "Collapsible Personal and Business sections for every institution; Chase sign-ins open from the top bar."
       ],
       "units": [
         "benefits-storing-a-read",
+        "benefits-chase-sign-ins-and-coverage",
         "overview-benefits-display",
         "benefits-display-and-freshness",
         "search-selection-validation"

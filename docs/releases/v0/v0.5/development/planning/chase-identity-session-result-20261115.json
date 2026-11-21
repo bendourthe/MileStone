@@ -1,0 +1,50 @@
+{
+  "status": "Closed at original deadline; no second-card observation performed",
+  "consent_question_id": "call_448fa232e15b40faaa9a12ed8567ffdb",
+  "reader_sha256": "177373429981d23b92ab8d43918e6b88839819b7134a327f1e7479f9b54ff9ae",
+  "wrapper_sha256": "e566ba493bbc3c5867ce1f06c060cac177a878cd628190ce8886e641913c59bf",
+  "maximum_snapshots": 8,
+  "maximum_seconds": 600,
+  "requested_snapshots": 2,
+  "successful_typed_snapshots": 1,
+  "snapshots": [
+    {
+      "owner_context": "Personal card Benefits; selector closed",
+      "status": "ok",
+      "host": "secure.chase.com",
+      "counts": {
+        "roots": 25,
+        "benefitRows": 29,
+        "commerceTiles": 3,
+        "selectorOptions": 0,
+        "visibleEntryFields": 0
+      },
+      "candidate_groups": []
+    },
+    {
+      "owner_context": "Same personal card Benefits; owner opened card selector",
+      "status": "blocked_entry",
+      "host": null,
+      "counts": {
+        "roots": 25,
+        "benefitRows": 29,
+        "commerceTiles": 3,
+        "selectorOptions": 0,
+        "visibleEntryFields": 2
+      },
+      "candidate_groups": [],
+      "interpretation": "Conservative editable-field guard blocked candidate reading; field values and identifiers were not inspected."
+    }
+  ],
+  "source_GO": false,
+  "qualification": "Structural snapshot only; no exact-card identity or completeness inferred.",
+  "issuer_actions_performed_by_reader": false,
+  "raw_candidate_values_persisted": false,
+  "main_app_debugger_accessed": false,
+  "next_observation": "Proposed single snapshot of current second-card Benefits page requires fresh bounded permission.",
+  "completed_typed_responses": 2,
+  "owned_forward_removed": true,
+  "remaining_phone_debugger_forwards": 0,
+  "session_exit_code": 0,
+  "closure_reason": "Owner second-card readiness arrived after original approved window expired; no further page read was made."
+}

@@ -1,0 +1,46 @@
+{
+  "status": "FRESH_PERSONAL_SELECTOR_SNAPSHOT_COMPLETE",
+  "authority": "Fresh explicit user instruction: The page is still open now for that last capture, you can do it now",
+  "owner_context": "Personal-only Chase profile; same personal card; Benefits selector open",
+  "observation": {
+    "status": "candidate_only",
+    "snapshot": 1,
+    "counts": {
+      "roots": 25,
+      "nodes": 1245,
+      "radios": 2,
+      "checked": 1,
+      "accepted": 2,
+      "rejected": 0
+    },
+    "candidates": [
+      {
+        "group": "G1",
+        "checked": true
+      },
+      {
+        "group": "G2",
+        "checked": false
+      }
+    ],
+    "card_identity_proven": false
+  },
+  "actual_snapshots": 1,
+  "actual_local_metadata_HTTP_requests": 2,
+  "actual_readonly_page_evaluations": 1,
+  "fixed_device_clock_preflight": 1,
+  "wrapper_deadline_seconds": 60,
+  "operator_stopped_after_one_snapshot": true,
+  "session_exit": 0,
+  "owned_capture_forward_removed": true,
+  "independent_equality_map": true,
+  "anonymous_labels_not_comparable_across_sessions": true,
+  "raw_identifier_values_saved": false,
+  "input_values_read": false,
+  "DOM_text_read": false,
+  "metadata_note": "Debugger target titles/URLs may enter transport RAM; neither is retained.",
+  "issuer_actions": 0,
+  "main_app_debugger_access": false,
+  "cross_profile_correspondence_proven": false,
+  "source_GO": false
+}
