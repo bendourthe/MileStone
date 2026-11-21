@@ -57,7 +57,7 @@ class SyncManagerBenefitsTest {
         override suspend fun <T> withAttachedWebView(block: suspend (WebView) -> T): T = error("unused by the fake sources")
     }
 
-    private fun TestScope.manager() = SyncManager(
+    private fun TestScope.manager(scheduledBefore: suspend (Long) -> Long = { it }) = SyncManager(
         accounts = accounts,
         sessions = sessions,
         catalog = catalog,
@@ -68,6 +68,7 @@ class SyncManagerBenefitsTest {
         scope = backgroundScope,
         host = { Host },
         clock = { 1_000L + testScheduler.currentTime },
+        scheduledBefore = scheduledBefore,
         benefitsSource = { program, _, _ ->
             // The balance must already be saved when the benefits read starts.
             val saved = accounts.accounts.value.filter { it.programId == program.programId }.map { it.balance }
@@ -151,6 +152,33 @@ class SyncManagerBenefitsTest {
 
         assertEquals(1, maxConcurrentReads)
         assertEquals(1, events.count { it.startsWith("benefits:") })
+    }
+
+    @Test
+    fun aBenefitsReadCancelledByLeavingTheScreenStartsAgainOnReturn() = runTest {
+        connected("amex")
+        var calls = 0
+        benefits = { if (++calls == 1) delay(60_000); read(complete = true, "71008") }
+        // Nothing is due when MileStone returns, so only the interrupted benefits read may run.
+        val manager = manager(scheduledBefore = { 0L })
+        manager.refresh("amex", RefreshReason.MANUAL).join()
+        runCurrent()
+        assertEquals(1, concurrentReads)
+
+        manager.cancelHeadless()
+        runCurrent()
+        assertTrue(cards.cards.value.isEmpty())
+
+        manager.refreshAll(RefreshReason.ON_START).join()
+        advanceUntilIdle()
+        assertEquals(1, events.count { it.startsWith("balance:") })
+        assertEquals(2, events.count { it.startsWith("benefits:") })
+        assertEquals(listOf("71008"), cards.observeCards("amex").first().map { it.lastDigits })
+
+        // A completed read leaves nothing to resume.
+        manager.refreshAll(RefreshReason.ON_START).join()
+        advanceUntilIdle()
+        assertEquals(2, events.count { it.startsWith("benefits:") })
     }
 
     @Test

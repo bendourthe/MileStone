@@ -82,6 +82,36 @@ class ConnectionCoverageTest {
     }
 
     @Test
+    fun aBusinessProductListedByAPersonalSignInIsShownUnderBusinessUnlessTheOwnerMovesIt() = runTest {
+        apply(personal, 10, true, source(1, "Synthetic Sapphire"), source(2, "Ink Synthetic Preferred"), source(3, "Synthetic Business Platinum"))
+
+        assertEquals(CardSegment.PERSONAL, cardFor(1).segment)
+        assertEquals(CardSegment.BUSINESS, cardFor(2).segment)
+        assertEquals(CardSegment.BUSINESS, cardFor(3).segment)
+
+        cards.setCardSegmentOverride(cardFor(2).key, CardSegment.PERSONAL)
+        apply(personal, 20, true, source(1, "Synthetic Sapphire"), source(2, "Ink Synthetic Preferred"), source(3, "Synthetic Business Platinum"))
+        assertEquals(CardSegment.PERSONAL, cardFor(2).segment)
+    }
+
+    @Test
+    fun theIssuerHomePageGroupDecidesTheSectionOfAnUnknownProduct() = runTest {
+        apply(personal, 10, true, source(1, "Synthetic Unknown A"), SourceCard(hash(2), "Synthetic Unknown B", "4321", CardSegment.BUSINESS))
+
+        assertEquals(CardSegment.PERSONAL, cardFor(1).segment)
+        assertEquals(CardSegment.BUSINESS, cardFor(2).segment)
+    }
+
+    @Test
+    fun productNamesSayBusinessOnlyThroughWholeWords() {
+        assertEquals(CardSegment.BUSINESS, CardSegment.fromProductName("Ink Business Cash"))
+        assertEquals(CardSegment.BUSINESS, CardSegment.fromProductName("United Business Card"))
+        assertEquals(null, CardSegment.fromProductName("Sapphire Preferred"))
+        assertEquals(null, CardSegment.fromProductName("Pink Rewards"))
+        assertEquals(null, CardSegment.fromProductName("Businessless Synthetic"))
+    }
+
+    @Test
     fun linkedBusinessAccessSharesBoundCardsAndAddsOnlyTheBusinessCard() = runTest {
         apply(personal, 10, true, source(1), source(2))
         val before = chase().map { it.cardId }.toSet()

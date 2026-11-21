@@ -926,6 +926,8 @@
   var CHASE_SCAN_MS = 400;
   var CHASE_STABLE_MS = 2000;
   var CHASE_STEP_CAP_MS = 15000;
+  // The Benefits page loads its own content after the menu press; a slow load once took longer than one step allows.
+  var CHASE_PAGE_CAP_MS = 25000;
   var CHASE_SWITCH_CAP_MS = 15000;
   var CHASE_MAX_CARDS = 20;
   var CHASE_MAX_GROUPS = 30;
@@ -950,6 +952,16 @@
     return named ? named.replace(/\s+/g, ' ').trim() : text;
   }
 
+  // Every short label a control carries: its own text and the attributes Chase's components put their labels in.
+  function chaseLabels(el) {
+    var labels = [chaseLabel(el)];
+    ['label', 'text', 'accessible-text', 'aria-label', 'navigational-accessible-description'].forEach(function (name) {
+      var value = el.getAttribute && el.getAttribute(name);
+      if (value) labels.push(value.replace(/\s+/g, ' ').trim());
+    });
+    return labels.filter(function (text) { return text && text.length <= 60; });
+  }
+
   function startChaseBenefits(config) {
     var s = config.selectors || {};
     var done = false;
@@ -968,19 +980,49 @@
     }
 
     function unreadable(why, step) {
-      finish({ type: 'chaseUnreadable', why: why, step: step || null, nonce: config.nonce });
+      var message = { type: 'chaseUnreadable', why: why, step: step || null, nonce: config.nonce };
+      if (step === 'more' || step === 'benefits') message.counts = navigationCounts(step);
+      if (step === 'page') message.counts = pageCounts();
+      finish(message);
+    }
+
+    // Counts only, for a Benefits page that did not show: open sheets, Benefits pages present, visible, and visible
+    // elements whose test id mentions benefits.
+    function pageCounts() {
+      var pages = deepQuery(s.page);
+      return [
+        deepQuery('mds-bottom-sheet[open=true], [role=dialog]').filter(isVisible).length,
+        pages.length,
+        pages.filter(isVisible).length,
+        deepQuery('[data-testid*=enefit]').filter(isVisible).length,
+      ].map(function (n) { return Math.min(n, 999); }).join(',');
+    }
+
+    // Counts only, never page text, for a navigation step that found nothing to press: open sheets, visible list
+    // items, then the step's label matches anywhere, visible, and found only through an attribute.
+    function navigationCounts(step) {
+      var re = new RegExp(step === 'more' ? s.moreLabel : s.benefitsLabel, 'i');
+      var all = deepQuery('*');
+      var matches = all.filter(function (el) { return chaseLabels(el).some(function (text) { return re.test(text); }); });
+      return [
+        deepQuery('mds-bottom-sheet[open=true], [role=dialog]').filter(isVisible).length,
+        deepQuery('mds-list-item').filter(isVisible).length,
+        matches.length,
+        matches.filter(isVisible).length,
+        matches.filter(function (el) { return !re.test(chaseLabel(el) || ''); }).length,
+      ].map(function (n) { return Math.min(n, 999); }).join(',');
     }
 
     function one(selector) { return deepQuery(selector).filter(isVisible)[0] || null; }
 
-    // The first visible control whose own label matches [pattern] (an anchored, case-insensitive pattern).
+    // The first visible control with a label matching [pattern] (an anchored, case-insensitive pattern), whether the
+    // label is its own text or an attribute: a list item's own text can add a description line under its label.
     function control(pattern) {
       var re = new RegExp(pattern, 'i');
       var all = deepQuery(CHASE_CLICKABLE);
       for (var i = 0; i < all.length; i++) {
         if (!isVisible(all[i])) continue;
-        var text = chaseLabel(all[i]);
-        if (text && re.test(text)) return all[i];
+        if (chaseLabels(all[i]).some(function (text) { return re.test(text); })) return all[i];
       }
       return null;
     }
@@ -1127,19 +1169,74 @@
       });
     }
 
-    // One step per call. Each step's press is followed by a visible change (a new address or a different set of
-    // visible controls) before the next step looks for its control, so it never acts on the page it just left.
+    // The home page's own grouping of cards: Chase lists personal cards under a "Personal" heading and business cards
+    // under the business's name. Walks group headings and card entries in page order; reports each card ending with
+    // true when its group is not Personal. Never sends a heading, so a business name stays on the page.
+    function homeGroups() {
+      if (!s.homeGroup) return [];
+      var kinds = [];
+      var business = null;
+      deepQuery(s.homeGroup + ', ' + CHASE_CLICKABLE).forEach(function (el) {
+        if (el.matches(s.homeGroup)) {
+          var heading = firstText(el);
+          business = heading ? !/^personal\b/i.test(heading) : null;
+          return;
+        }
+        if (business === null || !isVisible(el)) return;
+        var text = (el.textContent || '').replace(/\s+/g, ' ');
+        var ending = text.length <= 200 && !CHASE_ACTION.test(text) ? CHASE_ENDING.exec(text) : null;
+        if (!ending || kinds.some(function (kind) { return kind.digits === ending[1]; })) return;
+        kinds.push({ digits: ending[1], business: business });
+      });
+      return kinds.slice(0, CHASE_MAX_CARDS);
+    }
+
+    // The first short text inside [el], read only to compare with "Personal".
+    function firstText(el) {
+      var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      for (var node = walker.nextNode(); node; node = walker.nextNode()) {
+        var text = node.nodeValue.replace(/\s+/g, ' ').trim();
+        if (text) return text.length <= 60 ? text : null;
+      }
+      return null;
+    }
+
+    // How many visible controls a step could press; for 'page', whether the Benefits page shows.
+    function shown(step) {
+      if (step === 'page') return deepQuery(s.page).filter(isVisible).length;
+      if (step === 'card') return 0;
+      var re = new RegExp(step === 'more' ? s.moreLabel : s.benefitsLabel, 'i');
+      return deepQuery(CHASE_CLICKABLE).filter(function (el) {
+        return isVisible(el) && chaseLabels(el).some(function (text) { return re.test(text); });
+      }).length;
+    }
+
+    // Chase's components draw their real button inside a shadow root and react only to it, so press that one.
+    function press(el) {
+      var inner = el.shadowRoot && el.shadowRoot.querySelector('button, a[href], [role=button], [role=link], [role=menuitem]');
+      (inner || el).click();
+    }
+
+    // One step per call. Each step's press is followed by a visible change before the next step looks for its
+    // control, so it never acts on the page it just left: a new address or set of visible controls, or more visible
+    // controls for the next step, as when a bottom sheet opens in place below many unchanged controls.
     function navigate() {
       if (!chaseNote || chaseNote.step === 'read') chaseNote = { step: 'card', at: Date.now(), from: null };
-      var overStep = Date.now() - chaseNote.at > CHASE_STEP_CAP_MS;
-      if (chaseNote.from !== null && where() === chaseNote.from) return overStep ? unreadable('navigation', chaseNote.step) : undefined;
-      var next = { card: 'more', more: 'benefits', benefits: 'page' }[chaseNote.step];
+      var step = chaseNote.step;
+      var overStep = Date.now() - chaseNote.at > (step === 'page' ? CHASE_PAGE_CAP_MS : CHASE_STEP_CAP_MS);
+      if (chaseNote.from !== null && where() === chaseNote.from && shown(step) <= chaseNote.seen) {
+        return overStep ? unreadable('navigation', step) : undefined;
+      }
+      var next = { card: 'more', more: 'benefits', benefits: 'page' }[step];
       if (!next) return overStep ? unreadable('navigation', 'page') : undefined;
-      var target = chaseNote.step === 'card' ? cardEntry() : control(chaseNote.step === 'more' ? s.moreLabel : s.benefitsLabel);
-      if (!target) return overStep ? unreadable('navigation', chaseNote.step) : undefined;
-      var before = where();
-      chaseNote = { step: next, at: Date.now(), from: before };
-      target.click();
+      var target = step === 'card' ? cardEntry() : control(step === 'more' ? s.moreLabel : s.benefitsLabel);
+      if (!target) return overStep ? unreadable('noControl', step) : undefined;
+      if (step === 'card') {
+        var kinds = homeGroups();
+        if (kinds.length) post({ type: 'chaseKinds', kinds: kinds, nonce: config.nonce });
+      }
+      chaseNote = { step: next, at: Date.now(), from: where(), seen: shown(next) };
+      press(target);
     }
 
     function tick() {

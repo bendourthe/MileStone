@@ -36,7 +36,17 @@ data class CardKey(val programId: String, val cardId: String) {
 }
 
 /** The Benefits tile a card belongs to. */
-enum class CardSegment { PERSONAL, BUSINESS }
+enum class CardSegment {
+    PERSONAL, BUSINESS;
+
+    companion object {
+        /** Words an issuer's own product name uses for a business card ("Ink Business Preferred", "Business Platinum"). */
+        private val BUSINESS_PRODUCT = Regex("""^\s*ink\b|\bbusiness\b""", RegexOption.IGNORE_CASE)
+
+        /** Business when the card's product name says so, regardless of the sign-in that lists it; otherwise null. */
+        fun fromProductName(name: String): CardSegment? = if (BUSINESS_PRODUCT.containsMatchIn(name)) BUSINESS else null
+    }
+}
 
 /**
  * One card on an issuer account. [name] is a mutable attribute: a renamed or upgraded card keeps its

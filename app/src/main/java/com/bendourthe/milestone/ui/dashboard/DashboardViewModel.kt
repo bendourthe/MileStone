@@ -175,14 +175,18 @@ class DashboardViewModel(
             .takeIf { it.isNotEmpty() }
             ?.joinToString(prefix = "Couldn't reconnect: ") { "${it.displayName} (${it.errorReason?.shortLabel() ?: "Sign in needed"})" }
 
-        fun lastUpdatedLabel(epochMs: Long?, nowEpochMs: Long): String {
-            if (epochMs == null) return "Never"
+        fun lastUpdatedLabel(epochMs: Long?, nowEpochMs: Long): String =
+            age(epochMs, nowEpochMs)?.let { "Last updated: $it" } ?: "Never"
+
+        /** How long ago [epochMs] was, such as "just now" or "5 min ago"; null when never. */
+        fun age(epochMs: Long?, nowEpochMs: Long): String? {
+            if (epochMs == null) return null
             val minutes = (nowEpochMs - epochMs) / 60_000
             return when {
-                minutes < 1 -> "Last updated: just now"
-                minutes < 60 -> "Last updated: $minutes min ago"
-                minutes < 24 * 60 -> "Last updated: ${minutes / 60} h ago"
-                else -> "Last updated: ${minutes / (24 * 60)} d ago"
+                minutes < 1 -> "just now"
+                minutes < 60 -> "$minutes min ago"
+                minutes < 24 * 60 -> "${minutes / 60} h ago"
+                else -> "${minutes / (24 * 60)} d ago"
             }
         }
     }

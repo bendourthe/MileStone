@@ -204,10 +204,8 @@ fun MileStoneApp(
                         },
                         benefitsPrograms = catalog.programs.filter { it.benefits != null }.map { it.programId }.toSet(),
                         onOpenBenefits = { programId ->
-                            // A program with Personal and Business tiles opens its Personal tile (ADR-0009).
-                            val segmented = catalog.program(programId)?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
                             navController.navigate(Benefits) { launchSingleTop = true }
-                            navController.navigate(ProgramBenefits(if (segmented) "$programId#personal" else programId)) { launchSingleTop = true }
+                            navController.navigate(ProgramBenefits(programId)) { launchSingleTop = true }
                         },
                         onSignIn = { programId -> signIn?.connect(programId) },
                         onSearch = openSearch,

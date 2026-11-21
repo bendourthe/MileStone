@@ -23,14 +23,17 @@ import com.bendourthe.milestone.ui.FakeSessions
 import com.bendourthe.milestone.ui.theme.MileStoneTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.ZoneOffset
 import java.util.Locale
 
-/** Chase Personal and Business tiles and the sign-ins section (ADR-0009), with synthetic cards only. */
+/** The Chase tile, its Personal and Business sections, and the sign-ins section (ADR-0009), with synthetic cards only. */
 @RunWith(AndroidJUnit4::class)
+// Tall enough that the lazy list composes both sections and the sign-ins below them.
+@org.robolectric.annotation.Config(qualifiers = "w411dp-h2400dp")
 class ChaseBenefitsTilesTest {
     @get:Rule
     val rule = createAndroidComposeRule<ComponentActivity>()
@@ -62,39 +65,60 @@ class ChaseBenefitsTilesTest {
         MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = {}, programId = programId, connections = connections) }
     }
 
+    private fun top(text: String) = rule.onNode(androidx.compose.ui.test.hasContentDescription(text, substring = true), useUnmergedTree = true)
+        .fetchSemanticsNode().boundsInRoot.top
+
+    private fun topOfTag(tag: String) = rule.onNodeWithTag(tag).fetchSemanticsNode().boundsInRoot.top
+
     @Test
-    fun chaseShowsSeparatePersonalAndBusinessTiles() {
+    fun chaseHasOneInstitutionTileCountingEveryCard() {
         seed()
         show(null)
-        described("Chase Personal").assertExists()
-        described("Chase Business").assertExists()
+        described("Chase, 3 cards").assertExists()
+        described("Chase Personal").assertDoesNotExist()
+        described("Chase Business").assertDoesNotExist()
     }
 
     @Test
-    fun aBusinessTileListsOnlyBusinessCardsWithTheirStoredEnding() {
+    fun theChasePageListsPersonalCardsAboveBusinessCards() {
         seed()
-        show("chase#business")
+        show("chase")
+        rule.onNodeWithTag("segment_Personal").assertExists()
+        rule.onNodeWithTag("segment_Business").assertExists()
         described("Synthetic Ink, card ending 3333").assertExists()
-        described("Synthetic Reserve").assertDoesNotExist()
+        assertTrue(top("Synthetic Reserve") < topOfTag("segment_Business"))
+        assertTrue(top("Synthetic Unsorted") < topOfTag("segment_Business"))
+        assertTrue(topOfTag("segment_Business") < top("Synthetic Ink"))
     }
 
     @Test
-    fun aPersonalTileKeepsUnclassifiedCardsVisibleAndSaysSo() {
+    fun unclassifiedCardsAreListedUnderPersonalWithANote() {
         seed()
-        show("chase#personal")
-        described("Synthetic Reserve, card ending 1111").assertExists()
+        show("chase")
         described("Synthetic Unsorted, card ending 5555").assertExists()
         described("Needs Personal or Business").assertExists()
-        described("Synthetic Ink").assertDoesNotExist()
     }
 
     @Test
-    fun noBusinessTileUntilACardBelongsToIt() {
+    fun eachSectionCollapsesAndExpandsOnItsOwn() {
+        seed()
+        show("chase")
+        rule.onNodeWithTag("segment_Business").performClick()
+        described("Synthetic Ink").assertDoesNotExist()
+        described("Synthetic Reserve").assertExists()
+        rule.onNodeWithTag("segment_Personal").performClick()
+        described("Synthetic Reserve").assertDoesNotExist()
+        rule.onNodeWithTag("segment_Business").performClick()
+        described("Synthetic Ink").assertExists()
+    }
+
+    @Test
+    fun noBusinessSectionUntilACardBelongsToIt() {
         runBlocking { accounts.addAccount("chase", AccountStatus.CONNECTED, 1) }
         cards.cards.value = listOf(card("c_0000000000000001", "Synthetic Reserve", "1111", CardSegment.PERSONAL, 0))
-        show(null)
-        described("Chase Personal").assertExists()
-        described("Chase Business").assertDoesNotExist()
+        show("chase")
+        rule.onNodeWithTag("segment_Personal").assertExists()
+        rule.onNodeWithTag("segment_Business").assertDoesNotExist()
     }
 
     @Test
@@ -110,17 +134,33 @@ class ChaseBenefitsTilesTest {
     }
 
     @Test
-    fun anAmexCardPageHasNoPersonalOrBusinessMenu() {
+    fun anAmexCardPageAlsoOffersPersonalOrBusiness() {
         runBlocking { accounts.addAccount("amex", AccountStatus.CONNECTED, 1) }
         cards.cards.value = listOf(Card("amex", "1005", "Synthetic Platinum", 0, now, now))
         rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, com.bendourthe.milestone.domain.CardKey("amex", "1005"), onBack = {}, onGone = {}) } }
 
         rule.onNodeWithTag("benefitsSort").assertExists()
-        rule.onNodeWithTag("cardSegment").assertDoesNotExist()
+        rule.onNodeWithTag("cardSegment").assertExists()
     }
 
     @Test
-    fun theSignInsSectionListsTheFirstSignInAndExplainsARefusedSecondOne() {
+    fun amexCardsAreGroupedIntoPersonalAndBusinessWithoutSignInsOrNotes() {
+        runBlocking { accounts.addAccount("amex", AccountStatus.CONNECTED, 1) }
+        cards.cards.value = listOf(
+            Card("amex", "1005", "Synthetic Platinum", 0, now, now),
+            Card("amex", "2007", "Synthetic Business Gold", 1, now, now, segment = CardSegment.BUSINESS),
+        )
+        show("amex")
+        rule.onNodeWithTag("segment_Personal").assertExists()
+        rule.onNodeWithTag("segment_Business").assertExists()
+        assertTrue(top("Synthetic Platinum") < topOfTag("segment_Business"))
+        assertTrue(topOfTag("segment_Business") < top("Synthetic Business Gold"))
+        described("Needs Personal or Business").assertDoesNotExist()
+        described("American Express sign-ins").assertDoesNotExist()
+    }
+
+    @Test
+    fun theSignInsSheetListsTheFirstSignInAndExplainsARefusedSecondOne() {
         seed()
         val repository = RoomCardRepository(db)
         runBlocking { RoomAccountRepository(db).addAccount("chase", AccountStatus.CONNECTED, 1) }
@@ -134,12 +174,14 @@ class ChaseBenefitsTilesTest {
         }
         val sessions = FakeSessions()
         val connections = ConnectionsViewModel(repository, ConnectionSessions(noProfiles, sessions, NoVault, repository), sessions)
-        show("chase#business", connections)
+        show("chase", connections)
 
-        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasText("Sign-in 1", substring = true)).fetchSemanticsNodes().isNotEmpty() }
-        rule.onNodeWithTag("connectionsSection").assertExists()
-        rule.onNodeWithText("Sign-in 1 (balance): not signed in").assertExists()
-        rule.onNodeWithText("Add a business sign-in").performClick()
+        // A top-bar button opens the sign-ins; nothing about them sits among the cards.
+        rule.onNodeWithTag("connectionsSheet").assertDoesNotExist()
+        described("Chase sign-ins").performClick()
+        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasText("Personal sign-in")).fetchSemanticsNodes().isNotEmpty() }
+        rule.onNodeWithText("Not signed in · used for the balance").assertExists()
+        rule.onNodeWithText("Add business").performClick()
         rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasText("can't keep a second sign-in separate", substring = true)).fetchSemanticsNodes().isNotEmpty() }
     }
 

@@ -9,7 +9,7 @@
 <div id="app"></div>
 <script>
 // Synthetic, Chase-shaped single-page app (ADR-0009 structure). No real names, amounts, or identifiers.
-// The test serves this page with __VARIANT__ replaced by "two", "three", "nomore", "pay", "verify", "reload", "overflow", or "batch".
+// The test serves this page with __VARIANT__ replaced by "two", "three", "nomore", "pay", "verify", "reload", "overflow", "batch", "sheet", or "groups".
 (function () {
   var variant = '__VARIANT__';
   var cards = [
@@ -23,7 +23,7 @@
     { id: 'ctl-beta', name: 'Synthetic Freedom', digits: '2222', groups: [
       { title: 'Boost points', rows: [ { title: 'Synthetic bonus category', tag: null, value: '5x points' } ] } ] }
   ];
-  if (variant === 'three') {
+  if (variant === 'three' || variant === 'groups') {
     cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
       { title: 'Business perks', rows: [ { title: 'Synthetic shipping credit', tag: 'activated', value: '$25 quarterly' } ] } ] });
   }
@@ -56,6 +56,16 @@
     });
     (children || []).forEach(function (child) { if (child) node.appendChild(child); });
     return node;
+  }
+
+  // A component whose own text is empty and whose click handler sits on the button inside its shadow root.
+  function component(tag, attrs, onPress) {
+    var host = el(tag, attrs);
+    var inner = document.createElement('button');
+    inner.textContent = attrs.text || attrs.label;
+    inner.addEventListener('click', onPress);
+    host.attachShadow({ mode: 'open' }).appendChild(inner);
+    return host;
   }
 
   function go(route) {
@@ -123,6 +133,16 @@
       app.appendChild(el('button', { text: 'Synthetic Reserve (...1111)', onclick: function () { document.title = 'forbidden-click'; } }));
       return;
     }
+    if (path === '/dashboard' && variant === 'groups') {
+      // Chase-shaped home page groups: business cards under the business's name, personal cards under "PERSONAL".
+      var group = function (heading, members) {
+        app.appendChild(el('div', { 'data-testid': 'account-accordion-subdivision' }, [ el('span', { text: heading }) ]));
+        members.forEach(function (card) { app.appendChild(el('button', { text: label(card), onclick: function () { go('/account'); } })); });
+      };
+      group('SYNTHETIC LLC', [cards[2]]);
+      group('PERSONAL', [cards[0], cards[1]]);
+      return;
+    }
     if (path === '/dashboard') {
       if (variant === 'pay') {
         app.appendChild(el('button', { text: 'Pay from TOTAL CHECKING (...9999)', onclick: function () { document.title = 'forbidden-click'; go('/pay'); } }));
@@ -130,6 +150,18 @@
       cards.forEach(function (card) {
         app.appendChild(el('button', { text: label(card), onclick: function () { go('/account'); } }));
       });
+    } else if (path === '/account' && variant === 'sheet') {
+      // Chase-shaped components (2026-11-15 captures): many controls ahead of the menu, a More button and a list item
+      // labelled only through attributes, each reacting to its inner shadow button, and a bottom sheet opened in place.
+      for (var link = 1; link <= 90; link++) app.appendChild(el('a', { href: '#/account', text: 'Synthetic link ' + link }));
+      app.appendChild(component('mds-button', { text: 'More' }, function () { menuOpen = true; render(); }));
+      var bottom = el('mds-bottom-sheet', { 'header-text': 'More', open: String(menuOpen), style: menuOpen ? 'display:block' : 'display:none' });
+      var item = component('mds-list-item', { label: 'Card benefits' }, function () { menuOpen = false; go('/benefits'); });
+      // Its own text adds a description line, so only the label attribute reads exactly "Card benefits".
+      item.appendChild(el('span', { text: 'Card benefits' }));
+      item.appendChild(el('span', { text: 'Credits, perks, and protections' }));
+      bottom.appendChild(item);
+      app.appendChild(bottom);
     } else if (path === '/account') {
       if (variant !== 'nomore') app.appendChild(el('button', { text: 'More', onclick: function () { menuOpen = true; render(); } }));
       if (menuOpen) app.appendChild(el('div', { role: 'menu' }, [ el('button', { role: 'menuitem', text: 'Benefits', onclick: function () { menuOpen = false; go('/benefits'); } }) ]));

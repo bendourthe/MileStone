@@ -90,3 +90,19 @@ The costs are a broader migration and additional binding, classification, covera
 - [Capture structure and feasibility estimate](../releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json)
 
 Accepted 2026-11-20 as the source contract for v0.5 Phases 2-4, under the assumptions in Feasibility and Admission. It is not implemented architecture, a completed phase or publication authority. The decision index update belongs to the coordinator's final documentation integration; the accepted ADR-0008 remains unchanged. Resolve the admission evidence and review this proposal before dependent production changes. The v0.6 default-on offer work must add offers to every independently eligible card for both Amex and Chase; it must not infer eligibility or activation from this discovery evidence.
+
+## Amendment 2026-11-20: One Chase Tile
+
+After the live check on the owner's phone, the owner replaced the two display tiles with one. Chase shows one institution tile; its page lists Personal cards first and Business cards below them, each under a header that collapses its section, and the Chase sign-ins panel sits below the cards, collapsed. Segments stay a projection of classification and reachability, exactly as decided above; only the display grouping changes. The Show under menu moves a card between the two sections.
+
+## Amendment 2026-11-21: Section Signals, Sign-ins Sheet, and Product Artwork
+
+Owner acceptance on the phone showed that one Chase sign-in often lists both personal and business cards, so reachability alone put a business card under Personal. A card's section is now decided, first match wins, by:
+
+1. The owner's Show under choice.
+2. A product name that says Business ("Ink ...", "... Business ...").
+3. A public product list (`CardProducts`, 70 Chase and Amex products researched from the issuers' pages on 2026-11-20, plus older Chase cards from review sites).
+4. The issuer home page's own grouping, stored as the derived segment: the read records, per card ending, whether Chase lists the card under "Personal" or under a business name. Only the ending and a true/false flag cross the bridge; the heading text never leaves the page, and an ending is used only when it appears once in both lists. Last digits still never identify a card.
+5. The reaching sign-ins, as decided above.
+
+The sections apply to every program with a benefits reader, so Amex is grouped the same way; only Chase has sign-ins. The sign-ins panel below the cards is replaced by a top-bar button that opens a sheet listing each sign-in as Personal or Business with its status, plus Add personal and Add business; a sign-in's kind is chosen when it is added. The product list also carries bundled offline artwork (JPEG, at most 480 px wide); the classic Chase Sapphire shares the Sapphire Preferred image because no real image was found. Product names never define coverage: an unknown product only lacks artwork and falls back to the signals below it.

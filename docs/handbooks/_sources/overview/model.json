@@ -122,7 +122,7 @@
         "Four outlined categories have saved sorting, a Completed last filter, and Show/Hide controls.",
         "Matching offline artwork and conservative duplicate display retain issuer rows and enrollment details.",
         "Yellow alerts can be acknowledged; only a successful relevant refresh can reintroduce source alerts.",
-        "Chase Personal and Business tiles; each Chase sign-in owns only its own card coverage."
+        "Collapsible Personal and Business sections for every institution; Chase sign-ins open from the top bar."
       ],
       "units": [
         "benefits-storing-a-read",

@@ -48,8 +48,8 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.customActions
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import com.bendourthe.milestone.ui.components.CollapsibleSectionHeader
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -218,6 +218,8 @@ private fun TileList(
     LaunchedEffect(highlightedProgram) {
         if (highlightedProgram != null) { kotlinx.coroutines.delay(4_000); highlightedProgram = null }
     }
+    /** Category or type sections the user hid; their headers stay, their programs do not. */
+    var collapsedSections by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(emptyList<String>()) }
     var observedSort by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<SortMode?>(null) }
     LaunchedEffect(state.sortMode) {
         if (observedSort != null && observedSort != state.sortMode) listState.scrollToItem(0)
@@ -231,11 +233,19 @@ private fun TileList(
             val result = kotlinx.coroutines.withTimeoutOrNull(10_000) {
                 val validation = validateReveal(request)
                 if (validation != com.bendourthe.milestone.ui.search.SearchValidation.CURRENT) { onRevealInvalid(validation); return@withTimeoutOrNull true }
+                // A result inside a hidden category opens that category first.
+                val hiddenTarget = state.tiles.firstOrNull { it.programId == target.programId }?.let(state::sectionOf)?.takeIf { it in collapsedSections }
+                if (hiddenTarget != null) {
+                    collapsedSections = collapsedSections - hiddenTarget
+                    // Let the list compose the opened section before scrolling to a row inside it.
+                    androidx.compose.runtime.withFrameNanos { }
+                }
                 var slot = 0
                 var targetSlot: Int? = null
                 state.tiles.forEachIndexed { index, tile ->
                     val section = state.sectionOf(tile)
                     if (section != null && state.tiles.getOrNull(index - 1)?.let(state::sectionOf) != section) slot++
+                    if (section != null && section in collapsedSections) return@forEachIndexed
                     if (tile.programId == target.programId) targetSlot = slot
                     slot++
                 }
@@ -254,14 +264,18 @@ private fun TileList(
             val section = state.sectionOf(tile)
             if (section != null && state.tiles.getOrNull(index - 1)?.let(state::sectionOf) != section) {
                 item(key = "section:$section") {
-                    Text(
+                    val hidden = section in collapsedSections
+                    CollapsibleSectionHeader(
                         section,
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(top = if (index == 0) 0.dp else 12.dp).semantics { heading() },
+                        state.tiles.count { state.sectionOf(it) == section },
+                        "program",
+                        hidden,
+                        onToggle = { collapsedSections = if (hidden) collapsedSections - section else collapsedSections + section },
+                        modifier = Modifier.padding(top = if (index == 0) 0.dp else 12.dp).testTag("section_$section"),
                     )
                 }
             }
+            if (section != null && section in collapsedSections) return@forEachIndexed
             item(key = tile.programId) {
                 ReorderableItem(reorderState, key = tile.programId, enabled = state.canReorder) {
                     val moveActions = if (state.canReorder) {

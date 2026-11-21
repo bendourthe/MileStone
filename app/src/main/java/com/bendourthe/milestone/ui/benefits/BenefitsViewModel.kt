@@ -50,15 +50,14 @@ sealed interface BenefitsUiState {
 }
 
 /**
- * One institution tile. [programId] is the tile's group id: the program id, or for a program with Personal and
- * Business tiles (ADR-0009) the program id and segment, such as `chase#business`. [issuerProgramId] and [segment] name
- * the program and segment behind the tile.
+ * One institution tile. [segmented] is true for a program whose page lists Personal cards, then Business cards, under
+ * collapsible headers; [signIns] for one whose page also offers its issuer sign-ins from the top bar (ADR-0009).
  */
 data class BenefitsProgramUi(
     val programId: String, val name: String, val monogram: String, val logoKey: String?,
     val brandColorArgb: Long, val cardCount: Int, val alertCount: Int,
-    val issuerProgramId: String = programId,
-    val segment: CardSegment? = null,
+    val segmented: Boolean = false,
+    val signIns: Boolean = false,
 )
 
 data class CardTileUi(
@@ -74,23 +73,26 @@ data class CardTileUi(
     val alertCount: Int = 0,
     /** The card's own ending as stored; null when the issuer showed none. */
     val lastDigits: String? = key.displayDigits,
-    /** The institution tile this card is listed under (see [BenefitsProgramUi.programId]). */
-    val groupId: String = key.programId,
-    /** Shown when the card's Personal or Business tile is not known yet. */
+    /** The section this card is listed under on a segmented program's page; null on other programs. */
+    val segment: CardSegment? = null,
+    /** Shown when the card's Personal or Business section is not known yet. */
     val classificationNote: String? = null,
+    /** The issuer's color, for the drawn card face of a card without bundled artwork. */
+    val brandColorArgb: Long? = null,
+    /** The compact freshness line, such as "Updated 5 min ago". */
+    val updatedLabel: String = lastReadLabel,
 ) {
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${lastDigits ?: "unknown"}", nextCredit, "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$name, card ending ${lastDigits ?: "unknown"}", "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
-/** The tile group of [card] in [program]: its segment's group when the program has Personal and Business tiles. */
-fun groupIdOf(program: com.bendourthe.milestone.domain.Program?, card: Card): String =
-    if (program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE) {
-        "${card.programId}#${(card.segment ?: CardSegment.PERSONAL).name.lowercase()}"
-    } else {
-        card.programId
-    }
+/** True for a program whose cards are listed in Personal and Business sections: every program with a benefits reader. */
+fun isSegmented(program: com.bendourthe.milestone.domain.Program?): Boolean = program?.benefits != null
+
+/** True for a program with several issuer sign-ins (ADR-0009), whose sections follow those sign-ins. */
+fun hasSignIns(program: com.bendourthe.milestone.domain.Program?): Boolean =
+    program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
 
 /** The committed inputs behind this rendered page, used only for in-memory exact-result validation. */
 data class CardPageSource(val card: Card, val benefits: List<Benefit>, val preferences: BenefitsDisplayPreferences)
@@ -197,32 +199,23 @@ class BenefitsViewModel(
             combine(added.map { id -> cardsWithBenefits(id) }) { perProgram ->
                 val tiles = perProgram.flatMap { it }.map { (card, benefits, prefs) ->
                     val program = catalog.program(card.programId)
-                    val segmented = program?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE
+                    val segmented = isSegmented(program)
                     tile(card, benefits, clock(), zone, locale).copy(
                         programName = program?.displayName ?: card.programId,
+                        brandColorArgb = program?.brandColorArgb,
                         benefitCount = page(card, benefits, clock(), zone, locale, prefs).sections.sumOf { it.items.size },
                         alertCount = BenefitsAlerts.active(card, benefits, prefs, clock(), zone, locale).size,
-                        groupId = groupIdOf(program, card),
-                        classificationNote = if (segmented && card.segment == null) "Needs Personal or Business" else null,
+                        // An unclassified card is listed under Personal; on a program with sign-ins, with a note, until a
+                        // sign-in or the user decides. Elsewhere only the product name or the user can make it Business.
+                        segment = if (segmented) card.segment ?: CardSegment.PERSONAL else null,
+                        classificationNote = if (hasSignIns(program) && card.segment == null) "Needs Personal or Business" else null,
                     )
                 }
-                BenefitsUiState.Cards(tiles, added.flatMap { id ->
+                BenefitsUiState.Cards(tiles, added.map { id ->
                     val program = programs.first { it.programId == id }
-                    fun entry(groupId: String, name: String, segment: CardSegment?): BenefitsProgramUi {
-                        val cards = tiles.filter { it.groupId == groupId }
-                        return BenefitsProgramUi(groupId, name, program.monogram, program.logoKey, program.brandColorArgb,
-                            cards.size, cards.sumOf { it.alertCount }, issuerProgramId = id, segment = segment)
-                    }
-                    if (program.benefits?.adapter != com.bendourthe.milestone.domain.BenefitsAdapter.CHASE) {
-                        listOf(entry(id, program.displayName, null))
-                    } else {
-                        // Personal always shows; Business once a card belongs to it (ADR-0009).
-                        val business = "$id#business"
-                        listOfNotNull(
-                            entry("$id#personal", "${program.displayName} Personal", CardSegment.PERSONAL),
-                            entry(business, "${program.displayName} Business", CardSegment.BUSINESS).takeIf { tiles.any { it.groupId == business } },
-                        )
-                    }
+                    val cards = tiles.filter { it.key.programId == id }
+                    BenefitsProgramUi(id, program.displayName, program.monogram, program.logoKey, program.brandColorArgb,
+                        cards.size, cards.sumOf { it.alertCount }, segmented = isSegmented(program), signIns = hasSignIns(program))
                 })
             }
         }
@@ -232,7 +225,7 @@ class BenefitsViewModel(
     fun card(key: CardKey): Flow<CardPageUi?> =
         combine(cards.observeCards(key.programId), cards.observeBenefits(key), preferences(key), settingsErrors) { list, benefits, prefs, errors ->
             list.firstOrNull { it.key == key }?.let { page(it, benefits, clock(), zone, locale, prefs).copy(settingsError = errors[key], source = CardPageSource(it, benefits.toList(), prefs),
-                segmented = catalog.program(key.programId)?.benefits?.adapter == com.bendourthe.milestone.domain.BenefitsAdapter.CHASE, segment = it.segment) }
+                segmented = isSegmented(catalog.program(key.programId)), segment = it.segment) }
         }
 
     /** The user's Personal or Business choice for one card; it wins over the sign-ins' declarations and survives refreshes. */
@@ -302,6 +295,7 @@ class BenefitsViewModel(
                 completedLabel = if (completed == 0) null else "$completed completed",
                 lastReadLabel = DashboardViewModel.lastUpdatedLabel(card.benefitsReadEpochMs, nowMs),
                 staleNote = staleNote(card, nowMs, zone, locale),
+                updatedLabel = DashboardViewModel.age(card.benefitsReadEpochMs, nowMs)?.let { "Updated $it" } ?: "Not read yet",
             )
         }
 

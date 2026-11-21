@@ -89,6 +89,7 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
         }
         var nextSort = dao.maxSortOrder(programId) + 1
         val listed = LinkedHashSet<String>()
+        val homeGroups = mutableMapOf<String, CardSegment>()
         for (source in inventory.cards) {
             val cardId = own[source.bindingHash]?.cardId ?: boundElsewhere(programId, source.bindingHash) ?: newCardId(programId)
             val existing = dao.card(programId, cardId)
@@ -108,6 +109,7 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
             )
             dao.upsertCoverage(CardCoverageEntity(connection.connectionId, programId, cardId, source.bindingHash, readEpochMs))
             listed += cardId
+            source.segment?.let { homeGroups[cardId] = it }
         }
         val touched = LinkedHashSet(listed)
         if (inventory.complete && inventory.cards.isNotEmpty()) {
@@ -119,7 +121,7 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
                 touched += unlisted - orphans.toSet()
             }
         }
-        touched.forEach { deriveSegment(programId, it) }
+        touched.forEach { deriveSegment(programId, it, homeGroups[it]) }
         dao.setInventoryRead(connection.connectionId, readEpochMs, inventory.complete)
         return InventoryOutcome.APPLIED
     }
@@ -136,10 +138,15 @@ class RoomCardRepository(private val db: MileStoneDatabase) : CardRepository, Co
         throw SQLiteConstraintException("card id collision")
     }
 
-    /** Personal when any Personal connection reaches the card, Business when only Business ones do. */
-    private suspend fun deriveSegment(programId: String, cardId: String) {
+    /**
+     * The issuer home page's own grouping when this read saw it ([homeGroup]); otherwise Personal when any Personal
+     * connection reaches the card, Business when only Business ones do. A product name that says Business takes
+     * precedence when the card is read (see toDomain), so cards stored earlier follow it at once.
+     */
+    private suspend fun deriveSegment(programId: String, cardId: String, homeGroup: CardSegment? = null) {
         val segments = dao.reachingSegments(programId, cardId)
         val derived = when {
+            homeGroup != null -> homeGroup.name
             CardSegment.PERSONAL.name in segments -> CardSegment.PERSONAL.name
             CardSegment.BUSINESS.name in segments -> CardSegment.BUSINESS.name
             else -> null
@@ -257,7 +264,10 @@ private fun CardEntity.toDomain() = Card(
     benefitsReadEpochMs = benefitsReadEpochMs,
     benefitsReadGeneration = benefitsReadGeneration,
     cardId = cardId,
-    segment = segmentOf(segmentOverride) ?: segmentOf(segment),
+    // The owner's choice, then a name that says Business ("Ink ...", "... Business ..."), then the known product's
+    // section, then the stored one (the issuer home page's grouping, or the reaching sign-ins).
+    segment = segmentOf(segmentOverride) ?: CardSegment.fromProductName(name)
+        ?: com.bendourthe.milestone.domain.CardProducts.match(programId, name)?.segment ?: segmentOf(segment),
 )
 
 private fun ConnectionEntity.toDomain() = Connection(

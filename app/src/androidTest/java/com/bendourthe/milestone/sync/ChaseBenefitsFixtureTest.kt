@@ -184,6 +184,27 @@ class ChaseBenefitsFixtureTest {
     }
 
     @Test
+    fun chaseShapedComponentsAndAnInPlaceBottomSheetReachTheBenefitsPage() = runBlocking {
+        variants += "sheet"
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val inventory = read.inventories.single()
+        assertEquals(listOf("Synthetic Reserve", "Synthetic Freedom"), inventory.cards.map { it.name })
+        assertEquals(2, read.bindingBenefits.size)
+    }
+
+    @Test
+    fun theHomePageGroupingMarksEachListedCardPersonalOrBusiness() = runBlocking {
+        variants += "groups"
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val bySegment = read.inventories.single().cards.associate { it.lastDigits to it.segment }
+        assertEquals(mapOf("1111" to CardSegment.PERSONAL, "2222" to CardSegment.PERSONAL, "3333" to CardSegment.BUSINESS), bySegment)
+    }
+
+    @Test
     fun aMissingMoreControlStopsWithoutAnInventory() = runBlocking {
         variants += "nomore"
 

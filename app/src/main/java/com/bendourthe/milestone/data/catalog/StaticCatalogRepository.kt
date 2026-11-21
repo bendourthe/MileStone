@@ -175,6 +175,8 @@ class StaticCatalogRepository : CatalogRepository {
                 "rowTag" to ".nfli-text-tag",
                 "rowValue" to ".nfli-value",
                 "tracker" to "mds-progress-bar",
+                // The home page's card groups: "Personal", or a business's name (2026-11-15 captures).
+                "homeGroup" to "[data-testid=account-accordion-subdivision]",
                 "moreLabel" to "^more$",
                 "benefitsLabel" to "^(card )?benefits$",
             ),

@@ -31,9 +31,10 @@ data class Connection(
  * One card as one connection's card selector reports it. [bindingHash] is a keyed, per-install hash of the
  * page's control identity for that card: equal hashes from two connections are the proven binding that lets
  * them share one local card. The raw control identity, a full card number, or an issuer account key is never
- * stored. [lastDigits] is display-only and never used to match cards.
+ * stored. [lastDigits] is display-only and never used to match cards. [segment] is the issuer's own grouping of the
+ * card on its home page (Personal, or under a business), when the read saw it; it decides only the card's section.
  */
-data class SourceCard(val bindingHash: String, val name: String, val lastDigits: String?) {
+data class SourceCard(val bindingHash: String, val name: String, val lastDigits: String?, val segment: CardSegment? = null) {
     init {
         require(BINDING.matches(bindingHash)) { "binding hash must be 64 lowercase hex digits" }
         require(lastDigits == null || CardKey.isValidLastDigits(lastDigits)) { "last digits must be 4 or 5 digits" }

@@ -12,7 +12,7 @@
 | Category | Open | Resolved |
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
-| Deferred (DF) | 36 | 0 |
+| Deferred (DF) | 38 | 1 |
 | Bugs / regressions (BG) | 0 | 0 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 0 |
@@ -370,6 +370,7 @@
 
 - **Migrated from**: v0.4.0#DF-27 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
+- **Mitigation in v0.5.0**: a benefits read cancelled because MileStone left the screen now starts again the next time MileStone returns, even when no balance is due (`SyncManager.resumeBenefits`; `SyncManagerBenefitsTest.aBenefitsReadCancelledByLeavingTheScreenStartsAgainOnReturn`, which fails without the fix). Observed on the phone on 2026-11-20: "Benefits read for amex started again after MileStone returned to the screen". The balance refresh itself still stops when MileStone leaves the screen, so this item stays open.
 
 #### DF-28 - Legacy G46
 
@@ -383,13 +384,6 @@
 
 - **Migrated from**: v0.4.0#DF-28 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
-
-#### DF-29 - Chase live navigation and timing unproven
-
-- **Source phase**: v0.5.0 Phase 3 (T007-T009)
-- **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Definition of Done (live Chase reads within the 120000 ms budget)
-- **Reason**: The Chase reader passes the synthetic fixture on the emulator and counts all 8 private captured pages (252 rows), but the live path (dashboard card entry, More, Benefits, card selector sheet) and its timing have not run against the real site. The traversal-timing review was superseded without a live run.
-- **Suggested next step**: Owner live acceptance on the phone: three Chase refreshes, each read logged within 120000 ms with count-only lines; on a stop, compare the logged page kind and reason with the captured structure before changing selectors.
 
 #### DF-30 - Extra sign-in success depends on the Rewards balance
 
@@ -441,7 +435,29 @@
 - **Reason**: A selector with more than 20 cards is posted as incomplete (no removals) and not tested; a ten-card account that reloads per card read in 25.4 s on the emulator, but larger accounts may reach the 120000 ms budget, leaving later cards unread until the next refresh.
 - **Suggested next step**: Add a 21-card fixture case; read the live per-card time from count-only logs during acceptance.
 
+#### DF-37 - Chase path restart not yet measured live
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-20)
+- **Plan reference**: Definition of Done item 4 (three live reads within 120000 ms)
+- **Reason**: Before the fixes, live reads stopped at the menu sheet (`navigation at benefits`, then `noControl at benefits`) and twice at the Benefits page (`navigation at page`, 17161 ms and 27291 ms); one read listed and read all 3 cards in 18069 ms. The page step now waits 25 s and the path restarts once from the dashboard, both proven only on the Chase-shaped emulator fixture.
+- **Suggested next step**: Read the count-only `chase benefits` lines after the next three phone refreshes; if `benefits path started over` is followed by another stop, compare its `counts (...)` line with the captured structure before changing selectors.
+
+#### DF-38 - Bundled card artwork and product list need upkeep
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
+- **Plan reference**: ADR-0009 amendment 2026-11-21
+- **Reason**: `CardProducts` (70 products) and its JPEG artwork were researched on 2026-11-20: current products from the issuers' pages, five older Chase cards from card review sites, and some names written from the researcher's knowledge. No real image of the classic Chase Sapphire was found, so it shows the Sapphire Preferred image. The images are the issuers' trademarked artwork, bundled for this personal app. New or renamed products show the drawn card face until the list is refreshed.
+- **Suggested next step**: Refresh the list when the owner adds a card that shows the drawn face; decide before any public distribution whether the issuers' artwork may ship.
+
+#### DF-39 - Chase home-page grouping seen in one capture
+
+- **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
+- **Plan reference**: ADR-0009 amendment 2026-11-21 (`homeGroup` selector)
+- **Reason**: The grouping (`[data-testid=account-accordion-subdivision]`, a "PERSONAL" heading, a business name for the other group) appears in the 3-card capture only; the 2-card personal-only capture has no groups. A page without groups simply sends no flags, and the product rules still apply.
+- **Suggested next step**: After a live read, confirm the business card stays under Business when its name and the product list do not already say so.
+
 ### Resolved
 
 | ID | Title | Resolved in | Notes |
 |---|---|---|---|
+| DF-29 | Chase live navigation and timing unproven | v0.5.0 Phase 5 (owner live acceptance, 2026-11-20 to 2026-11-21) | On the owner's phone a read listed 3 cards and read all of them in 18069 ms (`pages=8 cards=3 complete=true read=3 failed=0 stop=none`, 23, 29 and 48 rows); the owner accepted the Chase cards, sections and artwork. Remaining path reliability is DF-37. |

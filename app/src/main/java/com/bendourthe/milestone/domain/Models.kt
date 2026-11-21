@@ -84,7 +84,7 @@ data class BenefitsSpec(
         /** Chase benefits page structure (ADR-0009, from the 2026-11-15 captures and the owner's navigation path). */
         val CHASE_SELECTOR_KEYS = setOf(
             "page", "selectorButton", "sheet", "sheetOption", "group", "row", "rowTitle", "rowTag", "rowValue", "tracker",
-            "moreLabel", "benefitsLabel",
+            "moreLabel", "benefitsLabel", "homeGroup",
         )
     }
 }

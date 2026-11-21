@@ -15,6 +15,7 @@ import com.bendourthe.milestone.data.session.SessionStore
 import com.bendourthe.milestone.domain.BenefitDraft
 import com.bendourthe.milestone.domain.BenefitsAdapter
 import com.bendourthe.milestone.domain.BenefitsSpec
+import com.bendourthe.milestone.domain.CardSegment
 import com.bendourthe.milestone.domain.Connection
 import com.bendourthe.milestone.domain.ConnectionInventory
 import com.bendourthe.milestone.domain.Program
@@ -29,6 +30,8 @@ import com.bendourthe.milestone.sync.extract.BridgeMessage
 import com.bendourthe.milestone.sync.extract.BridgeProtocol
 import com.bendourthe.milestone.sync.extract.ChaseCardOption
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
@@ -72,7 +75,8 @@ class ChaseBenefitsSource(
                     withTimeoutOrNull(left.coerceAtLeast(1_000)) { run.done.await() } ?: run.result(BenefitsStop.BUDGET)
                 } finally {
                     run.destroy()
-                    DiagnosticLog.i(TAG, "${program.programId} benefits connection=${connection.sortOrder} read: ${run.summary()}")
+                    val cancelled = !currentCoroutineContext().isActive
+                    DiagnosticLog.i(TAG, "${program.programId} benefits connection=${connection.sortOrder} read: ${run.summary(cancelled)}")
                 }
             }
             result.inventory?.let(inventories::add)
@@ -113,6 +117,10 @@ class ChaseBenefitsSource(
         private var unreadable: String? = null
         private val startedAt = SystemClock.elapsedRealtime()
         private var destroyed = false
+        private var retried = false
+
+        /** The home page's grouping for this read: card ending to true when listed under a business. Memory only. */
+        private val homeGroups = mutableMapOf<String, Boolean>()
 
         fun start() {
             WebViewConfig.configure(webView, profileName)
@@ -148,6 +156,7 @@ class ChaseBenefitsSource(
 
         private fun onMessage(message: BridgeMessage?) {
             when (message) {
+                is BridgeMessage.ChaseKinds -> homeGroups.putAll(message.business)
                 is BridgeMessage.ChaseCards -> {
                     cards = message.cards
                     complete = message.complete
@@ -165,8 +174,19 @@ class ChaseBenefitsSource(
                     next()
                 }
                 is BridgeMessage.ChaseUnreadable -> {
-                    DiagnosticLog.i(TAG, "${program.programId} benefits page unreadable (${message.why}${message.step?.let { " at $it" }.orEmpty()})")
+                    DiagnosticLog.i(TAG, "${program.programId} benefits page unreadable (${message.why}${message.step?.let { " at $it" }.orEmpty()})" +
+                        message.counts?.let {
+                            if (message.step == "page") " counts (sheets,pages,pagesVisible,benefitIdsVisible)=$it"
+                            else " counts (sheets,listItems,labelled,labelledVisible,labelledByAttribute)=$it"
+                        }.orEmpty())
                     if (cards == null) {
+                        // The path to Benefits sometimes stalls on a slow page: start it over once from the dashboard.
+                        if (!retried && message.why in RETRYABLE_PATH && deadline - SystemClock.elapsedRealtime() >= MIN_CONNECTION_MS) {
+                            retried = true
+                            DiagnosticLog.i(TAG, "${program.programId} benefits path started over")
+                            webView.loadUrl(spec.entryUrl)
+                            return
+                        }
                         unreadable = message.why
                         return finish(null)
                     }
@@ -197,20 +217,25 @@ class ChaseBenefitsSource(
         fun result(stop: BenefitsStop?): ConnectionResult {
             val listed = cards
             val inventory = listed?.let { options ->
+                // A home-page group applies only to an ending that appears once in the list, so it cannot reach the wrong card.
+                val unique = options.mapNotNull { it.lastDigits }.groupingBy { it }.eachCount().filterValues { it == 1 }.keys
+                fun segmentOf(digits: String?) = digits?.takeIf { it in unique }?.let(homeGroups::get)
+                    ?.let { business -> if (business) CardSegment.BUSINESS else CardSegment.PERSONAL }
                 ConnectionInventory(
                     program.programId,
                     connection.connectionId,
-                    options.map { SourceCard(keys.hash(program.programId, it.control), it.name, it.lastDigits) },
+                    options.map { SourceCard(keys.hash(program.programId, it.control), it.name, it.lastDigits, segmentOf(it.lastDigits)) },
                     complete = complete && stop == null,
                 )
             }
             return ConnectionResult(inventory, benefits.toMap(), stop)
         }
 
-        fun summary(): String =
+        /** [cancelled] marks a read stopped from outside (MileStone left the screen, Sign out), not by its own budget. */
+        fun summary(cancelled: Boolean): String =
             "pages=$pages cards=${cards?.size ?: "none"} complete=$complete read=${benefits.size} failed=${failed.size} " +
                 "unreadable=${unreadable ?: "none"} total=${SystemClock.elapsedRealtime() - startedAt}ms " +
-                "stop=${if (done.isCompleted) done.getCompleted().stop ?: "none" else "budget"}"
+                "stop=${if (done.isCompleted) done.getCompleted().stop ?: "none" else if (cancelled) "cancelled" else "budget"}"
 
         fun destroy() {
             if (destroyed) return
@@ -253,6 +278,9 @@ class ChaseBenefitsSource(
         /** A connection or a card is started only with at least this much budget left. */
         private const val MIN_CONNECTION_MS = 20_000L
         private const val MIN_CARD_MS = 8_000L
+
+        /** Path failures before the card list that one fresh start from the dashboard may fix. */
+        private val RETRYABLE_PATH = setOf("navigation", "noControl", "timeout")
         /** Page loads (ready messages) one connection may use before its card list: dashboard, card, Benefits, plus slack. */
         private const val BASE_PAGES = 8
 

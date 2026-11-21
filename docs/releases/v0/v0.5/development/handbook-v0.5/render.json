@@ -1,7 +1,7 @@
 {
   "status": "pass",
-  "browser": "Chromium 156.0.8078.4",
-  "output_sha256": "7238497b198347d483737bff0d986e6b6a44d0411b61de034d822b83451ea80c",
+  "browser": "Chromium 153.0.8010.12",
+  "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9",
   "checker_sha256": "e1d7e7916c8f4dfd2eb567e7195905b18d62991e14eaca63ae85e3b2f1e4926f",
   "checks": [
     {
@@ -811,7 +811,7 @@
         "left": 0,
         "right": 320,
         "top": 0,
-        "bottom": 816.328125,
+        "bottom": 841.703125,
         "width": 320,
         "height": 900,
         "controlsTop": 700.09375,
@@ -1039,7 +1039,7 @@
         "left": 0,
         "right": 320,
         "top": 0,
-        "bottom": 13366.140625,
+        "bottom": 13670.640625,
         "width": 320,
         "height": 900,
         "controlsTop": 700.09375,
@@ -1096,7 +1096,7 @@
         "left": 0,
         "right": 320,
         "top": 0,
-        "bottom": 5353.65625,
+        "bottom": 6068.15625,
         "width": 320,
         "height": 900,
         "controlsTop": 700.09375,
@@ -1297,7 +1297,7 @@
         "left": 0,
         "right": 320,
         "top": 0,
-        "bottom": 11142.234375,
+        "bottom": 12110.484375,
         "width": 320,
         "height": 900,
         "controlsTop": 700.09375,
@@ -2541,7 +2541,7 @@
         "left": 0,
         "right": 390,
         "top": 0,
-        "bottom": 9104.703125,
+        "bottom": 9299.453125,
         "width": 390,
         "height": 844,
         "controlsTop": 644.09375,
@@ -2598,7 +2598,7 @@
         "left": 0,
         "right": 390,
         "top": 0,
-        "bottom": 4090.453125,
+        "bottom": 4581.328125,
         "width": 390,
         "height": 844,
         "controlsTop": 644.09375,
@@ -2799,7 +2799,7 @@
         "left": 0,
         "right": 390,
         "top": 0,
-        "bottom": 7816.65625,
+        "bottom": 8550.96875,
         "width": 390,
         "height": 844,
         "controlsTop": 644.09375,
@@ -4043,7 +4043,7 @@
         "left": 0,
         "right": 420,
         "top": 0,
-        "bottom": 8944.25,
+        "bottom": 9121.875,
         "width": 420,
         "height": 900,
         "controlsTop": 700.09375,
@@ -4100,7 +4100,7 @@
         "left": 0,
         "right": 420,
         "top": 0,
-        "bottom": 3852.515625,
+        "bottom": 4313.265625,
         "width": 420,
         "height": 900,
         "controlsTop": 700.09375,
@@ -4301,7 +4301,7 @@
         "left": 0,
         "right": 420,
         "top": 0,
-        "bottom": 7787.84375,
+        "bottom": 8426.21875,
         "width": 420,
         "height": 900,
         "controlsTop": 700.09375,
@@ -5545,7 +5545,7 @@
         "left": 0,
         "right": 759,
         "top": 0,
-        "bottom": 4843.9375,
+        "bottom": 4949.875,
         "width": 759,
         "height": 844,
         "controlsTop": 730.765625,
@@ -5602,7 +5602,7 @@
         "left": 0,
         "right": 759,
         "top": 0,
-        "bottom": 2406.703125,
+        "bottom": 2619.578125,
         "width": 759,
         "height": 844,
         "controlsTop": 730.765625,
@@ -5803,7 +5803,7 @@
         "left": 0,
         "right": 759,
         "top": 0,
-        "bottom": 4492.4375,
+        "bottom": 4838.734375,
         "width": 759,
         "height": 844,
         "controlsTop": 730.765625,
@@ -7047,7 +7047,7 @@
         "left": 0,
         "right": 760,
         "top": 0,
-        "bottom": 4816.453125,
+        "bottom": 4922.390625,
         "width": 760,
         "height": 844,
         "controlsTop": 730.765625,
@@ -7104,7 +7104,7 @@
         "left": 0,
         "right": 760,
         "top": 0,
-        "bottom": 2406.703125,
+        "bottom": 2619.578125,
         "width": 760,
         "height": 844,
         "controlsTop": 730.765625,
@@ -7305,7 +7305,7 @@
         "left": 0,
         "right": 760,
         "top": 0,
-        "bottom": 4492.4375,
+        "bottom": 4838.734375,
         "width": 760,
         "height": 844,
         "controlsTop": 730.765625,
@@ -25130,7 +25130,7 @@
       "name": "frame-sampled source/model values app balanced",
       "pass": true,
       "detail": {
-        "samples": 74,
+        "samples": 72,
         "errors": []
       }
     },
@@ -25142,19 +25142,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.0159999946252
+            "time": 250.04599999906497
           },
           {
             "state": "running",
-            "time": 250.0159999946252
+            "time": 250.04599999906497
           },
           {
             "state": "running",
-            "time": 250.0159999946252
+            "time": 250.04599999906497
           },
           {
             "state": "running",
-            "time": 250.0159999946252
+            "time": 250.04599999906497
           }
         ]
       }
@@ -25195,21 +25195,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668119,
+            "opacity": 0.668179,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.375938,
+            "opacity": 0.376012,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0203,
+            "opacity": 0.020391,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25269,7 +25269,7 @@
       "name": "frame-sampled source/model values app deep-dive",
       "pass": true,
       "detail": {
-        "samples": 74,
+        "samples": 72,
         "errors": []
       }
     },
@@ -25281,19 +25281,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           }
         ]
       }
@@ -25328,15 +25328,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.0179999971417
+            "time": 250.04400000604844
           },
           {
             "state": "running",
-            "time": 250.0179999971417
+            "time": 250.04400000604844
           },
           {
             "state": "running",
-            "time": 250.0179999971417
+            "time": 250.04400000604844
           }
         ]
       }
@@ -25370,21 +25370,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668123,
+            "opacity": 0.668175,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.375942,
+            "opacity": 0.376007,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0203061,
+            "opacity": 0.020385,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25441,15 +25441,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           }
         ]
       }
@@ -25472,7 +25472,7 @@
       "name": "frame-sampled source/model values pages balanced",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25484,19 +25484,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 266.6499999936782
+            "time": 250.0420000130319
           },
           {
             "state": "running",
-            "time": 266.6499999936782
+            "time": 250.0420000130319
           },
           {
             "state": "running",
-            "time": 266.6499999936782
+            "time": 250.0420000130319
           },
           {
             "state": "running",
-            "time": 266.6499999936782
+            "time": 250.0420000130319
           }
         ]
       }
@@ -25537,21 +25537,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668187,
+            "opacity": 0.634571,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376022,
+            "opacity": 0.334159,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0204031,
+            "opacity": 0,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25611,7 +25611,7 @@
       "name": "frame-sampled source/model values pages deep-dive",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25658,7 +25658,7 @@
       "name": "frame-sampled source/model values switch balanced",
       "pass": true,
       "detail": {
-        "samples": 73,
+        "samples": 72,
         "errors": []
       }
     },
@@ -25670,15 +25670,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 283.315999994322
+            "time": 250.0060000013562
           },
           {
             "state": "running",
-            "time": 283.315999994322
+            "time": 250.0060000013562
           },
           {
             "state": "running",
-            "time": 283.315999994322
+            "time": 250.0060000013562
           }
         ]
       }
@@ -25712,21 +25712,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.70073,
+            "opacity": 0.668298,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.417034,
+            "opacity": 0.376162,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0700264,
+            "opacity": 0.020573,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25771,7 +25771,7 @@
       "name": "frame-sampled source/model values switch deep-dive",
       "pass": true,
       "detail": {
-        "samples": 76,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25783,15 +25783,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 283.3000000000005
+            "time": 233.29999999999984
           },
           {
             "state": "running",
-            "time": 283.3000000000005
+            "time": 233.29999999999984
           },
           {
             "state": "running",
-            "time": 283.3000000000005
+            "time": 233.29999999999984
           }
         ]
       }
@@ -25814,7 +25814,7 @@
       "name": "frame-sampled source/model values budget balanced",
       "pass": true,
       "detail": {
-        "samples": 73,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25826,15 +25826,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.98599999777582
+            "time": 249.9699999896805
           },
           {
             "state": "running",
-            "time": 249.98599999777582
+            "time": 249.9699999896805
           },
           {
             "state": "running",
-            "time": 249.98599999777582
+            "time": 249.9699999896805
           }
         ]
       }
@@ -25868,14 +25868,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634456,
+            "opacity": 0.634423,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.334016,
+            "opacity": 0.333975,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -25927,7 +25927,7 @@
       "name": "frame-sampled source/model values budget deep-dive",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25970,7 +25970,7 @@
       "name": "frame-sampled source/model values storage balanced",
       "pass": true,
       "detail": {
-        "samples": 71,
+        "samples": 72,
         "errors": []
       }
     },
@@ -25982,23 +25982,23 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.0519999984192
+            "time": 249.96799999666308
           },
           {
             "state": "running",
-            "time": 250.0519999984192
+            "time": 249.96799999666308
           },
           {
             "state": "running",
-            "time": 250.0519999984192
+            "time": 249.96799999666308
           },
           {
             "state": "running",
-            "time": 250.0519999984192
+            "time": 249.96799999666308
           },
           {
             "state": "running",
-            "time": 250.0519999984192
+            "time": 249.96799999666308
           }
         ]
       }
@@ -26046,14 +26046,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634592,
+            "opacity": 0.634419,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.334184,
+            "opacity": 0.33397,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -26135,7 +26135,7 @@
       "name": "frame-sampled source/model values storage deep-dive",
       "pass": true,
       "detail": {
-        "samples": 73,
+        "samples": 71,
         "errors": []
       }
     },
@@ -26147,23 +26147,23 @@
         "animations": [
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 249.90000000000023
           }
         ]
       }
@@ -26186,7 +26186,7 @@
       "name": "frame-sampled source/model values privacy balanced",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -26198,19 +26198,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 266.6499999981262
+            "time": 249.99799999543626
           },
           {
             "state": "running",
-            "time": 266.6499999981262
+            "time": 249.99799999543626
           },
           {
             "state": "running",
-            "time": 266.6499999981262
+            "time": 249.99799999543626
           },
           {
             "state": "running",
-            "time": 266.6499999981262
+            "time": 249.99799999543626
           }
         ]
       }
@@ -26251,21 +26251,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668187,
+            "opacity": 0.634481,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376022,
+            "opacity": 0.334047,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0204031,
+            "opacity": 0,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -26325,7 +26325,7 @@
       "name": "frame-sampled source/model values privacy deep-dive",
       "pass": true,
       "detail": {
-        "samples": 73,
+        "samples": 71,
         "errors": []
       }
     },
@@ -26337,19 +26337,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 250
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 250
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 250
           },
           {
             "state": "running",
-            "time": 266.60000000000036
+            "time": 250
           }
         ]
       }
@@ -26384,15 +26384,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.98199999466308
+            "time": 249.99600000241884
           },
           {
             "state": "running",
-            "time": 249.98199999466308
+            "time": 249.99600000241884
           },
           {
             "state": "running",
-            "time": 249.98199999466308
+            "time": 249.99600000241884
           }
         ]
       }
@@ -26426,21 +26426,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668251,
+            "opacity": 0.634476,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376102,
+            "opacity": 0.334042,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.0205002,
+            "opacity": 0,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -26497,15 +26497,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 249.90000000000023
           }
         ]
       }
@@ -26964,7 +26964,7 @@
       "left": 0,
       "right": 320,
       "top": 0,
-      "bottom": 816.328125,
+      "bottom": 841.703125,
       "width": 320,
       "height": 900,
       "controlsTop": 700.09375,
@@ -27084,7 +27084,7 @@
       "left": 0,
       "right": 320,
       "top": 0,
-      "bottom": 13366.140625,
+      "bottom": 13670.640625,
       "width": 320,
       "height": 900,
       "controlsTop": 700.09375,
@@ -27114,7 +27114,7 @@
       "left": 0,
       "right": 320,
       "top": 0,
-      "bottom": 5353.65625,
+      "bottom": 6068.15625,
       "width": 320,
       "height": 900,
       "controlsTop": 700.09375,
@@ -27204,7 +27204,7 @@
       "left": 0,
       "right": 320,
       "top": 0,
-      "bottom": 11142.234375,
+      "bottom": 12110.484375,
       "width": 320,
       "height": 900,
       "controlsTop": 700.09375,
@@ -27796,7 +27796,7 @@
       "left": 0,
       "right": 390,
       "top": 0,
-      "bottom": 9104.703125,
+      "bottom": 9299.453125,
       "width": 390,
       "height": 844,
       "controlsTop": 644.09375,
@@ -27826,7 +27826,7 @@
       "left": 0,
       "right": 390,
       "top": 0,
-      "bottom": 4090.453125,
+      "bottom": 4581.328125,
       "width": 390,
       "height": 844,
       "controlsTop": 644.09375,
@@ -27916,7 +27916,7 @@
       "left": 0,
       "right": 390,
       "top": 0,
-      "bottom": 7816.65625,
+      "bottom": 8550.96875,
       "width": 390,
       "height": 844,
       "controlsTop": 644.09375,
@@ -28508,7 +28508,7 @@
       "left": 0,
       "right": 420,
       "top": 0,
-      "bottom": 8944.25,
+      "bottom": 9121.875,
       "width": 420,
       "height": 900,
       "controlsTop": 700.09375,
@@ -28538,7 +28538,7 @@
       "left": 0,
       "right": 420,
       "top": 0,
-      "bottom": 3852.515625,
+      "bottom": 4313.265625,
       "width": 420,
       "height": 900,
       "controlsTop": 700.09375,
@@ -28628,7 +28628,7 @@
       "left": 0,
       "right": 420,
       "top": 0,
-      "bottom": 7787.84375,
+      "bottom": 8426.21875,
       "width": 420,
       "height": 900,
       "controlsTop": 700.09375,
@@ -29220,7 +29220,7 @@
       "left": 0,
       "right": 759,
       "top": 0,
-      "bottom": 4843.9375,
+      "bottom": 4949.875,
       "width": 759,
       "height": 844,
       "controlsTop": 730.765625,
@@ -29250,7 +29250,7 @@
       "left": 0,
       "right": 759,
       "top": 0,
-      "bottom": 2406.703125,
+      "bottom": 2619.578125,
       "width": 759,
       "height": 844,
       "controlsTop": 730.765625,
@@ -29340,7 +29340,7 @@
       "left": 0,
       "right": 759,
       "top": 0,
-      "bottom": 4492.4375,
+      "bottom": 4838.734375,
       "width": 759,
       "height": 844,
       "controlsTop": 730.765625,
@@ -29932,7 +29932,7 @@
       "left": 0,
       "right": 760,
       "top": 0,
-      "bottom": 4816.453125,
+      "bottom": 4922.390625,
       "width": 760,
       "height": 844,
       "controlsTop": 730.765625,
@@ -29962,7 +29962,7 @@
       "left": 0,
       "right": 760,
       "top": 0,
-      "bottom": 2406.703125,
+      "bottom": 2619.578125,
       "width": 760,
       "height": 844,
       "controlsTop": 730.765625,
@@ -30052,7 +30052,7 @@
       "left": 0,
       "right": 760,
       "top": 0,
-      "bottom": 4492.4375,
+      "bottom": 4838.734375,
       "width": 760,
       "height": 844,
       "controlsTop": 730.765625,
@@ -38090,7 +38090,7 @@
             "Four outlined categories have saved sorting, a Completed last filter, and Show/Hide controls.",
             "Matching offline artwork and conservative duplicate display retain issuer rows and enrollment details.",
             "Yellow alerts can be acknowledged; only a successful relevant refresh can reintroduce source alerts.",
-            "Chase Personal and Business tiles; each Chase sign-in owns only its own card coverage."
+            "Collapsible Personal and Business sections for every institution; Chase sign-ins open from the top bar."
           ],
           "units": [
             "benefits-storing-a-read",
@@ -38561,7 +38561,7 @@
         "unit": "overview-runtime-flow",
         "selector": "li",
         "offset": 5,
-        "text": "After a saved Chase balance, the Chase benefits read visits each Chase sign-in in its own profile within the same 120 s budget (ADR-0009). The page script follows the owner's path (a card on the dashboard, More, Benefits), lists the cards in the Benefits card selector, and reads each card's benefit groups, rows, and welcome tracker, pressing the selector for the next card. It stops without choosing anything on an identity check, never presses a payment control, and never signs in. A card already read through an earlier sign-in is skipped. A card's identity is an HMAC-SHA256 of its selector option under a key kept in noBackupFilesDir, so the raw option id is never stored; the stored card gets an opaque local id. SyncManager applies each sign-in's card list (only a complete list can remove a card, and only from that sign-in's coverage; a complete list that shares no card with the sign-in's coverage changes nothing) and the benefits read per card. A card whose page has more rows, groups, or trackers than the read may post is left unread rather than stored partially. A card read stopped by the deadline or a page limit keeps its stored benefits, and the read is reported as stopped. The page limit grows with the number of listed cards, so a site that reloads the page per card still finishes.",
+        "text": "After a saved Chase balance, the Chase benefits read visits each Chase sign-in in its own profile within the same 120 s budget (ADR-0009). The page script follows the owner's path (a card on the dashboard, More, Benefits), lists the cards in the Benefits card selector, and reads each card's benefit groups, rows, and welcome tracker, pressing the selector for the next card. It stops without choosing anything on an identity check, never presses a payment control, and never signs in. A card already read through an earlier sign-in is skipped. A card's identity is an HMAC-SHA256 of its selector option under a key kept in noBackupFilesDir, so the raw option id is never stored; the stored card gets an opaque local id. SyncManager applies each sign-in's card list (only a complete list can remove a card, and only from that sign-in's coverage; a complete list that shares no card with the sign-in's coverage changes nothing) and the benefits read per card. A card whose page has more rows, groups, or trackers than the read may post is left unread rather than stored partially. A card read stopped by the deadline or a page limit keeps its stored benefits, and the read is reported as stopped. The page limit grows with the number of listed cards, so a site that reloads the page per card still finishes. A path that stalls before the card list starts over once from the dashboard. Leaving MileStone cancels a running benefits read (Amex or Chase); the next time MileStone returns to the screen, that read starts again even when no balance is due.",
         "numbers": [
           "120",
           "0009",
@@ -38596,15 +38596,19 @@
         "unit": "overview-benefits-display",
         "selector": "p",
         "offset": 0,
-        "text": "Benefits starts with one tile per tracked institution that supports card benefits, with card and active-alert counts. Pressing an institution opens only its cards; card Back returns to that card list and list Back returns to the institutions. Connected institutions remain visible before their cards are read. Tapping a supported program on Rewards opens its card list directly; reminders open the named card with the same parent hierarchy. Known Platinum, Business Platinum, Hilton Surpass, and Delta Gold products use distinct bundled public artwork; an unknown product uses a generic offline card icon. Each card page groups Welcome bonus, Credits, Spend trackers, and Other. The top-right sort menu offers Name A-Z (the default), Name Z-A, Deadline soonest, and Largest amount remaining within each category, with unknown dates or amounts last. The separate top-right filter menu holds Completed last, applied before the selected sort. Both choices are saved per card. Outlined, counted category headings have explicit Show/Hide controls and collapse independently, with Other initially collapsed. Completed items retain their category with a check and strike-through; an unknown completed kind remains in Other rather than being inferred from its amount. Completed credits show a full progress bar. The display uses a positive stored target, then a single explicit leading dollar amount in the completed credit title, to show the completed target/target ratio beside the bar. An earned amount alone never establishes a target; when no target is known, the actual earned label remains beside the full bar. Unknown or multiple dollar amounts are not inferred. This display-only fallback does not change stored issuer rows. Unfinished credits retain actual progress and the inline ratio; other trackers keep their existing amount labels. Enrolled appears beside the title before the completed check, while Enrollment required remains in the body.",
-        "numbers": []
+        "text": "Benefits starts with one tile per tracked institution that supports card benefits, with its card count and a small alert badge at the top right. Pressing an institution opens only its cards; card Back returns to that card list and list Back returns to the institutions. Connected institutions remain visible before their cards are read. Tapping a supported program on Rewards opens its card list directly; reminders open the named card with the same parent hierarchy. Each institution's page lists Personal cards, then Business cards, under collapsible headers styled like the Rewards category headers, which also collapse. A compact card tile shows the artwork, the name with its alert badge, the ending and benefit count, and the completed count with the last update. Products on the bundled public product list (CardProducts, 70 Chase and Amex products) show their offline artwork; an unknown product shows a drawn card in the issuer's color with its ending. Each card page shows the card, then its alerts as slim rows with Acknowledge on the right (swiping a row right also acknowledges it), then groups Welcome bonus, Credits, Spend trackers, and Other. The top-right sort menu offers Name A-Z (the default), Name Z-A, Deadline soonest, and Largest amount remaining within each category, with unknown dates or amounts last. The separate top-right filter menu holds Completed last, applied before the selected sort. Both choices are saved per card. Outlined, counted category headings have explicit Show/Hide controls and collapse independently, with Other initially collapsed. Completed items retain their category with a check and strike-through; an unknown completed kind remains in Other rather than being inferred from its amount. Completed credits show a full progress bar. The display uses a positive stored target, then a single explicit leading dollar amount in the completed credit title, to show the completed target/target ratio beside the bar. An earned amount alone never establishes a target; when no target is known, the actual earned label remains beside the full bar. Unknown or multiple dollar amounts are not inferred. This display-only fallback does not change stored issuer rows. Unfinished credits retain actual progress and the inline ratio; other trackers keep their existing amount labels. Enrolled appears beside the title before the completed check, while Enrollment required remains in the body.",
+        "numbers": [
+          "70"
+        ]
       },
       {
         "unit": "overview-benefits-display",
         "selector": "p",
         "offset": 1,
-        "text": "Chase appears as two institution tiles, Chase Personal and Chase Business. A Chase card is Personal when any sign-in declared Personal reaches it, otherwise Business; the card page's top-right Show under menu moves one card to the other tile, and that choice survives refreshes. Chase Personal always shows; Chase Business shows once a card belongs to it. A card with no segment yet stays visible under Personal with \"Needs Personal or Business\". Each Chase card page lists the Chase sign-ins: each can be declared Personal or Business, another isolated sign-in can be added (up to four, refused with an explanation when the phone cannot keep separate profiles), and an extra sign-in can be signed out, which removes only the cards that no other sign-in reaches. The first sign-in owns the Chase Rewards balance; extra sign-ins never write a balance. Card tiles, Search results, and reminders show the stored card ending and open the exact card by its local id, so two cards with the same ending stay distinct.",
-        "numbers": []
+        "text": "Chase appears as one institution tile. A section shows once a card belongs to it. A card's section is, first match wins: the card page's top-right Show under choice (which survives refreshes), a product name that says Business (\"Ink ...\", \"... Business ...\"), the product list's kind, how the Chase home page groups the card (under \"Personal\" or under a business name; only the ending and a yes/no flag leave the page), and finally Personal when any Personal sign-in reaches the card (ADR-0009). A Chase card with no section yet is listed under Personal with \"Needs Personal or Business\". A top-bar button opens the Chase sign-ins sheet: each sign-in is listed as Personal or Business with its status, Add personal or Add business adds an isolated sign-in of that kind (up to four, refused with an explanation when the phone cannot keep separate profiles), and an extra sign-in can be signed out, which removes only the cards that no other sign-in reaches. The first sign-in owns the Chase Rewards balance; extra sign-ins never write a balance. Card tiles, Search results, and reminders show the stored card ending and open the exact card by its local id, so two cards with the same ending stay distinct.",
+        "numbers": [
+          "0009"
+        ]
       },
       {
         "unit": "overview-benefits-display",
@@ -38626,7 +38630,7 @@
         "unit": "overview-benefits-display",
         "selector": "p",
         "offset": 4,
-        "text": "Yellow alerts appear above the card artwork and categories. They identify enrollment requirements, unused credits near their established reminder deadline, stale reads, and a listed-benefits section that failed to refresh. Acknowledge hides one alert and updates its count without changing enrollment, issuer rows, or notification records. Acknowledgements survive navigation and restart. Only a successful relevant section read can reintroduce a still-applicable source alert; tracker period changes do not change a retained listed enrollment's identity. Failed or cancelled reads cannot reset it. Local welcome-bonus deadline alerts instead follow the saved manual setup.",
+        "text": "Yellow alerts appear below the card artwork and above the categories, one slim row each with Acknowledge on the right; swiping a row right also acknowledges it. They identify enrollment requirements, unused credits near their established reminder deadline, stale reads, and a listed-benefits section that failed to refresh. Acknowledge hides one alert and updates its count without changing enrollment, issuer rows, or notification records. Acknowledgements survive navigation and restart. Only a successful relevant section read can reintroduce a still-applicable source alert; tracker period changes do not change a retained listed enrollment's identity. Failed or cancelled reads cannot reset it. Local welcome-bonus deadline alerts instead follow the saved manual setup.",
         "numbers": []
       },
       {
@@ -38950,15 +38954,18 @@
         "unit": "benefits-chase-path",
         "selector": "li",
         "offset": 0,
-        "text": "Dashboard: press the first card entry, skipping forms, dialogs, and payment or transfer controls.",
+        "text": "Dashboard: note how the home page groups the cards (under \"Personal\" or under a business name) and post only each ending with a true/false business flag, then press the first card entry, skipping forms, dialogs, and payment or transfer controls.",
         "numbers": []
       },
       {
         "unit": "benefits-chase-path",
         "selector": "li",
         "offset": 1,
-        "text": "Card page: press More, then Benefits. A missing More control ends the sign-in as unreadable with no card list.",
-        "numbers": []
+        "text": "Card page: press More, then \"Card benefits\" in the menu sheet that opens in place. Labels are matched against the element's own text and its label attributes, and a component is pressed through the button inside its shadow root. A step waits for a visible change, including more visible controls for the next step, for up to 15 seconds (25 seconds for the Benefits page itself). A missing control (noControl) or no change (navigation) before the card list restarts the path once from the dashboard; a second failure ends the sign-in as unreadable with no card list, with count-only diagnostics.",
+        "numbers": [
+          "15",
+          "25"
+        ]
       },
       {
         "unit": "benefits-chase-path",
@@ -38997,7 +39004,7 @@
         "unit": "benefits-chase-sign-ins-and-coverage",
         "selector": "p",
         "offset": 0,
-        "text": "The first Chase sign-in uses the program's own profile and owns the Rewards balance. Up to three more sign-ins (chase_2 and up) each get an isolated profile and never write a balance; a phone that cannot isolate profiles refuses them. Each sign-in is declared Personal or Business.",
+        "text": "The first Chase sign-in uses the program's own profile and owns the Rewards balance. Up to three more sign-ins (chase_2 and up) each get an isolated profile and never write a balance; a phone that cannot isolate profiles refuses them. Each sign-in is Personal or Business, chosen when it is added from the Chase sign-ins sheet. A card's section follows, first match wins, the owner's Show under choice, a business product name, the CardProducts list, the home-page group recorded by the read (applied only to an ending that appears once in both lists), and finally the sign-ins that reach it.",
         "numbers": [
           "2"
         ]

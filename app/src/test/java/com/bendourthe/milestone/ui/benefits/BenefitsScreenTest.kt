@@ -8,6 +8,9 @@ import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeRight
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -103,13 +106,14 @@ class BenefitsScreenTest {
         seed()
         showTab()
         rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText("…71008", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText("Shopping Credit: \$50 left (Oct - Dec)", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText("1 completed", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText("Last updated: 1 d ago", useUnmergedTree = true).assertExists()
+        // Compact tile: the ending shares a line with the benefit count, and the completed count with the freshness.
+        rule.onNodeWithText("…71008 · ", substring = true, useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("1 completed · Updated 1 d ago", useUnmergedTree = true).assertExists()
+        // The tile no longer repeats the next credit; the card's page lists every credit.
+        rule.onAllNodesWithText("Shopping Credit", substring = true, useUnmergedTree = true).assertCountEquals(0)
         rule.onNodeWithText("Hotel Card", useUnmergedTree = true).assertExists()
         rule.onNodeWithText("Not updated since Oct 23", useUnmergedTree = true).assertExists()
-        rule.onNodeWithText("No open credits", useUnmergedTree = true).assertExists()
+        rule.onAllNodesWithText("No open credits", useUnmergedTree = true).assertCountEquals(0)
     }
 
     @Test
@@ -256,6 +260,19 @@ class BenefitsScreenTest {
         assertTrue(second.alerts.isNotEmpty())
         assertEquals(setOf(com.bendourthe.milestone.domain.BenefitsCategory.OTHER), first.preferences.collapsed)
         assertEquals(5, runBlocking { cards.observeBenefits(platinum).first() }.size)
+    }
+
+    @Test
+    fun swipingAnAlertRightAcknowledgesItAndTheAlertsSitBelowTheCard() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        val alert = rule.onNodeWithText("Enrollment required: Purchase Protection")
+        // Under the card's artwork and name, not above them.
+        assertTrue(rule.onNodeWithTag("cardArtwork").fetchSemanticsNode().boundsInRoot.bottom <= alert.fetchSemanticsNode().boundsInRoot.top)
+        alert.performTouchInput { swipeRight() }
+        rule.waitForIdle()
+        rule.onNodeWithTag("benefitsAlerts").assertDoesNotExist()
+        assertTrue(runBlocking { viewModel.card(platinum).first()!! }.alerts.isEmpty())
     }
 
     @Test

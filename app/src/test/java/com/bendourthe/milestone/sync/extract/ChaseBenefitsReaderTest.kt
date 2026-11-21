@@ -110,6 +110,16 @@ class ChaseBenefitsReaderTest {
         val unreadable = """{"type":"chaseUnreadable","nonce":"n","why":"navigation","step":"more"}"""
         assertEquals(BridgeMessage.ChaseUnreadable("navigation", "more"), BridgeProtocol.parse(unreadable, "n", pageUrl = page, benefits = spec))
         assertEquals(BridgeMessage.ChaseUnreadable("overflow", "page"), BridgeProtocol.parse(unreadable.replace("navigation", "overflow").replace("\"more\"", "\"page\""), "n", pageUrl = page, benefits = spec))
+        assertEquals(BridgeMessage.ChaseUnreadable("noControl", "benefits"), BridgeProtocol.parse(unreadable.replace("navigation", "noControl").replace("\"more\"", "\"benefits\""), "n", pageUrl = page, benefits = spec))
+        // The home page's grouping: endings and booleans only, any other field or value rejects the message.
+        val kinds = """{"type":"chaseKinds","nonce":"n","kinds":[{"digits":"1111","business":false},{"digits":"3333","business":true}]}"""
+        assertEquals(BridgeMessage.ChaseKinds(mapOf("1111" to false, "3333" to true)), BridgeProtocol.parse(kinds, "n", pageUrl = page, benefits = spec))
+        assertNull(BridgeProtocol.parse(kinds.replace("\"business\":true", "\"business\":true,\"heading\":\"Acme LLC\""), "n", pageUrl = page, benefits = spec))
+        assertNull(BridgeProtocol.parse(kinds.replace("3333", "Acme"), "n", pageUrl = page, benefits = spec))
+        val counted = unreadable.replace("}", ""","counts":"1,4,3,1,3"}""")
+        assertEquals(BridgeMessage.ChaseUnreadable("navigation", "more", "1,4,3,1,3"), BridgeProtocol.parse(counted, "n", pageUrl = page, benefits = spec))
+        // Counts carry digits only: anything else rejects the message rather than logging page text.
+        assertNull(BridgeProtocol.parse(counted.replace("1,4,3,1,3", "Card 1234"), "n", pageUrl = page, benefits = spec))
         assertNull(BridgeProtocol.parse(unreadable.replace("navigation", "secret"), "n", pageUrl = page, benefits = spec))
         assertNull(BridgeProtocol.parse(unreadable.replace("\"more\"", "\"/web/x\""), "n", pageUrl = page, benefits = spec))
     }

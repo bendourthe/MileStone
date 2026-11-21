@@ -142,18 +142,19 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
             current.settingsError?.let { error ->
                 item("settingsError") { Text(error, color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite }) }
             }
-            if (current.alerts.isNotEmpty()) {
-                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
-            }
-            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
-                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
-            }
             item("card") {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CardArtwork(key.programId, current.name, Modifier.width(176.dp))
                     Text(current.name, style = MaterialTheme.typography.headlineSmall)
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
+            }
+            // Alerts and the freshness note sit under the card they belong to, before its benefits.
+            if (current.alerts.isNotEmpty()) {
+                item("alerts") { BenefitsAlertPanel(current.alerts) { alert -> viewModel.acknowledge(key, alert.id, alert.generation) } }
+            }
+            current.listFreshnessNote?.takeIf { note -> current.alerts.none { it.message == note } }?.let { note ->
+                item("listFreshness") { Text(note, style = MaterialTheme.typography.bodySmall) }
             }
             if (current.sections.all { it.items.isEmpty() }) {
                 item("empty") { Text("No benefits yet", style = MaterialTheme.typography.bodyMedium) }

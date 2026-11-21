@@ -1,22 +1,11 @@
 {
   "status": "pass",
-  "observed_utc": "2026-11-20T09:21:46.712566+00:00",
-  "review": "Content review of the v0.5.0 Chase changes against the code. overview.md: intro, domain (local card id, Connections.kt), data.catalog (CHASE_BENEFITS), data.db version 5 tables and migration, sync.webview (ChaseBenefitsSource, ConnectionSessions), sync.extract (ChaseBenefitsReader, BindingHasher), Runtime Flow step 6 (Chase read, page limit, UNMATCHED, overflow) and step 4 (removal signs out extra sign-ins), Benefits Display (tiles, Show under menu, up to 4 sign-ins), Privacy (HMAC binding under a no-backup key), Tests. benefits-reader.md is renamed Benefits Reader with Chase Path and Chase Sign-ins and Coverage sections. Claims were checked against ChaseBenefitsSource.kt (MIN_CONNECTION_MS 20000, MIN_CARD_MS 8000, BASE_PAGES 8, PAGES_PER_CARD 2), ConnectionSessions.kt (MAX_CONNECTIONS 4), extract.js (caps 30/150/20, CHASE_STABLE_MS 2000), RoomCardRepository.applyInventory, and SyncManager (no benefits read on KEEP_ALIVE).",
+  "observed_utc": "2026-11-21T07:31:08.579706+00:00",
+  "review": "Content review of the owner-acceptance changes against the code. overview.md Runtime Flow step 6: path restart once (ChaseBenefitsSource RETRYABLE_PATH, retried) and benefits read restarted on return (SyncManager.resumeBenefits, cancelHeadless). Benefits Display: corner alert badge (BenefitsInstitutionTile, BenefitsAlertCount compact), Personal/Business sections for every program (isSegmented = benefits reader; hasSignIns = Chase), compact card tile without the credit line, CardProducts artwork with drawn card face fallback (CardArtwork), alerts below the card with Acknowledge on the right and swipe to acknowledge (BenefitsAlertPanel, CardBenefitsScreen), section precedence (RoomCardRepository toDomain and deriveSegment homeGroup), Chase sign-ins sheet (ConnectionsAction). benefits-reader.md Chase Path: home-page groups (homeGroups, chaseKinds, homeGroup selector), label attributes (chaseLabels), shadow-button press (press), 15 s step and 25 s page caps (CHASE_STEP_CAP_MS, CHASE_PAGE_CAP_MS), noControl and one restart. model.json Benefits Display point.",
   "changed_inputs": [
     "docs/handbooks/overview.md",
     "docs/handbooks/benefits-reader.md",
-    "docs/handbooks/README.md",
-    "docs/handbooks/handbooks.json",
-    "docs/handbooks/_sources/overview/model.json"
-  ],
-  "added_inputs": [
-    "app/src/main/java/com/bendourthe/milestone/domain/Connections.kt",
-    "app/src/main/java/com/bendourthe/milestone/data/db/Migrations.kt",
-    "app/src/main/java/com/bendourthe/milestone/sync/extract/ChaseBenefitsReader.kt",
-    "app/src/main/java/com/bendourthe/milestone/sync/extract/BindingHasher.kt",
-    "app/src/main/java/com/bendourthe/milestone/sync/webview/ChaseBenefitsSource.kt",
-    "app/src/main/java/com/bendourthe/milestone/sync/webview/ConnectionSessions.kt",
-    "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt",
+    "docs/handbooks/_sources/overview/model.json",
     "docs/decisions/0009-chase-benefits.md"
   ],
   "qualification_scope": "Handbook only; application, hosted CI and release qualification are separate."

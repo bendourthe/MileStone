@@ -110,7 +110,7 @@ class BridgeSession(
         return when (val message = BridgeProtocol.parse(data, nonce, program.balanceUnit)) {
             // The balance session passes no benefits spec, so parse never returns benefits messages here.
             null, is BridgeMessage.Cards, is BridgeMessage.Benefits, is BridgeMessage.BenefitsUnreadable,
-            is BridgeMessage.ChaseCards, is BridgeMessage.ChaseBenefits, is BridgeMessage.ChaseUnreadable -> null
+            is BridgeMessage.ChaseCards, is BridgeMessage.ChaseKinds, is BridgeMessage.ChaseBenefits, is BridgeMessage.ChaseUnreadable -> null
             BridgeMessage.Ready -> {
                 readyCount++
                 loginSeenOnPage = false

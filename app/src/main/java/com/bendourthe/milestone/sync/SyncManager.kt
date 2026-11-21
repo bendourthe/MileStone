@@ -82,6 +82,12 @@ class SyncManager(
     /** Programs whose last session read did not reach the balance; kept in memory only, so a restart reads first again. */
     private val sessionEnded: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet()
 
+    /**
+     * Programs whose benefits read was cancelled because MileStone left the screen; the next refresh with the app open
+     * starts it again even when the balance is not due. Kept in memory only.
+     */
+    private val benefitsInterrupted: MutableSet<String> = java.util.concurrent.ConcurrentHashMap.newKeySet()
+
     /** Applies a result from a login the user is watching; returns what was written. */
     suspend fun applyInteractive(programId: String, result: SyncResult): SyncResult {
         cancel(programId)
@@ -158,8 +164,28 @@ class SyncManager(
             .map { it.programId }
         DiagnosticLog.i(TAG, "Refresh ${reason.name}: ${eligible.ifEmpty { listOf("none") }.joinToString()}")
         started(eligible)
-        eligible.mapNotNull { start(it, reason) }.joinAll()
+        val jobs = eligible.mapNotNull { start(it, reason) }
+        resumeBenefits(reason, except = eligible)
+        jobs.joinAll()
         retryOnce(eligible, reason)
+    }
+
+    /**
+     * Starts again each benefits read that leaving the screen cancelled, for a program still signed in that this
+     * refresh does not read; a program it reads starts its benefits after a saved balance as usual.
+     */
+    private suspend fun resumeBenefits(reason: RefreshReason, except: List<String>) {
+        if (reason == RefreshReason.KEEP_ALIVE || host() == null) return
+        for (programId in benefitsInterrupted.toList()) {
+            if (programId in except) continue
+            val program = catalog.program(programId)
+            if (program == null || sessions.get(programId) == null) {
+                benefitsInterrupted -= programId
+                continue
+            }
+            DiagnosticLog.i(TAG, "Benefits read for $programId started again after MileStone returned to the screen")
+            startBenefits(program, reason)
+        }
     }
 
     fun refresh(programId: String, reason: RefreshReason): Job = scope.launch {
@@ -213,12 +239,15 @@ class SyncManager(
 
     /** Cancels every headless job, benefits reads included, when the app leaves the foreground. */
     fun cancelHeadless() {
-        val jobs = synchronized(inFlight) {
-            (inFlight.values + benefitsJobs.values).toList().also {
+        val (jobs, interrupted) = synchronized(inFlight) {
+            val reading = benefitsJobs.filterValues { it.isActive }.keys.toList()
+            ((inFlight.values + benefitsJobs.values).toList() to reading).also {
                 inFlight.clear()
                 benefitsJobs.clear()
             }
         }
+        benefitsInterrupted += interrupted
+        interrupted.forEach { DiagnosticLog.i(TAG, "Benefits read for $it cancelled: MileStone left the screen") }
         jobs.forEach { it.cancel() }
     }
 
@@ -236,6 +265,7 @@ class SyncManager(
         if (reason == RefreshReason.KEEP_ALIVE || program.benefits == null || benefitsSource == null || cards == null) return
         synchronized(inFlight) {
             if (benefitsJobs[program.programId]?.isActive == true) return
+            benefitsInterrupted -= program.programId
             val job = scope.launch(start = CoroutineStart.LAZY) { runBenefits(program) }
             benefitsJobs[program.programId] = job
             job.invokeOnCompletion { synchronized(inFlight) { if (benefitsJobs[program.programId] === job) benefitsJobs.remove(program.programId) } }
