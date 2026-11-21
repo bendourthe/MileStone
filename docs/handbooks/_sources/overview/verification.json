@@ -16,7 +16,7 @@
       "docs/handbooks/_sources/overview/model.json": "7b89cb8d4923795f70d8e150d1308e64a25bdda2386ca5825df22e12389e7885",
       "docs/handbooks/_sources/overview/design.json": "62bf489d29d18799ad27bc7e0a08f0604773a45894e545d447b89fcda78f14b5",
       "docs/handbooks/_sources/overview/intake.json": "da7d05c88aaab15c7308267c7062d9f5df614af2a5beed954fc41bfddf1193e4",
-      "app/build.gradle.kts": "90c95e46faf207ed9969d2458f99f1d59564a5974fdff219a6fe7f126fc3d610",
+      "app/build.gradle.kts": "fe2754b42ecf30660c493eb7aac296c9c01be4d648047022bd56bf01b438418d",
       "gradle/libs.versions.toml": "e8715763d55f60e336188d1fedc5af0070831a9bfd645ea6f5aa31dbc73216db",
       "app/src/main/assets/extract.js": "6bd3b4d15df55b0b9cbd0e93af81e39965c2758dc5768a115ce23ee412509b36",
       "app/src/main/java/com/bendourthe/milestone/AppContainer.kt": "c3d981a02bbfc66f2a3298b651c834a5a42a91c6283a54d50bca9ae74e872f13",
@@ -93,29 +93,29 @@
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt": "7279e636c913b67e4b837869cb969a56e63914a7d8c1eeec1375598a85d9661b",
       "docs/decisions/0009-chase-benefits.md": "c725ca3dcd61686bdfdc8fbe0bc8099f43b94559a101f692be1f5a9fa4f1d31b"
     },
-    "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9"
+    "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b"
   },
   "checks": {
     "content": {
       "status": "pass",
       "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/content.json",
-      "evidence_sha256": "b8ee81f08511b3641425e09195aa10e73882c3a6801c1bec3bd24acc86fec9e5"
+      "evidence_sha256": "93be75b85119840771c86fe3d77d4d3a2b0dc34c79cd8daf17b6918b8b5175c3"
     },
     "build": {
       "status": "pass",
       "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/build.json",
-      "evidence_sha256": "5ad31d0016b52e64b40a18c97e01dbae5fe531b77d8c711a7d5c7e519bed74a3"
+      "evidence_sha256": "e0a4b19fe2c3f2521e89fcdade6459fc5ce48bf5c6364c6e0d31d93e13043c7d"
     },
     "rendered": {
       "status": "pass",
       "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/render.json",
-      "evidence_sha256": "c702bb20d8c5a02b045c0df96de2aa41929b27fc114aec9945523135826b11f0",
+      "evidence_sha256": "723e9fc0f9f839a13baeddd12ab9394fc016c3ae45973b71fc2c62acc086661c",
       "browser": "Chromium 153.0.8010.12",
-      "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9"
+      "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b"
     }
   },
   "limitations": [],
-  "qualification_scope": "v0.5.0 Chase candidate handbook after owner live acceptance only. Application delivery remains separate.",
+  "qualification_scope": "v0.5.0 release handbook only. Application delivery is qualified separately.",
   "prior_evidence": [
     {
       "build": {
@@ -420,6 +420,26 @@
         "output_sha256": "7238497b198347d483737bff0d986e6b6a44d0411b61de034d822b83451ea80c"
       },
       "qualification_scope": "v0.5.0 Chase candidate handbook only. Application delivery and live Chase behavior remain unqualified."
+    },
+    {
+      "content": {
+        "status": "pass",
+        "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/content.json",
+        "evidence_sha256": "b8ee81f08511b3641425e09195aa10e73882c3a6801c1bec3bd24acc86fec9e5"
+      },
+      "build": {
+        "status": "pass",
+        "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/build.json",
+        "evidence_sha256": "5ad31d0016b52e64b40a18c97e01dbae5fe531b77d8c711a7d5c7e519bed74a3"
+      },
+      "rendered": {
+        "status": "pass",
+        "evidence": "docs/releases/v0/v0.5/development/handbook-v0.5/render.json",
+        "evidence_sha256": "c702bb20d8c5a02b045c0df96de2aa41929b27fc114aec9945523135826b11f0",
+        "browser": "Chromium 153.0.8010.12",
+        "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9"
+      },
+      "qualification_scope": "v0.5.0 Chase candidate handbook after owner live acceptance only. Application delivery remains separate."
     }
   ]
 }

@@ -2,8 +2,8 @@
 
 **Project**: MileStone
 **Status**: in-progress
-**Last updated**: 2026-11-20
-**Open items**: 36
+**Last updated**: 2026-11-21
+**Open items**: 0
 
 ## v0.5.0
 
@@ -12,7 +12,7 @@
 | Category | Open | Resolved |
 |---|---|---|
 | Not implemented (NI) | 0 | 0 |
-| Deferred (DF) | 38 | 1 |
+| Deferred (DF) | 0 | 1 |
 | Bugs / regressions (BG) | 0 | 0 |
 | Warnings (WN) | 0 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 0 |
@@ -20,7 +20,7 @@
 
 ### Open Items
 
-#### DF-1 - Legacy G01
+#### DF-1 - Legacy G01 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G01
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -33,7 +33,7 @@
 - **Migrated from**: v0.4.0#DF-1 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-2 - Legacy G02
+#### DF-2 - Legacy G02 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G02
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -46,7 +46,7 @@
 - **Migrated from**: v0.4.0#DF-2 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-3 - Legacy G03
+#### DF-3 - Legacy G03 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G03
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -59,7 +59,7 @@
 - **Migrated from**: v0.4.0#DF-3 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-4 - Legacy G04
+#### DF-4 - Legacy G04 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G04
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -72,7 +72,7 @@
 - **Migrated from**: v0.4.0#DF-4 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-5 - Legacy G05
+#### DF-5 - Legacy G05 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G05
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -85,7 +85,7 @@
 - **Migrated from**: v0.4.0#DF-5 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-6 - Legacy G06
+#### DF-6 - Legacy G06 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G06
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -98,7 +98,7 @@
 - **Migrated from**: v0.4.0#DF-6 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-7 - Legacy G17
+#### DF-7 - Legacy G17 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G17
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -111,7 +111,7 @@
 - **Migrated from**: v0.4.0#DF-7 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-8 - Legacy G16
+#### DF-8 - Legacy G16 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G16
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -124,7 +124,7 @@
 - **Migrated from**: v0.4.0#DF-8 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-9 - Legacy G08
+#### DF-9 - Legacy G08 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G08
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -137,7 +137,7 @@
 - **Migrated from**: v0.4.0#DF-9 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-10 - Legacy G11
+#### DF-10 - Legacy G11 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G11
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -150,7 +150,7 @@
 - **Migrated from**: v0.4.0#DF-10 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-11 - Legacy G12
+#### DF-11 - Legacy G12 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G12
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -163,7 +163,7 @@
 - **Migrated from**: v0.4.0#DF-11 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-12 - Legacy G14
+#### DF-12 - Legacy G14 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G14
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -176,7 +176,7 @@
 - **Migrated from**: v0.4.0#DF-12 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-13 - Legacy G18
+#### DF-13 - Legacy G18 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G18
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -189,7 +189,7 @@
 - **Migrated from**: v0.4.0#DF-13 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-14 - Legacy G19
+#### DF-14 - Legacy G19 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G19
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -202,7 +202,7 @@
 - **Migrated from**: v0.4.0#DF-14 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-15 - Legacy G20
+#### DF-15 - Legacy G20 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G20
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -215,7 +215,7 @@
 - **Migrated from**: v0.4.0#DF-15 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-16 - Legacy G21
+#### DF-16 - Legacy G21 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G21
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -228,7 +228,7 @@
 - **Migrated from**: v0.4.0#DF-16 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-17 - Legacy G22
+#### DF-17 - Legacy G22 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G22
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -241,7 +241,7 @@
 - **Migrated from**: v0.4.0#DF-17 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-18 - Legacy G23
+#### DF-18 - Legacy G23 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G23
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -254,7 +254,7 @@
 - **Migrated from**: v0.4.0#DF-18 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-19 - Legacy G15
+#### DF-19 - Legacy G15 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G15
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -267,7 +267,7 @@
 - **Migrated from**: v0.4.0#DF-19 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-20 - Legacy G25
+#### DF-20 - Legacy G25 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G25
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -280,7 +280,7 @@
 - **Migrated from**: v0.4.0#DF-20 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-21 - Legacy G26
+#### DF-21 - Legacy G26 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G26
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -293,7 +293,7 @@
 - **Migrated from**: v0.4.0#DF-21 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-22 - Legacy G31
+#### DF-22 - Legacy G31 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G31
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -306,7 +306,7 @@
 - **Migrated from**: v0.4.0#DF-22 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-23 - Legacy G33
+#### DF-23 - Legacy G33 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G33
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -319,7 +319,7 @@
 - **Migrated from**: v0.4.0#DF-23 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-24 - Legacy G34
+#### DF-24 - Legacy G34 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G34
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -332,7 +332,7 @@
 - **Migrated from**: v0.4.0#DF-24 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-25 - Legacy G35
+#### DF-25 - Legacy G35 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G35
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -345,7 +345,7 @@
 - **Migrated from**: v0.4.0#DF-25 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-26 - Legacy G38
+#### DF-26 - Legacy G38 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G38
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -358,7 +358,7 @@
 - **Migrated from**: v0.4.0#DF-26 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-27 - Legacy G41
+#### DF-27 - Legacy G41 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G41
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -372,7 +372,7 @@
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 - **Mitigation in v0.5.0**: a benefits read cancelled because MileStone left the screen now starts again the next time MileStone returns, even when no balance is due (`SyncManager.resumeBenefits`; `SyncManagerBenefitsTest.aBenefitsReadCancelledByLeavingTheScreenStartsAgainOnReturn`, which fails without the fix). Observed on the phone on 2026-11-20: "Benefits read for amex started again after MileStone returned to the screen". The balance refresh itself still stops when MileStone leaves the screen, so this item stays open.
 
-#### DF-28 - Legacy G46
+#### DF-28 - Legacy G46 - MIGRATED to v0.6.0
 
 - **Legacy ID**: G46
 - **Source phase**: Inherited v0.3 ledger condition; original source is preserved in the exact legacy row below.
@@ -385,14 +385,14 @@
 - **Migrated from**: v0.4.0#DF-28 on 2026-11-20 (reason: user-deferred)
 - **Migration evidence**: left open by v0.4.0, the last plan of v0.4
 
-#### DF-30 - Extra sign-in success depends on the Rewards balance
+#### DF-30 - Extra sign-in success depends on the Rewards balance - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 4 (T010)
 - **Plan reference**: docs/releases/v0/v0.5/development/history/2026-11-20-v0.5.0-phase-4-personal-business.md, Plan delta
 - **Reason**: An extra Chase sign-in is recorded as signed in when the site shows the Chase Rewards balance. A business-only login might not show it, and the sign-in would then stay "not signed in".
 - **Suggested next step**: Owner adds a second (business) sign-in during live acceptance; if it stays "not signed in", record success on reaching the signed-in dashboard instead.
 
-#### DF-31 - Card-selector option ids are masked in captures
+#### DF-31 - Card-selector option ids are masked in captures - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 3 (T008)
 - **Plan reference**: docs/releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json
@@ -400,63 +400,63 @@
 - **Suggested next step**: During live acceptance, refresh twice and confirm the same cards keep their benefits (no duplicate cards); if cards duplicate, bind on the card name and ending instead.
 - **Mitigation in v0.5.0**: a complete list that shares no card with a sign-in's coverage now changes nothing (`InventoryOutcome.UNMATCHED`), so changing ids cannot delete every card. The cost is that an account whose cards are all genuinely replaced at once keeps the old cards until a later list shares one.
 
-#### DF-32 - Welcome offers are not classified from Chase text
+#### DF-32 - Welcome offers are not classified from Chase text - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 (T019 Goal-vs-codebase review)
 - **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Goal ("welcome information") and T008
 - **Reason**: Chase rows map to listed benefits and the progress bar to a spend tracker; nothing marks a row or tracker as the welcome offer. The plan allows manual welcome setup where the source does not expose it, and that path is unchanged.
 - **Suggested next step**: During live acceptance, note whether Chase labels the welcome offer; if it does, classify that wording as the welcome tracker.
 
-#### DF-33 - No way to link two cards the app keeps apart
+#### DF-33 - No way to link two cards the app keeps apart - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 (T019)
 - **Plan reference**: ADR-0009 identity rules; T004
 - **Reason**: When a binding is ambiguous, the app keeps cards separate rather than merging them, and there is no user action to link them.
 - **Suggested next step**: Add a "Same card as" action only if the owner sees a duplicate during live acceptance.
 
-#### DF-34 - Any phone or number field on the path ends the read as signed out
+#### DF-34 - Any phone or number field on the path ends the read as signed out - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 (T018 adversarial pass)
 - **Plan reference**: Phase 3 security review (identity-check stop)
 - **Reason**: The script stops on any visible tel or number input, or a radio outside the selector, to avoid answering an identity check. A quick-pay amount field or a survey on the dashboard would make every Chase read stop as signed out. No data is lost.
 - **Suggested next step**: If live reads stop as signed out while the site is signed in, narrow the check to code fields and radios inside dialogs or forms.
 
-#### DF-35 - The first sign-in returns as Personal after it is signed out
+#### DF-35 - The first sign-in returns as Personal after it is signed out - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 (T018)
 - **Plan reference**: T005, T010
 - **Reason**: Signing out the first Chase sign-in while extra sign-ins remain deletes its connection row; it is recreated as Personal on the next sync, so a Business declaration must be set again.
 - **Suggested next step**: Keep the row and its declaration and clear only its coverage.
 
-#### DF-36 - Chase timing beyond the fixtures
+#### DF-36 - Chase timing beyond the fixtures - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 (T018)
 - **Plan reference**: Owner Generalization Requirement (21+ cards, lazy inventories)
 - **Reason**: A selector with more than 20 cards is posted as incomplete (no removals) and not tested; a ten-card account that reloads per card read in 25.4 s on the emulator, but larger accounts may reach the 120000 ms budget, leaving later cards unread until the next refresh.
 - **Suggested next step**: Add a 21-card fixture case; read the live per-card time from count-only logs during acceptance.
 
-#### DF-37 - Chase path restart not yet measured live
+#### DF-37 - Chase path restart not yet measured live - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-20)
 - **Plan reference**: Definition of Done item 4 (three live reads within 120000 ms)
 - **Reason**: Before the fixes, live reads stopped at the menu sheet (`navigation at benefits`, then `noControl at benefits`) and twice at the Benefits page (`navigation at page`, 17161 ms and 27291 ms); one read listed and read all 3 cards in 18069 ms. The page step now waits 25 s and the path restarts once from the dashboard, both proven only on the Chase-shaped emulator fixture.
 - **Suggested next step**: Read the count-only `chase benefits` lines after the next three phone refreshes; if `benefits path started over` is followed by another stop, compare its `counts (...)` line with the captured structure before changing selectors.
 
-#### DF-38 - Bundled card artwork and product list need upkeep
+#### DF-38 - Bundled card artwork and product list need upkeep - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
 - **Plan reference**: ADR-0009 amendment 2026-11-21
 - **Reason**: `CardProducts` (70 products) and its JPEG artwork were researched on 2026-11-20: current products from the issuers' pages, five older Chase cards from card review sites, and some names written from the researcher's knowledge. No real image of the classic Chase Sapphire was found, so it shows the Sapphire Preferred image. The images are the issuers' trademarked artwork, bundled for this personal app. New or renamed products show the drawn card face until the list is refreshed.
 - **Suggested next step**: Refresh the list when the owner adds a card that shows the drawn face; decide before any public distribution whether the issuers' artwork may ship.
 
-#### DF-39 - Chase home-page grouping seen in one capture
+#### DF-39 - Chase home-page grouping seen in one capture - MIGRATED to v0.6.0
 
 - **Source phase**: v0.5.0 Phase 5 owner live acceptance (2026-11-21)
 - **Plan reference**: ADR-0009 amendment 2026-11-21 (`homeGroup` selector)
 - **Reason**: The grouping (`[data-testid=account-accordion-subdivision]`, a "PERSONAL" heading, a business name for the other group) appears in the 3-card capture only; the 2-card personal-only capture has no groups. A page without groups simply sends no flags, and the product rules still apply.
 - **Suggested next step**: After a live read, confirm the business card stays under Business when its name and the product list do not already say so.
 
-### Resolved
+### Resolved Items
 
 | ID | Title | Resolved in | Notes |
 |---|---|---|---|
