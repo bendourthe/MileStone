@@ -3,7 +3,7 @@
 **Project**: MileStone
 **Status**: in-progress
 **Last updated**: 2026-11-21
-**Open items**: 38
+**Open items**: 39
 
 ## v0.6.0
 
@@ -14,7 +14,7 @@
 | Not implemented (NI) | 0 | 0 |
 | Deferred (DF) | 38 | 0 |
 | Bugs / regressions (BG) | 0 | 0 |
-| Warnings (WN) | 0 | 0 |
+| Warnings (WN) | 1 | 0 |
 | Missing tests / coverage gaps (MT) | 0 | 0 |
 | Quality-gate gaps (QG) | 0 | 0 |
 
@@ -569,6 +569,13 @@
 
 - **Migrated from**: v0.5.0#DF-39 on 2026-11-21 (reason: user-deferred)
 - **Migration evidence**: left open by v0.5.0, the last plan of v0.5
+
+#### WN-1 - Hosted Search benchmark p95 sits near its 200 ms limit
+
+- **Source phase**: v0.5.0 release readiness, PR #23 attempt 1 (run 44883878887, 2026-11-21)
+- **Plan reference**: CI `optimized-search-performance` group; v0.5.0 last-phase evidence, Publication and integration
+- **Reason**: On unchanged Search code the hosted API 36 emulator measured p95 211.686723 ms (one run) and 185.321134 / 185.95769 ms (others), against the unchanged 200 ms limit; v0.4 hosted runs measured 170.9 to 182.8 ms. Interleaved local runs show no v0.5 regression (release head 115.1 and 138.0 ms, Phase 5 84.6 and 141.1 ms). The margin on hosted runners is about 15 ms, so ordinary runner variance can fail a release.
+- **Suggested next step**: Profile the `all_entities` query (about 120 ms to results and 110 ms to draw in the hosted diagnostics) and cut main-thread work in result preparation or drawing, so hosted p95 has a clear margin without raising the limit.
 
 ### Resolved
 
