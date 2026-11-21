@@ -381,7 +381,7 @@ Owner-confirmed release sequence, 2026-11-14: deliver v0.5.0 Chase personal/busi
 - [ ] Implement and verify v0.6.0 discovery, dynamic offer lifecycle, default-on eligible adding, stop controls and confirmed recoverable outcomes.
 - [ ] Obtain separately required publication/release/cleanup authority and complete both plans' delivery requirements before declaring the expanded goal complete.
 
-The isolated drafts are in the plan-chase-merchant-offers worktree under docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md and docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md. They await publication and are not represented as integrated production capability. The separate MileStone Capture package is installed for read-only owner-assisted discovery; the main installed APK is unchanged.
+The isolated drafts are in the plan-chase-merchant-offers worktree under docs/archives/v0/v0.5/plans/v0.5.0-chase-benefits.md and docs/releases/v0/v0.6/plans/v0.6.0-merchant-offers.md. They await publication and are not represented as integrated production capability. The separate MileStone Capture package is installed for read-only owner-assisted discovery; the main installed APK is unchanged.
 
 ## Historical Search Qualification
 

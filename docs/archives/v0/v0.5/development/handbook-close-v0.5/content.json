@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "observed_utc": "2026-11-21T20:44:49.106240+00:00",
+  "review": "v0.5 minor close refresh: the native archive moved docs/releases/v0/v0.5 to docs/archives/v0/v0.5 and the receipt evidence paths moved with it. The visible handbook text is unchanged; only two embedded input and record hashes changed.",
+  "changed_inputs": [
+    "docs/handbooks/_sources/overview/verification.json (evidence paths)",
+    "archived v0.5 records"
+  ],
+  "qualification_scope": "Handbook only; application, hosted CI and release qualification are separate."
+}

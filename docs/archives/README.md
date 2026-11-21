@@ -4,6 +4,8 @@ Closed minor records retain their plans, evidence, histories, comparisons and kn
 
 | Minor | Published versions | Records |
 |---|---|---|
+| v0.5 | v0.5.0 | [v0.5 archive](v0/v0.5/) |
+| v0.4 | v0.4.0 | [v0.4 archive](v0/v0.4/) |
 | v0.3 | v0.3.0, v0.3.1 | [v0.3 archive](v0/v0.3/) |
 | v0.2 | v0.2.0 | [v0.2 archive](v0/v0.2/) |
 | v0.1 | v0.1.0 | [v0.1 archive](v0/v0.1/) |

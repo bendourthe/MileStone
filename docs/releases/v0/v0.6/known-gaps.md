@@ -472,7 +472,7 @@
 #### DF-29 - Extra sign-in success depends on the Rewards balance
 
 - **Source phase**: v0.5.0 Phase 4 (T010)
-- **Plan reference**: docs/releases/v0/v0.5/development/history/2026-11-20-v0.5.0-phase-4-personal-business.md, Plan delta
+- **Plan reference**: docs/archives/v0/v0.5/development/history/2026-11-20-v0.5.0-phase-4-personal-business.md, Plan delta
 - **Reason**: An extra Chase sign-in is recorded as signed in when the site shows the Chase Rewards balance. A business-only login might not show it, and the sign-in would then stay "not signed in".
 - **Suggested next step**: Owner adds a second (business) sign-in during live acceptance; if it stays "not signed in", record success on reaching the signed-in dashboard instead.
 
@@ -482,7 +482,7 @@
 #### DF-30 - Card-selector option ids are masked in captures
 
 - **Source phase**: v0.5.0 Phase 3 (T008)
-- **Plan reference**: docs/releases/v0/v0.5/development/planning/chase-capture-structure-20261120.json
+- **Plan reference**: docs/archives/v0/v0.5/development/planning/chase-capture-structure-20261120.json
 - **Reason**: The sanitizer masks the selector sheet's radio ids with '#', so the private-capture test checks id presence only. The reader binds cards through an HMAC of the option id, which assumes the live id is stable across visits.
 - **Suggested next step**: During live acceptance, refresh twice and confirm the same cards keep their benefits (no duplicate cards); if cards duplicate, bind on the card name and ending instead.
 - **Mitigation in v0.5.0**: a complete list that shares no card with a sign-in's coverage now changes nothing (`InventoryOutcome.UNMATCHED`), so changing ids cannot delete every card. The cost is that an account whose cards are all genuinely replaced at once keeps the old cards until a later list shares one.
@@ -493,7 +493,7 @@
 #### DF-31 - Welcome offers are not classified from Chase text
 
 - **Source phase**: v0.5.0 Phase 5 (T019 Goal-vs-codebase review)
-- **Plan reference**: docs/releases/v0/v0.5/plans/v0.5.0-chase-benefits.md, Goal ("welcome information") and T008
+- **Plan reference**: docs/archives/v0/v0.5/plans/v0.5.0-chase-benefits.md, Goal ("welcome information") and T008
 - **Reason**: Chase rows map to listed benefits and the progress bar to a spend tracker; nothing marks a row or tracker as the welcome offer. The plan allows manual welcome setup where the source does not expose it, and that path is unchanged.
 - **Suggested next step**: During live acceptance, note whether Chase labels the welcome offer; if it does, classify that wording as the welcome tracker.
 
