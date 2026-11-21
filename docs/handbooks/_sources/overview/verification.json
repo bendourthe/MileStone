@@ -91,31 +91,31 @@
       "app/src/main/java/com/bendourthe/milestone/sync/webview/ChaseBenefitsSource.kt": "133f55b51ca7bad3fb04da20ca8183a5200a5f8fb83ae75f75b2911439484afd",
       "app/src/main/java/com/bendourthe/milestone/sync/webview/ConnectionSessions.kt": "83a788fc22ed55b642bb671b197f891de3d7266a90a7d5b920c5c5c051ff41d3",
       "app/src/main/java/com/bendourthe/milestone/ui/benefits/ConnectionsSection.kt": "7279e636c913b67e4b837869cb969a56e63914a7d8c1eeec1375598a85d9661b",
-      "docs/decisions/0009-chase-benefits.md": "c725ca3dcd61686bdfdc8fbe0bc8099f43b94559a101f692be1f5a9fa4f1d31b"
+      "docs/decisions/0009-chase-benefits.md": "ea2cd07af332edae1dc986c4a8620f396e2a2b40d3f2b456e886d75f0590114d"
     },
-    "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b"
+    "output_sha256": "6e00764cb488f6460c516f11fcfcbea5138e6dd3912cf54a375efc12c852ac72"
   },
   "checks": {
     "content": {
       "status": "pass",
-      "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/content.json",
-      "evidence_sha256": "93be75b85119840771c86fe3d77d4d3a2b0dc34c79cd8daf17b6918b8b5175c3"
+      "evidence": "docs/archives/v0/v0.5/development/handbook-close-v0.5/content.json",
+      "evidence_sha256": "ee6d6f70fe5b98640a94a16fb62637f90289ad75acd04dd9f4ef96af9fcf772f"
     },
     "build": {
       "status": "pass",
-      "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/build.json",
-      "evidence_sha256": "e0a4b19fe2c3f2521e89fcdade6459fc5ce48bf5c6364c6e0d31d93e13043c7d"
+      "evidence": "docs/archives/v0/v0.5/development/handbook-close-v0.5/build.json",
+      "evidence_sha256": "137eb475a0b05bd1bd73c4941d427f2adf336541981ea316c4738b35587e612a"
     },
     "rendered": {
       "status": "pass",
-      "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/render.json",
-      "evidence_sha256": "723e9fc0f9f839a13baeddd12ab9394fc016c3ae45973b71fc2c62acc086661c",
+      "evidence": "docs/archives/v0/v0.5/development/handbook-close-v0.5/render.json",
+      "evidence_sha256": "5e8deb2399260e6c5f51305ddfa0aa0af26c86590db7173dc4042160cec63ab2",
       "browser": "Chromium 153.0.8010.12",
-      "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b"
+      "output_sha256": "6e00764cb488f6460c516f11fcfcbea5138e6dd3912cf54a375efc12c852ac72"
     }
   },
   "limitations": [],
-  "qualification_scope": "v0.5.0 release handbook only. Application delivery is qualified separately.",
+  "qualification_scope": "v0.5 minor close handbook only. Application delivery is qualified separately.",
   "prior_evidence": [
     {
       "build": {
@@ -440,6 +440,26 @@
         "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9"
       },
       "qualification_scope": "v0.5.0 Chase candidate handbook after owner live acceptance only. Application delivery remains separate."
+    },
+    {
+      "content": {
+        "status": "pass",
+        "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/content.json",
+        "evidence_sha256": "93be75b85119840771c86fe3d77d4d3a2b0dc34c79cd8daf17b6918b8b5175c3"
+      },
+      "build": {
+        "status": "pass",
+        "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/build.json",
+        "evidence_sha256": "e0a4b19fe2c3f2521e89fcdade6459fc5ce48bf5c6364c6e0d31d93e13043c7d"
+      },
+      "rendered": {
+        "status": "pass",
+        "evidence": "docs/archives/v0/v0.5/development/handbook-v0.5/render.json",
+        "evidence_sha256": "723e9fc0f9f839a13baeddd12ab9394fc016c3ae45973b71fc2c62acc086661c",
+        "browser": "Chromium 153.0.8010.12",
+        "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b"
+      },
+      "qualification_scope": "v0.5.0 release handbook only. Application delivery is qualified separately."
     }
   ]
 }
