@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-21
+
+### Added
+
+- Chase card benefits: after a saved Chase balance, MileStone reads each card's benefits, credits, and spend trackers from Chase's own Benefits page through every Chase sign-in, within the shared 120-second budget, and never signs in, presses a payment control, or answers an identity check.
+- Up to four isolated Chase sign-ins, added as Personal or Business from a sign-ins sheet on the Chase page; extra sign-ins never write a balance, and signing one out removes only the cards no other sign-in reaches.
+- Cards keep an opaque local id bound across sign-ins, so the same card seen by two sign-ins is stored once and two cards with the same ending stay distinct in tiles, Search, and reminders.
+- Personal and Business sections, each collapsible, on every benefits program's page. A card's section follows the owner's Show under choice, a product name that says Business, a public list of 70 Chase and Amex products, the Chase home page's own grouping, and finally the sign-ins that reach it.
+- Bundled offline artwork for the listed products; any other card shows a drawn card in the issuer's color with its ending.
+- Rewards category and type headings collapse and expand.
+- Swiping an alert to the right acknowledges it.
+
+### Changed
+
+- Benefits shows one Chase tile, with compact card tiles (artwork, name with an alert badge, ending and benefit count, last update) without the next-credit line.
+- Program tiles show their alert count as a small corner badge, and a card's alerts appear as slim rows below its artwork with Acknowledge on the right.
+
+### Fixed
+
+- A benefits read cancelled because MileStone left the screen starts again when MileStone returns, even when no balance is due; its log line now says cancelled instead of budget.
+- The Chase path waits for a menu that opens in place, presses Chase's components through their own buttons, matches labels kept in attributes, allows 25 seconds for the Benefits page, and restarts once from the dashboard, with count-only diagnostics when a step fails.
+
 ## [0.4.0] - 2026-11-19
 
 ### Added

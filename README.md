@@ -4,7 +4,9 @@ MileStone is a native Android app (Kotlin, Jetpack Compose, Material 3) that sho
 
 ## Search
 
-v0.4.0 adds a top-right Search icon for added programs and stored cards and benefits. Rewards shows matching program images and stored points. Benefits uses themed program headings with local logos and compact card headers with product images and independent right-hand chevrons, and single-line item tiles. A program-only query such as Amex includes all its stored card benefits. Selecting a match opens and briefly highlights its exact destination; Back retains the search context. Search runs locally without requesting a refresh or sign-in.
+v0.5.0 adds Chase card benefits. MileStone reads each Chase card's benefits, credits, and spend trackers from Chase's own Benefits page through up to four isolated Chase sign-ins, added as Personal or Business from the Chase page. Every benefits program lists Personal cards, then Business cards, under collapsible headers, with compact card tiles that show bundled product artwork. Alerts sit under the card they belong to, and swiping one right acknowledges it. A benefits read interrupted by leaving MileStone starts again when MileStone returns.
+
+v0.4.0 added a top-right Search icon for added programs and stored cards and benefits. A program-only query such as Amex includes all its stored card benefits. Selecting a match opens and briefly highlights its exact destination; Back retains the search context. Search runs locally without requesting a refresh or sign-in.
 
 See the [Search handbook](docs/handbooks/global-search.md) for matching, navigation and privacy details.
 
@@ -110,7 +112,7 @@ Selector work for a program needs a copy of its real balance page. Captures hold
 
 ## Version
 
-The current version is v0.4.0. It is recorded as the `0.4.0` heading in `CHANGELOG.md` and as `versionName = "0.4.0"` (`versionCode = 5`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
+The current version is v0.5.0. It is recorded as the `0.5.0` heading in `CHANGELOG.md` and as `versionName = "0.5.0"` (`versionCode = 6`) in `app/build.gradle.kts`. Releases are tagged `vX.Y.Z` on `main`.
 
 ## Layout
 
@@ -128,7 +130,7 @@ The current version is v0.4.0. It is recorded as the `0.4.0` heading in `CHANGEL
 | `docs/todos.md` | Living progress tracker |
 | `docs/handbooks/` | Living technical overview |
 | `docs/decisions/` | Architecture decision records, added when a decision is made |
-| `docs/releases/v0/v0.4/` | Active v0.4 plans, evidence, and known gaps |
+| `docs/releases/v0/v0.5/` | Active v0.5 plans, evidence, and known gaps |
 | `docs/archives/README.md` | Closed minor archive index |
 | `docs/archives/v0/v0.3/` | Closed v0.3 plans, evidence, and known gaps |
 | `docs/archives/v0/v0.2/` | Closed v0.2 plans, evidence, and known gaps |

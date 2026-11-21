@@ -1,7 +1,7 @@
 {
   "status": "pass",
   "browser": "Chromium 153.0.8010.12",
-  "output_sha256": "faa45811a2ad7c403c4173b01c93f3a65e54808a20567829da35ebec5f79daf9",
+  "output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b",
   "checker_sha256": "e1d7e7916c8f4dfd2eb567e7195905b18d62991e14eaca63ae85e3b2f1e4926f",
   "checks": [
     {
@@ -25142,19 +25142,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.04599999906497
+            "time": 250.00500002349747
           },
           {
             "state": "running",
-            "time": 250.04599999906497
+            "time": 250.00500002349747
           },
           {
             "state": "running",
-            "time": 250.04599999906497
+            "time": 250.00500002349747
           },
           {
             "state": "running",
-            "time": 250.04599999906497
+            "time": 250.00500002349747
           }
         ]
       }
@@ -25195,21 +25195,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668179,
+            "opacity": 0.668296,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376012,
+            "opacity": 0.376159,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.020391,
+            "opacity": 0.0205699,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25316,7 +25316,7 @@
       "name": "frame-sampled source/model values refresh balanced",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25328,15 +25328,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.04400000604844
+            "time": 250.07100000958894
           },
           {
             "state": "running",
-            "time": 250.04400000604844
+            "time": 250.07100000958894
           },
           {
             "state": "running",
-            "time": 250.04400000604844
+            "time": 250.07100000958894
           }
         ]
       }
@@ -25370,21 +25370,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668175,
+            "opacity": 0.634631,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376007,
+            "opacity": 0.334233,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.020385,
+            "opacity": 0,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25429,7 +25429,7 @@
       "name": "frame-sampled source/model values refresh deep-dive",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25484,19 +25484,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.0420000130319
+            "time": 250.00300000612617
           },
           {
             "state": "running",
-            "time": 250.0420000130319
+            "time": 250.00300000612617
           },
           {
             "state": "running",
-            "time": 250.0420000130319
+            "time": 250.00300000612617
           },
           {
             "state": "running",
-            "time": 250.0420000130319
+            "time": 250.00300000612617
           }
         ]
       }
@@ -25537,14 +25537,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634571,
+            "opacity": 0.634491,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.334159,
+            "opacity": 0.334059,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -25611,7 +25611,7 @@
       "name": "frame-sampled source/model values pages deep-dive",
       "pass": true,
       "detail": {
-        "samples": 71,
+        "samples": 73,
         "errors": []
       }
     },
@@ -25658,7 +25658,7 @@
       "name": "frame-sampled source/model values switch balanced",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -25670,15 +25670,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 250.0060000013562
+            "time": 250.0350000026632
           },
           {
             "state": "running",
-            "time": 250.0060000013562
+            "time": 250.0350000026632
           },
           {
             "state": "running",
-            "time": 250.0060000013562
+            "time": 250.0350000026632
           }
         ]
       }
@@ -25712,21 +25712,21 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.668298,
+            "opacity": 0.634557,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.376162,
+            "opacity": 0.334141,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
             "bottom": 297.359375
           },
           {
-            "opacity": 0.020573,
+            "opacity": 0,
             "left": 82.703125,
             "right": 1311.375,
             "top": 305.359375,
@@ -25783,15 +25783,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 250
           },
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 250
           },
           {
             "state": "running",
-            "time": 233.29999999999984
+            "time": 250
           }
         ]
       }
@@ -25826,15 +25826,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.9699999896805
+            "time": 249.99900002009312
           },
           {
             "state": "running",
-            "time": 249.9699999896805
+            "time": 249.99900002009312
           },
           {
             "state": "running",
-            "time": 249.9699999896805
+            "time": 249.99900002009312
           }
         ]
       }
@@ -25868,14 +25868,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634423,
+            "opacity": 0.634483,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.333975,
+            "opacity": 0.334049,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -25939,15 +25939,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 250
+            "time": 233.3999999999996
           },
           {
             "state": "running",
-            "time": 250
+            "time": 233.3999999999996
           },
           {
             "state": "running",
-            "time": 250
+            "time": 233.3999999999996
           }
         ]
       }
@@ -25982,23 +25982,23 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.96799999666308
+            "time": 249.92900001886298
           },
           {
             "state": "running",
-            "time": 249.96799999666308
+            "time": 249.92900001886298
           },
           {
             "state": "running",
-            "time": 249.96799999666308
+            "time": 249.92900001886298
           },
           {
             "state": "running",
-            "time": 249.96799999666308
+            "time": 249.92900001886298
           },
           {
             "state": "running",
-            "time": 249.96799999666308
+            "time": 249.92900001886298
           }
         ]
       }
@@ -26046,14 +26046,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634419,
+            "opacity": 0.634338,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.33397,
+            "opacity": 0.333871,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -26147,23 +26147,23 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           }
         ]
       }
@@ -26198,19 +26198,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.99799999543626
+            "time": 250.02700002584533
           },
           {
             "state": "running",
-            "time": 249.99799999543626
+            "time": 250.02700002584533
           },
           {
             "state": "running",
-            "time": 249.99799999543626
+            "time": 250.02700002584533
           },
           {
             "state": "running",
-            "time": 249.99799999543626
+            "time": 250.02700002584533
           }
         ]
       }
@@ -26251,14 +26251,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634481,
+            "opacity": 0.63454,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.334047,
+            "opacity": 0.334121,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -26325,7 +26325,7 @@
       "name": "frame-sampled source/model values privacy deep-dive",
       "pass": true,
       "detail": {
-        "samples": 71,
+        "samples": 72,
         "errors": []
       }
     },
@@ -26337,19 +26337,19 @@
         "animations": [
           {
             "state": "running",
-            "time": 250
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 250
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 250
+            "time": 249.90000000000023
           },
           {
             "state": "running",
-            "time": 250
+            "time": 249.90000000000023
           }
         ]
       }
@@ -26372,7 +26372,7 @@
       "name": "frame-sampled source/model values verification balanced",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -26384,15 +26384,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.99600000241884
+            "time": 249.99100001416963
           },
           {
             "state": "running",
-            "time": 249.99600000241884
+            "time": 249.99100001416963
           },
           {
             "state": "running",
-            "time": 249.99600000241884
+            "time": 249.99100001416963
           }
         ]
       }
@@ -26426,14 +26426,14 @@
         ],
         "intermediate": [
           {
-            "opacity": 0.634476,
+            "opacity": 0.634466,
             "left": 82.703125,
             "right": 1311.375,
             "top": 226.765625,
             "bottom": 258.0625
           },
           {
-            "opacity": 0.334042,
+            "opacity": 0.334029,
             "left": 82.703125,
             "right": 1311.375,
             "top": 266.0625,
@@ -26485,7 +26485,7 @@
       "name": "frame-sampled source/model values verification deep-dive",
       "pass": true,
       "detail": {
-        "samples": 72,
+        "samples": 71,
         "errors": []
       }
     },
@@ -26497,15 +26497,15 @@
         "animations": [
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           },
           {
             "state": "running",
-            "time": 249.90000000000023
+            "time": 250
           }
         ]
       }
