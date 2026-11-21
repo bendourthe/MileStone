@@ -65,6 +65,30 @@ class ChaseBenefitsReaderTest {
     }
 
     @Test
+    fun gaugeLabelSuppliesTheSpentAndTargetAmounts() {
+        // Chase's gauge: the visible text names only the target; the accessible label states both amounts.
+        val drafts = ChaseBenefitsReader.benefits(
+            json("[]"),
+            json(
+                """[{"text":"Spend & unlock more benefits Spend ${'$'}75,000 by Dec 31, 2026 to get upgraded statuses","value":20,"max":100,
+                     "label":"Gauge chart: ${'$'}15,250.50 received of ${'$'}75,000"},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"label":null},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"label":"Gauge chart"}]""",
+            ),
+        )!!
+        assertEquals(listOf(1_525_050L, null, null), drafts.map { it.earnedCents })
+        assertEquals(listOf(7_500_000L, 600_000L, 600_000L), drafts.map { it.targetCents })
+        assertEquals(listOf(5_974_950L, null, null), drafts.map { it.remainingCents })
+        assertEquals("Spend & unlock more benefits Spend \$75,000 by Dec 31, 2026 to get upgraded statuses", drafts[0].title)
+    }
+
+    @Test
+    fun trackerWithAnUnknownFieldOrOversizedLabelIsRejected() {
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"extra":"x"}]""")))
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"label":"${"x".repeat(121)}"}]""")))
+    }
+
+    @Test
     fun halfYearPeriodsAreNotReadAsMonthly() {
         assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("Up to ${'$'}150 every six months"))
         assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("${'$'}50 every 6 months"))

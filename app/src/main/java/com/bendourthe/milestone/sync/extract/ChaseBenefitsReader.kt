@@ -36,6 +36,13 @@ object ChaseBenefitsReader {
     /** An amount stated as progress toward another: "$1,500 of $4,000" or "$1,500 / $4,000". */
     private val PROGRESS = Regex("\\$\\s?[\\d,]+(?:\\.\\d{2})?\\s*(?:of|/)\\s*\\$", RegexOption.IGNORE_CASE)
 
+    /** A gauge's accessible label stating progress, at most two words before "of": "$1,500 received of $4,000". */
+    private val STATED = Regex(
+        "(\\$\\s?[\\d,]+(?:\\.\\d{2})?)\\s*(?:[a-z]+\\s+){0,2}(?:of|/)\\s*(\\$\\s?[\\d,]+(?:\\.\\d{2})?)",
+        RegexOption.IGNORE_CASE,
+    )
+    private val TRACKER_KEYS = setOf("text", "value", "max")
+
     fun isControl(value: String?): Boolean = value != null && CONTROL.matches(value) && !PAN.containsMatchIn(value)
 
     /** The sheet's cards; null when malformed. More than one selected card is malformed. */
@@ -102,15 +109,20 @@ object ChaseBenefitsReader {
     }
 
     private fun tracker(obj: JsonObject): BenefitDraft? {
-        if (obj.keys != setOf("text", "value", "max")) return null
+        if (obj.keys != TRACKER_KEYS && obj.keys != TRACKER_KEYS + "label") return null
         val text = obj.text("text")?.takeIf { it.isNotBlank() && it.length <= 300 } ?: return null
         val value = obj.number("value") ?: return null
         val max = obj.number("max") ?: return null
+        val label = if ("label" in obj.keys) (obj.optionalOrNull("label", 120) ?: return null).value else null
+        // The gauge's own label names both amounts, so it is the most direct statement of progress.
+        val stated = label?.let(STATED::find)?.let { amounts(it.groupValues[1]).single() to amounts(it.groupValues[2]).single() }
+            ?.takeIf { (_, goal) -> goal > 0 }
         val money = amounts(text)
-        val target = money.maxOrNull()
+        val target = stated?.second ?: money.maxOrNull()
         // Earned only when the page states it: "$X of $Y" or "$X / $Y", or a bar whose maximum is the target. Two
         // amounts alone are not progress: "Earn $300 after you spend $3,000" names a reward and a target.
         val earned = when {
+            stated != null -> stated.first
             money.size >= 2 && money.first() <= money.last() && PROGRESS.containsMatchIn(text) -> money.first()
             target != null && max.value != null && value.value != null && Math.round(max.value * 100) == target -> Math.round(value.value * 100)
             else -> null

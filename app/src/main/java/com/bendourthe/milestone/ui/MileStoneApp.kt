@@ -149,10 +149,12 @@ fun MileStoneApp(
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
+                                // Benefits always opens on its program page; the other tabs come back where they were.
+                                val fresh = top.route == Benefits
                                 navController.navigate(top.route) {
                                     popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                                     launchSingleTop = true
-                                    restoreState = true
+                                    restoreState = !fresh
                                 }
                             },
                             icon = { Icon(if (selected) top.selected else top.unselected, contentDescription = null) },
@@ -167,7 +169,8 @@ fun MileStoneApp(
         // The outgoing page keeps its viewport when Search hides the bar, so end-of-list positions cannot clamp.
         val bottom = PaddingValues(bottom = maxOf(bottomBarHeight, padding.calculateBottomPadding()))
         val systemBottom = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
-        NavHost(navController, startDestination = Dashboard) {
+        val swipes = rememberPageSwipes(navController) { entry -> topLevels.any { entry.destination.hasRoute(it.routeClass) } }
+        NavHost(navController, startDestination = Dashboard, modifier = swipes) {
             composable<Dashboard> { entry ->
                 DestinationInsets(bottom) {
                     val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)

@@ -136,6 +136,20 @@ class ChaseBenefitsFixtureTest {
     }
 
     @Test
+    fun readsSpendProgressFromChaseGaugeAccessibleText() = runBlocking {
+        variants += "gauge"
+
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val reserve = read.bindingBenefits.getValue(read.inventories.single().cards[0].bindingHash)
+        val tracker = reserve.single { it.section == BenefitSection.SPEND_PROGRESS }
+        assertEquals(150_000L, tracker.earnedCents)
+        assertEquals(400_000L, tracker.targetCents)
+        assertEquals(250_000L, tracker.remainingCents)
+    }
+
+    @Test
     fun aSecondConnectionReadsOnlyCardsNotAlreadyRead() = runBlocking {
         variants += listOf("two", "three")
 

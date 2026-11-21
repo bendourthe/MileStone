@@ -22,6 +22,9 @@ import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.swipeLeft
+import androidx.compose.ui.test.swipeRight
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.SortMode
@@ -258,6 +261,52 @@ class MileStoneAppTest {
         rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
         pressBack()
         rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+    }
+
+    @Test
+    fun benefitsTabAlwaysOpensTheProgramPage() {
+        launchBenefitsFixture()
+        barItem("Benefits").performClick()
+        rule.onNodeWithTag("benefitsProgram_amex").performClick()
+        rule.onNode(hasContentDescription("card ending 1234", substring = true)).performClick()
+        rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+
+        // Pressing the selected tab returns to its first page.
+        barItem("Benefits").performClick()
+        rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
+        assertEquals("Benefits", stack().last())
+
+        // So does coming back from another tab.
+        rule.onNodeWithTag("benefitsProgram_amex").performClick()
+        barItem("Rewards").performClick()
+        rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+        barItem("Benefits").performClick()
+        rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
+        assertEquals("Benefits", stack().last())
+    }
+
+    @Test
+    fun swipingRightGoesBackAndLeftReopensThePage() {
+        launchBenefitsFixture()
+        barItem("Benefits").performClick()
+        rule.onNodeWithTag("benefitsProgram_amex").performClick()
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+
+        rule.onRoot().performTouchInput { swipeRight() }
+        rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
+        assertEquals("Benefits", stack().last())
+
+        rule.onRoot().performTouchInput { swipeLeft() }
+        rule.onNodeWithTag("benefitsList").assertIsDisplayed()
+        assertTrue(stack().last().startsWith("ProgramBenefits"))
+
+        // Nothing to reopen after a new page, and a tab's first page never swipes back to another tab.
+        rule.onRoot().performTouchInput { swipeLeft() }
+        assertTrue(stack().last().startsWith("ProgramBenefits"))
+        rule.onRoot().performTouchInput { swipeRight() }
+        rule.onRoot().performTouchInput { swipeRight() }
+        assertEquals("Benefits", stack().last())
+        rule.onNodeWithTag("benefitsInstitutions").assertIsDisplayed()
     }
 
     private fun launchBenefitsFixture(): FakeCards {

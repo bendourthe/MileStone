@@ -23,6 +23,11 @@
     { id: 'ctl-beta', name: 'Synthetic Freedom', digits: '2222', groups: [
       { title: 'Boost points', rows: [ { title: 'Synthetic bonus category', tag: null, value: '5x points' } ] } ] }
   ];
+  if (variant === 'gauge') {
+    // Chase's own gauge: the fill as a percentage, both amounts only in the accessible text, the target in the text.
+    cards[0].tracker = { percentage: 37, label: 'Gauge chart: $1,500 received of $4,000',
+      text: 'Spend $4,000 by Dec 31, 2026 to get the welcome bonus' };
+  }
   if (variant === 'three' || variant === 'groups') {
     cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
       { title: 'Business perks', rows: [ { title: 'Synthetic shipping credit', tag: 'activated', value: '$25 quarterly' } ] } ] });
@@ -90,7 +95,9 @@
         el('div', { 'class': 'nonFeaturedBenefit' }, [ el('ul', { 'data-testid': 'nonFeaturedBenefits-G' + index, role: 'list' }, rows) ]) ]);
     });
     var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ el('div', {}, [
-      el('mds-progress-bar', { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
+      el('mds-progress-bar', card.tracker.label
+        ? { 'accessible-text': card.tracker.label, 'progress-percentage': String(card.tracker.percentage), 'role-name': 'progress bar' }
+        : { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
     var listed = batching ? cards.slice(0, 1) : cards;
     var sheet = sheetOpen ? el('div', { 'data-testid': 'card-selector-sheet', role: 'dialog' }, [ el('div', {}, [ el('ul', {}, listed.map(function (option, index) {
       var radio = el('input', { type: 'radio', id: option.id });

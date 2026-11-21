@@ -1146,11 +1146,15 @@
         // Only the tracker's own link or its immediate parent, so unrelated page text (card names, endings) stays out.
         var holder = bar.closest('a') || bar.parentElement || bar;
         var text = clean(holder, 300);
-        return {
+        // Chase's gauge states its amounts only in its accessible text ("$X received of $Y") and its fill as a percentage.
+        var label = stripIdentifiers((bar.getAttribute('accessible-text') || '').replace(/\s+/g, ' ').trim()).slice(0, 120);
+        var tracker = {
           text: text ? text.replace(CHASE_ENDING, '').replace(/\s+/g, ' ').trim() || null : null,
-          value: number(bar, ['value', 'aria-valuenow', 'progress']),
-          max: number(bar, ['max', 'aria-valuemax']),
+          value: number(bar, ['value', 'aria-valuenow', 'progress', 'progress-percentage']),
+          max: number(bar, ['max', 'aria-valuemax']) || (bar.hasAttribute('progress-percentage') ? 100 : null),
         };
+        if (label) tracker.label = label.replace(CHASE_ENDING, '').trim();
+        return tracker;
       });
     }
 
