@@ -1,0 +1,93 @@
+[
+  {
+    "phase": 1,
+    "signals": [
+      "high",
+      "high",
+      "high",
+      "medium",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 2,
+    "signals": [
+      "high",
+      "high",
+      "high",
+      "medium",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 3,
+    "signals": [
+      "high",
+      "medium",
+      "high",
+      "high",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 4,
+    "signals": [
+      "medium",
+      "high",
+      "high",
+      "high",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 5,
+    "signals": [
+      "high",
+      "high",
+      "high",
+      "high",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 6,
+    "signals": [
+      "high",
+      "medium",
+      "high",
+      "high",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  },
+  {
+    "phase": 7,
+    "signals": [
+      "high",
+      "high",
+      "high",
+      "high",
+      "high"
+    ],
+    "tier": "frontier",
+    "effort": "max",
+    "verification_effort": "max"
+  }
+]

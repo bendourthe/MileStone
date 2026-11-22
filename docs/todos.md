@@ -445,9 +445,10 @@ The current read-only checks leave v0.1 remote-approval/archive predicates, v0.2
 
 ## CardPointers Comparison
 
-Research checkpoint, 2026-11-21: [CardPointers comparison](releases/v0/v0.8/comparisons/v0.8.0-comparison-cardpointers.md) compares the pinned CLI, public help and statically inspected Firefox extension 8.0.8 against current develop and the complete plan queue. The owner confirmed v0.8.0 as the adoption target. Research is complete; four plan proposals await approval and no application implementation is claimed. The existing v0.6/v0.7 plans remain unchanged.
+Planning checkpoint, 2026-11-21: [CardPointers comparison](releases/v0/v0.8/comparisons/v0.8.0-comparison-cardpointers.md) seeds the owner-approved v0.8.0 plan. The owner rejected Amex/Chase-only library coverage and selected asking only for missing purchase context. The plan includes a provider-independent institution/program/card registry, broad US/Canada portfolios and maintained growth. Seven review lenses ran and all seven unique findings are resolved through five engineering corrections and two owner decisions. All 28 implementation tasks remain open. Three v0.6/v0.7 amendments remain proposals; those plans are unchanged. Approval covers finalizing and publishing these planning documents only.
 
 - [x] Compare product-library, offer-enrollment and purchase-recommendation patterns, including source-security and reverse-engineering assessments.
 - [ ] Approve or decline the proposed v0.6 issuer-evidence and structured-offer refinements, preserving default-on adding on every independently eligible card.
 - [ ] Approve or decline the proposed v0.7 source-baseline refresh for current institution navigation and canonical v0.6 offers.
-- [ ] Approve or decline chaining into a v0.8.0 implementation plan for the maintained card/earning-rule library, manual card entry and local purchase recommendations.
+- [x] Finalize the owner-confirmed [seven-phase plan](releases/v0/v0.8/plans/v0.8.0-adoption-cardpointers.md) with the broader provider coverage, missing-context decision and [seven-lens review](releases/v0/v0.8/development/planning/plan-review.md).
+- [ ] Complete green planning-document integration through PR27. Implementation and v0.6/v0.7 amendments remain separately unapproved; all 28 implementation tasks stay open.
