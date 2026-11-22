@@ -82,9 +82,11 @@ data class CardTileUi(
     val brandColorArgb: Long? = null,
     /** The compact freshness line, such as "Updated 5 min ago". */
     val updatedLabel: String = lastReadLabel,
+    /** The user's own name for the card (on this phone only); null shows the issuer's. */
+    val customName: String? = null,
 ) {
-    /** The card name as shown: the product name only, in capitalized words. */
-    val displayName: String get() = CardNames.display(programName, name)
+    /** The card name as shown: the user's own name, else the product name only, in capitalized words. */
+    val displayName: String get() = customName ?: CardNames.display(programName, name)
 
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
@@ -115,8 +117,8 @@ data class CardPageUi(
     val segmented: Boolean = false,
     val segment: CardSegment? = null,
 ) {
-    /** The card name as shown: the product name only, in capitalized words. */
-    val displayName: String get() = CardNames.display("", name)
+    /** The card name as shown: the user's own name, else the product name only, in capitalized words. */
+    val displayName: String get() = preferences.customName ?: CardNames.display("", name)
 }
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
@@ -189,6 +191,10 @@ class BenefitsViewModel(
     fun setWelcomeBonus(key: CardKey, setup: WelcomeBonusSetup?) = saveDisplay(key,
         { it.copy(welcomeBonus = setup) }, { it.setWelcomeBonus(key, setup) })
 
+    /** Names the card on this phone; blank goes back to the issuer's name. */
+    fun rename(key: CardKey, name: String?) = saveDisplay(key,
+        { it.copy(customName = BenefitsDisplayPreferences.cleanCustomName(name)) }, { it.setCustomName(key, name) })
+
     /** The "Benefit reminders" setting; false when this screen has no setting to show. */
     val remindersEnabled: StateFlow<Boolean> =
         (reminders?.enabled ?: flowOf(false)).stateIn(viewModelScope, SharingStarted.Eagerly, false)
@@ -216,6 +222,7 @@ class BenefitsViewModel(
                         // sign-in or the user decides. Elsewhere only the product name or the user can make it Business.
                         segment = if (segmented) card.segment ?: CardSegment.PERSONAL else null,
                         classificationNote = if (hasSignIns(program) && card.segment == null) "Needs Personal or Business" else null,
+                        customName = prefs.customName,
                     )
                 }
                 BenefitsUiState.Cards(tiles, added.map { id ->

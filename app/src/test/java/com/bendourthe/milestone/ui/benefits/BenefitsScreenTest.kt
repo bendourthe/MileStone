@@ -285,6 +285,7 @@ class BenefitsScreenTest {
             override suspend fun setCompletedLast(card: CardKey, completedLast: Boolean) = Unit
             override suspend fun setCollapsed(card: CardKey, category: com.bendourthe.milestone.domain.BenefitsCategory, collapsed: Boolean) = Unit
             override suspend fun setWelcomeBonus(card: CardKey, setup: com.bendourthe.milestone.domain.WelcomeBonusSetup?) = Unit
+            override suspend fun setCustomName(card: CardKey, name: String?) = Unit
             override suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>) = Unit
         }
         val failing = BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US, displaySettings = settings)

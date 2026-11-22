@@ -33,6 +33,7 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
     private fun target(card: CardKey) = longPreferencesKey(prefix(card) + "welcomeTarget")
     private fun deadline(card: CardKey) = longPreferencesKey(prefix(card) + "welcomeDeadline")
     private fun reward(card: CardKey) = stringPreferencesKey(prefix(card) + "welcomeReward")
+    private fun customName(card: CardKey) = stringPreferencesKey(prefix(card) + "customName")
 
     private fun generation(card: CardKey) = longPreferencesKey(prefix(card) + "readGeneration")
     private fun cardVersion(card: CardKey) = longPreferencesKey(prefix(card) + "cardVersion")
@@ -64,6 +65,7 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
                 if (cut < 0) null else entry.substring(0, cut).toLongOrNull()?.let { entry.substring(cut + 1) to it }
             }.toMap(),
             welcomeBonus = welcome,
+            customName = BenefitsDisplayPreferences.cleanCustomName(prefs[customName(card)]),
             readState = BenefitsReadState(prefs[generation(card)] ?: 0, prefs[readTime(card)],
                 BenefitSection.entries.mapNotNull { section -> prefs[sectionGeneration(card, section)]?.let { section to it } }.toMap(), prefs[cardVersion(card)] ?: 0),
         )
@@ -105,6 +107,11 @@ class DataStoreBenefitsDisplaySettings(private val store: DataStore<Preferences>
             }
         }
     }
+    override suspend fun setCustomName(card: CardKey, name: String?) {
+        val clean = BenefitsDisplayPreferences.cleanCustomName(name)
+        store.edit { prefs -> if (clean == null) prefs.remove(customName(card)) else prefs[customName(card)] = clean }
+    }
+
     override suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>) {
         if (sections.isEmpty()) return
         store.edit { prefs ->

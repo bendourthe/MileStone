@@ -20,4 +20,23 @@ class CardNamesTest {
         assertEquals("Chase", CardNames.display("Chase", "Chase"))
         assertEquals("Card", CardNames.display("amex", "Card"))
     }
+
+    @Test
+    fun aCustomNameIsTrimmedCappedAndBlankMeansTheIssuersName() {
+        assertEquals("Sapphire Preferred", BenefitsDisplayPreferences.cleanCustomName("  Sapphire   Preferred \n"))
+        assertEquals(null, BenefitsDisplayPreferences.cleanCustomName("   "))
+        assertEquals(null, BenefitsDisplayPreferences.cleanCustomName(null))
+        assertEquals(BenefitsDisplayPreferences.MAX_CUSTOM_NAME, BenefitsDisplayPreferences.cleanCustomName("x".repeat(90))!!.length)
+    }
+
+    @Test
+    fun aCustomNameIsShownInsteadOfTheIssuersOnTheTileAndThePage() {
+        val key = CardKey("chase", "1111")
+        val tile = com.bendourthe.milestone.ui.benefits.CardTileUi(key, "CHASE SAPPHIRE", "", "", null, "", null, programName = "Chase")
+        assertEquals("Sapphire", tile.displayName)
+        assertEquals("Sapphire Preferred", tile.copy(customName = "Sapphire Preferred").displayName)
+        val page = com.bendourthe.milestone.ui.benefits.CardPageUi("CHASE SAPPHIRE", "", null, emptyList(),
+            preferences = BenefitsDisplayPreferences(customName = "Sapphire Preferred"))
+        assertEquals("Sapphire Preferred", page.displayName)
+    }
 }
