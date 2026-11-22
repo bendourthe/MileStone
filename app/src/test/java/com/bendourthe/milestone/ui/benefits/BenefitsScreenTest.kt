@@ -227,20 +227,6 @@ class BenefitsScreenTest {
     }
 
     @Test
-    fun renamingACardShowsTheNewNameAndUseIssuerNameGoesBack() {
-        seed()
-        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
-        rule.onNodeWithTag("renameCard").performClick()
-        rule.onNodeWithTag("renameCardField").performTextReplacement("My Platinum")
-        rule.onNodeWithTag("renameCardSave").performClick()
-        rule.onNodeWithText("My Platinum").assertExists()
-        assertEquals("My Platinum", runBlocking { viewModel.card(platinum).first()!! }.displayName)
-        rule.onNodeWithTag("renameCard").performClick()
-        rule.onNodeWithTag("renameCardReset").performClick()
-        rule.onNodeWithText("Platinum").assertExists()
-    }
-
-    @Test
     fun welcomeSetupValidatesInputAndDoesNotChangeIssuerRows() {
         seed()
         rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
@@ -299,7 +285,6 @@ class BenefitsScreenTest {
             override suspend fun setCompletedLast(card: CardKey, completedLast: Boolean) = Unit
             override suspend fun setCollapsed(card: CardKey, category: com.bendourthe.milestone.domain.BenefitsCategory, collapsed: Boolean) = Unit
             override suspend fun setWelcomeBonus(card: CardKey, setup: com.bendourthe.milestone.domain.WelcomeBonusSetup?) = Unit
-            override suspend fun setCustomName(card: CardKey, name: String?) = Unit
             override suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>) = Unit
         }
         val failing = BenefitsViewModel(cards, StaticCatalogRepository(), accounts, { now }, ZoneOffset.UTC, Locale.US, displaySettings = settings)

@@ -1,42 +1,39 @@
 package com.bendourthe.milestone.domain
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CardNamesTest {
     @Test
-    fun showsTheProductNameOnlyInCapitalizedWords() {
-        assertEquals("Sapphire Preferred", CardNames.display("Chase", "CHASE SAPPHIRE PREFERRED"))
-        assertEquals("Ink Business Cash", CardNames.display("Chase", "INK BUSINESS CASH"))
-        assertEquals("IHG One Rewards Premier", CardNames.display("Chase", "IHG ONE REWARDS PREMIER"))
-        assertEquals("World of Hyatt", CardNames.display("Chase", "WORLD OF HYATT"))
-        assertEquals("Hilton Honors Surpass", CardNames.display("American Express", "Hilton Honors American Express Surpass Card"))
-        assertEquals("Platinum", CardNames.display("amex", "Platinum Card"))
-        assertEquals("Delta SkyMiles Gold", CardNames.display("American Express", "Delta SkyMiles Gold American Express Card"))
+    fun aCardTheCatalogKnowsShowsTheCatalogsProductName() {
+        // Chase's card selector calls a Sapphire Preferred "CHASE SAPPHIRE".
+        assertEquals("Sapphire Preferred", CardNames.display("chase", "Chase", "CHASE SAPPHIRE"))
+        assertEquals("Sapphire Preferred", CardNames.display("chase", "Chase", "CHASE SAPPHIRE PREFERRED"))
+        assertEquals("Sapphire Reserve", CardNames.display("chase", "Chase", "Sapphire Reserve"))
+        assertEquals("Ink Business Preferred", CardNames.display("chase", "Chase", "Ink Preferred"))
+        assertEquals("IHG One Rewards Premier", CardNames.display("chase", "Chase", "IHG ONE REWARDS PREMIER"))
+        assertEquals("World of Hyatt", CardNames.display("chase", "Chase", "WORLD OF HYATT"))
+        assertEquals("Hilton Honors Surpass", CardNames.display("amex", "American Express", "Hilton Honors Surpass Card"))
+        assertEquals("Platinum", CardNames.display("amex", "American Express", "Platinum Card"))
+        assertEquals("Business Platinum", CardNames.display("amex", "American Express", "Business Platinum Card"))
+        assertEquals("Delta SkyMiles Gold Business", CardNames.display("amex", "American Express", "Delta Gold Business Card"))
     }
 
     @Test
-    fun aNameThatIsOnlyTheIssuerStaysAsRead() {
-        assertEquals("Chase", CardNames.display("Chase", "Chase"))
-        assertEquals("Card", CardNames.display("amex", "Card"))
+    fun aCardTheCatalogDoesNotKnowShowsTheIssuersNameCleaned() {
+        assertEquals("Mystery Rewards", CardNames.display("chase", "Chase", "CHASE MYSTERY REWARDS"))
+        assertEquals("Chase", CardNames.display("chase", "Chase", "Chase"))
+        assertEquals("Card", CardNames.display("amex", "American Express", "Card"))
     }
 
     @Test
-    fun aCustomNameIsTrimmedCappedAndBlankMeansTheIssuersName() {
-        assertEquals("Sapphire Preferred", BenefitsDisplayPreferences.cleanCustomName("  Sapphire   Preferred \n"))
-        assertEquals(null, BenefitsDisplayPreferences.cleanCustomName("   "))
-        assertEquals(null, BenefitsDisplayPreferences.cleanCustomName(null))
-        assertEquals(BenefitsDisplayPreferences.MAX_CUSTOM_NAME, BenefitsDisplayPreferences.cleanCustomName("x".repeat(90))!!.length)
-    }
-
-    @Test
-    fun aCustomNameIsShownInsteadOfTheIssuersOnTheTileAndThePage() {
-        val key = CardKey("chase", "1111")
-        val tile = com.bendourthe.milestone.ui.benefits.CardTileUi(key, "CHASE SAPPHIRE", "", "", null, "", null, programName = "Chase")
-        assertEquals("Sapphire", tile.displayName)
-        assertEquals("Sapphire Preferred", tile.copy(customName = "Sapphire Preferred").displayName)
-        val page = com.bendourthe.milestone.ui.benefits.CardPageUi("CHASE SAPPHIRE", "", null, emptyList(),
-            preferences = BenefitsDisplayPreferences(customName = "Sapphire Preferred"))
-        assertEquals("Sapphire Preferred", page.displayName)
+    fun everyCatalogProductHasAShortNameWithoutTheIssuerOrCard() {
+        CardProducts.all.forEach { product ->
+            val shown = CardNames.display(product.programId, "", product.name)
+            assertTrue(product.name, shown.isNotBlank())
+            assertFalse(product.name, Regex("(?i)\\b(card|american express|chase)\\b|^the\\b|\\bfrom$").containsMatchIn(shown))
+        }
     }
 }

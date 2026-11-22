@@ -47,7 +47,7 @@ class CardProductsTest {
 
     @Test
     fun everyProductHasBundledArtworkAndAKeywordSet() {
-        assertEquals(70, CardProducts.all.size)
+        assertEquals(69, CardProducts.all.size)
         CardProducts.all.forEach { product ->
             assert(product.keywords.isNotEmpty() && product.keywords.all { it.isNotEmpty() }) { product.name }
             assert(product.art.matches(Regex("^card_(chase|amex)_[a-z0-9_]+$"))) { product.art }

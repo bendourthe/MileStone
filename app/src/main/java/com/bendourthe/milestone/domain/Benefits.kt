@@ -283,19 +283,9 @@ data class BenefitsDisplayPreferences(
     val welcomeBonus: WelcomeBonusSetup? = null,
     val readState: BenefitsReadState = BenefitsReadState(),
     val sort: BenefitsSort = BenefitsSort.NAME_ASC,
-    /** The user's own name for the card, shown instead of the issuer's; on this phone only. Null shows the issuer's. */
-    val customName: String? = null,
 ) {
     fun isAcknowledged(alertId: String, readGeneration: Long): Boolean =
         acknowledged[alertId] == readGeneration
-
-    companion object {
-        const val MAX_CUSTOM_NAME = 40
-
-        /** The name to store for [input]: trimmed, single-spaced, capped; null (the issuer's name) when blank. */
-        fun cleanCustomName(input: String?): String? =
-            input?.replace(Regex("\\s+"), " ")?.trim()?.filterNot { it.isISOControl() }?.take(MAX_CUSTOM_NAME)?.trim()?.ifEmpty { null }
-    }
 }
 
 /** On-device display preferences; acknowledgement never edits issuer benefits or reminder records. */
@@ -308,8 +298,6 @@ interface BenefitsDisplaySettings {
     suspend fun setCollapsed(card: CardKey, category: BenefitsCategory, collapsed: Boolean)
     suspend fun acknowledge(card: CardKey, alertId: String, readGeneration: Long)
     suspend fun setWelcomeBonus(card: CardKey, setup: WelcomeBonusSetup?)
-    /** Stores the user's own card name; null or blank goes back to the issuer's name. */
-    suspend fun setCustomName(card: CardKey, name: String?)
     suspend fun recordReadOutcome(card: CardKey, readEpochMs: Long, cardGeneration: Long, sections: Set<BenefitSection>)
 }
 

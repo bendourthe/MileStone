@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Surface
@@ -146,17 +145,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
             item("card") {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CardArtwork(key.programId, current.name, Modifier.width(176.dp))
-                    var renaming by rememberSaveable(key.programId, key.cardId) { mutableStateOf(false) }
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(current.displayName, style = MaterialTheme.typography.headlineSmall)
-                        IconButton(onClick = { renaming = true }, modifier = Modifier.testTag("renameCard")) {
-                            Icon(Icons.Filled.Edit, contentDescription = "Rename ${current.displayName}")
-                        }
-                    }
-                    if (renaming) {
-                        RenameCardDialog(current.displayName, com.bendourthe.milestone.domain.CardNames.display("", current.name),
-                            renamed = current.preferences.customName != null, onSave = { viewModel.rename(key, it) }, onDismiss = { renaming = false })
-                    }
+                    Text(current.displayName, style = MaterialTheme.typography.headlineSmall)
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
             }

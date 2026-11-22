@@ -50,15 +50,6 @@ class DataStoreBenefitsDisplaySettingsTest {
         assertTrue(reopened.observe(first).first().completedLast)
     }
 
-    @Test fun aCustomCardNameIsSavedPerCardAndBlankGoesBackToTheIssuersName() = runTest(UnconfinedTestDispatcher()) {
-        val repo = DataStoreBenefitsDisplaySettings(PreferenceDataStoreFactory.create(scope = backgroundScope) { tmp.root.resolve("name.preferences_pb") })
-        repo.setCustomName(first, "  Sapphire   Preferred ")
-        assertEquals("Sapphire Preferred", repo.observe(first).first().customName)
-        assertNull(repo.observe(second).first().customName)
-        repo.setCustomName(first, " ")
-        assertNull(repo.observe(first).first().customName)
-    }
-
     @Test fun updatingOneAcknowledgementPreservesTheOthersAndAlertIdentityMayContainSeparators() = runTest(UnconfinedTestDispatcher()) {
         val repo = DataStoreBenefitsDisplaySettings(PreferenceDataStoreFactory.create(scope = backgroundScope) { tmp.root.resolve("ack.preferences_pb") })
         repo.acknowledge(first, "one\u001efield", 100)

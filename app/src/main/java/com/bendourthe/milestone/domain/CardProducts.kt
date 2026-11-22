@@ -10,7 +10,9 @@ object CardProducts {
 
     val all: List<Product> = listOf(
         Product("chase", "Chase Sapphire Reserve", CardSegment.PERSONAL, listOf(listOf("sapphire", "reserve")), "card_chase_sapphire_reserve"),
-        Product("chase", "Chase Sapphire Preferred", CardSegment.PERSONAL, listOf(listOf("sapphire", "preferred")), "card_chase_sapphire_preferred"),
+        // Chase lists a Sapphire Preferred card as "CHASE SAPPHIRE" in its card selector, so "sapphire" alone is this
+        // product; "sapphire" with "reserve" scores higher and stays the Reserve.
+        Product("chase", "Chase Sapphire Preferred", CardSegment.PERSONAL, listOf(listOf("sapphire", "preferred"), listOf("sapphire")), "card_chase_sapphire_preferred"),
         Product("chase", "Chase Freedom Unlimited", CardSegment.PERSONAL, listOf(listOf("freedom", "unlimited")), "card_chase_freedom_unlimited"),
         Product("chase", "Chase Freedom Flex", CardSegment.PERSONAL, listOf(listOf("freedom", "flex")), "card_chase_freedom_flex"),
         Product("chase", "Chase Freedom Rise", CardSegment.PERSONAL, listOf(listOf("freedom", "rise")), "card_chase_freedom_rise"),
@@ -78,7 +80,6 @@ object CardProducts {
         Product("chase", "Ink Business Bold", CardSegment.BUSINESS, listOf(listOf("ink", "bold")), "card_chase_ink_business_bold"),
         Product("chase", "Amazon Rewards Visa Signature", CardSegment.PERSONAL, listOf(listOf("amazon")), "card_chase_amazon_rewards_visa_signature"),
         Product("chase", "Marriott Rewards Premier Plus", CardSegment.PERSONAL, listOf(listOf("marriott", "premier")), "card_chase_marriott_rewards_premier_plus"),
-        Product("chase", "Chase Sapphire (classic; shares the Sapphire Preferred art)", CardSegment.PERSONAL, listOf(listOf("sapphire")), "card_chase_sapphire_preferred"),
     )
 
     private val WORD = Regex("[a-z0-9]+")
