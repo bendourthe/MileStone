@@ -49,8 +49,6 @@ import com.bendourthe.milestone.domain.SearchTarget
 import com.bendourthe.milestone.ui.search.SearchValidation
 import com.bendourthe.milestone.ui.search.message
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.navigation.NavBackStackEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -177,12 +175,11 @@ fun MileStoneApp(
         val systemBottom = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
         val isTabRoot: (NavBackStackEntry) -> Boolean = { entry -> topLevels.any { entry.destination.hasRoute(it.routeClass) } }
         val swipes = rememberPageSwipes(navController, isTabRoot)
-        val pageTurn = remember { PageTurn(isTabRoot) }
-        CompositionLocalProvider(LocalPageTurn provides pageTurn) {
+        val pageMotion = remember { PageMotion(isTabRoot) }
         NavHost(navController, startDestination = Dashboard, modifier = swipes,
-            enterTransition = { pageTurn.enter(this, back = false) }, exitTransition = { pageTurn.exit(this, back = false) },
-            popEnterTransition = { pageTurn.enter(this, back = true) }, popExitTransition = { pageTurn.exit(this, back = true) },
-            predictivePopEnterTransition = { pageTurn.enter(this, back = true) }, predictivePopExitTransition = { pageTurn.exit(this, back = true) }) {
+            enterTransition = { pageMotion.enter(this, back = false) }, exitTransition = { pageMotion.exit(this, back = false) },
+            popEnterTransition = { pageMotion.enter(this, back = true) }, popExitTransition = { pageMotion.exit(this, back = true) },
+            predictivePopEnterTransition = { pageMotion.enter(this, back = true) }, predictivePopExitTransition = { pageMotion.exit(this, back = true) }) {
             composable<Dashboard> { entry ->
                 DestinationInsets(bottom) {
                     val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)
@@ -344,7 +341,6 @@ fun MileStoneApp(
                 }
             }
         }
-        }
     }
 
     if (signIn != null && createBridge != null) {
@@ -377,6 +373,6 @@ private fun appSearchViewModel(owner: ViewModelStoreOwner, create: (() -> com.be
 }
 
 @Composable
-private fun AnimatedVisibilityScope.DestinationInsets(bottom: PaddingValues, content: @Composable () -> Unit) {
-    Box(Modifier.fillMaxSize().then(pageTurnLayer(LocalPageTurn.current)).padding(bottom).consumeWindowInsets(bottom)) { content() }
+private fun DestinationInsets(bottom: PaddingValues, content: @Composable () -> Unit) {
+    Box(Modifier.fillMaxSize().padding(bottom).consumeWindowInsets(bottom)) { content() }
 }

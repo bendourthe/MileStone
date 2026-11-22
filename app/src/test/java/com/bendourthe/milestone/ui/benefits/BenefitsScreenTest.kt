@@ -227,6 +227,20 @@ class BenefitsScreenTest {
     }
 
     @Test
+    fun renamingACardShowsTheNewNameAndUseIssuerNameGoesBack() {
+        seed()
+        rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
+        rule.onNodeWithTag("renameCard").performClick()
+        rule.onNodeWithTag("renameCardField").performTextReplacement("My Platinum")
+        rule.onNodeWithTag("renameCardSave").performClick()
+        rule.onNodeWithText("My Platinum").assertExists()
+        assertEquals("My Platinum", runBlocking { viewModel.card(platinum).first()!! }.displayName)
+        rule.onNodeWithTag("renameCard").performClick()
+        rule.onNodeWithTag("renameCardReset").performClick()
+        rule.onNodeWithText("Platinum").assertExists()
+    }
+
+    @Test
     fun welcomeSetupValidatesInputAndDoesNotChangeIssuerRows() {
         seed()
         rule.setContent { MileStoneTheme { CardBenefitsScreen(viewModel, platinum, onBack = {}, onGone = {}) } }
