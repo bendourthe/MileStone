@@ -30,7 +30,13 @@ public class SearchBenchmarkTest {
   assertEquals(0, targetInfo.flags & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE);
   assertEquals(expectedTarget, apkSha256(inst, targetInfo.sourceDir));
   assertEquals(expectedController, apkSha256(inst, ctx.getApplicationInfo().sourceDir));
-  android.os.Bundle status = new android.os.Bundle(); status.putString("run_id", id); inst.sendStatus(0, status);
+  // R8 optimization does not fix ART's compilation state on a fresh emulator.
+  // Compile before launch so JIT work cannot vary between the three warmups and measured queries.
+  try (ParcelFileDescriptor fd = inst.getUiAutomation().executeShellCommand("cmd package compile -f -m speed com.bendourthe.milestone.benchmark"); FileInputStream input = new FileInputStream(fd.getFileDescriptor())) {
+   String output = new String(readBytes(input), java.nio.charset.StandardCharsets.UTF_8).trim();
+   assertEquals("Benchmark target compilation must succeed", "Success", output);
+  }
+  android.os.Bundle status = new android.os.Bundle(); status.putString("run_id", id); status.putString("runtime_compilation", "speed"); inst.sendStatus(0, status);
   long delay = Long.parseLong(InstrumentationRegistry.getArguments().getString("searchLatencyUiDelayMs", "0"));
   assertTrue(delay >= 0 && delay <= 1000);
   Intent intent = new Intent().setComponent(new ComponentName("com.bendourthe.milestone.benchmark", "com.bendourthe.milestone.ui.search.SearchBenchmarkActivity"))

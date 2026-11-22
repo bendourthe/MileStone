@@ -56,7 +56,10 @@ jobs:
           sudo setfacl -m "u:$(id -un):rw" /dev/kvm
           "$ANDROID_HOME/emulator/emulator" -accel-check > reports/metadata/emulator-acceleration.txt 2>&1
           "$ANDROID_HOME/emulator/emulator" -no-window -version > reports/metadata/emulator-version.txt 2>&1
-          "$ANDROID_HOME/emulator/emulator" -avd milestone-ci -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader > reports/emulator.log 2>&1 &
+          # Match the guest to this public runner's four CPUs; two CPUs leave rendering and Search contending.
+          nproc > reports/metadata/host-cpu-count.txt
+          test "$(cat reports/metadata/host-cpu-count.txt)" -ge 4
+          "$ANDROID_HOME/emulator/emulator" -avd milestone-ci -cores 4 -port 5554 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader > reports/emulator.log 2>&1 &
           emulator_pid=$!
           timeout 180 adb -s emulator-5554 wait-for-device
           for _ in $(seq 1 90); do
@@ -66,6 +69,8 @@ jobs:
             sleep 2
           done
           test "$(adb -s emulator-5554 shell getprop sys.boot_completed | tr -d '\r')" = "1"
+          adb -s emulator-5554 shell cat /sys/devices/system/cpu/online > reports/metadata/emulator-cpu-online.txt
+          test "$(tr -d '\r\n' < reports/metadata/emulator-cpu-online.txt)" = "0-3"
           adb -s emulator-5554 shell input keyevent 82
 
       - name: Validate Android runtime before merge
