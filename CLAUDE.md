@@ -16,7 +16,7 @@ Logs name programs and hosts only. Real captured pages go only in the gitignored
 
 ## Version
 
-v0.5.0, recorded as the `0.5.0` heading in `CHANGELOG.md`.
+v0.5.1, recorded as the `0.5.1` heading in `CHANGELOG.md`.
 
 ## Branch model
 
@@ -24,4 +24,4 @@ develop+main. `main` is the release branch. `develop` is the integration branch.
 
 ## Docs
 
-Living docs stay in `docs/handbooks/`, `docs/decisions/`, `docs/README.md`, and `docs/todos.md`. Active v0.5 work goes in `docs/releases/v0/v0.5/`; released v0.1 to v0.4 records are archived in `docs/archives/v0/`, indexed by `docs/archives/README.md`.
+Living docs stay in `docs/handbooks/`, `docs/decisions/`, `docs/README.md`, and `docs/todos.md`. Active v0.6 work goes in `docs/releases/v0/v0.6/`; released v0.1 to v0.5 records are archived in `docs/archives/v0/`, indexed by `docs/archives/README.md`.

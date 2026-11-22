@@ -49,6 +49,7 @@ import com.bendourthe.milestone.domain.SearchTarget
 import com.bendourthe.milestone.ui.search.SearchValidation
 import com.bendourthe.milestone.ui.search.message
 import androidx.compose.runtime.remember
+import androidx.navigation.NavBackStackEntry
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -149,10 +150,15 @@ fun MileStoneApp(
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
+                                // Benefits always opens on its program page; the other tabs come back where they were.
+                                // Rewards is the start page and is never removed, so restoring there would bring
+                                // back the pages just saved (a Benefits card) instead of the Rewards page.
+                                val start = navController.graph.findStartDestination()
+                                val fresh = top.route == Benefits || start.hasRoute(top.routeClass)
                                 navController.navigate(top.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    popUpTo(start.id) { saveState = true }
                                     launchSingleTop = true
-                                    restoreState = true
+                                    restoreState = !fresh
                                 }
                             },
                             icon = { Icon(if (selected) top.selected else top.unselected, contentDescription = null) },
@@ -167,7 +173,13 @@ fun MileStoneApp(
         // The outgoing page keeps its viewport when Search hides the bar, so end-of-list positions cannot clamp.
         val bottom = PaddingValues(bottom = maxOf(bottomBarHeight, padding.calculateBottomPadding()))
         val systemBottom = PaddingValues(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
-        NavHost(navController, startDestination = Dashboard) {
+        val isTabRoot: (NavBackStackEntry) -> Boolean = { entry -> topLevels.any { entry.destination.hasRoute(it.routeClass) } }
+        val swipes = rememberPageSwipes(navController, isTabRoot)
+        val pageMotion = remember { PageMotion(isTabRoot) }
+        NavHost(navController, startDestination = Dashboard, modifier = swipes,
+            enterTransition = { pageMotion.enter(this, back = false) }, exitTransition = { pageMotion.exit(this, back = false) },
+            popEnterTransition = { pageMotion.enter(this, back = true) }, popExitTransition = { pageMotion.exit(this, back = true) },
+            predictivePopEnterTransition = { pageMotion.enter(this, back = true) }, predictivePopExitTransition = { pageMotion.exit(this, back = true) }) {
             composable<Dashboard> { entry ->
                 DestinationInsets(bottom) {
                     val resultSearch = resultSearchViewModel(navController, entry, createSearchViewModel)

@@ -153,8 +153,8 @@ class ChaseBenefitsTilesTest {
         show("amex")
         rule.onNodeWithTag("segment_Personal").assertExists()
         rule.onNodeWithTag("segment_Business").assertExists()
-        assertTrue(top("Synthetic Platinum") < topOfTag("segment_Business"))
-        assertTrue(topOfTag("segment_Business") < top("Synthetic Business Gold"))
+        assertTrue(top("Platinum,") < topOfTag("segment_Business"))
+        assertTrue(topOfTag("segment_Business") < top("Business Gold,"))
         described("Needs Personal or Business").assertDoesNotExist()
         described("American Express sign-ins").assertDoesNotExist()
     }

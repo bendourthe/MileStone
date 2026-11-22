@@ -71,7 +71,7 @@ class SearchScreenTest {
         accounts = RoomAccountRepository(db); cards = RoomCardRepository(db)
         accounts.addAccount("amex", AccountStatus.CONNECTED, 1)
         accounts.addAccount("delta", AccountStatus.NEEDS_RECONNECT, 1)
-        cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta Gold", "1008")), true), 10)
+        cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta SkyMiles Gold", "1008")), true), 10)
         cards.applyCardBenefits(key, assignBenefitKeys(key, listOf(
             BenefitDraft(BenefitSection.CREDIT_EARNED, "Lounge Credit", 0, 5000, 5000, "January", false, description = "Airport terminal access"),
             BenefitDraft(BenefitSection.COMPLETED, "Dining Credit", 1000, 0, 1000, "February", true)
@@ -122,8 +122,8 @@ class SearchScreenTest {
         waitText("1 result")
         rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Lounge Credit"))
         rule.onNodeWithText("Lounge Credit").assertIsDisplayed()
-        rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Delta Gold"))
-        rule.onNodeWithText("Delta Gold").assertIsDisplayed()
+        rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Delta SkyMiles Gold"))
+        rule.onNodeWithText("Delta SkyMiles Gold").assertIsDisplayed()
         snapshot("context")
         rule.onNodeWithContentDescription("Clear search").performClick()
         waitText("Search programs, cards, and benefits")
@@ -148,7 +148,7 @@ class SearchScreenTest {
         rule.onNodeWithContentDescription("Search").performClick()
         rule.onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
         rule.waitUntil(10_000) { rule.onAllNodesWithTag("benefitsList").fetchSemanticsNodes().isNotEmpty() }
-        rule.onNodeWithContentDescription("Delta Gold", substring = true).performClick()
+        rule.onNodeWithContentDescription("Delta SkyMiles Gold", substring = true).performClick()
         waitText("Card benefits")
         rule.onNodeWithContentDescription("Search").performClick()
         rule.onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
@@ -230,7 +230,7 @@ class SearchScreenTest {
     }
 
     @Test fun amexIncludesAllFourCardsAndEveryStoredBenefitWithTrailingIndependentChevrons() {
-        val names = listOf("Delta Gold", "Platinum", "Business Platinum", "Hilton Surpass")
+        val names = listOf("Delta SkyMiles Gold", "Platinum", "Business Platinum", "Hilton Honors Surpass")
         val keys = listOf(key, CardKey("amex", "2009"), CardKey("amex", "3010"), CardKey("amex", "4011"))
         runBlocking {
             cards.applyCardList("amex", CardList.from(names.zip(keys).map { (name, card) -> CardDraft(name, card.cardId) }, true), 20)
@@ -256,14 +256,14 @@ class SearchScreenTest {
             rule.onNodeWithTag("searchCardThumbnail:amex:${keys[index].cardId}", useUnmergedTree = true).assertIsDisplayed()
             rule.onNodeWithContentDescription("Collapse matches for $name", substring = true).assertIsDisplayed()
         }
-        val header = hasTestTag("searchCardHeader") and hasText("Delta Gold")
+        val header = hasTestTag("searchCardHeader") and hasText("Delta SkyMiles Gold")
         rule.onNodeWithTag("searchResults").performScrollToNode(header)
-        val titleBounds = rule.onNodeWithText("Delta Gold", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
-        val chevron = rule.onNodeWithContentDescription("Collapse matches for Delta Gold", substring = true)
+        val titleBounds = rule.onNodeWithText("Delta SkyMiles Gold", useUnmergedTree = true).fetchSemanticsNode().boundsInRoot
+        val chevron = rule.onNodeWithContentDescription("Collapse matches for Delta SkyMiles Gold", substring = true)
         assertTrue(chevron.fetchSemanticsNode().boundsInRoot.left >= titleBounds.right)
         chevron.performClick()
         assertEquals(setOf("card:amex:1008"), vm.collapsed.value)
-        rule.onNodeWithContentDescription("Expand matches for Delta Gold", substring = true).performClick()
+        rule.onNodeWithContentDescription("Expand matches for Delta SkyMiles Gold", substring = true).performClick()
         assertTrue(vm.collapsed.value.isEmpty())
         assertNull("Chevron presses must not navigate", selected)
         rule.onNodeWithTag("searchResults").performScrollToNode(hasTestTag("searchProgramGroup"))
@@ -276,7 +276,7 @@ class SearchScreenTest {
         rule.onNodeWithTag("globalSearchQuery").performTextInput("terminal")
         waitText("1 result")
         rule.onNodeWithTag("globalSearchQuery").performImeAction()
-        val header = hasTestTag("searchCardHeader") and hasText("Delta Gold")
+        val header = hasTestTag("searchCardHeader") and hasText("Delta SkyMiles Gold")
         rule.onNodeWithTag("searchResults").performScrollToNode(header)
         rule.onNode(header).performClick()
         waitText("Card benefits")
@@ -408,8 +408,8 @@ class SearchScreenTest {
         rule.onNode(hasText("Delta SkyMiles") and hasClickAction()).assertIsDisplayed()
         rule.onNodeWithTag("searchTabBENEFITS").performClick()
         rule.onNode(hasTestTag("searchProgramGroup") and hasText("American Express", substring = true)).assertIsDisplayed()
-        rule.onNodeWithText("Delta Gold").assertIsDisplayed()
-        rule.onNode(hasText("Delta Gold") and hasClickAction()).assertExists()
+        rule.onNodeWithText("Delta SkyMiles Gold").assertIsDisplayed()
+        rule.onNode(hasText("Delta SkyMiles Gold") and hasClickAction()).assertExists()
         rule.onNodeWithText("Card ending 1008").assertIsDisplayed()
         rule.onNodeWithTag("globalSearchQuery").performTextClearance()
         rule.onNodeWithTag("globalSearchQuery").performTextInput("Credit")
@@ -417,7 +417,7 @@ class SearchScreenTest {
         waitText("2 results")
         rule.onNodeWithTag("searchTabBENEFITS").assertIsSelected()
         rule.onNodeWithTag("globalSearchQuery").performImeAction()
-        rule.onNode(hasTestTag("searchCardHeader") and hasText("Delta Gold")).assertHasClickAction()
+        rule.onNode(hasTestTag("searchCardHeader") and hasText("Delta SkyMiles Gold")).assertHasClickAction()
         rule.onNodeWithTag("searchTotalCount").assertTextEquals("3 total")
         rule.onNodeWithTag("searchResults").performScrollToNode(hasText("Lounge Credit"))
         rule.onNode(hasTestTag("searchCompactBenefit") and hasText("Lounge Credit")).assertHasClickAction()

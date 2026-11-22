@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-11-21
+
+### Changed
+
+- Cards the product catalog recognizes show the catalog's product name, shortened to the product ("Platinum", "Sapphire Preferred", "Ink Business Preferred"); other cards show the issuer's name without the issuer's own words or a trailing "Card", in capitalized words.
+- A card Chase lists as "CHASE SAPPHIRE" is matched to Sapphire Preferred; the separate classic Sapphire entry is removed, leaving 69 catalog products.
+- Pages change with a sideways fade: the page being left fades out in the swipe's direction before the next fades in, so two pages never show together.
+
+### Added
+
+- Below a tab's first page, swiping right goes back one page and follows the finger; swiping left reopens the page last left.
+- During a Chase refresh, MileStone opens each credit's own page, reads how much of the credit is used, and goes back, at most 8 credits per card. The card's log line counts the credit pages planned and the used amounts read.
+
+### Fixed
+
+- A finished Amex tracker that Amex retitles "Congratulations!" (such as the Hilton Honors Surpass free night) is kept and named from the card's benefit list or its own wording, instead of being dropped as the yearly summary.
+- An Amex Rewards page that keeps growing now still opens the card's view-all list at its readiness cap when trackers are on screen, so the list refreshes and the "Listed benefits did not refresh" alert clears.
+- Chase spend trackers read their progress from the gauge's accessible text and take their title from the tile heading; a row's two-part value reads "$500 - Up to $250 per transaction", and listed credits appear under Credits.
+- The Rewards tab returns to the Rewards page from a card page, and the Benefits tab opens its program page.
+- Card artwork is clipped in proportion to its size, so no gray image corner or light edge shows on the card page.
+
 ## [0.5.0] - 2026-11-21
 
 ### Added

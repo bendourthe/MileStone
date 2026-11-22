@@ -36,6 +36,18 @@ object ChaseBenefitsReader {
     /** An amount stated as progress toward another: "$1,500 of $4,000" or "$1,500 / $4,000". */
     private val PROGRESS = Regex("\\$\\s?[\\d,]+(?:\\.\\d{2})?\\s*(?:of|/)\\s*\\$", RegexOption.IGNORE_CASE)
 
+    /** A gauge's accessible label stating progress, at most two words before "of": "$1,500 received of $4,000". */
+    private val STATED = Regex(
+        "(\\$\\s?[\\d,]+(?:\\.\\d{2})?)\\s*(?:[a-z]+\\s+){0,2}(?:of|/)\\s*(\\$\\s?[\\d,]+(?:\\.\\d{2})?)",
+        RegexOption.IGNORE_CASE,
+    )
+    private val TRACKER_KEYS = setOf("text", "value", "max")
+    private val OPTIONAL_TRACKER_KEYS = setOf("label", "title")
+    private val ROW_KEYS = setOf("title", "tag", "value")
+
+    /** A credit page's gauge text: "$0/$250", the amount used, then the credit's total. */
+    private val USED = Regex("(\\$\\s?[\\d,]+(?:\\.\\d{2})?)\\s*/\\s*(\\$\\s?[\\d,]+(?:\\.\\d{2})?)")
+
     fun isControl(value: String?): Boolean = value != null && CONTROL.matches(value) && !PAN.containsMatchIn(value)
 
     /** The sheet's cards; null when malformed. More than one selected card is malformed. */
@@ -77,12 +89,34 @@ object ChaseBenefitsReader {
     }
 
     private fun row(obj: JsonObject): BenefitDraft? {
-        if (obj.keys != setOf("title", "tag", "value")) return null
+        if (obj.keys != ROW_KEYS && obj.keys != ROW_KEYS + "usage") return null
         val title = obj.text("title")?.takeIf { it.isNotBlank() && it.length <= 120 } ?: return null
         val tag = obj.optionalOrNull("tag", 40) ?: return null
         val value = obj.optionalOrNull("value", 60) ?: return null
+        val usage = if ("usage" in obj.keys) usage(obj["usage"]) ?: return null else null
         val tagText = tag.value?.lowercase().orEmpty()
         val amounts = value.value?.let(::amounts).orEmpty()
+        val redeemed = tagText.contains("redeemed") || tagText.contains("used") || tagText.contains("completed") ||
+            usage?.status?.lowercase()?.contains("redeemed") == true
+        // The credit's own page: "$X/$Y" states both amounts; a percentage alone needs the row's single amount.
+        val stated = usage?.text?.let(USED::find)?.let { amounts(it.groupValues[1]).single() to amounts(it.groupValues[2]).single() }
+            ?.takeIf { (_, total) -> total > 0 }
+        val total = stated?.second ?: amounts.firstOrNull()
+        val earned = stated?.first ?: usage?.percent?.let { percent -> total?.let { Math.round(it * percent / 100) } }
+        if (earned != null && total != null) {
+            return BenefitDraft(
+                section = BenefitSection.CREDIT_EARNED,
+                title = title,
+                earnedCents = earned,
+                remainingCents = (total - earned).coerceAtLeast(0),
+                targetCents = total,
+                periodLabel = null,
+                completed = redeemed || earned >= total,
+                periodLength = value.value?.let(::periodOf),
+                description = value.value,
+                enrollment = enrollmentOf(tagText),
+            )
+        }
         return BenefitDraft(
             section = BenefitSection.LISTED,
             title = title,
@@ -90,34 +124,55 @@ object ChaseBenefitsReader {
             remainingCents = null,
             targetCents = amounts.singleOrNull(),
             periodLabel = null,
-            completed = tagText.contains("redeemed") || tagText.contains("used") || tagText.contains("completed"),
+            completed = redeemed,
             periodLength = value.value?.let(::periodOf),
             description = value.value,
-            enrollment = when {
-                tagText.contains("activated") || tagText.contains("enrolled") -> Enrollment.ENROLLED
-                tagText.contains("activate") || tagText.contains("enroll") -> Enrollment.ENROLLMENT_REQUIRED
-                else -> null
-            },
+            enrollment = enrollmentOf(tagText),
         )
     }
 
+    private fun enrollmentOf(tagText: String): Enrollment? = when {
+        tagText.contains("activated") || tagText.contains("enrolled") -> Enrollment.ENROLLED
+        tagText.contains("activate") || tagText.contains("enroll") -> Enrollment.ENROLLMENT_REQUIRED
+        else -> null
+    }
+
+    /** What a credit's own page showed: its gauge text ("$X/$Y"), fill percentage, and status line. */
+    private class Usage(val text: String?, val percent: Double?, val status: String?)
+
+    /** Null when malformed. */
+    private fun usage(element: JsonElement?): Usage? {
+        val obj = element as? JsonObject ?: return null
+        if (obj.keys != setOf("text", "percent", "status")) return null
+        val text = obj.optionalOrNull("text", 60) ?: return null
+        val percent = obj.number("percent") ?: return null
+        val status = obj.optionalOrNull("status", 40) ?: return null
+        return Usage(text.value, percent.value?.takeIf { it <= 100.0 }, status.value)
+    }
+
     private fun tracker(obj: JsonObject): BenefitDraft? {
-        if (obj.keys != setOf("text", "value", "max")) return null
+        if (!obj.keys.containsAll(TRACKER_KEYS) || !(TRACKER_KEYS + OPTIONAL_TRACKER_KEYS).containsAll(obj.keys)) return null
         val text = obj.text("text")?.takeIf { it.isNotBlank() && it.length <= 300 } ?: return null
         val value = obj.number("value") ?: return null
         val max = obj.number("max") ?: return null
+        val label = if ("label" in obj.keys) (obj.optionalOrNull("label", 120) ?: return null).value else null
+        val heading = if ("title" in obj.keys) (obj.optionalOrNull("title", 120) ?: return null).value?.takeIf { it.isNotBlank() } else null
+        // The gauge's own label names both amounts, so it is the most direct statement of progress.
+        val stated = label?.let(STATED::find)?.let { amounts(it.groupValues[1]).single() to amounts(it.groupValues[2]).single() }
+            ?.takeIf { (_, goal) -> goal > 0 }
         val money = amounts(text)
-        val target = money.maxOrNull()
+        val target = stated?.second ?: money.maxOrNull()
         // Earned only when the page states it: "$X of $Y" or "$X / $Y", or a bar whose maximum is the target. Two
         // amounts alone are not progress: "Earn $300 after you spend $3,000" names a reward and a target.
         val earned = when {
+            stated != null -> stated.first
             money.size >= 2 && money.first() <= money.last() && PROGRESS.containsMatchIn(text) -> money.first()
             target != null && max.value != null && value.value != null && Math.round(max.value * 100) == target -> Math.round(value.value * 100)
             else -> null
         }
         return BenefitDraft(
             section = BenefitSection.SPEND_PROGRESS,
-            title = text.substringBefore(". ").take(120),
+            title = heading ?: text.substringBefore(". ").take(120),
             earnedCents = earned,
             remainingCents = if (earned != null && target != null) (target - earned).coerceAtLeast(0) else null,
             targetCents = target,

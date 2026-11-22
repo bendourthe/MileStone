@@ -130,7 +130,7 @@ The current version is v0.5.0. It is recorded as the `0.5.0` heading in `CHANGEL
 | `docs/todos.md` | Living progress tracker |
 | `docs/handbooks/` | Living technical overview |
 | `docs/decisions/` | Architecture decision records, added when a decision is made |
-| `docs/releases/v0/v0.5/` | Active v0.5 plans, evidence, and known gaps |
+| `docs/releases/v0/v0.6/` | Active v0.6 plans, evidence, and known gaps |
 | `docs/archives/README.md` | Closed minor archive index |
 | `docs/archives/v0/v0.3/` | Closed v0.3 plans, evidence, and known gaps |
 | `docs/archives/v0/v0.2/` | Closed v0.2 plans, evidence, and known gaps |

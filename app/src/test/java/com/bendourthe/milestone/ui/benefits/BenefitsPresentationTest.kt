@@ -77,6 +77,16 @@ class BenefitsPresentationTest {
         assertEquals(123L, welcomeBonusInput("1.23", "10", "2027-02-01", "Reward")!!.spentCents)
     }
 
+    @Test fun listedCreditsWithoutATrackerAreGroupedAsCredits() {
+        val lyft = item("\$500 Lyft Credit*", BenefitSection.LISTED)
+        val nexus = item("Global Entry/TSA PreCheck®/NEXUS credit*", BenefitSection.LISTED)
+        val promo = item("DoorDash promos*", BenefitSection.LISTED)
+        val secure = item("CreditSecure®", BenefitSection.LISTED)
+        val groups = BenefitsPresentation.groups(listOf(lyft, nexus, promo, secure), false)
+        assertEquals(listOf(lyft, nexus), groups.getValue(BenefitsCategory.CREDITS))
+        assertEquals(listOf(secure, promo), groups.getValue(BenefitsCategory.OTHER))
+    }
+
     @Test fun completedTargetsDoNotInventSpendCategories() {
         val cash = item("Uber Cash", BenefitSection.COMPLETED, done = true).copy(targetCents = 20_000)
         val unknown = item("Unclassified completed offer", BenefitSection.COMPLETED, done = true).copy(targetCents = 20_000)

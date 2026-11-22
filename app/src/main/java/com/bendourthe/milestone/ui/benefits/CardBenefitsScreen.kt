@@ -145,7 +145,7 @@ fun CardBenefitsScreen(viewModel: BenefitsViewModel, key: CardKey, onBack: () ->
             item("card") {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     CardArtwork(key.programId, current.name, Modifier.width(176.dp))
-                    Text(current.name, style = MaterialTheme.typography.headlineSmall)
+                    Text(current.displayName, style = MaterialTheme.typography.headlineSmall)
                     Text(current.digitsLabel, style = MaterialTheme.typography.bodyMedium)
                 }
             }

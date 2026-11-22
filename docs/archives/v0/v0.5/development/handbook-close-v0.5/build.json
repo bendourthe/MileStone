@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "command": "python -B scripts/build_handbooks.py (twice) and --check",
+  "result": "Two builds produce identical bytes; the check reports 'Handbook is current'.",
+  "output_sha256": "6e00764cb488f6460c516f11fcfcbea5138e6dd3912cf54a375efc12c852ac72",
+  "prior_output_sha256": "3c5b093d53bcfbffc6905b5fd97188a4b5e7459d1784a8f878ad91ce2de27e7b",
+  "revision": "967c3b7 (chore/close-v0.5 after the native v0.5 archive)",
+  "working_tree": "Minor close working tree on chore/close-v0.5",
+  "scope": "Reproducible handbook bytes only."
+}

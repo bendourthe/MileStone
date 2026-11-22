@@ -15,6 +15,7 @@ object BenefitsPresentation {
     private val punctuation = Regex("[^\\p{L}\\p{N}]+")
     private val descriptor = Regex("\\b(?:the|statement|credit|benefit)\\b")
     private val spaces = Regex("\\s+")
+    private val creditWord = Regex("\\bcredits?\\b")
 
     private fun matchTitle(title: String): String = title.lowercase(Locale.ROOT)
         .replace(amount, " ").replace(punctuation, " ").replace(descriptor, " ").replace(spaces, " ").trim()
@@ -30,7 +31,9 @@ object BenefitsPresentation {
                 "spend" in title -> BenefitsCategory.SPEND_TRACKERS
                 else -> BenefitsCategory.OTHER
             }
-            BenefitSection.LISTED, BenefitSection.OTHER -> BenefitsCategory.OTHER
+            BenefitSection.OTHER -> BenefitsCategory.OTHER
+            // A list entry without a tracker (Chase lists every credit this way) is a credit when its name says so.
+            BenefitSection.LISTED -> if (creditWord.containsMatchIn(title)) BenefitsCategory.CREDITS else BenefitsCategory.OTHER
         }
     }
 
