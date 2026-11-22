@@ -170,7 +170,7 @@ class ChaseBenefitsSource(
                     val expected = target == null || message.control == target
                     if (known && expected) benefits[keys.hash(program.programId, message.control)] = message.drafts
                     else target?.let(failed::add)
-                    DiagnosticLog.i(TAG, "${program.programId} benefits card: outcome=${if (known && expected) "read" else "mismatch"} rows=${message.rows} trackers=${message.trackers}")
+                    DiagnosticLog.i(TAG, "${program.programId} benefits card: outcome=${if (known && expected) "read" else "mismatch"} rows=${message.rows} trackers=${message.trackers} credits=${message.credits} used=${message.used}")
                     next()
                 }
                 is BridgeMessage.ChaseUnreadable -> {

@@ -889,9 +889,12 @@
         // A card without an activity page lists its benefits on its view-all page (ADR-0008, 2026-11-12 amendment):
         // post the trackers first, then open that page through the page's own link.
         var viewAll = s.viewAllLink && document.querySelector(s.viewAllLink);
-        if (isReady && !activity && viewAll && config.secondPage !== false && !followedActivity) {
+        // A page that keeps growing below its trackers may never reach its bottom: at the cap, trackers already on
+        // screen still lead to the view-all list, so the card's list is read too.
+        var capWithTrackers = overPageCap && markers && trackerCount > 0;
+        if ((isReady || capWithTrackers) && !activity && viewAll && config.secondPage !== false && !followedActivity) {
           leaveNote('link');
-          postBenefits(current, trackerCount ? 'stable' : 'empty', 'viewAll');
+          postBenefits(current, isReady ? (trackerCount ? 'stable' : 'empty') : 'cap', 'viewAll');
           viewAll.click();
           return;
         }
@@ -958,6 +961,8 @@
   var CHASE_PAN = /(?:\d[_.:\-]*){12}\d/;
   // Survives the dashboard's single-page route changes on this document: the navigation step and switch in progress.
   var chaseNote = null;
+  // How many credit pages the current card's read planned to open; a count for the app's log only.
+  var chaseCreditsPlanned = 0;
 
   function chaseLabel(el) {
     var text = (el.textContent || '').replace(/\s+/g, ' ').trim();
@@ -1197,9 +1202,11 @@
         groups: readGroups(),
         trackers: readTrackers(),
         ready: { groups: deepQuery(s.group).length, rows: Math.min(deepQuery(s.row).length, CHASE_MAX_ROWS),
-                 trackers: Math.min(deepQuery(s.tracker).length, CHASE_MAX_TRACKERS), reason: reason },
+                 trackers: Math.min(deepQuery(s.tracker).length, CHASE_MAX_TRACKERS), reason: reason,
+                 credits: chaseCreditsPlanned, used: chaseNote && chaseNote.usage ? Object.keys(chaseNote.usage).length : 0 },
         nonce: config.nonce,
       });
+      chaseCreditsPlanned = 0;
     }
 
     // ---- Credit pages ----
@@ -1245,6 +1252,7 @@
     // Starts the visits for the card on screen; false when it has none to make.
     function startVisits(selectedControl) {
       var queue = creditTitles();
+      chaseCreditsPlanned = queue.length;
       if (!queue.length) return false;
       chaseNote = { step: 'visit', at: Date.now(), selected: selectedControl, queue: queue, current: null, usage: {} };
       visit();

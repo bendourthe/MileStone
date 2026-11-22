@@ -168,6 +168,12 @@ class ChaseBenefitsReaderTest {
         val parsed = BridgeProtocol.parse(benefits, "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
         assertEquals(1, parsed.drafts.size)
         assertFalse(parsed.toString().contains("\"a\""))
+        assertEquals(0 to 0, parsed.credits to parsed.used)
+        // Credit-page visit counts are for the log only: kept when in range, read as 0 otherwise.
+        val visited = BridgeProtocol.parse(benefits.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"credits\":5,\"used\":2"), "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
+        assertEquals(5 to 2, visited.credits to visited.used)
+        val wild = BridgeProtocol.parse(benefits.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"credits\":99,\"used\":\"x\""), "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
+        assertEquals(0 to 0, wild.credits to wild.used)
 
         val unreadable = """{"type":"chaseUnreadable","nonce":"n","why":"navigation","step":"more"}"""
         assertEquals(BridgeMessage.ChaseUnreadable("navigation", "more"), BridgeProtocol.parse(unreadable, "n", pageUrl = page, benefits = spec))

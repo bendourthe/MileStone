@@ -92,9 +92,19 @@ sealed interface BridgeMessage {
      */
     data class ChaseKinds(val business: Map<String, Boolean>) : BridgeMessage
 
-    /** Chase benefits mode: one card's drafts; [control] is the selected card's page control id (memory only). */
-    data class ChaseBenefits(val control: String, val drafts: List<BenefitDraft>, val rows: Int, val trackers: Int) : BridgeMessage {
-        override fun toString() = "ChaseBenefits(control=<redacted>, drafts=${drafts.size}, rows=$rows, trackers=$trackers)"
+    /**
+     * Chase benefits mode: one card's drafts; [control] is the selected card's page control id (memory only).
+     * [credits] is how many credit pages the read planned to open and [used] how many gave a used amount (log only).
+     */
+    data class ChaseBenefits(
+        val control: String,
+        val drafts: List<BenefitDraft>,
+        val rows: Int,
+        val trackers: Int,
+        val credits: Int = 0,
+        val used: Int = 0,
+    ) : BridgeMessage {
+        override fun toString() = "ChaseBenefits(control=<redacted>, drafts=${drafts.size}, rows=$rows, trackers=$trackers, credits=$credits, used=$used)"
     }
 
     /** Chase benefits mode: the page could not be read; [why] and [step] are from fixed sets. */
@@ -288,6 +298,8 @@ object BridgeProtocol {
     private val CHASE_OPTIONAL_FIELDS = mapOf("chaseUnreadable" to setOf("counts"))
 
     /** Navigation counts only: up to eight comma-separated numbers below 1000, never page text. */
+    /** At most this many credit pages per card (`CHASE_MAX_VISITS` in extract.js). */
+    private const val MAX_CREDIT_VISITS = 8
     private val CHASE_COUNTS = Regex("""^\d{1,3}(,\d{1,3}){0,7}$""")
     private val CHASE_WHY = setOf("navigation", "noControl", "timeout", "switch", "noSuchCard", "structure", "overflow")
     private val CHASE_STEPS = setOf("card", "more", "benefits", "page")
@@ -315,7 +327,13 @@ object BridgeProtocol {
             val ready = json["ready"] as? JsonObject
             val rows = (ready?.get("rows") as? JsonPrimitive)?.intOrNull?.takeIf { it in 0..ChaseBenefitsReader.MAX_ROWS }
             val trackers = (ready?.get("trackers") as? JsonPrimitive)?.intOrNull?.takeIf { it in 0..ChaseBenefitsReader.MAX_TRACKERS }
-            if (control == null || drafts == null || rows == null || trackers == null) null else BridgeMessage.ChaseBenefits(control, drafts, rows, trackers)
+            // Optional visit counts for the log; a value out of range is dropped to 0 rather than failing the read.
+            fun visitCount(key: String): Int = (ready?.get(key) as? JsonPrimitive)?.intOrNull?.takeIf { it in 0..MAX_CREDIT_VISITS } ?: 0
+            if (control == null || drafts == null || rows == null || trackers == null) {
+                null
+            } else {
+                BridgeMessage.ChaseBenefits(control, drafts, rows, trackers, visitCount("credits"), visitCount("used"))
+            }
         }
         else -> {
             val why = json.string("why")?.takeIf { it in CHASE_WHY }
