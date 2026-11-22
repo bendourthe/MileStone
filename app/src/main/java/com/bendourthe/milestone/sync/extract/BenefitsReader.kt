@@ -37,6 +37,7 @@ object BenefitsReader {
     const val MAX_CARDS = 20
     const val MAX_TRACKERS = 60
     const val MAX_LISTED = 150
+    const val MAX_HIGHLIGHTS = 20
 
     private val CARD_FIELDS = setOf("name", "lastDigits")
     private val TRACKER_FIELDS = setOf("group", "title", "spent", "remaining", "target", "period", "label", "done", "description")
@@ -74,16 +75,23 @@ object BenefitsReader {
      * are joined, each such tracker takes the title of the one listed benefit whose distinctive words its description
      * contains; a tracker no single listed benefit matches is dropped, as the yearly summary always was.
      */
-    fun nameFinished(drafts: List<BenefitDraft>): List<BenefitDraft> {
-        val listed = drafts.filter { it.section == BenefitSection.LISTED }
+    fun nameFinished(drafts: List<BenefitDraft>, extraTitles: List<String> = emptyList(), dropUnnamed: Boolean = true): List<BenefitDraft> {
+        val titles = (drafts.filter { it.section == BenefitSection.LISTED }.map { it.title } + extraTitles).distinct()
         return drafts.mapNotNull { draft ->
             if (!isUnnamedFinished(draft)) return@mapNotNull draft
             val said = words(draft.description.orEmpty())
-            val named = listed.filter { benefit -> words(benefit.title).let { it.size >= 2 && said.containsAll(it) } }
-                .distinctBy { it.title }.singleOrNull() ?: return@mapNotNull null
-            val credit = "credit" in named.title.lowercase()
-            draft.copy(title = named.title, section = if (credit) BenefitSection.CREDIT_EARNED else BenefitSection.SPEND_PROGRESS)
+            val named = titles.filter { title -> words(title).let { it.size >= 2 && said.containsAll(it) } }.singleOrNull()
+                ?: return@mapNotNull draft.takeUnless { dropUnnamed }
+            val credit = "credit" in named.lowercase()
+            draft.copy(title = named, section = if (credit) BenefitSection.CREDIT_EARNED else BenefitSection.SPEND_PROGRESS)
         }
+    }
+
+    /** The Rewards page's highlight titles; null when malformed. Names only, never posted further. */
+    fun highlights(element: JsonElement): List<String>? {
+        val array = element as? JsonArray ?: return null
+        if (array.size > MAX_HIGHLIGHTS) return null
+        return array.map { item -> (item as? JsonPrimitive)?.takeIf { it.isString && it.content.length <= 120 }?.content ?: return null }
     }
 
     private fun isUnnamedFinished(draft: BenefitDraft): Boolean =

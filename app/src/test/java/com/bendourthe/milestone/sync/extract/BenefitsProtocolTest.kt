@@ -56,6 +56,14 @@ class BenefitsProtocolTest {
         assertEquals("You've earned a Free Night Reward.", finished.description)
         // Not checked as done: the yearly summary, which is not a benefit.
         assertTrue((parse(message(false)) as BridgeMessage.Benefits).drafts.isEmpty())
+        // The Rewards page's own highlight titles name it without the view-all list.
+        fun highlighted(highlights: String, page: String = "rewards", url: String = rewards) =
+            parse(message(true).replace("\"page\":\"rewards\"", "\"page\":\"$page\"").replace("\"listed\":[]", "\"listed\":[],\"highlights\":$highlights"), url)
+        val named = (highlighted("""["Hilton Honors Bonus Points","Earn a Free Night Reward"]""") as BridgeMessage.Benefits).drafts.single()
+        assertEquals("Earn a Free Night Reward" to true, named.title to named.completed)
+        assertNull(highlighted("""["Earn a Free Night Reward"]""", page = "activity", url = activity))
+        assertNull(highlighted("""[1]"""))
+        assertNull(highlighted("[" + (0..BenefitsReader.MAX_HIGHLIGHTS).joinToString(",") { "\"t$it\"" } + "]"))
     }
 
     @Test

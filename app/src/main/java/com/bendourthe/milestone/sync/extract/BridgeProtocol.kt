@@ -193,7 +193,7 @@ object BridgeProtocol {
     private val PAGES = setOf("activity", "rewards", "viewAll")
     private val TOP_FIELDS = mapOf(
         "cards" to setOf("type", "nonce", "cards", "complete"),
-        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed", "ready", "next"),
+        "benefits" to setOf("type", "nonce", "lastDigits", "page", "trackers", "listed", "ready", "next", "highlights"),
         "benefitsUnreadable" to setOf("type", "nonce", "why", "trackers", "switcher", "ready"),
     )
 
@@ -258,7 +258,10 @@ object BridgeProtocol {
             val digits = json.string("lastDigits")?.takeIf { CardKey.isValidLastDigits(it) }
             val page = json.string("page")?.takeIf { it in PAGES && it == pageKind }
             val listsOnRewards = page == "rewards" && (json["listed"] as? JsonArray)?.isNotEmpty() == true
+            // `highlights` names only: the Rewards page's own benefit titles, used to name a finished tracker.
+            val highlights = json["highlights"]?.let { field -> if (page == "rewards") BenefitsReader.highlights(field) ?: return null else return null }
             val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
+                ?.let { BenefitsReader.nameFinished(it, highlights.orEmpty(), dropUnnamed = false) }
             val ready = PageDiagnostics.parse(json["ready"])
             // `next` is a control field: only `viewAll`, only from a Rewards page.
             val next = json["next"]?.let { field -> (field as? JsonPrimitive)?.takeIf { it.isString && it.content == "viewAll" && page == "rewards" }?.content ?: return null }

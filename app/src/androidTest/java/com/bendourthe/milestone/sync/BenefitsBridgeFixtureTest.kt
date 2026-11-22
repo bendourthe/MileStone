@@ -128,8 +128,11 @@ class BenefitsBridgeFixtureTest {
         val second = next() as BridgeMessage.Benefits
         assertEquals("42005" to "rewards", second.lastDigits to second.page)
         assertEquals(
-            // A "spent" tracker that shows a period is spend progress, never a credit.
-            listOf(BenefitSection.CREDIT_EARNED to "Jan - Mar", BenefitSection.SPEND_PROGRESS to "Jan - Mar", BenefitSection.COMPLETED to "Jul - Dec"),
+            // A "spent" tracker that shows a period is spend progress, never a credit; the finished free night has no period.
+            listOf(
+                BenefitSection.CREDIT_EARNED to "Jan - Mar", BenefitSection.SPEND_PROGRESS to "Jan - Mar",
+                BenefitSection.COMPLETED to "Jul - Dec", BenefitSection.SPEND_PROGRESS to null,
+            ),
             second.drafts.map { it.section to it.periodLabel },
         )
 
@@ -201,7 +204,10 @@ class BenefitsBridgeFixtureTest {
 
         val rewards = next() as BridgeMessage.Benefits
         assertEquals(Triple("42005", "rewards", "viewAll"), Triple(rewards.lastDigits, rewards.page, rewards.next))
-        assertEquals(3, rewards.drafts.size)
+        assertEquals(4, rewards.drafts.size)
+        // The finished "Congratulations!" tracker is named from the page's own highlight, without the view-all list.
+        val night = rewards.drafts.single { it.title == "Fixture Free Night" }
+        assertEquals(BenefitSection.SPEND_PROGRESS to true, night.section to night.completed)
 
         val viewAll = next() as BridgeMessage.Benefits
         assertEquals("42005" to "viewAll", viewAll.lastDigits to viewAll.page)

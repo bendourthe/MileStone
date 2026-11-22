@@ -537,6 +537,7 @@
   var MAX_CARDS = 20;
   var MAX_TRACKERS = 60;
   var MAX_LISTED = 150;
+  var MAX_HIGHLIGHTS = 20;
   var DIGIT_RUN = /\d+(?:[ .\- ]+\d+)*/g;
   var LONG_TOKEN = /[^\s"'<>]{8,}/g;
   var KEY_RUN = /(^|[^A-Za-z0-9])([A-Z0-9]{10,})(?=$|[^A-Za-z0-9])/g;
@@ -753,7 +754,7 @@
     // [next] is 'viewAll' when this Rewards page is about to open the card's view-all page.
     function postBenefits(current, reason, next) {
       var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
-      finish({
+      var message = {
         type: 'benefits',
         lastDigits: current,
         page: kind,
@@ -762,7 +763,14 @@
         ready: ready(reason),
         next: next,
         nonce: config.nonce,
-      });
+      };
+      // The Rewards page's highlight titles only, so a finished tracker can be named without the view-all list.
+      if (kind === 'rewards') {
+        message.highlights = Array.prototype.map.call(document.querySelectorAll(s.listLink), function (link) {
+          return clean(link.querySelector('h4'), 120);
+        }).filter(Boolean).slice(0, MAX_HIGHLIGHTS);
+      }
+      finish(message);
     }
 
     function unreadable(why, reason) {
