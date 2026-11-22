@@ -442,3 +442,13 @@ The current read-only checks leave v0.1 remote-approval/archive predicates, v0.2
 - [x] Verify Capture-only debugger transport on the owner phone: exact Capture package, one webpage target, two metadata requests, owned connection removed, and no page evaluation or issuer action.
 
 - [ ] Resolve Chase exact-card page binding and cross-profile identity: both bounded closed-selector observations exposed zero candidate identifiers; evaluate the plan-supported user-confirmed linking option while preserving all completeness, classification and timing gates.
+
+## CardPointers Comparison
+
+Planning checkpoint, 2026-11-21: [CardPointers comparison](releases/v0/v0.8/comparisons/v0.8.0-comparison-cardpointers.md) seeds the owner-approved v0.8.0 plan. The owner rejected Amex/Chase-only library coverage and selected asking only for missing purchase context. The plan includes a provider-independent institution/program/card registry, broad US/Canada portfolios and maintained growth. Seven review lenses ran and all seven unique findings are resolved through five engineering corrections and two owner decisions. All 28 implementation tasks remain open. Three v0.6/v0.7 amendments remain proposals; those plans are unchanged. Approval covers finalizing and publishing these planning documents only.
+
+- [x] Compare product-library, offer-enrollment and purchase-recommendation patterns, including source-security and reverse-engineering assessments.
+- [ ] Approve or decline the proposed v0.6 issuer-evidence and structured-offer refinements, preserving default-on adding on every independently eligible card.
+- [ ] Approve or decline the proposed v0.7 source-baseline refresh for current institution navigation and canonical v0.6 offers.
+- [x] Finalize the owner-confirmed [seven-phase plan](releases/v0/v0.8/plans/v0.8.0-adoption-cardpointers.md) with the broader provider coverage, missing-context decision and [seven-lens review](releases/v0/v0.8/development/planning/plan-review.md).
+- [ ] Complete green planning-document integration through PR27. Implementation and v0.6/v0.7 amendments remain separately unapproved; all 28 implementation tasks stay open.
