@@ -442,3 +442,12 @@ The current read-only checks leave v0.1 remote-approval/archive predicates, v0.2
 - [x] Verify Capture-only debugger transport on the owner phone: exact Capture package, one webpage target, two metadata requests, owned connection removed, and no page evaluation or issuer action.
 
 - [ ] Resolve Chase exact-card page binding and cross-profile identity: both bounded closed-selector observations exposed zero candidate identifiers; evaluate the plan-supported user-confirmed linking option while preserving all completeness, classification and timing gates.
+
+## CardPointers Comparison
+
+Research checkpoint, 2026-11-21: [CardPointers comparison](releases/v0/v0.8/comparisons/v0.8.0-comparison-cardpointers.md) compares the pinned CLI, public help and statically inspected Firefox extension 8.0.8 against current develop and the complete plan queue. The owner confirmed v0.8.0 as the adoption target. Research is complete; four plan proposals await approval and no application implementation is claimed. The existing v0.6/v0.7 plans remain unchanged.
+
+- [x] Compare product-library, offer-enrollment and purchase-recommendation patterns, including source-security and reverse-engineering assessments.
+- [ ] Approve or decline the proposed v0.6 issuer-evidence and structured-offer refinements, preserving default-on adding on every independently eligible card.
+- [ ] Approve or decline the proposed v0.7 source-baseline refresh for current institution navigation and canonical v0.6 offers.
+- [ ] Approve or decline chaining into a v0.8.0 implementation plan for the maintained card/earning-rule library, manual card entry and local purchase recommendations.
