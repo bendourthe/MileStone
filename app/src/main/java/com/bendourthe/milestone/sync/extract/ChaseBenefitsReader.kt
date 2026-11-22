@@ -42,6 +42,7 @@ object ChaseBenefitsReader {
         RegexOption.IGNORE_CASE,
     )
     private val TRACKER_KEYS = setOf("text", "value", "max")
+    private val OPTIONAL_TRACKER_KEYS = setOf("label", "title")
 
     fun isControl(value: String?): Boolean = value != null && CONTROL.matches(value) && !PAN.containsMatchIn(value)
 
@@ -109,11 +110,12 @@ object ChaseBenefitsReader {
     }
 
     private fun tracker(obj: JsonObject): BenefitDraft? {
-        if (obj.keys != TRACKER_KEYS && obj.keys != TRACKER_KEYS + "label") return null
+        if (!obj.keys.containsAll(TRACKER_KEYS) || !(TRACKER_KEYS + OPTIONAL_TRACKER_KEYS).containsAll(obj.keys)) return null
         val text = obj.text("text")?.takeIf { it.isNotBlank() && it.length <= 300 } ?: return null
         val value = obj.number("value") ?: return null
         val max = obj.number("max") ?: return null
         val label = if ("label" in obj.keys) (obj.optionalOrNull("label", 120) ?: return null).value else null
+        val heading = if ("title" in obj.keys) (obj.optionalOrNull("title", 120) ?: return null).value?.takeIf { it.isNotBlank() } else null
         // The gauge's own label names both amounts, so it is the most direct statement of progress.
         val stated = label?.let(STATED::find)?.let { amounts(it.groupValues[1]).single() to amounts(it.groupValues[2]).single() }
             ?.takeIf { (_, goal) -> goal > 0 }
@@ -129,7 +131,7 @@ object ChaseBenefitsReader {
         }
         return BenefitDraft(
             section = BenefitSection.SPEND_PROGRESS,
-            title = text.substringBefore(". ").take(120),
+            title = heading ?: text.substringBefore(". ").take(120),
             earnedCents = earned,
             remainingCents = if (earned != null && target != null) (target - earned).coerceAtLeast(0) else null,
             targetCents = target,

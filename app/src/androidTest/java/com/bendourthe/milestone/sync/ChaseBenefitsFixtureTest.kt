@@ -147,6 +147,8 @@ class ChaseBenefitsFixtureTest {
         assertEquals(150_000L, tracker.earnedCents)
         assertEquals(400_000L, tracker.targetCents)
         assertEquals(250_000L, tracker.remainingCents)
+        assertEquals("Synthetic unlock", tracker.title)
+        assertEquals("\$10 - Up to \$5 per transaction", reserve.single { it.title == "Synthetic dining credit" }.description)
     }
 
     @Test

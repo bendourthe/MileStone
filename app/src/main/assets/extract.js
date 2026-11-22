@@ -1113,6 +1113,14 @@
       return !page || !!page.querySelector('[aria-busy=true]');
     }
 
+    // Chase shows a row's amount and its note as separate lines ("$500", "Up to $250 per transaction"): keep them apart.
+    function valueText(el) {
+      if (!el) return null;
+      var parts = Array.prototype.map.call(el.children, function (part) { return clean(part, 60); }).filter(Boolean);
+      var text = parts.length ? parts.join(' - ') : clean(el, 60);
+      return text ? text.slice(0, 60) : null;
+    }
+
     function readGroups() {
       var groups = [];
       var rows = 0;
@@ -1125,7 +1133,7 @@
           var title = clean(row.querySelector(s.rowTitle), 120);
           if (!title) return;
           rows++;
-          items.push({ title: title, tag: clean(row.querySelector(s.rowTag), 40), value: clean(row.querySelector(s.rowValue), 60) });
+          items.push({ title: title, tag: clean(row.querySelector(s.rowTag), 40), value: valueText(row.querySelector(s.rowValue)) });
         });
         groups.push({ title: clean(heading, 80), rows: items });
       });
@@ -1154,6 +1162,10 @@
           max: number(bar, ['max', 'aria-valuemax']) || (bar.hasAttribute('progress-percentage') ? 100 : null),
         };
         if (label) tracker.label = label.replace(CHASE_ENDING, '').trim();
+        // The tile's own heading names the tracker; Chase repeats it for screen readers, so the first copy is enough.
+        var heading = holder.querySelector('[role=heading]');
+        var named = heading ? clean(heading.querySelector('span span') || heading, 120) : null;
+        if (named) tracker.title = named.replace(CHASE_ENDING, '').trim();
         return tracker;
       });
     }

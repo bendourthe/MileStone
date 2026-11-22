@@ -27,6 +27,9 @@
     // Chase's own gauge: the fill as a percentage, both amounts only in the accessible text, the target in the text.
     cards[0].tracker = { percentage: 37, label: 'Gauge chart: $1,500 received of $4,000',
       text: 'Spend $4,000 by Dec 31, 2026 to get the welcome bonus' };
+    cards[0].tracker.heading = 'Synthetic unlock';
+    // Chase's value block: the amount and its note as separate lines.
+    cards[0].groups[0].rows[1].value = ['$10', 'Up to $5 per transaction'];
   }
   if (variant === 'three' || variant === 'groups') {
     cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
@@ -89,12 +92,14 @@
         return el('div', { role: 'listitem' }, [ el('li', { 'class': 'nonFeaturedListItem-listItem', role: 'link' }, [
           el('div', { 'class': 'nonFeaturedListItem-container' }, [
             el('div', { 'class': 'nfli-text' }, [ el('p', { text: row.title }), row.tag ? el('p', { 'class': 'nfli-text-tag', text: row.tag }) : null ]),
-            row.value ? el('div', { 'class': 'nfli-value', 'data-testid': 'value' }, [ el('p', { text: row.value }) ]) : null ]) ]) ]);
+            row.value ? el('div', { 'class': 'nfli-value', 'data-testid': 'value' }, [].concat(row.value).map(function (part) {
+              return el('p', { text: part }); })) : null ]) ]) ]);
       });
       return el('div', {}, [ el('h2', { 'class': 'non-featured-benefit-title', text: group.title }),
         el('div', { 'class': 'nonFeaturedBenefit' }, [ el('ul', { 'data-testid': 'nonFeaturedBenefits-G' + index, role: 'list' }, rows) ]) ]);
     });
-    var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ el('div', {}, [
+    var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ card.tracker.heading ? el('div', { role: 'heading' }, [
+      el('span', {}, [ el('span', { text: card.tracker.heading }), el('span', { text: card.tracker.heading }) ]) ]) : null, el('div', {}, [
       el('mds-progress-bar', card.tracker.label
         ? { 'accessible-text': card.tracker.label, 'progress-percentage': String(card.tracker.percentage), 'role-name': 'progress bar' }
         : { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;

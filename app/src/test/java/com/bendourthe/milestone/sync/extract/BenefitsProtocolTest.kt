@@ -1,6 +1,7 @@
 package com.bendourthe.milestone.sync.extract
 
 import com.bendourthe.milestone.data.catalog.StaticCatalogRepository
+import com.bendourthe.milestone.domain.BenefitDraft
 import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.Enrollment
 import org.junit.Assert.assertEquals
@@ -43,6 +44,32 @@ class BenefitsProtocolTest {
         assertEquals(listOf(477_000L, 7_023_000L, 7_500_000L), listOf(lounge.earnedCents, lounge.remainingCents, lounge.targetCents))
         assertEquals("Oct - Dec", message.drafts[1].periodLabel)
         assertEquals(Enrollment.ENROLLED to "purchase-protection", message.drafts[2].let { it.enrollment to it.issuerKey })
+    }
+
+    @Test
+    fun aFinishedTrackerTitledCongratulationsIsKeptUntilTheListNamesIt() {
+        fun message(done: Boolean) = """{"type":"benefits","nonce":"n1","lastDigits":"42005","page":"rewards","trackers":[
+            {"group":null,"title":"Congratulations!","spent":null,"remaining":null,"target":null,"period":null,"done":$done,"description":"You've earned a Free Night Reward."}
+          ],"listed":[]}"""
+        val finished = (parse(message(true)) as BridgeMessage.Benefits).drafts.single()
+        assertEquals(Triple("Congratulations!", BenefitSection.SPEND_PROGRESS, true), Triple(finished.title, finished.section, finished.completed))
+        assertEquals("You've earned a Free Night Reward.", finished.description)
+        // Not checked as done: the yearly summary, which is not a benefit.
+        assertTrue((parse(message(false)) as BridgeMessage.Benefits).drafts.isEmpty())
+    }
+
+    @Test
+    fun aFinishedTrackerTakesTheNameOfTheOneListedBenefitItsDescriptionNames() {
+        fun finished(note: String) = BenefitDraft(BenefitSection.SPEND_PROGRESS, "Congratulations!", null, null, null, null, completed = true, description = note)
+        fun listed(title: String) = BenefitDraft(BenefitSection.LISTED, title, null, null, null, null, completed = false)
+        val list = listOf(listed("Earn a Free Night Reward"), listed("Hilton Honors Bonus Points"), listed("Earn a Free Night Reward"))
+        val note = "You've earned a Free Night Reward. Log into your online account at HiltonHonors.com to get your reward code."
+        val named = BenefitsReader.nameFinished(listOf(finished(note)) + list)
+        assertEquals(listOf("Earn a Free Night Reward") + list.map { it.title }, named.map { it.title })
+        assertEquals(BenefitSection.SPEND_PROGRESS to true, named[0].section to named[0].completed)
+        // A description naming no single listed benefit is the yearly summary; without a list nothing names it.
+        assertEquals(list, BenefitsReader.nameFinished(listOf(finished("You've received ${'$'}345 in credits this year.")) + list))
+        assertTrue(BenefitsReader.nameFinished(listOf(finished(note))).isEmpty())
     }
 
     @Test

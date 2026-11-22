@@ -83,6 +83,20 @@ class ChaseBenefitsReaderTest {
     }
 
     @Test
+    fun theTilesOwnHeadingNamesTheTracker() {
+        val drafts = ChaseBenefitsReader.benefits(
+            json("[]"),
+            json(
+                """[{"text":"Spend & unlock more benefits Spend & unlock more benefits Spend ${'$'}75,000 by Dec 31, 2026.","value":20,"max":100,
+                     "label":"Gauge chart: ${'$'}15,000 received of ${'$'}75,000","title":"Spend & unlock more benefits"},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"title":null}]""",
+            ),
+        )!!
+        assertEquals(listOf("Spend & unlock more benefits", "Spend \$6,000 by Dec 31, 2026"), drafts.map { it.title })
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"title":"${"x".repeat(121)}"}]""")))
+    }
+
+    @Test
     fun trackerWithAnUnknownFieldOrOversizedLabelIsRejected() {
         assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"extra":"x"}]""")))
         assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"label":"${"x".repeat(121)}"}]""")))
