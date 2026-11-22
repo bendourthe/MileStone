@@ -43,6 +43,10 @@ object ChaseBenefitsReader {
     )
     private val TRACKER_KEYS = setOf("text", "value", "max")
     private val OPTIONAL_TRACKER_KEYS = setOf("label", "title")
+    private val ROW_KEYS = setOf("title", "tag", "value")
+
+    /** A credit page's gauge text: "$0/$250", the amount used, then the credit's total. */
+    private val USED = Regex("(\\$\\s?[\\d,]+(?:\\.\\d{2})?)\\s*/\\s*(\\$\\s?[\\d,]+(?:\\.\\d{2})?)")
 
     fun isControl(value: String?): Boolean = value != null && CONTROL.matches(value) && !PAN.containsMatchIn(value)
 
@@ -85,12 +89,34 @@ object ChaseBenefitsReader {
     }
 
     private fun row(obj: JsonObject): BenefitDraft? {
-        if (obj.keys != setOf("title", "tag", "value")) return null
+        if (obj.keys != ROW_KEYS && obj.keys != ROW_KEYS + "usage") return null
         val title = obj.text("title")?.takeIf { it.isNotBlank() && it.length <= 120 } ?: return null
         val tag = obj.optionalOrNull("tag", 40) ?: return null
         val value = obj.optionalOrNull("value", 60) ?: return null
+        val usage = if ("usage" in obj.keys) usage(obj["usage"]) ?: return null else null
         val tagText = tag.value?.lowercase().orEmpty()
         val amounts = value.value?.let(::amounts).orEmpty()
+        val redeemed = tagText.contains("redeemed") || tagText.contains("used") || tagText.contains("completed") ||
+            usage?.status?.lowercase()?.contains("redeemed") == true
+        // The credit's own page: "$X/$Y" states both amounts; a percentage alone needs the row's single amount.
+        val stated = usage?.text?.let(USED::find)?.let { amounts(it.groupValues[1]).single() to amounts(it.groupValues[2]).single() }
+            ?.takeIf { (_, total) -> total > 0 }
+        val total = stated?.second ?: amounts.firstOrNull()
+        val earned = stated?.first ?: usage?.percent?.let { percent -> total?.let { Math.round(it * percent / 100) } }
+        if (earned != null && total != null) {
+            return BenefitDraft(
+                section = BenefitSection.CREDIT_EARNED,
+                title = title,
+                earnedCents = earned,
+                remainingCents = (total - earned).coerceAtLeast(0),
+                targetCents = total,
+                periodLabel = null,
+                completed = redeemed || earned >= total,
+                periodLength = value.value?.let(::periodOf),
+                description = value.value,
+                enrollment = enrollmentOf(tagText),
+            )
+        }
         return BenefitDraft(
             section = BenefitSection.LISTED,
             title = title,
@@ -98,15 +124,30 @@ object ChaseBenefitsReader {
             remainingCents = null,
             targetCents = amounts.singleOrNull(),
             periodLabel = null,
-            completed = tagText.contains("redeemed") || tagText.contains("used") || tagText.contains("completed"),
+            completed = redeemed,
             periodLength = value.value?.let(::periodOf),
             description = value.value,
-            enrollment = when {
-                tagText.contains("activated") || tagText.contains("enrolled") -> Enrollment.ENROLLED
-                tagText.contains("activate") || tagText.contains("enroll") -> Enrollment.ENROLLMENT_REQUIRED
-                else -> null
-            },
+            enrollment = enrollmentOf(tagText),
         )
+    }
+
+    private fun enrollmentOf(tagText: String): Enrollment? = when {
+        tagText.contains("activated") || tagText.contains("enrolled") -> Enrollment.ENROLLED
+        tagText.contains("activate") || tagText.contains("enroll") -> Enrollment.ENROLLMENT_REQUIRED
+        else -> null
+    }
+
+    /** What a credit's own page showed: its gauge text ("$X/$Y"), fill percentage, and status line. */
+    private class Usage(val text: String?, val percent: Double?, val status: String?)
+
+    /** Null when malformed. */
+    private fun usage(element: JsonElement?): Usage? {
+        val obj = element as? JsonObject ?: return null
+        if (obj.keys != setOf("text", "percent", "status")) return null
+        val text = obj.optionalOrNull("text", 60) ?: return null
+        val percent = obj.number("percent") ?: return null
+        val status = obj.optionalOrNull("status", 40) ?: return null
+        return Usage(text.value, percent.value?.takeIf { it <= 100.0 }, status.value)
     }
 
     private fun tracker(obj: JsonObject): BenefitDraft? {

@@ -83,6 +83,30 @@ class ChaseBenefitsReaderTest {
     }
 
     @Test
+    fun aCreditPagesUseMakesTheRowACreditWithUsedAndRemainingAmounts() {
+        fun usage(text: String?, percent: Number?, status: String?) =
+            """{"text":${text?.let { "\"$it\"" }},"percent":$percent,"status":${status?.let { "\"$it\"" }}}"""
+        val drafts = ChaseBenefitsReader.benefits(
+            json(
+                """[{"title":"Synthetic group","rows":[
+                    {"title":"${'$'}500 Credit for stays with The Edit","tag":null,"value":"${'$'}500 - Up to ${'$'}250 per transaction","usage":${usage("${'$'}0/${'$'}250", 0, null)}},
+                    {"title":"${'$'}300 Annual Dining Credit","tag":null,"value":"${'$'}300 - ${'$'}150 Semiannually","usage":${usage("${'$'}50/${'$'}150", 33, null)}},
+                    {"title":"${'$'}120 Lyft Credit","tag":"Activated","value":null,"usage":${usage(null, 25, null)}},
+                    {"title":"Synthetic credit","tag":null,"value":"${'$'}100 annual","usage":${usage(null, 100, "Redeemed")}}]}]""",
+            ),
+            json("[]"),
+        )!!
+        assertEquals(listOf(BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.LISTED, BenefitSection.CREDIT_EARNED), drafts.map { it.section })
+        assertEquals(listOf(0L, 25_000L, 25_000L), drafts[0].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertEquals(listOf(5_000L, 10_000L, 15_000L), drafts[1].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertEquals(PeriodLength.HALF_YEAR, drafts[1].periodLength)
+        // A percentage alone needs the row's amount; the Lyft row states none, so it stays listed.
+        assertEquals(listOf(10_000L, 0L, 10_000L), drafts[3].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertTrue(drafts[3].completed)
+        assertNull(ChaseBenefitsReader.benefits(json("""[{"title":null,"rows":[{"title":"x","tag":null,"value":null,"usage":{"text":null}}]}]"""), json("[]")))
+    }
+
+    @Test
     fun theTilesOwnHeadingNamesTheTracker() {
         val drafts = ChaseBenefitsReader.benefits(
             json("[]"),

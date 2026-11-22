@@ -179,6 +179,12 @@ class StaticCatalogRepository : CatalogRepository {
                 "homeGroup" to "[data-testid=account-accordion-subdivision]",
                 "moreLabel" to "^more$",
                 "benefitsLabel" to "^(card )?benefits$",
+                // A credit's own page, opened from its row (2026-11-21 captures): the status tile, its gauge with
+                // "$X/$Y" beside it, and its status line ("Redeemed").
+                "creditGroup" to "ul[data-testid*=Credit]",
+                "creditDetail" to "[data-testid=benefit-status-tile]",
+                "creditTracker" to "[data-testid=benefit-status-tracker-container]",
+                "creditStatus" to "[data-testid=iconFooterTitle]",
             ),
             adapter = BenefitsAdapter.CHASE,
         )
