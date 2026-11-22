@@ -415,7 +415,7 @@ class BenefitsRedesignDeviceTest {
         runBlocking { cards.applyCardList(key.programId, CardList.from(listOf(CardDraft("Demo Card", key.cardId)), true), readTime) }
         compose.waitUntil(5_000) { runBlocking { (viewModel.uiState.first { it is com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards } as com.bendourthe.milestone.ui.benefits.BenefitsUiState.Cards).programs.first { it.programId == key.programId }.cardCount == 1 } }
         compose.onNodeWithTag("benefitsProgram_demo-benefits").performClick()
-        compose.onNode(hasContentDescription("Demo Card, card ending", substring = true)).assertIsDisplayed()
+        compose.onNode(hasContentDescription("Demo, card ending", substring = true)).assertIsDisplayed()
         org.junit.Assert.assertTrue(compose.onAllNodes(hasContentDescription("Platinum Card, card ending", substring = true)).fetchSemanticsNodes().isEmpty())
         capture("institution-demo-cards")
         compose.onNodeWithContentDescription("Back to institutions").performClick()

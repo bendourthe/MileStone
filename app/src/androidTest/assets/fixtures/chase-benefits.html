@@ -23,9 +23,23 @@
     { id: 'ctl-beta', name: 'Synthetic Freedom', digits: '2222', groups: [
       { title: 'Boost points', rows: [ { title: 'Synthetic bonus category', tag: null, value: '5x points' } ] } ] }
   ];
+  if (variant === 'gauge') {
+    // Chase's own gauge: the fill as a percentage, both amounts only in the accessible text, the target in the text.
+    cards[0].tracker = { percentage: 37, label: 'Gauge chart: $1,500 received of $4,000',
+      text: 'Spend $4,000 by Dec 31, 2026 to get the welcome bonus' };
+    cards[0].tracker.heading = 'Synthetic unlock';
+    // Chase's value block: the amount and its note as separate lines.
+    cards[0].groups[0].rows[1].value = ['$10', 'Up to $5 per transaction'];
+  }
   if (variant === 'three' || variant === 'groups') {
     cards.push({ id: 'ctl-gamma', name: 'Synthetic Ink', digits: '3333', groups: [
       { title: 'Business perks', rows: [ { title: 'Synthetic shipping credit', tag: 'activated', value: '$25 quarterly' } ] } ] });
+  }
+  if (variant === 'credits') {
+    // Credits whose use shows only on each credit's own page.
+    cards[0].groups[0].id = 'MaximizeStatementCredits';
+    cards[0].groups[0].rows[0].used = { text: '$120/$300', percentage: 40 };
+    cards[0].groups[0].rows[1].used = { text: '$0/$10', percentage: 0 };
   }
   if (variant === 'overflow') {
     // One more row than the script may post for a card.
@@ -80,17 +94,21 @@
   function benefitsPage() {
     var card = cards[selected];
     var groups = card.groups.map(function (group, index) {
-      var rows = group.rows.map(function (row) {
-        return el('div', { role: 'listitem' }, [ el('li', { 'class': 'nonFeaturedListItem-listItem', role: 'link' }, [
+      var rows = group.rows.map(function (row, rowIndex) {
+        return el('div', { role: 'listitem' }, [ el('li', { 'class': 'nonFeaturedListItem-listItem', role: 'link', onclick: function () { if (row.used) go('/credit/' + index + '-' + rowIndex); } }, [
           el('div', { 'class': 'nonFeaturedListItem-container' }, [
             el('div', { 'class': 'nfli-text' }, [ el('p', { text: row.title }), row.tag ? el('p', { 'class': 'nfli-text-tag', text: row.tag }) : null ]),
-            row.value ? el('div', { 'class': 'nfli-value', 'data-testid': 'value' }, [ el('p', { text: row.value }) ]) : null ]) ]) ]);
+            row.value ? el('div', { 'class': 'nfli-value', 'data-testid': 'value' }, [].concat(row.value).map(function (part) {
+              return el('p', { text: part }); })) : null ]) ]) ]);
       });
       return el('div', {}, [ el('h2', { 'class': 'non-featured-benefit-title', text: group.title }),
-        el('div', { 'class': 'nonFeaturedBenefit' }, [ el('ul', { 'data-testid': 'nonFeaturedBenefits-G' + index, role: 'list' }, rows) ]) ]);
+        el('div', { 'class': 'nonFeaturedBenefit' }, [ el('ul', { 'data-testid': 'nonFeaturedBenefits-' + (group.id || 'G' + index), role: 'list' }, rows) ]) ]);
     });
-    var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ el('div', {}, [
-      el('mds-progress-bar', { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
+    var tracker = card.tracker ? el('a', { href: '#/benefits' }, [ card.tracker.heading ? el('div', { role: 'heading' }, [
+      el('span', {}, [ el('span', { text: card.tracker.heading }), el('span', { text: card.tracker.heading }) ]) ]) : null, el('div', {}, [
+      el('mds-progress-bar', card.tracker.label
+        ? { 'accessible-text': card.tracker.label, 'progress-percentage': String(card.tracker.percentage), 'role-name': 'progress bar' }
+        : { value: String(card.tracker.value), max: String(card.tracker.max) }), el('span', { text: card.tracker.text }) ]) ]) : null;
     var listed = batching ? cards.slice(0, 1) : cards;
     var sheet = sheetOpen ? el('div', { 'data-testid': 'card-selector-sheet', role: 'dialog' }, [ el('div', {}, [ el('ul', {}, listed.map(function (option, index) {
       var radio = el('input', { type: 'radio', id: option.id });
@@ -165,10 +183,22 @@
     } else if (path === '/account') {
       if (variant !== 'nomore') app.appendChild(el('button', { text: 'More', onclick: function () { menuOpen = true; render(); } }));
       if (menuOpen) app.appendChild(el('div', { role: 'menu' }, [ el('button', { role: 'menuitem', text: 'Benefits', onclick: function () { menuOpen = false; go('/benefits'); } }) ]));
+    } else if (path.indexOf('/credit/') === 0) {
+      // A credit's own page (2026-11-21 captures): a status tile whose gauge shows the amount used beside it.
+      var at = path.slice(8).split('-').map(Number);
+      var used = cards[selected].groups[at[0]].rows[at[1]].used;
+      app.appendChild(el('div', { 'data-testid': 'benefit-status-tile' }, [ el('p', { text: 'Synthetic credit terms' }),
+        el('div', { 'data-testid': 'benefit-status-tracker-container' }, [ el('div', {}, [
+          el('mds-progress-bar', { 'accessible-text': '', 'progress-percentage': String(used.percentage) }), el('span', { text: used.text }) ]) ]),
+        el('div', {}, [ el('div', { 'data-testid': 'iconFooterTitle', text: used.status || '' }) ]),
+        el('button', { text: 'Explore travel', onclick: function () { document.title = 'forbidden-click'; } }) ]));
     } else if (path === '/benefits') {
       app.appendChild(benefitsPage());
     }
   }
+
+  // Going back from a credit's page shows the list again, as Chase's router does.
+  window.addEventListener('popstate', render);
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape' && sheetOpen) { sheetOpen = false; render(); }

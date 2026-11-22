@@ -136,6 +136,41 @@ class ChaseBenefitsFixtureTest {
     }
 
     @Test
+    fun readsSpendProgressFromChaseGaugeAccessibleText() = runBlocking {
+        variants += "gauge"
+
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val reserve = read.bindingBenefits.getValue(read.inventories.single().cards[0].bindingHash)
+        val tracker = reserve.single { it.section == BenefitSection.SPEND_PROGRESS }
+        assertEquals(150_000L, tracker.earnedCents)
+        assertEquals(400_000L, tracker.targetCents)
+        assertEquals(250_000L, tracker.remainingCents)
+        assertEquals("Synthetic unlock", tracker.title)
+        assertEquals("\$10 - Up to \$5 per transaction", reserve.single { it.title == "Synthetic dining credit" }.description)
+    }
+
+    @Test
+    fun readsEachCreditsUseFromItsOwnPageAndComesBack() = runBlocking {
+        variants += "credits"
+
+        val read = read(listOf(personal))
+
+        assertNull(read.stop)
+        val inventory = read.inventories.single()
+        val reserve = read.bindingBenefits.getValue(inventory.cards[0].bindingHash)
+        val travel = reserve.single { it.title == "Synthetic travel credit" }
+        assertEquals(BenefitSection.CREDIT_EARNED, travel.section)
+        assertEquals(listOf(12_000L, 18_000L, 30_000L), listOf(travel.earnedCents, travel.remainingCents, travel.targetCents))
+        val dining = reserve.single { it.title == "Synthetic dining credit" }
+        assertEquals(listOf(0L, 1_000L, 1_000L), listOf(dining.earnedCents, dining.remainingCents, dining.targetCents))
+        // A row with nothing to read stays a listed benefit; the second card was still read after the visits.
+        assertEquals(BenefitSection.LISTED, reserve.single { it.title == "Synthetic lounge access" }.section)
+        assertEquals(listOf("Synthetic bonus category"), read.bindingBenefits.getValue(inventory.cards[1].bindingHash).map { it.title })
+    }
+
+    @Test
     fun aSecondConnectionReadsOnlyCardsNotAlreadyRead() = runBlocking {
         variants += listOf("two", "three")
 

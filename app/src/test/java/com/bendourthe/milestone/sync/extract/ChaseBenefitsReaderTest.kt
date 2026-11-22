@@ -65,6 +65,68 @@ class ChaseBenefitsReaderTest {
     }
 
     @Test
+    fun gaugeLabelSuppliesTheSpentAndTargetAmounts() {
+        // Chase's gauge: the visible text names only the target; the accessible label states both amounts.
+        val drafts = ChaseBenefitsReader.benefits(
+            json("[]"),
+            json(
+                """[{"text":"Spend & unlock more benefits Spend ${'$'}75,000 by Dec 31, 2026 to get upgraded statuses","value":20,"max":100,
+                     "label":"Gauge chart: ${'$'}15,250.50 received of ${'$'}75,000"},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"label":null},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"label":"Gauge chart"}]""",
+            ),
+        )!!
+        assertEquals(listOf(1_525_050L, null, null), drafts.map { it.earnedCents })
+        assertEquals(listOf(7_500_000L, 600_000L, 600_000L), drafts.map { it.targetCents })
+        assertEquals(listOf(5_974_950L, null, null), drafts.map { it.remainingCents })
+        assertEquals("Spend & unlock more benefits Spend \$75,000 by Dec 31, 2026 to get upgraded statuses", drafts[0].title)
+    }
+
+    @Test
+    fun aCreditPagesUseMakesTheRowACreditWithUsedAndRemainingAmounts() {
+        fun usage(text: String?, percent: Number?, status: String?) =
+            """{"text":${text?.let { "\"$it\"" }},"percent":$percent,"status":${status?.let { "\"$it\"" }}}"""
+        val drafts = ChaseBenefitsReader.benefits(
+            json(
+                """[{"title":"Synthetic group","rows":[
+                    {"title":"${'$'}500 Credit for stays with The Edit","tag":null,"value":"${'$'}500 - Up to ${'$'}250 per transaction","usage":${usage("${'$'}0/${'$'}250", 0, null)}},
+                    {"title":"${'$'}300 Annual Dining Credit","tag":null,"value":"${'$'}300 - ${'$'}150 Semiannually","usage":${usage("${'$'}50/${'$'}150", 33, null)}},
+                    {"title":"${'$'}120 Lyft Credit","tag":"Activated","value":null,"usage":${usage(null, 25, null)}},
+                    {"title":"Synthetic credit","tag":null,"value":"${'$'}100 annual","usage":${usage(null, 100, "Redeemed")}}]}]""",
+            ),
+            json("[]"),
+        )!!
+        assertEquals(listOf(BenefitSection.CREDIT_EARNED, BenefitSection.CREDIT_EARNED, BenefitSection.LISTED, BenefitSection.CREDIT_EARNED), drafts.map { it.section })
+        assertEquals(listOf(0L, 25_000L, 25_000L), drafts[0].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertEquals(listOf(5_000L, 10_000L, 15_000L), drafts[1].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertEquals(PeriodLength.HALF_YEAR, drafts[1].periodLength)
+        // A percentage alone needs the row's amount; the Lyft row states none, so it stays listed.
+        assertEquals(listOf(10_000L, 0L, 10_000L), drafts[3].let { listOf(it.earnedCents, it.remainingCents, it.targetCents) })
+        assertTrue(drafts[3].completed)
+        assertNull(ChaseBenefitsReader.benefits(json("""[{"title":null,"rows":[{"title":"x","tag":null,"value":null,"usage":{"text":null}}]}]"""), json("[]")))
+    }
+
+    @Test
+    fun theTilesOwnHeadingNamesTheTracker() {
+        val drafts = ChaseBenefitsReader.benefits(
+            json("[]"),
+            json(
+                """[{"text":"Spend & unlock more benefits Spend & unlock more benefits Spend ${'$'}75,000 by Dec 31, 2026.","value":20,"max":100,
+                     "label":"Gauge chart: ${'$'}15,000 received of ${'$'}75,000","title":"Spend & unlock more benefits"},
+                    {"text":"Spend ${'$'}6,000 by Dec 31, 2026","value":40,"max":100,"title":null}]""",
+            ),
+        )!!
+        assertEquals(listOf("Spend & unlock more benefits", "Spend \$6,000 by Dec 31, 2026"), drafts.map { it.title })
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"title":"${"x".repeat(121)}"}]""")))
+    }
+
+    @Test
+    fun trackerWithAnUnknownFieldOrOversizedLabelIsRejected() {
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"extra":"x"}]""")))
+        assertNull(ChaseBenefitsReader.benefits(json("[]"), json("""[{"text":"t","value":1,"max":2,"label":"${"x".repeat(121)}"}]""")))
+    }
+
+    @Test
     fun halfYearPeriodsAreNotReadAsMonthly() {
         assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("Up to ${'$'}150 every six months"))
         assertEquals(PeriodLength.HALF_YEAR, ChaseBenefitsReader.periodOf("${'$'}50 every 6 months"))
@@ -106,6 +168,12 @@ class ChaseBenefitsReaderTest {
         val parsed = BridgeProtocol.parse(benefits, "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
         assertEquals(1, parsed.drafts.size)
         assertFalse(parsed.toString().contains("\"a\""))
+        assertEquals(0 to 0, parsed.credits to parsed.used)
+        // Credit-page visit counts are for the log only: kept when in range, read as 0 otherwise.
+        val visited = BridgeProtocol.parse(benefits.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"credits\":5,\"used\":2"), "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
+        assertEquals(5 to 2, visited.credits to visited.used)
+        val wild = BridgeProtocol.parse(benefits.replace("\"reason\":\"stable\"", "\"reason\":\"stable\",\"credits\":99,\"used\":\"x\""), "n", pageUrl = page, benefits = spec) as BridgeMessage.ChaseBenefits
+        assertEquals(0 to 0, wild.credits to wild.used)
 
         val unreadable = """{"type":"chaseUnreadable","nonce":"n","why":"navigation","step":"more"}"""
         assertEquals(BridgeMessage.ChaseUnreadable("navigation", "more"), BridgeProtocol.parse(unreadable, "n", pageUrl = page, benefits = spec))

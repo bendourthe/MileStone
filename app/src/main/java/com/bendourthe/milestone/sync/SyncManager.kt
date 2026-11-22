@@ -7,6 +7,7 @@ import com.bendourthe.milestone.domain.AccountStatus
 import com.bendourthe.milestone.domain.BenefitDraft
 import com.bendourthe.milestone.domain.BenefitPeriods
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.sync.extract.BenefitsReader
 import com.bendourthe.milestone.domain.CardKey
 import com.bendourthe.milestone.domain.CardRepository
 import com.bendourthe.milestone.domain.CatalogRepository
@@ -311,7 +312,14 @@ class SyncManager(
                 var applied = 0
                 suspend fun store(key: CardKey, drafts: List<BenefitDraft>, sections: Set<BenefitSection>) {
                     if (sections.isEmpty() || key !in knownCards) return
-                    val dated = drafts.map { draft ->
+                    // A finished tracker the read could not name takes a name from the card's saved list.
+                    val saved = if (BenefitsReader.hasUnnamedFinished(drafts)) {
+                        repository.observeBenefits(key).first().filter { it.section == BenefitSection.LISTED }.map { it.title }
+                    } else {
+                        emptyList()
+                    }
+                    val named = BenefitsReader.nameFinished(drafts, saved, final = true)
+                    val dated = named.map { draft ->
                         BenefitPeriods.parse(draft.periodLabel, readDate)?.let { draft.copy(periodEnd = it.end, periodLength = it.length) } ?: draft
                     }
                     repository.applyCardBenefits(key, assignBenefitKeys(key, dated), now, sections)

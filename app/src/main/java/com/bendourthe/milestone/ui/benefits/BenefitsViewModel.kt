@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.bendourthe.milestone.domain.AccountRepository
 import com.bendourthe.milestone.domain.Benefit
 import com.bendourthe.milestone.domain.BenefitSection
+import com.bendourthe.milestone.domain.CardNames
 import com.bendourthe.milestone.domain.BenefitsDisplaySettings
 import com.bendourthe.milestone.domain.WelcomeBonusSetup
 import kotlinx.coroutines.CancellationException
@@ -82,9 +83,12 @@ data class CardTileUi(
     /** The compact freshness line, such as "Updated 5 min ago". */
     val updatedLabel: String = lastReadLabel,
 ) {
+    /** The card name as shown: the product name only, in capitalized words. */
+    val displayName: String get() = CardNames.display(key.programId, programName, name)
+
     /** The whole tile as TalkBack reads it, in one stop. */
     val description: String =
-        listOfNotNull("$name, card ending ${lastDigits ?: "unknown"}", "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
+        listOfNotNull("$displayName, card ending ${lastDigits ?: "unknown"}", "$benefitCount benefits", "$alertCount ${if (alertCount == 1) "alert" else "alerts"}", classificationNote, completedLabel, staleNote ?: lastReadLabel).joinToString(". ")
 }
 
 /** True for a program whose cards are listed in Personal and Business sections: every program with a benefits reader. */
@@ -110,7 +114,12 @@ data class CardPageUi(
     /** True on a program with Personal and Business tiles (ADR-0009), where [segment] can be changed by the user. */
     val segmented: Boolean = false,
     val segment: CardSegment? = null,
-)
+    /** The card's program, for its catalog product name. */
+    val programId: String = "",
+) {
+    /** The card name as shown: the product name only, in capitalized words. */
+    val displayName: String get() = CardNames.display(programId, "", name)
+}
 
 data class SectionUi(val category: BenefitsCategory, val title: String, val items: List<BenefitUi>)
 
@@ -309,6 +318,7 @@ class BenefitsViewModel(
             }
             return CardPageUi(
             name = card.name,
+            programId = card.key.programId,
             digitsLabel = digitsLabel(card.lastDigits),
             staleNote = staleNote(card, nowMs, zone, locale),
             sections = BenefitsPresentation.groups(benefits + listOfNotNull(welcome), preferences.completedLast, preferences.sort).map { (category, list) ->

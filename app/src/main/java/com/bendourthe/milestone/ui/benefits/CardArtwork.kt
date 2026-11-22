@@ -10,6 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
@@ -24,6 +26,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import com.bendourthe.milestone.R
 import java.util.Locale
+
+/** Corner radius as a percent of the card's height; a payment card's own corner is about 6% of its height. */
+private const val ARTWORK_CORNER_PERCENT = 9
+
+/** How much larger the image is drawn than its frame, so a 1 to 2 pixel edge in the image file is cut off. */
+private const val ARTWORK_ZOOM = 1.02f
 
 /** The bundled artwork for a card: the first reviewed Amex images, then the public product list's image. */
 internal fun cardArtworkResource(programId: String, name: String): Int? =
@@ -53,8 +61,18 @@ internal fun CardArtwork(programId: String, name: String, modifier: Modifier = M
     val resource = cardArtworkResource(programId, name)
     val shape = modifier.aspectRatio(480f / 304f).testTag("cardArtwork")
     when {
-        // Product images have square corners filled in; the clip gives every card the same rounded shape.
-        resource != null -> Image(painterResource(resource), contentDescription = null, modifier = shape.clip(RoundedCornerShape(5.dp)))
+        // Product images paint a background color into their rounded corners (about 6 to 7.5% of their height) and
+        // some carry a thin light edge. The clip scales with the card so those corners never show at any size, and
+        // the image is drawn slightly larger inside it so the edge falls outside.
+        resource != null -> Image(
+            painterResource(resource),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = shape.clip(RoundedCornerShape(percent = ARTWORK_CORNER_PERCENT)).graphicsLayer {
+                scaleX = ARTWORK_ZOOM
+                scaleY = ARTWORK_ZOOM
+            },
+        )
         brandColorArgb != null -> CardFace(Color(brandColorArgb), lastDigits, shape)
         else -> Icon(Icons.Outlined.CreditCard, contentDescription = null, modifier = shape)
     }

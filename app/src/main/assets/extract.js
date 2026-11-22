@@ -537,6 +537,7 @@
   var MAX_CARDS = 20;
   var MAX_TRACKERS = 60;
   var MAX_LISTED = 150;
+  var MAX_HIGHLIGHTS = 20;
   var DIGIT_RUN = /\d+(?:[ .\- ]+\d+)*/g;
   var LONG_TOKEN = /[^\s"'<>]{8,}/g;
   var KEY_RUN = /(^|[^A-Za-z0-9])([A-Z0-9]{10,})(?=$|[^A-Za-z0-9])/g;
@@ -753,7 +754,7 @@
     // [next] is 'viewAll' when this Rewards page is about to open the card's view-all page.
     function postBenefits(current, reason, next) {
       var trackers = Array.prototype.slice.call(document.querySelectorAll(s.tracker));
-      finish({
+      var message = {
         type: 'benefits',
         lastDigits: current,
         page: kind,
@@ -762,7 +763,14 @@
         ready: ready(reason),
         next: next,
         nonce: config.nonce,
-      });
+      };
+      // The Rewards page's highlight titles only, so a finished tracker can be named without the view-all list.
+      if (kind === 'rewards') {
+        message.highlights = Array.prototype.map.call(document.querySelectorAll(s.listLink), function (link) {
+          return clean(link.querySelector('h4'), 120);
+        }).filter(Boolean).slice(0, MAX_HIGHLIGHTS);
+      }
+      finish(message);
     }
 
     function unreadable(why, reason) {
@@ -881,9 +889,12 @@
         // A card without an activity page lists its benefits on its view-all page (ADR-0008, 2026-11-12 amendment):
         // post the trackers first, then open that page through the page's own link.
         var viewAll = s.viewAllLink && document.querySelector(s.viewAllLink);
-        if (isReady && !activity && viewAll && config.secondPage !== false && !followedActivity) {
+        // A page that keeps growing below its trackers may never reach its bottom: at the cap, trackers already on
+        // screen still lead to the view-all list, so the card's list is read too.
+        var capWithTrackers = overPageCap && markers && trackerCount > 0;
+        if ((isReady || capWithTrackers) && !activity && viewAll && config.secondPage !== false && !followedActivity) {
           leaveNote('link');
-          postBenefits(current, trackerCount ? 'stable' : 'empty', 'viewAll');
+          postBenefits(current, isReady ? (trackerCount ? 'stable' : 'empty') : 'cap', 'viewAll');
           viewAll.click();
           return;
         }
@@ -933,6 +944,12 @@
   var CHASE_MAX_GROUPS = 30;
   var CHASE_MAX_ROWS = 150;
   var CHASE_MAX_TRACKERS = 20;
+  // Credit pages opened per card to read how much of each credit is used, and how long one may take to show.
+  var CHASE_MAX_VISITS = 8;
+  var CHASE_VISIT_CAP_MS = 6000;
+  // A credit row whose status says there is nothing to read, or that would need the owner to act first.
+  // "Activated" and "Enrolled" are read; "Activate", "Activation required", "Enroll" and "Locked" are not.
+  var CHASE_SKIP_TAG = /redeemed|required|locked|\bactivate\b|\benroll\b/i;
   var CHASE_CLICKABLE = 'a, button, [role=button], [role=link], [role=menuitem], [role=tab], mds-button, mds-link, ' +
     'mds-list-item, mds-tile, mds-navigation-bar-item';
   // A card ending as Chase shows it: "(...1234)", "...1234", or "ending in 1234".
@@ -944,6 +961,8 @@
   var CHASE_PAN = /(?:\d[_.:\-]*){12}\d/;
   // Survives the dashboard's single-page route changes on this document: the navigation step and switch in progress.
   var chaseNote = null;
+  // How many credit pages the current card's read planned to open; a count for the app's log only.
+  var chaseCreditsPlanned = 0;
 
   function chaseLabel(el) {
     var text = (el.textContent || '').replace(/\s+/g, ' ').trim();
@@ -1113,6 +1132,14 @@
       return !page || !!page.querySelector('[aria-busy=true]');
     }
 
+    // Chase shows a row's amount and its note as separate lines ("$500", "Up to $250 per transaction"): keep them apart.
+    function valueText(el) {
+      if (!el) return null;
+      var parts = Array.prototype.map.call(el.children, function (part) { return clean(part, 60); }).filter(Boolean);
+      var text = parts.length ? parts.join(' - ') : clean(el, 60);
+      return text ? text.slice(0, 60) : null;
+    }
+
     function readGroups() {
       var groups = [];
       var rows = 0;
@@ -1125,7 +1152,10 @@
           var title = clean(row.querySelector(s.rowTitle), 120);
           if (!title) return;
           rows++;
-          items.push({ title: title, tag: clean(row.querySelector(s.rowTag), 40), value: clean(row.querySelector(s.rowValue), 60) });
+          var item = { title: title, tag: clean(row.querySelector(s.rowTag), 40), value: valueText(row.querySelector(s.rowValue)) };
+          var used = chaseNote && chaseNote.usage && chaseNote.usage[title];
+          if (used) item.usage = used;
+          items.push(item);
         });
         groups.push({ title: clean(heading, 80), rows: items });
       });
@@ -1146,11 +1176,19 @@
         // Only the tracker's own link or its immediate parent, so unrelated page text (card names, endings) stays out.
         var holder = bar.closest('a') || bar.parentElement || bar;
         var text = clean(holder, 300);
-        return {
+        // Chase's gauge states its amounts only in its accessible text ("$X received of $Y") and its fill as a percentage.
+        var label = stripIdentifiers((bar.getAttribute('accessible-text') || '').replace(/\s+/g, ' ').trim()).slice(0, 120);
+        var tracker = {
           text: text ? text.replace(CHASE_ENDING, '').replace(/\s+/g, ' ').trim() || null : null,
-          value: number(bar, ['value', 'aria-valuenow', 'progress']),
-          max: number(bar, ['max', 'aria-valuemax']),
+          value: number(bar, ['value', 'aria-valuenow', 'progress', 'progress-percentage']),
+          max: number(bar, ['max', 'aria-valuemax']) || (bar.hasAttribute('progress-percentage') ? 100 : null),
         };
+        if (label) tracker.label = label.replace(CHASE_ENDING, '').trim();
+        // The tile's own heading names the tracker; Chase repeats it for screen readers, so the first copy is enough.
+        var heading = holder.querySelector('[role=heading]');
+        var named = heading ? clean(heading.querySelector('span span') || heading, 120) : null;
+        if (named) tracker.title = named.replace(CHASE_ENDING, '').trim();
+        return tracker;
       });
     }
 
@@ -1164,9 +1202,111 @@
         groups: readGroups(),
         trackers: readTrackers(),
         ready: { groups: deepQuery(s.group).length, rows: Math.min(deepQuery(s.row).length, CHASE_MAX_ROWS),
-                 trackers: Math.min(deepQuery(s.tracker).length, CHASE_MAX_TRACKERS), reason: reason },
+                 trackers: Math.min(deepQuery(s.tracker).length, CHASE_MAX_TRACKERS), reason: reason,
+                 credits: chaseCreditsPlanned, used: chaseNote && chaseNote.usage ? Object.keys(chaseNote.usage).length : 0 },
         nonce: config.nonce,
       });
+      chaseCreditsPlanned = 0;
+    }
+
+    // ---- Credit pages ----
+    // Chase states how much of a credit is used only on the credit's own page: a gauge with "$X/$Y" beside it. For each
+    // credit row with an amount and no status that rules it out, the read opens that page, reads the gauge's text,
+    // percentage and status, and goes back. Only the row itself is pressed, never a button on the credit's page.
+    // The plan lives in chaseNote, so it survives the page's route changes.
+
+    function creditTitles() {
+      var titles = [];
+      deepQuery(s.creditGroup).forEach(function (list) {
+        Array.prototype.forEach.call(list.querySelectorAll(s.row), function (row) {
+          var title = clean(row.querySelector(s.rowTitle), 120);
+          var tag = clean(row.querySelector(s.rowTag), 40) || '';
+          var value = valueText(row.querySelector(s.rowValue)) || '';
+          if (!title || CHASE_SKIP_TAG.test(tag) || !/\$\s?\d/.test(title + ' ' + value)) return;
+          if (titles.indexOf(title) < 0) titles.push(title);
+        });
+      });
+      return titles.slice(0, CHASE_MAX_VISITS);
+    }
+
+    function rowByTitle(title) {
+      return deepQuery(s.row).filter(function (row) {
+        return isVisible(row) && clean(row.querySelector(s.rowTitle), 120) === title;
+      })[0] || null;
+    }
+
+    function readUsage(tile) {
+      var box = tile.querySelector(s.creditTracker);
+      var bar = box && box.querySelector('mds-progress-bar');
+      // "$120/$300" reads as one long token to the identifier filter, so the two amounts are taken as they are.
+      var raw = box ? (box.textContent || '').replace(/\s+/g, ' ') : '';
+      var amounts = /\$\s?\d[\d,]*(?:\.\d{2})?\s*\/\s*\$\s?\d[\d,]*(?:\.\d{2})?/.exec(raw);
+      var usage = {
+        text: amounts ? amounts[0] : box ? clean(box, 60) : null,
+        percent: bar ? number(bar, ['progress-percentage', 'value']) : null,
+        status: clean(tile.querySelector(s.creditStatus), 40),
+      };
+      return usage.text || usage.percent !== null || usage.status ? usage : null;
+    }
+
+    // Starts the visits for the card on screen; false when it has none to make.
+    function startVisits(selectedControl) {
+      var queue = creditTitles();
+      chaseCreditsPlanned = queue.length;
+      if (!queue.length) return false;
+      chaseNote = { step: 'visit', at: Date.now(), selected: selectedControl, queue: queue, current: null, usage: {} };
+      visit();
+      return true;
+    }
+
+    function endVisits() {
+      var v = chaseNote;
+      chaseNote = { step: 'read', at: Date.now(), selected: v.selected, usage: v.usage };
+      // Settle the list again before it is read.
+      signature = null;
+    }
+
+    function visit() {
+      var v = chaseNote;
+      var now = Date.now();
+      var tile = deepQuery(s.creditDetail).filter(isVisible)[0] || null;
+      var list = one(s.page);
+      // Leave enough of this run's time to read the list once back on it.
+      if (now - startedAt > config.timeoutMs - 4 * CHASE_STABLE_MS) {
+        if (tile || !list) history.back();
+        return endVisits();
+      }
+      if (v.current === null) {
+        if (tile || !list || busy()) {
+          if (now - v.at > CHASE_VISIT_CAP_MS) endVisits();
+          return;
+        }
+        var title = v.queue.shift();
+        if (!title) return endVisits();
+        var row = rowByTitle(title);
+        if (!row) return;
+        chaseNote = { step: 'visit', at: now, selected: v.selected, queue: v.queue, current: title, usage: v.usage, read: null };
+        press(row);
+        return;
+      }
+      if (tile) {
+        // The credit's page: read once its gauge text holds still for one scan.
+        var usage = readUsage(tile);
+        var key = JSON.stringify(usage);
+        if (usage && key === v.read) {
+          v.usage[v.current] = usage;
+          chaseNote = { step: 'visit', at: now, selected: v.selected, queue: v.queue, current: null, usage: v.usage };
+          history.back();
+          return;
+        }
+        v.read = key;
+        if (now - v.at <= CHASE_VISIT_CAP_MS) return;
+      } else if (now - v.at <= CHASE_VISIT_CAP_MS) {
+        return;
+      }
+      // The credit's page did not show, or never held still: go on without it.
+      chaseNote = { step: 'visit', at: now, selected: v.selected, queue: v.queue, current: null, usage: v.usage };
+      if (tile || !list) history.back();
     }
 
     // The home page's own grouping of cards: Chase lists personal cards under a "Personal" heading and business cards
@@ -1242,6 +1382,7 @@
     function tick() {
       if (done) return;
       if (hasVisiblePasswordField() || needsOwner()) return finish({ type: 'login', nonce: config.nonce });
+      if (chaseNote && chaseNote.step === 'visit') return visit();
       if (!one(s.page)) return navigate();
       if (chaseNote && chaseNote.step !== 'read' && chaseNote.step !== 'switch') chaseNote = { step: 'read', at: Date.now() };
       var shape = rowsSignature();
@@ -1301,7 +1442,10 @@
         return;
       }
       if (sheetOptions().length) return closeSheet();
-      if (steady && deepQuery(s.group).length > 0) return postRead(selectedControl, 'stable');
+      if (steady && deepQuery(s.group).length > 0) {
+        if (!chaseNote.usage && startVisits(selectedControl)) return;
+        return postRead(selectedControl, 'stable');
+      }
       if (Date.now() - startedAt > config.timeoutMs) {
         return deepQuery(s.group).length > 0 && !busy() ? postRead(selectedControl, 'cap') : unreadable('timeout', null);
       }

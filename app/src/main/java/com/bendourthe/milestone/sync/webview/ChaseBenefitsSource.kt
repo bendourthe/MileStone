@@ -170,7 +170,7 @@ class ChaseBenefitsSource(
                     val expected = target == null || message.control == target
                     if (known && expected) benefits[keys.hash(program.programId, message.control)] = message.drafts
                     else target?.let(failed::add)
-                    DiagnosticLog.i(TAG, "${program.programId} benefits card: outcome=${if (known && expected) "read" else "mismatch"} rows=${message.rows} trackers=${message.trackers}")
+                    DiagnosticLog.i(TAG, "${program.programId} benefits card: outcome=${if (known && expected) "read" else "mismatch"} rows=${message.rows} trackers=${message.trackers} credits=${message.credits} used=${message.used}")
                     next()
                 }
                 is BridgeMessage.ChaseUnreadable -> {
@@ -284,8 +284,11 @@ class ChaseBenefitsSource(
         /** Page loads (ready messages) one connection may use before its card list: dashboard, card, Benefits, plus slack. */
         private const val BASE_PAGES = 8
 
-        /** Extra page loads allowed per listed card; the shared deadline still bounds the whole read. */
-        private const val PAGES_PER_CARD = 2
+        /**
+         * Extra page loads allowed per listed card: its own page, plus opening and leaving each credit page the script
+         * may visit (at most 8 per card, `CHASE_MAX_VISITS` in extract.js). The shared deadline still bounds the read.
+         */
+        private const val PAGES_PER_CARD = 2 + 2 * 8
 
         private val random = java.security.SecureRandom()
 
