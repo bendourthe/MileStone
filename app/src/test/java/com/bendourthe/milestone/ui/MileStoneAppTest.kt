@@ -252,7 +252,7 @@ class MileStoneAppTest {
         launchBenefitsFixture()
         rule.onNodeWithText("American Express").performClick()
         rule.onNodeWithTag("benefitsList").assertIsDisplayed()
-        rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("Platinum", useUnmergedTree = true).assertExists()
         rule.onNode(hasContentDescription("card ending 1234", substring = true)).performClick()
         rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
         pressBack()

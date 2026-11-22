@@ -239,7 +239,7 @@ private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
         modifier = Modifier.fillMaxWidth().defaultMinSize(minHeight = 48.dp).clearAndSetSemantics {
             contentDescription = tile.description
             role = Role.Button
-            onClick(label = "Open ${tile.name} benefits") { onClick(); true }
+            onClick(label = "Open ${tile.displayName} benefits") { onClick(); true }
         },
     ) {
         // Artwork on the left; to its right the name (with alerts), ending and count, then freshness.
@@ -248,7 +248,7 @@ private fun CardTile(tile: CardTileUi, onClick: () -> Unit) {
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(tile.name, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                    Text(tile.displayName, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
                     if (tile.alertCount > 0) BenefitsAlertCount(tile.alertCount, compact = true)
                 }
                 Text("${tile.digitsLabel} · ${tile.benefitCount} benefits", style = MaterialTheme.typography.bodySmall,

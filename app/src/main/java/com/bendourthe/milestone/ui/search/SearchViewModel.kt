@@ -58,13 +58,13 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
                 val prefs = input.preferences[card.key] ?: BenefitsDisplayPreferences()
                 val page = BenefitsViewModel.page(card, rows, clock(), zone, locale, prefs)
                 val freshness = listOfNotNull(page.staleNote, page.listFreshnessNote).distinct().joinToString(". ").ifEmpty { null }
-                add(SearchEntry(SearchTarget.CardTarget(card.key, revision), program.displayName, page.name,
+                add(SearchEntry(SearchTarget.CardTarget(card.key, revision), program.displayName, page.displayName,
                     freshnessNote = freshness, cardDigits = card.lastDigits))
                 val aliases = BenefitsPresentation.presented(rows).groupBy { it.benefit.stableKey }
                 var displayOrder = 0
                 page.sections.forEach { section -> section.items.forEach { item ->
                     add(SearchEntry(SearchTarget.BenefitTarget(card.key, item.key, section.category, revision),
-                        program.displayName, item.title, card.name, item.description,
+                        program.displayName, item.title, CardNames.display(program.displayName, card.name), item.description,
                         aliases[item.key].orEmpty().flatMap { it.sourceTitles }.distinct(),
                         freshness,
                         item.completed, item.period, displayOrder++, item.enrollment, cardDigits = card.lastDigits))

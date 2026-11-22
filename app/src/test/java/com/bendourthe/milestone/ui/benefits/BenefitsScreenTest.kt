@@ -105,13 +105,13 @@ class BenefitsScreenTest {
     fun oneTilePerCardWithNextCreditCompletedCountAndStaleNote() {
         seed()
         showTab()
-        rule.onNodeWithText("Platinum Card", useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("Platinum", useUnmergedTree = true).assertExists()
         // Compact tile: the ending shares a line with the benefit count, and the completed count with the freshness.
         rule.onNodeWithText("…71008 · ", substring = true, useUnmergedTree = true).assertExists()
         rule.onNodeWithText("1 completed · Updated 1 d ago", useUnmergedTree = true).assertExists()
         // The tile no longer repeats the next credit; the card's page lists every credit.
         rule.onAllNodesWithText("Shopping Credit", substring = true, useUnmergedTree = true).assertCountEquals(0)
-        rule.onNodeWithText("Hotel Card", useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("Hotel", useUnmergedTree = true).assertExists()
         rule.onNodeWithText("Not updated since Oct 23", useUnmergedTree = true).assertExists()
         rule.onAllNodesWithText("No open credits", useUnmergedTree = true).assertCountEquals(0)
     }
@@ -120,21 +120,21 @@ class BenefitsScreenTest {
     fun eachTileIsOneTalkBackStopWithItsActionAndA48DpTarget() {
         seed()
         showTab()
-        val tile = rule.onNode(hasContentDescription("Platinum Card, card ending 71008", substring = true), useUnmergedTree = true)
+        val tile = rule.onNode(hasContentDescription("Platinum, card ending 71008", substring = true), useUnmergedTree = true)
         tile.assertHasClickAction()
         tile.assertHeightIsAtLeast(48.dp)
         // The tile's texts are not separate TalkBack stops: the merged tree has only the tile's description.
-        assertEquals(0, rule.onAllNodesWithText("Platinum Card").fetchSemanticsNodes().size)
-        assertEquals(1, rule.onAllNodes(hasContentDescription("Platinum Card, card ending 71008", substring = true)).fetchSemanticsNodes().size)
+        assertEquals(0, rule.onAllNodesWithText("Platinum").fetchSemanticsNodes().size)
+        assertEquals(1, rule.onAllNodes(hasContentDescription("Platinum, card ending 71008", substring = true)).fetchSemanticsNodes().size)
     }
 
     @Test
     fun theListUpdatesInPlaceWhenACardIsRemoved() {
         seed()
         showTab()
-        rule.onNodeWithText("Hotel Card", useUnmergedTree = true).assertExists()
+        rule.onNodeWithText("Hotel", useUnmergedTree = true).assertExists()
         runBlocking { cards.applyCardList("amex", CardList.from(listOf(CardDraft("Platinum Card", "71008")), true), now) }
-        rule.waitUntil(2_000) { rule.onAllNodesWithText("Hotel Card", useUnmergedTree = true).fetchSemanticsNodes().isEmpty() }
+        rule.waitUntil(2_000) { rule.onAllNodesWithText("Hotel", useUnmergedTree = true).fetchSemanticsNodes().isEmpty() }
     }
 
     @Test
@@ -199,7 +199,7 @@ class BenefitsScreenTest {
         seed()
         var opened: CardKey? = null
         rule.setContent { MileStoneTheme { BenefitsScreen(viewModel, onOpenCard = { opened = it }, programId = "amex") } }
-        rule.onNode(hasContentDescription("Hotel Card, card ending 42005", substring = true), useUnmergedTree = true).performClick()
+        rule.onNode(hasContentDescription("Hotel, card ending 42005", substring = true), useUnmergedTree = true).performClick()
         assertEquals(hotel, opened)
     }
 
@@ -333,7 +333,7 @@ class BenefitsScreenTest {
         rule.onNodeWithContentDescription("Back to institutions").performClick()
         rule.onNodeWithTag("benefitsProgram_amex").performClick()
         rule.onNodeWithTag("benefitsList").assertIsDisplayed()
-        rule.onNode(hasContentDescription("Platinum Card, card ending", substring = true)).assertExists()
+        rule.onNode(hasContentDescription("Platinum, card ending", substring = true)).assertExists()
         rule.onNodeWithContentDescription("Back to institutions").performClick()
         rule.onNodeWithTag("benefitsProgram_demo-benefits").assertExists()
     }
