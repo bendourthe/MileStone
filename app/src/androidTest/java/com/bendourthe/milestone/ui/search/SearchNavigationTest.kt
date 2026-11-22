@@ -105,7 +105,7 @@ class SearchNavigationTest {
         prefs = DataStoreBenefitsDisplaySettings(PreferenceDataStoreFactory.create(scope = preferenceScope) { preferenceFile })
         accounts.addAccount("amex", AccountStatus.CONNECTED, 1)
         accounts.addAccount("delta", AccountStatus.NEEDS_RECONNECT, 1)
-        cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta Gold", "1008")), true), 10)
+        cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta SkyMiles Gold", "1008")), true), 10)
         cards.applyCardBenefits(key, assignBenefitKeys(key, listOf(
             BenefitDraft(BenefitSection.CREDIT_EARNED, "Lounge Credit", 0, 5000, 5000, "January", false, description = "Airport terminal access"),
             BenefitDraft(BenefitSection.COMPLETED, "Dining Credit", 1000, 0, 1000, "February", true),
@@ -182,8 +182,8 @@ class SearchNavigationTest {
         rule.onNodeWithTag("benefitsProgram_amex").performClick()
     }
     private fun openCard() {
-        rule.waitUntil(10_000) { rule.onAllNodesWithContentDescription("Delta Gold", substring = true).fetchSemanticsNodes().size == 1 }
-        rule.onNodeWithContentDescription("Delta Gold", substring = true).performClick()
+        rule.waitUntil(10_000) { rule.onAllNodesWithContentDescription("Delta SkyMiles Gold", substring = true).fetchSemanticsNodes().size == 1 }
+        rule.onNodeWithContentDescription("Delta SkyMiles Gold", substring = true).performClick()
     }
     private fun returnToSearch(query: String) {
         rule.activityRule.scenario.onActivity { it.onBackPressedDispatcher.onBackPressed() }
@@ -203,9 +203,9 @@ class SearchNavigationTest {
         rule.mainClock.advanceTimeBy(4_100)
         rule.onNodeWithTag("searchProgramHighlight").assertDoesNotExist()
         returnToSearch("Delta")
-        select("Card", "Delta Gold")
+        select("Card", "Delta SkyMiles Gold")
         waitText("Card benefits")
-        rule.onNodeWithText("Delta Gold").assertIsDisplayed()
+        rule.onNodeWithText("Delta SkyMiles Gold").assertIsDisplayed()
         returnToSearch("Delta")
         rule.onNodeWithTag("searchTabBENEFITS").assertIsSelected()
         rule.onNodeWithTag("searchResultCount").assertTextEquals("1 result")
@@ -264,7 +264,7 @@ class SearchNavigationTest {
     @Test fun sameTitleAcrossCardsAndPeriodsRevealsOnlyTheSelectedIdentity() {
         val second = CardKey("amex", "2009")
         runBlocking {
-            cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta Gold", "1008"), CardDraft("Platinum", "2009")), true), 20)
+            cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta SkyMiles Gold", "1008"), CardDraft("Platinum", "2009")), true), 20)
             cards.applyCardBenefits(second, assignBenefitKeys(second, listOf("January", "February").map { period ->
                 BenefitDraft(BenefitSection.CREDIT_EARNED, "Lounge Credit", 0, 5000, 5000, period, false, description = "$period lounge access")
             }), 21)
@@ -289,7 +289,7 @@ class SearchNavigationTest {
     @Test fun cardAndProgramRemovalDuringSelectionAreSafe() {
         launchApp(); search("Delta")
         hook { beforeRead = null; cards.deleteProgramCards("amex") }
-        select("Card", "Delta Gold")
+        select("Card", "Delta SkyMiles Gold")
         waitText("That stored item is no longer available")
         rule.waitUntil(10_000) { (lastSearch.state.value as? SearchUiState.Results)?.results?.count == 1 }
         hook { beforeRead = null; accounts.removeAccount("delta") }
@@ -437,6 +437,7 @@ class SearchNavigationTest {
         assertTrue(rewardsPosition > 0)
         rule.onNodeWithContentDescription("Search").performClick()
         rule.onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        rule.mainClock.advanceTimeBy(1_000)
         assertEquals(rewardsPosition, position("dashboardList"), 0.01f)
         rule.onNode(hasText("Benefits") and hasClickAction()).performClick()
         openInstitution()
@@ -447,6 +448,8 @@ class SearchNavigationTest {
         assertTrue(cardPosition > 0)
         rule.onNodeWithContentDescription("Search").performClick()
         rule.onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        // The returning page fades in after the Search page fades out; check it once the change has finished.
+        rule.mainClock.advanceTimeBy(1_000)
         rule.onNodeWithText("Benefit 15").assertIsDisplayed()
         assertEquals(cardPosition, position("cardBenefitsList"), 0.01f)
     }
@@ -496,7 +499,7 @@ class SearchNavigationTest {
     @Test fun identicalCardProductsAndBenefitsShowDistinctCardEndingContext() {
         val other = CardKey("amex", "2009")
         runBlocking {
-            cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta Gold", "1008"), CardDraft("Delta Gold", "2009")), true), 70)
+            cards.applyCardList("amex", CardList.from(listOf(CardDraft("Delta SkyMiles Gold", "1008"), CardDraft("Delta SkyMiles Gold", "2009")), true), 70)
             cards.applyCardBenefits(other, assignBenefitKeys(other, listOf(
                 BenefitDraft(BenefitSection.LISTED, "Museum access", null, null, null, null, false, description = "Gallery passes")
             )), 71)

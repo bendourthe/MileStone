@@ -106,7 +106,7 @@ class BenefitsScreenshotTest {
                 }
             }
         }
-        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasContentDescription("Example Hotel Card", substring = true)).fetchSemanticsNodes().isNotEmpty() }
+        rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasContentDescription("Example Hotel, card ending", substring = true)).fetchSemanticsNodes().isNotEmpty() }
         save("benefits-tab")
         rule.runOnIdle { open = platinum }
         rule.waitUntil(5_000) { rule.onAllNodes(androidx.compose.ui.test.hasTestTag("cardBenefitsList")).fetchSemanticsNodes().isNotEmpty() }

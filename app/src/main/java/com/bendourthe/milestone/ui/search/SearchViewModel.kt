@@ -61,10 +61,12 @@ internal class SearchSnapshotFactory(private val clock: () -> Long, private val 
                 add(SearchEntry(SearchTarget.CardTarget(card.key, revision), program.displayName, page.displayName,
                     freshnessNote = freshness, cardDigits = card.lastDigits))
                 val aliases = BenefitsPresentation.presented(rows).groupBy { it.benefit.stableKey }
+                // Once per card: every benefit of the card shares its name as context.
+                val cardName = CardNames.display(program.programId, program.displayName, card.name)
                 var displayOrder = 0
                 page.sections.forEach { section -> section.items.forEach { item ->
                     add(SearchEntry(SearchTarget.BenefitTarget(card.key, item.key, section.category, revision),
-                        program.displayName, item.title, CardNames.display(program.programId, program.displayName, card.name), item.description,
+                        program.displayName, item.title, cardName, item.description,
                         aliases[item.key].orEmpty().flatMap { it.sourceTitles }.distinct(),
                         freshness,
                         item.completed, item.period, displayOrder++, item.enrollment, cardDigits = card.lastDigits))

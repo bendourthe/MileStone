@@ -18,6 +18,11 @@ object CardNames {
     private val LEADING_THE = Regex("(?i)^the\\s+")
     private val TRAILING_CARD = Regex("(?i)(?:\\s+credit)?\\s+card(?:\\s+from)?$|\\s+from$")
 
+    /** The fixed issuer words as whole-word patterns, longest first, compiled once: Search names every card with them. */
+    private val ISSUER_PATTERNS = ISSUER_WORDS.sortedByDescending { it.length }.map(::wholeWords)
+
+    private fun wholeWords(words: String) = Regex("(?i)(?<![\\p{L}])" + Regex.escape(words) + "(?![\\p{L}])")
+
     /** [programId] finds the catalog product; [issuer] is the program's own name, also dropped from the result. */
     fun display(programId: String, issuer: String, name: String): String {
         val source = CardProducts.match(programId, name)?.name ?: name
@@ -25,9 +30,11 @@ object CardNames {
     }
 
     private fun clean(issuer: String, name: String): String {
-        val issuers = (ISSUER_WORDS + issuer.lowercase(Locale.ROOT)).filter { it.isNotBlank() }.distinct().sortedByDescending { it.length }
+        // The program's own name is removed first, before the fixed issuer words it may contain.
+        val own = issuer.lowercase(Locale.ROOT).trim()
+        val extra = if (own.isEmpty() || own in ISSUER_WORDS) emptyList() else listOf(wholeWords(own))
         var text = name
-        issuers.forEach { words -> text = text.replace(Regex("(?i)(?<![\\p{L}])" + Regex.escape(words) + "(?![\\p{L}])"), " ") }
+        (extra + ISSUER_PATTERNS).forEach { pattern -> text = text.replace(pattern, " ") }
         text = text.replace(SPACES, " ").trim()
         // "Card from" is followed by the issuer, already removed; repeat so "Credit Card from" also goes.
         repeat(2) { text = text.replace(TRAILING_CARD, "").trim() }

@@ -165,7 +165,7 @@ class HeadlessSyncFixtureTest {
         )
         assertEquals(mapOf("trackers" to 4, "listed" to 3), sections(cards, "71008"))
         // The Hotel and Basic cards have no activity page: their Rewards trackers and their view-all lists are stored together.
-        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+        assertEquals(mapOf("trackers" to 4, "listed" to 4), sections(cards, "42005"))
         assertEquals(mapOf("listed" to 4), sections(cards, "33006"))
     }
 
@@ -186,7 +186,7 @@ class HeadlessSyncFixtureTest {
 
         withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
         val firstRead = storedAfter(cards, 0).maxOf { it.benefitsReadEpochMs!! }
-        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+        assertEquals(mapOf("trackers" to 4, "listed" to 4), sections(cards, "42005"))
 
         failViewAll = true
         // The first read's job ends just after its last write; a refresh while it still runs would start no second read.
@@ -194,7 +194,7 @@ class HeadlessSyncFixtureTest {
         withTimeout(40_000) { manager.refreshAll(RefreshReason.ON_START).join() }
         storedAfter(cards, firstRead)
         // The second read reached only the Rewards page: the trackers were replaced, the list from the first read stays.
-        assertEquals(mapOf("trackers" to 3, "listed" to 4), sections(cards, "42005"))
+        assertEquals(mapOf("trackers" to 4, "listed" to 4), sections(cards, "42005"))
         assertEquals(mapOf("listed" to 4), sections(cards, "33006"))
     }
 
