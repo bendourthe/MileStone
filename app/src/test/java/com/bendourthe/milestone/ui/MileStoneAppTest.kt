@@ -286,6 +286,30 @@ class MileStoneAppTest {
     }
 
     @Test
+    fun rewardsTabLeavesACardPageForTheRewardsPage() {
+        launchBenefitsFixture()
+        // Once from the dashboard, once again after the Benefits tab has been used.
+        repeat(2) {
+            barItem("Benefits").performClick()
+            rule.onNodeWithTag("benefitsProgram_amex").performClick()
+            rule.onNode(hasContentDescription("card ending 1234", substring = true)).performClick()
+            rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+            barItem("Rewards").performClick()
+            rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+            assertEquals("Dashboard", stack().last())
+        }
+        // And from a card reached through the Rewards page's own program entry.
+        repeat(2) {
+            rule.onNodeWithText("American Express").performClick()
+            rule.onNode(hasContentDescription("card ending 1234", substring = true)).performClick()
+            rule.onNodeWithTag("cardBenefitsList").assertIsDisplayed()
+            barItem("Rewards").performClick()
+            rule.onNodeWithTag("dashboardList").assertIsDisplayed()
+            assertEquals("Dashboard", stack().last())
+        }
+    }
+
+    @Test
     fun swipingRightGoesBackAndLeftReopensThePage() {
         launchBenefitsFixture()
         barItem("Benefits").performClick()

@@ -150,9 +150,12 @@ fun MileStoneApp(
                             selected = selected,
                             onClick = {
                                 // Benefits always opens on its program page; the other tabs come back where they were.
-                                val fresh = top.route == Benefits
+                                // Rewards is the start page and is never removed, so restoring there would bring
+                                // back the pages just saved (a Benefits card) instead of the Rewards page.
+                                val start = navController.graph.findStartDestination()
+                                val fresh = top.route == Benefits || start.hasRoute(top.routeClass)
                                 navController.navigate(top.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                                    popUpTo(start.id) { saveState = true }
                                     launchSingleTop = true
                                     restoreState = !fresh
                                 }
