@@ -30,7 +30,7 @@ class BenefitsCardReads {
     var awaitingViewAll: String? = null
         private set
 
-    /** Each card's drafts, with finished "Congratulations" trackers named from that card's list (or dropped). */
+    /** Each card's drafts, with finished "Congratulations" trackers named from that card's list when it was read. */
     val benefits: Map<String, List<BenefitDraft>> get() = drafts.mapValues { (_, list) -> BenefitsReader.nameFinished(list) }
     val sectionsRead: Map<String, Set<BenefitSection>> get() = sections.toMap()
     val dropped: Int get() = droppedCount

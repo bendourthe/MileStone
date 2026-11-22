@@ -290,6 +290,26 @@ class SyncManagerBenefitsTest {
     }
 
     @Test
+    fun aFinishedTrackerReadWithoutTheListIsNamedFromTheSavedList() = runTest {
+        connected("amex")
+        val manager = manager()
+        val listedDraft = BenefitDraft(BenefitSection.LISTED, "Earn a Free Night Reward", null, null, null, null, completed = false, issuerKey = "free-night")
+        manager.applyBenefits("amex", read(complete = true, "71008").let { it.copy(benefits = mapOf("71008" to listOf(listedDraft))) })
+
+        // A Rewards-page read: trackers only, the finished one still titled "Congratulations!".
+        val finished = BenefitDraft(BenefitSection.SPEND_PROGRESS, "Congratulations!", null, null, null, null, completed = true,
+            description = "You've earned a Free Night Reward. Log in to get your reward code.")
+        manager.applyBenefits(
+            "amex",
+            read(complete = true, "71008").copy(benefits = mapOf("71008" to listOf(finished)), sections = mapOf("71008" to BenefitsRead.TRACKER_SECTIONS)),
+        )
+
+        val stored = cards.observeBenefits(gold).first()
+        assertEquals(listOf("Earn a Free Night Reward", "Earn a Free Night Reward"), stored.map { it.title }.sorted())
+        assertEquals(1, stored.count { it.section == BenefitSection.SPEND_PROGRESS && it.completed })
+    }
+
+    @Test
     fun applyingAReadFillsEachCreditsPeriodEndFromItsLabel() = runTest {
         connected("amex")
         manager().applyBenefits("amex", read(complete = true, "71008"))

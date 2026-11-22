@@ -75,9 +75,13 @@ class BenefitsProtocolTest {
         val named = BenefitsReader.nameFinished(listOf(finished(note)) + list)
         assertEquals(listOf("Earn a Free Night Reward") + list.map { it.title }, named.map { it.title })
         assertEquals(BenefitSection.SPEND_PROGRESS to true, named[0].section to named[0].completed)
-        // A description naming no single listed benefit is the yearly summary; without a list nothing names it.
-        assertEquals(list, BenefitsReader.nameFinished(listOf(finished("You've received ${'$'}345 in credits this year.")) + list))
-        assertTrue(BenefitsReader.nameFinished(listOf(finished(note))).isEmpty())
+        // Unmatched, it waits for a later step; when saved it takes its description's own words, or is the summary.
+        val summary = finished("You've received ${'$'}345 in credits this year.")
+        assertEquals(listOf(summary) + list, BenefitsReader.nameFinished(listOf(summary) + list))
+        assertEquals(list, BenefitsReader.nameFinished(listOf(summary) + list, final = true))
+        assertEquals(listOf("Free Night Reward"), BenefitsReader.nameFinished(listOf(finished(note)), final = true).map { it.title })
+        // Saved titles from an earlier read name it as well as this read's list does.
+        assertEquals(listOf("Earn a Free Night Reward"), BenefitsReader.nameFinished(listOf(finished(note)), listOf("Earn a Free Night Reward"), final = true).map { it.title })
     }
 
     @Test

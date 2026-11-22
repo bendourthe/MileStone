@@ -35,7 +35,7 @@ class BenefitsCardReadsTest {
         val finished = BenefitDraft(BenefitSection.SPEND_PROGRESS, "Congratulations!", null, null, null, null, completed = true,
             description = "You've earned a Free Night Reward.")
         reads.onBenefits(BridgeMessage.Benefits("42005", "rewards", listOf(finished), ready("rewards"), "viewAll"))
-        assertTrue(reads.benefits.getValue("42005").isEmpty())
+        assertEquals(listOf("Congratulations!"), reads.benefits.getValue("42005").map { it.title })
         val list = BenefitDraft(BenefitSection.LISTED, "Earn a Free Night Reward", null, null, null, null, completed = false, issuerKey = "free-night")
         reads.onBenefits(BridgeMessage.Benefits("42005", "viewAll", listOf(list), ready("viewAll")))
         assertEquals(listOf("Earn a Free Night Reward", "Earn a Free Night Reward"), reads.benefits.getValue("42005").map { it.title })

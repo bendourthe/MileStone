@@ -5,6 +5,7 @@ import com.bendourthe.milestone.domain.BenefitSection
 import com.bendourthe.milestone.domain.CardDraft
 import com.bendourthe.milestone.domain.CardList
 import com.bendourthe.milestone.domain.Enrollment
+import com.bendourthe.milestone.domain.normalizeBenefitTitle
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
@@ -45,6 +46,9 @@ object BenefitsReader {
     private val ISSUER_KEY = Regex("^[A-Za-z0-9+#-]{1,80}$")
     private val SUMMARY = Regex("^congratulations", RegexOption.IGNORE_CASE)
     private val WORD = Regex("[a-z]+")
+
+    /** A finished tracker's own wording: "earned a Free Night Reward", up to six capitalized words. */
+    private val EARNED = Regex("\\b(?:earned|received|unlocked) (?:a|an|your) ([A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*){1,5})")
     private val COMMON_WORDS = setOf("earn", "the", "and", "for", "you", "your", "with", "get", "from", "per", "this", "year")
 
     /** Null when the list is malformed; otherwise a [CardList] whose completeness also reflects dropped entries. */
@@ -71,21 +75,28 @@ object BenefitsReader {
 
     /**
      * Amex retitles a finished tracker "Congratulations!" and names the benefit only in its description ("You've
-     * earned a Free Night Reward."), while the card's benefits list may come from another page. Once one card's drafts
-     * are joined, each such tracker takes the title of the one listed benefit whose distinctive words its description
-     * contains; a tracker no single listed benefit matches is dropped, as the yearly summary always was.
+     * earned a Free Night Reward."), while the card's benefits list may come from another page or an earlier read.
+     * Each such tracker takes the title of the one listed benefit (in [drafts] or [extraTitles]) whose distinctive
+     * words its description contains. When [final] (the card is being saved), a tracker no title matches is named
+     * from its description's own words ("earned a Free Night Reward"), and one whose description names nothing is
+     * dropped, as the yearly summary always was; otherwise it is kept for a later step to name.
      */
-    fun nameFinished(drafts: List<BenefitDraft>, extraTitles: List<String> = emptyList(), dropUnnamed: Boolean = true): List<BenefitDraft> {
+    fun nameFinished(drafts: List<BenefitDraft>, extraTitles: List<String> = emptyList(), final: Boolean = false): List<BenefitDraft> {
         val titles = (drafts.filter { it.section == BenefitSection.LISTED }.map { it.title } + extraTitles).distinct()
         return drafts.mapNotNull { draft ->
             if (!isUnnamedFinished(draft)) return@mapNotNull draft
-            val said = words(draft.description.orEmpty())
-            val named = titles.filter { title -> words(title).let { it.size >= 2 && said.containsAll(it) } }.singleOrNull()
-                ?: return@mapNotNull draft.takeUnless { dropUnnamed }
+            val note = draft.description.orEmpty()
+            val said = words(note)
+            val named = titles.filter { title -> words(title).let { it.size >= 2 && said.containsAll(it) } }
+                .distinctBy(::normalizeBenefitTitle).singleOrNull()
+                ?: if (final) EARNED.find(note)?.groupValues?.get(1) ?: return@mapNotNull null else return@mapNotNull draft
             val credit = "credit" in named.lowercase()
             draft.copy(title = named, section = if (credit) BenefitSection.CREDIT_EARNED else BenefitSection.SPEND_PROGRESS)
         }
     }
+
+    /** True when [drafts] hold a finished tracker still waiting for its name. */
+    fun hasUnnamedFinished(drafts: List<BenefitDraft>): Boolean = drafts.any(::isUnnamedFinished)
 
     /** The Rewards page's highlight titles; null when malformed. Names only, never posted further. */
     fun highlights(element: JsonElement): List<String>? {

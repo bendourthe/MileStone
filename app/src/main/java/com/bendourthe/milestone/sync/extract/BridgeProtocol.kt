@@ -261,7 +261,7 @@ object BridgeProtocol {
             // `highlights` names only: the Rewards page's own benefit titles, used to name a finished tracker.
             val highlights = json["highlights"]?.let { field -> if (page == "rewards") BenefitsReader.highlights(field) ?: return null else return null }
             val drafts = BenefitsReader.benefits(json["trackers"], json["listed"])
-                ?.let { BenefitsReader.nameFinished(it, highlights.orEmpty(), dropUnnamed = false) }
+                ?.let { BenefitsReader.nameFinished(it, highlights.orEmpty()) }
             val ready = PageDiagnostics.parse(json["ready"])
             // `next` is a control field: only `viewAll`, only from a Rewards page.
             val next = json["next"]?.let { field -> (field as? JsonPrimitive)?.takeIf { it.isString && it.content == "viewAll" && page == "rewards" }?.content ?: return null }
