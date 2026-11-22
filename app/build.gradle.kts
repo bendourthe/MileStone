@@ -40,8 +40,8 @@ android {
         applicationId = "com.bendourthe.milestone"
         minSdk = 29
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.5.0"
+        versionCode = 7
+        versionName = "0.5.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -16,7 +16,7 @@ Navigation presses the page's own link or card-switcher option. The app accepts 
 
 The script scrolls to load lower sections. A shape is steady when tracker count, listed-link count, and page height stay unchanged for two seconds. A page with no trackers gets a longer empty settle.
 
-- Rewards requires an activity or view-all link, a reached bottom, and settled content. At its 15-second readiness cap, an available activity link is still followed. A missing lower section may wait up to the supplied page timeout, capped at 20 seconds.
+- Rewards requires an activity or view-all link, a reached bottom, and settled content. At its 15-second readiness cap, an available activity link is still followed, and so is a view-all link when trackers are on screen, since some Rewards pages keep growing and never reach their bottom. A missing lower section may wait up to the supplied page timeout, capped at 20 seconds.
 - Activity requires its own content: the Rewards activity link must be absent, and at least one tracker or listed link must exist. Rewards content under an activity address is never accepted as an activity read.
 - View-all requires listed content whose count differs from the page it was opened from, then bottom and settle checks. A capped empty list does not erase the previous list.
 
@@ -40,6 +40,8 @@ The 20-second first-page reserve includes a late Rewards lower section. Reservin
 
 `BenefitsCardReads` records which sections a card's pages covered. Rewards alone covers tracker sections. A successful view-all adds the listed section. An activity page covers every section. A failed or mismatched view-all keeps the new trackers and the previous stored list.
 
+Amex retitles a finished tracker "Congratulations!" and names the benefit only in its description ("You've earned a Free Night Reward"). Such a tracker is kept, checked as done, until it can be named: from the one listed benefit whose distinctive words its description contains, in the same read's list or the card's saved list, or else from the description's own "earned a ..." words when the card is saved. One whose description names nothing is dropped, as the yearly summary always was.
+
 `SyncManager` sends those section sets to `RoomCardRepository`. The repository deletes and replaces only those sections in a transaction under the program lock. A failed card keeps its previous benefits. Cards disappear only when a complete card list no longer contains them.
 
 ## Display and Freshness
@@ -60,7 +62,9 @@ The Chase read starts after a saved Chase balance and visits each Chase sign-in 
 
 For the next card, the app sends the target option and the script presses it in the selector, at most once every 1.5 seconds, and waits for the page to change before reading. A handoff note survives single-page route changes. The script stops on any code, phone, or number field or a radio outside the selector (an identity check) and never chooses a delivery option. A page that keeps reloading stops the sign-in: the limit is 8 page loads plus 2 per listed card, so a site that reloads per card still finishes. After the card list, that stop is a budget stop, and unread cards keep their stored benefits; later sign-ins still start while the shared deadline allows. A card page with more than 30 groups, 150 rows, or 20 trackers is reported unreadable (overflow) and keeps its stored benefits instead of being stored partially.
 
-`ChaseBenefitsReader` turns rows into listed benefits and the tracker into a spend tracker, taking amounts, periods, and status only from stated text. A tracker's earned amount comes from "$X of $Y" wording or from a progress bar whose maximum is the stated target; "Earn $300 after you spend $3,000" is a reward and a target, not progress. Half-year wording such as "every six months" is read before monthly wording. Oversized or malformed payloads are rejected.
+Chase states how much of a credit is used only on the credit's own page. For each row in a list whose test id contains "Credit", with an amount and no Redeemed, Locked, Activate, or Enroll tag, the script presses the row, reads the page's gauge ("$X/$Y", its fill percentage, and its status line), and goes back, at most 8 credits per card and only while time remains to read the list. Only the row is pressed, never a control on the credit's page. A credit page with no gauge adds nothing. The card's log line counts the credit pages planned and the ones that gave a used amount.
+
+`ChaseBenefitsReader` turns rows into listed benefits and the tracker into a spend tracker, taking amounts, periods, and status only from stated text. A row with a used amount becomes a credit with its earned, remaining, and total amounts. A tracker's title comes from its tile heading. A tracker's earned amount comes from "$X of $Y" wording or from a progress bar whose maximum is the stated target; "Earn $300 after you spend $3,000" is a reward and a target, not progress. Half-year wording such as "every six months" is read before monthly wording. A row value made of several parts is joined with " - ". Oversized or malformed payloads are rejected.
 
 ## Chase Sign-ins and Coverage
 
